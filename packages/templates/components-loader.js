@@ -941,6 +941,7 @@ function renderSubNav(options) {
   const variant = options.variant || 'template';
   const customTabs = options.tabs;
   const activeTabId = options.activeTabId;
+  const showIcons = options.showIcons || false;
 
   // ⚠️ IMPORTANTE: Si se pasan tabs explícitos, usarlos SIEMPRE
   // El ContentManager pasa los tabs correctos según la variante
@@ -966,6 +967,9 @@ function renderSubNav(options) {
       iconName = `fa-${iconName}`;
     }
     
+    // Renderizar icono solo si showIcons es true
+    const iconHTML = showIcons ? renderIconHelper(iconName) : '';
+    
     return `
       <button 
         class="ubits-sub-nav-tab ${activeClass}" 
@@ -973,7 +977,7 @@ function renderSubNav(options) {
         ${tab.url ? `data-url="${tab.url}"` : ''}
         ${tab.onClick ? 'data-has-click-handler="true"' : ''}
       >
-        ${renderIconHelper(iconName)}
+        ${iconHTML}
         <span>${tab.label}</span>
       </button>
     `;
@@ -1111,63 +1115,78 @@ function renderTabBar(options) {
   `;
 }
 
-// Renderiza el Floating Menu
-function renderFloatingMenu(sections) {
-  const sectionsHTML = sections.map(section => {
-    // Si es un link directo (isLink = true)
-    if (section.isLink) {
-      return `
-        <a href="${section.url || '#'}" class="ubits-accordion-link ubits-accordion-link--direct" data-section-id="${section.id}">
-          <div class="ubits-accordion-icon-circle" data-circle-id="${section.id}">
-            ${renderIconHelper(section.icon)}
-          </div>
-          <span>${section.title}</span>
-          <i class="far fa-chevron-right ubits-accordion-chevron"></i>
-        </a>
-      `;
-    }
-    
-    // Si NO tiene subitems o el array está vacío, renderizar como link directo
-    const hasSubitems = section.subitems && section.subitems.length > 0;
-    if (!hasSubitems) {
-      return `
-        <a href="#" class="ubits-accordion-link ubits-accordion-link--direct" data-section-id="${section.id}">
-          <div class="ubits-accordion-icon-circle" data-circle-id="${section.id}">
-            ${renderIconHelper(section.icon)}
-          </div>
-          <span>${section.title}</span>
-          <i class="far fa-chevron-right ubits-accordion-chevron"></i>
-        </a>
-      `;
-    }
-    
-    // Si tiene subitems, renderizar como accordion
-    const subitemsHTML = section.subitems.map(subitem => `
-      <a href="${subitem.url || '#'}" class="ubits-accordion-link" data-section-id="${section.id}" data-subitem-id="${subitem.id}">
-        <div class="ubits-accordion-icon-circle" data-circle-id="${subitem.id}">
-          ${renderIconHelper(subitem.icon)}
-        </div>
-        <span>${subitem.title}</span>
-      </a>
-    `).join('');
-
+// Renderiza un item del tree menu recursivamente
+function renderTreeMenuItem(item, level = 0) {
+  const hasChildren = (item.children && item.children.length > 0) || (item.subitems && item.subitems.length > 0);
+  const isLink = item.isLink || (!hasChildren && item.url);
+  
+  console.log('[renderTreeMenuItem]', {
+    id: item.id,
+    title: item.title,
+    level: level,
+    hasChildren: hasChildren,
+    isLink: isLink,
+    childrenCount: item.children?.length || item.subitems?.length || 0,
+    hasChildrenProp: !!item.children,
+    hasSubitemsProp: !!item.subitems
+  });
+  
+  // Si es un enlace directo (sin hijos)
+  if (isLink) {
+    console.log(`[renderTreeMenuItem] Rendering as link: ${item.id}`);
     return `
-      <div class="ubits-accordion-item">
-        <div class="ubits-accordion-header" data-accordion-id="${section.id}">
-          <div class="ubits-accordion-title">
-            <div class="ubits-accordion-icon-circle" data-circle-id="${section.id}">
-              ${renderIconHelper(section.icon)}
-            </div>
-            <span>${section.title}</span>
+      <div class="ubits-tree-menu-item" data-tree-item-id="${item.id}" data-tree-level="${level}">
+        <a href="${item.url || '#'}" class="ubits-tree-menu-link" data-section-id="${item.id}">
+          <div class="ubits-tree-menu-icon" data-circle-id="${item.id}">
+            ${renderIconHelper(item.icon)}
           </div>
-          <i class="far fa-chevron-down ubits-accordion-chevron" data-chevron-id="${section.id}"></i>
-        </div>
-        <div class="ubits-accordion-body" data-body-id="${section.id}">
-          ${subitemsHTML}
-        </div>
+          <span class="ubits-tree-menu-text">${item.title}</span>
+          <span class="ubits-tree-menu-chevron">
+            <i class="far fa-chevron-right" data-chevron-id="${item.id}"></i>
+          </span>
+        </a>
       </div>
     `;
-  }).join('');
+  }
+  
+  // Si tiene hijos, renderizar como nodo expandible
+  const children = item.children || item.subitems?.map(sub => ({
+    id: sub.id,
+    title: sub.title || sub.title,
+    icon: sub.icon || sub.icon,
+    url: sub.url || sub.url,
+    children: undefined
+  })) || [];
+  
+  console.log(`[renderTreeMenuItem] Rendering as node with ${children.length} children: ${item.id}`);
+  
+  const childrenHTML = children.map(child => renderTreeMenuItem(child, level + 1)).join('');
+  
+  return `
+    <div class="ubits-tree-menu-item" data-tree-item-id="${item.id}" data-tree-level="${level}">
+      <div class="ubits-tree-menu-node" data-tree-node-id="${item.id}">
+        <div class="ubits-tree-menu-header">
+          <div class="ubits-tree-menu-icon" data-circle-id="${item.id}">
+            ${renderIconHelper(item.icon)}
+          </div>
+          <span class="ubits-tree-menu-text">${item.title}</span>
+          <span class="ubits-tree-menu-chevron">
+            <i class="far fa-chevron-down" data-chevron-id="${item.id}"></i>
+          </span>
+        </div>
+        <div class="ubits-tree-menu-children" data-tree-children-id="${item.id}" style="display: none;">
+          ${childrenHTML}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// Renderiza el Floating Menu como Tree Menu
+function renderFloatingMenu(sections) {
+  console.log('[renderFloatingMenu] Starting render with', sections.length, 'sections');
+  const sectionsHTML = sections.map(section => renderTreeMenuItem(section, 0)).join('');
+  console.log('[renderFloatingMenu] Generated HTML length:', sectionsHTML.length);
 
   return `
     <div class="ubits-floating-menu" id="ubits-floating-menu">
@@ -1184,20 +1203,46 @@ function renderFloatingMenu(sections) {
   `;
 }
 
-// Renderiza el Profile Menu
-function renderProfileMenu(items) {
-  const itemsHTML = items.map((item, index) => {
-    // Usar url o href (soporta ambos)
-    const url = item.url || item.href || '';
-    
-    const html = `
-    <div class="ubits-profile-menu-item" data-profile-item-id="${item.id}" ${url ? `data-href="${url}"` : ''}>
-      <i class="far fa-${item.icon} ubits-profile-menu-icon"></i>
-      <span class="ubits-profile-menu-text">${item.label}</span>
+// Renderiza un item del Profile Menu Tree recursivamente
+function renderProfileTreeMenuItem(item, level = 0) {
+  const hasChildren = item.children && item.children.length > 0;
+  const indent = level * 24; // 24px de indentación por nivel
+  const url = item.url || item.href || '';
+  
+  // Si no tiene hijos, renderizar como enlace simple
+  if (!hasChildren) {
+    return `
+      <div class="ubits-profile-tree-item" data-profile-item-id="${item.id}" data-tree-level="${level}">
+        <a href="${url || '#'}" class="ubits-profile-tree-link" ${item.onClick ? 'data-has-onclick="true"' : ''}>
+          <i class="far fa-${item.icon} ubits-profile-tree-icon"></i>
+          <span class="ubits-profile-tree-text">${item.label}</span>
+        </a>
+      </div>
+    `;
+  }
+  
+  // Si tiene hijos, renderizar como nodo expandible
+  const childrenHTML = item.children.map(child => renderProfileTreeMenuItem(child, level + 1)).join('');
+  
+  return `
+    <div class="ubits-profile-tree-item" data-profile-item-id="${item.id}" data-tree-level="${level}">
+      <div class="ubits-profile-tree-node" data-tree-node-id="${item.id}">
+        <div class="ubits-profile-tree-header">
+          <i class="far fa-${item.icon} ubits-profile-tree-icon"></i>
+          <span class="ubits-profile-tree-text">${item.label}</span>
+          <i class="far fa-chevron-down ubits-profile-tree-chevron" data-chevron-id="${item.id}"></i>
+        </div>
+        <div class="ubits-profile-tree-children" data-tree-children-id="${item.id}" style="display: none;">
+          ${childrenHTML}
+        </div>
+      </div>
     </div>
   `;
-    return html;
-  }).join('');
+}
+
+// Renderiza el Profile Menu como Tree Menu
+function renderProfileMenu(items) {
+  const itemsHTML = items.map(item => renderProfileTreeMenuItem(item, 0)).join('');
 
   return `
     <div class="ubits-profile-menu" id="ubits-profile-menu">
@@ -1251,28 +1296,61 @@ function updateActiveTab(tabBarElement, tabId) {
   }
 }
 
-// Toggle de accordion
-function toggleAccordion(sectionId, container) {
-  const body = container.querySelector(`[data-body-id="${sectionId}"]`);
-  const chevron = container.querySelector(`[data-chevron-id="${sectionId}"]`);
-  const circle = container.querySelector(`[data-circle-id="${sectionId}"]`);
-  const title = container.querySelector(`[data-accordion-id="${sectionId}"] .ubits-accordion-title`);
+// Toggle de tree menu node (expandir/colapsar)
+function toggleTreeMenuNode(container, nodeId) {
+  const children = container.querySelector(`[data-tree-children-id="${nodeId}"]`);
+  const chevronIcon = container.querySelector(`[data-chevron-id="${nodeId}"]`);
+  const header = container.querySelector(`[data-tree-node-id="${nodeId}"] .ubits-tree-menu-header`);
 
-  if (!body || !chevron || !circle || !title) return;
+  if (!children || !chevronIcon) {
+    console.warn(`[toggleTreeMenuNode] Tree menu node not found: ${nodeId}`, { 
+      children: !!children, 
+      chevronIcon: !!chevronIcon
+    });
+    return;
+  }
 
-  const isCurrentlyOpen = body.style.display === 'block';
+  // Verificar si está abierto usando computedStyle
+  const computedStyle = window.getComputedStyle(children);
+  const isCurrentlyOpen = computedStyle.display !== 'none';
 
-  // Cerrar todos los accordions primero
-  container.querySelectorAll('.ubits-accordion-body').forEach(b => b.style.display = 'none');
-  container.querySelectorAll('.ubits-accordion-chevron').forEach(c => c.style.transform = 'rotate(0deg)');
-  container.querySelectorAll('.ubits-accordion-icon-circle').forEach(c => c.classList.remove('active'));
-  container.querySelectorAll('.ubits-accordion-title').forEach(t => t.classList.remove('active'));
+  if (isCurrentlyOpen) {
+    // Cerrar
+    children.style.display = 'none';
+    chevronIcon.classList.remove('fa-chevron-down');
+    chevronIcon.classList.add('fa-chevron-right');
+    if (header) header.classList.remove('ubits-tree-menu-header--active');
+  } else {
+    // Abrir
+    children.style.display = 'block';
+    chevronIcon.classList.remove('fa-chevron-right');
+    chevronIcon.classList.add('fa-chevron-down');
+    if (header) header.classList.add('ubits-tree-menu-header--active');
+  }
+}
 
-  if (!isCurrentlyOpen) {
-    body.style.display = 'block';
+// Toggle de profile tree menu node (expandir/colapsar)
+function toggleProfileTreeMenuNode(container, nodeId) {
+  const children = container.querySelector(`[data-tree-children-id="${nodeId}"]`);
+  const chevron = container.querySelector(`[data-chevron-id="${nodeId}"]`);
+
+  if (!children || !chevron) {
+    console.warn('Profile tree menu node not found:', nodeId, { children: !!children, chevron: !!chevron });
+    return;
+  }
+
+  // Verificar si está abierto usando computedStyle
+  const computedStyle = window.getComputedStyle(children);
+  const isCurrentlyOpen = computedStyle.display !== 'none';
+
+  if (isCurrentlyOpen) {
+    // Cerrar
+    children.style.display = 'none';
+    chevron.style.transform = 'rotate(0deg)';
+  } else {
+    // Abrir
+    children.style.display = 'block';
     chevron.style.transform = 'rotate(180deg)';
-    title.classList.add('active');
-    circle.classList.add('active');
   }
 }
 
@@ -1291,57 +1369,40 @@ function initFloatingMenuListeners(container, onFloatingMenuItemClick) {
     });
   }
 
-  const accordionHeaders = floatingMenu.querySelectorAll('.ubits-accordion-header');
-  accordionHeaders.forEach(header => {
-    header.addEventListener('click', (e) => {
-      const accordionId = header.getAttribute('data-accordion-id');
-      if (accordionId) {
-        // Verificar si tiene subitems antes de toggle
-        const accordionBody = floatingMenu.querySelector(`[data-body-id="${accordionId}"]`);
-        const hasSubitems = accordionBody && accordionBody.querySelectorAll('.ubits-accordion-link').length > 0;
-        
-        if (hasSubitems) {
-          // Tiene subitems: hacer toggle del accordion
-          toggleAccordion(accordionId, floatingMenu);
-        } else {
-          // No tiene subitems: navegar directamente a la sección
-          e.preventDefault();
-          e.stopPropagation();
-          
-          if (onFloatingMenuItemClick) {
-            onFloatingMenuItemClick(accordionId, undefined, undefined);
-            // Cerrar el menú
-            container.style.display = 'none';
-            floatingMenu.classList.remove('ubits-floating-menu--show');
-          }
+  // Tree menu nodes (expandible/collapsible)
+  const treeNodes = floatingMenu.querySelectorAll('.ubits-tree-menu-node');
+  console.log('[initFloatingMenuListeners] Found', treeNodes.length, 'tree menu nodes');
+  treeNodes.forEach((node, index) => {
+    const nodeId = node.getAttribute('data-tree-node-id');
+    console.log(`[initFloatingMenuListeners] Node ${index}:`, nodeId);
+    const header = node.querySelector('.ubits-tree-menu-header');
+    if (header) {
+      console.log(`[initFloatingMenuListeners] Adding click listener to node: ${nodeId}`);
+      header.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log(`[initFloatingMenuListeners] Clicked on node: ${nodeId}`);
+        if (nodeId) {
+          toggleTreeMenuNode(floatingMenu, nodeId);
         }
-      }
-    });
+      });
+    } else {
+      console.warn(`[initFloatingMenuListeners] No header found for node: ${nodeId}`);
+    }
   });
 
-  const links = floatingMenu.querySelectorAll('.ubits-accordion-link');
+  // Tree menu links (enlaces directos)
+  const links = floatingMenu.querySelectorAll('.ubits-tree-menu-link');
   links.forEach(link => {
     link.addEventListener('click', (e) => {
-      e.preventDefault(); // ⚠️ Prevenir navegación por defecto
-      e.stopPropagation(); // Evitar que se propague el evento
+      e.preventDefault();
+      e.stopPropagation();
       
       const sectionId = link.getAttribute('data-section-id');
-      const subitemId = link.getAttribute('data-subitem-id');
       const url = link.getAttribute('href');
-      
-      // Detectar si es un link directo (sin subsecciones)
-      const isDirectLink = link.classList.contains('ubits-accordion-link--direct');
 
       if (onFloatingMenuItemClick) {
-        // Para links directos, solo pasar sectionId (sin subitemId)
-        // Para subitems, pasar ambos
-        if (isDirectLink) {
-          // Link directo: solo sectionId, no subitemId
-          onFloatingMenuItemClick(sectionId || '', undefined, url || undefined);
-        } else {
-          // Subitem dentro de un accordion
-          onFloatingMenuItemClick(sectionId || '', subitemId || undefined, url || undefined);
-        }
+        onFloatingMenuItemClick(sectionId || '', undefined, url || undefined);
       }
       
       // Cerrar el menú inmediatamente después del click
@@ -1376,27 +1437,31 @@ function initProfileMenuListeners(container, items, onProfileMenuItemClick) {
     return;
   }
 
-  const menuItems = profileMenu.querySelectorAll('.ubits-profile-menu-item');
-  
-  menuItems.forEach((menuItem, index) => {
-    const domItemId = menuItem.getAttribute('data-profile-item-id');
-    const domHref = menuItem.getAttribute('data-href');
-    
-    // Buscar el item correspondiente en la configuración
-    const configItem = items.find(i => i.id === domItemId);
-    
-    // Usar mousedown en lugar de click para capturar ANTES que otros listeners
-    // O usar click pero SIN capture para que se ejecute después del bubbling normal
-    menuItem.addEventListener('click', (e) => {
-      
-      // CRÍTICO: Prevenir default y stopPropagation INMEDIATAMENTE
-      // para evitar que el listener de "click fuera" interfiera
+  // Tree menu nodes (expandible/collapsible)
+  const treeNodes = profileMenu.querySelectorAll('.ubits-profile-tree-node');
+  treeNodes.forEach(node => {
+    const header = node.querySelector('.ubits-profile-tree-header');
+    if (header) {
+      header.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const nodeId = node.getAttribute('data-tree-node-id');
+        if (nodeId) {
+          toggleProfileTreeMenuNode(profileMenu, nodeId);
+        }
+      });
+    }
+  });
+
+  // Tree menu links (enlaces directos)
+  const links = profileMenu.querySelectorAll('.ubits-profile-tree-link');
+  links.forEach(link => {
+    link.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      e.stopImmediatePropagation(); // Detener TODOS los otros listeners en este elemento
+      e.stopImmediatePropagation();
       
-      
-      const itemId = menuItem.getAttribute('data-profile-item-id');
+      const itemId = link.closest('[data-profile-item-id]')?.getAttribute('data-profile-item-id');
       
       if (itemId) {
         const item = items.find(i => i.id === itemId);
@@ -1456,7 +1521,7 @@ function initProfileMenuListeners(container, items, onProfileMenuItemClick) {
           profileMenu.classList.remove('ubits-profile-menu--show');
         }
       }
-    }, false); // Usar bubbling normal (false) pero con stopImmediatePropagation
+    }, false);
   });
 
   document.addEventListener('keydown', (e) => {
@@ -1520,7 +1585,10 @@ function initTabBarListeners(
       }
     }
     
-    floatingMenuContainer.innerHTML = renderFloatingMenu(floatingMenuSections);
+    const floatingMenuHTML = renderFloatingMenu(floatingMenuSections);
+    console.log('[initTabBarListeners] Setting floating menu HTML, length:', floatingMenuHTML.length);
+    floatingMenuContainer.innerHTML = floatingMenuHTML;
+    console.log('[initTabBarListeners] Floating menu container innerHTML length:', floatingMenuContainer.innerHTML.length);
     initFloatingMenuListeners(floatingMenuContainer, onFloatingMenuItemClick);
   }
 

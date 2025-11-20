@@ -66,6 +66,11 @@ export interface SubNavOptions {
    */
   activeTabId?: string;
 
+  /**
+   * Mostrar iconos en los tabs
+   * @default false
+   */
+  showIcons?: boolean;
 
   /**
    * Callback cuando cambia el tab activo

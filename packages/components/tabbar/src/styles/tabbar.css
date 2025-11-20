@@ -249,14 +249,14 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 .ubits-floating-menu {
     display: none;
     position: fixed;
-    top: 16px;
+    top: 0;
     left: 0;
     right: 0;
-    bottom: 84px; /* 60px del tab-bar + 12px de margen + 12px extra */
+    bottom: 68px; /* 60px (altura del tab-bar) + 8px (espacio) */
     background: var(--ubits-sidebar-bg);
     z-index: 2000;
     overflow-y: auto;
-    padding: 16px 0;
+    padding: 8px 0;
 }
 
 .ubits-floating-menu.ubits-floating-menu--show {
@@ -267,9 +267,9 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 16px 16px;
+    padding: 8px 16px 12px;
     border-bottom: 1px solid var(--ubits-sidebar-button-fg-default);
-    margin-bottom: 16px;
+    margin-bottom: 8px;
 }
 
 .ubits-floating-menu-title {
@@ -455,10 +455,13 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
     left: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
-    max-height: 500px !important;
+    max-height: none !important;
+    height: 100% !important;
     border-radius: 8px !important;
     display: block !important;
     z-index: 2000 !important;
+    padding: 8px 0 !important;
+    box-sizing: border-box !important; /* Asegurar que padding no afecte la altura total */
 }
 
 /* ========================================
@@ -468,7 +471,7 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 .ubits-profile-menu {
     display: none;
     position: fixed;
-    bottom: 80px; /* 60px del tab-bar + 20px de margen */
+    bottom: 68px; /* 60px (altura del tab-bar) + 8px (espacio) */
     left: 0;
     right: 0;
     width: 100%; /* ⚠️ IMPORTANTE: Ancho completo, igual que el playground antiguo */
@@ -560,7 +563,7 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
     width: 100% !important;
     max-width: 100% !important;
     position: absolute !important;
-    bottom: 76px !important;
+    bottom: 68px !important; /* 60px (altura del tab-bar) + 8px (espacio) */
     left: 0 !important;
     right: 0 !important;
     z-index: 2001 !important;
@@ -576,6 +579,800 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
     left: 0 !important;
     right: 0 !important;
 }
+
+/* ========================================
+   TREE MENU - Floating Menu (Módulos)
+   Siempre en modo dark, incluso en light mode
+   ======================================== */
+
+.ubits-tree-menu-item {
+    margin-bottom: 2px;
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.ubits-tree-menu-item[data-tree-level="0"] {
+    padding-left: 0;
+}
+
+.ubits-tree-menu-item[data-tree-level="1"] {
+    padding-left: 24px;
+}
+
+.ubits-tree-menu-item[data-tree-level="2"] {
+    padding-left: 48px;
+}
+
+.ubits-tree-menu-item[data-tree-level="3"] {
+    padding-left: 72px;
+}
+
+.ubits-tree-menu-node {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden; /* Evitar que el chevron se salga */
+}
+
+.ubits-tree-menu-header {
+    display: flex;
+    align-items: center;
+    gap: var(--ubits-spacing-sm, 8px);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+    margin-bottom: 0;
+    color: var(--ubits-fg-1-high, #303a47);
+    background: transparent;
+    position: relative;
+    min-width: 0; /* Permitir que el contenido se ajuste */
+    overflow: visible; /* Matching TreeMenu Storybook */
+    font-family: var(--font-sans);
+    box-sizing: border-box;
+    margin: 0;
+    border: none;
+}
+
+/* Tamaños - Matching List component exactly */
+.ubits-tree-menu-header--xs {
+    padding: 8px 12px;
+    font-size: var(--font-body-xs-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-xs-line);
+    min-height: 28px;
+}
+
+.ubits-tree-menu-header--sm {
+    padding: 10px 14px;
+    font-size: var(--font-body-sm-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-sm-line);
+    min-height: 32px;
+}
+
+.ubits-tree-menu-header--md {
+    padding: 12px 16px;
+    font-size: var(--font-body-md-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-md-line);
+    min-height: 40px;
+}
+
+.ubits-tree-menu-header--lg {
+    padding: 16px 20px;
+    font-size: var(--font-body-lg-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-lg-line);
+    min-height: 48px;
+}
+
+/* Default size (md) */
+.ubits-tree-menu-header:not(.ubits-tree-menu-header--xs):not(.ubits-tree-menu-header--sm):not(.ubits-tree-menu-header--md):not(.ubits-tree-menu-header--lg) {
+    padding: 12px 16px;
+    font-size: var(--font-body-md-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-md-line);
+    min-height: 40px;
+}
+
+/* Hover state - matching TreeMenu Storybook exactly */
+.ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) {
+    background: var(--ubits-bg-2, #F3F3F4);
+}
+
+.ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-chevron i {
+    color: var(--ubits-fg-1-high, #303a47);
+}
+
+.ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-icon i {
+    color: var(--ubits-fg-1-high, #303a47);
+}
+
+.ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-text {
+    color: var(--ubits-fg-1-high, #303a47);
+}
+
+/* Active state - matching TreeMenu Storybook exactly */
+.ubits-tree-menu-header--active {
+    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+    background: var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15));
+}
+
+.ubits-tree-menu-header--active .ubits-tree-menu-chevron i {
+    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+}
+
+.ubits-tree-menu-header--active .ubits-tree-menu-icon i {
+    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+}
+
+.ubits-tree-menu-header--active .ubits-tree-menu-text {
+    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+    font-weight: var(--weight-semibold, 600);
+}
+
+/* No border-left in active state - matching TreeMenu Storybook */
+
+.ubits-tree-menu-link {
+    display: flex;
+    align-items: center;
+    gap: var(--ubits-spacing-sm, 8px);
+    justify-content: space-between;
+    text-decoration: none;
+    color: var(--ubits-fg-1-high, #303a47);
+    transition: all 0.2s ease;
+    border-radius: 6px;
+    margin-bottom: 0;
+    position: relative;
+    background: transparent;
+    min-width: 0; /* Permitir que el contenido se ajuste */
+    overflow: visible; /* Matching TreeMenu Storybook */
+    font-family: var(--font-sans);
+    box-sizing: border-box;
+    margin: 0;
+    border: none;
+}
+
+/* Tamaños - Matching List component exactly */
+.ubits-tree-menu-link--xs {
+    padding: 8px 12px;
+    font-size: var(--font-body-xs-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-xs-line);
+    min-height: 28px;
+}
+
+.ubits-tree-menu-link--sm {
+    padding: 10px 14px;
+    font-size: var(--font-body-sm-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-sm-line);
+    min-height: 32px;
+}
+
+.ubits-tree-menu-link--md {
+    padding: 12px 16px;
+    font-size: var(--font-body-md-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-md-line);
+    min-height: 40px;
+}
+
+.ubits-tree-menu-link--lg {
+    padding: 16px 20px;
+    font-size: var(--font-body-lg-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-lg-line);
+    min-height: 48px;
+}
+
+/* Default size (md) */
+.ubits-tree-menu-link:not(.ubits-tree-menu-link--xs):not(.ubits-tree-menu-link--sm):not(.ubits-tree-menu-link--md):not(.ubits-tree-menu-link--lg) {
+    padding: 12px 16px;
+    font-size: var(--font-body-md-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-md-line);
+    min-height: 40px;
+}
+
+/* Hover state - matching TreeMenu Storybook exactly */
+.ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) {
+    background: var(--ubits-bg-2, #F3F3F4);
+}
+
+.ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-chevron i {
+    color: var(--ubits-fg-1-high, #303a47);
+}
+
+.ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-icon i {
+    color: var(--ubits-fg-1-high, #303a47);
+}
+
+.ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-text {
+    color: var(--ubits-fg-1-high, #303a47);
+}
+
+/* Active state - matching TreeMenu Storybook exactly */
+.ubits-tree-menu-link--active {
+    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+    background: var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15));
+}
+
+.ubits-tree-menu-link--active .ubits-tree-menu-chevron i {
+    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+}
+
+.ubits-tree-menu-link--active .ubits-tree-menu-icon i {
+    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+}
+
+.ubits-tree-menu-link--active .ubits-tree-menu-text {
+    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+    font-weight: var(--weight-semibold, 600);
+}
+
+/* No border-left in active state - matching TreeMenu Storybook */
+
+.ubits-tree-menu-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 20px;
+    transition: color 0.2s ease;
+    background: transparent;
+    border-radius: 0;
+    margin-right: 0;
+}
+
+.ubits-tree-menu-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 20px;
+    transition: color 0.2s ease;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.ubits-tree-menu-icon i {
+    font-size: 16px;
+    color: var(--ubits-fg-1-medium, #5c646f);
+    transition: color 0.2s ease;
+}
+
+.ubits-tree-menu-text {
+    flex: 1;
+    font-family: var(--font-sans);
+    font-size: var(--font-body-md-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-md-line);
+    color: var(--ubits-fg-1-high, #303a47);
+    transition: color 0.2s ease, font-weight 0.2s ease;
+    min-width: 0; /* Permitir que el texto se ajuste */
+    margin: 0;
+    padding: 0;
+}
+
+.ubits-tree-menu-chevron {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--ubits-fg-1-medium, #5c646f);
+    transition: color 0.2s ease;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.ubits-tree-menu-chevron i {
+    font-size: 14px;
+    color: var(--ubits-fg-1-medium, #5c646f);
+    transition: color 0.2s ease;
+    display: block;
+    line-height: 1;
+}
+
+.ubits-tree-menu-children {
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+    overflow: visible;
+    display: none;
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.ubits-tree-menu-children[style*="display: block"],
+.ubits-tree-menu-children[style*="display:block"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    max-height: none !important;
+    width: 100% !important;
+}
+
+/* Asegurar que los items hijos sean visibles */
+.ubits-tree-menu-children .ubits-tree-menu-item {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Tree menu siempre usa dark mode - forzar estilos dark incluso en light mode */
+/* Sobrescribir estilos base para forzar dark mode siempre */
+.ubits-floating-menu .ubits-tree-menu-header,
+.ubits-floating-menu .ubits-tree-menu-link,
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-header,
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-link,
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header,
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link {
+    color: var(--ubits-sidebar-button-fg-default) !important;
+}
+
+.ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active),
+.ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active),
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active),
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active),
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active),
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) {
+    background: var(--ubits-sidebar-button-bg-pressed) !important;
+    color: var(--ubits-sidebar-button-fg-hover) !important;
+}
+
+.ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-chevron i,
+.ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-chevron i,
+.ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-icon i,
+.ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-icon i,
+.ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-text,
+.ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-text,
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-chevron i,
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-chevron i,
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-icon i,
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-icon i,
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-text,
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-text,
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-chevron i,
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-chevron i,
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-icon i,
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-icon i,
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-text,
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-text {
+    color: var(--ubits-sidebar-button-fg-hover) !important;
+}
+
+/* Tree menu siempre usa dark mode - forzar valores dark directamente */
+.ubits-floating-menu .ubits-tree-menu-header--active,
+.ubits-floating-menu .ubits-tree-menu-link--active,
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-header--active,
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-link--active,
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header--active,
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link--active {
+    color: #b6b5fc !important; /* Dark mode button-active-fg */
+    background: rgba(12, 91, 239, 0.15) !important; /* Dark mode bg-active-button */
+}
+
+.ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-chevron i,
+.ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-chevron i,
+.ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-icon i,
+.ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-icon i,
+.ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-text,
+.ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-text,
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-chevron i,
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-chevron i,
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-icon i,
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-icon i,
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-text,
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-text,
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-chevron i,
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-chevron i,
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-icon i,
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-icon i,
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-text,
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-text {
+    color: #b6b5fc !important; /* Dark mode button-active-fg */
+}
+
+.ubits-floating-menu .ubits-tree-menu-icon i,
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-icon i,
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-icon i {
+    color: var(--ubits-sidebar-button-fg-default) !important;
+}
+
+.ubits-floating-menu .ubits-tree-menu-chevron i,
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-chevron i,
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-chevron i {
+    color: var(--ubits-sidebar-button-fg-default) !important;
+}
+
+.ubits-floating-menu .ubits-tree-menu-text,
+.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-text,
+[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-text {
+    color: var(--ubits-sidebar-button-fg-default) !important;
+}
+
+/* ========================================
+   TREE MENU - Profile Menu
+   Siempre en modo dark, incluso en light mode
+   ======================================== */
+
+.ubits-profile-tree-item {
+    margin-bottom: 2px;
+    position: relative;
+}
+
+.ubits-profile-tree-item[data-tree-level="0"] {
+    padding-left: 0;
+}
+
+.ubits-profile-tree-item[data-tree-level="1"] {
+    padding-left: 24px;
+}
+
+.ubits-profile-tree-item[data-tree-level="2"] {
+    padding-left: 48px;
+}
+
+.ubits-profile-tree-item[data-tree-level="3"] {
+    padding-left: 72px;
+}
+
+.ubits-profile-tree-node {
+    width: 100%;
+}
+
+.ubits-profile-tree-header {
+    display: flex;
+    align-items: center;
+    gap: var(--ubits-spacing-sm, 8px);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+    margin-bottom: 0;
+    color: var(--ubits-fg-1-high, #303a47);
+    background: transparent;
+    position: relative;
+    font-family: var(--font-sans);
+    box-sizing: border-box;
+    margin: 0;
+    border: none;
+    overflow: visible;
+}
+
+/* Tamaños - Matching List component exactly */
+.ubits-profile-tree-header--xs {
+    padding: 8px 12px;
+    font-size: var(--font-body-xs-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-xs-line);
+    min-height: 28px;
+}
+
+.ubits-profile-tree-header--sm {
+    padding: 10px 14px;
+    font-size: var(--font-body-sm-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-sm-line);
+    min-height: 32px;
+}
+
+.ubits-profile-tree-header--md {
+    padding: 12px 16px;
+    font-size: var(--font-body-md-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-md-line);
+    min-height: 40px;
+}
+
+.ubits-profile-tree-header--lg {
+    padding: 16px 20px;
+    font-size: var(--font-body-lg-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-lg-line);
+    min-height: 48px;
+}
+
+/* Default size (md) */
+.ubits-profile-tree-header:not(.ubits-profile-tree-header--xs):not(.ubits-profile-tree-header--sm):not(.ubits-profile-tree-header--md):not(.ubits-profile-tree-header--lg) {
+    padding: 12px 16px;
+    font-size: var(--font-body-md-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-md-line);
+    min-height: 40px;
+}
+
+/* Hover state - matching TreeMenu Storybook exactly */
+.ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) {
+    background: var(--ubits-bg-2, #F3F3F4);
+}
+
+.ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-chevron i {
+    color: var(--ubits-fg-1-high, #303a47);
+}
+
+.ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-icon i {
+    color: var(--ubits-fg-1-high, #303a47);
+}
+
+.ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-text {
+    color: var(--ubits-fg-1-high, #303a47);
+}
+
+/* Active state - matching TreeMenu Storybook exactly */
+.ubits-profile-tree-header--active {
+    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+    background: var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15));
+}
+
+.ubits-profile-tree-header--active .ubits-profile-tree-chevron i {
+    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+}
+
+.ubits-profile-tree-header--active .ubits-profile-tree-icon i {
+    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+}
+
+.ubits-profile-tree-header--active .ubits-profile-tree-text {
+    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+    font-weight: var(--weight-semibold, 600);
+}
+
+.ubits-profile-tree-link {
+    display: flex;
+    align-items: center;
+    gap: var(--ubits-spacing-sm, 8px);
+    text-decoration: none;
+    color: var(--ubits-fg-1-high, #303a47);
+    transition: all 0.2s ease;
+    border-radius: 6px;
+    margin-bottom: 0;
+    position: relative;
+    background: transparent;
+    font-family: var(--font-sans);
+    box-sizing: border-box;
+    margin: 0;
+    border: none;
+    overflow: visible;
+}
+
+/* Tamaños - Matching List component exactly */
+.ubits-profile-tree-link--xs {
+    padding: 8px 12px;
+    font-size: var(--font-body-xs-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-xs-line);
+    min-height: 28px;
+}
+
+.ubits-profile-tree-link--sm {
+    padding: 10px 14px;
+    font-size: var(--font-body-sm-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-sm-line);
+    min-height: 32px;
+}
+
+.ubits-profile-tree-link--md {
+    padding: 12px 16px;
+    font-size: var(--font-body-md-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-md-line);
+    min-height: 40px;
+}
+
+.ubits-profile-tree-link--lg {
+    padding: 16px 20px;
+    font-size: var(--font-body-lg-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-lg-line);
+    min-height: 48px;
+}
+
+/* Default size (md) */
+.ubits-profile-tree-link:not(.ubits-profile-tree-link--xs):not(.ubits-profile-tree-link--sm):not(.ubits-profile-tree-link--md):not(.ubits-profile-tree-link--lg) {
+    padding: 12px 16px;
+    font-size: var(--font-body-md-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-md-line);
+    min-height: 40px;
+}
+
+/* Hover state - matching TreeMenu Storybook exactly */
+.ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) {
+    background: var(--ubits-bg-2, #F3F3F4);
+}
+
+.ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-chevron i {
+    color: var(--ubits-fg-1-high, #303a47);
+}
+
+.ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-icon i {
+    color: var(--ubits-fg-1-high, #303a47);
+}
+
+.ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-text {
+    color: var(--ubits-fg-1-high, #303a47);
+}
+
+/* Active state - matching TreeMenu Storybook exactly */
+.ubits-profile-tree-link--active {
+    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+    background: var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15));
+}
+
+.ubits-profile-tree-link--active .ubits-profile-tree-chevron i {
+    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+}
+
+.ubits-profile-tree-link--active .ubits-profile-tree-icon i {
+    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+}
+
+.ubits-profile-tree-link--active .ubits-profile-tree-text {
+    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+    font-weight: var(--weight-semibold, 600);
+}
+
+.ubits-profile-tree-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 20px;
+    transition: color 0.2s ease;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.ubits-profile-tree-icon i {
+    font-size: 16px;
+    color: var(--ubits-fg-1-medium, #5c646f);
+    transition: color 0.2s ease;
+}
+
+.ubits-profile-tree-text {
+    flex: 1;
+    font-family: var(--font-sans);
+    font-size: var(--font-body-md-size);
+    font-weight: var(--weight-regular);
+    line-height: var(--font-body-md-line);
+    color: var(--ubits-fg-1-high, #303a47);
+    transition: color 0.2s ease, font-weight 0.2s ease;
+    margin: 0;
+    padding: 0;
+}
+
+.ubits-profile-tree-chevron {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--ubits-fg-1-medium, #5c646f);
+    transition: color 0.2s ease;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.ubits-profile-tree-chevron i {
+    font-size: 14px;
+    color: var(--ubits-fg-1-medium, #5c646f);
+    transition: color 0.2s ease;
+    display: block;
+    line-height: 1;
+}
+
+/* Profile Menu siempre usa dark mode - forzar estilos dark incluso en light mode */
+.ubits-profile-menu .ubits-profile-tree-header,
+.ubits-profile-menu .ubits-profile-tree-link,
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-header,
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-link,
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-header,
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link {
+    color: var(--ubits-sidebar-button-fg-default) !important;
+}
+
+.ubits-profile-menu .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active),
+.ubits-profile-menu .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active),
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active),
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active),
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active),
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) {
+    background: var(--ubits-sidebar-button-bg-pressed) !important;
+    color: var(--ubits-sidebar-button-fg-hover) !important;
+}
+
+.ubits-profile-menu .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-chevron i,
+.ubits-profile-menu .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-chevron i,
+.ubits-profile-menu .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-icon i,
+.ubits-profile-menu .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-icon i,
+.ubits-profile-menu .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-text,
+.ubits-profile-menu .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-text,
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-chevron i,
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-chevron i,
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-icon i,
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-icon i,
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-text,
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-text,
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-chevron i,
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-chevron i,
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-icon i,
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-icon i,
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-text,
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-text {
+    color: var(--ubits-sidebar-button-fg-hover) !important;
+}
+
+/* Profile menu siempre usa dark mode - forzar valores dark directamente */
+.ubits-profile-menu .ubits-profile-tree-header--active,
+.ubits-profile-menu .ubits-profile-tree-link--active,
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-header--active,
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-link--active,
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-header--active,
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link--active {
+    color: #b6b5fc !important; /* Dark mode button-active-fg */
+    background: rgba(12, 91, 239, 0.15) !important; /* Dark mode bg-active-button */
+}
+
+.ubits-profile-menu .ubits-profile-tree-header--active .ubits-profile-tree-chevron i,
+.ubits-profile-menu .ubits-profile-tree-link--active .ubits-profile-tree-chevron i,
+.ubits-profile-menu .ubits-profile-tree-header--active .ubits-profile-tree-icon i,
+.ubits-profile-menu .ubits-profile-tree-link--active .ubits-profile-tree-icon i,
+.ubits-profile-menu .ubits-profile-tree-header--active .ubits-profile-tree-text,
+.ubits-profile-menu .ubits-profile-tree-link--active .ubits-profile-tree-text,
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-header--active .ubits-profile-tree-chevron i,
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-link--active .ubits-profile-tree-chevron i,
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-header--active .ubits-profile-tree-icon i,
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-link--active .ubits-profile-tree-icon i,
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-header--active .ubits-profile-tree-text,
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-link--active .ubits-profile-tree-text,
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-header--active .ubits-profile-tree-chevron i,
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link--active .ubits-profile-tree-chevron i,
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-header--active .ubits-profile-tree-icon i,
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link--active .ubits-profile-tree-icon i,
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-header--active .ubits-profile-tree-text,
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link--active .ubits-profile-tree-text {
+    color: #b6b5fc !important; /* Dark mode button-active-fg */
+}
+
+.ubits-profile-menu .ubits-profile-tree-icon i,
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-icon i,
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-icon i {
+    color: var(--ubits-sidebar-button-fg-default) !important;
+}
+
+.ubits-profile-menu .ubits-profile-tree-chevron i,
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-chevron i,
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-chevron i {
+    color: var(--ubits-sidebar-button-fg-default) !important;
+}
+
+.ubits-profile-menu .ubits-profile-tree-text,
+.ubits-tabbar .ubits-profile-menu .ubits-profile-tree-text,
+[data-theme="light"] .ubits-profile-menu .ubits-profile-tree-text {
+    color: var(--ubits-sidebar-button-fg-default) !important;
+}
+
+.ubits-profile-tree-children {
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.ubits-profile-tree-children[style*="display: block"] {
+    display: block !important;
+}
+
+/* Profile tree menu siempre usa dark mode porque el fondo del TabBar siempre es oscuro */
 
 /* Asegurar que los menús se muestren siempre en preview, incluso en pantallas grandes */
 @media (min-width: 1024px) {

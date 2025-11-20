@@ -5,7 +5,7 @@
  * Floating Menu (accordions) y Profile Menu
  */
 
-import type { TabBarOptions, TabBarItem, FloatingMenuSection, ProfileMenuItem } from './types/TabBarOptions';
+import type { TabBarOptions, TabBarItem, FloatingMenuSection, ProfileMenuItem, TreeMenuItem } from './types/TabBarOptions';
 import './styles/tabbar.css';
 
 // Helper para renderizar iconos
@@ -121,6 +121,8 @@ export function createTabBar(options: TabBarOptions): HTMLElement | null {
   }
 
   // Inicializar event listeners
+  const treeMenuSize = options.treeMenuSize || 'md';
+  console.log('[createTabBar] Using treeMenuSize:', treeMenuSize);
   initTabBarListeners(
     tabBarElement as HTMLElement,
     items,
@@ -131,57 +133,108 @@ export function createTabBar(options: TabBarOptions): HTMLElement | null {
     options.profileMenuItems,
     options.onFloatingMenuItemClick,
     options.onProfileMenuItemClick,
-    container
+    container,
+    treeMenuSize
   );
 
   return tabBarElement as HTMLElement;
 }
 
 /**
- * Renderiza el Floating Menu
+ * Renderiza un item del tree menu recursivamente
  */
-function renderFloatingMenu(sections: FloatingMenuSection[]): string {
-  const sectionsHTML = sections.map(section => {
-    // Si es un enlace directo (no accordion)
-    if (section.isLink) {
+function renderTreeMenuItem(item: FloatingMenuSection | TreeMenuItem, level: number = 0, size: 'xs' | 'sm' | 'md' | 'lg' = 'md'): string {
+  // Soportar tanto children (tree menu) como subitems (legacy)
+  const hasChildren = (item.children && item.children.length > 0) || (item as FloatingMenuSection).subitems?.length > 0;
+  const isLink = (item as FloatingMenuSection).isLink || (!hasChildren && item.url);
+  
+  const sizeClass = `ubits-tree-menu-${isLink ? 'link' : 'header'}--${size}`;
+  
+  console.log('[renderTreeMenuItem]', {
+    id: item.id,
+    title: item.title,
+    level,
+    hasChildren,
+    isLink,
+    size,
+    sizeClass,
+    childrenCount: item.children?.length || (item as FloatingMenuSection).subitems?.length || 0,
+    hasChildrenProp: !!item.children,
+    hasSubitemsProp: !!(item as FloatingMenuSection).subitems
+  });
+  
+  // Si es un enlace directo (sin hijos)
+  if (isLink) {
+    console.log(`[renderTreeMenuItem] Rendering as link: ${item.id} with size: ${size}, class: ${sizeClass}`);
+    // Solo mostrar icono en level 0 (items principales), no en sub-items
+    const iconHTML = level === 0 ? `
+          <div class="ubits-tree-menu-icon" data-circle-id="${item.id}">
+            ${renderIconHelper(item.icon)}
+          </div>
+    ` : '';
       return `
-        <a href="${section.url || '#'}" class="ubits-accordion-link ubits-accordion-link--direct" data-section-id="${section.id}">
-          <div class="ubits-accordion-icon-circle" data-circle-id="${section.id}">
-            ${renderIconHelper(section.icon)}
-          </div>
-          <span>${section.title}</span>
-          <i class="far fa-chevron-right ubits-accordion-chevron"></i>
+      <div class="ubits-tree-menu-item" data-tree-item-id="${item.id}" data-tree-level="${level}">
+        <a href="${item.url || '#'}" class="ubits-tree-menu-link ${sizeClass}" data-section-id="${item.id}">
+          ${iconHTML}
+          <span class="ubits-tree-menu-text">${item.title}</span>
+          <span class="ubits-tree-menu-chevron">
+            <i class="far fa-chevron-right" data-chevron-id="${item.id}"></i>
+          </span>
         </a>
-      `;
-    }
-    
-    // Si es accordion con subitems
-    const subitemsHTML = (section.subitems || []).map(subitem => `
-      <a href="${subitem.url}" class="ubits-accordion-link" data-subitem-id="${subitem.id}">
-        <div class="ubits-accordion-icon-circle" data-circle-id="${subitem.id}">
-          ${renderIconHelper(subitem.icon)}
-        </div>
-        <span>${subitem.title}</span>
-      </a>
-    `).join('');
+      </div>
+    `;
+  }
+  
+  // Si tiene hijos, renderizar como nodo expandible
+  // Priorizar children (tree menu) sobre subitems (legacy)
+  const children: Array<{ id: string; title: string; icon: string; url?: string; children?: TreeMenuItem[] }> = 
+    item.children || 
+    (item as FloatingMenuSection).subitems?.map(sub => ({
+      id: sub.id,
+      title: sub.title,
+      icon: sub.icon,
+      url: sub.url,
+      children: undefined
+    })) || [];
+  
+  console.log(`[renderTreeMenuItem] Rendering as node with ${children.length} children: ${item.id} with size: ${size}, class: ${sizeClass}`);
+  
+  const childrenHTML = children.map(child => renderTreeMenuItem(child, level + 1, size)).join('');
 
-    return `
-      <div class="ubits-accordion-item">
-        <div class="ubits-accordion-header" data-accordion-id="${section.id}">
-          <div class="ubits-accordion-title">
-            <div class="ubits-accordion-icon-circle" data-circle-id="${section.id}">
-              ${renderIconHelper(section.icon)}
-            </div>
-            <span>${section.title}</span>
+  // Solo mostrar icono en level 0 (items principales), no en sub-items
+  const iconHTML = level === 0 ? `
+          <div class="ubits-tree-menu-icon" data-circle-id="${item.id}">
+            ${renderIconHelper(item.icon)}
           </div>
-          <i class="far fa-chevron-down ubits-accordion-chevron" data-chevron-id="${section.id}"></i>
+  ` : '';
+  
+  const html = `
+    <div class="ubits-tree-menu-item" data-tree-item-id="${item.id}" data-tree-level="${level}">
+      <div class="ubits-tree-menu-node" data-tree-node-id="${item.id}">
+        <div class="ubits-tree-menu-header ${sizeClass}">
+          ${iconHTML}
+          <span class="ubits-tree-menu-text">${item.title}</span>
+          <span class="ubits-tree-menu-chevron">
+            <i class="far fa-chevron-down" data-chevron-id="${item.id}"></i>
+          </span>
         </div>
-        <div class="ubits-accordion-body" data-body-id="${section.id}">
-          ${subitemsHTML}
+        <div class="ubits-tree-menu-children" data-tree-children-id="${item.id}" style="display: none;">
+          ${childrenHTML}
+        </div>
         </div>
       </div>
     `;
-  }).join('');
+  console.log(`[renderTreeMenuItem] Generated HTML for node ${item.id} (${children.length} children) with size: ${size}, class: ${sizeClass}:`, html.substring(0, 300));
+  return html;
+}
+
+/**
+ * Renderiza el Floating Menu como Tree Menu
+ */
+function renderFloatingMenu(sections: FloatingMenuSection[], size: 'xs' | 'sm' | 'md' | 'lg' = 'md'): string {
+  console.log('[renderFloatingMenu] Starting render with', sections.length, 'sections, size:', size);
+  const sectionsHTML = sections.map(section => renderTreeMenuItem(section, 0, size)).join('');
+  console.log('[renderFloatingMenu] Generated HTML length:', sectionsHTML.length);
 
   return `
     <div class="ubits-floating-menu" id="ubits-floating-menu">
@@ -199,15 +252,61 @@ function renderFloatingMenu(sections: FloatingMenuSection[]): string {
 }
 
 /**
- * Renderiza el Profile Menu
+ * Renderiza un item del Profile Menu Tree recursivamente
  */
-function renderProfileMenu(items: ProfileMenuItem[]): string {
-  const itemsHTML = items.map(item => `
-    <div class="ubits-profile-menu-item" data-profile-item-id="${item.id}" ${item.url ? `data-href="${item.url}"` : ''}>
-      <i class="far fa-${item.icon} ubits-profile-menu-icon"></i>
-      <span class="ubits-profile-menu-text">${item.label}</span>
+function renderProfileTreeMenuItem(item: ProfileMenuItem, level: number = 0, size: 'xs' | 'sm' | 'md' | 'lg' = 'md'): string {
+  const hasChildren = item.children && item.children.length > 0;
+  const indent = level * 24; // 24px de indentación por nivel
+  const sizeClass = `ubits-profile-tree-${hasChildren ? 'header' : 'link'}--${size}`;
+  
+  console.log('[renderProfileTreeMenuItem]', {
+    id: item.id,
+    label: item.label,
+    level,
+    hasChildren,
+    size,
+    sizeClass
+  });
+  
+  // Si no tiene hijos, renderizar como enlace simple
+  // Solo mostrar icono en level 0 (items principales), no en sub-items
+  const iconHTML = level === 0 ? `<i class="far fa-${item.icon} ubits-profile-tree-icon"></i>` : '';
+  if (!hasChildren) {
+    return `
+      <div class="ubits-profile-tree-item" data-profile-item-id="${item.id}" data-tree-level="${level}" style="padding-left: ${indent}px;">
+        <a href="${item.url || '#'}" class="ubits-profile-tree-link ${sizeClass}" ${item.onClick ? 'data-has-onclick="true"' : ''}>
+          ${iconHTML}
+          <span class="ubits-profile-tree-text">${item.label}</span>
+        </a>
+      </div>
+    `;
+  }
+  
+  // Si tiene hijos, renderizar como nodo expandible
+  const childrenHTML = item.children!.map(child => renderProfileTreeMenuItem(child, level + 1, size)).join('');
+  
+  return `
+    <div class="ubits-profile-tree-item" data-profile-item-id="${item.id}" data-tree-level="${level}" style="padding-left: ${indent}px;">
+      <div class="ubits-profile-tree-node" data-tree-node-id="${item.id}">
+        <div class="ubits-profile-tree-header ${sizeClass}">
+          ${iconHTML}
+          <span class="ubits-profile-tree-text">${item.label}</span>
+          <i class="far fa-chevron-down ubits-profile-tree-chevron" data-chevron-id="${item.id}"></i>
+        </div>
+        <div class="ubits-profile-tree-children" data-tree-children-id="${item.id}" style="display: none;">
+          ${childrenHTML}
+        </div>
+      </div>
     </div>
-  `).join('');
+  `;
+}
+
+/**
+ * Renderiza el Profile Menu como Tree Menu
+ */
+function renderProfileMenu(items: ProfileMenuItem[], size: 'xs' | 'sm' | 'md' | 'lg' = 'md'): string {
+  console.log('[renderProfileMenu] Starting render with', items.length, 'items, size:', size);
+  const itemsHTML = items.map(item => renderProfileTreeMenuItem(item, 0, size)).join('');
 
   return `
     <div class="ubits-profile-menu" id="ubits-profile-menu">
@@ -229,8 +328,10 @@ function initTabBarListeners(
   profileMenuItems?: ProfileMenuItem[],
   onFloatingMenuItemClick?: (sectionId: string, subitemId?: string, url?: string) => void,
   onProfileMenuItemClick?: (itemId: string, item: ProfileMenuItem) => void,
-  container?: HTMLElement
+  container?: HTMLElement,
+  treeMenuSize: 'xs' | 'sm' | 'md' | 'lg' = 'md'
 ): void {
+  console.log('[initTabBarListeners] Starting with treeMenuSize:', treeMenuSize);
   const tabItems = tabBarElement.querySelectorAll('.ubits-tabbar-item');
   const tabBarContainer = container || tabBarElement.parentElement;
   const isPreview = tabBarContainer?.classList.contains('ubits-tabbar-preview-container');
@@ -243,7 +344,7 @@ function initTabBarListeners(
     floatingMenuContainer = document.getElementById('ubits-floating-menu-container') || document.createElement('div');
     floatingMenuContainer.id = 'ubits-floating-menu-container';
     if (isPreview) {
-      floatingMenuContainer.style.cssText = 'position: absolute; top: 0; left: 0; right: 0; bottom: 76px; width: 100%; height: 500px; z-index: 2000; overflow: visible; display: none;';
+      floatingMenuContainer.style.cssText = 'position: absolute; top: 0; left: 0; right: 0; bottom: 68px; width: 100%; height: 500px; z-index: 2000; overflow: visible; display: none;'; // 60px (TabBar) + 8px (espacio)
     } else {
       floatingMenuContainer.style.cssText = '';
     }
@@ -256,7 +357,10 @@ function initTabBarListeners(
       }
     }
     
-    floatingMenuContainer.innerHTML = renderFloatingMenu(floatingMenuSections);
+    const floatingMenuHTML = renderFloatingMenu(floatingMenuSections, treeMenuSize);
+    console.log('[initTabBarListeners] Setting floating menu HTML, length:', floatingMenuHTML.length, 'with size:', treeMenuSize);
+    floatingMenuContainer.innerHTML = floatingMenuHTML;
+    console.log('[initTabBarListeners] Floating menu container innerHTML length:', floatingMenuContainer.innerHTML.length);
     initFloatingMenuListeners(floatingMenuContainer, onFloatingMenuItemClick);
   }
 
@@ -265,9 +369,11 @@ function initTabBarListeners(
     profileMenuContainer.id = 'ubits-profile-menu-container';
     if (isPreview) {
       // Contenedor igual que Floating Menu pero solo en bottom
-      profileMenuContainer.style.cssText = 'position: absolute; bottom: 76px; left: 0; right: 0; width: 100%; max-width: 100%; z-index: 2001; overflow: visible; display: none;';
+      profileMenuContainer.style.cssText = 'position: absolute; bottom: 68px; left: 0; right: 0; width: 100%; max-width: 100%; z-index: 2001; overflow: visible; display: none;'; // 60px (TabBar) + 8px (espacio)
+      console.log('[TabBar] Initialized profile menu container for preview with bottom: 68px');
     } else {
       profileMenuContainer.style.cssText = '';
+      console.log('[TabBar] Initialized profile menu container (not preview), using CSS styles');
     }
     
     if (!document.getElementById('ubits-profile-menu-container')) {
@@ -278,7 +384,9 @@ function initTabBarListeners(
       }
     }
     
-    profileMenuContainer.innerHTML = renderProfileMenu(profileMenuItems);
+      const profileMenuHTML = renderProfileMenu(profileMenuItems, treeMenuSize);
+      console.log('[initTabBarListeners] Setting profile menu HTML with size:', treeMenuSize);
+      profileMenuContainer.innerHTML = profileMenuHTML;
     // Asegurar que el menú tenga la clase preview si estamos en modo preview - igual que Floating Menu
     if (isPreview) {
       const profileMenu = profileMenuContainer.querySelector('.ubits-profile-menu') as HTMLElement;
@@ -331,21 +439,136 @@ function initTabBarListeners(
           if (floatingMenu.classList.contains('ubits-floating-menu--show')) {
             floatingMenu.classList.remove('ubits-floating-menu--show');
           } else {
-            floatingMenu.classList.add('ubits-floating-menu--show', 'ubits-floating-menu--preview');
+            console.log('[TabBar] ========== OPENING FLOATING MENU ==========');
+            console.log('[TabBar] isPreview:', isPreview);
+            console.log('[TabBar] floatingMenuContainer exists:', !!floatingMenuContainer);
+            floatingMenu.classList.add('ubits-floating-menu--show');
             // Asegurar posicionamiento correcto en preview
             if (isPreview && floatingMenuContainer) {
+              console.log('[TabBar] --- PREVIEW MODE ---');
+              floatingMenu.classList.add('ubits-floating-menu--preview');
+              console.log('[TabBar] Added preview class to floating menu');
+              
+              // Calcular posición relativa al contenedor padre
+              const tabBarRect = tabBarElement.getBoundingClientRect();
+              const containerRect = container ? container.getBoundingClientRect() : { top: 0, bottom: 0 };
+              const tabBarHeight = 60;
+              const spaceBetween = 8; // Espacio entre TabBar y menú
+              
+              // Calcular la posición del TabBar relativa al contenedor padre
+              const tabBarTopRelative = tabBarRect.top - containerRect.top;
+              const containerBottom = tabBarTopRelative - spaceBetween;
+              
+              console.log('[TabBar] --- CONTAINER CALCULATIONS ---');
+              console.log('[TabBar] Container getBoundingClientRect():', containerRect);
+              console.log('[TabBar] TabBar getBoundingClientRect():', {
+                top: tabBarRect.top,
+                bottom: tabBarRect.bottom,
+                height: tabBarRect.height,
+                left: tabBarRect.left,
+                right: tabBarRect.right
+              });
+              console.log('[TabBar] TabBar top relative to container:', tabBarTopRelative);
+              console.log('[TabBar] TabBar height (hardcoded):', tabBarHeight);
+              console.log('[TabBar] Space between:', spaceBetween);
+              console.log('[TabBar] Container bottom (calculated):', containerBottom, 'px');
+              
+              // Configurar contenedor
               floatingMenuContainer.style.display = 'block';
               floatingMenuContainer.style.position = 'absolute';
               floatingMenuContainer.style.top = '0';
               floatingMenuContainer.style.left = '0';
               floatingMenuContainer.style.right = '0';
-              floatingMenuContainer.style.bottom = '76px';
+              floatingMenuContainer.style.bottom = `${tabBarHeight + spaceBetween}px`; // 60px (altura TabBar) + 8px (espacio)
               floatingMenuContainer.style.width = '100%';
-              floatingMenuContainer.style.height = '500px';
+              floatingMenuContainer.style.height = '';
               floatingMenuContainer.style.zIndex = '2000';
               floatingMenuContainer.style.overflow = 'visible';
-              // Asegurar estilos del menú interno
-              floatingMenu.style.cssText = 'position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; display: block;';
+              floatingMenuContainer.style.boxSizing = 'border-box';
+              
+              console.log('[TabBar] --- CONTAINER STYLES APPLIED ---');
+              console.log('[TabBar] Container inline styles:', {
+                display: floatingMenuContainer.style.display,
+                position: floatingMenuContainer.style.position,
+                top: floatingMenuContainer.style.top,
+                left: floatingMenuContainer.style.left,
+                right: floatingMenuContainer.style.right,
+                bottom: floatingMenuContainer.style.bottom,
+                width: floatingMenuContainer.style.width,
+                height: floatingMenuContainer.style.height,
+                zIndex: floatingMenuContainer.style.zIndex
+              });
+              
+              // Obtener estilos computados del contenedor
+              const containerComputed = window.getComputedStyle(floatingMenuContainer);
+              console.log('[TabBar] --- CONTAINER COMPUTED STYLES ---');
+              console.log('[TabBar] Container computed:', {
+                position: containerComputed.position,
+                top: containerComputed.top,
+                bottom: containerComputed.bottom,
+                height: containerComputed.height,
+                width: containerComputed.width,
+                display: containerComputed.display
+              });
+              console.log('[TabBar] Container getBoundingClientRect():', floatingMenuContainer.getBoundingClientRect());
+              
+              // Asegurar estilos del menú interno - EXACTAMENTE igual que Profile Menu (sin !important en inline)
+              // El menú debe respetar la altura del contenedor usando bottom: 0, no height explícito
+              // El padding del menú (8px 0) no debe afectar la altura total
+              floatingMenu.style.cssText = 'position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; max-width: 100%; display: block; box-sizing: border-box;';
+              console.log('[TabBar] Menu style applied with box-sizing: border-box');
+              
+              console.log('[TabBar] --- MENU STYLES APPLIED ---');
+              console.log('[TabBar] Menu inline styles:', {
+                position: floatingMenu.style.position,
+                top: floatingMenu.style.top,
+                left: floatingMenu.style.left,
+                right: floatingMenu.style.right,
+                bottom: floatingMenu.style.bottom,
+                width: floatingMenu.style.width,
+                maxWidth: floatingMenu.style.maxWidth,
+                display: floatingMenu.style.display
+              });
+              console.log('[TabBar] Menu classes:', Array.from(floatingMenu.classList));
+              
+              // Obtener estilos computados del menú
+              const menuComputed = window.getComputedStyle(floatingMenu);
+              console.log('[TabBar] --- MENU COMPUTED STYLES ---');
+              console.log('[TabBar] Menu computed:', {
+                position: menuComputed.position,
+                top: menuComputed.top,
+                bottom: menuComputed.bottom,
+                height: menuComputed.height,
+                width: menuComputed.width,
+                display: menuComputed.display
+              });
+              console.log('[TabBar] Menu getBoundingClientRect():', floatingMenu.getBoundingClientRect());
+              
+              // Verificar distancia al TabBar
+              const menuRect = floatingMenu.getBoundingClientRect();
+              const tabBarBottom = tabBarRect.bottom;
+              const menuBottom = menuRect.bottom;
+              const actualSpace = tabBarBottom - menuBottom;
+              console.log('[TabBar] --- SPACE VERIFICATION ---');
+              console.log('[TabBar] TabBar bottom:', tabBarBottom);
+              console.log('[TabBar] Menu bottom:', menuBottom);
+              console.log('[TabBar] Actual space between:', actualSpace, 'px');
+              console.log('[TabBar] Expected space:', spaceBetween, 'px');
+              console.log('[TabBar] Space difference:', actualSpace - spaceBetween, 'px');
+              
+              console.log('[TabBar] ========== END FLOATING MENU SETUP ==========');
+            } else {
+              // No preview - usar estilos CSS fixed
+              console.log('[TabBar] Not preview mode, using CSS fixed styles');
+              console.log('[TabBar] Floating menu container computed bottom:', window.getComputedStyle(floatingMenuContainer).bottom);
+              console.log('[TabBar] Floating menu computed bottom:', window.getComputedStyle(floatingMenu).bottom);
+              console.log('[TabBar] Floating menu computed position:', window.getComputedStyle(floatingMenu).position);
+              console.log('[TabBar] TabBar element:', tabBarElement);
+              if (tabBarElement) {
+                const tabBarRect = tabBarElement.getBoundingClientRect();
+                console.log('[TabBar] TabBar position:', tabBarRect.bottom, 'window height:', window.innerHeight);
+                console.log('[TabBar] Expected menu bottom:', window.innerHeight - tabBarRect.height);
+              }
             }
             // Cerrar Profile Menu si está abierto
             if (profileMenuContainer) {
@@ -368,23 +591,42 @@ function initTabBarListeners(
             profileMenu.classList.remove('ubits-profile-menu--show');
             profileMenuContainer.style.display = 'none';
           } else {
+            console.log('[TabBar] Opening profile menu, isPreview:', isPreview);
             profileMenu.classList.add('ubits-profile-menu--show');
             // Asegurar posicionamiento correcto en preview - igual que Floating Menu
             if (isPreview && profileMenuContainer) {
+              console.log('[TabBar] Setting profile menu container styles for preview');
+              const tabBarRect = tabBarElement.getBoundingClientRect();
+              console.log('[TabBar] TabBar bottom position:', tabBarRect.bottom, 'window height:', window.innerHeight);
               profileMenuContainer.style.display = 'block';
               profileMenuContainer.style.position = 'absolute';
-              profileMenuContainer.style.bottom = '76px';
+              profileMenuContainer.style.bottom = '68px'; // 60px (altura TabBar) + 8px (espacio)
               profileMenuContainer.style.left = '0';
               profileMenuContainer.style.right = '0';
               profileMenuContainer.style.width = '100%';
               profileMenuContainer.style.maxWidth = '100%';
               profileMenuContainer.style.zIndex = '2001';
               profileMenuContainer.style.overflow = 'visible';
+              console.log('[TabBar] Profile menu container bottom (inline):', profileMenuContainer.style.bottom);
               // Asegurar que el menú interno tenga el ancho completo y posición absoluta, igual que Floating Menu
-              const profileMenu = profileMenuContainer.querySelector('.ubits-profile-menu') as HTMLElement;
-              if (profileMenu) {
-                profileMenu.style.cssText = 'position: absolute; bottom: 0; left: 0; right: 0; width: 100%; max-width: 100%; display: block;';
-                profileMenu.classList.add('ubits-profile-menu--preview');
+              const profileMenuInner = profileMenuContainer.querySelector('.ubits-profile-menu') as HTMLElement;
+              if (profileMenuInner) {
+                profileMenuInner.style.cssText = 'position: absolute; bottom: 0; left: 0; right: 0; width: 100%; max-width: 100%; display: block;';
+                profileMenuInner.classList.add('ubits-profile-menu--preview');
+              }
+              console.log('[TabBar] Profile menu container computed bottom:', window.getComputedStyle(profileMenuContainer).bottom);
+              console.log('[TabBar] Profile menu computed bottom:', window.getComputedStyle(profileMenu).bottom);
+            } else {
+              // No preview - usar estilos CSS fixed
+              console.log('[TabBar] Not preview mode, using CSS fixed styles');
+              console.log('[TabBar] Profile menu container computed bottom:', window.getComputedStyle(profileMenuContainer).bottom);
+              console.log('[TabBar] Profile menu computed bottom:', window.getComputedStyle(profileMenu).bottom);
+              console.log('[TabBar] Profile menu computed position:', window.getComputedStyle(profileMenu).position);
+              console.log('[TabBar] TabBar element:', tabBarElement);
+              if (tabBarElement) {
+                const tabBarRect = tabBarElement.getBoundingClientRect();
+                console.log('[TabBar] TabBar position:', tabBarRect.bottom, 'window height:', window.innerHeight);
+                console.log('[TabBar] Expected menu bottom:', window.innerHeight - tabBarRect.height);
               }
             }
             // Cerrar Floating Menu si está abierto
@@ -441,27 +683,39 @@ function initFloatingMenuListeners(
     });
   }
 
-  // Accordion headers
-  const accordionHeaders = floatingMenu.querySelectorAll('.ubits-accordion-header');
-  accordionHeaders.forEach(header => {
-    header.addEventListener('click', () => {
-      const accordionId = header.getAttribute('data-accordion-id');
-      if (accordionId) {
-        toggleAccordion(accordionId);
-      }
-    });
+  // Tree menu nodes (expandible/collapsible)
+  const treeNodes = floatingMenu.querySelectorAll('.ubits-tree-menu-node');
+  console.log('[initFloatingMenuListeners] Found', treeNodes.length, 'tree menu nodes');
+  treeNodes.forEach((node, index) => {
+    const nodeId = node.getAttribute('data-tree-node-id');
+    console.log(`[initFloatingMenuListeners] Node ${index}:`, nodeId);
+    const header = node.querySelector('.ubits-tree-menu-header') as HTMLElement;
+    if (header) {
+      console.log(`[initFloatingMenuListeners] Adding click listener to node: ${nodeId}`);
+      header.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log(`[initFloatingMenuListeners] Clicked on node: ${nodeId}`);
+        if (nodeId) {
+          toggleTreeMenuNode(floatingMenu, nodeId);
+        }
+      });
+    } else {
+      console.warn(`[initFloatingMenuListeners] No header found for node: ${nodeId}`);
+    }
   });
 
-  // Links (directos y subitems)
-  const links = floatingMenu.querySelectorAll('.ubits-accordion-link');
+  // Tree menu links (enlaces directos)
+  const links = floatingMenu.querySelectorAll('.ubits-tree-menu-link');
   links.forEach(link => {
     link.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       const sectionId = link.getAttribute('data-section-id');
-      const subitemId = link.getAttribute('data-subitem-id');
       const url = (link as HTMLElement).getAttribute('href');
 
       if (onFloatingMenuItemClick) {
-        onFloatingMenuItemClick(sectionId || '', subitemId || undefined, url || undefined);
+        onFloatingMenuItemClick(sectionId || '', undefined, url || undefined);
       }
     });
   });
@@ -499,10 +753,29 @@ function initProfileMenuListeners(
   const profileMenu = container.querySelector('.ubits-profile-menu');
   if (!profileMenu) return;
 
-  const menuItems = profileMenu.querySelectorAll('.ubits-profile-menu-item');
-  menuItems.forEach(menuItem => {
-    menuItem.addEventListener('click', (e) => {
-      const itemId = menuItem.getAttribute('data-profile-item-id');
+  // Tree menu nodes (expandible/collapsible)
+  const treeNodes = profileMenu.querySelectorAll('.ubits-profile-tree-node');
+  treeNodes.forEach(node => {
+    const header = node.querySelector('.ubits-profile-tree-header') as HTMLElement;
+    if (header) {
+      header.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const nodeId = node.getAttribute('data-tree-node-id');
+        if (nodeId) {
+          toggleProfileTreeMenuNode(profileMenu, nodeId);
+        }
+      });
+    }
+  });
+
+  // Tree menu links (enlaces directos)
+  const links = profileMenu.querySelectorAll('.ubits-profile-tree-link');
+  links.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const itemId = link.closest('[data-profile-item-id]')?.getAttribute('data-profile-item-id');
       if (itemId) {
         const item = items.find(i => i.id === itemId);
         if (item) {
@@ -575,6 +848,36 @@ function showProfileMenu(container: HTMLElement): void {
 }
 
 /**
+ * Toggle de profile tree menu node (expandir/colapsar)
+ */
+function toggleProfileTreeMenuNode(container: HTMLElement, nodeId: string): void {
+  const children = container.querySelector(`[data-tree-children-id="${nodeId}"]`) as HTMLElement;
+  const chevron = container.querySelector(`[data-chevron-id="${nodeId}"]`) as HTMLElement;
+  const header = container.querySelector(`[data-tree-node-id="${nodeId}"] .ubits-profile-tree-header`) as HTMLElement;
+
+  if (!children || !chevron) {
+    console.warn(`Profile tree menu node not found: ${nodeId}`, { children: !!children, chevron: !!chevron });
+    return;
+  }
+
+  // Verificar si está abierto (puede estar en display: none o display: block)
+  const computedStyle = window.getComputedStyle(children);
+  const isCurrentlyOpen = computedStyle.display !== 'none';
+
+  if (isCurrentlyOpen) {
+    // Cerrar
+    children.style.display = 'none';
+    chevron.style.transform = 'rotate(0deg)';
+    if (header) header.classList.remove('ubits-profile-tree-header--active');
+  } else {
+    // Abrir
+    children.style.display = 'block';
+    chevron.style.transform = 'rotate(180deg)';
+    if (header) header.classList.add('ubits-profile-tree-header--active');
+  }
+}
+
+/**
  * Oculta el Profile Menu
  */
 function hideProfileMenu(): void {
@@ -585,7 +888,43 @@ function hideProfileMenu(): void {
 }
 
 /**
- * Toggle de accordion
+ * Toggle de tree menu node (expandir/colapsar)
+ */
+function toggleTreeMenuNode(container: HTMLElement, nodeId: string): void {
+  const children = container.querySelector(`[data-tree-children-id="${nodeId}"]`) as HTMLElement;
+  const chevronIcon = container.querySelector(`[data-chevron-id="${nodeId}"]`) as HTMLElement;
+  const header = container.querySelector(`[data-tree-node-id="${nodeId}"] .ubits-tree-menu-header`) as HTMLElement;
+
+  if (!children || !chevronIcon) {
+    console.warn(`[toggleTreeMenuNode] Tree menu node not found: ${nodeId}`, { 
+      children: !!children, 
+      chevronIcon: !!chevronIcon
+    });
+    return;
+  }
+
+  // Verificar si está abierto (puede estar en display: none o display: block)
+  const computedStyle = window.getComputedStyle(children);
+  const isCurrentlyOpen = computedStyle.display !== 'none';
+
+  if (isCurrentlyOpen) {
+    // Cerrar
+    children.style.display = 'none';
+    chevronIcon.classList.remove('fa-chevron-down');
+    chevronIcon.classList.add('fa-chevron-right');
+    if (header) header.classList.remove('ubits-tree-menu-header--active');
+  } else {
+    // Abrir
+    children.style.display = 'block';
+    chevronIcon.classList.remove('fa-chevron-right');
+    chevronIcon.classList.add('fa-chevron-down');
+    if (header) header.classList.add('ubits-tree-menu-header--active');
+  }
+}
+
+/**
+ * Toggle de accordion (mantener para compatibilidad)
+ * @deprecated Usar toggleTreeMenuNode en su lugar
  */
 function toggleAccordion(sectionId: string): void {
   const body = document.querySelector(`[data-body-id="${sectionId}"]`) as HTMLElement;
@@ -611,6 +950,7 @@ function toggleAccordion(sectionId: string): void {
 
 /**
  * Cierra todos los accordions
+ * @deprecated Ya no se usa con tree menu
  */
 function closeAllAccordions(): void {
   const allBodies = document.querySelectorAll('.ubits-accordion-body');

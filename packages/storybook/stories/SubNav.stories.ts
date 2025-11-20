@@ -47,15 +47,23 @@ const meta = {
         type: { summary: 'string' }
       }
     },
+    showIcons: {
+      control: { type: 'boolean' },
+      description: 'Mostrar iconos en los tabs del SubNav',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
+      }
+    },
     containerId: {
       control: false,
       description: 'ID del contenedor (asignado automáticamente)'
     }
   }
-} satisfies Meta<SubNavOptions & { variant?: SubNavVariant; activeTabId?: string }>;
+} satisfies Meta<SubNavOptions & { variant?: SubNavVariant; activeTabId?: string; showIcons?: boolean }>;
 
 export default meta;
-type Story = StoryObj<SubNavOptions & { variant?: SubNavVariant; activeTabId?: string }>;
+type Story = StoryObj<SubNavOptions & { variant?: SubNavVariant; activeTabId?: string; showIcons?: boolean }>;
 
 // Helper para obtener tabs disponibles según la variante
 function getTabsForVariant(variant: SubNavVariant): string[] {
@@ -70,8 +78,9 @@ export const Default: Story = {
   args: {
     containerId: 'subnav-story-container',
     variant: 'template',
-    activeTabId: 'section1'
-  } as SubNavOptions & { variant?: SubNavVariant; activeTabId?: string },
+    activeTabId: 'section1',
+    showIcons: false
+  } as SubNavOptions & { variant?: SubNavVariant; activeTabId?: string; showIcons?: boolean },
   render: (args) => {
     // Limpiar contenedor previo si existe
     const existingContainer = document.getElementById(args.containerId || 'subnav-story-container');
@@ -127,6 +136,7 @@ export const Default: Story = {
         <div><strong>Variante:</strong> ${config.name}</div>
         <div><strong>Tab Activo:</strong> ${activeTab ? activeTab.label : activeTabId}</div>
         <div><strong>Tabs disponibles:</strong> ${config.tabs.length}</div>
+        <div><strong>Iconos:</strong> ${args.showIcons ? 'Mostrados' : 'Ocultos'}</div>
         <div><strong>IDs:</strong> ${config.tabs.map(t => t.id).join(', ')}</div>
       </div>
     `;
@@ -140,6 +150,7 @@ export const Default: Story = {
           containerId: container.id,
           variant: variant,
           activeTabId: activeTabId,
+          showIcons: args.showIcons ?? false,
           onTabChange: (tabId, tabElement) => {
             console.log('Tab cambiado:', tabId, tabElement);
             // Actualizar info

@@ -22,7 +22,8 @@ export function renderSubNav(options: SubNavOptions): string {
   const {
     variant = 'template',
     tabs: customTabs,
-    activeTabId
+    activeTabId,
+    showIcons = false
   } = options;
 
   // Obtener configuración de la variante o usar tabs personalizados
@@ -39,6 +40,9 @@ export function renderSubNav(options: SubNavOptions): string {
     const isActive = tab.id === activeId || tab.active;
     const activeClass = isActive ? 'ubits-sub-nav-tab--active' : '';
     
+    // Renderizar icono solo si showIcons es true
+    const iconHTML = showIcons ? renderIconHelper(tab.icon) : '';
+    
     return `
       <button 
         class="ubits-sub-nav-tab ${activeClass}" 
@@ -46,7 +50,7 @@ export function renderSubNav(options: SubNavOptions): string {
         ${tab.url ? `data-url="${tab.url}"` : ''}
         ${tab.onClick ? 'data-has-click-handler="true"' : ''}
       >
-        ${renderIconHelper(tab.icon)}
+        ${iconHTML}
         <span>${tab.label}</span>
       </button>
     `;

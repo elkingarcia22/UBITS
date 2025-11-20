@@ -11,7 +11,7 @@ const meta: Meta<{
   showChevron?: boolean;
   maxLevels?: number;
   defaultExpanded?: boolean;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   cascade?: boolean;
 }> = {
   title: 'Components/TreeMenu',
@@ -58,11 +58,11 @@ const meta: Meta<{
     },
     size: {
       control: { type: 'select' },
-      options: ['sm', 'md', 'lg'],
-      description: 'Tamaño del texto y espaciado',
+      options: ['xs', 'sm', 'md', 'lg'],
+      description: 'Tamaño del texto y espaciado (matching List component)',
       table: {
         defaultValue: { summary: 'md' },
-        type: { summary: 'sm | md | lg' },
+        type: { summary: 'xs | sm | md | lg' },
       },
     },
     cascade: {
@@ -253,15 +253,17 @@ function renderTreeNode(
   showIcons: boolean,
   showChevron: boolean,
   cascade: boolean,
-  size: 'sm' | 'md' | 'lg',
+  size: 'xs' | 'sm' | 'md' | 'lg',
   uniqueId: string
 ): string {
   const hasChildren = node.children && node.children.length > 0;
   const nodeId = `${uniqueId}-node-${level}-${node.label.toLowerCase().replace(/\s+/g, '-')}`;
   const isExpanded = defaultExpanded && hasChildren;
   
-  // Clases de tipografía según tamaño
-  const typographyClass = size === 'sm' 
+  // Clases de tipografía según tamaño (matching List component)
+  const typographyClass = size === 'xs'
+    ? 'ubits-body-xs-regular'
+    : size === 'sm' 
     ? 'ubits-body-sm-regular' 
     : size === 'lg' 
     ? 'ubits-body-lg-regular' 
@@ -269,21 +271,36 @@ function renderTreeNode(
   
   // Espaciado según modo (cascada o vertical)
   const paddingLeft = cascade 
-    ? (size === 'sm' 
+    ? (size === 'xs'
+      ? `calc(var(--ubits-spacing-sm, 8px) * ${level})`
+      : size === 'sm' 
       ? `calc(var(--ubits-spacing-md, 16px) * ${level})` 
       : size === 'lg'
       ? `calc(var(--ubits-spacing-lg, 24px) * ${level})`
       : `calc(var(--ubits-spacing-md, 16px) * ${level})`)
     : '0';
   
-  const iconSize = size === 'sm' ? '14px' : size === 'lg' ? '18px' : '16px';
-  const chevronSize = size === 'sm' ? '12px' : size === 'lg' ? '16px' : '14px';
+  // Tamaños de iconos y chevrons según tamaño (matching List component)
+  const iconSize = size === 'xs' ? '12px' : size === 'sm' ? '14px' : size === 'lg' ? '18px' : '16px';
+  const chevronSize = size === 'xs' ? '10px' : size === 'sm' ? '12px' : size === 'lg' ? '16px' : '14px';
+  
+  // Calcular valores exactos según tamaño (matching List component exactly)
+  // xs: padding 8px 12px, font-size 11px, line-height 16.5px, min-height 28px
+  // sm: padding 10px 14px, font-size 13px, line-height 19.5px, min-height 32px
+  // md: padding 12px 16px, font-size 16px, line-height 24px, min-height 40px
+  // lg: padding 16px 20px, font-size 20px, line-height 30px, min-height 48px
+  const padding = size === 'xs' ? '8px 12px' : size === 'sm' ? '10px 14px' : size === 'lg' ? '16px 20px' : '12px 16px';
+  const minHeight = size === 'xs' ? '28px' : size === 'sm' ? '32px' : size === 'lg' ? '48px' : '40px';
+  const fontSize = size === 'xs' ? 'var(--font-body-xs-size)' : size === 'sm' ? 'var(--font-body-sm-size)' : size === 'lg' ? 'var(--font-body-lg-size)' : 'var(--font-body-md-size)';
+  const lineHeight = size === 'xs' ? 'var(--font-body-xs-line)' : size === 'sm' ? 'var(--font-body-sm-line)' : size === 'lg' ? 'var(--font-body-lg-line)' : 'var(--font-body-md-line)';
   
   let html = `
     <div class="ubits-tree-node ${cascade ? 'ubits-tree-node--cascade' : 'ubits-tree-node--vertical'}" data-level="${level}" style="${cascade ? `padding-left: ${paddingLeft};` : ''}">
       <div 
         class="ubits-tree-node__content ${hasChildren ? 'ubits-tree-node__content--expandable' : ''}" 
         data-node-id="${nodeId}"
+        data-size="${size}"
+        style="min-height: ${minHeight} !important; padding: ${padding} !important; font-size: ${fontSize} !important; line-height: ${lineHeight} !important; margin: 0 !important; border: none !important;"
         ${hasChildren ? `data-expanded="${isExpanded}"` : ''}
         role="${hasChildren ? 'button' : 'treeitem'}"
         ${hasChildren ? 'tabindex="0"' : ''}
@@ -304,7 +321,7 @@ function renderTreeNode(
             ${renderIcon(node.icon, 'regular')}
           </span>
         ` : ''}
-        <span class="ubits-tree-node__label ${typographyClass}">${node.label}</span>
+        <span class="ubits-tree-node__label ${typographyClass}" style="line-height: ${lineHeight};">${node.label}</span>
       </div>
       ${hasChildren ? `
         <div class="ubits-tree-node__children ${cascade ? 'ubits-tree-node__children--cascade' : 'ubits-tree-node__children--vertical'}" data-children-id="${nodeId}" style="display: ${isExpanded ? 'block' : 'none'};">
@@ -325,7 +342,7 @@ function renderTreeMenu(args: {
   showChevron?: boolean;
   maxLevels?: number;
   defaultExpanded?: boolean;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   cascade?: boolean;
 }): string {
   const {
@@ -422,13 +439,103 @@ export const Default: Story = {
           display: flex;
           align-items: center;
           gap: var(--ubits-spacing-sm, 8px);
-          padding: var(--ubits-spacing-xs, 4px) var(--ubits-spacing-sm, 8px);
           border-radius: 6px;
           cursor: ${args.maxLevels && args.maxLevels > 1 ? 'pointer' : 'default'};
           transition: all 0.2s ease;
           color: var(--ubits-fg-1-high, #303a47);
           background: transparent;
           position: relative;
+          font-family: var(--font-sans);
+          box-sizing: border-box;
+          margin: 0;
+          border: none;
+          /* Asegurar que el contenido interno no afecte el alto */
+          overflow: visible;
+        }
+        
+        /* Tamaños - Matching List component EXACTLY */
+        /* xs: padding 8px 12px, font-size 11px, line-height 16.5px, min-height 28px */
+        .ubits-tree-node__content[data-size="xs"] {
+          padding: 8px 12px !important;
+          font-size: var(--font-body-xs-size) !important;
+          font-weight: var(--weight-regular) !important;
+          line-height: var(--font-body-xs-line) !important;
+          min-height: 28px !important;
+          height: auto !important;
+          margin: 0 !important;
+        }
+        
+        /* sm: padding 10px 14px, font-size 13px, line-height 19.5px, min-height 32px */
+        .ubits-tree-node__content[data-size="sm"] {
+          padding: 10px 14px !important;
+          font-size: var(--font-body-sm-size) !important;
+          font-weight: var(--weight-regular) !important;
+          line-height: var(--font-body-sm-line) !important;
+          min-height: 32px !important;
+          height: auto !important;
+          margin: 0 !important;
+        }
+        
+        /* md: padding 12px 16px, font-size 16px, line-height 24px, min-height 40px */
+        .ubits-tree-node__content[data-size="md"] {
+          padding: 12px 16px !important;
+          font-size: var(--font-body-md-size) !important;
+          font-weight: var(--weight-regular) !important;
+          line-height: var(--font-body-md-line) !important;
+          min-height: 40px !important;
+          height: auto !important;
+          margin: 0 !important;
+        }
+        
+        /* lg: padding 16px 20px, font-size 20px, line-height 30px, min-height 48px */
+        .ubits-tree-node__content[data-size="lg"] {
+          padding: 16px 20px !important;
+          font-size: var(--font-body-lg-size) !important;
+          font-weight: var(--weight-regular) !important;
+          line-height: var(--font-body-lg-line) !important;
+          min-height: 48px !important;
+          height: auto !important;
+          margin: 0 !important;
+        }
+        
+        /* Default size (md) - cuando no tiene data-size */
+        .ubits-tree-node__content:not([data-size]) {
+          padding: 12px 16px !important;
+          font-size: var(--font-body-md-size) !important;
+          font-weight: var(--weight-regular) !important;
+          line-height: var(--font-body-md-line) !important;
+          min-height: 40px !important;
+          height: auto !important;
+          margin: 0 !important;
+        }
+        
+        /* Asegurar que los tamaños se mantengan en todos los estados - mantener padding y min-height */
+        .ubits-tree-node__content[data-size="xs"]:hover,
+        .ubits-tree-node__content[data-size="xs"]:focus,
+        .ubits-tree-node__content[data-size="xs"].ubits-tree-node__content--active {
+          padding: 8px 12px !important;
+          min-height: 28px !important;
+        }
+        
+        .ubits-tree-node__content[data-size="sm"]:hover,
+        .ubits-tree-node__content[data-size="sm"]:focus,
+        .ubits-tree-node__content[data-size="sm"].ubits-tree-node__content--active {
+          padding: 10px 14px !important;
+          min-height: 32px !important;
+        }
+        
+        .ubits-tree-node__content[data-size="md"]:hover,
+        .ubits-tree-node__content[data-size="md"]:focus,
+        .ubits-tree-node__content[data-size="md"].ubits-tree-node__content--active {
+          padding: 12px 16px !important;
+          min-height: 40px !important;
+        }
+        
+        .ubits-tree-node__content[data-size="lg"]:hover,
+        .ubits-tree-node__content[data-size="lg"]:focus,
+        .ubits-tree-node__content[data-size="lg"].ubits-tree-node__content--active {
+          padding: 16px 20px !important;
+          min-height: 48px !important;
         }
         
         /* Hover state - similar a Accordion component */
@@ -453,6 +560,27 @@ export const Default: Story = {
         .ubits-tree-node__content[aria-selected="true"] {
           color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
           background: var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15));
+        }
+        
+        /* Asegurar que los tamaños se mantengan en estado active */
+        .ubits-tree-node__content--active[data-size="xs"],
+        .ubits-tree-node__content[aria-selected="true"][data-size="xs"] {
+          min-height: 28px !important;
+        }
+        
+        .ubits-tree-node__content--active[data-size="sm"],
+        .ubits-tree-node__content[aria-selected="true"][data-size="sm"] {
+          min-height: 32px !important;
+        }
+        
+        .ubits-tree-node__content--active[data-size="md"],
+        .ubits-tree-node__content[aria-selected="true"][data-size="md"] {
+          min-height: 40px !important;
+        }
+        
+        .ubits-tree-node__content--active[data-size="lg"],
+        .ubits-tree-node__content[aria-selected="true"][data-size="lg"] {
+          min-height: 48px !important;
         }
         
         .ubits-tree-node__content--active .ubits-tree-node__chevron,
@@ -485,6 +613,9 @@ export const Default: Story = {
           flex-shrink: 0;
           color: var(--ubits-fg-1-medium, #5c646f);
           transition: color 0.2s ease;
+          margin: 0;
+          padding: 0;
+          line-height: 1;
         }
         
         .ubits-tree-node__icon {
@@ -495,16 +626,24 @@ export const Default: Story = {
           color: var(--ubits-fg-1-medium, #5c646f);
           width: 20px;
           transition: color 0.2s ease;
+          margin: 0;
+          padding: 0;
+          line-height: 1;
         }
         
         .ubits-tree-node__label {
           flex: 1;
           color: var(--ubits-fg-1-high, #303a47);
           transition: color 0.2s ease, font-weight 0.2s ease;
+          margin: 0;
+          padding: 0;
+          /* El line-height se establece inline para cada tamaño */
         }
         
         .ubits-tree-node__children {
-          margin-top: 2px;
+          margin-top: 0;
+          margin-bottom: 0;
+          padding: 0;
         }
         
         /* Modo vertical - sin indentación */

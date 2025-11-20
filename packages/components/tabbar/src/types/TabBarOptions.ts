@@ -17,7 +17,28 @@ export interface TabBarItem {
 }
 
 /**
+ * Item del Tree Menu (puede tener hijos anidados)
+ */
+export interface TreeMenuItem {
+  /** ID único del item */
+  id: string;
+  /** Título del item */
+  title: string;
+  /** Icono FontAwesome (sin prefijo, ej: 'graduation-cap') */
+  icon: string;
+  /** URL del enlace (opcional) */
+  url?: string;
+  /** Si es un enlace directo (no expandible) */
+  isLink?: boolean;
+  /** Si el enlace es clickeable */
+  clickable?: boolean;
+  /** Items hijos (para tree menu anidado) */
+  children?: TreeMenuItem[];
+}
+
+/**
  * Sección del Floating Menu (puede ser accordion o enlace directo)
+ * @deprecated Usar TreeMenuItem en su lugar para tree menu
  */
 export interface FloatingMenuSection {
   /** ID único de la sección */
@@ -39,10 +60,12 @@ export interface FloatingMenuSection {
     icon: string;
     url: string;
   }>;
+  /** Items hijos para tree menu (nuevo) */
+  children?: TreeMenuItem[];
 }
 
 /**
- * Item del Profile Menu
+ * Item del Profile Menu (ahora soporta tree menu)
  */
 export interface ProfileMenuItem {
   /** ID único del item */
@@ -55,6 +78,8 @@ export interface ProfileMenuItem {
   url?: string;
   /** Callback cuando se hace click */
   onClick?: () => void;
+  /** Items hijos para tree menu (nuevo) */
+  children?: ProfileMenuItem[];
 }
 
 /**
@@ -85,5 +110,7 @@ export interface TabBarOptions {
   onFloatingMenuItemClick?: (sectionId: string, subitemId?: string, url?: string) => void;
   /** Callback cuando se hace click en un item del Profile Menu */
   onProfileMenuItemClick?: (itemId: string, item: ProfileMenuItem) => void;
+  /** Tamaño del tree menu (xs, sm, md, lg) - matching List component */
+  treeMenuSize?: 'xs' | 'sm' | 'md' | 'lg';
 }
 
