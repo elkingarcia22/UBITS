@@ -168,12 +168,6 @@
     "notes": "Button primary background pressed, brand tone"
   },
   {
-    "old": "--ubits-btn-primary-fg",
-    "new": "--modifiers-normal-button-color-light-brand-primary-fg-default",
-    "category": "button",
-    "notes": "Button primary foreground, brand tone"
-  },
-  {
     "old": "--ubits-btn-secondary-bg-default",
     "new": "--modifiers-normal-button-color-light-brand-secondary-bg-default",
     "category": "button",
@@ -199,15 +193,15 @@
   },
   {
     "old": "--ubits-btn-secondary-border",
-    "new": "--modifiers-normal-button-color-light-brand-secondary-border-default",
+    "new": "--modifiers-normal-button-color-light-brand-secondary-border",
     "category": "button",
-    "notes": "Button secondary border, brand tone"
+    "notes": "Button secondary border, brand tone (sin -default)"
   },
   {
     "old": "--ubits-btn-tertiary-fg",
-    "new": "--modifiers-normal-button-color-light-brand-tertiary-fg-default",
+    "new": "--modifiers-normal-button-color-light-brand-tertiary-fg",
     "category": "button",
-    "notes": "Button tertiary foreground, brand tone"
+    "notes": "Button tertiary foreground, brand tone (sin -default)"
   },
   {
     "old": "--ubits-btn-tertiary-bg-hover",
@@ -234,12 +228,6 @@
     "notes": "Button active foreground (usa accent-brand)"
   },
   {
-    "old": "--ubits-button-focus-ring",
-    "new": "--modifiers-normal-focus-ring-default",
-    "category": "button",
-    "notes": "Button focus ring"
-  },
-  {
     "old": "--ubits-bg-disabled-button",
     "new": "--modifiers-normal-color-light-bg-disabled",
     "category": "button",
@@ -256,6 +244,12 @@
     "new": "--modifiers-normal-color-light-fg-on-disabled",
     "category": "button",
     "notes": "Button disabled foreground (usa fg-on-disabled)"
+  },
+  {
+    "old": "--ubits-button-badge",
+    "new": "--modifiers-normal-color-light-feedback-accent-error",
+    "category": "button",
+    "notes": "Button badge (usa feedback error como color de badge)"
   },
   {
     "old": "--ubits-spacing-xs",
@@ -292,11 +286,5 @@
     "new": "--modifiers-normal-elevation-bottom-nav-shadow-opacity",
     "category": "effects",
     "notes": "Bottom navigation shadow opacity"
-  },
-  {
-    "old": "--ubits-elevation-floating",
-    "new": "--modifiers-normal-elevation-floating",
-    "category": "effects",
-    "notes": "Elevation floating (si existe en nuevos tokens)"
   }
 ]

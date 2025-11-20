@@ -215,12 +215,14 @@ export const TOKEN_MAPPING: TokenMapping[] = [
     category: 'button',
     notes: 'Button primary background pressed, brand tone'
   },
-  {
-    old: '--ubits-btn-primary-fg',
-    new: '--modifiers-normal-button-color-light-brand-primary-fg-default',
-    category: 'button',
-    notes: 'Button primary foreground, brand tone'
-  },
+  // NOTA: --ubits-btn-primary-fg NO tiene equivalente en figma-tokens.css
+  // Los botones primary usan color fijo (blanco) o se mantiene el token original
+  // {
+  //   old: '--ubits-btn-primary-fg',
+  //   new: '--ubits-btn-primary-fg', // Mantener original
+  //   category: 'button',
+  //   notes: 'NO MIGRAR - No tiene equivalente en figma-tokens.css'
+  // },
   {
     old: '--ubits-btn-secondary-bg-default',
     new: '--modifiers-normal-button-color-light-brand-secondary-bg-default',
@@ -247,15 +249,15 @@ export const TOKEN_MAPPING: TokenMapping[] = [
   },
   {
     old: '--ubits-btn-secondary-border',
-    new: '--modifiers-normal-button-color-light-brand-secondary-border-default',
+    new: '--modifiers-normal-button-color-light-brand-secondary-border',
     category: 'button',
-    notes: 'Button secondary border, brand tone'
+    notes: 'Button secondary border, brand tone (sin -default)'
   },
   {
     old: '--ubits-btn-tertiary-fg',
-    new: '--modifiers-normal-button-color-light-brand-tertiary-fg-default',
+    new: '--modifiers-normal-button-color-light-brand-tertiary-fg',
     category: 'button',
-    notes: 'Button tertiary foreground, brand tone'
+    notes: 'Button tertiary foreground, brand tone (sin -default)'
   },
   {
     old: '--ubits-btn-tertiary-bg-hover',
@@ -281,12 +283,14 @@ export const TOKEN_MAPPING: TokenMapping[] = [
     category: 'button',
     notes: 'Button active foreground (usa accent-brand)'
   },
-  {
-    old: '--ubits-button-focus-ring',
-    new: '--modifiers-normal-focus-ring-default',
-    category: 'button',
-    notes: 'Button focus ring'
-  },
+  // NOTA: --ubits-button-focus-ring NO tiene equivalente exacto en figma-tokens.css
+  // Mantener el token original
+  // {
+  //   old: '--ubits-button-focus-ring',
+  //   new: '--ubits-button-focus-ring', // Mantener original
+  //   category: 'button',
+  //   notes: 'NO MIGRAR - No tiene equivalente en figma-tokens.css'
+  // },
   {
     old: '--ubits-bg-disabled-button',
     new: '--modifiers-normal-color-light-bg-disabled',
@@ -304,6 +308,12 @@ export const TOKEN_MAPPING: TokenMapping[] = [
     new: '--modifiers-normal-color-light-fg-on-disabled',
     category: 'button',
     notes: 'Button disabled foreground (usa fg-on-disabled)'
+  },
+  {
+    old: '--ubits-button-badge',
+    new: '--modifiers-normal-color-light-feedback-accent-error',
+    category: 'button',
+    notes: 'Button badge (usa feedback error como color de badge)'
   },
 
   // ============================================
@@ -349,12 +359,15 @@ export const TOKEN_MAPPING: TokenMapping[] = [
     category: 'effects',
     notes: 'Bottom navigation shadow opacity'
   },
-  {
-    old: '--ubits-elevation-floating',
-    new: '--modifiers-normal-elevation-floating',
-    category: 'effects',
-    notes: 'Elevation floating (si existe en nuevos tokens)'
-  },
+  // NOTA: --ubits-elevation-floating NO existe como token único en figma-tokens.css
+  // Existen tokens separados para cada parte de la sombra
+  // Mantener el token original o usar los tokens de elevation individuales
+  // {
+  //   old: '--ubits-elevation-floating',
+  //   new: '--ubits-elevation-floating', // Mantener original
+  //   category: 'effects',
+  //   notes: 'NO MIGRAR - No tiene equivalente único en figma-tokens.css'
+  // },
 ];
 
 /**

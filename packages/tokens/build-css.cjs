@@ -28,28 +28,208 @@ function emitScope(varsObj) {
   return lines.join('\n');
 }
 
-// Extraer tokens de Figma preservando estructura
-function extractFigmaTokens(figmaData, mode) {
-  const tokens = {};
+// Construir mapa de valores primitivos (pec) para resolver referencias
+function buildPrimitiveMap(figmaData) {
+  const primitives = {};
   
-  function extract(obj, prefix = '') {
+  function extractPrimitives(obj, path = []) {
     if (typeof obj === 'object' && obj !== null) {
-      // Si tiene $cssVar y $value, es un token
-      if (obj.$cssVar && obj.$value && typeof obj.$value === 'string' && obj.$value.startsWith('#')) {
-        tokens[obj.$cssVar] = obj.$value;
+      // Si tiene $value y es un color directo (#...), guardarlo
+      if (obj.$value && typeof obj.$value === 'string' && obj.$value.startsWith('#')) {
+        const fullKey = path.join('.');
+        primitives[fullKey] = obj.$value;
+        
+        // También guardar sin el prefijo "p-colors/Mode 1." para referencias como {pec.blue.44}
+        // Buscar si la ruta contiene "pec" y guardar la parte después de "pec"
+        const pecIndex = path.indexOf('pec');
+        if (pecIndex >= 0) {
+          const shortKey = path.slice(pecIndex).join('.');
+          primitives[shortKey] = obj.$value;
+        }
       }
       // Recursivamente buscar en todas las propiedades
       for (const key in obj) {
         if (key !== '$type' && key !== '$description' && key !== '$path' && key !== '$cssVar' && key !== '$schema' && key !== 'metadata') {
-          extract(obj[key], prefix);
+          extractPrimitives(obj[key], [...path, key]);
         }
       }
     }
   }
   
-  if (figmaData[mode]) {
-    extract(figmaData[mode]);
+  extractPrimitives(figmaData);
+  return primitives;
+}
+
+// Resolver referencias como {pec.blue.44} a valores reales
+function resolveReference(value, primitives) {
+  if (typeof value !== 'string') return value;
+  
+  // Si es una referencia {path.to.value}
+  const refMatch = value.match(/^\{(.+)\}$/);
+  if (refMatch) {
+    const refPath = refMatch[1];
+    return primitives[refPath] || value; // Retornar el valor resuelto o el original si no se encuentra
   }
+  
+  // Si ya es un valor directo (#... o otro)
+  return value;
+}
+
+// Extraer tokens de Figma preservando estructura
+function extractFigmaTokens(figmaData, mode, primitives) {
+  const tokens = {};
+  const unresolvedRefs = {}; // Guardar tokens con referencias sin resolver para resolver después
+  
+  function extract(obj, path = []) {
+    if (typeof obj === 'object' && obj !== null) {
+      // Si tiene $value y $type, es un token
+      if (obj.$value !== undefined && obj.$type) {
+        const resolvedValue = resolveReference(obj.$value, primitives);
+        
+        // Generar nombre de variable CSS desde la ruta
+        const cssVarName = path
+          .filter(p => p && p !== mode) // Filtrar vacíos y el modo
+          .map(p => p.toLowerCase().replace(/\//g, '-').replace(/\s+/g, '-'))
+          .join('-');
+        
+        if (cssVarName) {
+          // Si el valor está resuelto (no es una referencia sin resolver), agregarlo directamente
+          if (resolvedValue && typeof resolvedValue === 'string' && !resolvedValue.match(/^\{[^}]+\}$/)) {
+            tokens[`--${cssVarName}`] = resolvedValue;
+          } else if (resolvedValue && typeof resolvedValue === 'string' && resolvedValue.match(/^\{[^}]+\}$/)) {
+            // Guardar referencia sin resolver para intentar resolver después
+            unresolvedRefs[`--${cssVarName}`] = resolvedValue;
+          }
+        }
+      }
+      
+      // Recursivamente buscar en todas las propiedades
+      for (const key in obj) {
+        if (key !== '$type' && key !== '$description' && key !== '$path' && key !== '$cssVar' && key !== '$schema' && key !== 'metadata') {
+          extract(obj[key], [...path, key]);
+        }
+      }
+    }
+  }
+  
+  // Buscar recursivamente todos los objetos con "light" o "dark"
+  // PERO también extraer tokens que NO tienen light/dark (como chart, brand, scroll-bar, etc.)
+  function findModeNodes(obj, currentPath = []) {
+    if (typeof obj === 'object' && obj !== null) {
+      for (const key in obj) {
+        if (key === mode) {
+          // Encontramos el modo, extraer tokens desde aquí
+          extract(obj[key], [...currentPath, key]);
+        } else if (key === 'light' || key === 'dark') {
+          // Si encontramos light/dark directamente, extraer tokens
+          extract(obj[key], [...currentPath, key]);
+        } else {
+          // Si el objeto tiene $value directamente (sin light/dark), también extraerlo
+          if (obj[key] && typeof obj[key] === 'object' && obj[key].$value !== undefined && obj[key].$type) {
+            extract(obj[key], [...currentPath, key]);
+          }
+          // Continuar buscando recursivamente
+          findModeNodes(obj[key], [...currentPath, key]);
+        }
+      }
+    }
+  }
+  
+  findModeNodes(figmaData);
+  
+  // Resolver referencias cruzadas entre tokens (segundo paso)
+  // Las referencias como {color.light.fg.1.high} necesitan resolverse a otros tokens ya extraídos
+  function resolveCrossReferences(unresolved, resolved) {
+    let changed = true;
+    let iterations = 0;
+    const maxIterations = 10; // Evitar loops infinitos
+    
+    while (changed && iterations < maxIterations) {
+      changed = false;
+      iterations++;
+      
+      for (const [tokenName, refValue] of Object.entries(unresolved)) {
+        const refMatch = refValue.match(/^\{(.+)\}$/);
+        if (refMatch) {
+          const refPath = refMatch[1];
+          // Intentar resolver la referencia
+          // Las referencias pueden ser como: color.light.fg.1.high
+          // Necesitamos convertirlas a nombres de tokens CSS
+          const tokenPath = refPath.split('.').map(p => p.toLowerCase().replace(/\//g, '-').replace(/\s+/g, '-')).join('-');
+          const possibleTokenName = `--modifiers-normal-${tokenPath}`;
+          
+          // Buscar el token en los tokens ya resueltos
+          if (resolved[possibleTokenName]) {
+            resolved[tokenName] = resolved[possibleTokenName];
+            delete unresolved[tokenName];
+            changed = true;
+          }
+        }
+      }
+    }
+    
+    // Si quedan referencias sin resolver, no las agregamos (se filtrarán)
+    return resolved;
+  }
+  
+  // Resolver referencias cruzadas
+  const resolvedTokens = resolveCrossReferences(unresolvedRefs, tokens);
+  // Agregar tokens resueltos al objeto tokens
+  Object.assign(tokens, resolvedTokens);
+  
+  // También extraer tokens que NO tienen light/dark (como chart, brand, scroll-bar, toggle, button, etc.)
+  // Estos están en el mismo nivel que "color" dentro de modifiers/Normal, etc.
+  function extractNonModeTokens(obj, path = []) {
+    if (typeof obj === 'object' && obj !== null) {
+      // Si tiene $value y $type, es un token (sin light/dark)
+      if (obj.$value !== undefined && obj.$type && path.length > 0) {
+        const resolvedValue = resolveReference(obj.$value, primitives);
+        // SOLO agregar si el valor está resuelto (no es una referencia sin resolver)
+        // Las referencias sin resolver empiezan con { pero no son primitivos (pec.*)
+        if (resolvedValue && typeof resolvedValue === 'string' && !resolvedValue.match(/^\{[^}]+\}$/)) {
+          const cssVarName = path
+            .filter(p => p && p !== 'light' && p !== 'dark')
+            .map(p => p.toLowerCase().replace(/\//g, '-').replace(/\s+/g, '-'))
+            .join('-');
+          
+          if (cssVarName) {
+            tokens[`--${cssVarName}`] = resolvedValue;
+          }
+        }
+      }
+      
+      // Recursivamente buscar en todas las propiedades
+      for (const key in obj) {
+        if (key !== '$type' && key !== '$description' && key !== '$path' && key !== '$cssVar' && key !== '$schema' && key !== 'metadata' && key !== 'light' && key !== 'dark') {
+          extractNonModeTokens(obj[key], [...path, key]);
+        }
+      }
+    }
+  }
+  
+  // Extraer tokens sin light/dark de modifiers
+  if (figmaData[''] && figmaData['']['modifiers/Normal']) {
+    const normal = figmaData['']['modifiers/Normal'];
+    // Extraer chart, brand, scroll-bar, toggle, button, etc. (sin light/dark)
+    ['chart', 'brand', 'scroll-bar', 'toggle', 'button', 'ai-button', 'focus', 'elevation'].forEach(prop => {
+      if (normal[prop]) {
+        extractNonModeTokens(normal[prop], ['modifiers', 'normal', prop]);
+      }
+    });
+  }
+  
+  // Hacer lo mismo para otros modificadores
+  ['modifiers/Inverted', 'modifiers/Static', 'modifiers/Static inverted'].forEach(modifierKey => {
+    if (figmaData[''] && figmaData[''][modifierKey]) {
+      const modifier = figmaData[''][modifierKey];
+      const modifierName = modifierKey.toLowerCase().replace(/\//g, '-').replace(/\s+/g, '-');
+      ['chart', 'brand', 'scroll-bar', 'toggle', 'button', 'ai-button', 'focus', 'elevation'].forEach(prop => {
+        if (modifier[prop]) {
+          extractNonModeTokens(modifier[prop], ['modifiers', modifierName, prop]);
+        }
+      });
+    }
+  });
   
   return tokens;
 }
@@ -67,15 +247,24 @@ function main() {
   // Generar tokens de Figma si existen
   if (fs.existsSync(FIGMA_TOKENS_PATH)) {
     const figmaTokens = JSON.parse(fs.readFileSync(FIGMA_TOKENS_PATH, 'utf8'));
-    const lightFigma = extractFigmaTokens(figmaTokens, 'light');
-    const darkFigma = extractFigmaTokens(figmaTokens, 'dark');
+    
+    // Construir mapa de primitivos primero
+    const primitives = buildPrimitiveMap(figmaTokens);
+    console.log(`📦 Primitivos encontrados: ${Object.keys(primitives).length}`);
+    
+    // Extraer tokens para light y dark
+    const lightFigma = extractFigmaTokens(figmaTokens, 'light', primitives);
+    const darkFigma = extractFigmaTokens(figmaTokens, 'dark', primitives);
     
     const figmaContent = `/* Tokens de Figma - Estructura preservada */
 /* Preserva: nombres, semántica, primítivos, nomenclatura, estructura, agrupaciones */
+/* Generado desde figma-tokens.json */
 :root{\n${Object.entries(lightFigma).map(([cssVar, val]) => `  ${cssVar}: ${val};`).join('\n')}\n}\n\n[data-theme="dark"]{\n${Object.entries(darkFigma).map(([cssVar, val]) => `  ${cssVar}: ${val};`).join('\n')}\n}\n`;
     
     fs.writeFileSync(FIGMA_OUT_CSS, figmaContent);
     console.log(`✅ Tokens de Figma generados: ${FIGMA_OUT_CSS}`);
+    console.log(`   Total tokens Light: ${Object.keys(lightFigma).length}`);
+    console.log(`   Total tokens Dark: ${Object.keys(darkFigma).length}`);
     console.log(`   Total tokens Figma: ${Object.keys(lightFigma).length + Object.keys(darkFigma).length}`);
   } else {
     console.log(`⚠️  Archivo ${FIGMA_TOKENS_PATH} no encontrado. Ejecuta scripts/convert-figma-to-css-vars.cjs primero.`);

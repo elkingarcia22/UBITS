@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { renderButton, createButton } from '../../addons/button/src/ButtonProvider';
 import type { ButtonOptions } from '../../addons/button/src/types/ButtonOptions';
+import { renderSpinner } from '../../components/spinner/src/SpinnerProvider';
 import '../../addons/button/src/styles/button.css';
 import '../../addons/tooltip/src/styles/tooltip.css';
 
@@ -419,179 +420,167 @@ export const Default: Story = {
 // Función helper para aplicar estados visuales al botón
 function applyButtonState(button: HTMLButtonElement, state: string): void {
   // Remover estados anteriores
-  button.classList.remove('ubits-button--hover', 'ubits-button--focus', 'ubits-button--pressed');
+  button.removeAttribute('data-state-preview');
   button.disabled = false;
   button.classList.remove('ubits-button--loading');
   button.removeAttribute('data-loading');
+  button.removeAttribute('aria-busy');
+  
+  // Remover spinner si existe (cuando se cambia de loading a otro estado)
+  const existingSpinner = button.querySelector('.ubits-button__spinner');
+  if (existingSpinner && state !== 'loading') {
+    existingSpinner.remove();
+  }
+  
+  // Limpiar todos los estilos inline para dejar que el CSS haga su trabajo
+  button.style.removeProperty('background');
+  button.style.removeProperty('background-color');
+  button.style.removeProperty('border');
+  button.style.removeProperty('border-color');
+  button.style.removeProperty('color');
+  button.style.removeProperty('transform');
+  
+  // Limpiar estilos de elementos hijos
+  const spans = button.querySelectorAll('span');
+  spans.forEach((span) => {
+    (span as HTMLElement).style.removeProperty('color');
+  });
+  const icons = button.querySelectorAll('i');
+  icons.forEach((icon) => {
+    (icon as HTMLElement).style.removeProperty('color');
+  });
   
   // Detectar variante del botón
   const isPrimary = button.classList.contains('ubits-button--primary') || (!button.classList.contains('ubits-button--secondary') && !button.classList.contains('ubits-button--tertiary'));
   const isSecondary = button.classList.contains('ubits-button--secondary');
   const isTertiary = button.classList.contains('ubits-button--tertiary');
-  const isActive = button.classList.contains('ubits-button--active');
   
-  // Si el botón está en estado active, asegurar que el color del texto sea azul
-  if (isActive) {
-    button.style.color = 'var(--ubits-button-active-fg, var(--ubits-accent-brand-static))';
-    
-    const spans = button.querySelectorAll('span');
-    spans.forEach((span) => {
-      span.style.color = 'var(--ubits-accent-brand-static)';
-    });
-    
-    const icons = button.querySelectorAll('i');
-    icons.forEach((icon) => {
-      icon.style.color = 'var(--ubits-accent-brand-static)';
-    });
+  // Agregar reglas CSS dinámicas para simular estados
+  const styleId = 'button-state-preview-styles';
+  let styleEl = document.getElementById(styleId) as HTMLStyleElement;
+  if (!styleEl) {
+    styleEl = document.createElement('style');
+    styleEl.id = styleId;
+    document.head.appendChild(styleEl);
   }
   
   switch (state) {
     case 'hover':
-      button.classList.add('ubits-button--hover');
-      // Simular hover con estilos inline
-      if (isActive) {
-        // Si es active, mantener el estilo active
-        button.style.background = 'var(--ubits-bg-active-button), var(--ubits-bg-1)';
-        button.style.color = 'var(--ubits-button-active-fg, var(--ubits-accent-brand-static))';
-        button.style.border = 'none';
-      } else if (isPrimary) {
-        button.style.background = 'var(--ubits-button-primary-hover)';
-        button.style.borderColor = 'var(--ubits-button-primary-hover)';
-      } else if (isSecondary) {
-        button.style.background = 'var(--ubits-btn-secondary-bg-hover)';
-      } else if (isTertiary) {
-        button.style.background = 'var(--ubits-btn-tertiary-bg-hover)';
-      }
+      button.setAttribute('data-state-preview', 'hover');
+      // Crear reglas CSS que simulen :hover
+      styleEl.textContent = `
+        .ubits-button[data-state-preview="hover"]:not(:disabled):not(.ubits-button--loading) {
+          /* El CSS ya tiene las reglas :hover, estas reglas las fuerzan */
+        }
+      `;
       break;
       
     case 'focus':
-      button.classList.add('ubits-button--focus');
+      button.setAttribute('data-state-preview', 'focus');
       button.focus();
-      // El focus ring se aplica automáticamente con CSS
-      if (isActive) {
-        button.style.color = 'var(--ubits-button-active-fg, var(--ubits-accent-brand-static))';
-      }
+      // El focus ring se aplica automáticamente con CSS :focus-visible
       break;
       
     case 'active':
-      // Estado active: usar estilo del modificador active (fondo azul 0C5BEF al 15% + texto azul)
-      button.classList.add('ubits-button--active');
-      
-      // Obtener valores de tokens
-      const rootEl = document.documentElement;
-      const bgActiveButtonValue = getComputedStyle(rootEl).getPropertyValue('--ubits-bg-active-button').trim() || 'var(--ubits-bg-active-button)';
-      const bg1Value = getComputedStyle(rootEl).getPropertyValue('--ubits-bg-1').trim() || '#ffffff';
-      
-      // El CSS tiene la regla pero puede no aplicarse por especificidad
-      // Aplicar fondo directamente usando el formato de múltiples backgrounds
-      // Formato: background: color1, color2 (donde color1 es semitransparente sobre color2)
-      const backgroundValue = `${bgActiveButtonValue}, ${bg1Value}`;
-      
-      // Limpiar todas las propiedades de background que puedan interferir
-      button.style.removeProperty('background');
-      button.style.removeProperty('background-color');
-      button.style.removeProperty('background-image');
-      
-      // Aplicar el fondo completo usando la propiedad background directamente
-      // Esto debería funcionar mejor que setProperty
-      (button.style as any).background = backgroundValue;
-      
-      // Asegurar color y border
-      button.style.setProperty('color', 'var(--ubits-button-active-fg, var(--ubits-accent-brand-static))', 'important');
-      button.style.setProperty('border', 'none', 'important');
-      button.style.removeProperty('transform');
-      
-      // Inyectar estilo CSS directamente para forzar el fondo (el CSS puede no aplicarse por timing)
-      const styleId = 'button-active-override';
-      let styleEl = document.getElementById(styleId) as HTMLStyleElement;
-      if (!styleEl) {
-        styleEl = document.createElement('style');
-        styleEl.id = styleId;
-        document.head.appendChild(styleEl);
-      }
-      // Usar selector específico para cada variante
-      const variantClass = isPrimary ? 'ubits-button--primary' : isSecondary ? 'ubits-button--secondary' : 'ubits-button--tertiary';
-      
-      // El formato background: color1, color2 NO funciona con colores sólidos
-      // Necesitamos usar background-color para el fondo base y background-image para la capa semitransparente
-      // O mejor aún, usar un pseudo-elemento ::before
-      // Pero la forma más simple es usar background-color y background-image con un gradiente sólido
-      const cssRule = `
-        .${variantClass}.ubits-button--active {
-          position: relative !important;
-          background-color: ${bg1Value} !important;
-          color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static)) !important;
-          border: none !important;
-        }
-        .${variantClass}.ubits-button--active::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: ${bgActiveButtonValue};
-          border-radius: inherit;
-          pointer-events: none;
-          z-index: 0;
-        }
-        .${variantClass}.ubits-button--active span {
-          color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static)) !important;
-          position: relative;
-          z-index: 1;
-        }
-        .${variantClass}.ubits-button--active i {
-          color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static)) !important;
-          position: relative;
-          z-index: 1;
+      // El estado 'active' aquí se refiere al estado pressed (cuando se presiona el botón)
+      button.setAttribute('data-state-preview', 'active');
+      // Crear reglas CSS que simulen :active
+      styleEl.textContent = `
+        .ubits-button[data-state-preview="active"]:not(:disabled):not(.ubits-button--loading) {
+          /* El CSS ya tiene las reglas :active, estas reglas las fuerzan */
         }
       `;
-      styleEl.textContent = cssRule;
-      
-      // Aplicar color a spans e iconos
-      const spansActive = button.querySelectorAll('span');
-      spansActive.forEach((span) => {
-        span.style.color = 'var(--ubits-accent-brand-static)';
-      });
-      const iconsActive = button.querySelectorAll('i');
-      iconsActive.forEach((icon) => {
-        icon.style.color = 'var(--ubits-accent-brand-static)';
-      });
       break;
       
     case 'disabled':
       button.disabled = true;
-      button.style.background = '';
-      button.style.borderColor = '';
-      button.style.transform = '';
-      button.style.color = '';
+      // El CSS manejará el estado disabled automáticamente
+      styleEl.textContent = '';
       break;
       
     case 'loading':
       button.classList.add('ubits-button--loading');
       button.setAttribute('data-loading', 'true');
-      button.style.background = '';
-      button.style.borderColor = '';
-      button.style.transform = '';
-      if (isActive) {
-        button.style.color = 'var(--ubits-button-active-fg, var(--ubits-accent-brand-static))';
+      button.setAttribute('aria-busy', 'true');
+      
+      // Obtener el texto del botón (del span si existe)
+      const textSpan = button.querySelector('span:not(.ubits-button__badge)');
+      const buttonText = textSpan?.textContent?.trim() || '';
+      
+      // Asegurar que el spinner esté presente en el HTML
+      // Si no existe, agregarlo usando renderSpinner
+      let spinner = button.querySelector('.ubits-button__spinner');
+      if (!spinner) {
+        // Detectar tamaño y variante del botón
+        const size = button.classList.contains('ubits-button--xs') ? 'xs' :
+                     button.classList.contains('ubits-button--sm') ? 'sm' :
+                     button.classList.contains('ubits-button--lg') ? 'lg' :
+                     button.classList.contains('ubits-button--xl') ? 'xl' : 'md';
+        
+        const spinnerSizeMap: Record<string, 'xs' | 'sm' | 'md' | 'lg' | 'xl'> = {
+          xs: 'xs',
+          sm: 'sm',
+          md: 'sm',
+          lg: 'md',
+          xl: 'lg'
+        };
+        const spinnerSize = spinnerSizeMap[size] || 'sm';
+        
+        const variant = button.classList.contains('ubits-button--primary') ? 'primary' :
+                        button.classList.contains('ubits-button--secondary') ? 'secondary' :
+                        button.classList.contains('ubits-button--tertiary') ? 'secondary' : 'primary';
+        
+        const spinnerVariantMap: Record<string, 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info'> = {
+          primary: 'primary',
+          secondary: 'secondary',
+          tertiary: 'secondary',
+          active: 'primary'
+        };
+        const spinnerVariant = spinnerVariantMap[variant] || 'primary';
+        
+        // Crear un div temporal para parsear el HTML del spinner
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = renderSpinner({
+          size: spinnerSize,
+          variant: spinnerVariant,
+          animated: true,
+          className: 'ubits-button__spinner'
+        });
+        
+        spinner = tempDiv.firstElementChild as HTMLElement;
+        if (spinner) {
+          // Si hay texto, asegurar que el span tenga la clase 'button-text' para que no se oculte
+          if (textSpan && buttonText) {
+            textSpan.classList.add('button-text');
+            // Insertar el spinner antes del texto (si iconPosition es left) o después (si es right)
+            const iconPosition = button.classList.contains('ubits-button--icon-right') ? 'right' : 'left';
+            if (iconPosition === 'right') {
+              // Spinner después del texto
+              textSpan.parentNode?.insertBefore(spinner, textSpan.nextSibling);
+            } else {
+              // Spinner antes del texto
+              textSpan.parentNode?.insertBefore(spinner, textSpan);
+            }
+          } else {
+            // No hay texto, insertar el spinner al principio
+            button.insertBefore(spinner, button.firstChild);
+          }
+        }
+      } else {
+        // Spinner ya existe, asegurar que el texto tenga la clase 'button-text'
+        if (textSpan && buttonText && !textSpan.classList.contains('button-text')) {
+          textSpan.classList.add('button-text');
+        }
       }
+      
+      // El CSS manejará el estado loading automáticamente
+      styleEl.textContent = '';
       break;
       
     case 'default':
     default:
-      // Resetear estilos pero mantener active si está activo
-      if (!isActive) {
-        button.style.background = '';
-        button.style.borderColor = '';
-        button.style.transform = '';
-        button.style.color = '';
-      } else {
-        // Si es active, mantener el estilo active
-        button.style.background = 'var(--ubits-bg-active-button), var(--ubits-bg-1)';
-        button.style.color = 'var(--ubits-button-active-fg, var(--ubits-accent-brand-static))';
-        button.style.border = 'none';
-      }
+      // Estado por defecto - limpiar estilos dinámicos
+      styleEl.textContent = '';
       break;
   }
 }

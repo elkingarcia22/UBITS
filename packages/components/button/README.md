@@ -80,6 +80,9 @@ document.body.appendChild(button);
 ### CSS (HTML directo)
 
 ```html
+<!-- Tokens nuevos de Figma (requerido para tokens migrados) -->
+<link rel="stylesheet" href="@ubits/tokens/dist/figma-tokens.css">
+<!-- Tokens antiguos (para tokens sin equivalente) -->
 <link rel="stylesheet" href="@ubits/tokens/dist/tokens.css">
 <link rel="stylesheet" href="@ubits/typography/tokens-typography.css">
 <link rel="stylesheet" href="@ubits/typography/fonts.css">

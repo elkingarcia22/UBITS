@@ -11,7 +11,7 @@
 .ubits-accordion {
   display: flex;
   flex-direction: column;
-  gap: var(--ubits-spacing-none, 0);
+  gap: 0;
   width: 100%;
   font-family: var(--font-sans, 'Noto Sans', sans-serif);
 }
@@ -27,7 +27,7 @@
    ======================================== */
 
 .ubits-accordion--list .ubits-accordion-item {
-  border-bottom: 1px solid var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
+  border-bottom: 1px solid var(--ubits-border-1, #d0d2d5);
 }
 
 .ubits-accordion--list .ubits-accordion-item:last-child {
@@ -35,13 +35,13 @@
 }
 
 .ubits-accordion--list .ubits-accordion-header {
-  padding: var(--ubits-spacing-lg, 16px) var(--ubits-spacing-none, 0);
+  padding: 16px 0;
   background: transparent;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: var(--ubits-spacing-md, 12px);
+  gap: 12px;
   transition: all 0.2s ease;
 }
 
@@ -53,7 +53,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: var(--ubits-spacing-xs, 4px);
+  gap: 4px;
 }
 
 .ubits-accordion--list .ubits-accordion-title {
@@ -61,8 +61,8 @@
   font-size: var(--font-body-md-size, 14px);
   font-weight: var(--weight-semibold, 600);
   line-height: var(--font-body-md-line-height, 1.5);
-  color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
-  margin: var(--ubits-spacing-none, 0);
+  color: var(--ubits-fg-1-high, #303a47);
+  margin: 0;
 }
 
 .ubits-accordion--list .ubits-accordion-subheader {
@@ -70,15 +70,15 @@
   font-size: var(--font-body-sm-size, 13px);
   font-weight: var(--weight-regular, 400);
   line-height: var(--font-body-sm-line-height, 1.5);
-  color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
-  margin: var(--ubits-spacing-none, 0);
+  color: var(--ubits-fg-1-medium, #5c646f);
+  margin: 0;
 }
 
 .ubits-accordion--list .ubits-accordion-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
+  color: var(--ubits-fg-1-medium, #5c646f);
   font-size: 16px;
   flex-shrink: 0;
 }
@@ -87,7 +87,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
+  color: var(--ubits-fg-1-medium, #5c646f);
   font-size: 12px;
   transition: transform 0.2s ease;
   flex-shrink: 0;
@@ -95,8 +95,8 @@
 
 .ubits-accordion--list .ubits-accordion-body {
   display: none;
-  padding: var(--ubits-spacing-none, 0) var(--ubits-spacing-none, 0) var(--ubits-spacing-lg, 16px) var(--ubits-spacing-none, 0);
-  padding-left: var(--ubits-spacing-none, 0);
+  padding: 0 0 16px 0;
+  padding-left: 0;
 }
 
 .ubits-accordion--list .ubits-accordion-body-content {
@@ -104,8 +104,8 @@
   font-size: var(--font-body-md-size, 14px);
   font-weight: var(--weight-regular, 400);
   line-height: var(--font-body-md-line-height, 1.5);
-  color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
-  padding-top: var(--ubits-spacing-sm, 8px);
+  color: var(--ubits-fg-1-medium, #5c646f);
+  padding-top: 8px;
 }
 
 /* Chevron position adjustments for list */
@@ -122,10 +122,10 @@
    ======================================== */
 
 .ubits-accordion--boxed .ubits-accordion-item {
-  background: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
-  border: 1px solid var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
+  background: var(--ubits-bg-1, #ffffff);
+  border: 1px solid var(--ubits-border-1, #d0d2d5);
   border-radius: var(--ubits-border-radius-md, 12px);
-  margin-bottom: var(--ubits-spacing-md, 12px);
+  margin-bottom: 12px;
   overflow: hidden;
   transition: all 0.2s ease;
 }
@@ -135,34 +135,34 @@
 }
 
 .ubits-accordion--boxed .ubits-accordion-item:hover {
-  border-color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
-  background: var(--modifiers-normal-color-light-bg-2, var(--ubits-bg-2, #F3F3F4)) !important;
+  border-color: var(--ubits-fg-1-medium, #5c646f);
+  background: var(--ubits-bg-2, #F3F3F4);
 }
 
 .ubits-accordion--boxed .ubits-accordion-item:hover .ubits-accordion-header {
-  background: var(--modifiers-normal-color-light-bg-2, var(--ubits-bg-2, #F3F3F4)) !important;
+  background: var(--ubits-bg-2, #F3F3F4);
 }
 
 .ubits-accordion--boxed .ubits-accordion-header {
-  padding: var(--ubits-spacing-lg, 16px) var(--ubits-spacing-xl, 20px);
-  background: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
+  padding: 16px 20px;
+  background: var(--ubits-bg-1, #ffffff);
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: var(--ubits-spacing-md, 12px);
+  gap: 12px;
   transition: all 0.2s ease;
 }
 
 .ubits-accordion--boxed .ubits-accordion-header--open {
-  background: var(--modifiers-normal-color-light-bg-2, var(--ubits-bg-2, #F3F3F4)) !important;
+  background: var(--ubits-bg-2, #F3F3F4);
 }
 
 .ubits-accordion--boxed .ubits-accordion-header-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: var(--ubits-spacing-xs, 4px);
+  gap: 4px;
 }
 
 .ubits-accordion--boxed .ubits-accordion-title {
@@ -170,8 +170,8 @@
   font-size: var(--font-body-md-size, 14px);
   font-weight: var(--weight-semibold, 600);
   line-height: var(--font-body-md-line-height, 1.5);
-  color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
-  margin: var(--ubits-spacing-none, 0);
+  color: var(--ubits-fg-1-high, #303a47);
+  margin: 0;
 }
 
 .ubits-accordion--boxed .ubits-accordion-subheader {
@@ -179,15 +179,15 @@
   font-size: var(--font-body-sm-size, 13px);
   font-weight: var(--weight-regular, 400);
   line-height: var(--font-body-sm-line-height, 1.5);
-  color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
-  margin: var(--ubits-spacing-none, 0);
+  color: var(--ubits-fg-1-medium, #5c646f);
+  margin: 0;
 }
 
 .ubits-accordion--boxed .ubits-accordion-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
+  color: var(--ubits-fg-1-medium, #5c646f);
   font-size: 16px;
   flex-shrink: 0;
 }
@@ -196,7 +196,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
+  color: var(--ubits-fg-1-medium, #5c646f);
   font-size: 12px;
   transition: transform 0.2s ease;
   flex-shrink: 0;
@@ -204,8 +204,8 @@
 
 .ubits-accordion--boxed .ubits-accordion-body {
   display: none;
-  padding: var(--ubits-spacing-none, 0) var(--ubits-spacing-xl, 20px) var(--ubits-spacing-xl, 20px) var(--ubits-spacing-xl, 20px);
-  background: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
+  padding: 0 20px 20px 20px;
+  background: var(--ubits-bg-1, #ffffff);
 }
 
 .ubits-accordion--boxed .ubits-accordion-body-content {
@@ -213,8 +213,8 @@
   font-size: var(--font-body-md-size, 14px);
   font-weight: var(--weight-regular, 400);
   line-height: var(--font-body-md-line-height, 1.5);
-  color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
-  padding-top: var(--ubits-spacing-sm, 8px);
+  color: var(--ubits-fg-1-medium, #5c646f);
+  padding-top: 8px;
 }
 
 /* Chevron position adjustments for boxed */
@@ -233,15 +233,15 @@
 
 @media (max-width: 768px) {
   .ubits-accordion--boxed .ubits-accordion-header {
-    padding: var(--ubits-spacing-md, 12px) var(--ubits-spacing-lg, 16px);
+    padding: 14px 16px;
   }
 
   .ubits-accordion--boxed .ubits-accordion-body {
-    padding: var(--ubits-spacing-none, 0) var(--ubits-spacing-lg, 16px) var(--ubits-spacing-lg, 16px) var(--ubits-spacing-lg, 16px);
+    padding: 0 16px 16px 16px;
   }
 
   .ubits-accordion-item--nested {
-    margin-left: var(--ubits-spacing-lg, 16px);
+    margin-left: 16px;
   }
 }
 

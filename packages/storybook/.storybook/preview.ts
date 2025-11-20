@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/html-vite'
 import '../../tokens/dist/tokens.css'
+import '../../tokens/dist/figma-tokens.css'
 import '../../typography/fonts.css'
 import '../../typography/tokens-typography.css'
 import '../../addons/status-tag/src/styles/status-tag.css'
