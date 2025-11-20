@@ -186,6 +186,71 @@ class ContentManager {
   }
 
   /**
+   * Obtiene el título de una sección basándose en el contenido o configuración
+   */
+  getSectionTitle(section, subSection = null) {
+    // Mapeo de títulos para cada sección y subsección
+    const titleMap = {
+      'admin': 'Panel de Administración',
+      'aprendizaje': {
+        default: this.isAdminMode ? 'LMS' : 'Aprendizaje',
+        'lms-cursos': 'LMS - Cursos propios',
+        'plan-formacion': 'Plan de formación',
+        'certificados': 'Certificados',
+        'metricas-empresa': 'Métricas de empresa',
+        'home': 'Inicio - Aprendizaje',
+        'catalog': 'Catálogo',
+        'corporate': 'Universidad Corporativa',
+        'study-zone': 'Zona de Estudio'
+      },
+      'empresa': {
+        default: this.isAdminMode ? 'Gestión de usuarios' : 'Empresa',
+        'gestion-usuarios': 'Gestión de usuarios',
+        'organigrama': 'Organigrama',
+        'datos-empresa': 'Datos de empresa',
+        'personalizacion': 'Personalización',
+        'roles-permisos': 'Roles y permisos',
+        'comunicaciones': 'Comunicaciones'
+      },
+      'diagnóstico': 'Diagnóstico',
+      'desempeño': {
+        default: this.isAdminMode ? 'Evaluaciones 360' : 'Desempeño',
+        'evaluations': 'Evaluaciones 360',
+        'matriz-talento': 'Matriz de Talento',
+        'objectives': 'Objetivos',
+        'metrics': 'Métricas',
+        'reports': 'Reportes'
+      },
+      'encuestas': 'Encuestas',
+      'reclutamiento': 'Reclutamiento',
+      'tareas': {
+        default: 'Tareas',
+        'planes': 'Planes',
+        'tasks': 'Tareas'
+      },
+      'ubits-ai': 'UBITS AI',
+      'perfil': 'Mi Perfil',
+      'api': 'API',
+      'centro-ayuda': 'Centro de Ayuda',
+      'centro-de-ayuda': 'Centro de Ayuda'
+    };
+
+    const sectionTitle = titleMap[section];
+    if (!sectionTitle) {
+      // Fallback: usar el nombre de la sección capitalizado
+      return section.charAt(0).toUpperCase() + section.slice(1).replace(/-/g, ' ');
+    }
+
+    // Si es un objeto (tiene subsecciones), obtener el título de la subsección o default
+    if (typeof sectionTitle === 'object') {
+      return sectionTitle[subSection] || sectionTitle.default || section.charAt(0).toUpperCase() + section.slice(1).replace(/-/g, ' ');
+    }
+
+    // Si es un string directo, retornarlo
+    return sectionTitle;
+  }
+
+  /**
    * Obtiene el contenido HTML para una sección
    * Retorna solo el HTML interno de .content-sections (sin el wrapper)
    */
@@ -195,7 +260,6 @@ class ContentManager {
         default: `
           <div class="section-single">
             <div class="widget-admin-dashboard">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Panel de Administración</h2>
               <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Contenido de administración</p>
             </div>
           </div>
@@ -205,8 +269,6 @@ class ContentManager {
         default: `
           <div class="section-single">
             <div class="widget-aprendizaje-main">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">${this.isAdminMode ? 'LMS' : 'Aprendizaje'}</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">${this.isAdminMode ? 'LMS' : 'Bienvenido al módulo de Aprendizaje'}</p>
             </div>
           </div>
         `,
@@ -214,67 +276,48 @@ class ContentManager {
         'lms-cursos': `
           <div class="section-single">
             <div class="widget-lms-cursos">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">LMS - Cursos propios</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Gestión de cursos propios del sistema de aprendizaje</p>
             </div>
           </div>
         `,
         'plan-formacion': `
           <div class="section-single">
             <div class="widget-plan-formacion">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Plan de formación</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Configuración y gestión de planes de formación corporativa</p>
             </div>
           </div>
         `,
         'certificados': `
           <div class="section-single">
             <div class="widget-certificados">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Certificados</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Gestión y emisión de certificados de capacitación</p>
             </div>
           </div>
         `,
         'metricas-empresa': `
           <div class="section-single">
             <div class="widget-metricas-empresa">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Métricas de empresa</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Análisis y métricas de aprendizaje a nivel organizacional</p>
             </div>
           </div>
         `,
         'home': `
           <div class="section-single">
             <div class="widget-aprendizaje-inicio">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Inicio - Aprendizaje</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Tu contenido de aprendizaje aquí</p>
             </div>
           </div>
         `,
         'catalog': `
           <div class="section-single">
             <div class="widget-aprendizaje-catalogo">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Catálogo</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Explora nuestro catálogo de cursos</p>
             </div>
           </div>
         `,
         'corporate': `
           <div class="section-single">
             <div class="widget-aprendizaje-corporativa">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Universidad Corporativa</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Contenido de la universidad corporativa</p>
             </div>
           </div>
         `,
         'study-zone': `
           <div class="section-single">
             <div class="widget-aprendizaje-zona-estudio">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Zona de Estudio</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Tu zona personal de estudio</p>
-              <p class="ubits-body-md-regular" style="margin-top: 16px; color: var(--ubits-fg-1-medium);">
-                Aquí puedes gestionar tus cursos, tareas y progreso de aprendizaje.
-              </p>
             </div>
           </div>
         `
@@ -283,8 +326,6 @@ class ContentManager {
         default: `
           <div class="section-single">
             <div class="widget-empresa-main">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">${this.isAdminMode ? 'Gestión de usuarios' : 'Empresa'}</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">${this.isAdminMode ? 'Gestión de usuarios' : 'Información y configuración de la empresa'}</p>
             </div>
           </div>
         `,
@@ -292,48 +333,36 @@ class ContentManager {
         'gestion-usuarios': `
           <div class="section-single">
             <div class="widget-gestion-usuarios">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Gestión de usuarios</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Administración y gestión de usuarios del sistema</p>
             </div>
           </div>
         `,
         'organigrama': `
           <div class="section-single">
             <div class="widget-organigrama">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Organigrama</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Estructura organizacional de la empresa</p>
             </div>
           </div>
         `,
         'datos-empresa': `
           <div class="section-single">
             <div class="widget-datos-empresa">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Datos de empresa</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Información general y datos corporativos</p>
             </div>
           </div>
         `,
         'personalizacion': `
           <div class="section-single">
             <div class="widget-personalizacion">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Personalización</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Configuración de personalización y branding</p>
             </div>
           </div>
         `,
         'roles-permisos': `
           <div class="section-single">
             <div class="widget-roles-permisos">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Roles y permisos</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Gestión de roles y permisos del sistema</p>
             </div>
           </div>
         `,
         'comunicaciones': `
           <div class="section-single">
             <div class="widget-comunicaciones">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Comunicaciones</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Configuración de comunicaciones y notificaciones</p>
             </div>
           </div>
         `
@@ -342,8 +371,6 @@ class ContentManager {
         default: `
           <div class="section-single">
             <div class="widget-diagnostico-main">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Diagnóstico</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Herramientas y análisis de diagnóstico organizacional</p>
             </div>
           </div>
         `
@@ -352,48 +379,36 @@ class ContentManager {
         default: `
           <div class="section-single">
             <div class="widget-desempeno-main">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">${this.isAdminMode ? 'Evaluaciones 360' : 'Desempeño'}</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">${this.isAdminMode ? 'Gestión de evaluaciones 360°' : 'Módulo de evaluación de desempeño'}</p>
             </div>
           </div>
         `,
         'evaluations': `
           <div class="section-single">
             <div class="widget-desempeno-evaluaciones">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Evaluaciones 360</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Gestión de evaluaciones 360°</p>
             </div>
           </div>
         `,
         'matriz-talento': `
           <div class="section-single">
             <div class="widget-matriz-talento">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Matriz de Talento</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Visualización y gestión de la matriz de talento organizacional</p>
             </div>
           </div>
         `,
         'objectives': `
           <div class="section-single">
             <div class="widget-desempeno-objetivos">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Objetivos</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Gestión de objetivos</p>
             </div>
           </div>
         `,
         'metrics': `
           <div class="section-single">
             <div class="widget-desempeno-metricas">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Métricas</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Métricas de desempeño</p>
             </div>
           </div>
         `,
         'reports': `
           <div class="section-single">
             <div class="widget-desempeno-reportes">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Reportes</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Reportes de desempeño</p>
             </div>
           </div>
         `
@@ -402,8 +417,6 @@ class ContentManager {
         default: `
           <div class="section-single">
             <div class="widget-encuestas-main">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Encuestas</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Gestión de encuestas</p>
             </div>
           </div>
         `
@@ -412,8 +425,6 @@ class ContentManager {
         default: `
           <div class="section-single">
             <div class="widget-reclutamiento-main">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Reclutamiento</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Módulo de reclutamiento</p>
             </div>
           </div>
         `
@@ -422,24 +433,18 @@ class ContentManager {
         default: `
           <div class="section-single">
             <div class="widget-tareas-main">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Tareas</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Gestión de tareas y planes</p>
             </div>
           </div>
         `,
         'planes': `
           <div class="section-single">
             <div class="widget-tareas-planes">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Planes</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Gestión de planes</p>
             </div>
           </div>
         `,
         'tasks': `
           <div class="section-single">
             <div class="widget-tareas-tasks">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Tareas</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Lista de tareas</p>
             </div>
           </div>
         `
@@ -448,8 +453,6 @@ class ContentManager {
         default: `
           <div class="section-single">
             <div class="widget-ubits-ai-main">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">UBITS AI</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Asistente de inteligencia artificial</p>
             </div>
           </div>
         `
@@ -458,8 +461,6 @@ class ContentManager {
         default: `
           <div class="section-single">
             <div class="widget-perfil-main">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Mi Perfil</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Gestiona tu información personal y preferencias</p>
             </div>
           </div>
         `
@@ -468,8 +469,6 @@ class ContentManager {
         default: `
           <div class="section-single">
             <div class="widget-api-main">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">API</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Documentación y acceso a la API de UBITS</p>
             </div>
           </div>
         `
@@ -478,8 +477,6 @@ class ContentManager {
         default: `
           <div class="section-single">
             <div class="widget-centro-ayuda-main">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Centro de Ayuda</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Encuentra ayuda, documentación y soporte para usar UBITS</p>
             </div>
           </div>
         `
@@ -488,8 +485,6 @@ class ContentManager {
         default: `
           <div class="section-single">
             <div class="widget-centro-ayuda-main">
-              <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Centro de Ayuda</h2>
-              <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Encuentra ayuda, documentación y soporte para usar UBITS</p>
             </div>
           </div>
         `
@@ -501,8 +496,6 @@ class ContentManager {
       return `
         <div class="section-single">
           <div class="widget-default">
-            <h2 class="ubits-heading-h1" style="margin-bottom: 16px; color: var(--ubits-fg-1-high);">Sección: ${section}</h2>
-            <p class="ubits-body-md-regular" style="color: var(--ubits-fg-1-medium);">Contenido de la sección ${section}</p>
           </div>
         </div>
       `;
@@ -575,23 +568,45 @@ class ContentManager {
       return;
     }
 
+    // Limpiar contentArea
+    contentArea.innerHTML = '';
     
-    const content = this.getContentForSection(section, subSection);
+    // Obtener título de la sección
+    const sectionTitle = this.getSectionTitle(section, subSection);
     
-    // Buscar .content-sections dentro de contentArea
-    let contentSections = contentArea.querySelector('.content-sections');
-    
-    if (contentSections) {
-      // Si existe .content-sections, reemplazar su contenido interno
-      contentSections.innerHTML = content;
-    } else {
-      // Si no existe, crear .content-sections y agregar el contenido
-      contentSections = document.createElement('div');
-      contentSections.className = 'content-sections';
-      contentSections.innerHTML = content;
-      contentArea.innerHTML = '';
-      contentArea.appendChild(contentSections);
+    // NO mostrar header-section en el home del administrador (sección 'admin')
+    if (section !== 'admin') {
+      // Crear contenedor para header-section (al inicio del content-area, sin espacio superior)
+      const headerContainer = document.createElement('div');
+      headerContainer.id = 'header-section-container';
+      headerContainer.style.cssText = 'margin-top: 0; margin-bottom: 0; width: 100%;';
+      
+      // Crear header-section con solo título y botón primario
+      // HTML directo sin dependencias de TypeScript
+      const headerHTML = `
+        <div class="ubits-header-section">
+          <div class="ubits-header-section__content">
+            <h2 class="ubits-heading-h2" style="color: var(--ubits-fg-1-high); margin: 0;">${sectionTitle}</h2>
+            <div class="ubits-header-section__actions">
+              <button class="ubits-button ubits-button--primary ubits-button--md">
+                <i class="far fa-plus"></i>
+                <span>Acción</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      headerContainer.innerHTML = headerHTML;
+      contentArea.appendChild(headerContainer);
     }
+    
+    // Crear .content-sections y agregar el contenido
+    const content = this.getContentForSection(section, subSection);
+    const contentSections = document.createElement('div');
+    contentSections.className = 'content-sections';
+    contentSections.innerHTML = content;
+    contentArea.appendChild(contentSections);
     
     this.currentSection = section;
   }

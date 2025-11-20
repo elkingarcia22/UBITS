@@ -49,6 +49,7 @@
     <link rel="stylesheet" href="../components/participants-menu/src/styles/participants-menu.css" />
     <link rel="stylesheet" href="../components/metric-card/src/styles/metric-card.css" />
     <link rel="stylesheet" href="../components/menubar/src/styles/menubar.css" />
+    <link rel="stylesheet" href="../components/header-section/src/styles/header-section.css" />
     
     <style>
         /* ========================================
@@ -232,14 +233,43 @@
             flex: 1;
             min-height: 0;
             display: flex;
+            flex-direction: column;
             align-items: flex-start;
-            justify-content: center; /* Centrar el content-sections, igual que el proyecto UBITS original */
+            justify-content: flex-start;
             overflow: visible;
             box-sizing: border-box;
             max-height: none;
             box-shadow: none !important;
             width: 100%;
             max-width: 100%;
+            gap: 0;
+        }
+
+        /* ========================================
+           HEADER SECTION CONTAINER
+           ======================================== */
+        
+        #header-section-container {
+            width: 100%;
+            background: transparent;
+            padding: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            box-sizing: border-box;
+        }
+
+        /* Ajustes responsive para header-section-container */
+        @media (max-width: 1023px) {
+            #header-section-container {
+                padding: 0;
+                margin-top: 0;
+            }
+        }
+
+        @media (max-width: 479px) {
+            #header-section-container {
+                margin-top: 0;
+            }
         }
 
         .content-area.no-background {
