@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { renderButton, createButton } from '../../addons/button/src/ButtonProvider';
 import type { ButtonOptions } from '../../addons/button/src/types/ButtonOptions';
+import '../../addons/button/src/styles/button.css';
 import '../../addons/tooltip/src/styles/tooltip.css';
 
 const meta: Meta<ButtonOptions> = {
@@ -97,6 +98,13 @@ const meta: Meta<ButtonOptions> = {
         defaultValue: { summary: 'false' },
       },
     },
+    floating: {
+      control: { type: 'boolean' },
+      description: 'Modificador floating (botón flotante con sombra del sistema de diseño)',
+      table: {
+        defaultValue: { summary: 'false' },
+      },
+    },
     state: {
       control: { type: 'select' },
       options: ['default', 'hover', 'active', 'focus', 'disabled', 'loading'],
@@ -164,6 +172,7 @@ export const Default: Story = {
     loading: false,
     badge: false,
     active: false,
+    floating: true,
     state: 'default',
     fullWidth: false,
     block: false,
@@ -199,6 +208,17 @@ export const Default: Story = {
       iconOnly: args.iconPosition === 'only' || args.iconOnly,
       iconPosition: args.iconPosition === 'only' ? 'left' : args.iconPosition
     };
+
+    // Logs para debugging del botón flotante
+    if (buttonArgs.floating) {
+      console.log('🔍 [Button Story] Floating activado en args:', {
+        floating: buttonArgs.floating,
+        variant: buttonArgs.variant,
+        size: buttonArgs.size,
+        active: buttonArgs.active,
+        allArgs: buttonArgs
+      });
+    }
     
     // Si dropdown está activo, usar createButton para inicializar la funcionalidad
     if (buttonArgs.dropdown && buttonArgs.dropdownOptions && buttonArgs.dropdownOptions.length > 0) {
@@ -304,7 +324,14 @@ export const Default: Story = {
       preview.appendChild(buttonWrapper);
     } else {
       // Sin dropdown, usar renderButton normalmente
+      console.log('🔍 [Button Story] Llamando renderButton con buttonArgs:', {
+        floating: buttonArgs.floating,
+        floatingType: typeof buttonArgs.floating,
+        allButtonArgs: buttonArgs
+      });
+      
       const buttonHTML = renderButton(buttonArgs);
+      console.log('🔍 [Button Story] HTML generado:', buttonHTML);
       
       const buttonContainer = document.createElement('div');
       buttonContainer.innerHTML = buttonHTML;
@@ -314,6 +341,28 @@ export const Default: Story = {
       requestAnimationFrame(() => {
         const button = buttonContainer.querySelector('button') as HTMLButtonElement;
         if (button) {
+          // Logs para debugging del botón flotante
+          if (buttonArgs.floating) {
+            console.log('🔍 [Button Story] Botón renderizado:', {
+              hasFloatingClass: button.classList.contains('ubits-button--floating'),
+              allClasses: button.className,
+              computedBoxShadow: window.getComputedStyle(button).boxShadow,
+              elevationFloating: getComputedStyle(document.documentElement).getPropertyValue('--ubits-elevation-floating'),
+              buttonElement: button,
+              rawHTML: button.outerHTML
+            });
+            
+            // Intentar agregar la clase manualmente si no está
+            if (!button.classList.contains('ubits-button--floating')) {
+              console.warn('⚠️ [Button Story] La clase floating no se agregó, agregándola manualmente');
+              button.classList.add('ubits-button--floating');
+              console.log('🔍 [Button Story] Después de agregar manualmente:', {
+                hasFloatingClass: button.classList.contains('ubits-button--floating'),
+                computedBoxShadow: window.getComputedStyle(button).boxShadow
+              });
+            }
+          }
+
           // IMPORTANTE: Si active es true, agregar la clase ubits-button--active
           if (buttonArgs.active || args.active) {
             button.classList.add('ubits-button--active');

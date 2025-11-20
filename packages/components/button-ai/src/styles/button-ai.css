@@ -88,6 +88,7 @@
     background: radial-gradient(circle at 50% 180%, #b0affc 0%, var(--ubits-button-primary-bg-default) 100%);
     color: var(--ubits-btn-primary-fg);
     border: 1px solid transparent;
+    position: relative;
 }
 
 /* Remover gradiente cuando está en estado active */
@@ -96,8 +97,29 @@
 }
 
 .ubits-button-ai--primary:hover:not(:disabled) {
-    background: radial-gradient(circle at 50% 180%, #b0affc 0%, var(--ubits-button-primary-hover) 100%);
-    box-shadow: 0 4px 12px rgba(12, 91, 239, 0.25);
+    /* Hover más sutil: mantener el mismo gradiente pero con un overlay muy sutil */
+    background: radial-gradient(circle at 50% 180%, #b0affc 0%, var(--ubits-button-primary-bg-default) 100%);
+    box-shadow: 0 2px 8px rgba(12, 91, 239, 0.15); /* Sombra más sutil */
+}
+
+.ubits-button-ai--primary:hover:not(:disabled)::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(12, 91, 239, 0.06); /* Overlay muy sutil para efecto hover */
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Asegurar que el contenido (texto e iconos) esté por encima del overlay */
+.ubits-button-ai--primary span,
+.ubits-button-ai--primary i {
+    position: relative;
+    z-index: 1;
 }
 
 .ubits-button-ai--primary:active:not(:disabled) {

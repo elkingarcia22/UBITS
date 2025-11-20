@@ -6,11 +6,18 @@
 
 .ubits-header-section {
     display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0;
+    padding: var(--ubits-spacing-md, 16px) 0;
+}
+
+.ubits-header-section__content {
+    display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     gap: var(--ubits-spacing-md, 16px);
-    padding: var(--ubits-spacing-md, 16px) 0;
 }
 
 /* ========================================
@@ -85,6 +92,44 @@
     align-items: center;
     gap: var(--ubits-spacing-sm, 12px);
     flex-shrink: 0;
+    position: relative;
+}
+
+/* ========================================
+   OPTIONS DROPDOWN MENU
+   ======================================== */
+
+.ubits-header-section-options-dropdown {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    z-index: 1000;
+    min-width: 200px;
+    background: var(--ubits-bg-1, #ffffff);
+    border: 1px solid var(--ubits-border-1, #e5e7eb);
+    border-radius: var(--ubits-radius-md, 8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+.ubits-header-section-options-dropdown .ubits-list {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* ========================================
+   BREADCRUMB WRAPPER
+   ======================================== */
+
+.ubits-header-section__breadcrumb-wrapper {
+    margin-top: var(--ubits-spacing-md, 16px);
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 /* ========================================

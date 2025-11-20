@@ -43,6 +43,7 @@ export function renderButton(options: ButtonOptions): string {
     loadingText,
     badge = false,
     active = false,
+    floating = false,
     fullWidth = false,
     block = false,
     iconPosition = 'left',
@@ -59,6 +60,7 @@ export function renderButton(options: ButtonOptions): string {
     `ubits-button--${variant}`,
     `ubits-button--${size}`,
     active && 'ubits-button--active',
+    floating && 'ubits-button--floating',
     iconOnly && 'ubits-button--icon-only',
     loading && 'ubits-button--loading',
     fullWidth && 'ubits-button--full-width',
@@ -67,6 +69,19 @@ export function renderButton(options: ButtonOptions): string {
     dropdown && 'ubits-button--dropdown',
     className
   ].filter(Boolean).join(' ');
+
+  // Logs para debugging del botón flotante
+  console.log('🔍 [Button] renderButton llamado con:', {
+    floating,
+    floatingType: typeof floating,
+    floatingValue: floating,
+    willAddClass: floating && 'ubits-button--floating',
+    classes,
+    variant,
+    size,
+    active,
+    allOptions: options
+  });
 
   // Construir atributos HTML
   const attrs = [

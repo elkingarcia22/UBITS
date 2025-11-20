@@ -347,6 +347,116 @@
 }
 
 /* ========================================
+   FLOATING BUTTON MODIFIER
+   ======================================== */
+
+/* Token de elevación floating del sistema de diseño UBITS:
+   x: 0, y: 14, blur: 28.8, spread: 0, opacity: 24% */
+:root {
+    --ubits-elevation-floating: 0 14px 28.8px 0 rgba(0, 0, 0, 0.24);
+    --ubits-elevation-floating-hover: 0 16px 32px 0 rgba(0, 0, 0, 0.28);
+    --ubits-elevation-floating-active: 0 8px 16px 0 rgba(0, 0, 0, 0.20);
+}
+
+[data-theme="dark"] {
+    --ubits-elevation-floating: 0 14px 28.8px 0 rgba(0, 0, 0, 0.40);
+    --ubits-elevation-floating-hover: 0 16px 32px 0 rgba(0, 0, 0, 0.45);
+    --ubits-elevation-floating-active: 0 8px 16px 0 rgba(0, 0, 0, 0.30);
+}
+
+/* Botón flotante con sombra del token de elevación floating */
+.ubits-button--floating {
+    box-shadow: var(--ubits-elevation-floating) !important;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+/* Log visual para debugging - remover en producción */
+.ubits-button--floating::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    background: red;
+    border-radius: 50%;
+    z-index: 9999;
+    display: none; /* Cambiar a block para ver el indicador visual */
+}
+
+/* Hover del botón flotante - sombra más pronunciada */
+.ubits-button--floating:hover:not(:disabled):not(.ubits-button--loading) {
+    box-shadow: var(--ubits-elevation-floating-hover) !important;
+    transform: translateY(-2px);
+}
+
+/* Active del botón flotante - sombra reducida */
+.ubits-button--floating:active:not(:disabled):not(.ubits-button--loading) {
+    box-shadow: var(--ubits-elevation-floating-active) !important;
+    transform: translateY(0px);
+}
+
+/* Floating + Primary variant */
+.ubits-button--floating.ubits-button--primary {
+    box-shadow: var(--ubits-elevation-floating) !important;
+}
+
+.ubits-button--floating.ubits-button--primary:hover:not(:disabled):not(.ubits-button--loading) {
+    box-shadow: var(--ubits-elevation-floating-hover) !important;
+    transform: translateY(-2px);
+}
+
+.ubits-button--floating.ubits-button--primary:active:not(:disabled):not(.ubits-button--loading) {
+    box-shadow: var(--ubits-elevation-floating-active) !important;
+    transform: translateY(0px);
+}
+
+/* Floating + Secondary variant */
+.ubits-button--floating.ubits-button--secondary {
+    box-shadow: var(--ubits-elevation-floating) !important;
+}
+
+.ubits-button--floating.ubits-button--secondary:hover:not(:disabled):not(.ubits-button--loading) {
+    box-shadow: var(--ubits-elevation-floating-hover) !important;
+    transform: translateY(-2px);
+}
+
+.ubits-button--floating.ubits-button--secondary:active:not(:disabled):not(.ubits-button--loading) {
+    box-shadow: var(--ubits-elevation-floating-active) !important;
+    transform: translateY(0px);
+}
+
+/* Floating + Tertiary variant */
+.ubits-button--floating.ubits-button--tertiary {
+    box-shadow: var(--ubits-elevation-floating) !important;
+}
+
+.ubits-button--floating.ubits-button--tertiary:hover:not(:disabled):not(.ubits-button--loading) {
+    box-shadow: var(--ubits-elevation-floating-hover) !important;
+    transform: translateY(-2px);
+}
+
+.ubits-button--floating.ubits-button--tertiary:active:not(:disabled):not(.ubits-button--loading) {
+    box-shadow: var(--ubits-elevation-floating-active) !important;
+    transform: translateY(0px);
+}
+
+/* Floating + Active state - mantener sombra pero con overlay */
+.ubits-button--floating.ubits-button--active {
+    box-shadow: var(--ubits-elevation-floating) !important;
+}
+
+.ubits-button--floating.ubits-button--active:hover:not(:disabled):not(.ubits-button--loading) {
+    box-shadow: var(--ubits-elevation-floating-hover) !important;
+    transform: translateY(-2px);
+}
+
+.ubits-button--floating.ubits-button--active:active:not(:disabled):not(.ubits-button--loading) {
+    box-shadow: var(--ubits-elevation-floating-active) !important;
+    transform: translateY(0px);
+}
+
+/* ========================================
    TERTIARY BUTTON VARIANT
    ======================================== */
 

@@ -74,6 +74,12 @@ export interface ButtonOptions {
   active?: boolean;
 
   /**
+   * Modificador floating (botón flotante con sombra)
+   * @default false
+   */
+  floating?: boolean;
+
+  /**
    * Ancho completo
    * @default false
    */

@@ -4,6 +4,7 @@
 
 import type { ButtonOptions } from '../../../button/src/types/ButtonOptions';
 import type { StatusTagOptions } from '../../../status-tag/src/types/StatusTagOptions';
+import type { BreadcrumbOptions } from '../../../breadcrumb/src/types/BreadcrumbOptions';
 
 export interface HeaderSectionAction extends Omit<ButtonOptions, 'size'> {
   /**
@@ -25,6 +26,28 @@ export interface HeaderSectionAction extends Omit<ButtonOptions, 'size'> {
    * Handler de click
    */
   onClick?: (event: MouseEvent) => void;
+}
+
+export interface HeaderSectionOptionsMenuItem {
+  /**
+   * Label de la opción del menú
+   */
+  label: string;
+  
+  /**
+   * Valor de la opción
+   */
+  value?: string;
+  
+  /**
+   * Handler cuando se hace click en la opción
+   */
+  onClick?: (event: MouseEvent, data: { label: string; value: string }) => void;
+  
+  /**
+   * Estado de la opción (disabled, etc.)
+   */
+  state?: 'default' | 'active' | 'disabled';
 }
 
 export interface HeaderSectionOptions {
@@ -110,7 +133,12 @@ export interface HeaderSectionOptions {
   showOptionsButton?: boolean;
   
   /**
-   * Handler cuando se hace click en el botón de opciones
+   * Opciones del menú dropdown del botón de opciones
+   */
+  optionsMenuItems?: HeaderSectionOptionsMenuItem[];
+  
+  /**
+   * Handler cuando se hace click en el botón de opciones (antes de abrir el menú)
    */
   onOptionsClick?: (event: MouseEvent) => void;
   
@@ -134,5 +162,16 @@ export interface HeaderSectionOptions {
    * Handler cuando se hace click en el botón secundario adicional
    */
   onSecondaryButtonClick?: (event: MouseEvent) => void;
+  
+  /**
+   * Mostrar el breadcrumb (debajo del header, 16px de distancia)
+   * @default false
+   */
+  showBreadcrumb?: boolean;
+  
+  /**
+   * Opciones del breadcrumb
+   */
+  breadcrumb?: BreadcrumbOptions;
 }
 

@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { createHeaderSection } from '../../addons/header-section/src/HeaderSectionProvider';
 import type { HeaderSectionOptions, HeaderSectionAction } from '../../addons/header-section/src/types/HeaderSectionOptions';
+import '../../components/button-ai/src/styles/button-ai.css';
+import '../../components/list/src/styles/list.css';
+import '../../components/breadcrumb/src/styles/breadcrumb.css';
 
 /**
  * HeaderSection Component Stories
@@ -31,15 +34,7 @@ const meta = {
     },
     showTitle: {
       control: { type: 'boolean' },
-      description: 'Mostrar el título',
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' }
-      }
-    },
-    showActions: {
-      control: { type: 'boolean' },
-      description: 'Mostrar las acciones (botones md)',
+      description: 'Mostrar el título (NO afecta al status tag)',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' }
@@ -64,6 +59,7 @@ const meta = {
     infoTooltipText: {
       control: { type: 'text' },
       description: 'Texto del tooltip del botón de información',
+      if: { arg: 'showInfoButton' },
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: '' }
@@ -71,7 +67,7 @@ const meta = {
     },
     showStatusTag: {
       control: { type: 'boolean' },
-      description: 'Mostrar el status tag (al lado del botón de información)',
+      description: 'Mostrar el status tag (controlador independiente del título)',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' }
@@ -80,6 +76,7 @@ const meta = {
     statusTagLabel: {
       control: { type: 'text' },
       description: 'Label del status tag',
+      if: { arg: 'showStatusTag' },
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: '' }
@@ -89,9 +86,118 @@ const meta = {
       control: { type: 'select' },
       options: ['completed', 'published', 'fulfilled', 'created', 'active', 'not-fulfilled', 'denied', 'draft', 'in-progress', 'syncing', 'pending', 'pending-approval', 'not-started', 'finished', 'archived', 'disabled', 'paused', 'hidden'],
       description: 'Estado del status tag',
+      if: { arg: 'showStatusTag' },
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'pending' }
+      }
+    },
+    showActions: {
+      control: { type: 'boolean' },
+      description: 'Mostrar todas las acciones (botones md)',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' }
+      }
+    },
+    showAIAction: {
+      control: { type: 'boolean' },
+      description: 'Mostrar botón AI (primero en la serie)',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' }
+      }
+    },
+    showAction1: {
+      control: { type: 'boolean' },
+      description: 'Mostrar acción 1 (Button text)',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' }
+      }
+    },
+    showAction2: {
+      control: { type: 'boolean' },
+      description: 'Mostrar acción 2 (Button text)',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' }
+      }
+    },
+    showAction3: {
+      control: { type: 'boolean' },
+      description: 'Mostrar acción 3 (Button text)',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' }
+      }
+    },
+    showPrimaryAction: {
+      control: { type: 'boolean' },
+      description: 'Mostrar acción primaria (Primary action)',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' }
+      }
+    },
+    showSecondaryButton: {
+      control: { type: 'boolean' },
+      description: 'Mostrar botón secundario adicional',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
+      }
+    },
+    secondaryButtonText: {
+      control: { type: 'text' },
+      description: 'Texto del botón secundario adicional',
+      if: { arg: 'showSecondaryButton' },
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: '' }
+      }
+    },
+    secondaryButtonIcon: {
+      control: { type: 'text' },
+      description: 'Icono del botón secundario adicional',
+      if: { arg: 'showSecondaryButton' },
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: '' }
+      }
+    },
+    showOptionsButton: {
+      control: { type: 'boolean' },
+      description: 'Mostrar botón de opciones (3 puntos)',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
+      }
+    },
+    optionsMenuItems: {
+      control: { type: 'object' },
+      description: 'Opciones del menú dropdown del botón de opciones',
+      if: { arg: 'showOptionsButton' },
+      table: {
+        type: { summary: 'HeaderSectionOptionsMenuItem[]' },
+        defaultValue: { summary: '[]' }
+      }
+    },
+    showBreadcrumb: {
+      control: { type: 'boolean' },
+      description: 'Mostrar breadcrumb (debajo del header, 16px de distancia)',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
+      }
+    },
+    breadcrumbItems: {
+      control: { type: 'object' },
+      description: 'Items del breadcrumb',
+      if: { arg: 'showBreadcrumb' },
+      table: {
+        type: { summary: 'BreadcrumbItem[]' },
+        defaultValue: { summary: '[]' }
       }
     },
     containerId: {
@@ -119,53 +225,76 @@ export const Default: Story = {
     statusTagLabel: 'Active',
     statusTagStatus: 'active',
     showActions: true,
+    showAIAction: true,
+    showAction1: true,
+    showAction2: true,
+    showAction3: true,
+    showPrimaryAction: true,
     showSecondaryButton: true,
     secondaryButtonText: 'Button text',
     secondaryButtonIcon: 'grid',
     showOptionsButton: true,
-    actions: [
+    optionsMenuItems: [
       {
-        id: 'ai-button',
-        text: 'AI button',
-        variant: 'secondary',
-        icon: 'sparkles',
-        iconStyle: 'regular',
-        onClick: (e) => {
-          console.log('AI button clicked', e);
+        label: 'Opción 1',
+        value: 'option-1',
+        onClick: (e, data) => {
+          console.log('Opción 1 seleccionada', data);
         }
       },
       {
-        id: 'action-1',
-        text: 'Button text',
-        variant: 'secondary',
-        icon: 'grid',
-        iconStyle: 'regular',
-        onClick: (e) => {
-          console.log('Action 1 clicked', e);
+        label: 'Opción 2',
+        value: 'option-2',
+        onClick: (e, data) => {
+          console.log('Opción 2 seleccionada', data);
         }
       },
       {
-        id: 'action-2',
-        text: 'Button text',
-        variant: 'secondary',
-        icon: 'grid',
-        iconStyle: 'regular',
-        onClick: (e) => {
-          console.log('Action 2 clicked', e);
+        label: 'Opción 3',
+        value: 'option-3',
+        onClick: (e, data) => {
+          console.log('Opción 3 seleccionada', data);
         }
       },
       {
-        id: 'primary-action',
-        text: 'Primary action',
-        variant: 'primary',
-        icon: 'grid',
-        iconStyle: 'regular',
-        onClick: (e) => {
-          console.log('Primary action clicked', e);
-        }
+        label: 'Opción deshabilitada',
+        value: 'option-disabled',
+        state: 'disabled'
       }
-    ] as HeaderSectionAction[]
-  } as HeaderSectionOptions,
+    ],
+    showBreadcrumb: true,
+    breadcrumbItems: [
+      {
+        id: 'home',
+        label: 'Home',
+        url: '#',
+        onClick: (e) => {
+          console.log('Home clicked', e);
+        }
+      },
+      {
+        id: 'products',
+        label: 'Products',
+        url: '#',
+        onClick: (e) => {
+          console.log('Products clicked', e);
+        }
+      },
+      {
+        id: 'current',
+        label: 'Current Product'
+      }
+    ]
+  } as HeaderSectionOptions & {
+    showAIAction?: boolean;
+    showAction1?: boolean;
+    showAction2?: boolean;
+    showAction3?: boolean;
+    showPrimaryAction?: boolean;
+    statusTagLabel?: string;
+    statusTagStatus?: string;
+    breadcrumbItems?: Array<{ id: string; label: string; url?: string; onClick?: (e: MouseEvent) => void }>;
+  },
   render: (args) => {
     const container = document.createElement('div');
     container.id = args.containerId || 'header-section-story-container';
@@ -201,7 +330,11 @@ export const Default: Story = {
         <div><strong>Status tag label:</strong> ${(args as any).statusTagLabel || '(vacío)'}</div>
         <div><strong>Status tag status:</strong> ${(args as any).statusTagStatus || '(vacío)'}</div>
         <div><strong>Mostrar acciones:</strong> ${args.showActions ? 'Sí' : 'No'}</div>
-        <div><strong>Número de acciones:</strong> ${args.actions?.length || 0}</div>
+        <div><strong>Mostrar botón AI:</strong> ${(args as any).showAIAction ? 'Sí' : 'No'}</div>
+        <div><strong>Mostrar acción 1:</strong> ${(args as any).showAction1 ? 'Sí' : 'No'}</div>
+        <div><strong>Mostrar acción 2:</strong> ${(args as any).showAction2 ? 'Sí' : 'No'}</div>
+        <div><strong>Mostrar acción 3:</strong> ${(args as any).showAction3 ? 'Sí' : 'No'}</div>
+        <div><strong>Mostrar acción primaria:</strong> ${(args as any).showPrimaryAction ? 'Sí' : 'No'}</div>
         <div><strong>Mostrar botón secundario:</strong> ${args.showSecondaryButton ? 'Sí' : 'No'}</div>
         <div><strong>Texto botón secundario:</strong> ${args.secondaryButtonText || '(vacío)'}</div>
         <div><strong>Mostrar botón opciones:</strong> ${args.showOptionsButton ? 'Sí' : 'No'}</div>
@@ -220,10 +353,87 @@ export const Default: Story = {
             }
           : undefined;
 
+        // Construir array de acciones basado en los controladores individuales
+        const actions: HeaderSectionAction[] = [];
+        
+        if ((args as any).showAIAction) {
+          actions.push({
+            id: 'ai-button',
+            text: 'AI button',
+            variant: 'secondary',
+            icon: 'sparkles',
+            iconStyle: 'regular',
+            onClick: (e) => {
+              console.log('AI button clicked', e);
+            }
+          });
+        }
+        
+        if ((args as any).showAction1) {
+          actions.push({
+            id: 'action-1',
+            text: 'Button text',
+            variant: 'secondary',
+            icon: 'grid',
+            iconStyle: 'regular',
+            onClick: (e) => {
+              console.log('Action 1 clicked', e);
+            }
+          });
+        }
+        
+        if ((args as any).showAction2) {
+          actions.push({
+            id: 'action-2',
+            text: 'Button text',
+            variant: 'secondary',
+            icon: 'grid',
+            iconStyle: 'regular',
+            onClick: (e) => {
+              console.log('Action 2 clicked', e);
+            }
+          });
+        }
+        
+        if ((args as any).showAction3) {
+          actions.push({
+            id: 'action-3',
+            text: 'Button text',
+            variant: 'secondary',
+            icon: 'grid',
+            iconStyle: 'regular',
+            onClick: (e) => {
+              console.log('Action 3 clicked', e);
+            }
+          });
+        }
+        
+        if ((args as any).showPrimaryAction) {
+          actions.push({
+            id: 'primary-action',
+            text: 'Primary action',
+            variant: 'primary',
+            icon: 'grid',
+            iconStyle: 'regular',
+            onClick: (e) => {
+              console.log('Primary action clicked', e);
+            }
+          });
+        }
+
+        const breadcrumbOptions = (args as any).showBreadcrumb && (args as any).breadcrumbItems
+          ? {
+              items: (args as any).breadcrumbItems,
+              separator: '>'
+            }
+          : undefined;
+
         createHeaderSection({
           ...args,
           container: container,
+          actions: actions,
           statusTag: statusTagOptions,
+          breadcrumb: breadcrumbOptions,
           onBackClick: (e) => {
             console.log('Back button clicked', e);
           },
