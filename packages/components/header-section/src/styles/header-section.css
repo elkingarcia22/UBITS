@@ -1,0 +1,119 @@
+/* ========================================
+   UBITS HEADER SECTION COMPONENT
+   Componente de encabezado de sección con título y acciones
+   Usando tokens UBITS exclusivamente
+   ======================================== */
+
+.ubits-header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: var(--ubits-spacing-md, 16px);
+    padding: var(--ubits-spacing-md, 16px) 0;
+}
+
+/* ========================================
+   TITLE WRAPPER
+   ======================================== */
+
+.ubits-header-section__title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--ubits-spacing-sm, 12px); /* 12px entre botón de atrás y title-group */
+    flex: 1;
+    min-width: 0; /* Permitir que el título se trunque si es necesario */
+}
+
+.ubits-header-section__title-group {
+    display: flex;
+    align-items: center;
+    gap: 4px; /* 4px entre título y botón info */
+    flex: 1;
+    min-width: 0;
+}
+
+/* Quitar gap derecho del botón de información */
+.ubits-header-section__title-group [data-info-button="true"] {
+    margin-right: -4px; /* Cancela el gap de 4px a la derecha */
+}
+
+.ubits-header-section__title-wrapper .ubits-heading-h2 {
+    margin: 0;
+    color: var(--ubits-fg-1-high);
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ubits-header-section__title-group .ubits-heading-h2 {
+    margin: 0;
+    flex: 0 1 auto; /* No crecer, solo encogerse si es necesario */
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ========================================
+   BACK BUTTON
+   ======================================== */
+
+.ubits-header-section__back-button {
+    flex-shrink: 0;
+}
+
+/* ========================================
+   STATUS TAG WRAPPER
+   ======================================== */
+
+.ubits-header-section__status-tag-wrapper {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-left: 8px; /* 8px desde el botón info (el gap de 4px ya fue cancelado con margin-right: -4px) */
+}
+
+/* ========================================
+   ACTIONS
+   ======================================== */
+
+.ubits-header-section__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--ubits-spacing-sm, 12px);
+    flex-shrink: 0;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .ubits-header-section {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--ubits-spacing-md, 16px);
+    }
+
+    .ubits-header-section__title-wrapper {
+        width: 100%;
+    }
+
+    .ubits-header-section__actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+
+/* ========================================
+   DARK MODE
+   ======================================== */
+
+[data-theme="dark"] .ubits-header-section__title-wrapper .ubits-heading-h2 {
+    color: var(--ubits-fg-1-high);
+}
+
+
