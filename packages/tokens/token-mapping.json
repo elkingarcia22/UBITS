@@ -1,0 +1,302 @@
+[
+  {
+    "old": "--ubits-accent-brand",
+    "new": "--modifiers-normal-color-light-accent-brand",
+    "category": "accent",
+    "notes": "Accent brand en modo normal, light"
+  },
+  {
+    "old": "--ubits-accent-brand-inverted",
+    "new": "--modifiers-inverted-color-light-accent-brand",
+    "category": "accent",
+    "notes": "Accent brand invertido"
+  },
+  {
+    "old": "--ubits-accent-brand-static",
+    "new": "--modifiers-static-color-light-accent-brand",
+    "category": "accent",
+    "notes": "Accent brand estático"
+  },
+  {
+    "old": "--ubits-accent-brand-static-inverted",
+    "new": "--modifiers-static-inverted-color-light-accent-brand",
+    "category": "accent",
+    "notes": "Accent brand estático invertido"
+  },
+  {
+    "old": "--ubits-accent-success",
+    "new": "--modifiers-normal-color-light-feedback-accent-success",
+    "category": "accent",
+    "notes": "Accent success (feedback)"
+  },
+  {
+    "old": "--ubits-fg-1-high",
+    "new": "--modifiers-normal-color-light-fg-1-high",
+    "category": "foreground",
+    "notes": "Foreground 1 high, normal, light"
+  },
+  {
+    "old": "--ubits-fg-1-high-inverted",
+    "new": "--modifiers-inverted-color-light-fg-1-high",
+    "category": "foreground",
+    "notes": "Foreground 1 high invertido"
+  },
+  {
+    "old": "--ubits-fg-1-medium",
+    "new": "--modifiers-normal-color-light-fg-1-medium",
+    "category": "foreground",
+    "notes": "Foreground 1 medium, normal, light"
+  },
+  {
+    "old": "--ubits-fg-1-medium-inverted",
+    "new": "--modifiers-inverted-color-light-fg-1-medium",
+    "category": "foreground",
+    "notes": "Foreground 1 medium invertido"
+  },
+  {
+    "old": "--ubits-fg-2-high",
+    "new": "--modifiers-normal-color-light-fg-2-high",
+    "category": "foreground",
+    "notes": "Foreground 2 high, normal, light"
+  },
+  {
+    "old": "--ubits-fg-2-medium",
+    "new": "--modifiers-normal-color-light-fg-2-medium",
+    "category": "foreground",
+    "notes": "Foreground 2 medium, normal, light"
+  },
+  {
+    "old": "--ubits-fg-disabled",
+    "new": "--modifiers-normal-color-light-fg-disabled",
+    "category": "foreground",
+    "notes": "Foreground disabled"
+  },
+  {
+    "old": "--ubits-fg-on-disabled",
+    "new": "--modifiers-normal-color-light-fg-on-disabled",
+    "category": "foreground",
+    "notes": "Foreground on disabled"
+  },
+  {
+    "old": "--ubits-fg-bold",
+    "new": "--modifiers-normal-color-light-fg-bold",
+    "category": "foreground",
+    "notes": "Foreground bold"
+  },
+  {
+    "old": "--ubits-bg-1",
+    "new": "--modifiers-normal-color-light-bg-1",
+    "category": "background",
+    "notes": "Background 1, normal, light"
+  },
+  {
+    "old": "--ubits-bg-2",
+    "new": "--modifiers-normal-color-light-bg-2",
+    "category": "background",
+    "notes": "Background 2, normal, light"
+  },
+  {
+    "old": "--ubits-bg-3",
+    "new": "--modifiers-normal-color-light-bg-3",
+    "category": "background",
+    "notes": "Background 3, normal, light"
+  },
+  {
+    "old": "--ubits-bg-4",
+    "new": "--modifiers-normal-color-light-bg-4",
+    "category": "background",
+    "notes": "Background 4, normal, light"
+  },
+  {
+    "old": "--ubits-bg-5",
+    "new": "--modifiers-normal-color-light-bg-5",
+    "category": "background",
+    "notes": "Background 5, normal, light"
+  },
+  {
+    "old": "--ubits-bg-active",
+    "new": "--modifiers-normal-color-light-bg-active",
+    "category": "background",
+    "notes": "Background active"
+  },
+  {
+    "old": "--ubits-bg-active-button",
+    "new": "--modifiers-normal-color-light-bg-active",
+    "category": "background",
+    "notes": "Background active button (usa mismo token que bg-active)"
+  },
+  {
+    "old": "--ubits-bg-disabled",
+    "new": "--modifiers-normal-color-light-bg-disabled",
+    "category": "background",
+    "notes": "Background disabled"
+  },
+  {
+    "old": "--ubits-bg-dim",
+    "new": "--modifiers-normal-color-light-bg-dim",
+    "category": "background",
+    "notes": "Background dim"
+  },
+  {
+    "old": "--ubits-border-1",
+    "new": "--modifiers-normal-color-light-border-1",
+    "category": "border",
+    "notes": "Border 1, normal, light"
+  },
+  {
+    "old": "--ubits-border-2",
+    "new": "--modifiers-normal-color-light-border-2",
+    "category": "border",
+    "notes": "Border 2, normal, light"
+  },
+  {
+    "old": "--ubits-button-primary-bg-default",
+    "new": "--modifiers-normal-button-color-light-brand-primary-bg-default",
+    "category": "button",
+    "notes": "Button primary background default, brand tone"
+  },
+  {
+    "old": "--ubits-button-primary-hover",
+    "new": "--modifiers-normal-button-color-light-brand-primary-bg-hover",
+    "category": "button",
+    "notes": "Button primary background hover, brand tone"
+  },
+  {
+    "old": "--ubits-button-primary-pressed",
+    "new": "--modifiers-normal-button-color-light-brand-primary-bg-pressed",
+    "category": "button",
+    "notes": "Button primary background pressed, brand tone"
+  },
+  {
+    "old": "--ubits-btn-primary-fg",
+    "new": "--modifiers-normal-button-color-light-brand-primary-fg-default",
+    "category": "button",
+    "notes": "Button primary foreground, brand tone"
+  },
+  {
+    "old": "--ubits-btn-secondary-bg-default",
+    "new": "--modifiers-normal-button-color-light-brand-secondary-bg-default",
+    "category": "button",
+    "notes": "Button secondary background default, brand tone"
+  },
+  {
+    "old": "--ubits-btn-secondary-bg-hover",
+    "new": "--modifiers-normal-button-color-light-brand-secondary-bg-hover",
+    "category": "button",
+    "notes": "Button secondary background hover, brand tone"
+  },
+  {
+    "old": "--ubits-btn-secondary-bg-pressed",
+    "new": "--modifiers-normal-button-color-light-brand-secondary-bg-pressed",
+    "category": "button",
+    "notes": "Button secondary background pressed, brand tone"
+  },
+  {
+    "old": "--ubits-btn-secondary-fg-default",
+    "new": "--modifiers-normal-button-color-light-brand-secondary-fg-default",
+    "category": "button",
+    "notes": "Button secondary foreground default, brand tone"
+  },
+  {
+    "old": "--ubits-btn-secondary-border",
+    "new": "--modifiers-normal-button-color-light-brand-secondary-border-default",
+    "category": "button",
+    "notes": "Button secondary border, brand tone"
+  },
+  {
+    "old": "--ubits-btn-tertiary-fg",
+    "new": "--modifiers-normal-button-color-light-brand-tertiary-fg-default",
+    "category": "button",
+    "notes": "Button tertiary foreground, brand tone"
+  },
+  {
+    "old": "--ubits-btn-tertiary-bg-hover",
+    "new": "--modifiers-normal-button-color-light-brand-tertiary-bg-hover",
+    "category": "button",
+    "notes": "Button tertiary background hover, brand tone"
+  },
+  {
+    "old": "--ubits-btn-tertiary-bg-pressed",
+    "new": "--modifiers-normal-button-color-light-brand-tertiary-bg-pressed",
+    "category": "button",
+    "notes": "Button tertiary background pressed, brand tone"
+  },
+  {
+    "old": "--ubits-button-active-bg",
+    "new": "--modifiers-normal-color-light-bg-active",
+    "category": "button",
+    "notes": "Button active background (usa bg-active)"
+  },
+  {
+    "old": "--ubits-button-active-fg",
+    "new": "--modifiers-normal-color-light-accent-brand",
+    "category": "button",
+    "notes": "Button active foreground (usa accent-brand)"
+  },
+  {
+    "old": "--ubits-button-focus-ring",
+    "new": "--modifiers-normal-focus-ring-default",
+    "category": "button",
+    "notes": "Button focus ring"
+  },
+  {
+    "old": "--ubits-bg-disabled-button",
+    "new": "--modifiers-normal-color-light-bg-disabled",
+    "category": "button",
+    "notes": "Button disabled background (usa bg-disabled)"
+  },
+  {
+    "old": "--ubits-border-disabled-button",
+    "new": "--modifiers-normal-color-light-border-disabled",
+    "category": "button",
+    "notes": "Button disabled border"
+  },
+  {
+    "old": "--ubits-fg-on-disabled-button",
+    "new": "--modifiers-normal-color-light-fg-on-disabled",
+    "category": "button",
+    "notes": "Button disabled foreground (usa fg-on-disabled)"
+  },
+  {
+    "old": "--ubits-spacing-xs",
+    "new": "--p-spacing-mode-1-xs",
+    "category": "spacing",
+    "notes": "Spacing extra small"
+  },
+  {
+    "old": "--ubits-spacing-sm",
+    "new": "--p-spacing-mode-1-sm",
+    "category": "spacing",
+    "notes": "Spacing small"
+  },
+  {
+    "old": "--ubits-spacing-md",
+    "new": "--p-spacing-mode-1-md",
+    "category": "spacing",
+    "notes": "Spacing medium"
+  },
+  {
+    "old": "--ubits-spacing-lg",
+    "new": "--p-spacing-mode-1-lg",
+    "category": "spacing",
+    "notes": "Spacing large"
+  },
+  {
+    "old": "--ubits-spacing-xl",
+    "new": "--p-spacing-mode-1-xl",
+    "category": "spacing",
+    "notes": "Spacing extra large"
+  },
+  {
+    "old": "--ubits-bottom-nav-shadow-opacity",
+    "new": "--modifiers-normal-elevation-bottom-nav-shadow-opacity",
+    "category": "effects",
+    "notes": "Bottom navigation shadow opacity"
+  },
+  {
+    "old": "--ubits-elevation-floating",
+    "new": "--modifiers-normal-elevation-floating",
+    "category": "effects",
+    "notes": "Elevation floating (si existe en nuevos tokens)"
+  }
+]
