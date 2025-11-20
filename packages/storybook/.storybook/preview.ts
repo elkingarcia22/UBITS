@@ -38,6 +38,7 @@ import '../../addons/metric-card/src/styles/metric-card.css'
 import '../../addons/menubar/src/styles/menubar.css'
 import '../../addons/header-section/src/styles/header-section.css'
 import '../../addons/status-tag/src/styles/status-tag.css'
+import '../../components/button-ai/src/styles/button-ai.css'
 import '../docs-site/.storybook/fontawesome-icons.css'
 
 const preview: Preview = {
