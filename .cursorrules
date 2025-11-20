@@ -1,0 +1,153 @@
+# Reglas para Cursor AI - Template UBITS
+
+## 🎯 Contexto del Proyecto
+
+Estás trabajando en un template completo para aplicaciones UBITS que incluye:
+- Sistema de diseño con tokens (colores, tipografía, espaciado)
+- Componentes modulares (Sidebar, TabBar, SubNav, Card, Button, Input, Alert, Toast, Badge)
+- Dos modos de operación: Colaborador y Administrador
+- Validación automática de código UBITS
+- Responsive design (desktop con Sidebar, móvil con TabBar)
+
+## 📁 Estructura del Proyecto
+
+```
+packages/
+├── playground-app/         # Aplicación principal
+│   ├── template-colaborador.html  # Template modo colaborador
+│   ├── template-admin.html        # Template modo administrador
+│   ├── components-loader.js       # Cargador de componentes
+│   ├── config/
+│   │   ├── products.js            # Configuración productos (modos)
+│   │   ├── responsive-manager.js  # Gestión responsive
+│   │   └── theme-manager.js       # Gestión temas
+│   └── engine/
+│       ├── content-manager.js     # Gestor de contenido
+│       └── template-loader.js     # Cargador de templates
+├── addons/                 # Componentes como add-ons
+│   ├── sidebar/            # Sidebar con variantes
+│   ├── tabbar/            # TabBar responsive
+│   ├── subnav/            # SubNav dinámico
+│   └── ...
+├── tokens/                # Tokens de diseño UBITS
+└── typography/            # Tipografía UBITS
+```
+
+## 🎨 Reglas de Diseño UBITS
+
+### ❌ NUNCA hagas esto:
+
+1. **NO uses colores hardcodeados:**
+   ```css
+   /* ❌ MAL */
+   color: #000000;
+   background: white;
+   
+   /* ✅ BIEN */
+   color: var(--ubits-fg-1-high);
+   background: var(--ubits-bg-1);
+   ```
+
+2. **NO uses clases de tipografía incorrectas:**
+   ```html
+   <!-- ❌ MAL -->
+   <h1 class="ubits-h1">Título</h1>
+   <p class="ubits-body-lg-bold">Texto</p>
+   
+   <!-- ✅ BIEN -->
+   <h1 class="ubits-heading-h1">Título</h1>
+   <p class="ubits-body-lg">Texto</p>
+   ```
+
+3. **NO crees componentes custom:**
+   ```html
+   <!-- ❌ MAL -->
+   <div class="mi-componente-personalizado">...</div>
+   
+   <!-- ✅ BIEN -->
+   <button class="ubits-button ubits-button--primary">...</button>
+   ```
+
+### ✅ SIEMPRE haz esto:
+
+1. **USA tokens de color:**
+   - `var(--ubits-bg-1)` para fondos principales
+   - `var(--ubits-fg-1-high)` para texto principal
+   - `var(--ubits-accent-brand)` para acentos
+   - `var(--ubits-border-1)` para bordes
+
+2. **USA clases de tipografía oficiales:**
+   - `ubits-heading-h1`, `ubits-heading-h2`, `ubits-heading-h3`
+   - `ubits-body-lg`, `ubits-body-md`, `ubits-body-sm`
+
+3. **USA componentes oficiales:**
+   - `ubits-sidebar` para navegación lateral
+   - `ubits-tabbar` para navegación móvil
+   - `ubits-sub-nav` para pestañas
+   - `ubits-button` para botones
+   - `ubits-input` para inputs
+   - `ubits-card-content` para tarjetas
+
+## 🔧 Modos de Operación
+
+### Modo Colaborador (`template-colaborador.html`)
+- Sidebar con módulos básicos
+- Sin acceso a administración
+- Módulos: Aprendizaje, Desempeño, Diagnóstico
+
+### Modo Administrador (`template-admin.html`)
+- Sidebar con módulos de administración
+- Gestión de usuarios y evaluaciones
+- Módulos: Empresa, Aprendizaje (LMS), Desempeño (360°), Diagnóstico, API, Centro de ayuda
+
+## 📱 Responsive Design
+
+- **Desktop (≥1024px)**: Sidebar visible, TabBar oculto
+- **Móvil (<1024px)**: Sidebar oculto, TabBar visible
+
+Usa los tokens de breakpoint y el ResponsiveManager para gestionar esto.
+
+## 🎯 Al Crear Nuevas Funcionalidades
+
+1. **Siempre usa tokens UBITS** para colores, tipografía y espaciado
+2. **Reutiliza componentes existentes** en lugar de crear nuevos
+3. **Mantén la consistencia** con el diseño system
+4. **Valida tu código** con `npm run validate` antes de hacer commit
+5. **Documenta** cambios importantes en los archivos correspondientes
+
+## 🚨 Validación Automática
+
+El proyecto tiene validación automática que:
+- Detecta colores hardcodeados
+- Detecta clases de tipografía incorrectas
+- Detecta componentes custom
+- Sugiere correcciones automáticas
+
+Ejecuta `npm run validate:fix` para corregir automáticamente.
+
+## 📚 Archivos Importantes
+
+- `packages/templates/config/products.js` - Configuración de modos
+- `packages/templates/components-loader.js` - Lógica de componentes
+- `packages/templates/engine/content-manager.js` - Gestión de contenido
+- `.ubits/validation-rules.md` - Reglas de validación
+- `.ubits/component-inventory.json` - Inventario de componentes
+
+## 💡 Tips
+
+- Siempre verifica que los componentes funcionen en ambos modos (colaborador/admin)
+- Usa los helpers de `components-loader.js` para renderizar componentes
+- Mantén la estructura de archivos organizada
+- Usa Git commits descriptivos
+
+## 🔍 Cuándo Trabajar en Este Template
+
+Este template se usa cuando:
+1. Necesitas crear una nueva aplicación UBITS desde cero
+2. Quieres usar el sistema de diseño completo UBITS
+3. Necesitas ambos modos (colaborador y administrador)
+4. Requieres validación automática de código UBITS
+
+---
+
+**¿Necesitas ayuda?** Revisa la documentación en `GUIA-COMPLETA.md` o `README.md`

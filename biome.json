@@ -1,0 +1,6 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.3.2/schema.json",
+	"formatter": { "lineWidth": 100 },
+	"linter": { "rules": { "style": { "noNonNullAssertion": "warn" } } },
+	"javascript": { "formatter": { "quoteStyle": "single" } }
+}
