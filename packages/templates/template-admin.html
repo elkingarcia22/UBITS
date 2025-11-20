@@ -13,9 +13,42 @@
     <link rel="stylesheet" href="assets/fontawesome/css/all.min.css" />
     
     <!-- Navigation Components -->
-    <link rel="stylesheet" href="../addons/sidebar/src/styles/sidebar.css" />
-    <link rel="stylesheet" href="../addons/subnav/src/styles/subnav.css" />
-    <link rel="stylesheet" href="../addons/tabbar/src/styles/tabbar.css" />
+    <link rel="stylesheet" href="../components/sidebar/src/styles/sidebar.css" />
+    <link rel="stylesheet" href="../components/subnav/src/styles/subnav.css" />
+    <link rel="stylesheet" href="../components/tabbar/src/styles/tabbar.css" />
+    
+    <!-- UBITS Component Styles -->
+    <link rel="stylesheet" href="../components/status-tag/src/styles/status-tag.css" />
+    <link rel="stylesheet" href="../components/avatar/src/styles/avatar.css" />
+    <link rel="stylesheet" href="../components/drawer/src/styles/drawer.css" />
+    <link rel="stylesheet" href="../components/modal/src/styles/modal.css" />
+    <link rel="stylesheet" href="../components/scroll/src/styles/scroll.css" />
+    <link rel="stylesheet" href="../components/progress/src/styles/progress.css" />
+    <link rel="stylesheet" href="../components/file-upload/src/styles/file-upload.css" />
+    <link rel="stylesheet" href="../components/button/src/styles/button.css" />
+    <link rel="stylesheet" href="../components/badge/src/styles/badge.css" />
+    <link rel="stylesheet" href="../components/alert/src/styles/alert.css" />
+    <link rel="stylesheet" href="../components/toast/src/styles/toast.css" />
+    <link rel="stylesheet" href="../components/list/src/styles/list.css" />
+    <link rel="stylesheet" href="../components/input/src/styles/input.css" />
+    <link rel="stylesheet" href="../components/card/src/styles/card.css" />
+    <link rel="stylesheet" href="../components/data-table/src/styles/data-table.css" />
+    <link rel="stylesheet" href="../components/pagination/src/styles/pagination.css" />
+    <link rel="stylesheet" href="../components/checkbox/src/styles/checkbox.css" />
+    <link rel="stylesheet" href="../components/toggle/src/styles/toggle.css" />
+    <link rel="stylesheet" href="../components/radio-button/src/styles/radio-button.css" />
+    <link rel="stylesheet" href="../components/selection-card/src/styles/selection-card.css" />
+    <link rel="stylesheet" href="../components/empty-state/src/styles/empty-state.css" />
+    <link rel="stylesheet" href="../components/tooltip/src/styles/tooltip.css" />
+    <link rel="stylesheet" href="../components/spinner/src/styles/spinner.css" />
+    <link rel="stylesheet" href="../components/calendar/src/styles/calendar.css" />
+    <link rel="stylesheet" href="../components/tabs/src/styles/tabs.css" />
+    <link rel="stylesheet" href="../components/segment-control/src/styles/segment-control.css" />
+    <link rel="stylesheet" href="../components/breadcrumb/src/styles/breadcrumb.css" />
+    <link rel="stylesheet" href="../components/stepper/src/styles/stepper.css" />
+    <link rel="stylesheet" href="../components/participants-menu/src/styles/participants-menu.css" />
+    <link rel="stylesheet" href="../components/metric-card/src/styles/metric-card.css" />
+    <link rel="stylesheet" href="../components/menubar/src/styles/menubar.css" />
     
     <style>
         /* ========================================
@@ -425,16 +458,8 @@
     <script src="engine/template-loader.js"></script>
     <script src="engine/content-manager.js"></script>
     
-    <!-- UBITS Add-ons System (Tokens & Components from Storybook) -->
-    <script type="module">
-        // Cargar sistema de tokens y componentes
-        import('../addons/tokens-ubits/src/index.js').then(() => {
-            console.log('✅ Sistema de tokens y componentes UBITS cargado');
-        }).catch(err => {
-            console.warn('⚠️ No se pudo cargar sistema de add-ons:', err);
-        });
-    </script>
-    <script src="utils/storybook-loader.js"></script>
+    <!-- UBITS Components System -->
+    <!-- Los componentes se cargan dinámicamente a través de components-loader.js -->
     
     <script>
         // ========================================

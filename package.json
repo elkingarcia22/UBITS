@@ -19,7 +19,9 @@
     "integrate:addons": "node scripts/integrate-addons.cjs",
     "deploy": "node scripts/deploy.cjs",
     "storybook": "cd packages/storybook && npm run storybook",
-    "build:storybook": "cd packages/storybook && npm run build-storybook"
+    "build:storybook": "cd packages/storybook && npm run build-storybook",
+    "templates:verify": "cd packages/templates && ./verificar-setup.sh",
+    "templates:serve": "cd packages/templates && python3 -m http.server 8000 || npx http-server -p 8000"
   },
   "keywords": [
     "ubits",

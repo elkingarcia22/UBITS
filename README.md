@@ -32,7 +32,38 @@ cd UBITS
 npm install
 ```
 
-### 3. Inicializar Proyecto
+### 3. Generar Tokens
+
+```bash
+npm run build:tokens
+```
+
+**⚠️ Importante:** Los tokens deben generarse antes de usar templates o Storybook.
+
+### 4. Verificar Configuración
+
+```bash
+# Verificar Storybook
+cd packages/storybook && ./verificar-setup.sh
+
+# Verificar Templates
+npm run templates:verify
+```
+
+### 5. Iniciar Desarrollo
+
+```bash
+# Opción 1: Storybook (documentación de componentes)
+npm run storybook
+# Abre: http://localhost:6006
+
+# Opción 2: Templates (aplicaciones completas)
+npm run templates:serve
+# Abre: http://localhost:8000/template-admin.html
+# O: http://localhost:8000/template-colaborador.html
+```
+
+### 6. Inicializar Proyecto (Opcional)
 
 ```bash
 npm run init
@@ -45,19 +76,6 @@ Este comando interactivo te guiará paso a paso:
 - ✅ Inicializa Git y configura remoto
 - ✅ Instala dependencias
 - ✅ Configura auto-commit y validación
-
-### 4. Iniciar Desarrollo
-
-```bash
-# Terminal 1: Auto-commit y validación
-npm run watch
-
-# Terminal 2: Iniciar servidor de desarrollo
-npm run dev
-
-# Terminal 3: Storybook (opcional)
-npm run storybook
-```
 
 ---
 
