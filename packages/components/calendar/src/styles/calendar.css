@@ -198,7 +198,7 @@
 }
 
 .ubits-calendar__day--today:not(.ubits-calendar__day--selected):not(.ubits-calendar__day--in-range) {
-    border: 1px solid var(--modifiers-static-inverted-color-light-accent-brand) !important;
+    border: 1px solid var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 /* ========================================
