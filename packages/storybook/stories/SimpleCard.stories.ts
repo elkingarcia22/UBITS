@@ -6,24 +6,24 @@ import '../../addons/button/src/styles/button.css';
 
 // Tokens disponibles para controladores
 const BACKGROUND_TOKENS = [
-  'var(--ubits-bg-1)',
-  'var(--ubits-bg-2)',
-  'var(--ubits-bg-3)',
-  'var(--ubits-bg-4)',
-  'var(--ubits-bg-5)',
+  'var(--modifiers-normal-color-light-bg-1)',
+  'var(--modifiers-normal-color-light-bg-2)',
+  'var(--modifiers-normal-color-light-bg-3)',
+  'var(--modifiers-normal-color-light-bg-4)',
+  'var(--modifiers-normal-color-light-bg-5)',
 ] as const;
 
 const BORDER_COLOR_TOKENS = [
-  'var(--ubits-border-1)',
-  'var(--ubits-border-2)',
-  'var(--ubits-border-3)',
+  'var(--modifiers-normal-color-light-border-1)',
+  'var(--modifiers-normal-color-light-border-2)',
+  'var(--modifiers-normal-color-light-border-3)',
 ] as const;
 
 const BORDER_RADIUS_TOKENS = [
-  'var(--ubits-radius-sm)',
-  'var(--ubits-radius-md)',
-  'var(--ubits-radius-lg)',
-  'var(--ubits-radius-xl)',
+  'var(--ubits-border-radius-sm)',
+  'var(--ubits-border-radius-md)',
+  'var(--ubits-border-radius-lg)',
+  'var(--ubits-border-radius-xl)',
 ] as const;
 
 const PADDING_TOKENS = [
@@ -36,10 +36,10 @@ const PADDING_TOKENS = [
 ] as const;
 
 const HEADER_BACKGROUND_TOKENS = [
-  'var(--ubits-bg-4)',
-  'var(--ubits-bg-5)',
-  'var(--ubits-accent-brand)',
-  'var(--ubits-feedback-error-border)',
+  'var(--modifiers-normal-color-light-bg-4)',
+  'var(--modifiers-normal-color-light-bg-5)',
+  'var(--modifiers-normal-color-light-accent-brand)',
+  'var(--modifiers-normal-color-light-feedback-border-error)',
 ] as const;
 
 const TYPOGRAPHY_CLASSES = [
@@ -130,7 +130,7 @@ const meta: Meta<SimpleCardOptions & {
       description: 'Token de color para el fondo del header',
       table: {
         type: { summary: 'CSS Variable' },
-        defaultValue: { summary: 'var(--ubits-bg-4)' },
+        defaultValue: { summary: 'var(--modifiers-normal-color-light-bg-4)' },
         category: 'Tokens - Header',
       },
     },
@@ -141,7 +141,7 @@ const meta: Meta<SimpleCardOptions & {
       description: 'Token de color para el fondo de la card',
       table: {
         type: { summary: 'CSS Variable' },
-        defaultValue: { summary: 'var(--ubits-bg-1)' },
+        defaultValue: { summary: 'var(--modifiers-normal-color-light-bg-1)' },
         category: 'Tokens - Colores',
       },
     },
@@ -151,7 +151,7 @@ const meta: Meta<SimpleCardOptions & {
       description: 'Token de color para el borde de la card',
       table: {
         type: { summary: 'CSS Variable' },
-        defaultValue: { summary: 'var(--ubits-border-1)' },
+        defaultValue: { summary: 'var(--modifiers-normal-color-light-border-1)' },
         category: 'Tokens - Colores',
       },
     },
@@ -173,7 +173,7 @@ const meta: Meta<SimpleCardOptions & {
       description: 'Token de border radius para la card',
       table: {
         type: { summary: 'CSS Variable' },
-        defaultValue: { summary: 'var(--ubits-radius-md)' },
+        defaultValue: { summary: 'var(--ubits-border-radius-md)' },
         category: 'Tokens - Border Radius',
       },
     },
@@ -350,10 +350,10 @@ function buildSimpleCardOptions(args: any): SimpleCardOptions {
     content: args.content || 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
     showHeader: args.showHeader !== false,
     headerDecorations: args.headerDecorations !== false,
-    headerBackground: args.headerBackgroundToken || 'var(--ubits-bg-4)',
-    backgroundColor: args.backgroundColorToken || 'var(--ubits-bg-1)',
-    borderColor: args.borderColorToken || 'var(--ubits-border-1)',
-    borderRadius: args.borderRadiusToken || 'var(--ubits-radius-md)',
+    headerBackground: args.headerBackgroundToken || 'var(--modifiers-normal-color-light-bg-4)',
+    backgroundColor: args.backgroundColorToken || 'var(--modifiers-normal-color-light-bg-1)',
+    borderColor: args.borderColorToken || 'var(--modifiers-normal-color-light-border-1)',
+    borderRadius: args.borderRadiusToken || 'var(--ubits-border-radius-md)',
     padding: args.paddingToken || 'var(--ubits-spacing-lg)',
     titleTypography: (args.titleTypographyClass || 'ubits-heading-h2') as any,
     subtitleTypography: (args.subtitleTypographyClass || 'ubits-body-md') as any,
@@ -373,10 +373,10 @@ export const Default: Story = {
     content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
     showHeader: true,
     headerDecorations: true,
-    headerBackgroundToken: 'var(--ubits-bg-4)',
-    backgroundColorToken: 'var(--ubits-bg-1)',
-    borderColorToken: 'var(--ubits-border-1)',
-    borderRadiusToken: 'var(--ubits-radius-md)',
+    headerBackgroundToken: 'var(--modifiers-normal-color-light-bg-4)',
+    backgroundColorToken: 'var(--modifiers-normal-color-light-bg-1)',
+    borderColorToken: 'var(--modifiers-normal-color-light-border-1)',
+    borderRadiusToken: 'var(--ubits-border-radius-md)',
     paddingToken: 'var(--ubits-spacing-lg)',
     titleTypographyClass: 'ubits-heading-h2',
     subtitleTypographyClass: 'ubits-body-md',
@@ -400,7 +400,7 @@ export const Default: Story = {
     container.style.justifyContent = 'center';
     container.style.alignItems = 'flex-start';
     container.style.padding = '48px';
-    container.style.background = 'var(--ubits-bg-2)';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
     container.style.minHeight = '400px';
     container.style.width = '100%';
     

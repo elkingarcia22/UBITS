@@ -10,16 +10,16 @@
 .ubits-carousel {
   position: relative;
   width: 100%;
-  background: var(--ubits-bg-1);
-  padding: var(--ubits-spacing-md, 16px);
+  background: var(--modifiers-normal-color-light-bg-1);
+  padding: var(--ubits-spacing-md);
 }
 
 .ubits-carousel--empty {
-  padding: var(--ubits-spacing-xl, 24px);
+  padding: var(--ubits-spacing-xl);
   text-align: center;
-  color: var(--ubits-fg-1-medium);
-  border: 1px dashed var(--ubits-border-1);
-  border-radius: var(--ubits-border-radius-md, 8px);
+  color: var(--modifiers-normal-color-light-fg-1-medium);
+  border: 1px dashed var(--modifiers-normal-color-light-border-1);
+  border-radius: var(--ubits-border-radius-md);
 }
 
 /* ========================================
@@ -30,7 +30,7 @@
   position: relative;
   flex: 1;
   overflow: hidden;
-  border-radius: var(--ubits-border-radius-md, 8px);
+  border-radius: var(--ubits-border-radius-md);
 }
 
 .ubits-carousel__track {
@@ -77,8 +77,9 @@
 }
 
 .ubits-carousel-item:hover .ubits-simple-card {
+  /* Shadow: No hay token equivalente en Figma, mantener hardcodeado */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand));
+  border-color: var(--modifiers-normal-color-light-accent-brand);
 }
 
 /* ========================================
@@ -88,7 +89,7 @@
 .ubits-carousel__content-wrapper {
   display: flex;
   align-items: center;
-  gap: var(--ubits-spacing-md, 16px);
+  gap: var(--ubits-spacing-md);
   width: 100%;
 }
 
@@ -98,8 +99,8 @@
 
 .ubits-carousel__arrow {
   flex-shrink: 0;
-  background: var(--ubits-bg-1);
-  border: 1px solid var(--ubits-border-1);
+  background: var(--modifiers-normal-color-light-bg-1);
+  border: 1px solid var(--modifiers-normal-color-light-border-1);
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -108,14 +109,16 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
-  color: var(--ubits-fg-1-high);
+  color: var(--modifiers-normal-color-light-fg-1-high);
+  /* Shadow: No hay token equivalente en Figma, mantener hardcodeado */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .ubits-carousel__arrow:hover {
-  background: var(--ubits-bg-2);
-  border-color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand));
-  color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand));
+  background: var(--modifiers-normal-color-light-bg-2);
+  border-color: var(--modifiers-normal-color-light-accent-brand);
+  color: var(--modifiers-normal-color-light-accent-brand);
+  /* Shadow: No hay token equivalente en Figma, mantener hardcodeado */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -124,7 +127,7 @@
 }
 
 .ubits-carousel__arrow i {
-  font-size: 14px;
+  font-size: var(--modifiers-normal-body-sm-regular-fontsize);
 }
 
 .ubits-carousel__arrow:disabled {
@@ -141,12 +144,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--ubits-spacing-xs, 8px);
-  padding: var(--ubits-spacing-md, 16px) 0;
+  gap: var(--ubits-spacing-xs);
+  padding: var(--ubits-spacing-md) 0;
 }
 
 .ubits-carousel--dots-top .ubits-carousel__dots {
-  padding: 0 0 var(--ubits-spacing-md, 16px) 0;
+  padding: 0 0 var(--ubits-spacing-md) 0;
   order: -1;
 }
 
@@ -155,21 +158,39 @@
   height: 8px;
   border-radius: 50%;
   border: none;
-  background: var(--ubits-border-2, var(--ubits-border-1));
+  background: var(--modifiers-normal-color-light-border-2);
   cursor: pointer;
   transition: all 0.2s ease;
-  padding: 0;
+  padding: var(--ubits-spacing-none);
 }
 
 .ubits-carousel__dot:hover {
-  background: var(--ubits-fg-1-medium);
+  background: var(--modifiers-normal-color-light-fg-1-medium);
   transform: scale(1.2);
 }
 
 .ubits-carousel__dot--active {
-  background: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand));
+  background: var(--modifiers-normal-color-light-accent-brand);
   width: 24px;
-  border-radius: 4px;
+  border-radius: var(--ubits-border-radius-xs);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+/* ========================================
+   DARK MODE
+   ======================================== */
+
+[data-theme="dark"] {
+  --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
+  --modifiers-normal-color-light-bg-2: var(--modifiers-normal-color-dark-bg-2);
+  --modifiers-normal-color-light-border-1: var(--modifiers-normal-color-dark-border-1);
+  --modifiers-normal-color-light-border-2: var(--modifiers-normal-color-dark-border-2);
+  --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
+  --modifiers-normal-color-light-fg-1-medium: var(--modifiers-normal-color-dark-fg-1-medium);
+  --modifiers-normal-color-light-accent-brand: var(--modifiers-normal-color-dark-accent-brand);
 }
 
 /* ========================================
@@ -178,7 +199,7 @@
 
 @media (max-width: 768px) {
   .ubits-carousel {
-    padding: var(--ubits-spacing-sm, 12px);
+    padding: var(--ubits-spacing-sm);
   }
 
   .ubits-carousel__arrow {
@@ -187,11 +208,11 @@
   }
 
   .ubits-carousel__arrow--prev {
-    left: var(--ubits-spacing-xs, 8px);
+    left: var(--ubits-spacing-xs);
   }
 
   .ubits-carousel__arrow--next {
-    right: var(--ubits-spacing-xs, 8px);
+    right: var(--ubits-spacing-xs);
   }
 
 }

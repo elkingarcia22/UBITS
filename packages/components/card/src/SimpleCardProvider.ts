@@ -17,11 +17,11 @@ export function renderSimpleCard(options: SimpleCardOptions): string {
     subtitle,
     content = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
     showHeader = true,
-    headerBackground = 'var(--ubits-bg-4)',
+    headerBackground = 'var(--modifiers-normal-color-light-bg-4)',
     headerDecorations = true,
-    backgroundColor = 'var(--ubits-bg-1)',
-    borderColor = 'var(--ubits-border-1)',
-    borderRadius = '8px', // Constante: 8px
+    backgroundColor = 'var(--modifiers-normal-color-light-bg-1)',
+    borderColor = 'var(--modifiers-normal-color-light-border-1)',
+    borderRadius = 'var(--ubits-border-radius-sm)', // Constante: 8px
     padding = 'var(--ubits-spacing-lg)',
     titleTypography = 'ubits-heading-h2',
     subtitleTypography = 'ubits-body-md',
@@ -71,7 +71,7 @@ export function renderSimpleCard(options: SimpleCardOptions): string {
 
   // Header con decoraciones
   // Solo aplicar estilo inline si es diferente al default
-  const headerStyle = headerBackground !== 'var(--ubits-bg-4)' 
+  const headerStyle = headerBackground !== 'var(--modifiers-normal-color-light-bg-4)' 
     ? `style="background: ${headerBackground}"` 
     : '';
   

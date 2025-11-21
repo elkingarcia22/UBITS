@@ -6,6 +6,8 @@ Este documento describe los pasos **exactos** que sigo para migrar un componente
 
 **🎯 REGLA DE ORO**: NADA hardcodeado ni con tokens antiguos. Si no hay equivalente exacto, buscar el token más parecido de Figma. Si hay algo que no se pueda reemplazar, se evalúa pero NO se deja así sin intentar encontrar una solución.
 
+**⚠️ VERIFICACIÓN CRÍTICA DE TOKENS**: Antes de usar cualquier token, VERIFICAR que existe en el archivo generado (`packages/tokens/dist/figma-tokens.css` o `packages/tokens/tokens.json`). NO asumir que un token existe solo porque está en el `token-mapping.json`. Si el token no existe, usar el token UBITS equivalente que SÍ existe.
+
 **Tiempo estimado total**: 4-6 horas por componente
 
 ---
@@ -13,6 +15,42 @@ Este documento describe los pasos **exactos** que sigo para migrar un componente
 ## 🚀 Proceso Completo
 
 ### **PASO 1: Preparación (30 min)**
+
+#### 1.0 Verificación de Tokens Disponibles (CRÍTICO - NUEVO)
+
+**⚠️ ANTES DE EMPEZAR**: Verificar qué tokens están realmente disponibles en los archivos generados. NO asumir que un token existe solo porque está en `token-mapping.json`.
+
+**Comando de verificación:**
+```bash
+# Verificar tokens de spacing en figma-tokens.css
+grep "p-spacing-mode-1" packages/tokens/dist/figma-tokens.css | head -20
+
+# Verificar tokens UBITS de spacing
+grep "ubits-spacing" packages/tokens/tokens.json | head -10
+```
+
+**Resultado esperado:**
+- ❌ Los tokens `--p-spacing-mode-1-xs/sm/md/lg/xl` **NO existen** en `figma-tokens.css`
+- ✅ Los tokens que SÍ existen son `--p-spacing-mode-1-space-0/1/2/3/4/...` (números sin unidades, requieren `calc()`)
+- ✅ Los tokens `--ubits-spacing-xs/sm/md/lg/xl` **SÍ existen** en `tokens.json` con valores en px
+
+**Decisión**: Usar `--ubits-spacing-*` directamente porque:
+1. Existen en `tokens.json`
+2. Tienen valores en px (no necesitan `calc()`)
+3. Son válidos según la regla de oro (existen en Storybook)
+
+**Mapeo de valores:**
+- `4px` → `--ubits-spacing-xs`
+- `8px` → `--ubits-spacing-sm`
+- `12px` → `--ubits-spacing-md`
+- `16px` → `--ubits-spacing-lg`
+- `20px` → `--ubits-spacing-xl`
+- `0px` → `--ubits-spacing-none`
+
+**Regla**: Al reemplazar un spacing, SIEMPRE:
+1. Verificar el valor en px del original
+2. Mapear correctamente según la tabla arriba
+3. Usar `--ubits-spacing-*` directamente (NO `--p-spacing-mode-1-*`)
 
 #### 1.1 Inventario de Tokens
 ```bash
@@ -91,10 +129,58 @@ background: var(--modifiers-normal-color-light-feedback-bg-success-subtle-defaul
 background: var(--modifiers-normal-color-light-feedback-bg-success-subtle-default) !important;
 ```
 
+**⚠️ ERROR CRÍTICO: Token Morado vs Azul en Light Mode**
+
+**PROBLEMA ENCONTRADO**: Al migrar componentes como `card` y `calendar`, se estaba usando incorrectamente el token morado (`--modifiers-static-inverted-color-light-accent-brand`) en lugar del token azul (`--modifiers-normal-color-light-accent-brand`) para estados de progreso, barras de progreso y textos "En progreso" en light mode.
+
+**Diferencia entre tokens:**
+- `--modifiers-static-inverted-color-light-accent-brand` → **MORADO** (#3865f5) - Usar SOLO para casos específicos de diseño estático invertido
+- `--modifiers-normal-color-light-accent-brand` → **AZUL** (#0c5bef) - Usar para estados normales, progreso, y elementos interactivos
+
+**Cuándo usar cada token:**
+- ✅ **Usar `--modifiers-normal-color-light-accent-brand` (AZUL)** para:
+  - Barras de progreso en estado "en progreso"
+  - Textos "En progreso"
+  - Estados activos/interactivos
+  - Bordes en hover
+  - Elementos que requieren el color azul de marca
+  
+- ❌ **NO usar `--modifiers-static-inverted-color-light-accent-brand` (MORADO)** para:
+  - Estados de progreso normales
+  - Textos de estado
+  - Elementos interactivos comunes
+
+**Ejemplo de corrección:**
+```css
+/* ❌ INCORRECTO - Usa morado en light mode */
+.course-status--progress {
+  color: var(--modifiers-static-inverted-color-light-accent-brand) !important;
+}
+
+.course-progress-overlay .progress-fill {
+  background: var(--modifiers-static-inverted-color-light-accent-brand) !important;
+}
+
+/* ✅ CORRECTO - Usa azul en light mode */
+.course-status--progress {
+  color: var(--modifiers-normal-color-light-accent-brand) !important;
+}
+
+.course-progress-overlay .progress-fill {
+  background: var(--modifiers-normal-color-light-accent-brand) !important;
+}
+```
+
+**Verificación:**
+- Buscar en el CSS: `grep -r "static-inverted-color-light-accent-brand" packages/components/[COMPONENTE]/src/styles/`
+- Verificar visualmente en Storybook que los elementos muestran azul, no morado
+- Revisar que el dark mode también use el token correcto
+
 **Orden de migración:**
 1. Tokens base (default state)
 2. Tokens de estados (hover, active, pressed, disabled)
 3. Tokens de variantes (si aplica)
+4. **Verificar que se use el token azul correcto para progreso y estados activos**
 
 #### 2.2 Migrar Tokens de Typography
 
@@ -203,10 +289,39 @@ font-size: var(--modifiers-normal-heading-h2-fontsize, 18px);
 
 #### 2.3 Migrar Tokens de Spacing
 
+**🎯 REGLA DE ORO**: Todos los tokens de spacing existen en Storybook y tokens.json. **CRÍTICO**: Verificar que el token existe antes de usarlo. Los tokens `--p-spacing-mode-1-xs/sm/md/lg/xl` NO existen en el archivo generado. Usar `--ubits-spacing-*` directamente. NUNCA dejar hardcodeado.
+
+**⚠️ PROBLEMA CRÍTICO IDENTIFICADO:**
+
+Los tokens `--p-spacing-mode-1-xs`, `--p-spacing-mode-1-sm`, `--p-spacing-mode-1-md`, etc. **NO existen** en `figma-tokens.css`. 
+
+Los tokens que SÍ existen son:
+- `--p-spacing-mode-1-space-0: 0` (sin unidades, necesita `calc()`)
+- `--p-spacing-mode-1-space-1: 4` (sin unidades, necesita `calc()`)
+- `--p-spacing-mode-1-space-2: 8` (sin unidades, necesita `calc()`)
+- `--p-spacing-mode-1-space-3: 12` (sin unidades, necesita `calc()`)
+- etc.
+
+**Solución**: Usar directamente `--ubits-spacing-*` que SÍ existen y tienen valores en px:
+- `--ubits-spacing-xs: 4px`
+- `--ubits-spacing-sm: 8px`
+- `--ubits-spacing-md: 12px`
+- `--ubits-spacing-lg: 16px`
+- `--ubits-spacing-xl: 20px`
+
 **Estrategia:**
 1. Buscar tokens antiguos de spacing (`--ubits-spacing-*`)
-2. Si existen, mantenerlos (no tienen equivalente en Figma)
-3. Migrar valores hardcodeados a tokens antiguos con fallback
+2. Buscar valores hardcodeados de spacing (`gap: 8px`, `padding: 12px`, etc.)
+3. **VERIFICAR el valor en px** del spacing que estás reemplazando
+4. **Mapear correctamente**:
+   - `4px` → `--ubits-spacing-xs`
+   - `8px` → `--ubits-spacing-sm`
+   - `12px` → `--ubits-spacing-md`
+   - `16px` → `--ubits-spacing-lg`
+   - `20px` → `--ubits-spacing-xl`
+   - `0px` → `--ubits-spacing-none`
+5. **Usar directamente `--ubits-spacing-*`** (NO usar `--p-spacing-mode-1-*` porque no existen)
+6. **Si NO existe en Storybook**: Agregarlo al token-mapping.json
 
 **Ejemplo:**
 ```css
@@ -215,41 +330,74 @@ gap: 8px;
 padding: 12px 16px;
 margin: 0;
 
-/* DESPUÉS */
-gap: var(--ubits-spacing-sm, 8px);
-padding: var(--ubits-spacing-md, 12px) var(--ubits-spacing-lg, 16px);
-margin: var(--ubits-spacing-none, 0);
+/* DESPUÉS - Usar tokens UBITS directamente */
+gap: var(--ubits-spacing-sm);  /* 8px */
+padding: var(--ubits-spacing-md) var(--ubits-spacing-lg);  /* 12px 16px */
+margin: var(--ubits-spacing-none);  /* 0px */
 ```
 
-**Nota:** Los tokens de spacing NO tienen equivalente en Figma, así que usamos los tokens antiguos con fallback.
+**❌ INCORRECTO - NO hacer esto:**
+```css
+/* ❌ Estos tokens NO existen en figma-tokens.css */
+gap: var(--p-spacing-mode-1-sm);
+padding: var(--p-spacing-mode-1-md) var(--p-spacing-mode-1-lg);
+```
+
+**✅ CORRECTO:**
+```css
+/* ✅ Usar tokens UBITS que SÍ existen */
+gap: var(--ubits-spacing-sm);
+padding: var(--ubits-spacing-md) var(--ubits-spacing-lg);
+```
+
+**Tokens disponibles:**
+- **UBITS (Storybook)**: `--ubits-spacing-none`, `--ubits-spacing-xs`, `--ubits-spacing-sm`, `--ubits-spacing-md`, `--ubits-spacing-lg`, `--ubits-spacing-xl`, `--ubits-spacing-2xl`, etc.
+- **Figma (NO usar directamente)**: `--p-spacing-mode-1-space-*` (números sin unidades, requieren `calc()`)
 
 #### 2.4 Migrar Tokens de Border-radius
 
+**🎯 REGLA DE ORO**: Todos los tokens de border-radius existen en Storybook y tokens.json. Usar `--ubits-border-radius-*` siempre. NUNCA dejar hardcodeado.
+
 **Estrategia:**
 1. Buscar tokens antiguos de border-radius (`--ubits-border-radius-*`)
-2. Si existen, mantenerlos (no tienen equivalente en Figma)
-3. Migrar valores hardcodeados a tokens antiguos con fallback
+2. Buscar valores hardcodeados de border-radius (`border-radius: 8px`, `border-radius: 4px`, etc.)
+3. **Reemplazar TODOS los valores hardcodeados** por tokens UBITS
+4. **Mantener valores específicos** como `50%`, `inherit`, `0` solo si son necesarios para funcionalidad específica
 
 **Ejemplo:**
 ```css
 /* ANTES */
 border-radius: 8px;
+border-radius: 4px;
+border-radius: 12px;
 border-radius: 50%;
 
 /* DESPUÉS */
 border-radius: var(--ubits-border-radius-sm, 8px);
-border-radius: 50%; /* Mantener valores específicos como 50%, inherit, 0 */
+border-radius: var(--ubits-border-radius-xs, 4px);
+border-radius: var(--ubits-border-radius-md, 12px);
+border-radius: 50%; /* Mantener solo si es necesario para funcionalidad específica (ej: círculos perfectos) */
 ```
 
-**Nota:** Los tokens de border-radius NO tienen equivalente en Figma, así que usamos los tokens antiguos con fallback.
+**Tokens disponibles en Storybook y tokens.json:**
+- `--ubits-border-radius-none` (0)
+- `--ubits-border-radius-xs` (4px)
+- `--ubits-border-radius-sm` (8px)
+- `--ubits-border-radius-md` (12px)
+- `--ubits-border-radius-lg` (16px)
+- `--ubits-border-radius-xl` (20px)
+- `--ubits-border-radius-full` (1000px)
 
 #### 2.5 Migrar Tokens de Effects
 
+**🎯 REGLA DE ORO**: Todos los tokens de effects existen en Storybook y tokens.json. Usar `--modifiers-normal-focus-color` para focus, y tokens de elevation para sombras. NUNCA dejar hardcodeado.
+
 **Estrategia:**
 1. Buscar tokens antiguos de effects (`--ubits-*elevation*`, `--ubits-*shadow*`, `--ubits-*focus*`)
-2. Verificar si tienen equivalente en Figma (consultar `figma-tokens.css` o Storybook)
-3. Si tienen equivalente, migrar a tokens nuevos de Figma
-4. **Si NO tienen equivalente exacto, buscar el token de Figma más parecido y reemplazarlo.**
+2. Buscar valores hardcodeados de effects (`rgba(82, 151, 244, 0.3)`, `box-shadow: 0 2px 4px rgba(...)`, etc.)
+3. **Focus Color**: Usar `--modifiers-normal-focus-color` (existe en Figma y Storybook)
+4. **Elevation/Shadow**: Usar tokens de Figma `--modifiers-normal-elevation-*` o construir desde tokens individuales
+5. **Si existe en Storybook pero no en JSON**: Agregarlo al token-mapping.json
 
 **Ejemplo con elevation floating (construido desde múltiples tokens):**
 ```css
@@ -286,12 +434,20 @@ box-shadow: var(--ubits-elevation-floating); /* 0 14px 28.8px 0 rgba(0, 0, 0, 0.
 ```css
 /* ANTES */
 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+box-shadow: 0 0 0 4px rgba(82, 151, 244, 0.3);
 outline: 2px solid rgba(82, 151, 244, 0.3);
 
 /* DESPUÉS */
 box-shadow: calc(var(--modifiers-normal-elevation-default-0-x) * 1px) calc(var(--modifiers-normal-elevation-default-0-y) * 1px) calc(var(--modifiers-normal-elevation-default-0-blur) * 1px) calc(var(--modifiers-normal-elevation-default-0-spread) * 1px) var(--modifiers-normal-elevation-default-0-color);
+box-shadow: 0 0 0 4px var(--modifiers-normal-focus-color);
 outline: 2px solid var(--modifiers-normal-focus-color);
 ```
+
+**⚠️ IMPORTANTE - Focus Color:**
+- **Token de Figma**: `--modifiers-normal-focus-color` (existe en Storybook y tokens.json)
+- **Valor**: `rgba(82, 151, 244, 0.3)`
+- **Uso**: Reemplazar TODOS los `rgba(82, 151, 244, 0.3)` hardcodeados por este token
+- **Fallback**: `var(--modifiers-normal-focus-color, rgba(82, 151, 244, 0.3))` (solo durante migración)
 
 ---
 
@@ -720,8 +876,12 @@ node scripts/fix-dark-mode-tokens.cjs
 15. **NO usar tokens de Figma con font-weight strings** - Usar tokens numéricos UBITS (`--ubits-font-weight-*`) en lugar de `--modifiers-normal-*-fontweight`
 16. **NO dejar tokens antiguos de typography** - Reemplazar TODOS los `--font-*`, `--weight-*`, `--font-h1-*`, `--font-h2-*` por tokens de Figma
 17. **NO dejar valores hardcodeados de typography** - Reemplazar TODOS los `font-size: 12px`, `font-weight: 600`, etc. por tokens de Figma
+18. **NO usar tokens de spacing que no existen** - Los tokens `--p-spacing-mode-1-xs/sm/md/lg/xl` NO existen en `figma-tokens.css`. Siempre usar `--ubits-spacing-*` directamente. Antes de reemplazar un spacing, verificar el valor en px y mapear correctamente (4px=xs, 8px=sm, 12px=md, 16px=lg, 20px=xl).
+19. **VERIFICAR tokens antes de usarlos** - Antes de usar cualquier token, verificar que existe en `packages/tokens/dist/figma-tokens.css` o `packages/tokens/tokens.json`. NO asumir que existe solo porque está en `token-mapping.json`. Si el token no existe, usar el token UBITS equivalente.
+20. **Mapear spacing correctamente** - Al reemplazar un spacing, verificar el valor en px del original y mapear correctamente: `4px` → `--ubits-spacing-xs`, `8px` → `--ubits-spacing-sm`, `12px` → `--ubits-spacing-md`, `16px` → `--ubits-spacing-lg`, `20px` → `--ubits-spacing-xl`.
 18. **NO olvidar agregar soporte dark mode** - Ejecutar `fix-dark-mode-tokens.cjs` después de migrar tokens para que los componentes funcionen en dark mode
 19. **NO dejar tokens `-light-` en reglas `[data-theme="dark"]`** - Reemplazar con tokens `-dark-` explícitos en reglas específicas
+20. **⚠️ NO usar token morado en lugar de azul para progreso** - **CRÍTICO**: Para estados de progreso, barras de progreso y textos "En progreso" en light mode, usar `--modifiers-normal-color-light-accent-brand` (AZUL #0c5bef), NO `--modifiers-static-inverted-color-light-accent-brand` (MORADO #3865f5). El token morado es solo para casos específicos de diseño estático invertido. Ver sección 2.1 para más detalles.
 
 ---
 
@@ -825,6 +985,37 @@ font-weight: var(--modifiers-normal-body-md-semibold-fontweight);
 /* DESPUÉS */
 font-weight: var(--ubits-font-weight-semibold, 600);
 /* Resultado: font-weight: 600 (válido en CSS) */
+```
+
+**Ejemplo 6: Token Morado vs Azul para Progreso (CRÍTICO)**
+```css
+/* ANTES - INCORRECTO */
+.course-status--progress {
+  color: var(--modifiers-static-inverted-color-light-accent-brand) !important;
+  /* Resultado: color morado (#3865f5) en light mode - INCORRECTO */
+}
+
+.course-progress-overlay .progress-fill {
+  background: var(--modifiers-static-inverted-color-light-accent-brand) !important;
+  /* Resultado: barra morada en light mode - INCORRECTO */
+}
+
+/* EVALUACIÓN: */
+/* - --modifiers-static-inverted-color-light-accent-brand = MORADO (#3865f5) */
+/* - --modifiers-normal-color-light-accent-brand = AZUL (#0c5bef) */
+/* - Para progreso y estados activos, necesitamos AZUL, no MORADO */
+/* - El token morado es solo para casos específicos de diseño estático invertido */
+
+/* DESPUÉS - CORRECTO */
+.course-status--progress {
+  color: var(--modifiers-normal-color-light-accent-brand) !important;
+  /* Resultado: color azul (#0c5bef) en light mode - CORRECTO */
+}
+
+.course-progress-overlay .progress-fill {
+  background: var(--modifiers-normal-color-light-accent-brand) !important;
+  /* Resultado: barra azul en light mode - CORRECTO */
+}
 ```
 
 ---

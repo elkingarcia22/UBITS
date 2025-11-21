@@ -349,6 +349,58 @@ export const TOKEN_MAPPING: TokenMapping[] = [
     category: 'spacing',
     notes: 'Spacing extra large'
   },
+  {
+    old: '--ubits-spacing-none',
+    new: '--ubits-spacing-none',
+    category: 'spacing',
+    notes: 'Spacing none (0px) - Mantener token UBITS original'
+  },
+
+  // ============================================
+  // BORDER RADIUS TOKENS
+  // ============================================
+  {
+    old: '--ubits-border-radius-none',
+    new: '--ubits-border-radius-none',
+    category: 'border-radius',
+    notes: 'Border radius none (0) - Mantener token UBITS original'
+  },
+  {
+    old: '--ubits-border-radius-xs',
+    new: '--ubits-border-radius-xs',
+    category: 'border-radius',
+    notes: 'Border radius extra small (4px) - Mantener token UBITS original'
+  },
+  {
+    old: '--ubits-border-radius-sm',
+    new: '--ubits-border-radius-sm',
+    category: 'border-radius',
+    notes: 'Border radius small (8px) - Mantener token UBITS original'
+  },
+  {
+    old: '--ubits-border-radius-md',
+    new: '--ubits-border-radius-md',
+    category: 'border-radius',
+    notes: 'Border radius medium (12px) - Mantener token UBITS original'
+  },
+  {
+    old: '--ubits-border-radius-lg',
+    new: '--ubits-border-radius-lg',
+    category: 'border-radius',
+    notes: 'Border radius large (16px) - Mantener token UBITS original'
+  },
+  {
+    old: '--ubits-border-radius-xl',
+    new: '--ubits-border-radius-xl',
+    category: 'border-radius',
+    notes: 'Border radius extra large (20px) - Mantener token UBITS original'
+  },
+  {
+    old: '--ubits-border-radius-full',
+    new: '--ubits-border-radius-full',
+    category: 'border-radius',
+    notes: 'Border radius full (1000px) - Mantener token UBITS original'
+  },
 
   // ============================================
   // TYPOGRAPHY TOKENS
@@ -425,6 +477,34 @@ export const TOKEN_MAPPING: TokenMapping[] = [
     new: '--modifiers-normal-elevation-bottom-nav-shadow-opacity',
     category: 'effects',
     notes: 'Bottom navigation shadow opacity'
+  },
+  {
+    old: '--modifiers-normal-focus-color',
+    new: '--modifiers-normal-focus-color',
+    category: 'effects',
+    notes: 'Focus color effect (rgba(82, 151, 244, 0.3)) - Token de Figma'
+  },
+
+  // ============================================
+  // SCROLL BAR TOKENS
+  // ============================================
+  {
+    old: '--ubits-scroll-bar-color-bg-default',
+    new: '--color-scroll-bar-color-bg-default',
+    category: 'scroll-bar',
+    notes: 'Scroll bar background default - Token de Figma con light/dark'
+  },
+  {
+    old: '--ubits-scroll-bar-color-bg-hover',
+    new: '--color-scroll-bar-color-bg-hover',
+    category: 'scroll-bar',
+    notes: 'Scroll bar background hover - Token de Figma con light/dark'
+  },
+  {
+    old: '--ubits-scroll-bar-color-bg-dragged',
+    new: '--color-scroll-bar-color-bg-dragged',
+    category: 'scroll-bar',
+    notes: 'Scroll bar background dragged - Token de Figma con light/dark'
   },
   // NOTA: --ubits-elevation-floating NO existe como token único en figma-tokens.css
   // Existen tokens separados para cada parte de la sombra

@@ -473,7 +473,7 @@ export const Default: Story = {
     const container = document.createElement('div');
     container.style.cssText = `
       padding: 20px;
-      background: var(--ubits-bg-1, #ffffff);
+      background: var(--modifiers-normal-color-light-bg-1);
       border-radius: 8px;
       width: 100%;
       max-width: 100%;
@@ -843,11 +843,11 @@ export const Default: Story = {
         expanded: false,
         renderExpandedContent: (data) => {
           return `
-            <div style="padding: var(--ubits-spacing-md, 16px);">
-              <h4 style="margin: 0 0 var(--ubits-spacing-sm, 8px) 0; font-size: var(--ubits-font-size-sm, 14px); font-weight: 600; color: var(--ubits-fg-1-high, #1f2937);">
+            <div style="padding: var(--ubits-spacing-md);">
+              <h4 style="margin: 0 0 var(--ubits-spacing-sm) 0; font-size: var(--modifiers-normal-body-sm-regular-fontsize); font-weight: 600; color: var(--modifiers-normal-color-light-fg-1-high);">
                 Información adicional
               </h4>
-              <p style="margin: 0; font-size: var(--ubits-font-size-sm, 13px); color: var(--ubits-fg-1-medium, #6b7280);">
+              <p style="margin: 0; font-size: var(--modifiers-normal-body-sm-regular-fontsize); color: var(--modifiers-normal-color-light-fg-1-medium);">
                 Detalles adicionales para ${data.nombre}
               </p>
             </div>
@@ -892,7 +892,7 @@ export const Default: Story = {
           padding: var(--ubits-spacing-sm) 0;
           gap: var(--ubits-spacing-xs);
           flex-wrap: wrap;
-          background-color: var(--ubits-bg-1);
+          background-color: var(--modifiers-normal-color-light-bg-1);
         `;
         header.insertAdjacentElement('afterend', actionBar);
         console.log('🎯 [ACTION BAR] Barra creada');
@@ -962,12 +962,11 @@ export const Default: Story = {
         
         if (showActionButtonDelete) {
           buttons.push(renderButton({
-            variant: 'secondary',
+            variant: 'error',
             size: 'sm',
             icon: 'trash',
             iconStyle: 'regular',
             iconOnly: true,
-            className: 'ubits-button--error',
             attributes: { id: 'action-btn-delete' }
           }));
         }
@@ -1048,12 +1047,11 @@ export const Default: Story = {
         
         if (showActionButtonDelete) {
           buttons.push(renderButton({
-            variant: 'secondary',
+            variant: 'error',
             size: 'sm',
             icon: 'trash',
             iconStyle: 'regular',
             iconOnly: true,
-            className: 'ubits-button--error',
             attributes: { id: 'action-btn-delete' }
           }));
         }

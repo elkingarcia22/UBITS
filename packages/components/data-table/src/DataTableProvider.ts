@@ -196,7 +196,7 @@ function renderCellByType(column: TableColumn, row: TableRow, columnType: Column
         : `<span class="ubits-body-md-regular">${nombre}</span>`;
       
       const finalHTML = `
-        <div style="display: flex; align-items: center; gap: var(--ubits-spacing-sm, 12px);">
+        <div style="display: flex; align-items: center; gap: var(--ubits-spacing-sm);">
           ${avatarHTML}
           ${nombreElement}
         </div>
@@ -287,11 +287,11 @@ function renderCellByType(column: TableColumn, row: TableRow, columnType: Column
       const nombreElement = `<span class="ubits-body-md-regular">${nombre}</span>`;
       
       return `
-        <div style="display: flex; align-items: flex-start; gap: var(--ubits-spacing-sm, 12px);">
+        <div style="display: flex; align-items: flex-start; gap: var(--ubits-spacing-sm);">
           ${avatarHTML}
-          <div style="display: flex; flex-direction: column; gap: 4px;">
+          <div style="display: flex; flex-direction: column; gap: var(--ubits-spacing-xs);">
             ${nombreElement}
-            ${textoComplementario ? `<span class="ubits-body-sm-regular" style="color: var(--ubits-fg-1-medium);">${textoComplementario}</span>` : ''}
+            ${textoComplementario ? `<span class="ubits-body-sm-regular" style="color: var(--modifiers-normal-color-light-fg-1-medium);">${textoComplementario}</span>` : ''}
           </div>
         </div>
       `;
@@ -452,17 +452,17 @@ function renderCellByType(column: TableColumn, row: TableRow, columnType: Column
       const isClickable = column.emailClickable !== false; // Por defecto es true
       
       if (isClickable) {
-        return `<a href="mailto:${email}" class="ubits-body-md-regular" style="color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static-inverted)); text-decoration: none;">${email}</a>`;
+        return `<a href="mailto:${email}" class="ubits-body-md-regular" style="color: var(--modifiers-normal-color-light-accent-brand); text-decoration: none;">${email}</a>`;
       } else {
         return `<span class="ubits-body-md-regular">${email}</span>`;
       }
     }
     
     case 'acciones': {
-      // Por defecto, mostrar botón terciario con icono de eliminar
+      // Por defecto, mostrar botón error (rojo) con icono de eliminar
       const buttonHTML = renderButton({
         text: 'Eliminar',
-        variant: 'tertiary',
+        variant: 'error',
         size: 'sm',
         icon: 'trash',
         iconStyle: 'regular',
@@ -573,7 +573,7 @@ function renderCell(column: TableColumn, row: TableRow, pinnedLeft: number = 0):
     );
     
     // Determinar el padding-left según el column-id (optimizado para espacio)
-    const paddingLeft = column.id === 'checkbox-2' ? '12px' : 'var(--ubits-spacing-md, 16px)';
+    const paddingLeft = column.id === 'checkbox-2' ? '12px' : 'var(--ubits-spacing-md)';
     
     // Agregar clase si la columna está fijada
     const pinnedClass = column.pinned ? ' ubits-data-table__cell--pinned' : '';
@@ -2068,26 +2068,151 @@ export function createDataTable(options: DataTableOptions): {
   const initializeIconFallbacks = () => {
     const waIcons = element.querySelectorAll('wa-icon');
     
-    waIcons.forEach((waIcon) => {
+    console.log('[DataTable] 🔍 Inicializando iconos fallback, encontrados:', waIcons.length);
+    
+    waIcons.forEach((waIcon, index) => {
       const faIcon = waIcon.nextElementSibling as HTMLElement;
+      const parent = waIcon.parentElement;
+      
+      // Solo aplicar estilos especiales si está dentro de un drag handle
+      const isDragHandle = parent && parent.classList.contains('ubits-data-table__column-drag-handle');
+      
+      console.log(`[DataTable] Icono ${index + 1}:`, {
+        isDragHandle,
+        parentClass: parent?.className,
+        waIconDefined: !!customElements.get('wa-icon'),
+        hasFallback: faIcon && faIcon.tagName === 'I',
+        waIconTagName: (waIcon as HTMLElement).tagName,
+        parentTagName: parent?.tagName,
+        parentPosition: parent ? window.getComputedStyle(parent).position : null,
+        parentWidth: parent ? window.getComputedStyle(parent).width : null,
+        parentHeight: parent ? window.getComputedStyle(parent).height : null
+      });
       
       if (faIcon && faIcon.tagName === 'I') {
         if (customElements.get('wa-icon')) {
-          (waIcon as HTMLElement).style.display = 'inline-block';
-          (waIcon as HTMLElement).style.width = '12px';
-          (waIcon as HTMLElement).style.height = '12px';
-          (waIcon as HTMLElement).style.opacity = '1';
+          if (isDragHandle) {
+            console.log(`[DataTable] 🎯 Aplicando estilos de drag handle al wa-icon ${index + 1}`);
+            // Para drag handles, usar posicionamiento absoluto para centrado perfecto
+            (waIcon as HTMLElement).style.display = 'block';
+            (waIcon as HTMLElement).style.width = '14px';
+            (waIcon as HTMLElement).style.height = '14px';
+            (waIcon as HTMLElement).style.opacity = '1';
+            (waIcon as HTMLElement).style.margin = '0';
+            (waIcon as HTMLElement).style.padding = '0';
+            (waIcon as HTMLElement).style.position = 'absolute';
+            (waIcon as HTMLElement).style.top = '50%';
+            (waIcon as HTMLElement).style.left = '50%';
+            (waIcon as HTMLElement).style.transform = 'translate(-50%, -50%)';
+            
+            // Log de estilos aplicados
+            const appliedStyles = window.getComputedStyle(waIcon as HTMLElement);
+            console.log(`[DataTable] ✅ Estilos aplicados al wa-icon ${index + 1}:`, {
+              display: appliedStyles.display,
+              position: appliedStyles.position,
+              top: appliedStyles.top,
+              left: appliedStyles.left,
+              transform: appliedStyles.transform,
+              width: appliedStyles.width,
+              height: appliedStyles.height,
+              margin: appliedStyles.margin,
+              padding: appliedStyles.padding,
+              'getBoundingClientRect': (waIcon as HTMLElement).getBoundingClientRect()
+            });
+            
+            // Verificar estilos del parent
+            if (parent) {
+              const parentStyles = window.getComputedStyle(parent);
+              const parentRect = parent.getBoundingClientRect();
+              console.log(`[DataTable] 📦 Estilos del parent (drag handle) ${index + 1}:`, {
+                display: parentStyles.display,
+                position: parentStyles.position,
+                width: parentStyles.width,
+                height: parentStyles.height,
+                padding: parentStyles.padding,
+                margin: parentStyles.margin,
+                'getBoundingClientRect': parentRect,
+                'iconOffsetFromParent': {
+                  left: (waIcon as HTMLElement).getBoundingClientRect().left - parentRect.left,
+                  top: (waIcon as HTMLElement).getBoundingClientRect().top - parentRect.top
+                }
+              });
+            }
+          } else {
+            // Para otros iconos, mantener el comportamiento original
+            (waIcon as HTMLElement).style.display = 'inline-block';
+            (waIcon as HTMLElement).style.width = '12px';
+            (waIcon as HTMLElement).style.height = '12px';
+            (waIcon as HTMLElement).style.opacity = '1';
+          }
           faIcon.style.display = 'none';
         } else {
           // Si wa-icon no está definido, ocultar wa-icon y mostrar fallback
           (waIcon as HTMLElement).style.display = 'none';
-          faIcon.style.display = 'inline-block';
-          faIcon.style.fontSize = '12px';
-          faIcon.style.width = '12px';
-          faIcon.style.height = '12px';
+          if (isDragHandle) {
+            console.log(`[DataTable] 🎯 Aplicando estilos de drag handle al fallback icon ${index + 1}`);
+            faIcon.style.display = 'block';
+            faIcon.style.fontSize = '14px';
+            faIcon.style.width = '14px';
+            faIcon.style.height = '14px';
+            faIcon.style.margin = '0';
+            faIcon.style.padding = '0';
+            faIcon.style.lineHeight = '1';
+            faIcon.style.position = 'absolute';
+            faIcon.style.top = '50%';
+            faIcon.style.left = '50%';
+            faIcon.style.transform = 'translate(-50%, -50%)';
+            faIcon.style.boxSizing = 'border-box';
+            faIcon.style.textAlign = 'center';
+            faIcon.style.verticalAlign = 'middle';
+            
+            // Log de estilos aplicados al fallback
+            const appliedStyles = window.getComputedStyle(faIcon);
+            const faIconRect = faIcon.getBoundingClientRect();
+            console.log(`[DataTable] ✅ Estilos aplicados al fallback icon ${index + 1}:`, {
+              display: appliedStyles.display,
+              position: appliedStyles.position,
+              top: appliedStyles.top,
+              left: appliedStyles.left,
+              transform: appliedStyles.transform,
+              width: appliedStyles.width,
+              height: appliedStyles.height,
+              'getBoundingClientRect': faIconRect
+            });
+            
+            // Verificar estilos del parent para fallback
+            if (parent) {
+              const parentStyles = window.getComputedStyle(parent);
+              const parentRect = parent.getBoundingClientRect();
+              console.log(`[DataTable] 📦 Estilos del parent (drag handle) para fallback ${index + 1}:`, {
+                display: parentStyles.display,
+                position: parentStyles.position,
+                width: parentStyles.width,
+                height: parentStyles.height,
+                padding: parentStyles.padding,
+                margin: parentStyles.margin,
+                'getBoundingClientRect': parentRect,
+                'iconOffsetFromParent': {
+                  left: faIconRect.left - parentRect.left,
+                  top: faIconRect.top - parentRect.top,
+                  'expectedCenter': {
+                    left: parentRect.width / 2,
+                    top: parentRect.height / 2
+                  }
+                }
+              });
+            }
+          } else {
+            faIcon.style.display = 'inline-block';
+            faIcon.style.fontSize = '12px';
+            faIcon.style.width = '12px';
+            faIcon.style.height = '12px';
+          }
         }
       }
     });
+    
+    console.log('[DataTable] ✅ Finalizada inicialización de iconos fallback');
   };
 
   // Función para renderizar
@@ -3858,7 +3983,7 @@ export function createDataTable(options: DataTableOptions): {
               
               // Ahora aplicar los estilos
               // Obtener valor del token UBITS (sin fallback hardcodeado para cumplir validación)
-              const bg1Value = getComputedStyle(document.documentElement).getPropertyValue('--ubits-bg-1').trim();
+              const bg1Value = getComputedStyle(document.documentElement).getPropertyValue('--modifiers-normal-color-light-bg-1').trim();
               
               // Agregar clase para forzar limpieza del hover inmediatamente
               rowElement.classList.add('ubits-data-table__row--clear-hover');
@@ -4384,10 +4509,10 @@ export function createDataTable(options: DataTableOptions): {
                 position: fixed;
                 z-index: 10000;
                 display: none;
-                background-color: var(--ubits-bg-1);
-                border: 1px solid var(--ubits-border-1);
-                border-radius: var(--ubits-border-radius-md, 8px);
-                box-shadow: var(--ubits-elevation-2, 0 4px 6px rgba(0, 0, 0, 0.1));
+                background-color: var(--modifiers-normal-color-light-bg-1);
+                border: 1px solid var(--modifiers-normal-color-light-border-1);
+                border-radius: var(--ubits-border-radius-md);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 min-width: 200px;
                 max-width: 300px;
               `;
@@ -4484,7 +4609,7 @@ export function createDataTable(options: DataTableOptions): {
         // Crear items del menú contextual (mismas opciones que barra de acciones individuales)
         // Helper para crear label con icono
         const createLabelWithIcon = (icon: string, text: string) => {
-          return `<div style="display: flex; align-items: center; gap: var(--ubits-spacing-xs, 8px);">
+          return `<div style="display: flex; align-items: center; gap: var(--ubits-spacing-xs);">
             <i class="far fa-${icon}" style="font-size: 14px; width: 16px; text-align: center;"></i>
             <span>${text}</span>
           </div>`;
@@ -5040,9 +5165,9 @@ export function createDataTable(options: DataTableOptions): {
         dropdown.style.top = `${rect.bottom + 4}px`;
         dropdown.style.left = `${rect.left}px`;
         dropdown.style.zIndex = '1000';
-        dropdown.style.backgroundColor = 'var(--ubits-bg-1)';
-        dropdown.style.border = '1px solid var(--ubits-border-1)';
-        dropdown.style.borderRadius = '8px';
+        dropdown.style.backgroundColor = 'var(--modifiers-normal-color-light-bg-1)';
+        dropdown.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
+        dropdown.style.borderRadius = 'var(--ubits-border-radius-sm)';
         // El componente List ya tiene su propio box-shadow, no aplicar aquí
         // El List maneja: box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
         dropdown.style.display = 'block';

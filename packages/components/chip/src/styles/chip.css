@@ -12,16 +12,16 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--ubits-spacing-xs, 4px);
-    padding: var(--ubits-spacing-xs, 4px) var(--ubits-spacing-sm, 8px);
+    gap: var(--p-spacing-mode-1-xs, 4px);
+    padding: var(--p-spacing-mode-1-xs, 4px) var(--p-spacing-mode-1-sm, 8px);
     border-radius: var(--ubits-border-radius-sm, 8px);
-    border: 1px solid var(--ubits-border-1, #d0d2d5);
-    background-color: var(--ubits-bg-2, #F3F3F4);
-    color: var(--ubits-fg-1-high, #303a47);
-    font-family: var(--font-sans, 'Noto Sans', sans-serif);
-    font-size: var(--ubits-font-size-md, 13px);
-    font-weight: var(--weight-regular, 400);
-    line-height: var(--ubits-line-height-md, 19.5px);
+    border: 1px solid var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
+    background-color: var(--modifiers-normal-color-light-bg-2, var(--ubits-bg-2, #F3F3F4)) !important;
+    color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
+    font-family: var(--font-family-noto-sans-font-family, var(--font-sans, 'Noto Sans', sans-serif));
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize, var(--ubits-font-size-md, 13px));
+    font-weight: var(--ubits-font-weight-regular, 400);
+    line-height: var(--modifiers-normal-body-sm-regular-lineheight, var(--ubits-line-height-md, 19.5px));
     white-space: nowrap;
     transition: all 0.2s ease;
     user-select: none;
@@ -34,9 +34,9 @@
 /* Extra Small (xs) - 20px height */
 .ubits-chip--xs {
     height: 20px;
-    padding: var(--ubits-spacing-xs, 4px) var(--ubits-spacing-sm, 8px);
-    font-size: var(--ubits-font-size-sm, 12px);
-    line-height: var(--ubits-line-height-sm, 18px);
+    padding: var(--p-spacing-mode-1-xs, 4px) var(--p-spacing-mode-1-sm, 8px);
+    font-size: var(--modifiers-normal-body-xs-regular-fontsize, var(--ubits-font-size-sm, 12px));
+    line-height: var(--modifiers-normal-body-xs-regular-lineheight, var(--ubits-line-height-sm, 18px));
 }
 
 .ubits-chip--xs .ubits-chip__left-icon,
@@ -49,9 +49,9 @@
 /* Small (sm) - 24px height */
 .ubits-chip--sm {
     height: 24px;
-    padding: var(--ubits-spacing-xs, 4px) var(--ubits-spacing-sm, 8px);
-    font-size: var(--ubits-font-size-sm, 12px);
-    line-height: var(--ubits-line-height-sm, 18px);
+    padding: var(--p-spacing-mode-1-xs, 4px) var(--p-spacing-mode-1-sm, 8px);
+    font-size: var(--modifiers-normal-body-xs-regular-fontsize, var(--ubits-font-size-sm, 12px));
+    line-height: var(--modifiers-normal-body-xs-regular-lineheight, var(--ubits-line-height-sm, 18px));
 }
 
 .ubits-chip--sm .ubits-chip__left-icon,
@@ -64,9 +64,9 @@
 /* Medium (md) - 28px height - Default */
 .ubits-chip--md {
     height: 28px;
-    padding: var(--ubits-spacing-sm, 8px) var(--ubits-spacing-md, 12px);
-    font-size: var(--ubits-font-size-md, 13px);
-    line-height: var(--ubits-line-height-md, 19.5px);
+    padding: var(--p-spacing-mode-1-sm, 8px) var(--p-spacing-mode-1-md, 12px);
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize, var(--ubits-font-size-md, 13px));
+    line-height: var(--modifiers-normal-body-sm-regular-lineheight, var(--ubits-line-height-md, 19.5px));
 }
 
 .ubits-chip--md .ubits-chip__left-icon,
@@ -79,9 +79,9 @@
 /* Large (lg) - 36px height */
 .ubits-chip--lg {
     height: 36px;
-    padding: var(--ubits-spacing-sm, 8px) var(--ubits-spacing-md, 12px);
-    font-size: var(--ubits-font-size-md, 13px);
-    line-height: var(--ubits-line-height-md, 19.5px);
+    padding: var(--p-spacing-mode-1-sm, 8px) var(--p-spacing-mode-1-md, 12px);
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize, var(--ubits-font-size-md, 13px));
+    line-height: var(--modifiers-normal-body-sm-regular-lineheight, var(--ubits-line-height-md, 19.5px));
 }
 
 .ubits-chip--lg .ubits-chip__left-icon,
@@ -100,6 +100,8 @@
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
+    position: relative;
+    z-index: 1;
 }
 
 .ubits-chip__left-icon {
@@ -127,8 +129,7 @@
 .ubits-chip__right-icon:focus-visible {
     /* Efecto Focus de los tokens UBITS */
     outline: none;
-    border: 2px solid var(--ubits-accent-brand-static-inverted, #5297F4);
-    box-shadow: 0px 0px 0px 4px rgba(82, 151, 244, 0.3);
+    box-shadow: 0 0 0 4px var(--modifiers-normal-focus-color, rgba(82, 151, 244, 0.3));
     border-radius: var(--ubits-border-radius-xs, 4px);
 }
 
@@ -138,37 +139,53 @@
 
 /* Default State */
 .ubits-chip--default {
-    background-color: var(--ubits-bg-2, #F3F3F4);
-    color: var(--ubits-fg-1-high, #303a47);
-    border-color: var(--ubits-border-1, #d0d2d5);
+    background-color: var(--modifiers-normal-color-light-bg-2, var(--ubits-bg-2, #F3F3F4)) !important;
+    color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
+    border-color: var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
 }
 
 /* Hover State */
 .ubits-chip--hover:not(.ubits-chip--disabled),
 .ubits-chip:hover:not(.ubits-chip--disabled) {
-    background-color: var(--ubits-bg-4, #dbdde0);
-    color: var(--ubits-fg-1-high, #303a47);
-    border-color: var(--ubits-border-1, #d0d2d5);
+    background-color: var(--modifiers-normal-color-light-bg-4, var(--ubits-bg-4, #dbdde0)) !important;
+    color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
+    border-color: var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
 }
 
 /* Active State */
 .ubits-chip--active {
-    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.15)), var(--ubits-bg-1, #ffffff);
-    color: var(--ubits-fg-1-high, #303a47);
-    border-color: var(--ubits-border-1, #d0d2d5);
+    position: relative;
+    background-color: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
+    color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
+    border-color: var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
+}
+
+.ubits-chip--active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--modifiers-normal-color-light-bg-active, var(--ubits-bg-active, rgba(12, 91, 239, 0.15))) !important;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
 }
 
 .ubits-chip--active .ubits-chip__left-icon,
 .ubits-chip--active .ubits-chip__right-icon {
-    color: var(--ubits-fg-1-high, #303a47);
+    position: relative;
+    z-index: 1;
+    color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
 }
 
 /* Pressed State */
 .ubits-chip--pressed:not(.ubits-chip--disabled),
 .ubits-chip:active:not(.ubits-chip--disabled) {
-    background-color: var(--ubits-fg-gray-subtle-hover, #c5c6cb);
-    color: var(--ubits-fg-1-high, #303a47);
-    border-color: var(--ubits-border-1, #d0d2d5);
+    background-color: var(--modifiers-normal-color-light-bg-4, var(--ubits-fg-gray-subtle-hover, #c5c6cb)) !important;
+    color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
+    border-color: var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
     transform: translateY(1px);
 }
 
@@ -176,19 +193,16 @@
 .ubits-chip--focus:focus-visible,
 .ubits-chip:focus-visible {
     /* Efecto Focus de los tokens UBITS */
-    /* Border: 2px solid del color de focus */
-    border: 2px solid var(--ubits-accent-brand-static-inverted, #5297F4);
-    /* Box-shadow: 0px 0px 0px 4px con spread de 4px y opacidad 30% */
-    box-shadow: 0px 0px 0px 4px rgba(82, 151, 244, 0.3);
     outline: none;
+    box-shadow: 0 0 0 4px var(--modifiers-normal-focus-color, rgba(82, 151, 244, 0.3));
 }
 
 /* Disabled State */
 .ubits-chip--disabled,
 .ubits-chip[aria-disabled="true"] {
-    background-color: var(--ubits-bg-disabled, #edeeef);
-    color: var(--ubits-fg-on-disabled-button, #979ba3);
-    border-color: var(--ubits-border-disabled-button, #d0d2d5);
+    background-color: var(--modifiers-normal-color-light-bg-disabled, var(--ubits-bg-disabled, #edeeef)) !important;
+    color: var(--modifiers-normal-color-light-fg-on-disabled, var(--ubits-fg-on-disabled-button, #979ba3)) !important;
+    border-color: var(--modifiers-normal-color-light-border-disabled, var(--ubits-border-disabled-button, #d0d2d5)) !important;
     cursor: not-allowed;
     pointer-events: none;
     opacity: 0.6;
@@ -198,7 +212,7 @@
 .ubits-chip--disabled .ubits-chip__right-icon,
 .ubits-chip[aria-disabled="true"] .ubits-chip__left-icon,
 .ubits-chip[aria-disabled="true"] .ubits-chip__right-icon {
-    color: var(--ubits-fg-on-disabled-button, #979ba3);
+    color: var(--modifiers-normal-color-light-fg-on-disabled, var(--ubits-fg-on-disabled-button, #979ba3)) !important;
     cursor: not-allowed;
 }
 
@@ -211,11 +225,11 @@
 }
 
 .ubits-chip--clickable:not(.ubits-chip--disabled):hover {
-    background-color: var(--ubits-bg-4, #dbdde0);
+    background-color: var(--modifiers-normal-color-light-bg-4, var(--ubits-bg-4, #dbdde0)) !important;
 }
 
 .ubits-chip--clickable:not(.ubits-chip--disabled):active {
-    background-color: var(--ubits-fg-gray-subtle-hover, #c5c6cb);
+    background-color: var(--modifiers-normal-color-light-bg-4, var(--ubits-fg-gray-subtle-hover, #c5c6cb)) !important;
     transform: translateY(1px);
 }
 
@@ -224,12 +238,12 @@
    ======================================== */
 
 .ubits-chip--closable .ubits-chip__right-icon:hover:not(:disabled) {
-    background-color: var(--ubits-bg-4, #dbdde0);
+    background-color: var(--modifiers-normal-color-light-bg-4, var(--ubits-bg-4, #dbdde0)) !important;
     border-radius: var(--ubits-border-radius-xs, 4px);
 }
 
 .ubits-chip--closable .ubits-chip__right-icon:active:not(:disabled) {
-    background-color: var(--ubits-fg-gray-subtle-hover, #c5c6cb);
+    background-color: var(--modifiers-normal-color-light-bg-4, var(--ubits-fg-gray-subtle-hover, #c5c6cb)) !important;
     transform: scale(0.95);
 }
 
@@ -239,6 +253,22 @@
 
 @media (max-width: 767px) {
     .ubits-chip {
-        font-size: var(--ubits-font-size-sm, 12px);
+        font-size: var(--modifiers-normal-body-xs-regular-fontsize, var(--ubits-font-size-sm, 12px));
     }
+}
+
+/* ========================================
+   DARK MODE
+   ======================================== */
+
+[data-theme="dark"] {
+  --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
+  --modifiers-normal-color-light-bg-2: var(--modifiers-normal-color-dark-bg-2);
+  --modifiers-normal-color-light-bg-4: var(--modifiers-normal-color-dark-bg-4);
+  --modifiers-normal-color-light-bg-active: var(--modifiers-normal-color-dark-bg-active);
+  --modifiers-normal-color-light-bg-disabled: var(--modifiers-normal-color-dark-bg-disabled);
+  --modifiers-normal-color-light-border-1: var(--modifiers-normal-color-dark-border-1);
+  --modifiers-normal-color-light-border-disabled: var(--modifiers-normal-color-dark-border-disabled);
+  --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
+  --modifiers-normal-color-light-fg-on-disabled: var(--modifiers-normal-color-dark-fg-on-disabled);
 }

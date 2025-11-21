@@ -10,98 +10,98 @@ const STATUS_COLORS: Record<string, {
 }> = {
   // Estados verdes (success) - Valores exactos de Figma
   completed: {
-    bg: 'var(--ubits-feedback-success-bg, #e8f8e4)',
-    text: 'var(--ubits-feedback-success-text, #223b16)',
-    border: 'var(--ubits-feedback-success-border, #41c433)'
+    bg: 'var(--modifiers-normal-color-light-feedback-bg-success-subtle-default)',
+    text: 'var(--modifiers-normal-color-light-feedback-fg-success-subtle-default)',
+    border: 'var(--modifiers-normal-color-light-feedback-border-success)'
   },
   published: {
-    bg: 'var(--ubits-feedback-success-bg, #e8f8e4)',
-    text: 'var(--ubits-feedback-success-text, #223b16)',
-    border: 'var(--ubits-feedback-success-border, #41c433)'
+    bg: 'var(--modifiers-normal-color-light-feedback-bg-success-subtle-default)',
+    text: 'var(--modifiers-normal-color-light-feedback-fg-success-subtle-default)',
+    border: 'var(--modifiers-normal-color-light-feedback-border-success)'
   },
   fulfilled: {
-    bg: 'var(--ubits-feedback-success-bg, #e8f8e4)',
-    text: 'var(--ubits-feedback-success-text, #223b16)',
-    border: 'var(--ubits-feedback-success-border, #41c433)'
+    bg: 'var(--modifiers-normal-color-light-feedback-bg-success-subtle-default)',
+    text: 'var(--modifiers-normal-color-light-feedback-fg-success-subtle-default)',
+    border: 'var(--modifiers-normal-color-light-feedback-border-success)'
   },
   created: {
-    bg: 'var(--ubits-feedback-success-bg, #e8f8e4)',
-    text: 'var(--ubits-feedback-success-text, #223b16)',
-    border: 'var(--ubits-feedback-success-border, #41c433)'
+    bg: 'var(--modifiers-normal-color-light-feedback-bg-success-subtle-default)',
+    text: 'var(--modifiers-normal-color-light-feedback-fg-success-subtle-default)',
+    border: 'var(--modifiers-normal-color-light-feedback-border-success)'
   },
   active: {
-    bg: 'var(--ubits-feedback-success-bg, #e8f8e4)',
-    text: 'var(--ubits-feedback-success-text, #223b16)',
-    border: 'var(--ubits-feedback-success-border, #41c433)'
+    bg: 'var(--modifiers-normal-color-light-feedback-bg-success-subtle-default)',
+    text: 'var(--modifiers-normal-color-light-feedback-fg-success-subtle-default)',
+    border: 'var(--modifiers-normal-color-light-feedback-border-success)'
   },
   // Estados rojos (error) - Valores exactos de Figma
   'not-fulfilled': {
-    bg: 'var(--ubits-feedback-error-bg, #fff0ee)',
-    text: 'var(--ubits-feedback-error-text, #65181e)',
-    border: 'var(--ubits-feedback-error-border, #fd8a82)'
+    bg: 'var(--modifiers-normal-color-light-feedback-bg-error-subtle-default)',
+    text: 'var(--modifiers-normal-color-light-feedback-fg-error-subtle-default)',
+    border: 'var(--modifiers-normal-color-light-feedback-border-error)'
   },
   denied: {
-    bg: 'var(--ubits-feedback-error-bg, #fff0ee)',
-    text: 'var(--ubits-feedback-error-text, #65181e)',
-    border: 'var(--ubits-feedback-error-border, #fd8a82)'
+    bg: 'var(--modifiers-normal-color-light-feedback-bg-error-subtle-default)',
+    text: 'var(--modifiers-normal-color-light-feedback-fg-error-subtle-default)',
+    border: 'var(--modifiers-normal-color-light-feedback-border-error)'
   },
   // Estados azules (info) - Valores exactos de Figma con gradiente
   draft: {
-    bg: 'rgba(12, 91, 239, 0.15)',
-    text: 'var(--ubits-feedback-info-text, #212f70)',
-    border: 'var(--ubits-accent-brand-static-inverted, #0c5bef)'
+    bg: 'var(--modifiers-normal-color-light-bg-active)',
+    text: 'var(--modifiers-normal-color-light-feedback-fg-info-subtle-default)',
+    border: 'var(--modifiers-normal-color-light-accent-brand)'
   },
   'in-progress': {
-    bg: 'rgba(12, 91, 239, 0.15)',
-    text: 'var(--ubits-feedback-info-text, #212f70)',
-    border: 'var(--ubits-accent-brand-static-inverted, #0c5bef)'
+    bg: 'var(--modifiers-normal-color-light-bg-active)',
+    text: 'var(--modifiers-normal-color-light-feedback-fg-info-subtle-default)',
+    border: 'var(--modifiers-normal-color-light-accent-brand)'
   },
   syncing: {
-    bg: 'rgba(12, 91, 239, 0.15)',
-    text: 'var(--ubits-feedback-info-text, #212f70)',
-    border: 'var(--ubits-accent-brand-static-inverted, #0c5bef)'
+    bg: 'var(--modifiers-normal-color-light-bg-active)',
+    text: 'var(--modifiers-normal-color-light-feedback-fg-info-subtle-default)',
+    border: 'var(--modifiers-normal-color-light-accent-brand)'
   },
   // Estados naranjas/amarillos (warning) - Valores exactos de Figma
   pending: {
-    bg: 'var(--ubits-feedback-warning-bg, #fff1e0)',
-    text: 'var(--ubits-feedback-warning-text, #4c2e15)',
-    border: 'var(--ubits-feedback-warning-border, #ec9907)'
+    bg: 'var(--modifiers-normal-color-light-feedback-bg-warning-subtle-default)',
+    text: 'var(--modifiers-normal-color-light-feedback-fg-warning-subtle-default)',
+    border: 'var(--modifiers-normal-color-light-feedback-border-warning)'
   },
   'pending-approval': {
-    bg: 'var(--ubits-feedback-warning-bg, #fff1e0)',
-    text: 'var(--ubits-feedback-warning-text, #4c2e15)',
-    border: 'var(--ubits-feedback-warning-border, #ec9907)'
+    bg: 'var(--modifiers-normal-color-light-feedback-bg-warning-subtle-default)',
+    text: 'var(--modifiers-normal-color-light-feedback-fg-warning-subtle-default)',
+    border: 'var(--modifiers-normal-color-light-feedback-border-warning)'
   },
   // Estados grises (neutral) - Valores exactos de Figma
   'not-started': {
-    bg: 'var(--ubits-bg-2, #f3f3f4)',
-    text: 'var(--ubits-fg-1-medium, #2b3543)',
-    border: 'var(--ubits-border-1, #a8abb2)'
+    bg: 'var(--modifiers-normal-color-light-bg-2)',
+    text: 'var(--modifiers-normal-color-light-fg-1-medium)',
+    border: 'var(--modifiers-normal-color-light-border-1)'
   },
   finished: {
-    bg: 'var(--ubits-bg-2, #f3f3f4)',
-    text: 'var(--ubits-fg-1-medium, #2b3543)',
-    border: 'var(--ubits-border-1, #a8abb2)'
+    bg: 'var(--modifiers-normal-color-light-bg-2)',
+    text: 'var(--modifiers-normal-color-light-fg-1-medium)',
+    border: 'var(--modifiers-normal-color-light-border-1)'
   },
   archived: {
-    bg: 'var(--ubits-bg-2, #f3f3f4)',
-    text: 'var(--ubits-fg-1-medium, #2b3543)',
-    border: 'var(--ubits-border-1, #a8abb2)'
+    bg: 'var(--modifiers-normal-color-light-bg-2)',
+    text: 'var(--modifiers-normal-color-light-fg-1-medium)',
+    border: 'var(--modifiers-normal-color-light-border-1)'
   },
   disabled: {
-    bg: 'var(--ubits-bg-2, #f3f3f4)',
-    text: 'var(--ubits-fg-1-medium, #2b3543)',
-    border: 'var(--ubits-border-1, #a8abb2)'
+    bg: 'var(--modifiers-normal-color-light-bg-2)',
+    text: 'var(--modifiers-normal-color-light-fg-1-medium)',
+    border: 'var(--modifiers-normal-color-light-border-1)'
   },
   paused: {
-    bg: 'var(--ubits-bg-2, #f3f3f4)',
-    text: 'var(--ubits-fg-1-medium, #2b3543)',
-    border: 'var(--ubits-border-1, #a8abb2)'
+    bg: 'var(--modifiers-normal-color-light-bg-2)',
+    text: 'var(--modifiers-normal-color-light-fg-1-medium)',
+    border: 'var(--modifiers-normal-color-light-border-1)'
   },
   hidden: {
-    bg: 'var(--ubits-bg-2, #f3f3f4)',
-    text: 'var(--ubits-fg-1-medium, #2b3543)',
-    border: 'var(--ubits-border-1, #a8abb2)'
+    bg: 'var(--modifiers-normal-color-light-bg-2)',
+    text: 'var(--modifiers-normal-color-light-fg-1-medium)',
+    border: 'var(--modifiers-normal-color-light-border-1)'
   }
 };
 
@@ -140,11 +140,11 @@ export function renderStatusTag(options: StatusTagOptions = {} as StatusTagOptio
     className
   ].filter(Boolean).join(' ');
 
-  // Estilos inline para los colores (usando tokens en CSS, pero como fallback)
+  // Estilos inline para los colores (usando tokens nuevos de Figma)
   // Para estados azules (draft, in-progress, syncing), usar gradiente
   const isInfoStatus = status === 'draft' || status === 'in-progress' || status === 'syncing';
   const bgStyle = isInfoStatus 
-    ? `background: linear-gradient(90deg, rgba(12, 91, 239, 0.15) 0%, rgba(12, 91, 239, 0.15) 100%), linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 100%); background-color: ${colors.bg};`
+    ? `background: linear-gradient(90deg, var(--modifiers-normal-color-light-bg-active) 0%, var(--modifiers-normal-color-light-bg-active) 100%), linear-gradient(90deg, var(--modifiers-normal-color-light-bg-1) 0%, var(--modifiers-normal-color-light-bg-1) 100%); background-color: ${colors.bg};`
     : `background-color: ${colors.bg};`;
 
   const inlineStyles = `

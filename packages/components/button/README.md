@@ -44,7 +44,7 @@ pnpm add @ubits/button
 </ubits-button>
 
 <!-- Botón icon-only -->
-<ubits-button variant="tertiary" size="sm" icon="trash" icon-only></ubits-button>
+<ubits-button variant="error" size="sm" icon="trash" icon-only></ubits-button>
 
 <!-- Botón con badge -->
 <ubits-button variant="primary" size="md" icon="bell" badge>
@@ -153,7 +153,7 @@ document.body.appendChild(button);
 
 ```html
 <!-- Icon-only -->
-<ubits-button variant="tertiary" size="sm" icon="trash" icon-only></ubits-button>
+<ubits-button variant="error" size="sm" icon="trash" icon-only></ubits-button>
 
 <!-- Full-width -->
 <ubits-button variant="primary" full-width>Ancho completo</ubits-button>

@@ -9,17 +9,17 @@
    ======================================== */
 
 .ubits-list {
-    background: var(--ubits-bg-1);
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
+    border-radius: var(--ubits-border-radius-sm, 8px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Box shadow - mantener hardcodeado como fallback visual */
     overflow-y: auto;
     overflow-x: hidden;
     width: 100%;
     max-height: 400px;
-    font-family: var(--font-sans);
+    font-family: var(--font-family-noto-sans-font-family, var(--font-sans, 'Noto Sans', sans-serif));
     /* Scrollbar styling */
     scrollbar-width: thin;
-    scrollbar-color: var(--ubits-fg-2-medium-static) var(--ubits-bg-3);
+    scrollbar-color: var(--modifiers-normal-color-light-fg-2-medium, var(--ubits-fg-2-medium-static, #5c646f)) var(--modifiers-normal-color-light-bg-3, var(--ubits-bg-3, #edeeef));
 }
 
 /* WebKit scrollbar (Chrome, Safari, Edge) */
@@ -28,18 +28,18 @@
 }
 
 .ubits-list::-webkit-scrollbar-track {
-    background: var(--ubits-bg-3);
-    border-radius: 6px;
+    background: var(--modifiers-normal-color-light-bg-3, var(--ubits-bg-3, #edeeef)) !important;
+    border-radius: var(--ubits-border-radius-xs, 6px);
 }
 
 .ubits-list::-webkit-scrollbar-thumb {
-    background: var(--ubits-fg-2-medium-static);
-    border-radius: 6px;
+    background: var(--modifiers-normal-color-light-fg-2-medium, var(--ubits-fg-2-medium-static, #5c646f)) !important;
+    border-radius: var(--ubits-border-radius-xs, 6px);
     transition: background 0.2s ease;
 }
 
 .ubits-list::-webkit-scrollbar-thumb:hover {
-    background: var(--ubits-fg-2-high-static);
+    background: var(--modifiers-normal-color-light-fg-2-high, var(--ubits-fg-2-high-static, #303a47)) !important;
 }
 
 /* ========================================
@@ -47,11 +47,11 @@
    ======================================== */
 
 .ubits-list-item {
-    color: var(--ubits-fg-1-high);
+    color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
     background: transparent;
     cursor: pointer;
     transition: all 0.2s ease;
-    font-family: var(--font-sans);
+    font-family: var(--font-family-noto-sans-font-family, var(--font-sans, 'Noto Sans', sans-serif));
     border: none;
     outline: none;
     display: block;
@@ -63,43 +63,43 @@
 
 /* Tamaños - Matching input heights */
 .ubits-list-item--xs {
-    padding: 8px 12px;
-    font-size: var(--font-body-xs-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-xs-line);
+    padding: var(--p-spacing-mode-1-sm, 8px) var(--p-spacing-mode-1-md, 12px);
+    font-size: var(--modifiers-normal-body-xs-regular-fontsize, var(--font-body-xs-size, 11px));
+    font-weight: var(--ubits-font-weight-regular, 400);
+    line-height: var(--modifiers-normal-body-xs-regular-lineheight, var(--font-body-xs-line, 16.5px));
     min-height: 28px;
 }
 
 .ubits-list-item--sm {
-    padding: 10px 14px;
-    font-size: var(--font-body-sm-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-sm-line);
+    padding: var(--p-spacing-mode-1-md, 10px) var(--p-spacing-mode-1-md, 14px);
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize, var(--font-body-sm-size, 13px));
+    font-weight: var(--ubits-font-weight-regular, 400);
+    line-height: var(--modifiers-normal-body-sm-regular-lineheight, var(--font-body-sm-line, 19.5px));
     min-height: 32px;
 }
 
 .ubits-list-item--md {
-    padding: 12px 16px;
-    font-size: var(--font-body-md-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-md-line);
+    padding: var(--p-spacing-mode-1-md, 12px) var(--p-spacing-mode-1-lg, 16px);
+    font-size: var(--modifiers-normal-body-md-regular-fontsize, var(--font-body-md-size, 16px));
+    font-weight: var(--ubits-font-weight-regular, 400);
+    line-height: var(--modifiers-normal-body-md-regular-lineheight, var(--font-body-md-line, 24px));
     min-height: 40px;
 }
 
 .ubits-list-item--lg {
-    padding: 16px 20px;
-    font-size: var(--font-body-lg-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-lg-line);
+    padding: var(--p-spacing-mode-1-lg, 16px) var(--p-spacing-mode-1-xl, 20px);
+    font-size: var(--modifiers-normal-body-lg-regular-fontsize, var(--font-body-lg-size, 20px));
+    font-weight: var(--ubits-font-weight-regular, 400);
+    line-height: var(--modifiers-normal-body-lg-regular-lineheight, var(--font-body-lg-line, 30px));
     min-height: 48px;
 }
 
 /* Default size (md) */
 .ubits-list-item:not(.ubits-list-item--xs):not(.ubits-list-item--sm):not(.ubits-list-item--md):not(.ubits-list-item--lg) {
-    padding: 12px 16px;
-    font-size: var(--font-body-md-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-md-line);
+    padding: var(--p-spacing-mode-1-md, 12px) var(--p-spacing-mode-1-lg, 16px);
+    font-size: var(--modifiers-normal-body-md-regular-fontsize, var(--font-body-md-size, 16px));
+    font-weight: var(--ubits-font-weight-regular, 400);
+    line-height: var(--modifiers-normal-body-md-regular-lineheight, var(--font-body-md-line, 24px));
     min-height: 40px;
 }
 
@@ -115,31 +115,31 @@
 
 /* Hover state */
 .ubits-list-item:hover:not(.ubits-list-item--disabled) {
-    color: var(--ubits-accent-brand-static-inverted);
-    background: rgba(12, 91, 239, 0.08); /* Azul claro #E0F0FF equivalente */
+    color: var(--modifiers-normal-color-light-accent-brand, var(--ubits-accent-brand-static-inverted, #0c5bef)) !important;
+    background: var(--modifiers-normal-color-light-bg-active, var(--ubits-bg-active-button, rgba(12, 91, 239, 0.08))) !important; /* Azul claro con opacidad reducida */
 }
 
 /* Active/Selected state */
 .ubits-list-item--active,
 .ubits-list-item[aria-selected="true"] {
-    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static-inverted));
-    background: var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15));
+    color: var(--modifiers-normal-color-light-accent-brand, var(--ubits-accent-brand-static-inverted, #0c5bef)) !important;
+    background: var(--modifiers-normal-color-light-bg-active, var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15))) !important;
 }
 
 /* Disabled state */
 .ubits-list-item--disabled,
 .ubits-list-item[aria-disabled="true"] {
-    color: var(--ubits-fg-on-disabled);
-    background: var(--ubits-bg-3);
+    color: var(--modifiers-normal-color-light-fg-on-disabled, var(--ubits-fg-on-disabled, #979ba3)) !important;
+    background: var(--modifiers-normal-color-light-bg-disabled, var(--ubits-bg-3, #edeeef)) !important;
     cursor: not-allowed;
     pointer-events: none;
 }
 
 /* Focus state (keyboard navigation) */
 .ubits-list-item:focus-visible {
-    outline: 2px solid var(--ubits-accent-brand-static-inverted);
+    outline: 2px solid var(--modifiers-normal-color-light-accent-brand, var(--ubits-accent-brand-static-inverted, #0c5bef)) !important;
     outline-offset: -2px;
-    border-radius: 4px;
+    border-radius: var(--ubits-border-radius-xs, 4px);
 }
 
 /* ========================================
@@ -148,9 +148,9 @@
 
 @media (max-width: 768px) {
     .ubits-list-item--lg {
-        padding: 12px 16px;
+        padding: var(--p-spacing-mode-1-md, 12px) var(--p-spacing-mode-1-lg, 16px);
         min-height: 40px;
-        font-size: var(--font-body-md-size);
+        font-size: var(--modifiers-normal-body-md-regular-fontsize, var(--font-body-md-size, 16px));
     }
 }
 
@@ -158,20 +158,32 @@
    DARK MODE SUPPORT
    ======================================== */
 
+[data-theme="dark"] {
+    --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
+    --modifiers-normal-color-light-bg-3: var(--modifiers-normal-color-dark-bg-3);
+    --modifiers-normal-color-light-bg-active: var(--modifiers-normal-color-dark-bg-active);
+    --modifiers-normal-color-light-bg-disabled: var(--modifiers-normal-color-dark-bg-disabled);
+    --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
+    --modifiers-normal-color-light-fg-2-medium: var(--modifiers-normal-color-dark-fg-2-medium);
+    --modifiers-normal-color-light-fg-2-high: var(--modifiers-normal-color-dark-fg-2-high);
+    --modifiers-normal-color-light-fg-on-disabled: var(--modifiers-normal-color-dark-fg-on-disabled);
+    --modifiers-normal-color-light-accent-brand: var(--modifiers-normal-color-dark-accent-brand);
+}
+
 @media (prefers-color-scheme: dark) {
     .ubits-list {
-        background: var(--ubits-bg-1);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        background: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1)) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Box shadow - mantener hardcodeado como fallback visual */
     }
 
     .ubits-list-item:hover:not(.ubits-list-item--disabled) {
-        background: rgba(12, 91, 239, 0.08);
+        background: var(--modifiers-normal-color-light-bg-active, var(--ubits-bg-active-button, rgba(12, 91, 239, 0.08))) !important;
     }
     
     .ubits-list-item--active,
     .ubits-list-item[aria-selected="true"] {
-        color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static-inverted));
-        background: var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15));
+        color: var(--modifiers-normal-color-light-accent-brand, var(--ubits-accent-brand-static-inverted, #0c5bef)) !important;
+        background: var(--modifiers-normal-color-light-bg-active, var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15))) !important;
     }
 }
 

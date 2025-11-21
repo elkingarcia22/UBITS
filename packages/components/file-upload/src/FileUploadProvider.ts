@@ -149,7 +149,7 @@ export function renderFileUpload(options: FileUploadOptions = {}): string {
             <button class="ubits-button ubits-button--secondary ubits-button--sm ubits-file-upload__add-button" aria-label="Agregar archivos">
               <i class="far fa-arrow-up-from-bracket"></i> Agregar archivos
             </button>
-            <button class="ubits-button ubits-button--secondary ubits-button--sm ubits-file-upload__remove-all-button" aria-label="Eliminar todos">
+            <button class="ubits-button ubits-button--error ubits-button--sm ubits-file-upload__remove-all-button" aria-label="Eliminar todos">
               <i class="far fa-trash"></i> Eliminar todos
             </button>
         </div>

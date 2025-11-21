@@ -5,6 +5,21 @@
    ======================================== */
 
 /* ========================================
+   DELETE BUTTONS (TRASH ICONS)
+   Los botones de eliminar (trash) en tertiary deben tener icono rojo
+   ======================================== */
+
+.ubits-drawer .ubits-button--tertiary i.fa-trash,
+.ubits-drawer .ubits-button--tertiary i.far.fa-trash {
+    color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+}
+
+[data-theme="dark"] .ubits-drawer .ubits-button--tertiary i.fa-trash,
+[data-theme="dark"] .ubits-drawer .ubits-button--tertiary i.far.fa-trash {
+    color: var(--modifiers-normal-color-dark-feedback-accent-error) !important;
+}
+
+/* ========================================
    OVERLAY
    ======================================== */
 
@@ -14,7 +29,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--ubits-bg-dim);
+    background-color: var(--modifiers-normal-color-light-bg-dim);
     z-index: 1000;
     display: flex;
     align-items: center;
@@ -36,12 +51,13 @@
 .ubits-drawer {
     position: relative;
     height: 100vh;
-    background-color: var(--ubits-bg-1);
+    background-color: var(--modifiers-normal-color-light-bg-1);
     display: flex;
     flex-direction: column;
     transform: translateX(100%);
     transition: transform 0.3s ease;
     overflow: hidden;
+    /* Shadow: No hay token equivalente en Figma, mantener hardcodeado */
     box-shadow: 0px 14px 28.8px 0px rgba(0, 0, 0, 0.24), 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
 }
 
@@ -89,7 +105,7 @@
     align-items: flex-start;
     gap: var(--ubits-spacing-md);
     padding: var(--ubits-spacing-lg);
-    border-bottom: 1px solid var(--ubits-border-1);
+    border-bottom: 1px solid var(--modifiers-normal-color-light-border-1);
     flex-shrink: 0;
 }
 
@@ -110,12 +126,12 @@
 
 .ubits-drawer__header-title p {
     flex: 1 1 0;
-    margin: 0;
-    color: var(--ubits-fg-1-high);
-    font-family: var(--font-sans);
-    font-weight: var(--weight-bold);
-    font-size: var(--font-body-md-size);
-    line-height: var(--font-body-md-line);
+    margin: var(--ubits-spacing-none);
+    color: var(--modifiers-normal-color-light-fg-1-high);
+    font-family: var(--font-family-noto-sans-font-family);
+    font-weight: var(--ubits-font-weight-semibold);
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
 }
 
 .ubits-drawer__header-complementary {
@@ -127,12 +143,12 @@
 
 .ubits-drawer__header-complementary p {
     flex: 1 1 0;
-    margin: 0;
-    color: var(--ubits-fg-1-medium);
-    font-family: var(--font-sans);
-    font-weight: var(--weight-regular);
-    font-size: var(--font-body-sm-size);
-    line-height: var(--font-body-sm-line);
+    margin: var(--ubits-spacing-none);
+    color: var(--modifiers-normal-color-light-fg-1-medium);
+    font-family: var(--font-family-noto-sans-font-family);
+    font-weight: var(--ubits-font-weight-regular);
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+    line-height: var(--modifiers-normal-body-sm-regular-lineheight);
 }
 
 /* El botón de cerrar ahora usa el componente Button de UBITS */
@@ -147,7 +163,7 @@
 .ubits-drawer__body {
     flex: 1 1 0;
     min-height: 0;
-    border-bottom: 1px solid var(--ubits-border-1);
+    border-bottom: 1px solid var(--modifiers-normal-color-light-border-1);
     overflow: hidden;
     display: flex;
     position: relative;
@@ -173,13 +189,13 @@
     align-items: center;
     justify-content: center;
     padding: var(--ubits-spacing-lg);
-    border: 1px dashed var(--ubits-border-2);
-    background-color: var(--ubits-bg-2);
+    border: 1px dashed var(--modifiers-normal-color-light-border-2);
+    background-color: var(--modifiers-normal-color-light-bg-2);
     border-radius: var(--ubits-border-radius-md);
     min-height: 200px;
-    color: var(--ubits-fg-1-medium);
-    font-family: var(--font-sans);
-    font-size: var(--font-body-sm-size);
+    color: var(--modifiers-normal-color-light-fg-1-medium);
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
 }
 
 /* ========================================
@@ -201,7 +217,7 @@
     flex: 1 1 0;
     min-height: 0;
     width: var(--ubits-spacing-sm);
-    background-color: var(--ubits-fg-2-medium);
+    background-color: var(--modifiers-normal-color-light-fg-2-medium);
     border-radius: var(--ubits-border-radius-full);
 }
 
@@ -257,13 +273,13 @@
 .ubits-drawer__body-content select {
     width: 100%;
     padding: var(--ubits-spacing-sm) var(--ubits-spacing-md);
-    border: 1px solid var(--ubits-border-1);
+    border: 1px solid var(--modifiers-normal-color-light-border-1);
     border-radius: var(--ubits-border-radius-md);
-    background-color: var(--ubits-bg-1);
-    color: var(--ubits-fg-1-high);
-    font-family: var(--font-sans);
-    font-size: var(--font-body-sm-size);
-    line-height: var(--font-body-sm-line);
+    background-color: var(--modifiers-normal-color-light-bg-1);
+    color: var(--modifiers-normal-color-light-fg-1-high);
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+    line-height: var(--modifiers-normal-body-sm-regular-lineheight);
     box-sizing: border-box;
     transition: all 0.2s ease;
 }
@@ -277,8 +293,8 @@
 .ubits-drawer__body-content textarea:focus,
 .ubits-drawer__body-content select:focus {
     outline: none;
-    border-color: var(--ubits-accent-brand-static-inverted);
-    box-shadow: 0 0 0 3px var(--ubits-button-focus-ring);
+    border-color: var(--modifiers-normal-color-light-accent-brand);
+    box-shadow: 0 0 0 3px var(--modifiers-normal-focus-color);
 }
 
 .ubits-drawer__body-content input[type="text"]:hover,
@@ -289,7 +305,7 @@
 .ubits-drawer__body-content input[type="password"]:hover,
 .ubits-drawer__body-content textarea:hover,
 .ubits-drawer__body-content select:hover {
-    border-color: var(--ubits-border-2);
+    border-color: var(--modifiers-normal-color-light-border-2);
 }
 
 .ubits-drawer__body-content input[type="text"]::placeholder,
@@ -299,7 +315,7 @@
 .ubits-drawer__body-content input[type="url"]::placeholder,
 .ubits-drawer__body-content input[type="password"]::placeholder,
 .ubits-drawer__body-content textarea::placeholder {
-    color: var(--ubits-fg-1-medium);
+    color: var(--modifiers-normal-color-light-fg-1-medium);
 }
 
 .ubits-drawer__body-content select {
@@ -312,8 +328,24 @@
 }
 
 .ubits-drawer__body-content select option {
-    background-color: var(--ubits-bg-1);
-    color: var(--ubits-fg-1-high);
+    background-color: var(--modifiers-normal-color-light-bg-1);
+    color: var(--modifiers-normal-color-light-fg-1-high);
+}
+
+/* ========================================
+   DARK MODE
+   ======================================== */
+
+[data-theme="dark"] {
+    --modifiers-normal-color-light-bg-dim: var(--modifiers-normal-color-dark-bg-dim);
+    --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
+    --modifiers-normal-color-light-bg-2: var(--modifiers-normal-color-dark-bg-2);
+    --modifiers-normal-color-light-border-1: var(--modifiers-normal-color-dark-border-1);
+    --modifiers-normal-color-light-border-2: var(--modifiers-normal-color-dark-border-2);
+    --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
+    --modifiers-normal-color-light-fg-1-medium: var(--modifiers-normal-color-dark-fg-1-medium);
+    --modifiers-normal-color-light-fg-2-medium: var(--modifiers-normal-color-dark-fg-2-medium);
+    --modifiers-normal-color-light-accent-brand: var(--modifiers-normal-color-dark-accent-brand);
 }
 
 

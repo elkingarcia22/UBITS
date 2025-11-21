@@ -17,7 +17,7 @@
 .course-card:hover {
   transform: translateY(-2px);
   box-shadow: calc(var(--modifiers-normal-elevation-hover-0-x) * 1px) calc(var(--modifiers-normal-elevation-hover-0-y) * 1px) calc(var(--modifiers-normal-elevation-hover-0-blur) * 1px) calc(var(--modifiers-normal-elevation-hover-0-spread) * 1px) var(--modifiers-normal-elevation-hover-0-color), calc(var(--modifiers-normal-elevation-hover-1-x) * 1px) calc(var(--modifiers-normal-elevation-hover-1-y) * 1px) calc(var(--modifiers-normal-elevation-hover-1-blur) * 1px) calc(var(--modifiers-normal-elevation-hover-1-spread) * 1px) var(--modifiers-normal-elevation-hover-1-color);
-  border-color: var(--modifiers-static-inverted-color-light-accent-brand) !important;
+  border-color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 /* Course Thumbnail */
@@ -71,7 +71,7 @@
 
 .course-progress-overlay .progress-fill {
   height: 100%;
-  background: var(--modifiers-static-inverted-color-light-accent-brand) !important;
+  background: var(--modifiers-normal-color-light-accent-brand) !important;
   border-radius: 0;
   transition: width 0.3s ease;
 }
@@ -113,7 +113,7 @@
 }
 
 .course-status--progress {
-  color: var(--modifiers-static-inverted-color-light-accent-brand) !important;
+  color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 .course-status--completed {
@@ -263,7 +263,7 @@
   --modifiers-normal-color-light-fg-1-medium: var(--modifiers-normal-color-dark-fg-1-medium);
   --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
   --modifiers-normal-color-light-bg-4: var(--modifiers-normal-color-dark-bg-4);
-  --modifiers-static-inverted-color-light-accent-brand: var(--modifiers-static-inverted-color-dark-accent-brand);
+  --modifiers-normal-color-light-accent-brand: var(--modifiers-normal-color-dark-accent-brand);
   --modifiers-normal-color-light-feedback-accent-success: var(--modifiers-normal-color-dark-feedback-accent-success);
   --modifiers-normal-color-light-fg-bold: var(--modifiers-normal-color-dark-fg-bold);
 }

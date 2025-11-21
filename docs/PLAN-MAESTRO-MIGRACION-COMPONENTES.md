@@ -11,18 +11,38 @@ Migrar todos los componentes UBITS del sistema de tokens antiguo (`--ubits-*`) a
 
 ---
 
+## 🎯 REGLA DE ORO - CRÍTICA
+
+**NADA hardcodeado ni con tokens antiguos. Si no hay equivalente exacto en Figma, buscar el token más parecido de Figma o usar tokens UBITS válidos que existen en Storybook. Si hay algo que no se pueda reemplazar, se evalúa pero NO se deja así sin intentar encontrar una solución.**
+
+### Reglas Específicas:
+
+1. **Border Radius**: ✅ Usar tokens UBITS `--ubits-border-radius-*` (existen en Storybook y tokens.json)
+2. **Spacing**: ✅ Usar `--p-spacing-mode-1-*` cuando exista, o `--ubits-spacing-*` si no tiene equivalente
+3. **Spacing None**: ✅ Usar `--ubits-spacing-none` (existe en Storybook y tokens.json)
+4. **Focus Color**: ✅ Usar `--modifiers-normal-focus-color` (existe en Figma, Storybook y tokens.json)
+5. **Colores sin equivalente**: ✅ Buscar el color más parecido en Figma, NUNCA dejar hardcodeado
+6. **Si existe en Storybook pero no en JSON**: ✅ Agregarlo al token-mapping.json
+
+**Verificación final**: Buscar TODOS los valores hardcodeados y tokens antiguos. Si encuentras algo, NO está migrado correctamente.
+
+---
+
 ## 🎓 Lecciones Aprendidas del Button
 
-### 1. Sistema de Tokens (ACTUALIZADO)
+### 1. Sistema de Tokens (ACTUALIZADO - REGLA DE ORO)
 ```css
-/* FASE INICIAL: Usar fallbacks de 3 niveles durante migración */
-property: var(--token-nuevo-figma, var(--token-antiguo-ubits, valor-hardcodeado)) !important;
+/* ✅ CORRECTO - Aplicar REGLA DE ORO desde el inicio */
+/* Usar SOLO tokens nuevos cuando existen, sin fallbacks antiguos */
+property: var(--modifiers-normal-color-light-*) !important;
 
-/* FASE FINAL: Eliminar fallbacks antiguos y hardcodeados, dejar SOLO token nuevo */
-property: var(--token-nuevo-figma) !important;
+/* ❌ INCORRECTO - NO usar fallbacks antiguos durante migración */
+property: var(--token-nuevo-figma, var(--token-antiguo-ubits, valor-hardcodeado)) !important;
 ```
 
-**⚠️ IMPORTANTE**: Después de la migración, en la Fase 5 se eliminan los fallbacks antiguos y valores hardcodeados, dejando SOLO los tokens nuevos de Figma.
+**🎯 REGLA DE ORO APLICADA**: Desde el PASO 2, usar SOLO tokens nuevos de Figma cuando existen. NO usar fallbacks antiguos ni valores hardcodeados. Solo dejar fallbacks cuando realmente no hay equivalente (tokens UBITS válidos sin equivalente en Figma).
+
+**⚠️ IMPORTANTE**: La regla de oro se aplica desde el inicio de la migración, NO al final. Esto evita que queden tokens antiguos y valores hardcodeados al final.
 
 ### 2. Especificidad CSS con `!important`
 - Usar `!important` en propiedades críticas (background, color, border)

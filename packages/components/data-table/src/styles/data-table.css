@@ -23,7 +23,7 @@
   padding: var(--ubits-spacing-sm) 0; /* 8px arriba y abajo, 0px en los lados */
   gap: var(--ubits-spacing-xs);
   flex-wrap: wrap;
-  background-color: var(--ubits-bg-1);
+  background-color: var(--modifiers-normal-color-light-bg-1);
 }
 
 /* ========================================
@@ -37,7 +37,7 @@
   padding-bottom: var(--ubits-spacing-sm);
   padding-left: 0; /* Alinear con el borde izquierdo del contenedor */
   padding-right: 0; /* Alinear con el borde derecho del contenedor */
-  background-color: var(--ubits-bg-1);
+  background-color: var(--modifiers-normal-color-light-bg-1);
   gap: var(--ubits-spacing-md);
   flex-wrap: wrap;
 }
@@ -53,32 +53,32 @@
 
 .ubits-data-table__header-title-text {
   margin: 0;
-  font-family: var(--font-sans);
-  font-size: var(--font-body-md-size, 16px);
-  font-weight: var(--weight-bold, 700);
-  line-height: var(--font-body-md-line, 24px);
-  color: var(--ubits-fg-1-high);
+  font-family: var(--font-family-noto-sans-font-family);
+  font-size: var(--modifiers-normal-body-md-semibold-fontsize);
+  font-weight: var(--ubits-font-weight-semibold);
+  line-height: var(--modifiers-normal-body-md-semibold-lineheight);
+  color: var(--modifiers-normal-color-light-fg-1-high);
 }
 
 .ubits-data-table__header-counter {
   margin: 0;
-  font-family: var(--font-sans);
-  font-size: var(--font-body-sm-size, 13px);
-  font-weight: var(--weight-regular, 400);
-  line-height: var(--font-body-sm-line, 19.5px);
-  color: var(--ubits-fg-1-medium);
+  font-family: var(--font-family-noto-sans-font-family);
+  font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+  font-weight: var(--ubits-font-weight-regular);
+  line-height: var(--modifiers-normal-body-sm-regular-lineheight);
+  color: var(--modifiers-normal-color-light-fg-1-medium);
 }
 
 .ubits-data-table__header-actions {
   display: flex;
   align-items: center;
-  gap: var(--ubits-spacing-xs, 8px);
+  gap: var(--ubits-spacing-xs);
   flex-shrink: 0;
   position: relative;
   /* Permitir que el SearchButton se expanda hacia la izquierda */
   flex-wrap: nowrap;
   padding-left: 0; /* Sin padding - pegado al borde izquierdo del contenedor azul */
-  padding-right: var(--ubits-spacing-md, 16px); /* Mantener padding derecho para alineación con el borde derecho */
+  padding-right: var(--ubits-spacing-md); /* Mantener padding derecho para alineación con el borde derecho */
 }
 
 .ubits-data-table__header-primary-button,
@@ -101,7 +101,7 @@
   /* NO aplicar width fijo, dejar que el componente SearchButton maneje su propio ancho */
   /* Usar margin-left negativo para compensar el ancho extra y mantener solo 8px de gap */
   /* El cálculo debe basarse en el ancho real del componente cuando está activo */
-  margin-left: calc((248px - 32px - var(--ubits-spacing-xs, 8px)) * -1);
+  margin-left: calc((248px - 32px - var(--ubits-spacing-xs)) * -1);
   margin-right: 0;
   /* Asegurar que el wrapper mantenga su posición relativa */
   z-index: 1;
@@ -140,21 +140,21 @@
   align-items: center !important;
   justify-content: center !important;
   z-index: 1 !important;
-  color: var(--ubits-fg-bold, #ffffff) !important;
+  color: var(--modifiers-normal-color-light-fg-bold) !important;
 }
 
 /* Dropdown de selección de columnas */
 .ubits-data-table__column-selector-dropdown {
   position: fixed;
   z-index: 1000;
-  background-color: var(--ubits-bg-1);
-  border: 1px solid var(--ubits-border-1);
+  background-color: var(--modifiers-normal-color-light-bg-1);
+  border: 1px solid var(--modifiers-normal-color-light-border-1);
   border-radius: var(--ubits-border-radius-md);
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
   min-width: 200px;
   max-height: 400px;
   overflow-y: auto;
-  padding: var(--ubits-spacing-sm, 12px);
+  padding: var(--ubits-spacing-sm);
 }
 
 /* Estilos para la lista dentro del dropdown de selección de columnas */
@@ -164,7 +164,7 @@
 }
 
 .ubits-data-table__column-selector-list .ubits-list-item {
-  padding: var(--ubits-spacing-xs, 8px) var(--ubits-spacing-sm, 12px);
+  padding: var(--ubits-spacing-xs) var(--ubits-spacing-sm);
 }
 
 .ubits-data-table__column-selector-checkbox {
@@ -180,8 +180,8 @@
 .ubits-data-table__filters-container {
   display: flex;
   flex-direction: column;
-  gap: var(--ubits-spacing-lg, 24px);
-  padding: var(--ubits-spacing-lg, 24px);
+  gap: var(--ubits-spacing-lg);
+  padding: var(--ubits-spacing-lg);
 }
 
 .ubits-data-table__filter-item {
@@ -215,7 +215,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: var(--ubits-spacing-md, 16px) var(--ubits-spacing-md, 16px) var(--ubits-spacing-md, 16px) var(--ubits-spacing-md, 16px);
+  padding: var(--ubits-spacing-md) var(--ubits-spacing-md) var(--ubits-spacing-md) var(--ubits-spacing-md);
   padding-top: 0;
   margin-top: 16px; /* Espaciado desde la última fila de la tabla */
   width: 100%;
@@ -235,21 +235,21 @@
 .ubits-data-table {
     position: relative;
     width: 100%;
-    background-color: var(--ubits-bg-1);
+    background-color: var(--modifiers-normal-color-light-bg-1);
     box-sizing: border-box;
-    padding: var(--ubits-spacing-md, 16px);
+    padding: var(--ubits-spacing-md);
     overflow: visible !important; /* Cambiar a visible por defecto, se aplicará auto solo cuando sea necesario */
     max-height: none !important; /* Remover max-height por defecto - el scrollable-container maneja su propio max-height */
     border-collapse: collapse;
     border: none;
-    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    font-family: var(--font-family-noto-sans-font-family);
 }
 
 .ubits-data-table__table {
     width: 100%;
     border-collapse: collapse;
     border: none;
-    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    font-family: var(--font-family-noto-sans-font-family);
 }
 
 /* Cuando hay columnas fijadas, cambiar border-collapse a separate para que sticky funcione */
@@ -284,11 +284,11 @@
 
 /* Header */
 .ubits-data-table__thead {
-    background-color: var(--ubits-bg-1);
+    background-color: var(--modifiers-normal-color-light-bg-1);
 }
 
 .ubits-data-table__header-row {
-    border-bottom: 1px solid var(--ubits-border-1);
+    border-bottom: 1px solid var(--modifiers-normal-color-light-border-1);
 }
 
 /* Columna de controles - Header */
@@ -297,7 +297,7 @@
     padding-left: var(--ubits-spacing-md, 16px);
     padding-right: 48px !important;
     text-align: center;
-    background-color: var(--ubits-bg-1);
+    background-color: var(--modifiers-normal-color-light-bg-1);
     width: auto;
     min-width: 80px;
     max-width: 80px;
@@ -315,7 +315,7 @@
     padding-left: var(--ubits-spacing-md, 16px);
     padding-right: 48px !important;
     text-align: center;
-    background-color: var(--ubits-bg-1);
+    background-color: var(--modifiers-normal-color-light-bg-1);
     width: auto;
     min-width: 80px;
     max-width: 80px;
@@ -377,9 +377,9 @@
     width: 28px;
     height: 28px;
     cursor: grab;
-    color: var(--ubits-btn-tertiary-fg);
+    color: var(--modifiers-normal-button-color-light-brand-tertiary-fg);
     padding: 8px;
-    border-radius: var(--ubits-border-radius-sm, 4px);
+    border-radius: var(--ubits-border-radius-sm);
     transition: background-color 0.2s ease, color 0.2s ease;
     user-select: none;
     flex-shrink: 0;
@@ -396,13 +396,13 @@
 
 .ubits-data-table__row-drag-handle:active {
     cursor: grabbing;
-    background-color: var(--ubits-btn-tertiary-bg-pressed);
-    color: var(--ubits-btn-tertiary-fg);
+    background-color: var(--modifiers-normal-button-color-light-brand-tertiary-bg-pressed);
+    color: var(--modifiers-normal-button-color-light-brand-tertiary-fg);
 }
 
 .ubits-data-table__row-drag-handle:hover {
-    background-color: var(--ubits-btn-tertiary-bg-hover);
-    color: var(--ubits-btn-tertiary-fg);
+    background-color: var(--modifiers-normal-button-color-light-brand-tertiary-bg-hover);
+    color: var(--modifiers-normal-button-color-light-brand-tertiary-fg);
 }
 
 .ubits-data-table__row-drag-handle wa-icon,
@@ -417,7 +417,7 @@
     border: none !important;
     padding: 8px !important;
     cursor: pointer !important;
-    color: var(--ubits-btn-tertiary-fg) !important;
+    color: var(--modifiers-normal-button-color-light-brand-tertiary-fg) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -425,7 +425,7 @@
     height: 28px !important;
     min-width: 28px !important;
     min-height: 28px !important;
-    border-radius: var(--ubits-border-radius-sm, 4px) !important;
+    border-radius: var(--ubits-border-radius-sm) !important;
     transition: background-color 0.2s ease, color 0.2s ease !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -442,13 +442,13 @@
 }
 
 .ubits-data-table__row-expand:hover {
-    background-color: var(--ubits-btn-tertiary-bg-hover) !important;
-    color: var(--ubits-btn-tertiary-fg) !important;
+    background-color: var(--modifiers-normal-button-color-light-brand-tertiary-bg-hover) !important;
+    color: var(--modifiers-normal-button-color-light-brand-tertiary-fg) !important;
 }
 
 .ubits-data-table__row-expand:active {
-    background-color: var(--ubits-btn-tertiary-bg-pressed) !important;
-    color: var(--ubits-btn-tertiary-fg) !important;
+    background-color: var(--modifiers-normal-button-color-light-brand-tertiary-bg-pressed) !important;
+    color: var(--modifiers-normal-button-color-light-brand-tertiary-fg) !important;
 }
 
 /* Headers de columnas de datos */
@@ -456,27 +456,27 @@
     padding: var(--ubits-spacing-sm, 12px) var(--ubits-spacing-md, 16px);
     padding-left: 0;
     text-align: left;
-    background-color: var(--ubits-bg-1);
+    background-color: var(--modifiers-normal-color-light-bg-1);
     font-weight: 600;
-    font-size: var(--ubits-font-size-sm, 14px);
-    color: var(--ubits-fg-1-high);
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+    color: var(--modifiers-normal-color-light-fg-1-high);
     /* NO aplicar position: relative aquí, se aplicará inline cuando esté fijada */
 }
 
 .ubits-data-table__column-header-content {
     display: flex;
     align-items: center;
-    gap: 0;
+    gap: var(--ubits-spacing-xs);
     padding-left: 0;
     /* position: relative removido - no debe interferir con position: sticky del header */
     width: 100%;
 }
 
 .ubits-data-table__column-title {
-    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
-    font-size: var(--ubits-font-size-sm, 14px);
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
     font-weight: 600;
-    color: var(--ubits-fg-1-high);
+    color: var(--modifiers-normal-color-light-fg-1-high);
     margin-left: 0;
     padding-left: 0;
     flex: 1;
@@ -520,15 +520,15 @@
     min-width: 28px;
     min-height: 28px;
     cursor: grab;
-    color: var(--ubits-btn-tertiary-fg);
-    padding: 8px;
-    margin-right: 0;
-    margin-left: 0;
-    border-radius: var(--ubits-border-radius-sm, 4px);
+    color: var(--modifiers-normal-button-color-light-brand-tertiary-fg);
+    padding: 0;
+    margin: 0;
+    border-radius: var(--ubits-border-radius-sm);
     transition: background-color 0.2s ease, color 0.2s ease;
     user-select: none;
     flex-shrink: 0;
     box-sizing: border-box;
+    position: relative;
 }
 
 /* Botón de ordenar - usa los mismos estilos del drag handle, solo cambia el cursor */
@@ -542,43 +542,49 @@
 
 .ubits-data-table__column-drag-handle wa-icon,
 .ubits-data-table__column-drag-handle i {
-    font-size: 14px;
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    color: inherit;
-    margin: 0;
-    padding: 0;
-    line-height: 1;
-    vertical-align: middle;
+    font-size: 14px !important;
+    display: block !important;
+    width: 14px !important;
+    height: 14px !important;
+    color: inherit !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+    vertical-align: middle !important;
 }
 
 .ubits-data-table__column-drag-handle:active {
     cursor: grabbing;
-    background-color: var(--ubits-btn-tertiary-bg-pressed);
-    color: var(--ubits-btn-tertiary-fg);
+    background-color: var(--modifiers-normal-button-color-light-brand-tertiary-bg-pressed);
+    color: var(--modifiers-normal-button-color-light-brand-tertiary-fg);
 }
 
 .ubits-data-table__column-drag-handle:hover {
-    background-color: var(--ubits-btn-tertiary-bg-hover);
-    color: var(--ubits-btn-tertiary-fg);
+    background-color: var(--modifiers-normal-button-color-light-brand-tertiary-bg-hover);
+    color: var(--modifiers-normal-button-color-light-brand-tertiary-fg);
 }
 
 /* Estado activo del botón de ordenar (cuando está ordenado) */
 /* Solo cambia el fondo, el color del icono se mantiene igual */
 .ubits-data-table__column-drag-handle.ubits-data-table__column-sort--active {
-    background-color: var(--ubits-button-active-bg);
-    color: var(--ubits-btn-tertiary-fg); /* Mantener el mismo color del icono */
+    background-color: var(--modifiers-normal-color-light-bg-active);
+    color: var(--modifiers-normal-button-color-light-brand-tertiary-fg); /* Mantener el mismo color del icono */
 }
 
 .ubits-data-table__column-drag-handle.ubits-data-table__column-sort--active:hover {
-    background-color: var(--ubits-button-active-bg);
-    color: var(--ubits-btn-tertiary-fg); /* Mantener el mismo color del icono */
+    background-color: var(--modifiers-normal-color-light-bg-active);
+    color: var(--modifiers-normal-button-color-light-brand-tertiary-fg); /* Mantener el mismo color del icono */
 }
 
 .ubits-data-table__column-drag-handle.ubits-data-table__column-sort--active wa-icon,
 .ubits-data-table__column-drag-handle.ubits-data-table__column-sort--active i {
-    color: inherit; /* Heredar el color del contenedor, que es var(--ubits-btn-tertiary-fg) */
+    color: inherit; /* Heredar el color del contenedor, que es var(--modifiers-normal-button-color-light-brand-tertiary-fg) */
 }
 
 /* Estados de drag */
@@ -587,8 +593,8 @@
 }
 
 .ubits-data-table__column-header--drag-over {
-    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.15)), var(--ubits-bg-1, #ffffff) !important;
-    border-left: 2px solid var(--ubits-accent-brand-static-inverted);
+    background: var(--modifiers-normal-color-light-bg-active), var(--modifiers-normal-color-light-bg-1) !important;
+    border-left: 2px solid var(--modifiers-normal-color-light-accent-brand);
 }
 
 .ubits-data-table__row--dragging {
@@ -596,15 +602,17 @@
 }
 
 .ubits-data-table__row--drag-over {
-    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.15)), var(--ubits-bg-1, #ffffff) !important;
-    border-top: 2px solid var(--ubits-accent-brand-static-inverted);
+    background: var(--modifiers-normal-color-light-bg-active), var(--modifiers-normal-color-light-bg-1) !important;
+    border-top: 2px solid var(--modifiers-normal-color-light-accent-brand);
 }
 
 /* Fallback para iconos */
 /* El botón de ordenar ahora tiene ambas clases (column-drag-handle y column-sort), así que hereda los estilos del drag handle */
 .ubits-data-table__column-drag-handle wa-icon,
 .ubits-data-table__row-drag-handle wa-icon {
-    display: inline-block;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 .ubits-data-table__column-drag-handle i,
@@ -624,13 +632,13 @@
 
 /* Body */
 .ubits-data-table__tbody {
-    background-color: var(--ubits-bg-1);
+    background-color: var(--modifiers-normal-color-light-bg-1);
 }
 
 .ubits-data-table__row {
-    border-bottom: 1px solid var(--ubits-border-1);
+    border-bottom: 1px solid var(--modifiers-normal-color-light-border-1);
     transition: background-color 0.2s ease;
-    background-color: var(--ubits-bg-1);
+    background-color: var(--modifiers-normal-color-light-bg-1);
 }
 
 .ubits-data-table__row:last-child {
@@ -638,7 +646,7 @@
 }
 
 .ubits-data-table__row:hover {
-    background-color: var(--ubits-bg-2);
+    background-color: var(--modifiers-normal-color-light-bg-2);
 }
 
 /* Asegurar que todas las celdas cambien de color simultáneamente al hacer hover en la fila */
@@ -647,7 +655,7 @@
 .ubits-data-table__row:hover .ubits-data-table__cell--drag-handle,
 .ubits-data-table__row:hover .ubits-data-table__cell--expand,
 .ubits-data-table__row:hover .ubits-data-table__controls-column {
-    background-color: var(--ubits-bg-2) !important;
+    background-color: var(--modifiers-normal-color-light-bg-2) !important;
     transition: background-color 0.2s ease;
 }
 
@@ -655,7 +663,7 @@
 /* Usar mayor especificidad para sobrescribir el hover */
 .ubits-data-table__row.ubits-data-table__row--clear-hover,
 .ubits-data-table__row.ubits-data-table__row--clear-hover:hover {
-    background-color: var(--ubits-bg-1) !important;
+    background-color: var(--modifiers-normal-color-light-bg-1) !important;
 }
 
 /* Asegurar que todas las celdas también cambien con mayor especificidad */
@@ -669,19 +677,19 @@
 .ubits-data-table__row.ubits-data-table__row--clear-hover:hover .ubits-data-table__cell--drag-handle,
 .ubits-data-table__row.ubits-data-table__row--clear-hover:hover .ubits-data-table__cell--expand,
 .ubits-data-table__row.ubits-data-table__row--clear-hover:hover .ubits-data-table__controls-column {
-    background-color: var(--ubits-bg-1) !important;
+    background-color: var(--modifiers-normal-color-light-bg-1) !important;
 }
 
 /* Forzar también con inline style como último recurso - se aplicará desde JS */
 
 /* Celdas */
 .ubits-data-table__cell {
-    padding: var(--ubits-spacing-sm, 12px) var(--ubits-spacing-md, 16px);
+    padding: var(--ubits-spacing-sm) var(--ubits-spacing-md);
     padding-left: 10px;
     text-align: left;
-    font-size: var(--ubits-font-size-sm, 14px);
-    color: var(--ubits-fg-1-high);
-    font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+    color: var(--modifiers-normal-color-light-fg-1-high);
+    font-family: var(--font-family-noto-sans-font-family);
     transition: background-color 0.2s ease;
 }
 
@@ -722,7 +730,7 @@
     position: sticky;
     left: 0;
     z-index: 20;
-    background-color: var(--ubits-bg-1);
+    background-color: var(--modifiers-normal-color-light-bg-1);
     box-sizing: border-box;
     vertical-align: middle !important;
 }
@@ -745,7 +753,7 @@
     min-width: 48px;
     max-width: 48px;
     /* NO aplicar position: sticky aquí - solo cuando está pinned */
-    background-color: var(--ubits-bg-1);
+    background-color: var(--modifiers-normal-color-light-bg-1);
     box-sizing: border-box;
     vertical-align: middle !important;
 }
@@ -778,7 +786,7 @@
     position: sticky;
     left: 0;
     z-index: 20;
-    background-color: var(--ubits-bg-1);
+    background-color: var(--modifiers-normal-color-light-bg-1);
     box-sizing: border-box;
 }
 
@@ -816,7 +824,7 @@
     position: sticky;
     left: 0;
     z-index: 15;
-    background-color: var(--ubits-bg-1);
+    background-color: var(--modifiers-normal-color-light-bg-1);
 }
 
 /* Columna de checkbox (checkbox-2) - única columna de checkbox fija - optimizado para espacio */
@@ -830,7 +838,7 @@
     max-width: 48px !important;
     box-sizing: border-box;
     /* NO aplicar position: sticky aquí - solo cuando está pinned */
-    background-color: var(--ubits-bg-1);
+    background-color: var(--modifiers-normal-color-light-bg-1);
     vertical-align: middle !important;
     display: table-cell !important;
 }
@@ -867,7 +875,7 @@
     position: sticky;
     left: 0;
     z-index: 15;
-    background-color: var(--ubits-bg-1);
+    background-color: var(--modifiers-normal-color-light-bg-1);
 }
 
 /* Celdas de checkbox - tipo 'checkbox' (pueden tener label) */
@@ -875,7 +883,7 @@
 /* Excluir checkbox, checkbox-2, pero incluir checkbox-col y otros IDs de tipo checkbox */
 .ubits-data-table__cell--checkbox:not([data-column-id="checkbox"]):not([data-column-id="checkbox-2"]) {
     text-align: left !important;
-    padding: var(--ubits-spacing-sm, 12px) var(--ubits-spacing-md, 16px) !important;
+    padding: var(--ubits-spacing-sm) var(--ubits-spacing-md) !important;
     padding-left: 10px !important;
     box-sizing: border-box;
 }
@@ -1026,9 +1034,9 @@
     text-align: center;
     box-sizing: border-box;
     /* Forzar tamaño XS usando tokens UBITS */
-    padding: var(--ubits-spacing-xs, 4px) var(--ubits-spacing-sm, 8px) !important;
-    font-size: var(--font-body-xs-size, 11px) !important;
-    line-height: var(--font-body-xs-line, 16px) !important;
+    padding: var(--ubits-spacing-xs) var(--ubits-spacing-sm) !important;
+    font-size: var(--modifiers-normal-body-xs-regular-fontsize) !important;
+    line-height: var(--modifiers-normal-body-xs-regular-lineheight) !important;
 }
 
 .ubits-data-table__status-editable .ubits-status-tag {
@@ -1039,20 +1047,20 @@
     text-align: center;
     box-sizing: border-box;
     /* Forzar tamaño XS usando tokens UBITS */
-    padding: var(--ubits-spacing-xs, 4px) var(--ubits-spacing-sm, 8px) !important;
-    font-size: var(--font-body-xs-size, 11px) !important;
-    line-height: var(--font-body-xs-line, 16px) !important;
+    padding: var(--ubits-spacing-xs) var(--ubits-spacing-sm) !important;
+    font-size: var(--modifiers-normal-body-xs-regular-fontsize) !important;
+    line-height: var(--modifiers-normal-body-xs-regular-lineheight) !important;
 }
 
 /* Asegurar que los iconos también usen el tamaño XS */
 .ubits-data-table__cell .ubits-status-tag--xs .ubits-status-tag-left-icon,
 .ubits-data-table__cell .ubits-status-tag--xs .ubits-status-tag-right-icon {
-    font-size: var(--font-body-xs-size, 11px) !important;
+    font-size: var(--modifiers-normal-body-xs-regular-fontsize) !important;
 }
 
 .ubits-data-table__status-editable .ubits-status-tag--xs .ubits-status-tag-left-icon,
 .ubits-data-table__status-editable .ubits-status-tag--xs .ubits-status-tag-right-icon {
-    font-size: var(--font-body-xs-size, 11px) !important;
+    font-size: var(--modifiers-normal-body-xs-regular-fontsize) !important;
 }
 
 /* Scrollbar en dropdown de status tags */
@@ -1092,12 +1100,12 @@
 
 .ubits-data-table__cell--editable:hover {
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%23000" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>') 10 10, text;
-    background-color: var(--ubits-bg-2);
+    background-color: var(--modifiers-normal-color-light-bg-2);
 }
 
 .ubits-data-table__cell--editable[contenteditable="true"]:focus,
 .ubits-data-table__cell--editable:has([contenteditable="true"]:focus) {
-    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.15)), var(--ubits-bg-1, #ffffff);
+    background: var(--modifiers-normal-color-light-bg-active), var(--modifiers-normal-color-light-bg-1);
     outline: none;
 }
 
@@ -1118,7 +1126,7 @@
 }
 
 .ubits-data-table__cell--nombre-avatar.ubits-data-table__cell--editable:has([contenteditable="true"]:focus) {
-    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.15)), var(--ubits-bg-1, #ffffff);
+    background: var(--modifiers-normal-color-light-bg-active), var(--modifiers-normal-color-light-bg-1);
 }
 
 
@@ -1135,7 +1143,7 @@
 }
 
 .ubits-data-table__cell--nombre.ubits-data-table__cell--editable:has([contenteditable="true"]:focus) {
-    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.15)), var(--ubits-bg-1, #ffffff);
+    background: var(--modifiers-normal-color-light-bg-active), var(--modifiers-normal-color-light-bg-1);
 }
 
 /* Fecha editable */
@@ -1147,7 +1155,7 @@
 }
 
 .ubits-data-table__date-editable:hover {
-    background-color: var(--ubits-bg-2);
+    background-color: var(--modifiers-normal-color-light-bg-2);
 }
 
 .ubits-data-table__date-display {
@@ -1177,7 +1185,7 @@
 }
 
 .ubits-data-table__cell--fecha.ubits-data-table__cell--editable:has(.ubits-data-table__date-input:focus) {
-    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.15)), var(--ubits-bg-1, #ffffff);
+    background: var(--modifiers-normal-color-light-bg-active), var(--modifiers-normal-color-light-bg-1);
 }
 
 /* Celda de progreso */
@@ -1195,12 +1203,12 @@
 
 /* Contenido expandido */
 .ubits-data-table__row-expanded-row {
-    background-color: var(--ubits-bg-1);
+    background-color: var(--modifiers-normal-color-light-bg-1);
 }
 
 .ubits-data-table__row-expanded-content {
-    padding: var(--ubits-spacing-md, 16px);
-    border-bottom: 1px solid var(--ubits-border-1);
+    padding: var(--ubits-spacing-md);
+    border-bottom: 1px solid var(--modifiers-normal-color-light-border-1);
 }
 
 /* Contenedor scrollable base */
@@ -1287,21 +1295,21 @@
 .ubits-data-table__scrollable-container .ubits-data-table__column-header--expand {
     /* Por defecto: NO sticky (se aplicará inline si pinned: true) */
     z-index: 1 !important;
-    background-color: var(--ubits-bg-1) !important;
+    background-color: var(--modifiers-normal-color-light-bg-1) !important;
 }
 
 /* CRÍTICO: Sobrescribir el background-color en hover con mayor especificidad y !important */
 .ubits-data-table__scrollable-container .ubits-data-table__row:hover .ubits-data-table__cell--drag-handle,
 .ubits-data-table__scrollable-container .ubits-data-table__row:hover .ubits-data-table__cell--expand,
 .ubits-data-table__scrollable-container .ubits-data-table__row:hover .ubits-data-table__cell--checkbox {
-    background-color: var(--ubits-bg-2) !important;
+    background-color: var(--modifiers-normal-color-light-bg-2) !important;
 }
 
 /* CRÍTICO: Sobrescribir el hover del checkbox incluso cuando está pinned */
 .ubits-data-table__row:hover .ubits-data-table__cell--checkbox[data-column-id="checkbox-2"],
 .ubits-data-table__row:hover .ubits-data-table__cell--checkbox[data-column-id="checkbox-2"][data-pinned="true"],
 .ubits-data-table__row:hover .ubits-data-table__cell--checkbox[data-column-id="checkbox-2"].ubits-data-table__cell--pinned {
-    background-color: var(--ubits-bg-2) !important;
+    background-color: var(--modifiers-normal-color-light-bg-2) !important;
 }
 
 /* Por defecto, el checkbox NO es sticky (se aplicará sticky solo si la columna tiene pinned: true) */
@@ -1309,7 +1317,7 @@
 .ubits-data-table__scrollable-container .ubits-data-table__column-header--checkbox[data-column-id="checkbox-2"] {
     /* Por defecto: NO sticky (se aplicará inline si pinned: true) */
     z-index: 1 !important;
-    background-color: var(--ubits-bg-1) !important;
+    background-color: var(--modifiers-normal-color-light-bg-1) !important;
 }
 
 /* Los controladores serán sticky si tienen pinned: true (se aplica inline) */
@@ -1321,17 +1329,17 @@
 }
 
 .ubits-data-table__scrollable-container--vertical::-webkit-scrollbar-track {
-    background: var(--ubits-bg-2);
-    border-radius: 4px;
+    background: var(--modifiers-normal-color-light-bg-2);
+    border-radius: var(--ubits-border-radius-xs);
 }
 
 .ubits-data-table__scrollable-container--vertical::-webkit-scrollbar-thumb {
-    background: var(--ubits-border-2);
-    border-radius: 4px;
+    background: var(--modifiers-normal-color-light-border-2);
+    border-radius: var(--ubits-border-radius-xs);
 }
 
 .ubits-data-table__scrollable-container--vertical::-webkit-scrollbar-thumb:hover {
-    background: var(--ubits-border-1);
+    background: var(--modifiers-normal-color-light-border-1);
 }
 
 /* Estilos del scrollbar nativo - Horizontal */
@@ -1340,17 +1348,17 @@
 }
 
 .ubits-data-table__scrollable-container--horizontal::-webkit-scrollbar-track {
-    background: var(--ubits-bg-2);
-    border-radius: 4px;
+    background: var(--modifiers-normal-color-light-bg-2);
+    border-radius: var(--ubits-border-radius-xs);
 }
 
 .ubits-data-table__scrollable-container--horizontal::-webkit-scrollbar-thumb {
-    background: var(--ubits-border-2);
-    border-radius: 4px;
+    background: var(--modifiers-normal-color-light-border-2);
+    border-radius: var(--ubits-border-radius-xs);
 }
 
 .ubits-data-table__scrollable-container--horizontal::-webkit-scrollbar-thumb:hover {
-    background: var(--ubits-border-1);
+    background: var(--modifiers-normal-color-light-border-1);
 }
 
 /* Estilos del scrollbar nativo - Ambos */
@@ -1360,23 +1368,23 @@
 }
 
 .ubits-data-table__scrollable-container--vertical.ubits-data-table__scrollable-container--horizontal::-webkit-scrollbar-track {
-    background: var(--ubits-bg-2);
-    border-radius: 4px;
+    background: var(--modifiers-normal-color-light-bg-2);
+    border-radius: var(--ubits-border-radius-xs);
 }
 
 .ubits-data-table__scrollable-container--vertical.ubits-data-table__scrollable-container--horizontal::-webkit-scrollbar-thumb {
-    background: var(--ubits-border-2);
-    border-radius: 4px;
+    background: var(--modifiers-normal-color-light-border-2);
+    border-radius: var(--ubits-border-radius-xs);
 }
 
 .ubits-data-table__scrollable-container--vertical.ubits-data-table__scrollable-container--horizontal::-webkit-scrollbar-thumb:hover {
-    background: var(--ubits-border-1);
+    background: var(--modifiers-normal-color-light-border-1);
 }
 
 /* Firefox */
 .ubits-data-table__scrollable-container {
     scrollbar-width: thin;
-    scrollbar-color: var(--ubits-border-2) var(--ubits-bg-2);
+    scrollbar-color: var(--modifiers-normal-color-light-border-2) var(--modifiers-normal-color-light-bg-2);
 }
 
 /* Columnas fijadas (pinned) - siempre que estén marcadas como pinned */
@@ -1387,7 +1395,7 @@
     /* left se establece inline desde el código, pero establecer 0 como base para la primera columna */
     left: 0 !important;
     z-index: 13 !important;
-    background-color: var(--ubits-bg-1) !important;
+    background-color: var(--modifiers-normal-color-light-bg-1) !important;
     /* CRÍTICO: El left específico se aplicará inline y sobrescribirá este valor base */
 }
 
@@ -1396,7 +1404,7 @@
     /* left se establece inline desde el código, pero establecer 0 como base para la primera columna */
     left: 0 !important;
     z-index: 12 !important;
-    background-color: var(--ubits-bg-1) !important;
+    background-color: var(--modifiers-normal-color-light-bg-1) !important;
     /* CRÍTICO: El left específico se aplicará inline y sobrescribirá este valor base */
 }
 
@@ -1468,21 +1476,59 @@
    BUTTON ERROR VARIANT (para botón de eliminar)
    ======================================== */
 .ubits-button--error {
-  background-color: var(--ubits-feedback-bg-error-subtle) !important;
-  color: var(--ubits-feedback-accent-error-static) !important;
-  border-color: var(--ubits-feedback-border-error-static) !important;
+  background-color: var(--modifiers-normal-color-light-feedback-bg-error-subtle-default) !important;
+  color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+  border-color: var(--modifiers-normal-color-light-feedback-border-error) !important;
 }
 
 .ubits-button--error:hover {
-  background-color: var(--ubits-feedback-accent-error-static) !important;
-  color: var(--ubits-fg-1-high) !important;
-  border-color: var(--ubits-feedback-border-error-static) !important;
+  background-color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+  color: var(--modifiers-normal-color-light-fg-bold) !important;
+  border-color: var(--modifiers-normal-color-light-feedback-border-error) !important;
 }
 
 .ubits-button--error:active,
 .ubits-button--error:focus {
-  background-color: var(--ubits-feedback-accent-error-static) !important;
-  color: var(--ubits-fg-1-high) !important;
-  border-color: var(--ubits-feedback-border-error-static) !important;
+  background-color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+  color: var(--modifiers-normal-color-light-fg-bold) !important;
+  border-color: var(--modifiers-normal-color-light-feedback-border-error) !important;
+}
+
+/* ========================================
+   DARK MODE
+   ======================================== */
+
+[data-theme="dark"] {
+  /* Background colors */
+  --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
+  --modifiers-normal-color-light-bg-2: var(--modifiers-normal-color-dark-bg-2);
+  --modifiers-normal-color-light-bg-active: var(--modifiers-normal-color-dark-bg-active);
+  
+  /* Foreground colors */
+  --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
+  --modifiers-normal-color-light-fg-1-medium: var(--modifiers-normal-color-dark-fg-1-medium);
+  --modifiers-normal-color-light-fg-bold: var(--modifiers-normal-color-dark-fg-bold);
+  
+  /* Border colors */
+  --modifiers-normal-color-light-border-1: var(--modifiers-normal-color-dark-border-1);
+  --modifiers-normal-color-light-border-2: var(--modifiers-normal-color-dark-border-2);
+  
+  /* Accent colors */
+  --modifiers-normal-color-light-accent-brand: var(--modifiers-normal-color-dark-accent-brand);
+  
+  /* Button colors */
+  --modifiers-normal-button-color-light-brand-tertiary-fg: var(--modifiers-normal-button-color-dark-brand-tertiary-fg);
+  --modifiers-normal-button-color-light-brand-tertiary-bg-hover: var(--modifiers-normal-button-color-dark-brand-tertiary-bg-hover);
+  --modifiers-normal-button-color-light-brand-tertiary-bg-pressed: var(--modifiers-normal-button-color-dark-brand-tertiary-bg-pressed);
+  
+  /* Feedback colors */
+  --modifiers-normal-color-light-feedback-bg-error-subtle-default: var(--modifiers-normal-color-dark-feedback-bg-error-subtle-default);
+  --modifiers-normal-color-light-feedback-accent-error: var(--modifiers-normal-color-dark-feedback-accent-error);
+  --modifiers-normal-color-light-feedback-border-error: var(--modifiers-normal-color-dark-feedback-border-error);
+}
+
+/* Botón error en dark mode - color de fondo específico */
+[data-theme="dark"] .ubits-button--error {
+  background-color: var(--modifiers-normal-button-color-dark-error-secondary-fg-default) !important;
 }
 

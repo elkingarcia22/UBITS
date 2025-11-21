@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { createDrawer } from '../../addons/drawer/src/DrawerProvider';
 import type { DrawerOptions } from '../../addons/drawer/src/types/DrawerOptions';
+import { renderButton } from '../../addons/button/src/ButtonProvider';
 import '../../addons/drawer/src/styles/drawer.css';
 import '../../addons/button/src/styles/button.css';
 
@@ -119,30 +120,38 @@ export const Default: Story = {
     bodyContent: `
       <div style="padding: 16px;">
         <div style="margin-bottom: 16px;">
-          <label style="display: block; font-size: 12px; font-weight: 600; color: var(--ubits-fg-1-medium); margin-bottom: 8px;">Pregunta</label>
-          <textarea placeholder="Escribe tu pregunta aquí..." style="width: 100%; min-height: 100px; padding: 12px; border: 1px solid var(--ubits-border-1); border-radius: 8px; font-family: var(--font-sans); font-size: var(--font-body-sm-size, 13px); resize: vertical; box-sizing: border-box;"></textarea>
+          <label style="display: block; font-size: 12px; font-weight: 600; color: var(--modifiers-normal-color-light-fg-1-medium); margin-bottom: 8px;">Pregunta</label>
+          <textarea placeholder="Escribe tu pregunta aquí..." style="width: 100%; min-height: 100px; padding: 12px; border: 1px solid var(--modifiers-normal-color-light-border-1); border-radius: 8px; font-family: var(--font-family-noto-sans-font-family); font-size: var(--modifiers-normal-body-sm-regular-fontsize); resize: vertical; box-sizing: border-box;"></textarea>
         </div>
-        <div style="margin-bottom: 16px; padding: 12px; background: var(--ubits-feedback-bg-info-subtle); border-radius: 8px; display: flex; align-items: flex-start; gap: 8px;">
-          <i class="far fa-info-circle" style="color: var(--ubits-feedback-fg-info-subtle); font-size: 16px; margin-top: 2px;"></i>
-          <p style="margin: 0; font-size: var(--font-body-sm-size, 13px); color: var(--ubits-fg-1-medium);">Debes tener al menos dos opciones de respuesta</p>
+        <div style="margin-bottom: 16px; padding: 12px; background: var(--modifiers-normal-color-light-feedback-bg-info-subtle-default); border-radius: 8px; display: flex; align-items: flex-start; gap: 8px;">
+          <i class="far fa-info-circle" style="color: var(--modifiers-normal-color-light-feedback-fg-info-subtle-default); font-size: 16px; margin-top: 2px;"></i>
+          <p style="margin: 0; font-size: var(--modifiers-normal-body-sm-regular-fontsize); color: var(--modifiers-normal-color-light-fg-1-medium);">Debes tener al menos dos opciones de respuesta</p>
         </div>
         <div style="display: flex; flex-direction: column; gap: 12px;">
           <div style="display: flex; gap: 8px; align-items: center;">
-            <span style="font-size: var(--font-body-sm-size, 13px); color: var(--ubits-fg-1-medium); min-width: 20px;">1</span>
-            <input type="text" placeholder="Label" style="flex: 1; padding: 10px 12px; border: 1px solid var(--ubits-border-1); border-radius: 8px; font-family: var(--font-sans); font-size: var(--font-body-sm-size, 13px); box-sizing: border-box;">
-            <button style="padding: 8px; border: none; background: transparent; color: var(--ubits-fg-1-medium); cursor: pointer; border-radius: 4px;">
-              <i class="far fa-trash"></i>
-            </button>
+            <span style="font-size: var(--modifiers-normal-body-sm-regular-fontsize); color: var(--modifiers-normal-color-light-fg-1-medium); min-width: 20px;">1</span>
+            <input type="text" placeholder="Label" style="flex: 1; padding: 10px 12px; border: 1px solid var(--modifiers-normal-color-light-border-1); border-radius: 8px; font-family: var(--font-family-noto-sans-font-family); font-size: var(--modifiers-normal-body-sm-regular-fontsize); box-sizing: border-box;">
+            ${renderButton({
+              variant: 'tertiary',
+              size: 'sm',
+              icon: 'trash',
+              iconStyle: 'regular',
+              iconOnly: true
+            })}
           </div>
           <div style="display: flex; gap: 8px; align-items: center;">
-            <span style="font-size: var(--font-body-sm-size, 13px); color: var(--ubits-fg-1-medium); min-width: 20px;">2</span>
-            <input type="text" placeholder="Label" style="flex: 1; padding: 10px 12px; border: 1px solid var(--ubits-border-1); border-radius: 8px; font-family: var(--font-sans); font-size: var(--font-body-sm-size, 13px); box-sizing: border-box;">
-            <button style="padding: 8px; border: none; background: transparent; color: var(--ubits-fg-1-medium); cursor: pointer; border-radius: 4px;">
-              <i class="far fa-trash"></i>
-            </button>
+            <span style="font-size: var(--modifiers-normal-body-sm-regular-fontsize); color: var(--modifiers-normal-color-light-fg-1-medium); min-width: 20px;">2</span>
+            <input type="text" placeholder="Label" style="flex: 1; padding: 10px 12px; border: 1px solid var(--modifiers-normal-color-light-border-1); border-radius: 8px; font-family: var(--font-family-noto-sans-font-family); font-size: var(--modifiers-normal-body-sm-regular-fontsize); box-sizing: border-box;">
+            ${renderButton({
+              variant: 'tertiary',
+              size: 'sm',
+              icon: 'trash',
+              iconStyle: 'regular',
+              iconOnly: true
+            })}
           </div>
         </div>
-        <button style="margin-top: 16px; padding: 10px 12px; border: 1px dashed var(--ubits-border-1); background: transparent; border-radius: 8px; color: var(--ubits-fg-1-medium); font-family: var(--font-sans); font-size: var(--font-body-sm-size, 13px); cursor: pointer; display: flex; align-items: center; gap: 8px; width: 100%;">
+        <button style="margin-top: 16px; padding: 10px 12px; border: 1px dashed var(--modifiers-normal-color-light-border-1); background: transparent; border-radius: 8px; color: var(--modifiers-normal-color-light-fg-1-medium); font-family: var(--font-family-noto-sans-font-family); font-size: var(--modifiers-normal-body-sm-regular-fontsize); cursor: pointer; display: flex; align-items: center; gap: 8px; width: 100%;">
           <i class="far fa-plus"></i>
           <span>Añadir opción de respuesta</span>
         </button>
@@ -163,7 +172,7 @@ export const Default: Story = {
     container.style.height = '100vh';
     container.style.position = 'relative';
     container.style.overflow = 'hidden';
-    container.style.background = 'var(--ubits-bg-2, #f9fafb)';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
     container.style.display = 'flex';
     container.style.alignItems = 'center';
     container.style.justifyContent = 'center';

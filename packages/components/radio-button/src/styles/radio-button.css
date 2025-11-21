@@ -11,7 +11,7 @@
 .ubits-radio-button {
     display: inline-flex;
     align-items: flex-start;
-    gap: var(--ubits-spacing-sm, 8px);
+    gap: var(--p-spacing-mode-1-sm);
     cursor: pointer;
     user-select: none;
     transition: all 0.2s ease;
@@ -32,17 +32,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--ubits-border-1, #d0d2d5);
-    background-color: var(--ubits-bg-1, #ffffff);
-    border-radius: var(--ubits-border-radius-full, 1000px);
+    border: 1px solid var(--modifiers-normal-color-light-border-1);
+    background-color: var(--modifiers-normal-color-light-bg-1);
+    border-radius: var(--ubits-border-radius-full);
     transition: all 0.2s ease;
 }
 
 .ubits-radio-button__dot {
     width: 8px;
     height: 8px;
-    border-radius: var(--ubits-border-radius-full, 1000px);
-    background-color: var(--ubits-accent-brand-static-inverted, #0c5bef);
+    border-radius: var(--ubits-border-radius-full);
+    background-color: var(--modifiers-normal-color-light-accent-brand);
     opacity: 0;
     transform: scale(0);
     transition: all 0.2s ease;
@@ -51,26 +51,26 @@
 .ubits-radio-button__text-content {
     display: flex;
     flex-direction: column;
-    gap: var(--ubits-spacing-none, 0px);
+    gap: var(--ubits-spacing-none);
     flex: 1;
     min-width: 0;
 }
 
 .ubits-radio-button__label {
-    font-family: var(--font-sans, 'Noto Sans', sans-serif);
-    font-size: var(--ubits-font-size-sm, 13px);
-    font-weight: var(--weight-regular, 400);
-    line-height: var(--ubits-line-height-sm, 19.5px);
-    color: var(--ubits-fg-1-high, #303a47);
+    font-family: var(--font-family-noto-sans-font-family, var(--font-sans, 'Noto Sans', sans-serif));
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular);
+    line-height: var(--modifiers-normal-body-sm-regular-lineheight);
+    color: var(--modifiers-normal-color-light-fg-1-high);
     white-space: nowrap;
 }
 
 .ubits-radio-button__complementary-text {
-    font-family: var(--font-sans, 'Noto Sans', sans-serif);
-    font-size: var(--ubits-font-size-sm, 13px);
-    font-weight: var(--weight-regular, 400);
-    line-height: var(--ubits-line-height-sm, 19.5px);
-    color: var(--ubits-fg-1-medium, #5c646f);
+    font-family: var(--font-family-noto-sans-font-family, var(--font-sans, 'Noto Sans', sans-serif));
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular);
+    line-height: var(--modifiers-normal-body-sm-regular-lineheight);
+    color: var(--modifiers-normal-color-light-fg-1-medium);
     white-space: normal;
 }
 
@@ -106,51 +106,51 @@
 
 /* Default State */
 .ubits-radio-button--default .ubits-radio-button__circle {
-    border-color: var(--ubits-border-1, #d0d2d5);
-    background-color: var(--ubits-bg-1, #ffffff);
+    border-color: var(--modifiers-normal-color-light-border-1);
+    background-color: var(--modifiers-normal-color-light-bg-1);
 }
 
 /* Hover State - cuando la clase hover está presente */
 .ubits-radio-button--hover:not(.ubits-radio-button--disabled):not(.ubits-radio-button--checked) .ubits-radio-button__circle {
-    border-color: var(--ubits-accent-brand-static-inverted, #0c5bef);
-    background-color: var(--ubits-bg-1, #ffffff);
+    border-color: var(--modifiers-normal-color-light-accent-brand);
+    background-color: var(--modifiers-normal-color-light-bg-1);
 }
 
 /* Hover State - cuando se hace hover con el mouse */
 .ubits-radio-button--hover:not(.ubits-radio-button--disabled):not(.ubits-radio-button--checked):hover .ubits-radio-button__circle,
 .ubits-radio-button:not(.ubits-radio-button--disabled):not(.ubits-radio-button--checked):hover .ubits-radio-button__circle {
-    border-color: var(--ubits-accent-brand-static-inverted, #0c5bef);
-    background-color: var(--ubits-bg-1, #ffffff);
+    border-color: var(--modifiers-normal-color-light-accent-brand);
+    background-color: var(--modifiers-normal-color-light-bg-1);
 }
 
 /* Hover cuando está checked - mantener círculo azul */
 .ubits-radio-button--checked:not(.ubits-radio-button--disabled):hover .ubits-radio-button__circle {
-    border-color: var(--ubits-accent-brand-static-inverted);
-    background-color: var(--ubits-accent-brand-static-inverted);
+    border-color: var(--modifiers-normal-color-light-accent-brand);
+    background-color: var(--modifiers-normal-color-light-accent-brand);
 }
 
 /* Active State - círculo azul brand con dot blanco (solo cuando NO está checked) */
 .ubits-radio-button--active:not(.ubits-radio-button--checked) .ubits-radio-button__circle {
-    border-color: var(--ubits-accent-brand-static-inverted, #0c5bef);
-    background-color: var(--ubits-accent-brand-static-inverted, #0c5bef);
+    border-color: var(--modifiers-normal-color-light-accent-brand);
+    background-color: var(--modifiers-normal-color-light-accent-brand);
 }
 
 .ubits-radio-button--active:not(.ubits-radio-button--checked) .ubits-radio-button__dot {
     opacity: 1;
     transform: scale(1);
-    background-color: var(--ubits-bg-1, #ffffff);
+    background-color: var(--modifiers-normal-color-light-bg-1);
 }
 
 /* Checked State - círculo exterior azul (brand), dot interior blanco */
 .ubits-radio-button--checked .ubits-radio-button__circle {
-    border-color: var(--ubits-accent-brand-static-inverted);
-    background-color: var(--ubits-accent-brand-static-inverted);
+    border-color: var(--modifiers-normal-color-light-accent-brand);
+    background-color: var(--modifiers-normal-color-light-accent-brand);
 }
 
 .ubits-radio-button--checked .ubits-radio-button__dot {
     opacity: 1;
     transform: scale(1);
-    background-color: var(--ubits-bg-1);
+    background-color: var(--modifiers-normal-color-light-bg-1);
 }
 
 /* Tamaños del dot cuando está checked - más grande para llenar más el círculo */
@@ -167,8 +167,8 @@
 /* Focus State */
 .ubits-radio-button__input:focus-visible + .ubits-radio-button__circle {
     /* Efecto Focus de los tokens UBITS */
-    border: 2px solid var(--ubits-accent-brand-static-inverted, #5297F4);
-    box-shadow: 0px 0px 0px 4px rgba(82, 151, 244, 0.3);
+    border: 2px solid var(--modifiers-normal-color-light-accent-brand);
+    box-shadow: 0px 0px 0px 4px var(--modifiers-normal-focus-color);
     outline: none;
 }
 
@@ -180,20 +180,38 @@
 }
 
 .ubits-radio-button--disabled .ubits-radio-button__circle {
-    border-color: var(--ubits-border-disabled-button, #e1e2e5);
-    background-color: var(--ubits-bg-1, #ffffff);
+    border-color: var(--modifiers-normal-color-light-border-disabled);
+    background-color: var(--modifiers-normal-color-light-bg-1);
 }
 
 .ubits-radio-button--disabled .ubits-radio-button__label {
-    color: var(--ubits-fg-on-disabled-button, #8d9199);
+    color: var(--modifiers-normal-color-light-fg-on-disabled);
 }
 
 .ubits-radio-button--disabled .ubits-radio-button__complementary-text {
-    color: var(--ubits-fg-on-disabled-button, #8d9199);
+    color: var(--modifiers-normal-color-light-fg-on-disabled);
 }
 
 .ubits-radio-button--disabled .ubits-radio-button__dot {
-    background-color: var(--ubits-fg-on-disabled-button, #8d9199);
+    background-color: var(--modifiers-normal-color-light-fg-on-disabled);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+/* ========================================
+   DARK MODE SUPPORT
+   ======================================== */
+
+[data-theme="dark"] {
+    --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
+    --modifiers-normal-color-light-border-1: var(--modifiers-normal-color-dark-border-1);
+    --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
+    --modifiers-normal-color-light-fg-1-medium: var(--modifiers-normal-color-dark-fg-1-medium);
+    --modifiers-normal-color-light-accent-brand: var(--modifiers-normal-color-dark-accent-brand);
+    --modifiers-normal-color-light-border-disabled: var(--modifiers-normal-color-dark-border-disabled);
+    --modifiers-normal-color-light-fg-on-disabled: var(--modifiers-normal-color-dark-fg-on-disabled);
 }
 
 /* ========================================
@@ -203,7 +221,7 @@
 @media (max-width: 767px) {
     .ubits-radio-button__label,
     .ubits-radio-button__complementary-text {
-        font-size: var(--ubits-font-size-sm, 12px);
+        font-size: var(--modifiers-normal-body-sm-regular-fontsize);
     }
 }
 

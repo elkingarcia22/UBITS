@@ -83,8 +83,8 @@
    ======================================== */
 
 .ubits-tooltip__content {
-    background-color: var(--ubits-bg-1-high, #202837);
-    border-radius: var(--ubits-border-radius-sm, 8px);
+    background-color: var(--modifiers-static-inverted-color-light-bg-1);
+    border-radius: var(--ubits-border-radius-sm);
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.14), 0px 0px 2px 0px rgba(0, 0, 0, 0.12);
     display: flex;
     flex-direction: column;
@@ -172,7 +172,7 @@
 .ubits-tooltip__tail-inner {
     width: 100%;
     height: 100%;
-    background-color: var(--ubits-bg-1-high, #202837);
+    background-color: var(--modifiers-static-inverted-color-light-bg-1);
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
 
@@ -181,8 +181,8 @@
    ======================================== */
 
 .ubits-tooltip__header {
-    padding: var(--ubits-spacing-md, 12px);
-    padding-bottom: var(--ubits-spacing-sm, 8px);
+    padding: var(--ubits-spacing-md);
+    padding-bottom: var(--ubits-spacing-sm);
     border-bottom: none;
     flex-shrink: 0;
     width: fit-content;
@@ -193,7 +193,7 @@
 .ubits-tooltip__header-title {
     display: flex;
     align-items: center;
-    gap: var(--ubits-spacing-xs, 4px);
+    gap: var(--ubits-spacing-xs);
     width: fit-content;
     min-width: fit-content;
     max-width: 100%;
@@ -201,11 +201,11 @@
 
 .ubits-tooltip__header-title p {
     margin: 0;
-    color: var(--ubits-fg-1-high-static-inverted, #edeeef);
-    font-family: var(--font-sans, 'Noto Sans', sans-serif);
-    font-size: var(--font-body-md-size, 16px);
-    font-weight: var(--weight-semibold, 600);
-    line-height: var(--font-body-md-line, 24px);
+    color: var(--modifiers-static-inverted-color-light-fg-1-high);
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    font-weight: var(--ubits-font-weight-semibold);
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
     white-space: normal;
     word-wrap: break-word;
 }
@@ -215,8 +215,8 @@
    ======================================== */
 
 .ubits-tooltip__body {
-    padding: 0 var(--ubits-spacing-md, 12px);
-    padding-bottom: var(--ubits-spacing-sm, 8px);
+    padding: 0 var(--ubits-spacing-md);
+    padding-bottom: var(--ubits-spacing-sm);
     flex-shrink: 0;
     width: fit-content;
     min-width: fit-content;
@@ -225,17 +225,17 @@
 
 /* Cuando solo hay body (sin header), agregar padding-top */
 .ubits-tooltip__content:not(:has(.ubits-tooltip__header)) .ubits-tooltip__body {
-    padding-top: var(--ubits-spacing-md, 12px);
+    padding-top: var(--ubits-spacing-md);
 }
 
 /* Fallback para navegadores que no soportan :has() */
 .ubits-tooltip__content > .ubits-tooltip__body:first-child {
-    padding-top: var(--ubits-spacing-md, 12px);
+    padding-top: var(--ubits-spacing-md);
 }
 
 .ubits-tooltip__body-content {
-    color: var(--ubits-fg-1-high-static-inverted, #edeeef);
-    font-family: var(--font-sans, 'Noto Sans', sans-serif);
+    color: var(--modifiers-static-inverted-color-light-fg-1-high);
+    font-family: var(--font-family-noto-sans-font-family);
     width: fit-content;
     min-width: fit-content;
     max-width: 100%;
@@ -243,11 +243,11 @@
 
 .ubits-tooltip__body-content p {
     margin: 0;
-    color: var(--ubits-fg-1-high-static-inverted, #edeeef);
-    font-family: var(--font-sans, 'Noto Sans', sans-serif);
-    font-size: var(--font-body-md-size, 16px);
-    font-weight: var(--weight-regular, 400);
-    line-height: var(--font-body-md-line, 24px);
+    color: var(--modifiers-static-inverted-color-light-fg-1-high);
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular);
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
     white-space: normal;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -261,8 +261,8 @@
    ======================================== */
 
 .ubits-tooltip__footer {
-    padding: var(--ubits-spacing-md, 12px);
-    padding-top: var(--ubits-spacing-sm, 8px);
+    padding: var(--ubits-spacing-md);
+    padding-top: var(--ubits-spacing-sm);
     border-top: none;
     flex-shrink: 0;
     min-width: 0;
@@ -273,7 +273,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--ubits-spacing-md, 12px);
+    gap: var(--ubits-spacing-md);
     flex-wrap: nowrap;
     min-width: 0;
     overflow: visible;
@@ -299,7 +299,7 @@
 .ubits-tooltip__footer-right {
     display: flex;
     align-items: center;
-    gap: var(--ubits-spacing-md, 12px);
+    gap: var(--ubits-spacing-md);
     flex-shrink: 0;
     min-width: 0;
 }
@@ -309,6 +309,20 @@
     white-space: nowrap;
     flex-shrink: 0;
     min-width: fit-content;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+/* ========================================
+   DARK MODE
+   ======================================== */
+
+[data-theme="dark"] {
+    /* El tooltip siempre debe verse igual: fondo oscuro (#202837) con texto claro */
+    --modifiers-static-inverted-color-light-bg-1: var(--modifiers-static-inverted-color-dark-bg-1);
+    --modifiers-static-inverted-color-light-fg-1-high: var(--modifiers-static-inverted-color-dark-fg-1-high);
 }
 
 /* ========================================

@@ -25,20 +25,20 @@
     flex-direction: column;
     width: 8px;
     min-width: 8px;
-    padding: var(--ubits-spacing-sm, 8px) var(--ubits-spacing-xs, 4px);
+    padding: var(--p-spacing-mode-1-sm, 8px) var(--p-spacing-mode-1-xs, 4px);
     height: 100%;
 }
 
 .ubits-scrollbar--vertical .ubits-scrollbar__bar {
     width: 8px;
     min-height: 20px;
-    background-color: var(--ubits-scroll-bar-color-bg-default, #c5c6cb);
+    background-color: var(--color-scroll-bar-color-bg-default) !important;
     border-radius: var(--ubits-border-radius-full, 1000px);
     position: absolute;
-    top: var(--ubits-spacing-sm, 8px);
-    left: var(--ubits-spacing-xs, 4px);
-    right: var(--ubits-spacing-xs, 4px);
-    transition: opacity 0.3s ease, transform 0.1s ease;
+    top: var(--p-spacing-mode-1-sm, 8px);
+    left: var(--p-spacing-mode-1-xs, 4px);
+    right: var(--p-spacing-mode-1-xs, 4px);
+    transition: opacity 0.3s ease, transform 0.1s ease, background-color 0.2s ease;
     cursor: grab;
     opacity: 0;
     pointer-events: none;
@@ -48,10 +48,12 @@
 .ubits-scrollbar--vertical:hover .ubits-scrollbar__bar {
     opacity: 1;
     pointer-events: auto;
+    background-color: var(--color-scroll-bar-color-bg-hover) !important;
 }
 
 .ubits-scrollbar--vertical .ubits-scrollbar__bar:active {
     cursor: grabbing;
+    background-color: var(--color-scroll-bar-color-bg-dragged) !important;
 }
 
 /* Mostrar scrollbar cuando el contenedor scrollable tiene hover */
@@ -69,20 +71,20 @@
     flex-direction: row;
     height: 8px;
     min-height: 8px;
-    padding: var(--ubits-spacing-xs, 4px) var(--ubits-spacing-sm, 8px);
+    padding: var(--p-spacing-mode-1-xs, 4px) var(--p-spacing-mode-1-sm, 8px);
     width: 100%;
 }
 
 .ubits-scrollbar--horizontal .ubits-scrollbar__bar {
     height: 8px;
     min-width: 20px;
-    background-color: var(--ubits-scroll-bar-color-bg-default, #c5c6cb);
+    background-color: var(--color-scroll-bar-color-bg-default) !important;
     border-radius: var(--ubits-border-radius-full, 1000px);
     position: absolute;
-    left: var(--ubits-spacing-sm, 8px);
-    top: var(--ubits-spacing-xs, 4px);
-    bottom: var(--ubits-spacing-xs, 4px);
-    transition: opacity 0.3s ease, transform 0.1s ease;
+    left: var(--p-spacing-mode-1-sm, 8px);
+    top: var(--p-spacing-mode-1-xs, 4px);
+    bottom: var(--p-spacing-mode-1-xs, 4px);
+    transition: opacity 0.3s ease, transform 0.1s ease, background-color 0.2s ease;
     cursor: grab;
     opacity: 0;
     pointer-events: none;
@@ -92,10 +94,12 @@
 .ubits-scrollbar--horizontal:hover .ubits-scrollbar__bar {
     opacity: 1;
     pointer-events: auto;
+    background-color: var(--color-scroll-bar-color-bg-hover) !important;
 }
 
 .ubits-scrollbar--horizontal .ubits-scrollbar__bar:active {
     cursor: grabbing;
+    background-color: var(--color-scroll-bar-color-bg-dragged) !important;
 }
 
 /* Mostrar scrollbar cuando el contenedor scrollable tiene hover */
@@ -110,7 +114,7 @@
    ======================================== */
 
 .ubits-scrollbar--default .ubits-scrollbar__bar {
-    background-color: var(--ubits-scroll-bar-color-bg-default, #c5c6cb);
+    background-color: var(--color-scroll-bar-color-bg-default) !important;
 }
 
 /* ========================================
@@ -121,7 +125,7 @@
     .ubits-scrollbar--vertical {
         width: 2px;
         min-width: 2px;
-        padding: var(--ubits-spacing-sm, 8px) 0;
+        padding: var(--p-spacing-mode-1-sm, 8px) 0;
     }
     
     .ubits-scrollbar--vertical .ubits-scrollbar__bar {
@@ -133,7 +137,7 @@
     .ubits-scrollbar--horizontal {
         height: 2px;
         min-height: 2px;
-        padding: 0 var(--ubits-spacing-sm, 8px);
+        padding: 0 var(--p-spacing-mode-1-sm, 8px);
     }
     
     .ubits-scrollbar--horizontal .ubits-scrollbar__bar {
@@ -141,5 +145,22 @@
         top: 0;
         bottom: 0;
     }
+}
+
+/* ========================================
+   DARK MODE SUPPORT
+   ======================================== */
+
+/* Definir tokens de scroll-bar usando SOLO los tokens nuevos de Figma */
+:root {
+    --color-scroll-bar-color-bg-default: var(--modifiers-normal-scroll-bar-color-light-bg-default);
+    --color-scroll-bar-color-bg-hover: var(--modifiers-normal-scroll-bar-color-light-bg-hover);
+    --color-scroll-bar-color-bg-dragged: var(--modifiers-normal-scroll-bar-color-light-bg-dragged);
+}
+
+[data-theme="dark"] {
+    --color-scroll-bar-color-bg-default: var(--modifiers-normal-scroll-bar-color-dark-bg-default);
+    --color-scroll-bar-color-bg-hover: var(--modifiers-normal-scroll-bar-color-dark-bg-hover);
+    --color-scroll-bar-color-bg-dragged: var(--modifiers-normal-scroll-bar-color-dark-bg-dragged);
 }
 
