@@ -228,12 +228,31 @@
 }
 
 .ubits-calendar--range .ubits-calendar__day--in-range {
-    background: color-mix(in srgb, var(--modifiers-normal-button-color-light-brand-primary-bg-default) 10%, transparent);
-    color: var(--modifiers-normal-color-light-fg-1-high) !important;
+    position: relative;
+    background-color: transparent !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
+}
+
+.ubits-calendar--range .ubits-calendar__day--in-range::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--modifiers-normal-color-light-bg-active) !important;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
 }
 
 .ubits-calendar--range .ubits-calendar__day--in-range:hover {
-    background: color-mix(in srgb, var(--modifiers-normal-button-color-light-brand-primary-bg-default) 15%, transparent);
+    background-color: transparent !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
+}
+
+.ubits-calendar--range .ubits-calendar__day--in-range:hover::before {
+    background-color: var(--modifiers-normal-color-light-bg-active) !important;
 }
 
 /* ========================================
@@ -329,4 +348,7 @@
   --modifiers-normal-button-color-light-brand-primary-bg-default: var(--modifiers-normal-button-color-dark-brand-primary-bg-default);
   --modifiers-normal-button-color-light-brand-primary-bg-hover: var(--modifiers-normal-button-color-dark-brand-primary-bg-hover);
   --modifiers-normal-button-color-light-brand-primary-bg-pressed: var(--modifiers-normal-button-color-dark-brand-primary-bg-pressed);
+  /* Tokens para estado active (días in-range) */
+  --modifiers-normal-color-light-accent-brand: var(--modifiers-normal-color-dark-accent-brand);
+  --modifiers-normal-color-light-bg-active: var(--modifiers-normal-color-dark-bg-active);
 }
