@@ -196,19 +196,38 @@ border-radius: 50%; /* Mantener valores específicos como 50%, inherit, 0 */
 1. Buscar tokens antiguos de effects (`--ubits-*elevation*`, `--ubits-*shadow*`, `--ubits-*focus*`)
 2. Verificar si tienen equivalente en Figma (consultar `figma-tokens.css` o Storybook)
 3. Si tienen equivalente, migrar a tokens nuevos de Figma
-4. Si NO tienen equivalente, mantener tokens antiguos pero documentar
+4. **Si NO tienen equivalente exacto, buscar el token de Figma más parecido y reemplazarlo.**
 
-**Ejemplo con elevation:**
+**Ejemplo con elevation floating (construido desde múltiples tokens):**
 ```css
 /* ANTES */
-box-shadow: var(--ubits-elevation-floating);
+box-shadow: var(--ubits-elevation-floating); /* 0 14px 28.8px 0 rgba(0, 0, 0, 0.24) */
 
-/* DESPUÉS (si tienen equivalente en Figma) */
-box-shadow: var(--modifiers-normal-elevation-1-shadow, var(--ubits-elevation-floating, 0 14px 28.8px 0 rgba(0, 0, 0, 0.24)));
+/* DESPUÉS (construir desde tokens de Figma usando calc()) */
+:root {
+    --ubits-elevation-floating: calc(var(--modifiers-normal-elevation-floating-0-x) * 1px) calc(var(--modifiers-normal-elevation-floating-0-y) * 1px) calc(var(--modifiers-normal-elevation-floating-0-blur) * 1px) calc(var(--modifiers-normal-elevation-floating-0-spread) * 1px) var(--modifiers-normal-elevation-floating-0-color), calc(var(--modifiers-normal-elevation-floating-1-x) * 1px) calc(var(--modifiers-normal-elevation-floating-1-y) * 1px) calc(var(--modifiers-normal-elevation-floating-1-blur) * 1px) calc(var(--modifiers-normal-elevation-floating-1-spread) * 1px) var(--modifiers-normal-elevation-floating-1-color);
+}
 
-/* DESPUÉS (después de limpieza - Fase 5) */
-box-shadow: var(--modifiers-normal-elevation-1-shadow);
+.ubits-button--floating {
+    box-shadow: var(--ubits-elevation-floating) !important;
+}
 ```
+
+**⚠️ ERRORES COMUNES CON EFFECTS TOKENS:**
+
+**Error 1: Falta de unidades 'px' en valores numéricos**
+- **Problema**: Los tokens de Figma devuelven números sin unidades (ej: `14` en lugar de `14px`)
+- **Síntoma**: `box-shadow: none` o valores inválidos con `/**/` en el valor
+- **Solución**: Usar `calc(var(--token) * 1px)` en lugar de `var(--token)px`
+- **❌ INCORRECTO**: `var(--modifiers-normal-elevation-floating-0-y)px` → Genera `14/**/px` (inválido)
+- **✅ CORRECTO**: `calc(var(--modifiers-normal-elevation-floating-0-y) * 1px)` → Genera `14px` (válido)
+
+**Error 2: Clase CSS no se agrega con operador `&&`**
+- **Problema**: `floating && 'ubits-button--floating'` puede no funcionar correctamente con `filter(Boolean)`
+- **Síntoma**: La clase no aparece en el HTML generado aunque `floating: true`
+- **Solución**: Usar operador ternario `floating ? 'ubits-button--floating' : null`
+- **❌ INCORRECTO**: `floating && 'ubits-button--floating'`
+- **✅ CORRECTO**: `floating ? 'ubits-button--floating' : null`
 
 **Valores hardcodeados de effects:**
 ```css
@@ -217,8 +236,8 @@ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 outline: 2px solid rgba(82, 151, 244, 0.3);
 
 /* DESPUÉS */
-box-shadow: var(--modifiers-normal-elevation-1-shadow, 0 2px 4px rgba(0, 0, 0, 0.1));
-outline: 2px solid var(--modifiers-normal-focus-ring-color, rgba(82, 151, 244, 0.3));
+box-shadow: calc(var(--modifiers-normal-elevation-default-0-x) * 1px) calc(var(--modifiers-normal-elevation-default-0-y) * 1px) calc(var(--modifiers-normal-elevation-default-0-blur) * 1px) calc(var(--modifiers-normal-elevation-default-0-spread) * 1px) var(--modifiers-normal-elevation-default-0-color);
+outline: 2px solid var(--modifiers-normal-focus-color);
 ```
 
 ---
