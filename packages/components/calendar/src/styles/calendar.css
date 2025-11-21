@@ -222,8 +222,8 @@
 
 .ubits-calendar--range .ubits-calendar__day--range-start,
 .ubits-calendar--range .ubits-calendar__day--range-end {
-    background: var(--modifiers-static-inverted-color-light-accent-brand) !important;
-    color: var(--modifiers-static-inverted-color-light-fg-1-high) !important;
+    background: var(--modifiers-normal-color-light-accent-brand) !important;
+    color: var(--modifiers-normal-color-light-fg-bold) !important;
     font-weight: var(--modifiers-normal-body-md-semibold-fontweight, 600);
 }
 
@@ -326,5 +326,6 @@
   --modifiers-static-inverted-color-light-fg-1-high: var(--modifiers-static-inverted-color-dark-fg-1-high);
   --modifiers-normal-color-light-accent-brand: var(--modifiers-normal-color-dark-accent-brand);
   --modifiers-normal-color-light-fg-disabled: var(--modifiers-normal-color-dark-fg-disabled);
+  --modifiers-normal-color-light-fg-bold: var(--modifiers-normal-color-dark-fg-bold);
 
 }
