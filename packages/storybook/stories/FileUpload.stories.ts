@@ -125,76 +125,150 @@ export const Default: Story = {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 40px;
-      background: var(--ubits-bg-2, #f3f3f4);
+      padding: var(--ubits-spacing-10);
+      background: var(--modifiers-normal-color-light-bg-2);
     `;
 
     const wrapper = document.createElement('div');
     wrapper.style.cssText = `
       width: 100%;
-      max-width: 800px;
-      background: var(--ubits-bg-1, #ffffff);
-      padding: 32px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      max-width: calc(var(--ubits-spacing-80) * 2.5);
+      background: var(--modifiers-normal-color-light-bg-1);
+      padding: var(--ubits-spacing-8);
+      border-radius: var(--ubits-border-radius-md);
+      box-shadow: 0 var(--ubits-spacing-xs) var(--ubits-spacing-sm) rgba(0, 0, 0, 0.1);
     `;
 
     const title = document.createElement('h2');
     title.textContent = 'File Upload';
     title.style.cssText = `
-      margin: 0 0 16px 0;
-      color: var(--ubits-fg-1-high, #303a47);
-      font-size: var(--font-heading-h2-size, 24px);
-      font-weight: var(--weight-bold, 700);
+      margin: var(--ubits-spacing-none) var(--ubits-spacing-none) var(--ubits-spacing-lg) var(--ubits-spacing-none);
+      color: var(--modifiers-normal-color-light-fg-1-high);
+      font-size: var(--modifiers-normal-heading-h2-fontsize);
+      font-weight: var(--ubits-font-weight-semibold);
     `;
 
     const description = document.createElement('p');
     description.textContent = 'Componente File Upload con diseño moderno. Soporta dos vistas: Drop Zone (área de arrastrar y soltar) y Files List (lista de archivos con progreso). Usa componentes UBITS y tokens UBITS exclusivamente.';
     description.style.cssText = `
-      margin: 0 0 24px 0;
-      color: var(--ubits-fg-1-medium, #5c646f);
-      font-size: var(--font-body-md-size, 16px);
-      line-height: var(--font-body-md-line, 24px);
+      margin: var(--ubits-spacing-none) var(--ubits-spacing-none) var(--ubits-spacing-6xl) var(--ubits-spacing-none);
+      color: var(--modifiers-normal-color-light-fg-1-medium);
+      font-size: var(--modifiers-normal-body-md-regular-fontsize);
+      line-height: var(--modifiers-normal-body-md-regular-lineheight);
     `;
 
     const fileUploadContainer = document.createElement('div');
     fileUploadContainer.id = `file-upload-container-${Date.now()}`;
-    fileUploadContainer.style.cssText = `width: 100%; margin: 0 auto;`;
+    fileUploadContainer.style.cssText = `width: 100%; margin: var(--ubits-spacing-none) auto;`;
 
     const createFileUploadContent = () => {
       fileUploadContainer.innerHTML = '';
       
+      // 🔍 LOGS DE DEBUG
+      console.log('🔍 [FileUpload Storybook] ========== RENDER ==========');
+      console.log('🔍 [FileUpload Storybook] args.showFileSize:', args.showFileSize, '| tipo:', typeof args.showFileSize);
+      console.log('🔍 [FileUpload Storybook] args.showProgress:', args.showProgress, '| tipo:', typeof args.showProgress);
+      console.log('🔍 [FileUpload Storybook] args.showIcon:', args.showIcon, '| tipo:', typeof args.showIcon);
+      console.log('🔍 [FileUpload Storybook] args.state:', args.state);
+      console.log('🔍 [FileUpload Storybook] args.files:', args.files, '| length:', args.files?.length);
+      console.log('🔍 [FileUpload Storybook] args completos:', JSON.stringify(args, null, 2));
+      
       // Determinar si mostrar vista de lista o drop zone
-      const hasFiles = args.files && args.files.length > 0;
+      let filesToUse = args.files || [];
+      
+      // Si el estado es 'files-list' pero no hay archivos, agregar archivos de ejemplo para probar los controles
+      if (args.state === 'files-list' && (!filesToUse || filesToUse.length === 0)) {
+        filesToUse = [
+          {
+            id: 'file-1',
+            name: 'documento-ejemplo.pdf',
+            size: 2048576, // 2MB
+            progress: 45,
+            status: 'uploading' as const,
+          },
+          {
+            id: 'file-2',
+            name: 'imagen-ejemplo.jpg',
+            size: 1024000, // 1MB
+            progress: 100,
+            status: 'completed' as const,
+          },
+          {
+            id: 'file-3',
+            name: 'archivo-ejemplo.docx',
+            size: 512000, // 512KB
+            progress: 0,
+            status: 'pending' as const,
+          },
+        ];
+        console.log('🔍 [FileUpload Storybook] Archivos de ejemplo agregados para probar controles:', filesToUse);
+      }
+      
+      const hasFiles = filesToUse && filesToUse.length > 0;
       const actualState = hasFiles ? 'files-list' : (args.state || 'default');
+      
+      const showFileSizeValue = args.showFileSize !== undefined ? args.showFileSize : true;
+      const showProgressValue = args.showProgress !== undefined ? args.showProgress : true;
+      
+      console.log('🔍 [FileUpload Storybook] Valores calculados:');
+      console.log('  - showFileSizeValue:', showFileSizeValue, '| tipo:', typeof showFileSizeValue);
+      console.log('  - showProgressValue:', showProgressValue, '| tipo:', typeof showProgressValue);
+      console.log('  - actualState:', actualState);
+      console.log('  - hasFiles:', hasFiles);
       
       const options: FileUploadOptions = {
         state: actualState,
-        files: args.files || [],
+        files: filesToUse,
         maxFiles: args.maxFiles || 6,
         maxSize: args.maxSize || 5242880,
         dropText: args.dropText || 'Arrastra tus archivos aquí',
         selectButtonText: args.selectButtonText || 'Seleccionar archivos',
         showIcon: args.showIcon !== undefined ? args.showIcon : false,
-        showFileSize: args.showFileSize !== undefined ? args.showFileSize : true,
-        showProgress: args.showProgress !== undefined ? args.showProgress : true,
+        showFileSize: showFileSizeValue,
+        showProgress: showProgressValue,
       };
+      
+      console.log('🔍 [FileUpload Storybook] Options finales:');
+      console.log('  - showFileSize:', options.showFileSize, '| tipo:', typeof options.showFileSize);
+      console.log('  - showProgress:', options.showProgress, '| tipo:', typeof options.showProgress);
+      console.log('  - showIcon:', options.showIcon, '| tipo:', typeof options.showIcon);
       
       try {
         const html = renderFileUpload(options);
         fileUploadContainer.innerHTML = html;
+        console.log('🔍 [FileUpload Storybook] HTML renderizado exitosamente');
       } catch (error) {
-        console.error('Error rendering file upload:', error);
+        console.error('❌ [FileUpload Storybook] Error rendering file upload:', error);
       }
+      
+      console.log('🔍 [FileUpload Storybook] ========== FIN RENDER ==========');
     };
 
     createFileUploadContent();
 
-    let lastArgs = JSON.stringify(args);
+    // Usar un objeto para comparar cambios de forma más precisa
+    let lastArgsSnapshot: any = null;
     const checkInterval = setInterval(() => {
-      const currentArgs = JSON.stringify(args);
-      if (currentArgs !== lastArgs) {
-        lastArgs = currentArgs;
+      // Crear snapshot actual de los args relevantes
+      const currentArgsSnapshot = {
+        showFileSize: args.showFileSize,
+        showProgress: args.showProgress,
+        showIcon: args.showIcon,
+        state: args.state,
+        files: args.files,
+        maxFiles: args.maxFiles,
+        maxSize: args.maxSize,
+      };
+      
+      // Comparar con el snapshot anterior
+      const argsChanged = !lastArgsSnapshot || 
+        JSON.stringify(currentArgsSnapshot) !== JSON.stringify(lastArgsSnapshot);
+      
+      if (argsChanged) {
+        console.log('🔄 [FileUpload Storybook] Args cambiaron, re-renderizando...');
+        console.log('🔄 [FileUpload Storybook] Args anteriores:', lastArgsSnapshot);
+        console.log('🔄 [FileUpload Storybook] Args nuevos:', currentArgsSnapshot);
+        lastArgsSnapshot = JSON.parse(JSON.stringify(currentArgsSnapshot)); // Deep copy
         createFileUploadContent();
       }
     }, 100);

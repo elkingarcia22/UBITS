@@ -13,7 +13,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    font-family: var(--font-sans);
+    font-family: var(--font-family-noto-sans-font-family);
     box-sizing: border-box;
 }
 
@@ -27,42 +27,42 @@
 .ubits-file-upload--disabled {
     align-items: center;
     justify-content: center;
-    padding: var(--ubits-spacing-6xl, 48px) var(--ubits-spacing-lg, 16px);
-    border: 2px dashed;
-    border-radius: var(--ubits-border-radius-sm, 8px);
-    background-color: var(--ubits-bg-1, #ffffff);
-    border-color: var(--ubits-border-1, #d0d2d5);
+    padding: var(--ubits-spacing-12) var(--ubits-spacing-lg);
+    border: var(--ubits-spacing-xs) dashed;
+    border-radius: var(--ubits-border-radius-sm);
+    background-color: var(--modifiers-normal-color-light-bg-1);
+    border-color: var(--modifiers-normal-color-light-border-1);
     cursor: pointer;
     transition: all 0.2s ease;
-    min-height: 200px;
+    min-height: calc(var(--ubits-spacing-20) * 2.5);
 }
 
 .ubits-file-upload--default:hover:not(.ubits-file-upload--disabled) {
-    border-color: var(--ubits-accent-brand-static-inverted, #0c5bef);
-    background-color: var(--ubits-bg-2, #f3f3f4);
+    border-color: var(--modifiers-normal-color-light-accent-brand);
+    background-color: var(--modifiers-normal-color-light-bg-2);
 }
 
 .ubits-file-upload--dragging,
 .ubits-file-upload--dragging:hover {
-    border-color: var(--ubits-accent-brand-static-inverted, #0c5bef);
-    background-color: var(--ubits-bg-1, #ffffff);
+    border-color: var(--modifiers-normal-color-light-accent-brand);
+    background-color: var(--modifiers-normal-color-light-bg-1);
 }
 
 .ubits-file-upload--error {
-    border-color: var(--ubits-feedback-accent-error, #e9343c);
-    background-color: var(--ubits-bg-1, #ffffff);
+    border-color: var(--modifiers-normal-color-light-feedback-accent-error);
+    background-color: var(--modifiers-normal-color-light-bg-1);
 }
 
 .ubits-file-upload--disabled {
-    background-color: var(--ubits-bg-disabled, #edeeef);
-    border-color: var(--ubits-border-disabled, #e1e2e5);
+    background-color: var(--modifiers-normal-color-light-bg-disabled);
+    border-color: var(--modifiers-normal-color-light-border-disabled);
     cursor: not-allowed;
     pointer-events: none;
 }
 
 .ubits-file-upload:focus-visible {
-    outline: 2px solid var(--ubits-button-focus-ring, rgba(82, 151, 244, 0.3));
-    outline-offset: 2px;
+    outline: var(--ubits-spacing-xs) solid var(--modifiers-normal-focus-color);
+    outline-offset: var(--ubits-spacing-xs);
 }
 
 /* Drop Zone Container */
@@ -71,7 +71,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: var(--ubits-spacing-lg, 16px);
+    gap: var(--ubits-spacing-lg);
     width: 100%;
 }
 
@@ -80,17 +80,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
-    border: 1px solid var(--ubits-border-1, #d0d2d5);
-    border-radius: var(--ubits-border-radius-full, 1000px);
-    background-color: var(--ubits-bg-2, #f3f3f4);
-    color: var(--ubits-fg-1-medium, #5c646f);
+    width: var(--ubits-spacing-12);
+    height: var(--ubits-spacing-12);
+    border: none;
+    border-radius: var(--ubits-border-radius-full);
+    background-color: var(--modifiers-normal-color-light-bg-2);
+    color: var(--modifiers-normal-color-light-fg-1-medium);
     flex-shrink: 0;
 }
 
+.ubits-file-upload--disabled .ubits-file-upload__drop-icon {
+    background-color: transparent;
+}
+
 .ubits-file-upload__drop-icon i {
-    font-size: 20px;
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
     line-height: 1;
 }
 
@@ -99,36 +103,36 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--ubits-spacing-xs, 4px);
+    gap: var(--ubits-spacing-xs);
     text-align: center;
 }
 
 .ubits-file-upload__drop-text {
-    font-family: var(--font-sans);
-    font-size: var(--font-body-md-size, 16px);
-    font-weight: var(--weight-medium, 500);
-    line-height: var(--font-body-md-line, 24px);
-    color: var(--ubits-fg-1-high, #303a47);
-    margin: 0;
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular);
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    color: var(--modifiers-normal-color-light-fg-1-high);
+    margin: var(--ubits-spacing-none);
 }
 
 .ubits-file-upload__constraints {
-    font-family: var(--font-sans);
-    font-size: var(--font-body-sm-size, 14px);
-    font-weight: var(--weight-regular, 400);
-    line-height: var(--font-body-sm-line, 20px);
-    color: var(--ubits-fg-1-medium, #5c646f);
-    margin: 0;
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular);
+    line-height: var(--modifiers-normal-body-sm-regular-lineheight);
+    color: var(--modifiers-normal-color-light-fg-1-medium);
+    margin: var(--ubits-spacing-none);
 }
 
 .ubits-file-upload--disabled .ubits-file-upload__drop-text,
 .ubits-file-upload--disabled .ubits-file-upload__constraints {
-    color: var(--ubits-fg-on-disabled, #8d9199);
+    color: var(--modifiers-normal-color-light-fg-on-disabled);
 }
 
 /* Select Button */
 .ubits-file-upload__select-button {
-    margin-top: var(--ubits-spacing-xs, 4px);
+    margin-top: var(--ubits-spacing-xs);
 }
 
 /* ========================================
@@ -136,21 +140,21 @@
    ======================================== */
 
 .ubits-file-upload--files-list {
-    border: 1px solid var(--ubits-border-1, #d0d2d5);
-    border-radius: var(--ubits-border-radius-sm, 8px);
-    background-color: var(--ubits-bg-1, #ffffff);
-    padding: var(--ubits-spacing-lg, 16px);
-    gap: var(--ubits-spacing-lg, 16px);
+    border: var(--ubits-spacing-xs) solid var(--modifiers-normal-color-light-border-1);
+    border-radius: var(--ubits-border-radius-sm);
+    background-color: var(--modifiers-normal-color-light-bg-1);
+    padding: var(--ubits-spacing-lg);
+    gap: var(--ubits-spacing-lg);
 }
 
 /* Modo single: sin header ni botones */
 .ubits-file-upload--single-mode {
-    padding: 0;
-    gap: 0;
+    padding: var(--ubits-spacing-none);
+    gap: var(--ubits-spacing-none);
 }
 
 .ubits-file-upload--single-mode .ubits-file-upload__files-list {
-    gap: 0;
+    gap: var(--ubits-spacing-none);
 }
 
 /* Header */
@@ -158,23 +162,23 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--ubits-spacing-md, 12px);
+    gap: var(--ubits-spacing-md);
     flex-wrap: wrap;
 }
 
 .ubits-file-upload__title {
-    font-family: var(--font-sans);
-    font-size: var(--font-body-md-size, 16px);
-    font-weight: var(--weight-semibold, 600);
-    line-height: var(--font-body-md-line, 24px);
-    color: var(--ubits-fg-1-high, #303a47);
-    margin: 0;
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    font-weight: var(--ubits-font-weight-semibold);
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    color: var(--modifiers-normal-color-light-fg-1-high);
+    margin: var(--ubits-spacing-none);
 }
 
 .ubits-file-upload__header-actions {
     display: flex;
     align-items: center;
-    gap: var(--ubits-spacing-sm, 8px);
+    gap: var(--ubits-spacing-sm);
     flex-wrap: wrap;
 }
 
@@ -182,23 +186,23 @@
 .ubits-file-upload__files-list {
     display: flex;
     flex-direction: column;
-    gap: var(--ubits-spacing-sm, 8px);
+    gap: var(--ubits-spacing-sm);
 }
 
 /* File Item */
 .ubits-file-upload__file-item {
     display: flex;
     align-items: center;
-    gap: var(--ubits-spacing-md, 12px);
-    padding: var(--ubits-spacing-md, 12px);
-    border: 1px solid var(--ubits-border-1, #d0d2d5);
-    border-radius: var(--ubits-border-radius-sm, 8px);
-    background-color: var(--ubits-bg-1, #ffffff);
+    gap: var(--ubits-spacing-md);
+    padding: var(--ubits-spacing-md);
+    border: var(--ubits-spacing-xs) solid var(--modifiers-normal-color-light-border-1);
+    border-radius: var(--ubits-border-radius-sm);
+    background-color: var(--modifiers-normal-color-light-bg-1);
     transition: background-color 0.2s ease;
 }
 
 .ubits-file-upload__file-item:hover {
-    background-color: var(--ubits-bg-2, #f3f3f4);
+    background-color: var(--modifiers-normal-color-light-bg-2);
 }
 
 /* File Icon */
@@ -206,50 +210,50 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: var(--ubits-spacing-8);
+    height: var(--ubits-spacing-8);
     flex-shrink: 0;
-    color: var(--ubits-fg-1-medium, #5c646f);
+    color: var(--modifiers-normal-color-light-fg-1-medium);
 }
 
 .ubits-file-upload__file-icon i {
-    font-size: 20px;
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
 }
 
 /* File Info */
 .ubits-file-upload__file-info {
     display: flex;
     flex-direction: column;
-    gap: var(--ubits-spacing-xs, 4px);
+    gap: var(--ubits-spacing-xs);
     flex: 1;
     min-width: 0;
 }
 
 .ubits-file-upload__file-name {
-    font-family: var(--font-sans);
-    font-size: var(--font-body-md-size, 16px);
-    font-weight: var(--weight-medium, 500);
-    line-height: var(--font-body-md-line, 24px);
-    color: var(--ubits-fg-1-high, #303a47);
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular);
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    color: var(--modifiers-normal-color-light-fg-1-high);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .ubits-file-upload__file-size {
-    font-family: var(--font-sans);
-    font-size: var(--font-body-sm-size, 14px);
-    font-weight: var(--weight-regular, 400);
-    line-height: var(--font-body-sm-line, 20px);
-    color: var(--ubits-fg-1-medium, #5c646f);
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular);
+    line-height: var(--modifiers-normal-body-sm-regular-lineheight);
+    color: var(--modifiers-normal-color-light-fg-1-medium);
 }
 
 /* Progress Container */
 .ubits-file-upload__progress-container {
     display: flex;
     align-items: center;
-    gap: var(--ubits-spacing-sm, 8px);
-    margin-top: var(--ubits-spacing-xs, 4px);
+    gap: var(--ubits-spacing-sm);
+    margin-top: var(--ubits-spacing-xs);
     width: 100%;
 }
 
@@ -262,25 +266,47 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-    padding: 0;
+    width: var(--ubits-spacing-8);
+    height: var(--ubits-spacing-8);
+    padding: var(--ubits-spacing-none);
     border: none;
-    border-radius: var(--ubits-border-radius-sm, 8px);
+    border-radius: var(--ubits-border-radius-sm);
     background-color: transparent;
-    color: var(--ubits-fg-1-medium, #5c646f);
+    color: var(--modifiers-normal-color-light-fg-1-medium);
     cursor: pointer;
     transition: all 0.2s ease;
     flex-shrink: 0;
 }
 
 .ubits-file-upload__file-remove:hover {
-    background-color: var(--ubits-bg-2, #f3f3f4);
-    color: var(--ubits-feedback-accent-error, #e9343c);
+    background-color: var(--modifiers-normal-color-light-bg-2);
+    color: var(--modifiers-normal-color-light-feedback-accent-error);
 }
 
 .ubits-file-upload__file-remove i {
-    font-size: 16px;
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+/* ========================================
+   DARK MODE
+   ======================================== */
+
+[data-theme="dark"] {
+    --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
+    --modifiers-normal-color-light-bg-2: var(--modifiers-normal-color-dark-bg-2);
+    --modifiers-normal-color-light-bg-disabled: var(--modifiers-normal-color-dark-bg-disabled);
+    --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
+    --modifiers-normal-color-light-fg-1-medium: var(--modifiers-normal-color-dark-fg-1-medium);
+    --modifiers-normal-color-light-fg-on-disabled: var(--modifiers-normal-color-dark-fg-on-disabled);
+    --modifiers-normal-color-light-border-1: var(--modifiers-normal-color-dark-border-1);
+    --modifiers-normal-color-light-border-disabled: var(--modifiers-normal-color-dark-border-disabled);
+    --modifiers-normal-color-light-accent-brand: var(--modifiers-normal-color-dark-accent-brand);
+    --modifiers-normal-color-light-feedback-accent-error: var(--modifiers-normal-color-dark-feedback-accent-error);
+    --modifiers-normal-focus-color: var(--modifiers-normal-focus-color);
 }
 
 /* ========================================
@@ -292,8 +318,8 @@
     .ubits-file-upload--dragging,
     .ubits-file-upload--error,
     .ubits-file-upload--disabled {
-        padding: var(--ubits-spacing-4xl, 32px) var(--ubits-spacing-md, 12px);
-        min-height: 160px;
+        padding: var(--ubits-spacing-8) var(--ubits-spacing-md);
+        min-height: calc(var(--ubits-spacing-20) * 2);
     }
 
     .ubits-file-upload__header {

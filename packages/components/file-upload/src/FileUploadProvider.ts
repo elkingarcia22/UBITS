@@ -24,24 +24,24 @@ function formatFileSize(bytes: number): string {
 function renderStatusTagInline(label: string, status: 'pending' | 'completed' | 'error' | 'uploading' = 'pending'): string {
   const STATUS_COLORS: Record<string, { bg: string; text: string; border: string }> = {
     pending: {
-      bg: 'var(--ubits-feedback-accent-warning, #ec9907)',
-      text: 'var(--ubits-fg-1-inverted, #ffffff)',
-      border: 'var(--ubits-feedback-accent-warning, #ec9907)'
+      bg: 'var(--modifiers-normal-color-light-feedback-accent-warning)',
+      text: 'var(--modifiers-normal-color-light-fg-bold)',
+      border: 'var(--modifiers-normal-color-light-feedback-accent-warning)'
     },
     completed: {
-      bg: 'var(--ubits-feedback-success-bg, #e8f8e4)',
-      text: 'var(--ubits-feedback-success-text, #223b16)',
-      border: 'var(--ubits-feedback-success-border, #41c433)'
+      bg: 'var(--modifiers-normal-color-light-feedback-bg-success-subtle-default)',
+      text: 'var(--modifiers-normal-color-light-feedback-fg-success-subtle-default)',
+      border: 'var(--modifiers-normal-color-light-feedback-border-success)'
     },
     error: {
-      bg: 'var(--ubits-feedback-error-bg, #fff0ee)',
-      text: 'var(--ubits-feedback-error-text, #65181e)',
-      border: 'var(--ubits-feedback-error-border, #fd8a82)'
+      bg: 'var(--modifiers-normal-color-light-feedback-bg-error-subtle-default)',
+      text: 'var(--modifiers-normal-color-light-feedback-fg-error-subtle-default)',
+      border: 'var(--modifiers-normal-color-light-feedback-border-error)'
     },
     uploading: {
-      bg: 'var(--ubits-feedback-info-bg, rgba(12, 91, 239, 0.15))',
-      text: 'var(--ubits-feedback-info-text, #212f70)',
-      border: 'var(--ubits-accent-brand-static-inverted, #0c5bef)'
+      bg: 'var(--modifiers-normal-color-light-bg-active)',
+      text: 'var(--modifiers-normal-color-light-fg-2-high)',
+      border: 'var(--modifiers-normal-color-light-accent-brand)'
     }
   };
 
@@ -64,6 +64,14 @@ function renderStatusTagInline(label: string, status: 'pending' | 'completed' | 
  * Renderiza un File Upload UBITS como HTML string
  */
 export function renderFileUpload(options: FileUploadOptions = {}): string {
+  // 🔍 LOGS DE DEBUG
+  console.log('🔍 [FileUploadProvider] ========== RENDER FILE UPLOAD ==========');
+  console.log('🔍 [FileUploadProvider] options.showFileSize:', options.showFileSize, '| tipo:', typeof options.showFileSize);
+  console.log('🔍 [FileUploadProvider] options.showProgress:', options.showProgress, '| tipo:', typeof options.showProgress);
+  console.log('🔍 [FileUploadProvider] options.showIcon:', options.showIcon, '| tipo:', typeof options.showIcon);
+  console.log('🔍 [FileUploadProvider] options.state:', options.state);
+  console.log('🔍 [FileUploadProvider] options.files:', options.files, '| length:', options.files?.length);
+  
   const {
     state = 'default',
     files = [],
@@ -84,6 +92,13 @@ export function renderFileUpload(options: FileUploadOptions = {}): string {
     fileStatus = 'pending',
     className = ''
   } = options;
+  
+  console.log('🔍 [FileUploadProvider] Valores desestructurados:');
+  console.log('  - showFileSize:', showFileSize, '| tipo:', typeof showFileSize);
+  console.log('  - showProgress:', showProgress, '| tipo:', typeof showProgress);
+  console.log('  - showIcon:', showIcon, '| tipo:', typeof showIcon);
+  console.log('  - state:', state);
+  console.log('  - filesCount:', files.length);
 
   // Determinar si mostrar vista de lista o drop zone
   const hasFiles = files && files.length > 0;
@@ -94,6 +109,10 @@ export function renderFileUpload(options: FileUploadOptions = {}): string {
 
   // Vista de lista de archivos
   if (actualState === 'files-list' && hasFiles) {
+    console.log('🔍 [FileUploadProvider] Renderizando vista files-list');
+    console.log('🔍 [FileUploadProvider] showFileSize:', showFileSize, '| tipo:', typeof showFileSize, '| será usado:', showFileSize ? 'SÍ' : 'NO');
+    console.log('🔍 [FileUploadProvider] showProgress:', showProgress, '| tipo:', typeof showProgress);
+    
     const isSingleMode = maxFiles === 1;
     // En modo single, solo mostrar el primer archivo
     const filesToShow = isSingleMode ? files.slice(0, 1) : files;
@@ -102,6 +121,22 @@ export function renderFileUpload(options: FileUploadOptions = {}): string {
       const fileProgress = file.progress !== undefined ? file.progress : 0;
       const fileStatusClass = file.status || 'pending';
       const showFileProgress = showProgress && file.status === 'uploading' && fileProgress > 0;
+      
+      console.log(`🔍 [FileUploadProvider] Archivo ${index}:`);
+      console.log(`  - name: ${file.name}`);
+      console.log(`  - size: ${file.size}`);
+      console.log(`  - status: ${file.status}`);
+      console.log(`  - progress: ${fileProgress}`);
+      console.log(`  - showFileSize (variable): ${showFileSize} | tipo: ${typeof showFileSize} | será renderizado: ${showFileSize ? 'SÍ' : 'NO'}`);
+      console.log(`  - showProgress (variable): ${showProgress} | tipo: ${typeof showProgress}`);
+      console.log(`  - showFileProgress (calculado): ${showFileProgress} | será renderizado: ${showFileProgress ? 'SÍ' : 'NO'}`);
+      
+      // Evaluar condiciones explícitamente para asegurar que funcionen correctamente
+      const shouldShowFileSize = showFileSize === true;
+      const shouldShowProgress = showFileProgress === true;
+      
+      console.log(`  - shouldShowFileSize (evaluado): ${shouldShowFileSize}`);
+      console.log(`  - shouldShowProgress (evaluado): ${shouldShowProgress}`);
 
       return `
         <div class="ubits-file-upload__file-item" data-file-id="${fileId}">
@@ -110,8 +145,8 @@ export function renderFileUpload(options: FileUploadOptions = {}): string {
           </div>
           <div class="ubits-file-upload__file-info">
             <div class="ubits-file-upload__file-name">${file.name}</div>
-            ${showFileSize ? `<div class="ubits-file-upload__file-size">${formatFileSize(file.size)}</div>` : ''}
-            ${showFileProgress ? `
+            ${shouldShowFileSize ? `<div class="ubits-file-upload__file-size">${formatFileSize(file.size)}</div>` : ''}
+            ${shouldShowProgress ? `
               <div class="ubits-file-upload__progress-container">
                 ${(() => {
                   try {
@@ -174,16 +209,16 @@ export function renderFileUpload(options: FileUploadOptions = {}): string {
   ].filter(Boolean).join(' ');
 
   // Determinar estilos del borde según el estado
-  let borderColor = 'var(--ubits-border-1, #d0d2d5)';
-  let backgroundColor = 'var(--ubits-bg-1)';
+  let borderColor = 'var(--modifiers-normal-color-light-border-1)';
+  let backgroundColor = 'var(--modifiers-normal-color-light-bg-1)';
 
   if (actualState === 'dragging') {
-    borderColor = 'var(--ubits-accent-brand-static-inverted, #0c5bef)';
+    borderColor = 'var(--modifiers-normal-color-light-accent-brand)';
   } else if (actualState === 'error') {
-    borderColor = 'var(--ubits-feedback-accent-error, #e9343c)';
+    borderColor = 'var(--modifiers-normal-color-light-feedback-accent-error)';
   } else if (actualState === 'disabled') {
-    backgroundColor = 'var(--ubits-bg-disabled, #edeeef)';
-    borderColor = 'var(--ubits-border-disabled, #e1e2e5)';
+    backgroundColor = 'var(--modifiers-normal-color-light-bg-disabled)';
+    borderColor = 'var(--modifiers-normal-color-light-border-disabled)';
   }
 
   // Icono circular con icono de archivo (opcional)
@@ -194,8 +229,12 @@ export function renderFileUpload(options: FileUploadOptions = {}): string {
   ` : '';
 
   // Botón de selección usando componente Button UBITS
+  const isDisabled = actualState === 'disabled';
   const selectButtonHtml = `
-    <button class="ubits-button ubits-button--secondary ubits-button--sm ubits-file-upload__select-button" type="button">
+    <button class="ubits-button ubits-button--secondary ubits-button--sm ubits-file-upload__select-button" 
+            type="button"
+            ${isDisabled ? 'disabled' : ''}
+            ${isDisabled ? 'aria-disabled="true"' : ''}>
       <i class="far fa-arrow-up-from-bracket"></i> ${selectButtonText}
     </button>
   `;
