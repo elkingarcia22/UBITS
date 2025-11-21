@@ -27,7 +27,7 @@
    ======================================== */
 
 .ubits-accordion--list .ubits-accordion-item {
-  border-bottom: 1px solid var(--modifiers-normal-color-light-border-1) !important;
+  border-bottom: 1px solid var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
 }
 
 .ubits-accordion--list .ubits-accordion-item:last-child {
@@ -61,7 +61,7 @@
   font-size: var(--font-body-md-size, 14px);
   font-weight: var(--weight-semibold, 600);
   line-height: var(--font-body-md-line-height, 1.5);
-  color: var(--modifiers-normal-color-light-fg-1-high) !important;
+  color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
   margin: var(--ubits-spacing-none, 0);
 }
 
@@ -70,7 +70,7 @@
   font-size: var(--font-body-sm-size, 13px);
   font-weight: var(--weight-regular, 400);
   line-height: var(--font-body-sm-line-height, 1.5);
-  color: var(--modifiers-normal-color-light-fg-1-medium) !important;
+  color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
   margin: var(--ubits-spacing-none, 0);
 }
 
@@ -78,8 +78,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--modifiers-normal-color-light-fg-1-medium) !important;
-  font-size: var(--font-body-md-size, 16px);
+  color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
+  font-size: 16px;
   flex-shrink: 0;
 }
 
@@ -87,8 +87,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--modifiers-normal-color-light-fg-1-medium) !important;
-  font-size: var(--font-body-sm-size, 13px);
+  color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
+  font-size: 12px;
   transition: transform 0.2s ease;
   flex-shrink: 0;
 }
@@ -104,7 +104,7 @@
   font-size: var(--font-body-md-size, 14px);
   font-weight: var(--weight-regular, 400);
   line-height: var(--font-body-md-line-height, 1.5);
-  color: var(--modifiers-normal-color-light-fg-1-medium) !important;
+  color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
   padding-top: var(--ubits-spacing-sm, 8px);
 }
 
@@ -122,8 +122,8 @@
    ======================================== */
 
 .ubits-accordion--boxed .ubits-accordion-item {
-  background: var(--modifiers-normal-color-light-bg-1) !important;
-  border: 1px solid var(--modifiers-normal-color-light-border-1) !important;
+  background: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
+  border: 1px solid var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
   border-radius: var(--ubits-border-radius-md, 12px);
   margin-bottom: var(--ubits-spacing-md, 12px);
   overflow: hidden;
@@ -135,17 +135,17 @@
 }
 
 .ubits-accordion--boxed .ubits-accordion-item:hover {
-  border-color: var(--modifiers-normal-color-light-fg-1-medium) !important;
-  background: var(--modifiers-normal-color-light-bg-2) !important;
+  border-color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
+  background: var(--modifiers-normal-color-light-bg-2, var(--ubits-bg-2, #F3F3F4)) !important;
 }
 
 .ubits-accordion--boxed .ubits-accordion-item:hover .ubits-accordion-header {
-  background: var(--modifiers-normal-color-light-bg-2) !important;
+  background: var(--modifiers-normal-color-light-bg-2, var(--ubits-bg-2, #F3F3F4)) !important;
 }
 
 .ubits-accordion--boxed .ubits-accordion-header {
   padding: var(--ubits-spacing-lg, 16px) var(--ubits-spacing-xl, 20px);
-  background: var(--modifiers-normal-color-light-bg-1) !important;
+  background: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
   border: none;
   cursor: pointer;
   display: flex;
@@ -155,7 +155,7 @@
 }
 
 .ubits-accordion--boxed .ubits-accordion-header--open {
-  background: var(--modifiers-normal-color-light-bg-2) !important;
+  background: var(--modifiers-normal-color-light-bg-2, var(--ubits-bg-2, #F3F3F4)) !important;
 }
 
 .ubits-accordion--boxed .ubits-accordion-header-content {
@@ -170,7 +170,7 @@
   font-size: var(--font-body-md-size, 14px);
   font-weight: var(--weight-semibold, 600);
   line-height: var(--font-body-md-line-height, 1.5);
-  color: var(--modifiers-normal-color-light-fg-1-high) !important;
+  color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
   margin: var(--ubits-spacing-none, 0);
 }
 
@@ -179,7 +179,7 @@
   font-size: var(--font-body-sm-size, 13px);
   font-weight: var(--weight-regular, 400);
   line-height: var(--font-body-sm-line-height, 1.5);
-  color: var(--modifiers-normal-color-light-fg-1-medium) !important;
+  color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
   margin: var(--ubits-spacing-none, 0);
 }
 
@@ -187,8 +187,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--modifiers-normal-color-light-fg-1-medium) !important;
-  font-size: var(--font-body-md-size, 16px);
+  color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
+  font-size: 16px;
   flex-shrink: 0;
 }
 
@@ -196,8 +196,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--modifiers-normal-color-light-fg-1-medium) !important;
-  font-size: var(--font-body-sm-size, 13px);
+  color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
+  font-size: 12px;
   transition: transform 0.2s ease;
   flex-shrink: 0;
 }
@@ -205,7 +205,7 @@
 .ubits-accordion--boxed .ubits-accordion-body {
   display: none;
   padding: var(--ubits-spacing-none, 0) var(--ubits-spacing-xl, 20px) var(--ubits-spacing-xl, 20px) var(--ubits-spacing-xl, 20px);
-  background: var(--modifiers-normal-color-light-bg-1) !important;
+  background: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
 }
 
 .ubits-accordion--boxed .ubits-accordion-body-content {
@@ -213,7 +213,7 @@
   font-size: var(--font-body-md-size, 14px);
   font-weight: var(--weight-regular, 400);
   line-height: var(--font-body-md-line-height, 1.5);
-  color: var(--modifiers-normal-color-light-fg-1-medium) !important;
+  color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
   padding-top: var(--ubits-spacing-sm, 8px);
 }
 
