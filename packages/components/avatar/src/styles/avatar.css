@@ -48,8 +48,8 @@
 /* Variante Initials (texto) */
 .ubits-avatar--initials {
     color: var(--modifiers-normal-color-light-fg-1-high) !important;
-    font-family: var(--font-sans);
-    font-weight: var(--weight-semibold, 600);
+    font-family: var(--font-family-noto-sans-font-family);
+    font-weight: var(--ubits-font-weight-semibold, 600);
     line-height: 1;
     text-align: center;
     user-select: none;
@@ -125,7 +125,7 @@
 .ubits-avatar[role="button"]:hover {
     transform: scale(1.05);
     /* NOTA: No hay token directo de box-shadow en Figma, mantener valor hardcodeado */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--modifiers-normal-elevation-default-0-x) var(--modifiers-normal-elevation-default-0-y) var(--modifiers-normal-elevation-default-0-blur) var(--modifiers-normal-elevation-default-0-spread) var(--modifiers-normal-elevation-default-0-color), var(--modifiers-normal-elevation-default-1-x) var(--modifiers-normal-elevation-default-1-y) var(--modifiers-normal-elevation-default-1-blur) var(--modifiers-normal-elevation-default-1-spread) var(--modifiers-normal-elevation-default-1-color);
 }
 
 .ubits-avatar[role="button"]:active {

@@ -4,6 +4,8 @@
 
 Este documento describe los pasos **exactos** que sigo para migrar un componente del sistema de tokens antiguo (`--ubits-*`) al nuevo sistema de tokens de Figma (`--modifiers-normal-*`).
 
+**🎯 REGLA DE ORO**: NADA hardcodeado ni con tokens antiguos. Si no hay equivalente exacto, buscar el token más parecido de Figma. Si hay algo que no se pueda reemplazar, se evalúa pero NO se deja así sin intentar encontrar una solución.
+
 **Tiempo estimado total**: 4-6 horas por componente
 
 ---
@@ -96,17 +98,18 @@ background: var(--modifiers-normal-color-light-feedback-bg-success-subtle-defaul
 
 #### 2.2 Migrar Tokens de Typography
 
-**🎯 REGLA DE ORO**: NADA hardcodeado ni con tokens antiguos. Si no hay equivalente exacto, buscar el token más parecido de Figma.
+**🎯 REGLA DE ORO**: NADA hardcodeado ni con tokens antiguos. Si no hay equivalente exacto, buscar el token más parecido de Figma. Si hay algo que no se pueda reemplazar, se evalúa pero NO se deja así sin intentar encontrar una solución.
 
 **Estrategia:**
 1. Buscar tokens antiguos de typography (`--font-*`, `--weight-*`, `--line-height-*`, etc.)
-2. Verificar si tienen equivalente exacto en Figma (consultar `figma-tokens.css` o Storybook)
-3. **Si tienen equivalente exacto**: Migrar a tokens nuevos de Figma
-4. **Si NO tienen equivalente exacto**: 
+2. Buscar valores hardcodeados de typography (`font-size: 12px`, `font-weight: 600`, etc.)
+3. Verificar si tienen equivalente exacto en Figma (consultar `figma-tokens.css` o Storybook)
+4. **Si tienen equivalente exacto**: Migrar a tokens nuevos de Figma
+5. **Si NO tienen equivalente exacto**: 
    - Buscar el token más parecido en Figma (comparar tamaños, características)
    - Usar el token más parecido de Figma
    - Ajustar line-height si es necesario (usar valores relativos como `1.5` o calcular)
-   - **NUNCA mantener tokens antiguos ni valores hardcodeados**
+   - **NUNCA mantener tokens antiguos ni valores hardcodeados sin intentar reemplazarlos**
 
 **Ejemplo con equivalente exacto:**
 ```css
@@ -141,12 +144,62 @@ font-weight: 500;
 line-height: 20px;
 letter-spacing: 0.5px;
 
-/* DESPUÉS */
-font-size: var(--modifiers-normal-font-size-1, 14px);
-font-weight: var(--modifiers-normal-font-weight-noto-sans-1, 500);
-line-height: var(--modifiers-normal-line-height-1, 20px);
-letter-spacing: var(--modifiers-normal-letter-spacing-1, 0.5px);
+/* DESPUÉS - Buscar el token más parecido de Figma */
+font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px); /* 14px → body-sm (13px) más cercano */
+font-weight: var(--ubits-font-weight-semibold, 600); /* 500 → semibold (600) más cercano */
+line-height: var(--modifiers-normal-body-sm-regular-lineheight, 23.4px);
+letter-spacing: var(--modifiers-normal-body-sm-regular-letterspacing, 0%);
 ```
+
+**⚠️ PROBLEMA CRÍTICO: Font-weight Strings vs Numéricos**
+
+Los tokens de Figma para `font-weight` devuelven strings ("Regular", "SemiBold", "Bold") en lugar de números. Esto causa problemas en CSS.
+
+**Solución:**
+1. Crear tokens numéricos en `tokens.css`:
+   ```css
+   --ubits-font-weight-regular: 400;
+   --ubits-font-weight-semibold: 600;
+   --ubits-font-weight-bold: 700;
+   ```
+
+2. Reemplazar tokens de Figma con strings por tokens numéricos UBITS:
+   ```css
+   /* ❌ INCORRECTO - Devuelve "SemiBold" (string) */
+   font-weight: var(--modifiers-normal-body-md-semibold-fontweight);
+   
+   /* ✅ CORRECTO - Devuelve 600 (número) */
+   font-weight: var(--ubits-font-weight-semibold, 600);
+   ```
+
+**⚠️ PROBLEMA: Tokens Antiguos de Typography**
+
+Los tokens antiguos (`--font-body-*`, `--weight-*`, `--font-h1-*`, etc.) deben reemplazarse por tokens de Figma.
+
+**Ejemplos de reemplazo:**
+```css
+/* ❌ INCORRECTO - Tokens antiguos */
+font-size: var(--font-body-md-size);
+font-weight: var(--weight-semibold);
+line-height: var(--font-body-md-line);
+font-size: var(--font-h1-size, 20px);
+font-size: var(--font-h2-size, 18px);
+
+/* ✅ CORRECTO - Tokens de Figma + tokens numéricos UBITS */
+font-size: var(--modifiers-normal-body-md-semibold-fontsize);
+font-weight: var(--ubits-font-weight-semibold, 600);
+line-height: var(--modifiers-normal-body-md-semibold-lineheight);
+font-size: var(--modifiers-normal-heading-h1-fontsize, 20px);
+font-size: var(--modifiers-normal-heading-h2-fontsize, 18px);
+```
+
+**Checklist de Typography:**
+- [ ] Buscar TODOS los tokens antiguos (`--font-*`, `--weight-*`)
+- [ ] Buscar TODOS los valores hardcodeados (`font-size: 12px`, `font-weight: 600`, etc.)
+- [ ] Reemplazar tokens antiguos por tokens de Figma
+- [ ] Reemplazar valores hardcodeados por tokens de Figma (usar el más parecido)
+- [ ] Reemplazar `--modifiers-normal-*-fontweight` (strings) por `--ubits-font-weight-*` (numéricos)
+- [ ] Verificar que NO queden tokens antiguos ni valores hardcodeados
 
 #### 2.3 Migrar Tokens de Spacing
 
@@ -430,16 +483,20 @@ grep -E "var\(--modifiers-normal-[^,)]+,\s*var\(--ubits-(elevation|shadow|focus)
 # Debe retornar vacío (excepto para tokens sin equivalente)
 ```
 
-**5.2.2 Verificar que no queden valores hardcodeados:**
+**5.2.4 Verificar que no queden valores hardcodeados:**
 ```bash
 # Tokens de color
 grep -E "var\(--modifiers-normal-[^,)]+,\s*#[0-9a-fA-F]{3,8}\)" packages/components/[COMPONENTE]/src/styles/*.css
 grep -E "var\(--modifiers-normal-[^,)]+,\s*rgba\(" packages/components/[COMPONENTE]/src/styles/*.css
 # Debe retornar vacío
 
-# Tokens de typography
+# Valores hardcodeados de typography (sin var())
+grep -E "font-size:\s*[0-9]+px|font-weight:\s*[0-9]+|line-height:\s*[0-9]+px" packages/components/[COMPONENTE]/src/styles/*.css
+# Debe retornar vacío (todos deben estar en tokens)
+
+# Tokens de typography con fallbacks hardcodeados
 grep -E "var\(--modifiers-normal-[^,)]+,\s*[0-9]+px\)" packages/components/[COMPONENTE]/src/styles/*.css | grep -E "(font-size|line-height|letter-spacing)"
-# Debe retornar vacío
+# Debe retornar vacío (o solo con fallbacks justificados)
 
 # Tokens de effects
 grep -E "var\(--modifiers-normal-[^,)]+,\s*[0-9]" packages/components/[COMPONENTE]/src/styles/*.css | grep -E "(box-shadow|outline)"
@@ -510,6 +567,9 @@ Antes de marcar un componente como "migrado":
 - [ ] **PASO 4**: Tokens verificados en el DOM (CRÍTICO)
 - [ ] **PASO 5**: Fallbacks antiguos eliminados - SOLO tokens nuevos de Figma
 - [ ] **PASO 5**: Valores hardcodeados eliminados de TODOS los tipos de tokens
+- [ ] **PASO 5**: Tokens antiguos de typography eliminados (--font-*, --weight-*, --font-h1-*, --font-h2-*)
+- [ ] **PASO 5**: Tokens de Figma con font-weight strings reemplazados por --ubits-font-weight-* (numéricos)
+- [ ] **PASO 5**: Valores hardcodeados de typography eliminados (font-size: 12px, font-weight: 600, etc.)
 - [ ] **PASO 5**: Verificación completa: NO quedan tokens antiguos ni valores hardcodeados (excepto spacing/border-radius sin equivalente)
 - [ ] **PASO 6**: README actualizado
 - [ ] **PASO 6**: Testing manual completado
@@ -582,7 +642,7 @@ python3 scripts/cleanup-token-fallbacks.py [COMPONENTE]
 
 ## 🚨 Errores Comunes a Evitar
 
-1. **NO mantener tokens antiguos** - Si no hay equivalente exacto, buscar el más parecido de Figma
+1. **NO mantener tokens antiguos** - Si no hay equivalente exacto, buscar el más parecido de Figma. Si hay algo que no se pueda reemplazar, se evalúa pero NO se deja así sin intentar encontrar una solución.
 2. **NO dejar valores hardcodeados absolutos** - Si no hay token exacto, usar el más parecido y ajustar con valores relativos (ej: `1.5` para line-height)
 3. **NO olvidar la verificación de tokens en el DOM** - Es CRÍTICO
 4. **NO usar estilos inline en Storybook** - Usar atributos data
@@ -593,9 +653,12 @@ python3 scripts/cleanup-token-fallbacks.py [COMPONENTE]
 9. **NO olvidar actualizar controladores** - Deben usar tokens nuevos de Figma
 10. **NO olvidar actualizar preview** - Deben usar tokens nuevos de Figma
 11. **NO inventariar solo colores** - Inventariar TODOS los tipos de tokens
-12. **REGLA DE ORO**: NADA hardcodeado ni con tokens antiguos - Siempre buscar el token más parecido de Figma
+12. **REGLA DE ORO**: NADA hardcodeado ni con tokens antiguos - Siempre buscar el token más parecido de Figma. Si hay algo que no se pueda reemplazar, se evalúa pero NO se deja así sin intentar encontrar una solución.
 13. **NO usar `var(--token)px` para tokens numéricos** - Usar `calc(var(--token) * 1px)` para agregar unidades
 14. **NO usar `&&` para clases condicionales** - Usar operador ternario `condition ? 'class' : null` para garantizar que se agregue correctamente
+15. **NO usar tokens de Figma con font-weight strings** - Usar tokens numéricos UBITS (`--ubits-font-weight-*`) en lugar de `--modifiers-normal-*-fontweight`
+16. **NO dejar tokens antiguos de typography** - Reemplazar TODOS los `--font-*`, `--weight-*`, `--font-h1-*`, `--font-h2-*` por tokens de Figma
+17. **NO dejar valores hardcodeados de typography** - Reemplazar TODOS los `font-size: 12px`, `font-weight: 600`, etc. por tokens de Figma
 
 ---
 
@@ -611,5 +674,95 @@ python3 scripts/cleanup-token-fallbacks.py [COMPONENTE]
 
 ---
 
-**Última actualización**: Basado en la migración de Button, Accordion, Alert y Badge (2024)
+## 📝 Nota Importante sobre la Regla de Oro
+
+**🎯 REGLA DE ORO**: NADA hardcodeado ni con tokens antiguos. Si no hay equivalente exacto, buscar el token más parecido de Figma. Si hay algo que no se pueda reemplazar, se evalúa pero NO se deja así sin intentar encontrar una solución.
+
+### ¿Qué significa "evaluar pero no dejar así"?
+
+1. **Buscar el token más parecido**: Si no hay equivalente exacto, comparar valores y usar el más cercano
+2. **Ajustar con valores relativos**: Si es necesario, usar valores relativos (ej: `line-height: 1.5`) para mantener proporciones
+3. **Documentar la decisión**: Si realmente no hay equivalente, documentar por qué se mantiene un token antiguo o valor hardcodeado
+4. **Revisar periódicamente**: Cuando se agreguen nuevos tokens a Figma, revisar si ahora hay equivalente
+
+### Ejemplos de Evaluación
+
+**Ejemplo 1: Font-size sin equivalente exacto**
+```css
+/* ANTES */
+font-size: 12px;
+
+/* EVALUACIÓN: */
+/* - body-xs: 11px (muy cercano, diferencia de 1px) */
+/* - body-sm: 13px (muy cercano, diferencia de 1px) */
+/* - Decisión: Usar body-xs (11px) porque es el más cercano */
+
+/* DESPUÉS */
+font-size: var(--modifiers-normal-body-xs-regular-fontsize, 11px);
+```
+
+**Ejemplo 2: Font-weight sin equivalente exacto**
+```css
+/* ANTES */
+font-weight: 500;
+
+/* EVALUACIÓN: */
+/* - regular: 400 (diferencia de 100) */
+/* - semibold: 600 (diferencia de 100) */
+/* - Decisión: Usar semibold (600) porque es el más cercano */
+
+/* DESPUÉS */
+font-weight: var(--ubits-font-weight-semibold, 600);
+```
+
+**Ejemplo 3: Line-height sin equivalente exacto**
+```css
+/* ANTES */
+line-height: 20px;
+
+/* EVALUACIÓN: */
+/* - body-sm: 23.4px (diferencia de 3.4px) */
+/* - body-xs: 19.8px (diferencia de 0.2px, muy cercano) */
+/* - Decisión: Usar body-xs (19.8px) porque es el más cercano */
+
+/* DESPUÉS */
+line-height: var(--modifiers-normal-body-xs-regular-lineheight, 19.8px);
+```
+
+**Ejemplo 4: Tokens antiguos de typography**
+```css
+/* ANTES */
+font-size: var(--font-body-md-size);
+font-weight: var(--weight-semibold);
+font-size: var(--font-h1-size, 20px);
+
+/* EVALUACIÓN: */
+/* - --font-body-md-size → body-md-regular-fontsize (16px) - exacto */
+/* - --weight-semibold → ubits-font-weight-semibold (600) - exacto */
+/* - --font-h1-size → heading-h1-fontsize (20px) - exacto */
+
+/* DESPUÉS */
+font-size: var(--modifiers-normal-body-md-regular-fontsize);
+font-weight: var(--ubits-font-weight-semibold, 600);
+font-size: var(--modifiers-normal-heading-h1-fontsize, 20px);
+```
+
+**Ejemplo 5: Font-weight strings de Figma**
+```css
+/* ANTES */
+font-weight: var(--modifiers-normal-body-md-semibold-fontweight);
+/* Resultado: font-weight: "SemiBold" (inválido en CSS) */
+
+/* EVALUACIÓN: */
+/* - Los tokens de Figma devuelven strings, no números */
+/* - Necesitamos usar tokens numéricos UBITS */
+
+/* DESPUÉS */
+font-weight: var(--ubits-font-weight-semibold, 600);
+/* Resultado: font-weight: 600 (válido en CSS) */
+```
+
+---
+
+**Última actualización**: Basado en la migración de Button, Accordion, Alert, Badge, Bar Metric Card, Breadcrumb y Floating Effects, incluyendo corrección de tokens de typography (2024)
 

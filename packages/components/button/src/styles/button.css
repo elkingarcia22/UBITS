@@ -18,7 +18,7 @@
     border: none;
     border-radius: var(--ubits-border-radius-sm, 8px);
     font-family: var(--font-family-noto-sans-font-family);
-    font-weight: var(--modifiers-normal-body-sm-semibold-fontweight);
+    font-weight: var(--ubits-font-weight-semibold, 600);
     line-height: 1;
     text-decoration: none;
     cursor: pointer;
@@ -39,9 +39,9 @@
 /* Tipografía Medium (default) - usa tokens de typography */
 .ubits-button span {
     font-family: var(--font-family-noto-sans-font-family);
-    font-size: var(--modifiers-normal-body-md-regular-fontsize);
-    font-weight: var(--modifiers-normal-body-md-semibold-fontweight);
-    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    font-size: var(--modifiers-normal-body-md-semibold-fontsize);
+    font-weight: var(--ubits-font-weight-semibold, 600);
+    line-height: var(--modifiers-normal-body-md-semibold-lineheight);
 }
 
 /* ========================================
@@ -644,9 +644,9 @@
 .ubits-button.ubits-button--xs span,
 .ubits-button--xs span {
     font-family: var(--font-family-noto-sans-font-family) !important;
-    font-size: var(--modifiers-normal-body-xs-regular-fontsize) !important;
-    font-weight: var(--modifiers-normal-body-sm-semibold-fontweight) !important;
-    line-height: var(--modifiers-normal-body-xs-regular-lineheight) !important;
+    font-size: var(--modifiers-normal-body-xs-semibold-fontsize, 11px) !important;
+    font-weight: var(--ubits-font-weight-semibold, 600) !important;
+    line-height: var(--modifiers-normal-body-xs-semibold-lineheight, 19.8px) !important;
 }
 
 .ubits-button.ubits-button--xs i,
@@ -675,9 +675,9 @@
 .ubits-button.ubits-button--sm span,
 .ubits-button--sm span {
     font-family: var(--font-family-noto-sans-font-family) !important;
-    font-size: var(--modifiers-normal-body-sm-regular-fontsize) !important;
-    font-weight: var(--modifiers-normal-body-sm-semibold-fontweight) !important;
-    line-height: var(--modifiers-normal-body-sm-regular-lineheight) !important;
+    font-size: var(--modifiers-normal-body-sm-semibold-fontsize, 13px) !important;
+    font-weight: var(--ubits-font-weight-semibold, 600) !important;
+    line-height: var(--modifiers-normal-body-sm-semibold-lineheight, 23.4px) !important;
 }
 
 .ubits-button.ubits-button--sm i,
@@ -704,9 +704,9 @@
 .ubits-button span,
 .ubits-button--md span {
     font-family: var(--font-family-noto-sans-font-family);
-    font-size: var(--modifiers-normal-body-md-regular-fontsize);
-    font-weight: var(--modifiers-normal-body-md-semibold-fontweight);
-    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    font-size: var(--modifiers-normal-body-md-semibold-fontsize);
+    font-weight: var(--ubits-font-weight-semibold, 600);
+    line-height: var(--modifiers-normal-body-md-semibold-lineheight);
 }
 
 .ubits-button--md.ubits-button--icon-only,
@@ -727,7 +727,7 @@
 .ubits-button--lg span {
     font-family: var(--font-family-noto-sans-font-family);
     font-size: var(--modifiers-normal-heading-h2-fontsize);
-    font-weight: var(--modifiers-normal-body-sm-semibold-fontweight);
+    font-weight: var(--ubits-font-weight-semibold, 600);
     line-height: 1.5; /* 30px / 20px = 1.5 (equivalente a --font-body-lg-line: 30px) */
 }
 
@@ -745,9 +745,9 @@
 
 .ubits-button--xl span {
     font-family: var(--font-family-noto-sans-font-family);
-    font-size: var(--font-h1-size, 20px); /* 22px no tiene token exacto, usar h1 más cercano */
-    font-weight: var(--modifiers-normal-body-sm-semibold-fontweight);
-    line-height: var(--font-h1-line, 30px); /* 33px no tiene token exacto, usar h1 más cercano */
+    font-size: var(--modifiers-normal-heading-h1-fontsize, 20px); /* 22px no tiene token exacto, usar h1 más cercano */
+    font-weight: var(--ubits-font-weight-semibold, 600);
+    line-height: var(--modifiers-normal-heading-h1-lineheight, 30px); /* 33px no tiene token exacto, usar h1 más cercano */
 }
 
 .ubits-button--xl.ubits-button--icon-only {
@@ -798,17 +798,17 @@
 .ubits-button,
 .ubits-button--md .ubits-button__icon,
 .ubits-button--md i {
-    font-size: 16px;
+    font-size: var(--modifiers-normal-body-md-regular-fontsize, 16px);
 }
 
 .ubits-button--lg .ubits-button__icon,
 .ubits-button--lg i {
-    font-size: var(--font-h2-size, 18px);
+    font-size: var(--modifiers-normal-heading-h2-fontsize, 18px);
 }
 
 .ubits-button--xl .ubits-button__icon,
 .ubits-button--xl i {
-    font-size: var(--font-h1-size, 20px);
+    font-size: var(--modifiers-normal-heading-h1-fontsize, 20px);
 }
 
 /* Gap ajustado para tamaños pequeños */
@@ -866,7 +866,7 @@
 @media (max-width: 768px) {
     /* Ajustes para mobile - asegurar touch targets mínimos */
     .ubits-button {
-        font-size: 14px;
+        font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px);
         padding: var(--p-spacing-mode-1-md, 12px) var(--p-spacing-mode-1-md, 12px);
     }
     
@@ -878,17 +878,17 @@
     }
     
     .ubits-button--sm {
-        font-size: 13px;
+        font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px);
         padding: var(--p-spacing-mode-1-md, 12px) var(--p-spacing-mode-1-md, 12px);
     }
     
     .ubits-button--lg {
-        font-size: var(--font-h2-size, 18px);
+        font-size: var(--modifiers-normal-heading-h2-fontsize, 18px);
         padding: var(--p-spacing-mode-1-md, 12px) var(--p-spacing-mode-1-xl, 20px);
     }
     
     .ubits-button--xl {
-        font-size: var(--font-h1-size, 20px);
+        font-size: var(--modifiers-normal-heading-h1-fontsize, 20px);
         padding: var(--p-spacing-mode-1-lg, 16px) var(--ubits-spacing-2xl, 24px);
     }
 }
