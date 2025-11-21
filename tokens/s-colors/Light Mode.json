@@ -1,0 +1,1729 @@
+{
+  "color": {
+    "accent": {
+      "brand": {
+        "$type": "color",
+        "$value": "{color.light.accent.brand}",
+        "$description": "Use it to represent the brand color in interface elements, icons, borders, illustrations, and more. (btn blue 44 and 48"
+      },
+      "green": {
+        "$type": "color",
+        "$value": "{color.light.accent.green}"
+      },
+      "purple": {
+        "$type": "color",
+        "$value": "{color.light.accent.purple}",
+        "$description": "Use accent-purple to highlight elements on light neutral surfaces when the color carries no semantic meaning or status. Ideal for decorative borders or foreground elements."
+      },
+      "yellow": {
+        "$type": "color",
+        "$value": "{color.light.accent.yellow}",
+        "$description": "Use accent-yellow to highlight elements on light neutral surfaces when the color carries no semantic meaning or status. Ideal for decorative borders or foreground elements."
+      },
+      "gray": {
+        "$type": "color",
+        "$value": "{color.light.accent.gray}",
+        "$description": "Use accent-gray to highlight elements on light neutral surfaces when the color carries no semantic meaning or status. Ideal for decorative borders or foreground elements."
+      },
+      "blue": {
+        "$type": "color",
+        "$value": "{color.light.accent.blue}",
+        "$description": "Use accent-blue to highlight elements on light neutral surfaces when the color carries no semantic meaning or status. Ideal for decorative borders or foreground elements."
+      },
+      "teal": {
+        "$type": "color",
+        "$value": "{color.light.accent.teal}",
+        "$description": "Use accent-teal to highlight elements on light neutral surfaces when the color carries no semantic meaning or status. Ideal for decorative borders or foreground elements."
+      },
+      "rose": {
+        "$type": "color",
+        "$value": "{color.light.accent.rose}",
+        "$description": "Use accent-rose to highlight elements on light neutral surfaces when the color carries no semantic meaning or status. Ideal for decorative borders or foreground elements."
+      },
+      "pink": {
+        "$type": "color",
+        "$value": "{color.light.accent.pink}",
+        "$description": "Use accent-pink to highlight elements on light neutral surfaces when the color carries no semantic meaning or status. Ideal for decorative borders or foreground elements."
+      }
+    },
+    "feedback": {
+      "accent": {
+        "success": {
+          "$type": "color",
+          "$value": "{color.light.feedback.accent.success}",
+          "$description": "Use it to communicate a favorable outcome, such as a success message in an input field or a border on a neutral surface."
+        },
+        "warning": {
+          "$type": "color",
+          "$value": "{color.light.feedback.accent.warning}",
+          "$description": "Use it to emphasize caution, such as in warning text or borders on neutral surfaces."
+        },
+        "error": {
+          "$type": "color",
+          "$value": "{color.light.feedback.accent.error}",
+          "$description": "Use it in critical contexts, such as error messages or borders on neutral surfaces."
+        },
+        "info": {
+          "$type": "color",
+          "$value": "{color.light.feedback.accent.info}",
+          "$description": "Use it to communicate a previous state to continue, or that something is in progress — such as validations, loading states, or progress bars"
+        }
+      },
+      "fg": {
+        "success": {
+          "subtle": {
+            "default": {
+              "$type": "color",
+              "$value": "{color.light.feedback.fg.success.subtle.default}",
+              "$description": "Use it for foreground elements (such as text or icons) on default-state success subtle surfaces, when the color has no specific meaning."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{color.light.feedback.fg.success.subtle.hover}",
+              "$description": "Use it for foreground elements (such as text or icons) on hover-state success subtle surfaces, when the color has no specific meaning."
+            }
+          }
+        },
+        "info": {
+          "subtle": {
+            "default": {
+              "$type": "color",
+              "$value": "{color.light.feedback.fg.info.subtle.default}",
+              "$description": "Use it for foreground elements (such as text or icons) on default-state info subtle surfaces, when the color has no specific meaning."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{color.light.feedback.fg.info.subtle.hover}",
+              "$description": "Use it for foreground elements (such as text or icons) on hover-state info subtle surfaces, when the color has no specific meaning."
+            }
+          }
+        },
+        "warning": {
+          "subtle": {
+            "default": {
+              "$type": "color",
+              "$value": "{color.light.feedback.fg.warning.subtle.default}",
+              "$description": "Use it for foreground elements (such as text or icons) on default-state warning subtle surfaces, when the color has no specific meaning."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{color.light.feedback.fg.warning.subtle.hover}",
+              "$description": "Use it for foreground elements (such as text or icons) on hover-state warning subtle surfaces, when the color has no specific meaning."
+            }
+          },
+          "bold": {
+            "default": {
+              "$type": "color",
+              "$value": "{color.light.feedback.fg.warning.bold.default}",
+              "$description": "Use it for foreground elements (such as text or icons) on default-state warning bold surfaces, when the color has no specific meaning."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{color.light.feedback.fg.warning.bold.hover}",
+              "$description": "Use it for foreground elements (such as text or icons) on hover-state warning bold surfaces, when the color has no specific meaning."
+            }
+          }
+        },
+        "error": {
+          "subtle": {
+            "default": {
+              "$type": "color",
+              "$value": "{color.light.feedback.fg.error.subtle.default}",
+              "$description": "Use it for foreground elements (such as text or icons) on default-state error subtle surfaces, when the color has no specific meaning."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{color.light.feedback.fg.error.subtle.hover}",
+              "$description": "Use it for foreground elements (such as text or icons) on hover-state error subtle surfaces, when the color has no specific meaning."
+            }
+          }
+        }
+      },
+      "bg": {
+        "success": {
+          "subtle": {
+            "default": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.success.subtle.default}",
+              "$description": "Use it for default-state success subtle surfaces, when the color has no specific meaning."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.success.subtle.hover}",
+              "$description": "Use it for hover-state success subtle surfaces, when the color has no specific meaning."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.success.subtle.pressed}",
+              "$description": "Use it for pressed-state success subtle surfaces, when the color has no specific meaning."
+            }
+          },
+          "bold": {
+            "default": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.success.bold.default}",
+              "$description": "Use it for default-state success surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.success.bold.hover}",
+              "$description": "Use it for hover-state success surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.success.bold.pressed}",
+              "$description": "Use it for pressed-state success surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+            }
+          },
+          "transparent": {
+            "pressed": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.success.transparent.pressed}",
+              "$description": "Use it for pressed states on neutral or colored surfaces, when subtler emphasis is needed through opacity (light lime-64 at 30%, dark: lime-60 at 30%) without changing the underlying color meaning."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.success.transparent.hover}",
+              "$description": "Use it for hovered states on neutral or colored surfaces, when subtler emphasis is needed through opacity (light lime-64 at 20%, dark: lime-60 at 20%) without changing the underlying color meaning."
+            }
+          }
+        },
+        "info": {
+          "subtle": {
+            "default": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.info.subtle.default}",
+              "$description": "Use it for default-state info subtle surfaces, when the color has no specific meaning."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.info.subtle.hover}",
+              "$description": "Use it for hover-state info subtle surfaces, when the color has no specific meaning."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.info.subtle.pressed}",
+              "$description": "Use it for pressed-state info subtle surfaces, when the color has no specific meaning."
+            }
+          },
+          "bold": {
+            "default": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.info.bold.default}",
+              "$description": "Use it for default-state info surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.info.bold.hover}",
+              "$description": "Use it for hover-state info surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.info.bold.pressed}",
+              "$description": "Use it for pressed-state info surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+            }
+          },
+          "transparent": {
+            "hover": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.info.transparent.hover}",
+              "$description": "Use it for hovered states on neutral or colored surfaces, when subtler emphasis is needed through opacity (light indigo-64 at 20%, dark: indigo-60 at 20%) without changing the underlying color meaning."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.info.transparent.pressed}",
+              "$description": "Use it for pressed states on neutral or colored surfaces, when subtler emphasis is needed through opacity (light indigo-64 at 30%, dark: indigo-60 at 30%) without changing the underlying color meaning."
+            }
+          }
+        },
+        "warning": {
+          "subtle": {
+            "default": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.warning.subtle.default}",
+              "$description": "Use it for default-state warning subtle surfaces, when the color has no specific meaning."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.warning.subtle.hover}",
+              "$description": "Use it for hover-state warning subtle surfaces, when the color has no specific meaning."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.warning.subtle.pressed}",
+              "$description": "Use it for pressed-state warning subtle surfaces, when the color has no specific meaning."
+            }
+          },
+          "bold": {
+            "default": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.warning.bold.default}",
+              "$description": "Use it for default-state warning surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.warning.bold.hover}",
+              "$description": "Use it for hover-state warning surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.warning.bold.pressed}",
+              "$description": "Use it for pressed-state warning surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+            }
+          },
+          "transparent": {
+            "hover": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.warning.transparent.hover}",
+              "$description": "Use it for hovered states on neutral or colored surfaces, when subtler emphasis is needed through opacity (light orange-64 at 20%, dark: orange-60 at 20%) without changing the underlying color meaning."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.warning.transparent.pressed}",
+              "$description": "Use it for pressed states on neutral or colored surfaces, when subtler emphasis is needed through opacity (light orange-64 at 30%, dark: orange-60 at 30%) without changing the underlying color meaning."
+            }
+          }
+        },
+        "error": {
+          "subtle": {
+            "default": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.error.subtle.default}",
+              "$description": "Use it for default-state error subtle surfaces, when the color has no specific meaning."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.error.subtle.hover}",
+              "$description": "Use it for hover-state error subtle surfaces, when the color has no specific meaning."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.error.subtle.pressed}",
+              "$description": "Use it for pressed-state error subtle surfaces, when the color has no specific meaning."
+            }
+          },
+          "bold": {
+            "default": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.error.bold.default}",
+              "$description": "Use it for default-state error surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.error.bold.hover}",
+              "$description": "Use it for hover-state error surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.error.bold.pressed}",
+              "$description": "Use it for pressed-state error surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+            }
+          },
+          "transparent": {
+            "hover": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.error.transparent.hover}",
+              "$description": "Use it for hovered states on neutral or colored surfaces, when subtler emphasis is needed through opacity (light red-64 at 20%, dark: red-60 at 20%) without changing the underlying color meaning."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{color.light.feedback.bg.error.transparent.pressed}",
+              "$description": "Use it for pressed states on neutral or colored surfaces, when subtler emphasis is needed through opacity (light red-64 at 30%, dark: red-60 at 30%) without changing the underlying color meaning."
+            }
+          }
+        }
+      },
+      "border": {
+        "success": {
+          "$type": "color",
+          "$value": "{color.light.feedback.border.success}",
+          "$description": "Use it for borders on non-bold success surfaces."
+        },
+        "info": {
+          "$type": "color",
+          "$value": "{color.light.feedback.border.info}",
+          "$description": "Use it for borders on non-bold info surfaces."
+        },
+        "warning": {
+          "$type": "color",
+          "$value": "{color.light.feedback.border.warning}",
+          "$description": "Use it for borders on non-bold warning surfaces."
+        },
+        "error": {
+          "$type": "color",
+          "$value": "{color.light.feedback.border.error}",
+          "$description": "Use it for borders on non-bold error surfaces."
+        }
+      },
+      "chart": {
+        "success": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{pec.lime.74}",
+            "$description": "Use it for the subtle success background of the heatmap-item component."
+          },
+          "bold": {
+            "$type": "color",
+            "$value": "{pec.lime.60}",
+            "$description": "Use it for the bold success background of the heatmap-item component, when background needs to pass min 3:1 contrast requirements."
+          }
+        },
+        "info": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{pec.indigo.74}",
+            "$description": "Use it for the subtle info background of the heatmap-item component."
+          },
+          "bold": {
+            "$type": "color",
+            "$value": "{pec.indigo.60}",
+            "$description": "Use it for the bold info background of the heatmap-item component, when background needs to pass min 3:1 contrast requirements."
+          }
+        },
+        "warning": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{pec.orange.88}",
+            "$description": "Use it for the subtle warning background of the heatmap-item component."
+          },
+          "bold": {
+            "$type": "color",
+            "$value": "{pec.orange.80}",
+            "$description": "Use it for the bold warning background of the heatmap-item component, when background needs to pass min 3:1 contrast requirements."
+          }
+        },
+        "error": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{pec.red.74}",
+            "$description": "Use it for the subtle error background of the heatmap-item component."
+          },
+          "bold": {
+            "$type": "color",
+            "$value": "{pec.red.60}",
+            "$description": "Use it for the bold error background of the heatmap-item component, when background needs to pass min 3:1 contrast requirements."
+          }
+        }
+      }
+    },
+    "fg": {
+      "1": {
+        "high": {
+          "$type": "color",
+          "$value": "{color.light.fg.1.high}",
+          "$description": "Use it for primary foreground elements (such as text or icons) on primary backgrounds."
+        },
+        "medium": {
+          "$type": "color",
+          "$value": "{color.light.fg.1.medium}",
+          "$description": "Use it for secondary foreground elements (such as text or icons) on primary backgrounds."
+        }
+      },
+      "2": {
+        "high": {
+          "$type": "color",
+          "$value": "{color.light.fg.2.high}",
+          "$description": "Use it for primary foreground elements (such as text or icons) on secondary backgrounds."
+        },
+        "medium": {
+          "$type": "color",
+          "$value": "{color.light.fg.2.medium}",
+          "$description": "Use it for secondary foreground elements (such as text or icons) on secondary backgrounds."
+        }
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "{color.light.fg.disabled}",
+        "$description": "Use it for disabled foreground elements, such as text or icons."
+      },
+      "on-disabled": {
+        "$type": "color",
+        "$value": "{color.light.fg.on-disabled}",
+        "$description": "Use it for disabled foreground elements on disabled surfaces, such as text or icons."
+      },
+      "bold": {
+        "$type": "color",
+        "$value": "{color.light.fg.bold}",
+        "$description": "Use it for bold foreground elements (such as text or icons) on default, hover and pressed-state bold surfaces, when the color has no specific meaning."
+      },
+      "blue": {
+        "subtle": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.fg.blue.subtle.default}",
+            "$description": "Use it for foreground elements (such as text or icons) on default-state blue subtle surfaces, when the color has no specific meaning."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.fg.blue.subtle.hover}",
+            "$description": "Use it for foreground elements (such as text or icons) on hover-state blue subtle surfaces, when the color has no specific meaning."
+          }
+        }
+      },
+      "gray": {
+        "subtle": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.fg.gray.subtle.default}",
+            "$description": "Use it for foreground elements (such as text or icons) on default-state gray subtle surfaces, when the color has no specific meaning."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.fg.gray.subtle.hover}",
+            "$description": "Use it for foreground elements (such as text or icons) on hover-state gray subtle surfaces, when the color has no specific meaning."
+          }
+        }
+      },
+      "yellow": {
+        "subtle": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.fg.yellow.subtle.default}",
+            "$description": "Use it for foreground elements (such as text or icons) on default-state yellow subtle surfaces, when the color has no specific meaning."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.fg.yellow.subtle.hover}",
+            "$description": "Use it for foreground elements (such as text or icons) on hover-state yellow subtle surfaces, when the color has no specific meaning."
+          }
+        },
+        "bold": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.fg.yellow.bold.default}",
+            "$description": "Use it for foreground elements (such as text or icons) on default-state bold subtle surfaces, when the color has no specific meaning."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.fg.yellow.bold.hover}",
+            "$description": "Use it for foreground elements (such as text or icons) on hover-state yellow bold surfaces, when the color has no specific meaning."
+          }
+        }
+      },
+      "green": {
+        "subtle": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.fg.green.subtle.default}",
+            "$description": "Use it for foreground elements (such as text or icons) on default-state green subtle surfaces, when the color has no specific meaning."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.fg.green.subtle.hover}",
+            "$description": "Use it for foreground elements (such as text or icons) on hover-state green subtle surfaces, when the color has no specific meaning."
+          }
+        }
+      },
+      "purple": {
+        "subtle": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.fg.purple.subtle.default}",
+            "$description": "Use it for foreground elements (such as text or icons) on default-state purple subtle surfaces, when the color has no specific meaning."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.fg.purple.subtle.hover}",
+            "$description": "Use it for foreground elements (such as text or icons) on hover-state purple subtle surfaces, when the color has no specific meaning."
+          }
+        }
+      },
+      "pink": {
+        "subtle": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.fg.pink.subtle.default}",
+            "$description": "Use it for foreground elements (such as text or icons) on default-state pink subtle surfaces, when the color has no specific meaning."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.fg.pink.subtle.hover}",
+            "$description": "Use it for foreground elements (such as text or icons) on hover-state pink subtle surfaces, when the color has no specific meaning."
+          }
+        }
+      },
+      "rose": {
+        "subtle": {
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.fg.rose.subtle.hover}",
+            "$description": "Use it for foreground elements (such as text or icons) on hover-state rose subtle surfaces, when the color has no specific meaning."
+          },
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.fg.rose.subtle.default}",
+            "$description": "Use it for foreground elements (such as text or icons) on default-state rose subtle surfaces, when the color has no specific meaning."
+          }
+        }
+      },
+      "teal": {
+        "subtle": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.fg.teal.subtle.default}",
+            "$description": "Use it for foreground elements (such as text or icons) on default-state teal subtle surfaces, when the color has no specific meaning."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.fg.teal.subtle.hover}",
+            "$description": "Use it for foreground elements (such as text or icons) on hover-state teal subtle surfaces, when the color has no specific meaning."
+          }
+        }
+      }
+    },
+    "bg": {
+      "1": {
+        "$type": "color",
+        "$value": "{color.light.bg.1}",
+        "$description": "Use it for primary surfaces (those with the highest z-index)."
+      },
+      "2": {
+        "$type": "color",
+        "$value": "{color.light.bg.2}",
+        "$description": "Use it for secondary surfaces. This is the base background color for screens."
+      },
+      "3": {
+        "$type": "color",
+        "$value": "{color.light.bg.3}",
+        "$description": "Use it for tertiary surfaces."
+      },
+      "4": {
+        "$type": "color",
+        "$value": "{color.light.bg.4}",
+        "$description": "Use it for quaternary surfaces."
+      },
+      "5": {
+        "$type": "color",
+        "$value": "{color.light.bg.5}",
+        "$description": "Use it for quintiary surfaces (those with the lowest z-index)."
+      },
+      "blue": {
+        "subtle": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.bg.blue.subtle.default}",
+            "$description": "Use it for default-state blue subtle surfaces, when the color has no specific meaning."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.bg.blue.subtle.hover}",
+            "$description": "Use it for hover-state blue subtle surfaces, when the color has no specific meaning."
+          },
+          "pressed": {
+            "$type": "color",
+            "$value": "{color.light.bg.blue.subtle.pressed}",
+            "$description": "Use it for pressed-state blue subtle surfaces, when the color has no specific meaning."
+          }
+        },
+        "bold": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.bg.blue.bold.default}",
+            "$description": "Use it for default-state blue surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.bg.blue.bold.hover}",
+            "$description": "Use it for hover-state blue surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          },
+          "pressed": {
+            "$type": "color",
+            "$value": "{color.light.bg.blue.bold.pressed}",
+            "$description": "Use it for pressed-state blue surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          }
+        }
+      },
+      "gray": {
+        "subtle": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.bg.gray.subtle.default}",
+            "$description": "Use it for default-state gray subtle surfaces, when the color has no specific meaning."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.bg.gray.subtle.hover}",
+            "$description": "Use it for hover-state gray subtle surfaces, when the color has no specific meaning."
+          },
+          "pressed": {
+            "$type": "color",
+            "$value": "{color.light.bg.gray.subtle.pressed}",
+            "$description": "Use it for pressed-state gray subtle surfaces, when the color has no specific meaning."
+          }
+        },
+        "bold": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.bg.gray.bold.default}",
+            "$description": "Use it for default-state gray surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.bg.gray.bold.hover}",
+            "$description": "Use it for hover-state gray surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          },
+          "pressed": {
+            "$type": "color",
+            "$value": "{color.light.bg.gray.bold.pressed}",
+            "$description": "Use it for pressed-state gray surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          }
+        }
+      },
+      "yellow": {
+        "subtle": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.bg.yellow.subtle.default}",
+            "$description": "Use it for default-state yellow subtle surfaces, when the color has no specific meaning."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.bg.yellow.subtle.hover}",
+            "$description": "Use it for hover-state yellow subtle surfaces, when the color has no specific meaning."
+          },
+          "pressed": {
+            "$type": "color",
+            "$value": "{color.light.bg.yellow.subtle.pressed}",
+            "$description": "Use it for pressed-state yellow subtle surfaces, when the color has no specific meaning."
+          }
+        },
+        "bold": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.bg.yellow.bold.default}",
+            "$description": "Use it for default-state yellow surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.bg.yellow.bold.hover}",
+            "$description": "Use it for hover-state yellow surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          },
+          "pressed": {
+            "$type": "color",
+            "$value": "{color.light.bg.yellow.bold.pressed}",
+            "$description": "Use it for pressed-state yellow surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          }
+        }
+      },
+      "green": {
+        "subtle": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.bg.green.subtle.default}",
+            "$description": "Use it for default-state green subtle surfaces, when the color has no specific meaning."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.bg.green.subtle.hover}",
+            "$description": "Use it for hover-state green subtle surfaces, when the color has no specific meaning."
+          },
+          "pressed": {
+            "$type": "color",
+            "$value": "{color.light.bg.green.subtle.pressed}",
+            "$description": "Use it for pressed-state green subtle surfaces, when the color has no specific meaning."
+          }
+        },
+        "bold": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.bg.green.bold.default}",
+            "$description": "Use it for default-state green surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.bg.green.bold.hover}",
+            "$description": "Use it for hover-state green surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          },
+          "pressed": {
+            "$type": "color",
+            "$value": "{color.light.bg.green.bold.pressed}",
+            "$description": "Use it for pressed-state green surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          }
+        }
+      },
+      "purple": {
+        "subtle": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.bg.purple.subtle.default}",
+            "$description": "Use it for default-state purple subtle surfaces, when the color has no specific meaning."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.bg.purple.subtle.hover}",
+            "$description": "Use it for hover-state purple subtle surfaces, when the color has no specific meaning."
+          },
+          "pressed": {
+            "$type": "color",
+            "$value": "{color.light.bg.purple.subtle.pressed}",
+            "$description": "Use it for pressed-state purple subtle surfaces, when the color has no specific meaning."
+          }
+        },
+        "bold": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.bg.purple.bold.default}",
+            "$description": "Use it for default-state purple surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.bg.purple.bold.hover}",
+            "$description": "Use it for hover-state purple surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          },
+          "pressed": {
+            "$type": "color",
+            "$value": "{color.light.bg.purple.bold.pressed}",
+            "$description": "Use it for pressed-state purple surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          }
+        }
+      },
+      "pink": {
+        "subtle": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.bg.pink.subtle.default}",
+            "$description": "Use it for default-state pink subtle surfaces, when the color has no specific meaning."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.bg.pink.subtle.hover}",
+            "$description": "Use it for hover-state pink subtle surfaces, when the color has no specific meaning."
+          },
+          "pressed": {
+            "$type": "color",
+            "$value": "{color.light.bg.pink.subtle.pressed}",
+            "$description": "Use it for pressed-state pink subtle surfaces, when the color has no specific meaning."
+          }
+        },
+        "bold": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.bg.pink.bold.default}",
+            "$description": "Use it for default-state pink surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.bg.pink.bold.hover}",
+            "$description": "Use it for hover-state pink surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          },
+          "pressed": {
+            "$type": "color",
+            "$value": "{color.light.bg.pink.bold.pressed}",
+            "$description": "Use it for pressed-state pink surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          }
+        }
+      },
+      "rose": {
+        "subtle": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.bg.rose.subtle.default}",
+            "$description": "Use it for default-state rose subtle surfaces, when the color has no specific meaning."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.bg.rose.subtle.hover}",
+            "$description": "Use it for hover-state rose subtle surfaces, when the color has no specific meaning."
+          },
+          "pressed": {
+            "$type": "color",
+            "$value": "{color.light.bg.rose.subtle.pressed}",
+            "$description": "Use it for pressed-state rose subtle surfaces, when the color has no specific meaning."
+          }
+        },
+        "bold": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.bg.rose.bold.default}",
+            "$description": "Use it for default-state rose surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.bg.rose.bold.hover}",
+            "$description": "Use it for hover-state rose surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          },
+          "pressed": {
+            "$type": "color",
+            "$value": "{color.light.bg.rose.bold.pressed}",
+            "$description": "Use it for pressed-state rose surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          }
+        }
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "{color.light.bg.disabled}",
+        "$description": "Use it for disabled-state surfaces, such as disabled buttons, cards or containers."
+      },
+      "teal": {
+        "subtle": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.bg.teal.subtle.default}",
+            "$description": "Use it for default-state teal subtle surfaces, when the color has no specific meaning."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.bg.teal.subtle.hover}",
+            "$description": "Use it for hover-state teal subtle surfaces, when the color has no specific meaning."
+          },
+          "pressed": {
+            "$type": "color",
+            "$value": "{color.light.bg.teal.subtle.pressed}",
+            "$description": "Use it for pressed-state teal subtle surfaces, when the color has no specific meaning."
+          }
+        },
+        "bold": {
+          "default": {
+            "$type": "color",
+            "$value": "{color.light.bg.teal.bold.default}",
+            "$description": "Use it for default-state teal surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          },
+          "hover": {
+            "$type": "color",
+            "$value": "{color.light.bg.teal.bold.hover}",
+            "$description": "Use it for hover-state teal surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          },
+          "pressed": {
+            "$type": "color",
+            "$value": "{color.light.bg.teal.bold.pressed}",
+            "$description": "Use it for pressed-state teal surfaces, when the color has no specific meaning and the background needs to pass min 3:1 contrast requirements."
+          }
+        }
+      },
+      "active": {
+        "$type": "color",
+        "$value": "{color.light.bg.active}",
+        "$description": "light: pec-blue-44 (15%) | dark: pec-blue-44 (20%"
+      },
+      "dim": {
+        "$type": "color",
+        "$value": "{color.light.bg.dim}"
+      },
+      "sub-surface": {
+        "hover": {
+          "$type": "color",
+          "$value": "{color.light.bg.sub-surface.hover}",
+          "$description": "Use it for interactive inner surfaces, such as chip close buttons or row tables in its hovered state. Light mode: pec-gray-16 at 10%. Dark mode: pec-white at 10%."
+        },
+        "pressed": {
+          "$type": "color",
+          "$value": "{color.light.bg.sub-surface.pressed}",
+          "$description": "Use it for interactive inner surfaces, such as chip close buttons or row tables in its pressed state. Light mode: pec-gray-16 at 20%. Dark mode: pec-white at 20%."
+        }
+      }
+    },
+    "border": {
+      "1": {
+        "$type": "color",
+        "$value": "{color.light.border.1}",
+        "$description": "Use it to visually group or separate UI elements on primary surfaces (those with the highest z-index), such as flat cards, input fields or side panel dividers."
+      },
+      "2": {
+        "$type": "color",
+        "$value": "{color.light.border.2}",
+        "$description": "Use it to visually group or separate UI elements on secondary surfaces."
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "{color.light.border.disabled}",
+        "$description": "Use it to visually group or separate UI elements on disabled surfaces."
+      },
+      "blue": {
+        "$type": "color",
+        "$value": "{color.light.border.blue}",
+        "$description": "Use it for borders on non-bold blue surfaces, when the color has no specific meaning."
+      },
+      "gray": {
+        "$type": "color",
+        "$value": "{color.light.border.gray}",
+        "$description": "Use it for borders on non-bold gray surfaces, when the color has no specific meaning."
+      },
+      "yellow": {
+        "$type": "color",
+        "$value": "{color.light.border.yellow}",
+        "$description": "Use it for borders on non-bold yellow surfaces, when the color has no specific meaning."
+      },
+      "green": {
+        "$type": "color",
+        "$value": "{color.light.border.green}",
+        "$description": "Use it for borders on non-bold green surfaces, when the color has no specific meaning."
+      },
+      "purple": {
+        "$type": "color",
+        "$value": "{color.light.border.purple}",
+        "$description": "Use it for borders on non-bold purple surfaces, when the color has no specific meaning."
+      },
+      "pink": {
+        "$type": "color",
+        "$value": "{color.light.border.pink}",
+        "$description": "Use it for borders on non-bold pink surfaces, when the color has no specific meaning."
+      },
+      "rose": {
+        "$type": "color",
+        "$value": "{color.light.border.rose}",
+        "$description": "Use it for borders on non-bold rose surfaces, when the color has no specific meaning."
+      },
+      "teal": {
+        "$type": "color",
+        "$value": "{color.light.border.teal}",
+        "$description": "Use it for borders on non-bold teal surfaces, when the color has no specific meaning."
+      }
+    },
+    "focus": {
+      "$type": "color",
+      "$value": "{color.light.focus}",
+      "$description": "Use this token for focused state components: light: pec-blue-40 (40%) | dark: pec-blue-56 (60%)"
+    }
+  },
+  "brand": {
+    "bds": {
+      "bg": {
+        "secondary-shape": {
+          "$type": "color",
+          "$value": "#6d6da2"
+        },
+        "primary-shape": {
+          "$type": "color",
+          "$value": "{brand.ubits.logo}"
+        }
+      }
+    },
+    "ubits": {
+      "logo": {
+        "$type": "color",
+        "$value": "#0d1f57"
+      }
+    }
+  },
+  "chart": {
+    "color": {
+      "fg": {
+        "subtle": {
+          "$type": "color",
+          "$value": "{pec.black}",
+          "$description": "Use it for subtle foreground (such as text or icons) of the heatmap-item component, when the color has no specific meaning."
+        },
+        "bold": {
+          "$type": "color",
+          "$value": "{pec.white}",
+          "$description": "Use it for bold foreground (such as text or icons) of the heatmap-item component when the color has no specific meaning."
+        }
+      },
+      "bg": {
+        "blue": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{pec.blue.74}",
+            "$description": "Use it for the subtle blue background of the heatmap-item component, when the color has no specific meaning."
+          },
+          "bold": {
+            "$type": "color",
+            "$value": "{pec.blue.60}",
+            "$description": "Use it for the bold blue background of the heatmap-item component, when the color has no specific meaning  and the background needs to pass min 3:1 contrast requirements."
+          }
+        },
+        "gray": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{pec.gray.74}",
+            "$description": "Use it for the subtle graybackground of the heatmap-item component, when the color has no specific meaning."
+          },
+          "bold": {
+            "$type": "color",
+            "$value": "{pec.gray.60}",
+            "$description": "Use it for the bold graybackground of the heatmap-item component, when the color has no specific meaning  and the background needs to pass min 3:1 contrast requirements."
+          }
+        },
+        "yellow": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{pec.yellow.88}",
+            "$description": "Use it for the subtle yellow background of the heatmap-item component, when the color has no specific meaning."
+          },
+          "bold": {
+            "$type": "color",
+            "$value": "{pec.yellow.84}",
+            "$description": "Use it for the bold yellow background of the heatmap-item component, when the color has no specific meaning  and the background needs to pass min 3:1 contrast requirements."
+          }
+        },
+        "green": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{pec.green.74}",
+            "$description": "Use it for the subtle green background of the heatmap-item component, when the color has no specific meaning."
+          },
+          "bold": {
+            "$type": "color",
+            "$value": "{pec.green.60}",
+            "$description": "Use it for the bold green background of the heatmap-item component, when the color has no specific meaning  and the background needs to pass min 3:1 contrast requirements."
+          }
+        },
+        "teal": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{pec.teal.74}",
+            "$description": "Use it for the subtle teal background of the heatmap-item component, when the color has no specific meaning."
+          },
+          "bold": {
+            "$type": "color",
+            "$value": "{pec.teal.60}",
+            "$description": "Use it for the bold teal background of the heatmap-item component, when the color has no specific meaning  and the background needs to pass min 3:1 contrast requirements."
+          }
+        },
+        "purple": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{pec.purple.74}",
+            "$description": "Use it for the subtle pink background of the heatmap-item component, when the color has no specific meaning."
+          },
+          "bold": {
+            "$type": "color",
+            "$value": "{pec.purple.60}",
+            "$description": "Use it for the bold pink background of the heatmap-item component, when the color has no specific meaning  and the background needs to pass min 3:1 contrast requirements."
+          }
+        },
+        "pink": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{pec.pink.74}",
+            "$description": "Use it for the subtle pink background of the heatmap-item component, when the color has no specific meaning."
+          },
+          "bold": {
+            "$type": "color",
+            "$value": "{pec.pink.60}",
+            "$description": "Use it for the bold pink background of the heatmap-item component, when the color has no specific meaning  and the background needs to pass min 3:1 contrast requirements."
+          }
+        },
+        "rose": {
+          "subtle": {
+            "$type": "color",
+            "$value": "{pec.rose.74}",
+            "$description": "Use it for the subtle rose background of the heatmap-item component, when the color has no specific meaning."
+          },
+          "bold": {
+            "$type": "color",
+            "$value": "{pec.rose.60}",
+            "$description": "Use it for the bold rose background of the heatmap-item component, when the color has no specific meaning  and the background needs to pass min 3:1 contrast requirements."
+          }
+        },
+        "level": {
+          "1": {
+            "$type": "color",
+            "$value": "#ffffff"
+          }
+        },
+        "neutral-blue": {
+          "1": {
+            "$type": "color",
+            "$value": "{pec.neutral-blue.60}",
+            "$description": "Use it to represent the clearest chart when it’s necessary to display more than one."
+          },
+          "2": {
+            "$type": "color",
+            "$value": "{pec.neutral-blue.56}",
+            "$description": "Use it to represent a level 2 chart when it’s necessary to display more than one."
+          },
+          "3": {
+            "$type": "color",
+            "$value": "{pec.neutral-blue.52}",
+            "$description": "Use it to represent a level 3 chart when it’s necessary to display more than one."
+          },
+          "4": {
+            "$type": "color",
+            "$value": "{pec.neutral-blue.44}",
+            "$description": "Use it to represent a level 4 chart when it’s necessary to display more than one."
+          },
+          "5": {
+            "$type": "color",
+            "$value": "{pec.neutral-blue.40}",
+            "$description": "Use it to represent a level 5 chart when it’s necessary to display more than one."
+          },
+          "6": {
+            "$type": "color",
+            "$value": "{pec.neutral-blue.36}",
+            "$description": "Use it to represent a level 6 chart when it’s necessary to display more than one."
+          },
+          "7": {
+            "$type": "color",
+            "$value": "{pec.neutral-blue.32}",
+            "$description": "Use it to represent a level 7 chart when it’s necessary to display more than one."
+          },
+          "8": {
+            "$type": "color",
+            "$value": "{pec.neutral-blue.28}",
+            "$description": "Use it to represent a level 8 chart when it’s necessary to display more than one."
+          },
+          "9": {
+            "$type": "color",
+            "$value": "{pec.neutral-blue.24}",
+            "$description": "Use it to represent a level 9 chart when it’s necessary to display more than one."
+          },
+          "10": {
+            "$type": "color",
+            "$value": "{pec.neutral-blue.20}",
+            "$description": "Use it to represent a level 10 chart when it’s necessary to display more than one."
+          },
+          "11": {
+            "$type": "color",
+            "$value": "{pec.neutral-blue.16}",
+            "$description": "Use it to represent a level 11 chart when it’s necessary to display more than one."
+          },
+          "12": {
+            "$type": "color",
+            "$value": "{pec.neutral-blue.12}",
+            "$description": "Use it to represent a level 12 chart when it’s necessary to display more than one."
+          },
+          "13": {
+            "$type": "color",
+            "$value": "{pec.neutral-blue.8}",
+            "$description": "Use it to represent a level 13 chart when it’s necessary to display more than one."
+          },
+          "14": {
+            "$type": "color",
+            "$value": "{pec.neutral-blue.4}",
+            "$description": "Use it to represent a level 14 chart when it’s necessary to display more than one."
+          },
+          "base": {
+            "$type": "color",
+            "$value": "{pec.neutral-blue.48}",
+            "$description": "Use it when it’s necessary to show only one chart or graph."
+          }
+        }
+      }
+    }
+  },
+  "btn": {
+    "primary": {
+      "fg": {
+        "$type": "color",
+        "$value": "{btn-tone.primary.fg}"
+      },
+      "bg": {
+        "pressed": {
+          "$type": "color",
+          "$value": "{btn-tone.primary.bg.pressed}"
+        },
+        "default": {
+          "$type": "color",
+          "$value": "{btn-tone.primary.bg.default}"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{btn-tone.primary.bg.hover}"
+        }
+      }
+    },
+    "secondary": {
+      "fg": {
+        "default": {
+          "$type": "color",
+          "$value": "{btn-tone.sec.fg.default}"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{btn-tone.sec.fg.hover}"
+        }
+      },
+      "bg": {
+        "pressed": {
+          "$type": "color",
+          "$value": "{btn-tone.sec.bg.pressed}"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{btn-tone.sec.bg.hover}"
+        },
+        "default": {
+          "$type": "color",
+          "$value": "{btn-tone.sec.bg.default}"
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{btn-tone.sec.border}"
+      }
+    },
+    "tertiary": {
+      "bg": {
+        "hover": {
+          "$type": "color",
+          "$value": "{btn-tone.ter.bg.hover}"
+        },
+        "pressed": {
+          "$type": "color",
+          "$value": "{btn-tone.ter.bg.pressed}"
+        }
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{btn-tone.ter.fg}"
+      }
+    }
+  },
+  "scroll-bar": {
+    "color": {
+      "bg": {
+        "dragged": {
+          "$type": "color",
+          "$value": "{pec.gray.48}",
+          "$description": "Use this token for the scroll bar background component in its dragged state."
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{pec.gray.72}",
+          "$description": "Use this token for the scroll bar background component in its hovered state."
+        },
+        "default": {
+          "$type": "color",
+          "$value": "{pec.gray.80}",
+          "$description": "Use this token for the scroll bar background component in its default state."
+        }
+      }
+    }
+  },
+  "toggle": {
+    "color": {
+      "bg": {
+        "active": {
+          "$type": "color",
+          "$value": "{pec.green.68}"
+        }
+      }
+    }
+  },
+  "button-tone": {
+    "brand": {
+      "primary": {
+        "color": {
+          "bg": {
+            "default": {
+              "$type": "color",
+              "$value": "{button.color.light.brand.primary.bg.default}",
+              "$description": "Use this color for the primary button background, aligned with the brand tone, in its default state."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.brand.primary.bg.hover}",
+              "$description": "Use this color for the primary button background, aligned with the brand tone, in its hovered state."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{button.color.light.brand.primary.bg.pressed}",
+              "$description": "Use this color for the primary button background, aligned with the brand tone, in its pressed state."
+            }
+          }
+        }
+      },
+      "secondary": {
+        "color": {
+          "bg": {
+            "default": {
+              "$type": "color",
+              "$value": "{button.color.light.brand.secondary.bg.default}",
+              "$description": "Use this color for the secondary button background, aligned with the brand tone, in its default state."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.brand.secondary.bg.hover}",
+              "$description": "Use this color for the secondary button background, aligned with the brand tone, in its hovered state."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{button.color.light.brand.secondary.bg.pressed}",
+              "$description": "Use this color for the secondary button background, aligned with the brand tone, in its pressed state."
+            }
+          },
+          "fg": {
+            "default": {
+              "$type": "color",
+              "$value": "{button.color.light.brand.secondary.fg.default}",
+              "$description": "Use this color for the secondary button foreground, aligned with the brand tone, in its default state."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.brand.secondary.fg.hover}",
+              "$description": "Use this color for the secondary button foreground, aligned with the brand tone, in its hovered state."
+            }
+          },
+          "border": {
+            "$type": "color",
+            "$value": "{button.color.light.brand.secondary.border}",
+            "$description": "Use this color for the secondary button border, aligned with the brand tone."
+          }
+        }
+      },
+      "tertiary": {
+        "color": {
+          "bg": {
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.brand.tertiary.bg.hover}",
+              "$description": "Use this color for the tertiary button background, aligned with the brand tone, in its hovered state."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{button.color.light.brand.tertiary.bg.pressed}",
+              "$description": "Use this color for the tertiary button background, aligned with the brand tone, in its pressed state."
+            }
+          },
+          "fg": {
+            "$type": "color",
+            "$value": "{button.color.light.brand.tertiary.fg}",
+            "$description": "Use this color for the tertiary button foreground, aligned with the brand tone."
+          }
+        }
+      }
+    },
+    "success": {
+      "primary": {
+        "color": {
+          "bg": {
+            "default": {
+              "$type": "color",
+              "$value": "{button.color.light.success.primary.bg.default}",
+              "$description": "Use this color for the primary button background, aligned with the success tone, in its default state."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.success.primary.bg.hover}",
+              "$description": "Use this color for the primary button background, aligned with the success tone, in its hovered state."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{button.color.light.success.primary.bg.pressed}",
+              "$description": "Use this color for the primary button background, aligned with the success tone, in its pressed state."
+            }
+          }
+        }
+      },
+      "secondary": {
+        "color": {
+          "bg": {
+            "default": {
+              "$type": "color",
+              "$value": "{button.color.light.success.secondary.bg.default}",
+              "$description": "Use this color for the secondary button background, aligned with the success tone, in its default state."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.success.secondary.bg.hover}",
+              "$description": "Use this color for the secondary button background, aligned with the success tone, in its hovered state."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{button.color.light.success.secondary.bg.pressed}",
+              "$description": "Use this color for the secondary button background, aligned with the success tone, in its pressed state."
+            }
+          },
+          "fg": {
+            "default": {
+              "$type": "color",
+              "$value": "{button.color.light.success.secondary.fg.default}",
+              "$description": "Use this color for the secondary button foreground, aligned with the success tone, in its default state."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.success.secondary.fg.hover}",
+              "$description": "Use this color for the secondary button foreground, aligned with the success tone, in its hovered state."
+            }
+          },
+          "border": {
+            "$type": "color",
+            "$value": "{button.color.light.success.secondary.border}",
+            "$description": "Use this color for the secondary button border, aligned with the success tone."
+          }
+        }
+      },
+      "tertiary": {
+        "color": {
+          "fg": {
+            "$type": "color",
+            "$value": "{button.color.light.success.tertiary.fg}",
+            "$description": "Use this color for the tertiary button foreground, aligned with the success tone."
+          },
+          "bg": {
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.success.tertiary.bg.hover}",
+              "$description": "Use this color for the tertiary button background, aligned with the success tone, in its hovered state."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{button.color.light.success.tertiary.bg.pressed}",
+              "$description": "Use this color for the tertiary button background, aligned with the success tone, in its pressed state."
+            }
+          }
+        }
+      }
+    },
+    "info": {
+      "primary": {
+        "color": {
+          "bg": {
+            "default": {
+              "$type": "color",
+              "$value": "{button.color.light.info.primary.bg.default}",
+              "$description": "Use this color for the primary button background, aligned with the info tone, in its default state."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.info.primary.bg.hover}",
+              "$description": "Use this color for the primary button background, aligned with the info tone, in its hovered state."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{button.color.light.info.primary.bg.pressed}",
+              "$description": "Use this color for the primary button background, aligned with the info tone, in its pressed state."
+            }
+          }
+        }
+      },
+      "secondary": {
+        "color": {
+          "bg": {
+            "default": {
+              "$type": "color",
+              "$value": "{button.color.light.info.secondary.bg.default}",
+              "$description": "Use this color for the secondary button background, aligned with the info tone, in its default state."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.info.secondary.bg.hover}",
+              "$description": "Use this color for the secondary button background, aligned with the info tone, in its hovered state."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{button.color.light.info.secondary.bg.pressed}",
+              "$description": "Use this color for the secondary button background, aligned with the info tone, in its pressed state."
+            }
+          },
+          "fg": {
+            "default": {
+              "$type": "color",
+              "$value": "{button.color.light.info.secondary.fg.default}",
+              "$description": "Use this color for the secondary button foreground, aligned with the info tone, in its default state."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.info.secondary.fg.hover}",
+              "$description": "Use this color for the secondary button foreground, aligned with the info tone, in its hovered state."
+            }
+          },
+          "border": {
+            "$type": "color",
+            "$value": "{button.color.light.info.secondary.border}",
+            "$description": "Use this color for the secondary button border, aligned with the info tone."
+          }
+        }
+      },
+      "tertiary": {
+        "color": {
+          "fg": {
+            "$type": "color",
+            "$value": "{button.color.light.info.tertiary.fg}",
+            "$description": "Use this color for the tertiary button foreground, aligned with the info tone."
+          },
+          "bg": {
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.info.tertiary.bg.hover}",
+              "$description": "Use this color for the tertiary button background, aligned with the info tone, in its hovered state."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{button.color.light.info.tertiary.bg.pressed}",
+              "$description": "Use this color for the tertiary button background, aligned with the info tone, in its pressed state."
+            }
+          }
+        }
+      }
+    },
+    "warning": {
+      "primary": {
+        "color": {
+          "bg": {
+            "default": {
+              "$type": "color",
+              "$value": "{button.color.light.warning.primary.bg.default}",
+              "$description": "Use this color for the primary button background, aligned with the warning tone, in its default state."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.warning.primary.bg.hover}",
+              "$description": "Use this color for the primary button background, aligned with the warning tone, in its hovered state."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{button.color.light.warning.primary.bg.pressed}",
+              "$description": "Use this color for the primary button background, aligned with the warning tone, in its pressed state."
+            }
+          },
+          "fg": {
+            "$type": "color",
+            "$value": "{button.color.light.warning.primary.fg}",
+            "$description": "Use this color for the primary button foreground (such as text or icons), aligned with the warning tone."
+          }
+        }
+      },
+      "secondary": {
+        "color": {
+          "bg": {
+            "default": {
+              "$type": "color",
+              "$value": "{button.color.light.warning.secondary.bg.default}",
+              "$description": "Use this color for the secondary button background, aligned with the warning  tone, in its default state."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.warning.secondary.bg.hover}",
+              "$description": "Use this color for the secondary button background, aligned with the warning tone, in its hovered state."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{button.color.light.warning.secondary.bg.pressed}",
+              "$description": "Use this color for the secondary button background, aligned with the warning tone, in its pressed state."
+            }
+          },
+          "fg": {
+            "default": {
+              "$type": "color",
+              "$value": "{button.color.light.warning.secondary.fg.default}",
+              "$description": "Use this color for the secondary button foreground, aligned with the warning tone, in its default state."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.warning.secondary.fg.hover}",
+              "$description": "Use this color for the secondary button foreground, aligned with the warning tone, in its hovered state."
+            }
+          },
+          "border": {
+            "$type": "color",
+            "$value": "{button.color.light.warning.secondary.border}",
+            "$description": "Use this color for the secondary button border, aligned with the warning tone."
+          }
+        }
+      },
+      "tertiary": {
+        "color": {
+          "fg": {
+            "$type": "color",
+            "$value": "{button.color.light.warning.tertiary.fg}",
+            "$description": "Use this color for the tertiary button foreground, aligned with the warning tone."
+          },
+          "bg": {
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.warning.tertiary.bg.hover}",
+              "$description": "Use this color for the tertiary button background, aligned with the warning tone, in its hovered state."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{button.color.light.warning.tertiary.bg.pressed}",
+              "$description": "Use this color for the tertiary button background, aligned with the warning tone, in its pressed state."
+            }
+          }
+        }
+      }
+    },
+    "error": {
+      "primary": {
+        "color": {
+          "bg": {
+            "default": {
+              "$type": "color",
+              "$value": "{button.color.light.error.primary.bg.default}",
+              "$description": "Use this color for the primary button background, aligned with the error tone, in its default state."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.error.primary.bg.hover}",
+              "$description": "Use this color for the primary button background, aligned with the error tone, in its hovered state."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{button.color.light.error.primary.bg.pressed}",
+              "$description": "Use this color for the primary button background, aligned with the error tone, in its pressed state."
+            }
+          }
+        }
+      },
+      "secondary": {
+        "color": {
+          "bg": {
+            "default": {
+              "$type": "color",
+              "$value": "{button.color.light.error.secondary.bg.default}",
+              "$description": "Use this color for the secondary button background, aligned with the error tone, in its default state."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.error.secondary.bg.hover}",
+              "$description": "Use this color for the secondary button background, aligned with the error tone, in its hovered state."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{button.color.light.error.secondary.bg.pressed}",
+              "$description": "Use this color for the secondary button background, aligned with the error tone, in its pressed state."
+            }
+          },
+          "fg": {
+            "default": {
+              "$type": "color",
+              "$value": "{button.color.light.error.secondary.fg.default}",
+              "$description": "Use this color for the secondary button foreground, aligned with the error tone, in its default state."
+            },
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.error.secondary.fg.hover}",
+              "$description": "Use this color for the secondary button foreground, aligned with the error tone, in its hovered state."
+            }
+          },
+          "border": {
+            "$type": "color",
+            "$value": "{button.color.light.error.secondary.border}",
+            "$description": "Use this color for the secondary button border, aligned with the error tone."
+          }
+        }
+      },
+      "tertiary": {
+        "color": {
+          "fg": {
+            "$type": "color",
+            "$value": "{button.color.light.error.tertiary.fg}",
+            "$description": "Use this color for the tertiary button foreground, aligned with the error tone."
+          },
+          "bg": {
+            "hover": {
+              "$type": "color",
+              "$value": "{button.color.light.error.tertiary.bg.hover}",
+              "$description": "Use this color for the tertiary button background, aligned with the error tone, in its hovered state."
+            },
+            "pressed": {
+              "$type": "color",
+              "$value": "{button.color.light.error.tertiary.bg.pressed}",
+              "$description": "Use this color for the tertiary button background, aligned with the error tone, in its pressed state."
+            }
+          }
+        }
+      }
+    }
+  },
+  "ai-button": {
+    "color": {
+      "secondary": {
+        "accent": {
+          "gradient-start": {
+            "$type": "color",
+            "$value": "{ai-button.color.light.secondary.accent.gradient-start}",
+            "$description": "Use this token for the start gradient point of the ai-button component."
+          },
+          "gradient-end": {
+            "$type": "color",
+            "$value": "{ai-button.color.light.secondary.accent.gradient-end}",
+            "$description": "Use this token for the end gradient point of the ai-button component."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "tokenSetOrder": [
+    "p-colors/Mode 1",
+    "s-colors/Light Mode",
+    "s-colors/Dark Mode",
+    "btn-tone/Brand",
+    "btn-tone/Success",
+    "btn-tone/Info",
+    "btn-tone/Error",
+    "btn-tone/Warning",
+    "button-tone/Mode 1",
+    ".modifiers/Normal",
+    ".modifiers/Inverted",
+    ".modifiers/Static",
+    ".modifiers/Static inverted",
+    ".modifiers/⚪⚫ Normal",
+    ".modifiers/⚫⚪ Inverted",
+    ".modifiers/⚪⚪ Static",
+    ".modifiers/⚫⚫ Static inverted",
+    "font-family/Noto Sans",
+    "font-family/Roboto Mono",
+    "font-family/font-awesome",
+    "font-size/font-size",
+    "p-spacing/Mode 1",
+    "s-spacing/Mode 1",
+    "border-radius/Mode 1",
+    "line-height/none",
+    "line-height/normal",
+    "line-height/extended",
+    ".font-weight/Mode 1"
+  ]
+}

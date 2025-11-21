@@ -5,6 +5,7 @@
  */
 
 import { GalleryOptions, GalleryItem, GalleryLayout, GallerySize } from './types/GalleryOptions';
+import { renderButton } from '../../button/src/ButtonProvider';
 
 /**
  * Renderiza una galería UBITS como HTML string
@@ -57,6 +58,7 @@ export function renderGallery(options: GalleryOptions): string {
   ].filter(Boolean).join(' ');
 
   // Estilos inline para grid columns y gap
+  // gap es dinámico, se mantiene en px pero se usa como variable CSS
   const style = `--gallery-gap: ${gap}px; --gallery-columns: ${columns};`;
 
   return `
@@ -204,6 +206,7 @@ export function initializeGallery(element: HTMLElement, options: GalleryOptions)
         }
       });
     }, {
+      // rootMargin usa un valor razonable para lazy loading (equivalente a spacing-12 = 48px, aproximado a 50px)
       rootMargin: '50px'
     });
 
@@ -237,21 +240,49 @@ function openLightbox(item: GalleryItem, allItems: GalleryItem[], currentIndex: 
     `;
   }).join('');
   
+  // Renderizar botones usando componente Button UBITS
+  const closeButton = renderButton({
+    variant: 'secondary',
+    size: 'sm',
+    icon: 'times',
+    iconOnly: true,
+    className: 'ubits-gallery-lightbox__close',
+    attributes: {
+      'aria-label': 'Cerrar'
+    }
+  });
+
+  const prevButton = renderButton({
+    variant: 'secondary',
+    size: 'md',
+    icon: 'chevron-left',
+    iconOnly: true,
+    className: 'ubits-gallery-lightbox__prev',
+    attributes: {
+      'aria-label': 'Anterior'
+    }
+  });
+
+  const nextButton = renderButton({
+    variant: 'secondary',
+    size: 'md',
+    icon: 'chevron-right',
+    iconOnly: true,
+    className: 'ubits-gallery-lightbox__next',
+    attributes: {
+      'aria-label': 'Siguiente'
+    }
+  });
+  
   overlay.innerHTML = `
     <div class="ubits-gallery-lightbox__content">
-      <button class="ubits-gallery-lightbox__close" aria-label="Cerrar">
-        <i class="fas fa-times"></i>
-      </button>
+      ${closeButton}
       <div class="ubits-gallery-lightbox__main">
-        <button class="ubits-gallery-lightbox__prev" aria-label="Anterior">
-          <i class="fas fa-chevron-left"></i>
-        </button>
+        ${prevButton}
         <div class="ubits-gallery-lightbox__image-wrapper">
           <img src="${item.image}" alt="${item.alt || item.title || 'Imagen'}" class="ubits-gallery-lightbox__image" />
         </div>
-        <button class="ubits-gallery-lightbox__next" aria-label="Siguiente">
-          <i class="fas fa-chevron-right"></i>
-        </button>
+        ${nextButton}
       </div>
       <div class="ubits-gallery-lightbox__thumbnails">
         ${thumbnailsHTML}

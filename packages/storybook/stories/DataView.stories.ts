@@ -299,10 +299,10 @@ export const Default: Story = {
     container.style.width = '100%';
     container.style.maxWidth = '800px';
     container.style.margin = '0 auto';
-    container.style.padding = 'var(--ubits-spacing-lg, 24px)';
-    container.style.background = 'var(--ubits-bg-2, #f5f5f5)';
-    container.style.borderRadius = 'var(--ubits-border-radius-md, 8px)';
-    container.style.border = '1px solid var(--ubits-border-1, #d0d2d5)';
+    container.style.padding = 'var(--ubits-spacing-lg)';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
+    container.style.borderRadius = 'var(--ubits-border-radius-md)';
+    container.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
 
     // Función para re-renderizar el DataView
     const renderDataViewComponent = () => {

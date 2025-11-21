@@ -1,0 +1,70 @@
+{
+  "btn-tone": {
+    "sec": {
+      "bg": {
+        "default": {
+          "$type": "color",
+          "$value": "{button-tone.warning.secondary.color.bg.default}"
+        },
+        "pressed": {
+          "$type": "color",
+          "$value": "{button-tone.warning.secondary.color.bg.pressed}"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{button-tone.warning.secondary.color.bg.hover}"
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{button-tone.warning.secondary.color.border}"
+      },
+      "fg": {
+        "default": {
+          "$type": "color",
+          "$value": "{button-tone.warning.secondary.color.fg.default}"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{button-tone.warning.secondary.color.fg.hover}"
+        }
+      }
+    },
+    "primary": {
+      "bg": {
+        "pressed": {
+          "$type": "color",
+          "$value": "{button-tone.warning.primary.color.bg.pressed}"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{button-tone.warning.primary.color.bg.hover}"
+        },
+        "default": {
+          "$type": "color",
+          "$value": "{button-tone.warning.primary.color.bg.default}"
+        }
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{button-tone.warning.primary.color.fg}"
+      }
+    },
+    "ter": {
+      "bg": {
+        "pressed": {
+          "$type": "color",
+          "$value": "{button-tone.warning.tertiary.color.bg.pressed}"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{button-tone.warning.tertiary.color.bg.hover}"
+        }
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{button-tone.warning.tertiary.color.fg}"
+      }
+    }
+  }
+}

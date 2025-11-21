@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { renderGallery, createGallery } from '../../addons/gallery/src/GalleryProvider';
 import type { GalleryOptions, GalleryItem } from '../../addons/gallery/src/types/GalleryOptions';
 import '../../addons/gallery/src/styles/gallery.css';
+import '../../addons/button/src/styles/button.css';
 
 // Datos de ejemplo para la galería
 const sampleItems: GalleryItem[] = [
@@ -194,7 +195,7 @@ export const Default: Story = {
     const gallery = createGallery(args);
     const container = document.createElement('div');
     container.style.width = '100%';
-    container.style.maxWidth = '1200px';
+    container.style.maxWidth = 'calc(var(--ubits-spacing-80) * 1.5)'; // 1200px = 80 * 15
     container.style.margin = '0 auto';
     container.appendChild(gallery);
     return container;

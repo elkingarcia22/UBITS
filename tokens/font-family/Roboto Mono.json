@@ -1,0 +1,7 @@
+{
+  "font-family": {
+    "$type": "text",
+    "$value": "Roboto Mono",
+    "$description": "- Use Inter to display cualitative info (dates, regular characters, descriptions, etc). \n- Use Roboto to display cuantitative info (amount, percentage, number of users, etc)."
+  }
+}

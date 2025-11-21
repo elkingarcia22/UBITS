@@ -1,0 +1,40 @@
+{
+  "font-size": {
+    "md": {
+      "$type": "number",
+      "$value": 16
+    },
+    "sm": {
+      "$type": "number",
+      "$value": 13
+    },
+    "xs": {
+      "$type": "number",
+      "$value": 11
+    },
+    "d1": {
+      "$type": "number",
+      "$value": 40
+    },
+    "d2": {
+      "$type": "number",
+      "$value": 36
+    },
+    "d3": {
+      "$type": "number",
+      "$value": 32
+    },
+    "d4": {
+      "$type": "number",
+      "$value": 28
+    },
+    "h1": {
+      "$type": "number",
+      "$value": 24
+    },
+    "h2": {
+      "$type": "number",
+      "$value": 20
+    }
+  }
+}

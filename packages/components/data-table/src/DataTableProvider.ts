@@ -2140,10 +2140,10 @@ export function createDataTable(options: DataTableOptions): {
             }
           } else {
             // Para otros iconos, mantener el comportamiento original
-            (waIcon as HTMLElement).style.display = 'inline-block';
-            (waIcon as HTMLElement).style.width = '12px';
-            (waIcon as HTMLElement).style.height = '12px';
-            (waIcon as HTMLElement).style.opacity = '1';
+          (waIcon as HTMLElement).style.display = 'inline-block';
+          (waIcon as HTMLElement).style.width = '12px';
+          (waIcon as HTMLElement).style.height = '12px';
+          (waIcon as HTMLElement).style.opacity = '1';
           }
           faIcon.style.display = 'none';
         } else {
@@ -2203,10 +2203,10 @@ export function createDataTable(options: DataTableOptions): {
               });
             }
           } else {
-            faIcon.style.display = 'inline-block';
-            faIcon.style.fontSize = '12px';
-            faIcon.style.width = '12px';
-            faIcon.style.height = '12px';
+          faIcon.style.display = 'inline-block';
+          faIcon.style.fontSize = '12px';
+          faIcon.style.width = '12px';
+          faIcon.style.height = '12px';
           }
         }
       }

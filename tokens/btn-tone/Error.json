@@ -1,0 +1,70 @@
+{
+  "btn-tone": {
+    "sec": {
+      "bg": {
+        "default": {
+          "$type": "color",
+          "$value": "{button-tone.error.secondary.color.bg.default}"
+        },
+        "pressed": {
+          "$type": "color",
+          "$value": "{button-tone.error.secondary.color.bg.pressed}"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{button-tone.error.secondary.color.bg.hover}"
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{button-tone.error.secondary.color.border}"
+      },
+      "fg": {
+        "default": {
+          "$type": "color",
+          "$value": "{button-tone.error.secondary.color.fg.default}"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{button-tone.error.secondary.color.fg.hover}"
+        }
+      }
+    },
+    "primary": {
+      "bg": {
+        "pressed": {
+          "$type": "color",
+          "$value": "{button-tone.error.primary.color.bg.pressed}"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{button-tone.error.primary.color.bg.hover}"
+        },
+        "default": {
+          "$type": "color",
+          "$value": "{button-tone.error.primary.color.bg.default}"
+        }
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{color.fg.bold}"
+      }
+    },
+    "ter": {
+      "bg": {
+        "pressed": {
+          "$type": "color",
+          "$value": "{button-tone.error.tertiary.color.bg.pressed}"
+        },
+        "hover": {
+          "$type": "color",
+          "$value": "{button-tone.error.tertiary.color.bg.hover}"
+        }
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{button-tone.error.tertiary.color.fg}"
+      }
+    }
+  }
+}

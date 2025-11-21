@@ -255,11 +255,6 @@ export const Default: Story = {
         onClick: (e, data) => {
           console.log('Opción 3 seleccionada', data);
         }
-      },
-      {
-        label: 'Opción deshabilitada',
-        value: 'option-disabled',
-        state: 'disabled'
       }
     ],
     showBreadcrumb: true,

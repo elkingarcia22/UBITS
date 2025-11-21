@@ -1,0 +1,47 @@
+{
+  "d1": {
+    "$type": "number",
+    "$value": 60,
+    "$description": "Use it for display 1 line height."
+  },
+  "d2": {
+    "$type": "number",
+    "$value": 54,
+    "$description": "Use it for display 2 line height."
+  },
+  "d3": {
+    "$type": "number",
+    "$value": 48,
+    "$description": "Use it for display 3 line height."
+  },
+  "d4": {
+    "$type": "number",
+    "$value": 42,
+    "$description": "Use it for display 4 line height."
+  },
+  "h1": {
+    "$type": "number",
+    "$value": 36,
+    "$description": "Use it for heading 1 line height."
+  },
+  "h2": {
+    "$type": "number",
+    "$value": 30,
+    "$description": "Use it for heading 2 line height."
+  },
+  "md": {
+    "$type": "number",
+    "$value": 24,
+    "$description": "Use it for body md line height."
+  },
+  "sm": {
+    "$type": "number",
+    "$value": 19.5,
+    "$description": "Use it for body sm line height."
+  },
+  "xs": {
+    "$type": "number",
+    "$value": 16.5,
+    "$description": "Use it for body xs line height."
+  }
+}

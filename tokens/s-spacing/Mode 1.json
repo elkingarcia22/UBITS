@@ -1,0 +1,132 @@
+{
+  "gap": {
+    "none": {
+      "$type": "number",
+      "$value": 0
+    },
+    "xs": {
+      "$type": "number",
+      "$value": "{space.1}"
+    },
+    "sm": {
+      "$type": "number",
+      "$value": "{space.2}"
+    },
+    "md": {
+      "$type": "number",
+      "$value": "{space.3}"
+    },
+    "lg": {
+      "$type": "number",
+      "$value": "{space.4}"
+    },
+    "xl": {
+      "$type": "number",
+      "$value": "{space.5}"
+    },
+    "2xl": {
+      "$type": "number",
+      "$value": "{space.6}"
+    },
+    "3xl": {
+      "$type": "number",
+      "$value": "{space.7}"
+    },
+    "4xl": {
+      "$type": "number",
+      "$value": "{space.8}"
+    },
+    "5xl": {
+      "$type": "number",
+      "$value": "{space.9}"
+    }
+  },
+  "padding": {
+    "none": {
+      "$type": "number",
+      "$value": 0
+    },
+    "xs": {
+      "$type": "number",
+      "$value": "{space.1}"
+    },
+    "sm": {
+      "$type": "number",
+      "$value": "{space.2}"
+    },
+    "md": {
+      "$type": "number",
+      "$value": "{space.3}"
+    },
+    "lg": {
+      "$type": "number",
+      "$value": "{space.4}"
+    },
+    "xl": {
+      "$type": "number",
+      "$value": "{space.5}"
+    },
+    "2xl": {
+      "$type": "number",
+      "$value": "{space.6}"
+    },
+    "3xl": {
+      "$type": "number",
+      "$value": "{space.7}"
+    },
+    "4xl": {
+      "$type": "number",
+      "$value": "{space.8}"
+    },
+    "5xl": {
+      "$type": "number",
+      "$value": "{space.9}"
+    },
+    "6xl": {
+      "$type": "number",
+      "$value": "{space.10}"
+    }
+  },
+  "size": {
+    "xs": {
+      "$type": "number",
+      "$value": "{space.1}"
+    },
+    "sm": {
+      "$type": "number",
+      "$value": "{space.2}"
+    },
+    "md": {
+      "$type": "number",
+      "$value": "{space.3}"
+    },
+    "lg": {
+      "$type": "number",
+      "$value": "{space.4}"
+    },
+    "xl": {
+      "$type": "number",
+      "$value": "{space.5}"
+    },
+    "2xl": {
+      "$type": "number",
+      "$value": "{space.6}"
+    },
+    "3xl": {
+      "$type": "number",
+      "$value": "{space.7}"
+    },
+    "4xl": {
+      "$type": "number",
+      "$value": "{space.8}"
+    },
+    "5xl": {
+      "$type": "number",
+      "$value": "{space.9}"
+    },
+    "6xl": {
+      "$type": "number",
+      "$value": "{space.10}"
+    }
+  }
+}

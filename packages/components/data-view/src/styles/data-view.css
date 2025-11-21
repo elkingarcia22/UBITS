@@ -36,7 +36,7 @@
   display: flex;
   gap: var(--ubits-spacing-md);
   padding: var(--ubits-spacing-md);
-  border-bottom: 1px solid var(--ubits-border-1);
+  border-bottom: 1px solid var(--modifiers-normal-color-light-border-1);
   transition: background-color 0.2s ease;
   cursor: pointer;
 }
@@ -58,7 +58,7 @@
 }
 
 .ubits-data-view__item:hover {
-  background-color: var(--ubits-bg-2);
+  background-color: var(--modifiers-normal-color-light-bg-2);
 }
 
 .ubits-data-view__item:last-child {
@@ -76,7 +76,7 @@
   height: 120px;
   border-radius: var(--ubits-border-radius-md);
   overflow: hidden;
-  background-color: var(--ubits-bg-2);
+  background-color: var(--modifiers-normal-color-light-bg-2);
 }
 
 /* Tamaños de imagen */
@@ -109,11 +109,11 @@
   position: absolute;
   top: 0;
   left: 0;
-  padding: 4px 8px;
-  font-size: 10px;
-  font-weight: 600;
+  padding: var(--ubits-spacing-xs) var(--ubits-spacing-sm);
+  font-size: var(--modifiers-normal-body-xs-regular-fontsize);
+  font-weight: var(--ubits-font-weight-semibold);
   text-transform: uppercase;
-  color: var(--ubits-fg-bold);
+  color: var(--modifiers-normal-color-light-fg-bold);
   transform: rotate(-45deg);
   transform-origin: top left;
   white-space: nowrap;
@@ -121,15 +121,15 @@
 }
 
 .ubits-data-view__stock-badge--instock {
-  background-color: var(--ubits-feedback-accent-success);
+  background-color: var(--modifiers-normal-color-light-feedback-accent-success);
 }
 
 .ubits-data-view__stock-badge--lowstock {
-  background-color: var(--ubits-feedback-accent-warning);
+  background-color: var(--modifiers-normal-color-light-feedback-accent-warning);
 }
 
 .ubits-data-view__stock-badge--outofstock {
-  background-color: var(--ubits-feedback-accent-error);
+  background-color: var(--modifiers-normal-color-light-feedback-accent-error);
 }
 
 /* ========================================
@@ -162,19 +162,19 @@
 }
 
 .ubits-data-view__category {
-  color: var(--ubits-fg-1-medium);
+  color: var(--modifiers-normal-color-light-fg-1-medium);
   margin-bottom: var(--ubits-spacing-xs);
 }
 
 .ubits-data-view__name {
-  color: var(--ubits-fg-1-high);
+  color: var(--modifiers-normal-color-light-fg-1-high);
   margin: 0;
 }
 
 .ubits-data-view__price {
-  color: var(--ubits-fg-1-high);
+  color: var(--modifiers-normal-color-light-fg-1-high);
   margin: 0;
-  font-weight: var(--weight-bold);
+  font-weight: var(--ubits-font-weight-semibold);
 }
 
 /* ========================================
@@ -188,37 +188,37 @@
 }
 
 .ubits-data-view__star {
-  font-size: 14px;
-  color: var(--ubits-fg-1-medium);
+  font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+  color: var(--modifiers-normal-color-light-fg-1-medium);
 }
 
 /* Tamaños de estrellas */
 .ubits-data-view--sm .ubits-data-view__star {
-  font-size: 12px;
+  font-size: var(--modifiers-normal-body-xs-regular-fontsize);
 }
 
 .ubits-data-view--md .ubits-data-view__star {
-  font-size: 14px;
+  font-size: var(--modifiers-normal-body-sm-regular-fontsize);
 }
 
 .ubits-data-view--lg .ubits-data-view__star {
-  font-size: 16px;
+  font-size: var(--modifiers-normal-body-md-regular-fontsize);
 }
 
 .ubits-data-view__star--filled {
-  color: var(--ubits-feedback-fg-warning-subtle-hover);
+  color: var(--modifiers-normal-color-light-feedback-fg-warning-subtle-hover);
 }
 
 .ubits-data-view__star--half {
-  color: var(--ubits-feedback-fg-warning-subtle-hover);
+  color: var(--modifiers-normal-color-light-feedback-fg-warning-subtle-hover);
 }
 
 .ubits-data-view__star--empty {
-  color: var(--ubits-border-1);
+  color: var(--modifiers-normal-color-light-border-1);
 }
 
 .ubits-data-view__rating-number {
-  color: var(--ubits-fg-1-medium);
+  color: var(--modifiers-normal-color-light-fg-1-medium);
 }
 
 /* ========================================
@@ -237,16 +237,37 @@
 }
 
 .ubits-data-view__wishlist-button--active {
-  color: var(--ubits-feedback-accent-error) !important;
+  color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
 }
 
 .ubits-data-view__wishlist-button--active:hover {
-  color: var(--ubits-feedback-accent-error) !important;
-  background-color: var(--ubits-feedback-bg-error-subtle);
+  color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+  background-color: var(--modifiers-normal-color-light-feedback-bg-error-subtle-default);
 }
 
 .ubits-data-view__buy-button {
   flex-shrink: 0;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+/* ========================================
+   DARK MODE
+   ======================================== */
+
+[data-theme="dark"] {
+  --modifiers-normal-color-light-border-1: var(--modifiers-normal-color-dark-border-1);
+  --modifiers-normal-color-light-bg-2: var(--modifiers-normal-color-dark-bg-2);
+  --modifiers-normal-color-light-fg-bold: var(--modifiers-normal-color-dark-fg-bold);
+  --modifiers-normal-color-light-fg-1-medium: var(--modifiers-normal-color-dark-fg-1-medium);
+  --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
+  --modifiers-normal-color-light-feedback-accent-success: var(--modifiers-normal-color-dark-feedback-accent-success);
+  --modifiers-normal-color-light-feedback-accent-warning: var(--modifiers-normal-color-dark-feedback-accent-warning);
+  --modifiers-normal-color-light-feedback-accent-error: var(--modifiers-normal-color-dark-feedback-accent-error);
+  --modifiers-normal-color-light-feedback-fg-warning-subtle-hover: var(--modifiers-normal-color-dark-feedback-fg-warning-subtle-hover);
+  --modifiers-normal-color-light-feedback-bg-error-subtle-default: var(--modifiers-normal-color-dark-feedback-bg-error-subtle-default);
 }
 
 /* ========================================

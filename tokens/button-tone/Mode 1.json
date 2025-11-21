@@ -1,0 +1,421 @@
+{
+  "button": {
+    "tone": {
+      "brand": {
+        "primary": {
+          "color": {
+            "bg": {
+              "default": {
+                "$type": "color",
+                "$value": "{color.bg.blue.bold.default}",
+                "$description": "Use this color for the primary button background, aligned with the brand tone, in its default state."
+              },
+              "hover": {
+                "$type": "color",
+                "$value": "{color.bg.blue.bold.hover}",
+                "$description": "Use this color for the primary button background, aligned with the brand tone, in its hovered state."
+              },
+              "pressed": {
+                "$type": "color",
+                "$value": "{color.bg.blue.bold.pressed}",
+                "$description": "Use this color for the primary button background, aligned with the brand tone, in its pressed state."
+              }
+            }
+          }
+        },
+        "secondary": {
+          "color": {
+            "bg": {
+              "default": {
+                "$type": "color",
+                "$value": "{color.bg.1}",
+                "$description": "Use this color for the secondary button background, aligned with the brand tone, in its default state."
+              },
+              "hover": {
+                "$type": "color",
+                "$value": "{color.bg.2}",
+                "$description": "Use this color for the secondary button background, aligned with the brand tone, in its hovered state."
+              },
+              "pressed": {
+                "$type": "color",
+                "$value": "{color.bg.3}",
+                "$description": "Use this color for the secondary button background, aligned with the brand tone, in its pressed state."
+              }
+            },
+            "fg": {
+              "default": {
+                "$type": "color",
+                "$value": "{color.fg.1.high}",
+                "$description": "Use this color for the secondary button foreground (such as text or icons), aligned with the brand tone, in its default state."
+              },
+              "hover": {
+                "$type": "color",
+                "$value": "{color.fg.2.high}",
+                "$description": "Use this color for the secondary button foreground (such as text or icons), aligned with the brand tone, in its hovered state."
+              }
+            }
+          },
+          "border": {
+            "$type": "color",
+            "$value": "{color.border.1}",
+            "$description": "Use this color for the secondary button border, aligned with the brand tone."
+          }
+        },
+        "tertiary": {
+          "color": {
+            "bg": {
+              "hover": {
+                "$type": "color",
+                "$value": "{color.bg.sub-surface.hover}",
+                "$description": "Use this color for the tertiary button background, aligned with the brand tone, in its hovered state"
+              },
+              "pressed": {
+                "$type": "color",
+                "$value": "{color.bg.sub-surface.pressed}",
+                "$description": "Use this color for the tertiary button background, aligned with the brand tone, in its pressed state."
+              }
+            },
+            "fg": {
+              "$type": "color",
+              "$value": "{color.fg.1.medium}",
+              "$description": "Use this color for the tertiary button foreground (such as text or icons), aligned with the brand tone."
+            }
+          }
+        }
+      },
+      "success": {
+        "primary": {
+          "color": {
+            "bg": {
+              "default": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.success.bold.default}",
+                "$description": "Use this color for the primary button background, aligned with the success tone, in its default state."
+              },
+              "hover": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.success.bold.hover}",
+                "$description": "Use this color for the primary button background, aligned with the success tone, in its hover state."
+              },
+              "pressed": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.success.bold.pressed}",
+                "$description": "Use this color for the primary button background, aligned with the success tone, in its pressed state."
+              }
+            }
+          }
+        },
+        "secondary": {
+          "color": {
+            "bg": {
+              "default": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.success.subtle.default}",
+                "$description": "Use this color for the secondary button background, aligned with the success tone, in its default state. (this color can be omitted)"
+              },
+              "hover": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.success.subtle.hover}",
+                "$description": "Use this color for the secondary button background, aligned with the success tone, in its hover state. (this color can be omitted)"
+              },
+              "pressed": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.success.subtle.pressed}",
+                "$description": "Use this color for the secondary button background, aligned with the success tone, in its pressed state. (this color can be omitted)"
+              }
+            },
+            "fg": {
+              "default": {
+                "$type": "color",
+                "$value": "{color.feedback.fg.success.subtle.default}",
+                "$description": "Use this color for the secondary button foreground (such as text or icons), aligned with the success tone, in its default state."
+              },
+              "hover": {
+                "$type": "color",
+                "$value": "{color.feedback.fg.success.subtle.hover}",
+                "$description": "Use this color for the secondary button foreground (such as text or icons), aligned with the success tone, in its hovered state."
+              }
+            }
+          },
+          "border": {
+            "$type": "color",
+            "$value": "{color.feedback.border.success}",
+            "$description": "Use this color for the secondary button border, aligned with the success tone."
+          }
+        },
+        "tertiary": {
+          "color": {
+            "bg": {
+              "hover": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.success.transparent.hover}",
+                "$description": "Use this color for the tertiary button background, aligned with the success tone, in its hovered  state."
+              },
+              "pressed": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.success.transparent.pressed}",
+                "$description": "Use this color for the tertiary button background, aligned with the success tone, in its pressed state."
+              }
+            },
+            "fg": {
+              "$type": "color",
+              "$value": "{color.feedback.accent.success}",
+              "$description": "Use this color for the tertiary button foreground (such as text or icons), aligned with the success tone."
+            }
+          }
+        }
+      },
+      "info": {
+        "primary": {
+          "color": {
+            "bg": {
+              "default": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.info.bold.default}",
+                "$description": "Use this color for the primary button background, aligned with the info tone, in its default state."
+              },
+              "hover": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.info.bold.hover}",
+                "$description": "Use this color for the primary button background, aligned with the info tone, in its hovered state."
+              },
+              "pressed": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.info.bold.pressed}",
+                "$description": "Use this color for the primary button background, aligned with the info tone, in its pressed state."
+              }
+            }
+          }
+        },
+        "secondary": {
+          "color": {
+            "bg": {
+              "default": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.info.subtle.default}",
+                "$description": "Use this color for the secondary button background, aligned with the info tone, in its default state."
+              },
+              "hover": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.info.subtle.hover}",
+                "$description": "Use this color for the secondary button background, aligned with the info tone, in its hovered state."
+              },
+              "pressed": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.info.subtle.pressed}",
+                "$description": "Use this color for the secondary button background, aligned with the info tone, in its pressed state."
+              }
+            },
+            "fg": {
+              "default": {
+                "$type": "color",
+                "$value": "{color.feedback.fg.info.subtle.default}",
+                "$description": "Use this color for the secondary button foreground (such as text or icons), aligned with the info tone, in its default state."
+              },
+              "hover": {
+                "$type": "color",
+                "$value": "{color.feedback.fg.info.subtle.hover}",
+                "$description": "Use this color for the secondary button foreground (such as text or icons), aligned with the info tone, in its hovered state."
+              }
+            }
+          },
+          "border": {
+            "$type": "color",
+            "$value": "{color.feedback.border.info}",
+            "$description": "Use this color for the secondary button border, aligned with the info tone."
+          }
+        },
+        "tertiary": {
+          "color": {
+            "bg": {
+              "hover": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.info.transparent.hover}",
+                "$description": "Use this color for the tertiary button background, aligned with the info tone, in its hovered state."
+              },
+              "pressed": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.info.transparent.pressed}",
+                "$description": "Use this color for the tertiary button background, aligned with the info tone, in its pressed state."
+              }
+            },
+            "fg": {
+              "$type": "color",
+              "$value": "{color.feedback.accent.info}",
+              "$description": "Use this color for the tertiary button foreground (such as text or icons), aligned with the info tone."
+            }
+          }
+        }
+      },
+      "error": {
+        "primary": {
+          "color": {
+            "bg": {
+              "default": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.error.bold.default}",
+                "$description": "Use this color for the primary button background, aligned with the info tone, in its default state."
+              },
+              "hover": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.error.bold.hover}",
+                "$description": "Use this color for the primary button background, aligned with the error tone, in its hover state."
+              },
+              "pressed": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.error.bold.pressed}",
+                "$description": "Use this color for the primary button background, aligned with the error tone, in its pressed state."
+              }
+            }
+          }
+        },
+        "secondary": {
+          "color": {
+            "bg": {
+              "default": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.error.subtle.default}",
+                "$description": "Use this color for the secondary button background, aligned with the error tone, in its default state. (this color can be omitted)"
+              },
+              "hover": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.error.subtle.hover}",
+                "$description": "Use this color for the secondary button background, aligned with the error tone, in its hover state. (this color can be omitted)"
+              },
+              "pressed": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.error.subtle.pressed}",
+                "$description": "Use this color for the secondary button background, aligned with the error tone, in its pressed state. (this color can be omitted)"
+              }
+            },
+            "fg": {
+              "default": {
+                "$type": "color",
+                "$value": "{color.feedback.fg.error.subtle.default}",
+                "$description": "Use this color for the secondary button foreground (such as text or icons), aligned with the error tone, in its default state."
+              },
+              "hover": {
+                "$type": "color",
+                "$value": "{color.feedback.fg.error.subtle.hover}",
+                "$description": "Use this color for the secondary button foreground (such as text or icons), aligned with the error tone, in its hovered state."
+              }
+            }
+          },
+          "border": {
+            "$type": "color",
+            "$value": "{color.feedback.border.error}",
+            "$description": "Use this color for the secondary button border, aligned with the error tone."
+          }
+        },
+        "tertiary": {
+          "color": {
+            "bg": {
+              "hover": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.error.transparent.hover}",
+                "$description": "Use this color for the tertiary button background, aligned with the error tone, in its hovered state."
+              },
+              "pressed": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.error.transparent.pressed}",
+                "$description": "Use this color for the tertiary button background, aligned with the error tone, in its pressed state."
+              }
+            },
+            "fg": {
+              "$type": "color",
+              "$value": "{color.feedback.accent.error}",
+              "$description": "Use this color for the tertiary button foreground (such as text or icons), aligned with the error tone."
+            }
+          }
+        }
+      },
+      "warning": {
+        "primary": {
+          "color": {
+            "bg": {
+              "default": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.warning.bold.default}",
+                "$description": "Use this color for the primary button background, aligned with the warning tone, in its default state."
+              },
+              "hover": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.warning.bold.hover}",
+                "$description": "Use this color for the primary button background, aligned with the warning tone, in its hover state."
+              },
+              "pressed": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.warning.bold.pressed}",
+                "$description": "Use this color for the primary button background, aligned with the warning tone, in its pressed state."
+              }
+            },
+            "fg": {
+              "$type": "color",
+              "$value": "{color.feedback.fg.warning.bold.default}",
+              "$description": "Use this color for the primary button foreground, aligned with the warning tone."
+            }
+          }
+        },
+        "secondary": {
+          "color": {
+            "bg": {
+              "default": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.warning.subtle.default}",
+                "$description": "Use this color for the secondary button background, aligned with the error tone, in its warning state. (this color can be omitted)"
+              },
+              "hover": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.warning.subtle.hover}",
+                "$description": "Use this color for the secondary button background, aligned with the warning tone, in its hover state. (this color can be omitted)"
+              },
+              "pressed": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.warning.subtle.pressed}",
+                "$description": "Use this color for the secondary button background, aligned with the warning tone, in its pressed state. (this color can be omitted)"
+              }
+            },
+            "fg": {
+              "default": {
+                "$type": "color",
+                "$value": "{color.feedback.fg.warning.subtle.default}",
+                "$description": "Use this color for the secondary button foreground (such as text or icons), aligned with the warning tone, in its default state."
+              },
+              "hover": {
+                "$type": "color",
+                "$value": "{color.feedback.fg.warning.subtle.hover}",
+                "$description": "Use this color for the secondary button foreground (such as text or icons), aligned with the warning tone, in its hovered state."
+              }
+            }
+          },
+          "border": {
+            "$type": "color",
+            "$value": "{color.feedback.border.warning}",
+            "$description": "Use this color for the secondary button border, aligned with the warning tone."
+          }
+        },
+        "tertiary": {
+          "color": {
+            "bg": {
+              "hover": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.warning.transparent.hover}",
+                "$description": "Use this color for the tertiary button background, aligned with the warning tone, in its hovered  state."
+              },
+              "pressed": {
+                "$type": "color",
+                "$value": "{color.feedback.bg.warning.transparent.pressed}",
+                "$description": "Use this color for the tertiary button background, aligned with the warning tone, in its pressed state."
+              }
+            },
+            "fg": {
+              "$type": "color",
+              "$value": "{color.feedback.accent.warning}",
+              "$description": "Use this color for the tertiary button foreground (such as text or icons), aligned with the warning tone."
+            }
+          }
+        }
+      }
+    }
+  }
+}

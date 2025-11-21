@@ -313,7 +313,9 @@ export function createHeaderSection(options: HeaderSectionOptions): HTMLElement 
         
         // Calcular posición: tooltip justo encima del botón
         const tooltipLeft = rect.left + (rect.width / 2);
-        const tooltipTop = rect.top - tooltipRect.height - 8; // 8px de espacio arriba
+        // Obtener valor de spacing-sm (8px) desde CSS
+        const spacingSm = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--ubits-spacing-sm').replace('px', '')) || 8;
+        const tooltipTop = rect.top - tooltipRect.height - spacingSm;
         
         tooltipInstance.updatePosition({
           top: tooltipTop,
@@ -492,11 +494,15 @@ export function createHeaderSection(options: HeaderSectionOptions): HTMLElement 
       // Crear contenedor para el dropdown
       const dropdownContainer = document.createElement('div');
       dropdownContainer.className = 'ubits-header-section-options-dropdown';
+      // Obtener valores de spacing desde CSS
+      const spacing12 = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--ubits-spacing-12').replace('px', '')) || 48;
+      const minWidth = spacing12 * 2.5; // 200px = 48px * 2.5
+      
       dropdownContainer.style.cssText = `
         position: fixed;
         z-index: 1000;
         display: none;
-        min-width: 200px;
+        min-width: ${minWidth}px;
       `;
       
       // Agregar el contenedor al body para posicionamiento fijo
@@ -517,8 +523,11 @@ export function createHeaderSection(options: HeaderSectionOptions): HTMLElement 
         // Calcular posición del dropdown (debajo del botón, alineado a la derecha)
         const buttonRect = actualButton.getBoundingClientRect();
         
+        // Obtener valor de spacing-sm (8px) desde CSS
+        const spacingSm = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--ubits-spacing-sm').replace('px', '')) || 8;
+        
         dropdownContainer.style.display = 'block';
-        dropdownContainer.style.top = `${buttonRect.bottom + window.scrollY + 8}px`;
+        dropdownContainer.style.top = `${buttonRect.bottom + window.scrollY + spacingSm}px`;
         dropdownContainer.style.right = `${window.innerWidth - buttonRect.right}px`;
         
         // Crear lista de opciones si hay items
@@ -540,7 +549,7 @@ export function createHeaderSection(options: HeaderSectionOptions): HTMLElement 
               containerId: listId,
               items: listItems,
               size: 'md',
-              maxHeight: '300px',
+              maxHeight: 'none',
               onSelectionChange: (selectedItem, index) => {
                 if (selectedItem && options.optionsMenuItems && options.optionsMenuItems[index]) {
                   const menuItem = options.optionsMenuItems![index];
@@ -556,6 +565,15 @@ export function createHeaderSection(options: HeaderSectionOptions): HTMLElement 
                 }
               }
             });
+            
+            // Ajustar dinámicamente: si hay más de 5 items, aplicar max-height con scroll
+            setTimeout(() => {
+              const listElement = dropdownContainer.querySelector('.ubits-list') as HTMLElement;
+              if (listElement && listItems.length > 5) {
+                listElement.style.maxHeight = 'calc(var(--ubits-spacing-12) * 6)';
+                listElement.style.overflowY = 'auto';
+              }
+            }, 0);
           } catch (error) {
             console.error('Error creating options menu:', error);
           }
