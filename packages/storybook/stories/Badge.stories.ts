@@ -24,11 +24,11 @@ const meta: Meta<BadgeOptions> = {
     },
     variant: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'success', 'warning', 'error', 'info'],
+      options: ['success', 'warning', 'error', 'info'],
       description: 'Variante de color del badge',
       table: {
-        defaultValue: { summary: 'primary' },
-        type: { summary: 'primary | secondary | success | warning | error | info' },
+        defaultValue: { summary: 'error' },
+        type: { summary: 'success | warning | error | info' },
       },
     },
     style: {
@@ -111,7 +111,7 @@ type Story = StoryObj<BadgeOptions>;
 export const Default: Story = {
   args: {
     type: 'number',
-    variant: 'primary',
+    variant: 'error',
     style: 'light',
     size: 'md',
     content: '5',
@@ -165,6 +165,208 @@ export const Default: Story = {
     
     preview.appendChild(badgeContainer);
     container.appendChild(preview);
+    
+    // Logs de debug para badge error en dark mode y centrado en bold
+    setTimeout(() => {
+      const badges = container.querySelectorAll('.ubits-badge');
+      const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
+      const isBold = args.style === 'bold';
+      
+      console.log('🔍 DEBUG Badge - Análisis completo:');
+      console.log('  - Dark mode activo:', isDarkMode);
+      console.log('  - Style:', args.style);
+      console.log('  - Is Bold:', isBold);
+      console.log('  - Badges encontrados:', badges.length);
+      
+      badges.forEach((badge, index) => {
+        const computedStyle = window.getComputedStyle(badge);
+        const color = computedStyle.color;
+        const backgroundColor = computedStyle.backgroundColor;
+        const classes = badge.className;
+        
+        console.log(`\n  📦 Badge ${index + 1}:`);
+        console.log(`    - Classes: ${classes}`);
+        console.log(`    - Color aplicado: ${color}`);
+        console.log(`    - Background: ${backgroundColor}`);
+        console.log(`    - HTML interno:`, badge.innerHTML);
+        
+        // Verificar elementos internos (dot, number-text, etc.)
+        const dotNumber = badge.querySelector('.ubits-badge__dot--number');
+        const numberText = badge.querySelector('.ubits-badge__number-text');
+        const innerSpan = badge.querySelector('span:not(.ubits-badge__dot)');
+        const allSpans = badge.querySelectorAll('span');
+        
+        console.log(`    - Elementos internos:`);
+        console.log(`      - .ubits-badge__dot--number: ${dotNumber ? 'ENCONTRADO' : 'NO'}`);
+        console.log(`      - .ubits-badge__number-text: ${numberText ? 'ENCONTRADO' : 'NO'}`);
+        console.log(`      - span interno: ${innerSpan ? 'ENCONTRADO' : 'NO'}`);
+        
+        // Si es bold y tiene dot--number, analizar centrado
+        if (isBold && dotNumber) {
+          const dotComputed = window.getComputedStyle(dotNumber);
+          const dotRect = dotNumber.getBoundingClientRect();
+          const dotInlineStyle = dotNumber.getAttribute('style');
+          
+          console.log(`\n    🎯 DEBUG CENTRADO BOLD:`);
+          console.log(`      - Dot inline style:`, dotInlineStyle);
+          console.log(`      - Dot computed styles:`);
+          console.log(`        - width: ${dotComputed.width} (${dotRect.width}px)`);
+          console.log(`        - height: ${dotComputed.height} (${dotRect.height}px)`);
+          console.log(`        - display: ${dotComputed.display}`);
+          console.log(`        - align-items: ${dotComputed.alignItems}`);
+          console.log(`        - justify-content: ${dotComputed.justifyContent}`);
+          console.log(`        - line-height: ${dotComputed.lineHeight}`);
+          console.log(`        - padding: ${dotComputed.padding}`);
+          console.log(`        - margin: ${dotComputed.margin}`);
+          console.log(`        - box-sizing: ${dotComputed.boxSizing}`);
+          console.log(`        - text-align: ${dotComputed.textAlign}`);
+          console.log(`        - vertical-align: ${dotComputed.verticalAlign}`);
+          console.log(`        - font-size: ${dotComputed.fontSize}`);
+          console.log(`        - font-weight: ${dotComputed.fontWeight}`);
+          console.log(`      - Dot position:`);
+          console.log(`        - top: ${dotRect.top}px`);
+          console.log(`        - left: ${dotRect.left}px`);
+          console.log(`        - width: ${dotRect.width}px`);
+          console.log(`        - height: ${dotRect.height}px`);
+          
+          // Analizar contenido del dot (el número)
+          const dotContent = dotNumber.textContent || dotNumber.innerText;
+          const dotChildren = dotNumber.children;
+          
+          console.log(`      - Contenido del dot:`);
+          console.log(`        - textContent: "${dotContent}"`);
+          console.log(`        - innerHTML: ${dotNumber.innerHTML}`);
+          console.log(`        - children count: ${dotChildren.length}`);
+          
+          if (dotChildren.length > 0) {
+            Array.from(dotChildren).forEach((child, childIndex) => {
+              const childComputed = window.getComputedStyle(child as Element);
+              const childRect = (child as Element).getBoundingClientRect();
+              console.log(`        - Child ${childIndex + 1} (${(child as Element).tagName}):`);
+              console.log(`          - textContent: "${(child as Element).textContent}"`);
+              console.log(`          - inline style: ${(child as Element).getAttribute('style')}`);
+              console.log(`          - computed styles:`);
+              console.log(`            - display: ${childComputed.display}`);
+              console.log(`            - line-height: ${childComputed.lineHeight}`);
+              console.log(`            - margin: ${childComputed.margin}`);
+              console.log(`            - padding: ${childComputed.padding}`);
+              console.log(`            - vertical-align: ${childComputed.verticalAlign}`);
+              console.log(`            - font-size: ${childComputed.fontSize}`);
+              console.log(`            - font-weight: ${childComputed.fontWeight}`);
+              console.log(`          - position:`);
+              console.log(`            - top: ${childRect.top}px`);
+              console.log(`            - left: ${childRect.left}px`);
+              console.log(`            - width: ${childRect.width}px`);
+              console.log(`            - height: ${childRect.height}px`);
+              
+              // Calcular offset desde el centro del dot
+              const dotCenterX = dotRect.left + dotRect.width / 2;
+              const dotCenterY = dotRect.top + dotRect.height / 2;
+              const childCenterX = childRect.left + childRect.width / 2;
+              const childCenterY = childRect.top + childRect.height / 2;
+              const offsetX = childCenterX - dotCenterX;
+              const offsetY = childCenterY - dotCenterY;
+              
+              console.log(`          - Centrado:`);
+              console.log(`            - Dot center: (${dotCenterX.toFixed(2)}, ${dotCenterY.toFixed(2)})`);
+              console.log(`            - Child center: (${childCenterX.toFixed(2)}, ${childCenterY.toFixed(2)})`);
+              console.log(`            - Offset X: ${offsetX.toFixed(2)}px`);
+              console.log(`            - Offset Y: ${offsetY.toFixed(2)}px`);
+              console.log(`            - ⚠️  ${Math.abs(offsetY) > 1 ? 'DESCENTRADO' : 'CENTRADO'} verticalmente`);
+            });
+          } else {
+            // El número está directamente como textContent, no como child
+            console.log(`        - ⚠️  El número está como textContent directo, no como child`);
+            console.log(`        - Calculando posición del texto...`);
+            
+            // Intentar medir la posición del texto usando Range
+            const range = document.createRange();
+            range.selectNodeContents(dotNumber);
+            const textRect = range.getBoundingClientRect();
+            
+            console.log(`        - Text rect:`);
+            console.log(`          - top: ${textRect.top}px`);
+            console.log(`          - left: ${textRect.left}px`);
+            console.log(`          - width: ${textRect.width}px`);
+            console.log(`          - height: ${textRect.height}px`);
+            
+            const dotCenterY = dotRect.top + dotRect.height / 2;
+            const textCenterY = textRect.top + textRect.height / 2;
+            const offsetY = textCenterY - dotCenterY;
+            
+            console.log(`        - Centrado:`);
+            console.log(`          - Dot center Y: ${dotCenterY.toFixed(2)}px`);
+            console.log(`          - Text center Y: ${textCenterY.toFixed(2)}px`);
+            console.log(`          - Offset Y: ${offsetY.toFixed(2)}px`);
+            console.log(`          - ⚠️  ${Math.abs(offsetY) > 1 ? 'DESCENTRADO' : 'CENTRADO'} verticalmente`);
+          }
+        }
+        console.log(`      - Total spans: ${allSpans.length}`);
+        
+        if (dotNumber) {
+          const dotComputed = window.getComputedStyle(dotNumber);
+          const dotColor = dotComputed.color;
+          const dotBg = dotComputed.backgroundColor;
+          const dotLineHeight = dotComputed.lineHeight;
+          const dotAlignItems = dotComputed.alignItems;
+          const dotJustifyContent = dotComputed.justifyContent;
+          const dotDisplay = dotComputed.display;
+          const dotVerticalAlign = dotComputed.verticalAlign;
+          const dotStyle = dotNumber.getAttribute('style');
+          
+          console.log(`      - Dot (${dotNumber.tagName}):`);
+          console.log(`        - Style inline: ${dotStyle}`);
+          console.log(`        - Color: ${dotColor}`);
+          console.log(`        - Background: ${dotBg}`);
+          console.log(`        - Line-height: ${dotLineHeight}`);
+          console.log(`        - Display: ${dotDisplay}`);
+          console.log(`        - Align-items: ${dotAlignItems}`);
+          console.log(`        - Justify-content: ${dotJustifyContent}`);
+          console.log(`        - Vertical-align: ${dotVerticalAlign}`);
+          console.log(`        - Text content: "${dotNumber.textContent}"`);
+          
+          // Verificar tokens en el dot
+          const dotColorToken = dotComputed.getPropertyValue('color');
+          const dotBgToken = dotComputed.getPropertyValue('background-color');
+          console.log(`        - Color token resuelto: ${dotColorToken}`);
+          console.log(`        - Background token resuelto: ${dotBgToken}`);
+        }
+        
+        if (numberText) {
+          const textColor = window.getComputedStyle(numberText).color;
+          console.log(`      - Number text color: ${textColor}`);
+        }
+        
+        if (innerSpan) {
+          const spanColor = window.getComputedStyle(innerSpan).color;
+          console.log(`      - Inner span color: ${spanColor}`);
+        }
+        
+        // Verificar tokens
+        const fgBoldToken = getComputedStyle(document.documentElement).getPropertyValue('--modifiers-normal-color-dark-fg-bold');
+        const fgBoldTokenLight = getComputedStyle(document.documentElement).getPropertyValue('--modifiers-normal-color-light-fg-bold');
+        const fg1HighToken = getComputedStyle(document.documentElement).getPropertyValue('--modifiers-normal-color-light-fg-1-high');
+        const bg1Token = getComputedStyle(document.documentElement).getPropertyValue('--modifiers-normal-color-light-bg-1');
+        const errorToken = getComputedStyle(document.documentElement).getPropertyValue('--modifiers-normal-color-light-feedback-accent-error');
+        const successToken = getComputedStyle(document.documentElement).getPropertyValue('--modifiers-normal-color-light-feedback-accent-success');
+        const warningToken = getComputedStyle(document.documentElement).getPropertyValue('--modifiers-normal-color-light-feedback-accent-warning');
+        const infoToken = getComputedStyle(document.documentElement).getPropertyValue('--modifiers-normal-color-light-feedback-accent-info');
+        
+        console.log(`    - Tokens CSS:`);
+        console.log(`      - --modifiers-normal-color-dark-fg-bold: ${fgBoldToken || 'NO DEFINIDO'}`);
+        console.log(`      - --modifiers-normal-color-light-fg-bold: ${fgBoldTokenLight || 'NO DEFINIDO'}`);
+        console.log(`      - --modifiers-normal-color-light-fg-1-high: ${fg1HighToken || 'NO DEFINIDO'}`);
+        console.log(`      - --modifiers-normal-color-light-bg-1: ${bg1Token || 'NO DEFINIDO'}`);
+        console.log(`      - --modifiers-normal-color-light-feedback-accent-error: ${errorToken || 'NO DEFINIDO'}`);
+        console.log(`      - --modifiers-normal-color-light-feedback-accent-success: ${successToken || 'NO DEFINIDO'}`);
+        console.log(`      - --modifiers-normal-color-light-feedback-accent-warning: ${warningToken || 'NO DEFINIDO'}`);
+        console.log(`      - --modifiers-normal-color-light-feedback-accent-info: ${infoToken || 'NO DEFINIDO'}`);
+        
+        // Verificar si tiene data-theme
+        const hasDataTheme = document.documentElement.hasAttribute('data-theme');
+        console.log(`    - data-theme en html: ${document.documentElement.getAttribute('data-theme') || 'NO'}`);
+      });
+    }, 100);
     
     return container;
   },
