@@ -150,6 +150,146 @@ export const Default: Story = {
           console.log('📐 Calendar styles:', window.getComputedStyle(calendarEl));
           console.log('📐 Calendar getBoundingClientRect:', calendarEl.getBoundingClientRect());
           
+          // 🔍 DIAGNÓSTICO DE COLORES PÚRPURA
+          console.log('\n🔍 [DIAGNÓSTICO COLORES PÚRPURA] ==========');
+          const root = document.documentElement;
+          const getTokenValue = (token: string) => getComputedStyle(root).getPropertyValue(token).trim();
+          
+          const purpleToken = '--modifiers-static-inverted-color-light-accent-brand';
+          const blueToken = '--modifiers-normal-color-light-accent-brand';
+          
+          console.log(`\n📊 TOKEN PÚRPURA (static-inverted):`);
+          console.log(`   Token: ${purpleToken}`);
+          console.log(`   Valor: ${getTokenValue(purpleToken)}`);
+          
+          console.log(`\n📊 TOKEN AZUL (normal):`);
+          console.log(`   Token: ${blueToken}`);
+          console.log(`   Valor: ${getTokenValue(blueToken)}`);
+          
+          // Verificar todos los días del calendario
+          const allDays = calendarEl.querySelectorAll('.ubits-calendar__day');
+          console.log(`\n📅 DÍAS ENCONTRADOS: ${allDays.length}`);
+          
+          let daysWithPurple = 0;
+          const purpleDays: Array<{index: number; classes: string; border: string; bg: string; color: string; text: string}> = [];
+          
+          allDays.forEach((day, index) => {
+            const dayEl = day as HTMLElement;
+            const computedStyle = window.getComputedStyle(dayEl);
+            const classes = dayEl.className;
+            const borderColor = computedStyle.borderColor;
+            const backgroundColor = computedStyle.backgroundColor;
+            const color = computedStyle.color;
+            const text = dayEl.textContent?.trim() || '';
+            
+            // Convertir colores a RGB para verificar púrpura
+            const getRGB = (colorStr: string) => {
+              if (colorStr.startsWith('rgb')) {
+                const match = colorStr.match(/(\d+),\s*(\d+),\s*(\d+)/);
+                if (match) return { r: parseInt(match[1]), g: parseInt(match[2]), b: parseInt(match[3]) };
+              }
+              return null;
+            };
+            
+            const borderRGB = getRGB(borderColor);
+            const bgRGB = getRGB(backgroundColor);
+            const textRGB = getRGB(color);
+            
+            // Verificar si tiene púrpura (#b6b5fc = rgb(182, 181, 252))
+            // Púrpura tiene valores altos en R y G (182, 181) y muy alto en B (252)
+            const hasPurpleBorder = borderRGB && borderRGB.r >= 170 && borderRGB.r <= 190 && borderRGB.g >= 170 && borderRGB.g <= 190 && borderRGB.b >= 240;
+            const hasPurpleBg = bgRGB && bgRGB.r >= 170 && bgRGB.r <= 190 && bgRGB.g >= 170 && bgRGB.g <= 190 && bgRGB.b >= 240;
+            const hasPurpleText = textRGB && textRGB.r >= 170 && textRGB.r <= 190 && textRGB.g >= 170 && textRGB.g <= 190 && textRGB.b >= 240;
+            const hasPurple = hasPurpleBorder || hasPurpleBg || hasPurpleText;
+            
+            // También verificar si tiene clases que deberían tener púrpura
+            const hasRelevantClass = classes.includes('today') || classes.includes('selected') || 
+                                    classes.includes('in-range') || classes.includes('range-start') || 
+                                    classes.includes('range-end') || classes.includes('disabled');
+            
+            if (hasPurple || hasRelevantClass) {
+              daysWithPurple += hasPurple ? 1 : 0;
+              
+              if (hasPurple) {
+                purpleDays.push({
+                  index: index + 1,
+                  classes,
+                  border: borderColor,
+                  bg: backgroundColor,
+                  color: color,
+                  text
+                });
+              }
+              
+              console.log(`\n   📅 Día ${index + 1} (${text}):`);
+              console.log(`      Clases: ${classes}`);
+              console.log(`      Border color: ${borderColor} ${borderRGB ? `[RGB(${borderRGB.r}, ${borderRGB.g}, ${borderRGB.b})]` : ''}`);
+              console.log(`      Background color: ${backgroundColor} ${bgRGB ? `[RGB(${bgRGB.r}, ${bgRGB.g}, ${bgRGB.b})]` : ''}`);
+              console.log(`      Color (texto): ${color} ${textRGB ? `[RGB(${textRGB.r}, ${textRGB.g}, ${textRGB.b})]` : ''}`);
+              console.log(`      ¿Tiene púrpura?: ${hasPurple ? '⚠️⚠️⚠️ SÍ - PÚRPURA DETECTADO' : '✅ NO'}`);
+              if (hasPurple) {
+                console.log(`      ⚠️⚠️⚠️ PROBLEMA: Este día tiene púrpura pero no debería (excepto si es selected/range-start/range-end)`);
+              }
+              
+              // Verificar qué reglas CSS se están aplicando
+              const rules = [];
+              if (classes.includes('today')) rules.push('today');
+              if (classes.includes('selected')) rules.push('selected');
+              if (classes.includes('in-range')) rules.push('in-range');
+              if (classes.includes('range-start')) rules.push('range-start');
+              if (classes.includes('range-end')) rules.push('range-end');
+              if (classes.includes('disabled')) rules.push('disabled');
+              console.log(`      Reglas aplicadas: ${rules.join(', ') || 'ninguna'}`);
+            }
+          });
+          
+          console.log(`\n🔍 RESUMEN DE PÚRPURA:`);
+          console.log(`   Total días con púrpura detectado: ${daysWithPurple}`);
+          if (purpleDays.length > 0) {
+            console.log(`\n   ⚠️⚠️⚠️ DÍAS CON PÚRPURA (que no deberían tenerlo):`);
+            purpleDays.forEach(day => {
+              console.log(`      Día ${day.index} (${day.text}):`);
+              console.log(`         Clases: ${day.classes}`);
+              console.log(`         Border: ${day.border}`);
+              console.log(`         Background: ${day.bg}`);
+              console.log(`         Color: ${day.color}`);
+            });
+          } else {
+            console.log(`   ✅ No se detectó púrpura en días que no deberían tenerlo`);
+          }
+          
+          // Verificar reglas CSS específicas
+          console.log('\n🔍 [VERIFICACIÓN DE REGLAS CSS] ==========');
+          const styleSheets = Array.from(document.styleSheets);
+          let foundCalendarRules = false;
+          
+          styleSheets.forEach((sheet, sheetIdx) => {
+            try {
+              const rules = Array.from(sheet.cssRules || []);
+              rules.forEach((rule, ruleIdx) => {
+                if (rule instanceof CSSStyleRule) {
+                  const selector = rule.selectorText;
+                  if (selector && selector.includes('calendar__day')) {
+                    if (selector.includes('today') || selector.includes('selected') || selector.includes('in-range')) {
+                      console.log(`\n   📋 Regla encontrada en stylesheet ${sheetIdx}:`);
+                      console.log(`      Selector: ${selector}`);
+                      console.log(`      CSS: ${rule.cssText}`);
+                      foundCalendarRules = true;
+                    }
+                  }
+                }
+              });
+            } catch (e) {
+              // Ignorar errores de CORS
+            }
+          });
+          
+          if (!foundCalendarRules) {
+            console.log('   ⚠️ No se encontraron reglas CSS específicas (puede ser por CORS)');
+          }
+          
+          console.log('\n🔍 [FIN DIAGNÓSTICO COLORES PÚRPURA] ==========\n');
+          
           // Revisar el padre
           const parent = calendarEl.parentElement;
           if (parent) {
