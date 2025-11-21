@@ -30,11 +30,7 @@
 .course-thumbnail {
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    135deg,
-    var(--modifiers-static-inverted-color-light-accent-brand),
-    var(--modifiers-static-inverted-color-light-accent-brand)
-  );
+  background: var(--modifiers-static-inverted-color-light-accent-brand);
   display: flex;
   align-items: center;
   justify-content: center;
