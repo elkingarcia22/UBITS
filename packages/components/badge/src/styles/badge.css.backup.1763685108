@@ -16,10 +16,10 @@
     font-family: var(--font-sans);
     font-weight: var(--weight-semibold);
     line-height: 1;
-    color: var(--modifiers-normal-color-light-fg-bold) !important;
+    color: var(--modifiers-normal-color-light-fg-bold, var(--ubits-fg-on-accent, #ffffff)) !important;
     white-space: nowrap;
     box-sizing: border-box;
-    background: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+    background: var(--modifiers-normal-color-light-feedback-accent-error, var(--ubits-feedback-accent-error, #E53E3E)) !important;
 }
 
 /* Badge tipo dot (solo bolita sin número) */
@@ -126,55 +126,55 @@
 /* Primary (default) */
 .ubits-badge--primary,
 .ubits-badge:not([class*="--success"]):not([class*="--warning"]):not([class*="--error"]):not([class*="--info"]):not([class*="--secondary"]) {
-    background: var(--modifiers-normal-color-light-feedback-accent-error) !important;
-    color: var(--modifiers-normal-color-light-fg-bold) !important;
+    background: var(--modifiers-normal-color-light-feedback-accent-error, var(--ubits-feedback-accent-error, #E53E3E)) !important;
+    color: var(--modifiers-normal-color-light-fg-bold, var(--ubits-fg-on-accent, #ffffff)) !important;
 }
 
 .ubits-badge.ubits-badge--primary,
 .ubits-badge--primary.ubits-badge--dot,
 .ubits-badge--primary.ubits-badge--number {
-    background: var(--modifiers-normal-color-light-feedback-accent-error) !important;
-    color: var(--modifiers-normal-color-light-fg-bold) !important;
+    background: var(--modifiers-normal-color-light-feedback-accent-error, var(--ubits-feedback-accent-error, #E53E3E)) !important;
+    color: var(--modifiers-normal-color-light-fg-bold, var(--ubits-fg-on-accent, #ffffff)) !important;
 }
 
 /* Secondary */
 .ubits-badge.ubits-badge--secondary,
 .ubits-badge--secondary.ubits-badge--dot,
 .ubits-badge--secondary.ubits-badge--number {
-    background: var(--modifiers-normal-color-light-fg-1-medium) !important;
-    color: var(--modifiers-normal-color-light-fg-bold) !important;
+    background: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
+    color: var(--modifiers-normal-color-light-fg-bold, var(--ubits-fg-on-accent, #ffffff)) !important;
 }
 
 /* Success */
 .ubits-badge.ubits-badge--success,
 .ubits-badge--success.ubits-badge--dot,
 .ubits-badge--success.ubits-badge--number {
-    background: var(--modifiers-normal-color-light-feedback-accent-success) !important;
-    color: var(--modifiers-normal-color-light-fg-bold) !important;
+    background: var(--modifiers-normal-color-light-feedback-accent-success, var(--ubits-feedback-accent-success, #13BD74)) !important;
+    color: var(--modifiers-normal-color-light-fg-bold, var(--ubits-fg-on-accent, #ffffff)) !important;
 }
 
 /* Warning */
 .ubits-badge.ubits-badge--warning,
 .ubits-badge--warning.ubits-badge--dot,
 .ubits-badge--warning.ubits-badge--number {
-    background: var(--modifiers-normal-color-light-feedback-accent-warning) !important;
-    color: var(--modifiers-normal-color-light-fg-bold) !important;
+    background: var(--modifiers-normal-color-light-feedback-accent-warning, var(--ubits-feedback-accent-warning, #F6AD55)) !important;
+    color: var(--modifiers-normal-color-light-fg-bold, var(--ubits-fg-on-accent, #ffffff)) !important;
 }
 
 /* Error */
 .ubits-badge.ubits-badge--error,
 .ubits-badge--error.ubits-badge--dot,
 .ubits-badge--error.ubits-badge--number {
-    background: var(--modifiers-normal-color-light-feedback-accent-error) !important;
-    color: var(--modifiers-normal-color-light-fg-bold) !important;
+    background: var(--modifiers-normal-color-light-feedback-accent-error, var(--ubits-feedback-accent-error, #E53E3E)) !important;
+    color: var(--modifiers-normal-color-light-fg-bold, var(--ubits-fg-on-accent, #ffffff)) !important;
 }
 
 /* Info */
 .ubits-badge.ubits-badge--info,
 .ubits-badge--info.ubits-badge--dot,
 .ubits-badge--info.ubits-badge--number {
-    background: var(--modifiers-normal-color-light-feedback-accent-info) !important;
-    color: var(--modifiers-normal-color-light-fg-bold) !important;
+    background: var(--modifiers-normal-color-light-feedback-accent-info, var(--ubits-feedback-accent-info, #3182CE)) !important;
+    color: var(--modifiers-normal-color-light-fg-bold, var(--ubits-fg-on-accent, #ffffff)) !important;
 }
 
 /* ========================================
@@ -187,7 +187,7 @@
 .ubits-badge--light.ubits-badge--number {
     background: transparent !important;
     border: none !important;
-    color: var(--modifiers-normal-color-light-fg-1-high) !important;
+    color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
 }
 
 /* Estilo Neutral: fondo claro, con borde (border 1), punto de color, texto oscuro */
@@ -196,7 +196,7 @@
 .ubits-badge--neutral.ubits-badge--number {
     background: transparent !important;
     border: none !important;
-    color: var(--modifiers-normal-color-light-fg-1-high) !important;
+    color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
 }
 
 /* Estilo Bold: fondo de color según variante, dot blanco, número del color de la variante */
@@ -246,7 +246,7 @@
 
 /* Wrapper neutral tiene borde alrededor de todo el elemento */
 .ubits-badge-wrapper:has(.ubits-badge--neutral) {
-    border: 1px solid var(--modifiers-normal-color-light-border-1) !important;
+    border: 1px solid var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
 }
 
 /* Wrapper light sin borde */
@@ -261,8 +261,8 @@
 
 /* Fondo de color para wrapper bold según variante */
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--success) {
-    background: var(--modifiers-normal-color-light-feedback-accent-success) !important;
-    color: var(--modifiers-normal-color-light-fg-bold) !important;
+    background: var(--modifiers-normal-color-light-feedback-accent-success, var(--ubits-feedback-accent-success, #13BD74)) !important;
+    color: var(--modifiers-normal-color-light-fg-bold, var(--ubits-fg-on-accent, #ffffff)) !important;
 }
 
 /* Asegurar que el número NO herede el color blanco del wrapper - REGLA MUY ESPECÍFICA */
@@ -270,7 +270,7 @@
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--success) .ubits-badge--number .ubits-badge__number-text,
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--success) .ubits-badge span.ubits-badge__number-text,
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--success) .ubits-badge--number span.ubits-badge__number-text {
-    color: var(--modifiers-normal-color-light-feedback-accent-success) !important;
+    color: var(--modifiers-normal-color-light-feedback-accent-success, var(--ubits-feedback-accent-success, #13BD74)) !important;
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -279,8 +279,8 @@
 }
 
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--warning) {
-    background: var(--modifiers-normal-color-light-feedback-accent-warning) !important;
-    color: var(--modifiers-normal-color-light-fg-bold) !important;
+    background: var(--modifiers-normal-color-light-feedback-accent-warning, var(--ubits-feedback-accent-warning, #F6AD55)) !important;
+    color: var(--modifiers-normal-color-light-fg-bold, var(--ubits-fg-on-accent, #ffffff)) !important;
 }
 
 /* Asegurar que el número NO herede el color blanco del wrapper - REGLA MUY ESPECÍFICA */
@@ -288,7 +288,7 @@
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--warning) .ubits-badge--number .ubits-badge__number-text,
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--warning) .ubits-badge span.ubits-badge__number-text,
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--warning) .ubits-badge--number span.ubits-badge__number-text {
-    color: var(--modifiers-normal-color-light-feedback-accent-warning) !important;
+    color: var(--modifiers-normal-color-light-feedback-accent-warning, var(--ubits-feedback-accent-warning, #F6AD55)) !important;
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -297,8 +297,8 @@
 }
 
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--error) {
-    background: var(--modifiers-normal-color-light-feedback-accent-error) !important;
-    color: var(--modifiers-normal-color-light-fg-bold) !important;
+    background: var(--modifiers-normal-color-light-feedback-accent-error, var(--ubits-feedback-accent-error, #E53E3E)) !important;
+    color: var(--modifiers-normal-color-light-fg-bold, var(--ubits-fg-on-accent, #ffffff)) !important;
 }
 
 /* Asegurar que el número NO herede el color blanco del wrapper - REGLA MUY ESPECÍFICA */
@@ -306,7 +306,7 @@
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--error) .ubits-badge--number .ubits-badge__number-text,
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--error) .ubits-badge span.ubits-badge__number-text,
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--error) .ubits-badge--number span.ubits-badge__number-text {
-    color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+    color: var(--modifiers-normal-color-light-feedback-accent-error, var(--ubits-feedback-accent-error, #E53E3E)) !important;
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -315,8 +315,8 @@
 }
 
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--info) {
-    background: var(--modifiers-normal-color-light-feedback-accent-info) !important;
-    color: var(--modifiers-normal-color-light-fg-bold) !important;
+    background: var(--modifiers-normal-color-light-feedback-accent-info, var(--ubits-feedback-accent-info, #3182CE)) !important;
+    color: var(--modifiers-normal-color-light-fg-bold, var(--ubits-fg-on-accent, #ffffff)) !important;
 }
 
 /* Asegurar que el número NO herede el color blanco del wrapper - REGLA MUY ESPECÍFICA */
@@ -324,7 +324,7 @@
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--info) .ubits-badge--number .ubits-badge__number-text,
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--info) .ubits-badge span.ubits-badge__number-text,
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--info) .ubits-badge--number span.ubits-badge__number-text {
-    color: var(--modifiers-normal-color-light-feedback-accent-info) !important;
+    color: var(--modifiers-normal-color-light-feedback-accent-info, var(--ubits-feedback-accent-info, #3182CE)) !important;
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -333,8 +333,8 @@
 }
 
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--primary) {
-    background: var(--modifiers-normal-color-light-feedback-accent-error) !important;
-    color: var(--modifiers-normal-color-light-fg-bold) !important;
+    background: var(--modifiers-normal-color-light-feedback-accent-error, var(--ubits-feedback-accent-error, #E53E3E)) !important;
+    color: var(--modifiers-normal-color-light-fg-bold, var(--ubits-fg-on-accent, #ffffff)) !important;
 }
 
 /* Asegurar que el número NO herede el color blanco del wrapper - REGLA MUY ESPECÍFICA */
@@ -342,7 +342,7 @@
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--primary) .ubits-badge--number .ubits-badge__number-text,
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--primary) .ubits-badge span.ubits-badge__number-text,
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--primary) .ubits-badge--number span.ubits-badge__number-text {
-    color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+    color: var(--modifiers-normal-color-light-feedback-accent-error, var(--ubits-feedback-accent-error, #E53E3E)) !important;
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -351,8 +351,8 @@
 }
 
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--secondary) {
-    background: var(--modifiers-normal-color-light-fg-1-medium) !important;
-    color: var(--modifiers-normal-color-light-fg-bold) !important;
+    background: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
+    color: var(--modifiers-normal-color-light-fg-bold, var(--ubits-fg-on-accent, #ffffff)) !important;
 }
 
 /* Asegurar que el número NO herede el color blanco del wrapper - REGLA MUY ESPECÍFICA */
@@ -360,7 +360,7 @@
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--secondary) .ubits-badge--number .ubits-badge__number-text,
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--secondary) .ubits-badge span.ubits-badge__number-text,
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--secondary) .ubits-badge--number span.ubits-badge__number-text {
-    color: var(--modifiers-normal-color-light-fg-1-medium) !important;
+    color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -375,8 +375,8 @@
 .ubits-badge.ubits-badge--bold .ubits-badge__dot,
 .ubits-badge-wrapper:has(.ubits-badge--bold) span.ubits-badge__dot,
 .ubits-badge-wrapper:has(.ubits-badge--bold) .ubits-badge span.ubits-badge__dot {
-    background-color: var(--modifiers-normal-color-light-bg-1) !important;
-    background: var(--modifiers-normal-color-light-bg-1) !important;
+    background-color: #ffffff !important;
+    background: #ffffff !important;
     /* Sobrescribir cualquier estilo inline */
 }
 
@@ -391,7 +391,7 @@
 /* Regla adicional para asegurar que el número sea visible incluso con estilos inline */
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--success) .ubits-badge span[style*="color: #13BD74"],
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--success) .ubits-badge span[style*="color:#13BD74"] {
-    color: var(--modifiers-normal-color-light-feedback-accent-success) !important;
+    color: #13BD74 !important;
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -406,7 +406,7 @@
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--warning) .ubits-badge .ubits-badge__number-text,
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--warning) .ubits-badge span[style*="color: #F6AD55"],
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--warning) .ubits-badge span[style*="color:#F6AD55"] {
-    color: var(--modifiers-normal-color-light-feedback-accent-warning) !important;
+    color: #F6AD55 !important;
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -421,7 +421,7 @@
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--error) .ubits-badge .ubits-badge__number-text,
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--error) .ubits-badge span[style*="color: #E53E3E"],
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--error) .ubits-badge span[style*="color:#E53E3E"] {
-    color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+    color: #E53E3E !important;
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -436,7 +436,7 @@
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--info) .ubits-badge .ubits-badge__number-text,
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--info) .ubits-badge span[style*="color: #3182CE"],
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--info) .ubits-badge span[style*="color:#3182CE"] {
-    color: var(--modifiers-normal-color-light-feedback-accent-info) !important;
+    color: #3182CE !important;
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -451,7 +451,7 @@
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--primary) .ubits-badge .ubits-badge__number-text,
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--primary) .ubits-badge span[style*="color: #0c5bef"],
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--primary) .ubits-badge span[style*="color:#0c5bef"] {
-    color: var(--modifiers-normal-color-light-accent-brand) !important;
+    color: #0c5bef !important;
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -466,7 +466,7 @@
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--secondary) .ubits-badge .ubits-badge__number-text,
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--secondary) .ubits-badge span[style*="color: #5c646f"],
 .ubits-badge-wrapper:has(.ubits-badge--bold.ubits-badge--secondary) .ubits-badge span[style*="color:#5c646f"] {
-    color: var(--modifiers-normal-color-light-fg-1-medium) !important;
+    color: #5c646f !important;
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -477,7 +477,7 @@
 
 /* Label blanco en wrapper bold (solo el label que está fuera del badge, no el número dentro) */
 .ubits-badge-wrapper:has(.ubits-badge--bold) > span:not(.ubits-badge):not(.ubits-badge__dot) {
-    color: var(--modifiers-normal-color-light-fg-bold) !important;
+    color: var(--modifiers-normal-color-light-fg-bold, var(--ubits-fg-on-accent, #ffffff)) !important;
 }
 
 /* Asegurar que el número dentro del badge bold sea visible y del color correcto */
@@ -629,7 +629,7 @@
     padding: var(--ubits-spacing-none, 0);
     display: inline-flex !important;
     align-items: center !important;
-    color: var(--modifiers-normal-color-light-fg-1-high) !important;
+    color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
 }
 
 /* Ajustes para badges con número en estilo bold - igual que light/neutral */
@@ -709,7 +709,7 @@
     right: -3px;
     width: 10px;
     height: 10px;
-    background: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+    background: var(--modifiers-normal-color-light-feedback-accent-error, var(--ubits-feedback-accent-error, #E53E3E)) !important;
     border-radius: 50%;
     z-index: 1;
 }
