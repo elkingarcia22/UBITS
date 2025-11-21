@@ -206,13 +206,13 @@
    ======================================== */
 
 .ubits-calendar__day--selected {
-    background: var(--modifiers-static-inverted-color-light-accent-brand) !important;
-    color: var(--modifiers-static-inverted-color-light-fg-1-high) !important;
+    background: var(--modifiers-normal-color-light-accent-brand) !important;
+    color: var(--modifiers-normal-color-light-fg-bold) !important;
     font-weight: var(--modifiers-normal-body-md-semibold-fontweight, 600);
 }
 
 .ubits-calendar__day--selected:hover {
-    background: var(--modifiers-static-inverted-color-light-accent-brand) !important;
+    background: var(--modifiers-normal-color-light-accent-brand) !important;
     opacity: 0.9;
 }
 
@@ -316,7 +316,6 @@
    ======================================== */
 
 [data-theme="dark"] {
-
   --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
   --modifiers-normal-color-light-border-1: var(--modifiers-normal-color-dark-border-1);
   --modifiers-normal-color-light-fg-1-medium: var(--modifiers-normal-color-dark-fg-1-medium);
@@ -327,5 +326,4 @@
   --modifiers-normal-color-light-accent-brand: var(--modifiers-normal-color-dark-accent-brand);
   --modifiers-normal-color-light-fg-disabled: var(--modifiers-normal-color-dark-fg-disabled);
   --modifiers-normal-color-light-fg-bold: var(--modifiers-normal-color-dark-fg-bold);
-
 }
