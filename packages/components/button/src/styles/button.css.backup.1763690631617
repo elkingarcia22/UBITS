@@ -13,12 +13,12 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--p-spacing-mode-1-sm, 8px);
-    padding: var(--p-spacing-mode-1-md, 12px) var(--p-spacing-mode-1-lg, 16px);
+    gap: var(--ubits-spacing-sm, 8px);
+    padding: var(--ubits-spacing-md, 12px) var(--ubits-spacing-lg, 16px);
     border: none;
     border-radius: var(--ubits-border-radius-sm, 8px);
-    font-family: var(--font-family-noto-sans-font-family);
-    font-weight: var(--ubits-font-weight-semibold, 600);
+    font-family: var(--font-sans);
+    font-weight: var(--weight-semibold);
     line-height: 1;
     text-decoration: none;
     cursor: pointer;
@@ -29,7 +29,7 @@
     
     /* Default state (Primary) */
     background: var(--modifiers-normal-button-color-light-brand-primary-bg-default);
-    color: var(--modifiers-normal-color-light-fg-bold);
+    color: var(--ubits-btn-primary-fg);
     border: 1px solid var(--modifiers-normal-button-color-light-brand-primary-bg-default);
     
     /* Medium (default) height */
@@ -38,10 +38,10 @@
 
 /* Tipografía Medium (default) - usa tokens de typography */
 .ubits-button span {
-    font-family: var(--font-family-noto-sans-font-family);
-    font-size: var(--modifiers-normal-body-md-semibold-fontsize);
-    font-weight: var(--ubits-font-weight-semibold, 600);
-    line-height: var(--modifiers-normal-body-md-semibold-lineheight);
+    font-family: var(--font-sans);
+    font-size: var(--font-body-md-size);
+    font-weight: var(--weight-semibold);
+    line-height: var(--font-body-md-line);
 }
 
 /* ========================================
@@ -64,7 +64,7 @@
 /* Focus State */
 .ubits-button:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 4px var(--modifiers-normal-focus-color);
+    box-shadow: 0px 0px 0px 4px var(--ubits-button-focus-ring);
 }
 
 /* Disabled State */
@@ -153,7 +153,7 @@
 /* Asegurar que el spinner tenga el color correcto según la variante del botón */
 .ubits-button--primary .ubits-button__spinner,
 .ubits-button--primary .ubits-button__spinner .ubits-spinner__segment {
-    color: var(--modifiers-normal-color-light-fg-bold) !important;
+    color: var(--ubits-btn-primary-fg, #ffffff) !important;
 }
 
 .ubits-button--secondary .ubits-button__spinner,
@@ -185,7 +185,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: color-mix(in srgb, var(--modifiers-normal-color-light-bg-1) 10%, transparent); /* Overlay blanco semi-transparente construido desde bg-1 */
+    background: rgba(255, 255, 255, 0.1);
     border-radius: var(--ubits-border-radius-sm, 8px);
     pointer-events: none;
 }
@@ -197,7 +197,7 @@
 /* Primary Variant (default) */
 .ubits-button--primary {
     background: var(--modifiers-normal-button-color-light-brand-primary-bg-default) !important;
-    color: var(--modifiers-normal-color-light-fg-bold) !important;
+    color: var(--ubits-btn-primary-fg) !important;
     border: 1px solid var(--modifiers-normal-button-color-light-brand-primary-bg-default) !important;
 }
 
@@ -405,41 +405,16 @@
 
 /* Token de elevación floating del sistema de diseño UBITS:
    x: 0, y: 14, blur: 28.8, spread: 0, opacity: 24% */
-/* Elevation floating construido con tokens de Figma */
-/* Nota: Usar calc() para agregar 'px' a los valores numéricos de los tokens */
 :root {
-    --ubits-elevation-floating: calc(var(--modifiers-normal-elevation-floating-0-x) * 1px) calc(var(--modifiers-normal-elevation-floating-0-y) * 1px) calc(var(--modifiers-normal-elevation-floating-0-blur) * 1px) calc(var(--modifiers-normal-elevation-floating-0-spread) * 1px) var(--modifiers-normal-elevation-floating-0-color), calc(var(--modifiers-normal-elevation-floating-1-x) * 1px) calc(var(--modifiers-normal-elevation-floating-1-y) * 1px) calc(var(--modifiers-normal-elevation-floating-1-blur) * 1px) calc(var(--modifiers-normal-elevation-floating-1-spread) * 1px) var(--modifiers-normal-elevation-floating-1-color);
-    --ubits-elevation-floating-hover: calc(var(--modifiers-normal-elevation-hover-0-x) * 1px) calc(var(--modifiers-normal-elevation-hover-0-y) * 1px) calc(var(--modifiers-normal-elevation-hover-0-blur) * 1px) calc(var(--modifiers-normal-elevation-hover-0-spread) * 1px) var(--modifiers-normal-elevation-hover-0-color), calc(var(--modifiers-normal-elevation-hover-1-x) * 1px) calc(var(--modifiers-normal-elevation-hover-1-y) * 1px) calc(var(--modifiers-normal-elevation-hover-1-blur) * 1px) calc(var(--modifiers-normal-elevation-hover-1-spread) * 1px) var(--modifiers-normal-elevation-hover-1-color);
-    --ubits-elevation-floating-active: calc(var(--modifiers-normal-elevation-default-0-x) * 1px) calc(var(--modifiers-normal-elevation-default-0-y) * 1px) calc(var(--modifiers-normal-elevation-default-0-blur) * 1px) calc(var(--modifiers-normal-elevation-default-0-spread) * 1px) var(--modifiers-normal-elevation-default-0-color), calc(var(--modifiers-normal-elevation-default-1-x) * 1px) calc(var(--modifiers-normal-elevation-default-1-y) * 1px) calc(var(--modifiers-normal-elevation-default-1-blur) * 1px) calc(var(--modifiers-normal-elevation-default-1-spread) * 1px) var(--modifiers-normal-elevation-default-1-color);
+    --ubits-elevation-floating: 0 14px 28.8px 0 rgba(0, 0, 0, 0.24);
+    --ubits-elevation-floating-hover: 0 16px 32px 0 rgba(0, 0, 0, 0.28);
+    --ubits-elevation-floating-active: 0 8px 16px 0 rgba(0, 0, 0, 0.20);
 }
 
 [data-theme="dark"] {
-
-    --ubits-elevation-floating: calc(var(--modifiers-normal-elevation-floating-0-x) * 1px) calc(var(--modifiers-normal-elevation-floating-0-y) * 1px) calc(var(--modifiers-normal-elevation-floating-0-blur) * 1px) calc(var(--modifiers-normal-elevation-floating-0-spread) * 1px) var(--modifiers-normal-elevation-floating-0-color), calc(var(--modifiers-normal-elevation-floating-1-x) * 1px) calc(var(--modifiers-normal-elevation-floating-1-y) * 1px) calc(var(--modifiers-normal-elevation-floating-1-blur) * 1px) calc(var(--modifiers-normal-elevation-floating-1-spread) * 1px) var(--modifiers-normal-elevation-floating-1-color);
-    --ubits-elevation-floating-hover: calc(var(--modifiers-normal-elevation-hover-0-x) * 1px) calc(var(--modifiers-normal-elevation-hover-0-y) * 1px) calc(var(--modifiers-normal-elevation-hover-0-blur) * 1px) calc(var(--modifiers-normal-elevation-hover-0-spread) * 1px) var(--modifiers-normal-elevation-hover-0-color), calc(var(--modifiers-normal-elevation-hover-1-x) * 1px) calc(var(--modifiers-normal-elevation-hover-1-y) * 1px) calc(var(--modifiers-normal-elevation-hover-1-blur) * 1px) calc(var(--modifiers-normal-elevation-hover-1-spread) * 1px) var(--modifiers-normal-elevation-hover-1-color);
-    --ubits-elevation-floating-active: calc(var(--modifiers-normal-elevation-default-0-x) * 1px) calc(var(--modifiers-normal-elevation-default-0-y) * 1px) calc(var(--modifiers-normal-elevation-default-0-blur) * 1px) calc(var(--modifiers-normal-elevation-default-0-spread) * 1px) var(--modifiers-normal-elevation-default-0-color), calc(var(--modifiers-normal-elevation-default-1-x) * 1px) calc(var(--modifiers-normal-elevation-default-1-y) * 1px) calc(var(--modifiers-normal-elevation-default-1-blur) * 1px) calc(var(--modifiers-normal-elevation-default-1-spread) * 1px) var(--modifiers-normal-elevation-default-1-color);
-
-  --modifiers-normal-button-color-light-brand-primary-bg-default: var(--modifiers-normal-button-color-dark-brand-primary-bg-default);
-  --modifiers-normal-color-light-fg-bold: var(--modifiers-normal-color-dark-fg-bold);
-  --modifiers-normal-button-color-light-brand-primary-bg-hover: var(--modifiers-normal-button-color-dark-brand-primary-bg-hover);
-  --modifiers-normal-button-color-light-brand-primary-bg-pressed: var(--modifiers-normal-button-color-dark-brand-primary-bg-pressed);
-  --modifiers-normal-color-light-bg-disabled: var(--modifiers-normal-color-dark-bg-disabled);
-  --modifiers-normal-color-light-fg-on-disabled: var(--modifiers-normal-color-dark-fg-on-disabled);
-  --modifiers-normal-color-light-border-disabled: var(--modifiers-normal-color-dark-border-disabled);
-  --modifiers-normal-button-color-light-brand-tertiary-fg: var(--modifiers-normal-button-color-dark-brand-tertiary-fg);
-  --modifiers-normal-button-color-light-brand-secondary-fg-default: var(--modifiers-normal-button-color-dark-brand-secondary-fg-default);
-  --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
-  --modifiers-normal-color-light-accent-brand: var(--modifiers-normal-color-dark-accent-brand);
-  --modifiers-normal-color-light-bg-active: var(--modifiers-normal-color-dark-bg-active);
-  --modifiers-normal-button-color-light-brand-secondary-bg-default: var(--modifiers-normal-button-color-dark-brand-secondary-bg-default);
-  --modifiers-normal-button-color-light-brand-secondary-border: var(--modifiers-normal-button-color-dark-brand-secondary-border);
-  --modifiers-normal-button-color-light-brand-secondary-bg-hover: var(--modifiers-normal-button-color-dark-brand-secondary-bg-hover);
-  --modifiers-normal-button-color-light-brand-secondary-bg-pressed: var(--modifiers-normal-button-color-dark-brand-secondary-bg-pressed);
-  --modifiers-normal-button-color-light-brand-tertiary-bg-hover: var(--modifiers-normal-button-color-dark-brand-tertiary-bg-hover);
-  --modifiers-normal-button-color-light-brand-tertiary-bg-pressed: var(--modifiers-normal-button-color-dark-brand-tertiary-bg-pressed);
-  --modifiers-normal-color-light-feedback-accent-error: var(--modifiers-normal-color-dark-feedback-accent-error);
-  --modifiers-static-inverted-color-light-accent-brand: var(--modifiers-static-inverted-color-dark-accent-brand);
-
+    --ubits-elevation-floating: 0 14px 28.8px 0 rgba(0, 0, 0, 0.40);
+    --ubits-elevation-floating-hover: 0 16px 32px 0 rgba(0, 0, 0, 0.45);
+    --ubits-elevation-floating-active: 0 8px 16px 0 rgba(0, 0, 0, 0.30);
 }
 
 /* Botón flotante con sombra del token de elevación floating */
@@ -447,24 +422,6 @@
     box-shadow: var(--ubits-elevation-floating) !important;
     transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
-
-/* 🔍 LOGS: Verificar tokens de floating */
-.ubits-button--floating::before {
-    content: '';
-    position: absolute;
-    top: -20px;
-    left: 0;
-    width: 100%;
-    height: 18px;
-    background: rgba(255, 0, 0, 0.1);
-    border: 1px solid red;
-    font-size: 10px;
-    color: red;
-    z-index: 9999;
-    display: none; /* Cambiar a block para ver logs visuales */
-}
-
-/* Logs en consola - se ejecutarán cuando el botón flotante se renderice */
 
 /* Log visual para debugging - remover en producción */
 .ubits-button--floating::after {
@@ -637,7 +594,7 @@
     color: var(--modifiers-normal-button-color-light-brand-tertiary-fg);
     border: 1px solid transparent;
     outline: none;
-    box-shadow: 0 0 0 4px var(--modifiers-normal-focus-color);
+    box-shadow: 0px 0px 0px 4px var(--ubits-button-focus-ring);
 }
 
 /* ========================================
@@ -646,7 +603,7 @@
 
 /* Icon Only Button */
 .ubits-button--icon-only {
-    padding: var(--p-spacing-mode-1-md, 12px);
+    padding: var(--ubits-spacing-md, 12px);
     min-width: 40px;
     min-height: 40px;
 }
@@ -658,18 +615,18 @@
 /* Extra Small (xs) - NUEVO */
 .ubits-button.ubits-button--xs,
 .ubits-button--xs {
-    padding: var(--p-spacing-mode-1-sm, 8px) var(--p-spacing-mode-1-md, 12px) !important;
+    padding: var(--ubits-spacing-sm, 8px) var(--ubits-spacing-md, 12px) !important;
     height: 28px !important;
     min-height: 28px !important;
-    gap: var(--p-spacing-mode-1-sm, 8px) !important;
+    gap: var(--ubits-spacing-sm, 8px) !important;
 }
 
 .ubits-button.ubits-button--xs span,
 .ubits-button--xs span {
-    font-family: var(--font-family-noto-sans-font-family) !important;
-    font-size: var(--modifiers-normal-body-xs-semibold-fontsize, 11px) !important;
-    font-weight: var(--ubits-font-weight-semibold, 600) !important;
-    line-height: var(--modifiers-normal-body-xs-semibold-lineheight, 19.8px) !important;
+    font-family: var(--font-sans) !important;
+    font-size: var(--font-body-xs-size) !important;
+    font-weight: var(--weight-semibold) !important;
+    line-height: var(--font-body-xs-line) !important;
 }
 
 .ubits-button.ubits-button--xs i,
@@ -679,7 +636,7 @@
 
 .ubits-button.ubits-button--xs.ubits-button--icon-only,
 .ubits-button--xs.ubits-button--icon-only {
-    padding: var(--p-spacing-mode-1-sm, 8px) !important;
+    padding: var(--ubits-spacing-sm, 8px) !important;
     width: 28px !important;
     min-width: 28px !important;
     height: 28px !important;
@@ -689,18 +646,18 @@
 /* Small (sm) */
 .ubits-button.ubits-button--sm,
 .ubits-button--sm {
-    padding: var(--p-spacing-mode-1-md, 12px) var(--p-spacing-mode-1-md, 12px) !important;
+    padding: var(--ubits-spacing-md, 12px) var(--ubits-spacing-md, 12px) !important;
     height: 32px !important;
     min-height: 32px !important;
-    gap: var(--p-spacing-mode-1-sm, 8px) !important;
+    gap: var(--ubits-spacing-sm, 8px) !important;
 }
 
 .ubits-button.ubits-button--sm span,
 .ubits-button--sm span {
-    font-family: var(--font-family-noto-sans-font-family) !important;
-    font-size: var(--modifiers-normal-body-sm-semibold-fontsize, 13px) !important;
-    font-weight: var(--ubits-font-weight-semibold, 600) !important;
-    line-height: var(--modifiers-normal-body-sm-semibold-lineheight, 23.4px) !important;
+    font-family: var(--font-sans) !important;
+    font-size: var(--font-body-sm-size) !important;
+    font-weight: var(--weight-semibold) !important;
+    line-height: var(--font-body-sm-line) !important;
 }
 
 .ubits-button.ubits-button--sm i,
@@ -710,7 +667,7 @@
 
 .ubits-button.ubits-button--sm.ubits-button--icon-only,
 .ubits-button--sm.ubits-button--icon-only {
-    padding: var(--p-spacing-mode-1-sm, 8px) var(--p-spacing-mode-1-sm, 8px) !important;
+    padding: var(--ubits-spacing-sm, 8px) var(--ubits-spacing-sm, 8px) !important;
     width: 32px !important;
     min-width: 32px !important;
     height: 32px !important;
@@ -720,21 +677,21 @@
 /* Medium (md) - Default */
 .ubits-button,
 .ubits-button--md {
-    padding: var(--p-spacing-mode-1-md, 12px) var(--p-spacing-mode-1-lg, 16px);
+    padding: var(--ubits-spacing-md, 12px) var(--ubits-spacing-lg, 16px);
     height: 40px;
 }
 
 .ubits-button span,
 .ubits-button--md span {
-    font-family: var(--font-family-noto-sans-font-family);
-    font-size: var(--modifiers-normal-body-md-semibold-fontsize);
-    font-weight: var(--ubits-font-weight-semibold, 600);
-    line-height: var(--modifiers-normal-body-md-semibold-lineheight);
+    font-family: var(--font-sans);
+    font-size: var(--font-body-md-size);
+    font-weight: var(--weight-semibold);
+    line-height: var(--font-body-md-line);
 }
 
 .ubits-button--md.ubits-button--icon-only,
 .ubits-button.ubits-button--icon-only {
-    padding: var(--p-spacing-mode-1-md, 12px);
+    padding: var(--ubits-spacing-md, 12px);
     width: 40px;
     height: 40px;
     min-width: 40px;
@@ -743,38 +700,38 @@
 
 /* Large (lg) */
 .ubits-button--lg {
-    padding: var(--p-spacing-mode-1-md, 12px) var(--p-spacing-mode-1-xl, 20px);
+    padding: var(--ubits-spacing-md, 12px) var(--ubits-spacing-xl, 20px);
     height: 48px;
 }
 
 .ubits-button--lg span {
-    font-family: var(--font-family-noto-sans-font-family);
-    font-size: var(--modifiers-normal-heading-h2-fontsize);
-    font-weight: var(--ubits-font-weight-semibold, 600);
-    line-height: 1.5; /* 30px / 20px = 1.5 (equivalente a --font-body-lg-line: 30px) */
+    font-family: var(--font-sans);
+    font-size: var(--font-body-lg-size);
+    font-weight: var(--weight-semibold);
+    line-height: var(--font-body-lg-line);
 }
 
 .ubits-button--lg.ubits-button--icon-only {
-    padding: var(--p-spacing-mode-1-md, 12px) var(--p-spacing-mode-1-lg, 16px);
+    padding: var(--ubits-spacing-md, 12px) var(--ubits-spacing-lg, 16px);
     width: 48px;
     height: 48px;
 }
 
 /* Extra Large (xl) - NUEVO */
 .ubits-button--xl {
-    padding: var(--p-spacing-mode-1-lg, 16px) var(--ubits-spacing-2xl, 24px);
+    padding: var(--ubits-spacing-lg, 16px) var(--ubits-spacing-2xl, 24px);
     height: 56px;
 }
 
 .ubits-button--xl span {
-    font-family: var(--font-family-noto-sans-font-family);
-    font-size: var(--modifiers-normal-heading-h1-fontsize, 20px); /* 22px no tiene token exacto, usar h1 más cercano */
-    font-weight: var(--ubits-font-weight-semibold, 600);
-    line-height: var(--modifiers-normal-heading-h1-lineheight, 30px); /* 33px no tiene token exacto, usar h1 más cercano */
+    font-family: var(--font-sans);
+    font-size: var(--font-h1-size, 20px); /* 22px no tiene token exacto, usar h1 más cercano */
+    font-weight: var(--weight-semibold);
+    line-height: var(--font-h1-line, 30px); /* 33px no tiene token exacto, usar h1 más cercano */
 }
 
 .ubits-button--xl.ubits-button--icon-only {
-    padding: var(--p-spacing-mode-1-lg, 16px) var(--p-spacing-mode-1-xl, 20px);
+    padding: var(--ubits-spacing-lg, 16px) var(--ubits-spacing-xl, 20px);
     width: 56px;
     height: 56px;
 }
@@ -821,40 +778,40 @@
 .ubits-button,
 .ubits-button--md .ubits-button__icon,
 .ubits-button--md i {
-    font-size: var(--modifiers-normal-body-md-regular-fontsize, 16px);
+    font-size: 16px;
 }
 
 .ubits-button--lg .ubits-button__icon,
 .ubits-button--lg i {
-    font-size: var(--modifiers-normal-heading-h2-fontsize, 18px);
+    font-size: var(--font-h2-size, 18px);
 }
 
 .ubits-button--xl .ubits-button__icon,
 .ubits-button--xl i {
-    font-size: var(--modifiers-normal-heading-h1-fontsize, 20px);
+    font-size: var(--font-h1-size, 20px);
 }
 
 /* Gap ajustado para tamaños pequeños */
 /* Gap ya definido arriba con !important, estas reglas son duplicadas pero las dejamos para compatibilidad */
 .ubits-button--xs {
-    gap: var(--p-spacing-mode-1-sm, 8px) !important;
+    gap: var(--ubits-spacing-sm, 8px) !important;
 }
 
 .ubits-button--sm {
-    gap: var(--p-spacing-mode-1-sm, 8px) !important;
+    gap: var(--ubits-spacing-sm, 8px) !important;
 }
 
 .ubits-button,
 .ubits-button--md {
-    gap: var(--p-spacing-mode-1-sm, 8px);
+    gap: var(--ubits-spacing-sm, 8px);
 }
 
 .ubits-button--lg {
-    gap: var(--p-spacing-mode-1-md, 12px);
+    gap: var(--ubits-spacing-md, 12px);
 }
 
 .ubits-button--xl {
-    gap: var(--p-spacing-mode-1-md, 12px);
+    gap: var(--ubits-spacing-md, 12px);
 }
 
 /* ========================================
@@ -879,7 +836,7 @@
 .ubits-button.ubits-button--icon-right,
 .ubits-button--icon-right {
     flex-direction: row !important;
-    gap: var(--p-spacing-mode-1-sm, 8px) !important;
+    gap: var(--ubits-spacing-sm, 8px) !important;
 }
 
 /* ========================================
@@ -889,30 +846,30 @@
 @media (max-width: 768px) {
     /* Ajustes para mobile - asegurar touch targets mínimos */
     .ubits-button {
-        font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px);
-        padding: var(--p-spacing-mode-1-md, 12px) var(--p-spacing-mode-1-md, 12px);
+        font-size: 14px;
+        padding: var(--ubits-spacing-md, 12px) var(--ubits-spacing-md, 12px);
     }
     
     .ubits-button--xs {
         /* XS ajustado para mobile manteniendo altura de 28px */
         min-height: 28px;
         height: 28px !important;
-        padding: var(--p-spacing-mode-1-sm, 8px) var(--p-spacing-mode-1-md, 12px) !important;
+        padding: var(--ubits-spacing-sm, 8px) var(--ubits-spacing-md, 12px) !important;
     }
     
     .ubits-button--sm {
-        font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px);
-        padding: var(--p-spacing-mode-1-md, 12px) var(--p-spacing-mode-1-md, 12px);
+        font-size: 13px;
+        padding: var(--ubits-spacing-md, 12px) var(--ubits-spacing-md, 12px);
     }
     
     .ubits-button--lg {
-        font-size: var(--modifiers-normal-heading-h2-fontsize, 18px);
-        padding: var(--p-spacing-mode-1-md, 12px) var(--p-spacing-mode-1-xl, 20px);
+        font-size: var(--font-h2-size, 18px);
+        padding: var(--ubits-spacing-md, 12px) var(--ubits-spacing-xl, 20px);
     }
     
     .ubits-button--xl {
-        font-size: var(--modifiers-normal-heading-h1-fontsize, 20px);
-        padding: var(--p-spacing-mode-1-lg, 16px) var(--ubits-spacing-2xl, 24px);
+        font-size: var(--font-h1-size, 20px);
+        padding: var(--ubits-spacing-lg, 16px) var(--ubits-spacing-2xl, 24px);
     }
 }
 
@@ -929,7 +886,7 @@
     top: 100%;
     left: 0;
     z-index: 1000;
-    margin-top: var(--p-spacing-mode-1-xs, 4px);
+    margin-top: var(--ubits-spacing-xs, 4px);
     min-width: 100%;
 }
 
@@ -941,19 +898,19 @@
 [data-theme="dark"] #action-btn-view-selected.ubits-button--active,
 [data-theme="dark"] #action-btn-view-selected.ubits-button--active:hover:not(:disabled):not(.ubits-button--loading),
 [data-theme="dark"] #action-btn-view-selected.ubits-button--active:active:not(:disabled):not(.ubits-button--loading) {
-    color: var(--modifiers-static-inverted-color-dark-accent-brand) !important;
+    color: var(--modifiers-static-inverted-color-light-accent-brand) !important;
 }
 
 [data-theme="dark"] #action-btn-view-selected.ubits-button--active i,
 [data-theme="dark"] #action-btn-view-selected.ubits-button--active:hover:not(:disabled):not(.ubits-button--loading) i,
 [data-theme="dark"] #action-btn-view-selected.ubits-button--active:active:not(:disabled):not(.ubits-button--loading) i {
-    color: var(--modifiers-static-inverted-color-dark-accent-brand) !important;
+    color: var(--modifiers-static-inverted-color-light-accent-brand) !important;
 }
 
 [data-theme="dark"] #action-btn-view-selected.ubits-button--active span,
 [data-theme="dark"] #action-btn-view-selected.ubits-button--active:hover:not(:disabled):not(.ubits-button--loading) span,
 [data-theme="dark"] #action-btn-view-selected.ubits-button--active:active:not(:disabled):not(.ubits-button--loading) span {
-    color: var(--modifiers-static-inverted-color-dark-accent-brand) !important;
+    color: var(--modifiers-static-inverted-color-light-accent-brand) !important;
 }
 
 /* ========================================
@@ -973,25 +930,11 @@
     border: none !important;
 }
 
-[data-theme="dark"] .ubits-button--active[data-state-preview="hover"]:not(:disabled):not(.ubits-button--loading),
-[data-theme="dark"] .ubits-button--primary.ubits-button--active[data-state-preview="hover"]:not(:disabled):not(.ubits-button--loading),
-[data-theme="dark"] .ubits-button--secondary.ubits-button--active[data-state-preview="hover"]:not(:disabled):not(.ubits-button--loading),
-[data-theme="dark"] .ubits-button--tertiary.ubits-button--active[data-state-preview="hover"]:not(:disabled):not(.ubits-button--loading) {
-    color: var(--modifiers-normal-color-dark-accent-brand) !important;
-}
-
 .ubits-button--active[data-state-preview="hover"]:not(:disabled):not(.ubits-button--loading)::before,
 .ubits-button--primary.ubits-button--active[data-state-preview="hover"]:not(:disabled):not(.ubits-button--loading)::before,
 .ubits-button--secondary.ubits-button--active[data-state-preview="hover"]:not(:disabled):not(.ubits-button--loading)::before,
 .ubits-button--tertiary.ubits-button--active[data-state-preview="hover"]:not(:disabled):not(.ubits-button--loading)::before {
     background-color: var(--modifiers-normal-color-light-bg-active) !important;
-}
-
-[data-theme="dark"] .ubits-button--active[data-state-preview="hover"]:not(:disabled):not(.ubits-button--loading)::before,
-[data-theme="dark"] .ubits-button--primary.ubits-button--active[data-state-preview="hover"]:not(:disabled):not(.ubits-button--loading)::before,
-[data-theme="dark"] .ubits-button--secondary.ubits-button--active[data-state-preview="hover"]:not(:disabled):not(.ubits-button--loading)::before,
-[data-theme="dark"] .ubits-button--tertiary.ubits-button--active[data-state-preview="hover"]:not(:disabled):not(.ubits-button--loading)::before {
-    background-color: var(--modifiers-normal-color-dark-bg-active) !important;
 }
 
 /* Si NO tiene la clase --active, aplicar estilos hover normales */
@@ -1053,7 +996,7 @@
 /* Simular estado focus para Storybook */
 .ubits-button[data-state-preview="focus"]:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 4px var(--modifiers-normal-focus-color);
+    box-shadow: 0px 0px 0px 4px var(--ubits-button-focus-ring);
 }
 
 /* IMPORTANTE: Asegurar que botones con --active siempre muestren el estilo active, incluso sin data-state-preview */

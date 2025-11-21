@@ -378,6 +378,56 @@ function applyState(element: HTMLElement, state: string) {
 - Verificar todas las variantes
 - **Verificar que NO hay referencias a tokens antiguos en el preview**
 
+#### 3.5 Agregar Soporte Dark Mode (CRÍTICO)
+
+**⚠️ PROBLEMA**: Los componentes migrados usan tokens con `-light-` hardcodeados, por lo que NO cambian automáticamente en dark mode.
+
+**Solución**: Ejecutar el script `fix-dark-mode-tokens.cjs` que agrega reglas `[data-theme="dark"]` que redefinen las variables CSS.
+
+**Pasos:**
+
+1. **Ejecutar script automático:**
+   ```bash
+   cd packages/tokens
+   node scripts/fix-dark-mode-tokens.cjs
+   ```
+
+2. **Verificar que las reglas se agregaron:**
+   ```bash
+   # Buscar reglas [data-theme="dark"] en el componente
+   grep -A 10 '\[data-theme="dark"\]' packages/components/[COMPONENTE]/src/styles/*.css
+   ```
+
+3. **Verificar que los tokens dark existen:**
+   ```bash
+   # Buscar tokens dark en figma-tokens.css
+   grep "modifiers-normal-color-dark" packages/tokens/dist/figma-tokens.css | head -5
+   ```
+
+4. **Corregir manualmente reglas específicas:**
+   - Buscar reglas dentro de `[data-theme="dark"]` que aún usan tokens `-light-`
+   - Reemplazar con tokens `-dark-` explícitos
+   
+   **Ejemplo:**
+   ```css
+   /* ❌ INCORRECTO */
+   [data-theme="dark"] .ubits-button--active {
+     color: var(--modifiers-normal-color-light-accent-brand) !important;
+   }
+   
+   /* ✅ CORRECTO */
+   [data-theme="dark"] .ubits-button--active {
+     color: var(--modifiers-normal-color-dark-accent-brand) !important;
+   }
+   ```
+
+5. **Verificar visualmente en Storybook:**
+   - Cambiar a dark mode
+   - Verificar que los componentes muestran colores correctos
+   - Verificar todos los estados (hover, active, disabled, etc.)
+
+**Documentación completa**: Ver `docs/PROBLEMA-DARK-MODE-TOKENS.md`
+
 ---
 
 ### **PASO 4: Verificación (1 hora)**
@@ -563,6 +613,9 @@ Antes de marcar un componente como "migrado":
 - [ ] **PASO 3**: Storybook controladores actualizados con tokens nuevos
 - [ ] **PASO 3**: Storybook preview actualizado con tokens nuevos
 - [ ] **PASO 3**: Storybook actualizado con `data-state-preview`
+- [ ] **PASO 3.5**: Soporte dark mode agregado (fix-dark-mode-tokens.cjs ejecutado)
+- [ ] **PASO 3.5**: Reglas `[data-theme="dark"]` verificadas
+- [ ] **PASO 3.5**: Componente probado en dark mode en Storybook
 - [ ] **PASO 4**: Script de verificación ejecutado sin errores
 - [ ] **PASO 4**: Tokens verificados en el DOM (CRÍTICO)
 - [ ] **PASO 5**: Fallbacks antiguos eliminados - SOLO tokens nuevos de Figma
@@ -597,6 +650,13 @@ python3 scripts/cleanup-token-fallbacks.py [COMPONENTE]
 ```
 **Uso:** Al final, para eliminar fallbacks antiguos y valores hardcodeados
 
+### 4. Corrección Dark Mode
+```bash
+cd packages/tokens
+node scripts/fix-dark-mode-tokens.cjs
+```
+**Uso:** Después de migrar tokens, para agregar soporte dark mode automáticamente
+
 ---
 
 ## 🎯 Orden de Ejecución
@@ -620,6 +680,7 @@ python3 scripts/cleanup-token-fallbacks.py [COMPONENTE]
    └─> Actualizar preview con tokens nuevos
    └─> Actualizar .stories.ts
    └─> Agregar reglas CSS para data-state-preview (con tokens nuevos)
+   └─> Agregar soporte dark mode (fix-dark-mode-tokens.cjs) - CRÍTICO
 
 4. Verificación
    └─> verify-migration.sh
@@ -659,6 +720,8 @@ python3 scripts/cleanup-token-fallbacks.py [COMPONENTE]
 15. **NO usar tokens de Figma con font-weight strings** - Usar tokens numéricos UBITS (`--ubits-font-weight-*`) en lugar de `--modifiers-normal-*-fontweight`
 16. **NO dejar tokens antiguos de typography** - Reemplazar TODOS los `--font-*`, `--weight-*`, `--font-h1-*`, `--font-h2-*` por tokens de Figma
 17. **NO dejar valores hardcodeados de typography** - Reemplazar TODOS los `font-size: 12px`, `font-weight: 600`, etc. por tokens de Figma
+18. **NO olvidar agregar soporte dark mode** - Ejecutar `fix-dark-mode-tokens.cjs` después de migrar tokens para que los componentes funcionen en dark mode
+19. **NO dejar tokens `-light-` en reglas `[data-theme="dark"]`** - Reemplazar con tokens `-dark-` explícitos en reglas específicas
 
 ---
 
@@ -667,7 +730,9 @@ python3 scripts/cleanup-token-fallbacks.py [COMPONENTE]
 - `docs/PLAN-MAESTRO-MIGRACION-COMPONENTES.md` - Plan completo detallado
 - `docs/LECCIONES-APRENDIDAS-MIGRACION-BUTTON.md` - Lecciones aprendidas
 - `docs/LECCION-CRITICA-TOKENS-DOM.md` - Lección crítica sobre verificación de tokens
+- `docs/PROBLEMA-DARK-MODE-TOKENS.md` - Problema y solución de dark mode
 - `packages/tokens/token-mapping.ts` - Mapeo completo de tokens
+- `packages/tokens/scripts/fix-dark-mode-tokens.cjs` - Script de corrección dark mode
 - `scripts/inventory-tokens.sh` - Script de inventario
 - `scripts/verify-migration.sh` - Script de verificación
 - `scripts/cleanup-token-fallbacks.py` - Script de limpieza
@@ -764,5 +829,5 @@ font-weight: var(--ubits-font-weight-semibold, 600);
 
 ---
 
-**Última actualización**: Basado en la migración de Button, Accordion, Alert, Badge, Bar Metric Card, Breadcrumb y Floating Effects, incluyendo corrección de tokens de typography (2024)
+**Última actualización**: Basado en la migración de Button, Accordion, Alert, Badge, Bar Metric Card, Breadcrumb y Floating Effects, incluyendo corrección de tokens de typography y soporte dark mode (Diciembre 2024)
 

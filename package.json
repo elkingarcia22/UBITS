@@ -40,6 +40,7 @@
   ],
   "devDependencies": {
     "@biomejs/biome": "^2.3.2",
+    "glob": "^13.0.0",
     "husky": "^9.1.7",
     "style-dictionary": "^4.4.0",
     "typescript": "^5.9.3",
@@ -54,5 +55,3 @@
     "@fortawesome/pro-thin-svg-icons": "^7.1.0"
   }
 }
-
-

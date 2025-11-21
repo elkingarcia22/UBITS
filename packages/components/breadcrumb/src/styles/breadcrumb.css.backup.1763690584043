@@ -14,20 +14,20 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: var(--p-spacing-mode-1-sm, 8px);
+  gap: var(--ubits-spacing-sm, 8px);
   list-style: none;
   margin: var(--ubits-spacing-none, 0);
   padding: var(--ubits-spacing-none, 0);
-  font-family: var(--font-family-noto-sans-font-family);
+  font-family: var(--font-sans);
 }
 
 /* Breadcrumb Item */
 .ubits-breadcrumb__item {
   display: inline-flex;
   align-items: center;
-  font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px);
-  line-height: var(--modifiers-normal-body-sm-regular-lineheight, 19.5px);
-  font-weight: var(--ubits-font-weight-regular, 400);
+  font-size: var(--font-body-sm-size, 13px);
+  line-height: var(--font-body-sm-line, 19.5px);
+  font-weight: var(--weight-regular, 400);
   color: var(--modifiers-normal-color-light-fg-1-medium) !important;
   text-decoration: none;
   background: none;
@@ -47,7 +47,7 @@
 /* Breadcrumb Item - Active State */
 .ubits-breadcrumb__item--active {
   color: var(--modifiers-normal-color-light-fg-1-high) !important;
-  font-weight: var(--ubits-font-weight-bold, 700);
+  font-weight: var(--weight-bold, 700);
   cursor: default;
   pointer-events: none;
 }
@@ -65,9 +65,9 @@
   display: inline-flex;
   align-items: center;
   color: var(--modifiers-normal-color-light-fg-1-medium) !important;
-  font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px);
-  line-height: var(--modifiers-normal-body-sm-regular-lineheight, 19.5px);
-  margin: var(--ubits-spacing-none, 0) var(--p-spacing-mode-1-xs, 4px);
+  font-size: var(--font-body-sm-size, 13px);
+  line-height: var(--font-body-sm-line, 19.5px);
+  margin: var(--ubits-spacing-none, 0) var(--ubits-spacing-xs, 4px);
   user-select: none;
 }
 
@@ -94,23 +94,13 @@
 
 @media (max-width: 768px) {
   .ubits-breadcrumb__item {
-    font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px);
-    line-height: var(--modifiers-normal-body-sm-regular-lineheight, 19.5px);
+    font-size: var(--font-body-sm-size, 13px);
+    line-height: var(--font-body-sm-line, 19.5px);
   }
   
   .ubits-breadcrumb__separator {
-    font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px);
-    line-height: var(--modifiers-normal-body-sm-regular-lineheight, 19.5px);
+    font-size: var(--font-body-sm-size, 13px);
+    line-height: var(--font-body-sm-line, 19.5px);
   }
 }
 
-
-
-[data-theme="dark"] {
-
-  --modifiers-normal-color-light-fg-1-medium: var(--modifiers-normal-color-dark-fg-1-medium);
-  --modifiers-normal-color-light-feedback-accent-info: var(--modifiers-normal-color-dark-feedback-accent-info);
-  --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
-  --modifiers-normal-color-light-fg-disabled: var(--modifiers-normal-color-dark-fg-disabled);
-
-}

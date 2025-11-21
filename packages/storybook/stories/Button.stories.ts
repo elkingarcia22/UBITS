@@ -163,7 +163,7 @@ export const Default: Story = {
     loading: false,
     badge: false,
     active: false,
-    floating: true,
+    floating: false,
     fullWidth: false,
     block: false,
     dropdown: false,

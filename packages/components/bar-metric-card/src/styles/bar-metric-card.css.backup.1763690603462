@@ -14,9 +14,9 @@
   flex-direction: column;
   background: var(--modifiers-normal-color-light-bg-1) !important;
   border-radius: var(--ubits-border-radius-sm, 8px);
-  padding: var(--p-spacing-mode-1-md, 12px);
-  gap: var(--p-spacing-mode-1-md);
-  font-family: var(--font-family-noto-sans-font-family);
+  padding: var(--ubits-spacing-md, 12px);
+  gap: var(--ubits-spacing-md);
+  font-family: var(--font-sans);
   transition: all 0.2s ease;
   width: 392px;
   max-width: 100%;
@@ -31,18 +31,18 @@
    ======================================== */
 
 .ubits-bar-metric-card--sm {
-  padding: var(--p-spacing-mode-1-md, 12px);
-  gap: var(--p-spacing-mode-1-sm);
+  padding: var(--ubits-spacing-md, 12px);
+  gap: var(--ubits-spacing-sm);
 }
 
 .ubits-bar-metric-card--md {
-  padding: var(--p-spacing-mode-1-md, 12px);
-  gap: var(--p-spacing-mode-1-md);
+  padding: var(--ubits-spacing-md, 12px);
+  gap: var(--ubits-spacing-md);
 }
 
 .ubits-bar-metric-card--lg {
-  padding: var(--p-spacing-mode-1-md, 12px);
-  gap: var(--p-spacing-mode-1-lg);
+  padding: var(--ubits-spacing-md, 12px);
+  gap: var(--ubits-spacing-lg);
 }
 
 /* ========================================
@@ -52,7 +52,7 @@
 .ubits-bar-metric-card__header {
   display: flex;
   align-items: center;
-  gap: var(--p-spacing-mode-1-sm);
+  gap: var(--ubits-spacing-sm);
   width: 100%;
   position: relative;
 }
@@ -60,7 +60,7 @@
 .ubits-bar-metric-card__title-group {
   display: flex;
   align-items: center;
-  gap: var(--p-spacing-mode-1-xs);
+  gap: var(--ubits-spacing-xs);
   flex: 1;
 }
 
@@ -80,7 +80,7 @@
 
 .ubits-bar-metric-card__title {
   margin: var(--ubits-spacing-none, 0);
-  font-family: var(--font-family-noto-sans-font-family);
+  font-family: var(--font-sans);
   color: var(--modifiers-normal-color-light-fg-1-high) !important;
   text-align: left;
 }
@@ -119,7 +119,7 @@
    ======================================== */
 
 .ubits-bar-metric-card__response-count {
-  margin-top: var(--p-spacing-mode-1-xs, 4px);
+  margin-top: var(--ubits-spacing-xs, 4px);
   color: var(--modifiers-normal-color-light-fg-2-medium) !important;
 }
 
@@ -130,7 +130,7 @@
 .ubits-bar-metric-card__content {
   display: flex;
   width: 100%;
-  gap: var(--p-spacing-mode-1-lg);
+  gap: var(--ubits-spacing-lg);
   box-sizing: border-box;
   overflow: visible; /* Cambiar de hidden a visible para que el gráfico no se corte */
 }
@@ -152,7 +152,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  gap: var(--p-spacing-mode-1-md);
+  gap: var(--ubits-spacing-md);
   flex-wrap: nowrap;
 }
 
@@ -214,15 +214,15 @@
 }
 
 .ubits-bar-metric-card__bar-label {
-  font-family: var(--font-family-noto-sans-font-family);
+  font-family: var(--font-sans);
   fill: var(--modifiers-normal-color-light-fg-2-medium) !important;
 }
 
 /* Asegurar que los textos del SVG siempre usen body sm regular (13px) independiente del ancho de la card */
 .ubits-bar-metric-card__chart-svg text {
-  font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px) !important;
-  font-weight: var(--ubits-font-weight-regular, 400) !important;
-  font-family: var(--font-family-noto-sans-font-family) !important;
+  font-size: var(--font-body-sm-size, 13px) !important;
+  font-weight: var(--weight-regular, 400) !important;
+  font-family: var(--font-sans) !important;
 }
 
 /* ========================================
@@ -232,7 +232,7 @@
 .ubits-bar-metric-card__categories {
   display: flex;
   flex-direction: column;
-  gap: var(--p-spacing-mode-1-md);
+  gap: var(--ubits-spacing-md);
   flex: 1;
 }
 
@@ -258,7 +258,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  gap: var(--p-spacing-mode-1-md);
+  gap: var(--ubits-spacing-md);
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
@@ -281,14 +281,14 @@
 
 .ubits-bar-metric-card__category-label {
   color: var(--modifiers-normal-color-light-fg-2-medium) !important;
-  font-family: var(--font-family-noto-sans-font-family);
+  font-family: var(--font-sans);
   margin: var(--ubits-spacing-none, 0);
   flex-shrink: 0;
 }
 
 .ubits-bar-metric-card__category-value {
   color: var(--modifiers-normal-color-light-fg-1-high) !important;
-  font-family: var(--font-family-noto-sans-font-family);
+  font-family: var(--font-sans);
   margin: var(--ubits-spacing-none, 0);
   flex-shrink: 0;
   white-space: nowrap;
@@ -296,20 +296,20 @@
 
 .ubits-bar-metric-card__category-percentage {
   color: var(--modifiers-normal-color-light-fg-1-high) !important;
-  font-family: var(--font-family-noto-sans-font-family);
+  font-family: var(--font-sans);
 }
 
 /* Aplicar estilos bold cuando tenga la clase ubits-body-sm-bold */
 .ubits-bar-metric-card__category-percentage.ubits-body-sm-bold {
-  font-size: var(--modifiers-normal-body-md-bold-fontsize, 16px);
-  line-height: var(--modifiers-normal-body-md-bold-lineheight, 28.8px);
-  font-weight: var(--ubits-font-weight-bold, 700);
+  font-size: var(--font-body-sm-size, 13px);
+  line-height: var(--font-body-sm-line, 19.5px);
+  font-weight: var(--weight-bold, 700);
 }
 
 .ubits-bar-metric-card__category-percentage.ubits-body-md-bold {
-  font-size: var(--modifiers-normal-body-md-bold-fontsize, 16px);
-  line-height: var(--modifiers-normal-body-md-bold-lineheight, 28.8px);
-  font-weight: var(--ubits-font-weight-bold, 700);
+  font-size: var(--font-body-md-size, 16px);
+  line-height: var(--font-body-md-line, 24px);
+  font-weight: var(--weight-bold, 700);
 }
 
 /* ========================================
@@ -319,7 +319,7 @@
 .ubits-bar-metric-card__category--with-progress {
   display: flex;
   flex-direction: column;
-  gap: var(--p-spacing-mode-1-xs, 4px);
+  gap: var(--ubits-spacing-xs, 4px);
   width: 100%;
   box-sizing: border-box;
 }
@@ -347,15 +347,13 @@
 
 /* El indicador del progress bar debe ser regular (no semibold) */
 .ubits-bar-metric-card__category-progress-wrapper .ubits-progress-bar__indicator {
-  font-weight: var(--ubits-font-weight-regular, 400) !important;
+  font-weight: var(--weight-regular, 400) !important;
 }
 
 /* El porcentaje dentro del indicador debe ser bold */
 .ubits-bar-metric-card__category-progress-wrapper .ubits-progress-bar__indicator .ubits-body-sm-bold,
 .ubits-bar-metric-card__category-progress-wrapper .ubits-progress-bar__indicator .ubits-body-md-bold {
-  font-size: var(--modifiers-normal-body-md-bold-fontsize, 16px) !important;
-  line-height: var(--modifiers-normal-body-md-bold-lineheight, 28.8px) !important;
-  font-weight: var(--ubits-font-weight-bold, 700) !important;
+  font-weight: var(--weight-bold, 700) !important;
 }
 
 /* En layout horizontal, las categorías con progress bars ocupan todo el ancho */
@@ -401,19 +399,3 @@
   }
 }
 
-
-
-/* ========================================
-   DARK MODE
-   ======================================== */
-
-[data-theme="dark"] {
-
-  --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
-  --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
-  --modifiers-normal-color-light-fg-2-medium: var(--modifiers-normal-color-dark-fg-2-medium);
-  --modifiers-normal-color-light-bg-2: var(--modifiers-normal-color-dark-bg-2);
-  --modifiers-normal-color-light-border-2: var(--modifiers-normal-color-dark-border-2);
-  --modifiers-normal-color-light-bg-3: var(--modifiers-normal-color-dark-bg-3);
-
-}

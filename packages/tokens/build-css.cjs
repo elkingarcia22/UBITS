@@ -87,18 +87,33 @@ function extractFigmaTokens(figmaData, mode, primitives) {
         const resolvedValue = resolveReference(obj.$value, primitives);
         
         // Generar nombre de variable CSS desde la ruta
+        // Filtrar solo "Light Mode" y "Dark Mode" del path, pero MANTENER "light" y "dark" en el nombre
+        // para que los tokens tengan nombres como --modifiers-normal-color-light-feedback-...
         const cssVarName = path
-          .filter(p => p && p !== mode) // Filtrar vacíos y el modo
+          .filter(p => {
+            if (!p) return false;
+            const pLower = p.toLowerCase();
+            // Solo filtrar "Light Mode" y "Dark Mode", NO filtrar "light" o "dark" individuales
+            // porque estos son parte del nombre del token (indican el modo)
+            return pLower !== 'light mode' && pLower !== 'dark mode';
+          })
           .map(p => p.toLowerCase().replace(/\//g, '-').replace(/\s+/g, '-'))
           .join('-');
         
         if (cssVarName) {
           // Si el valor está resuelto (no es una referencia sin resolver), agregarlo directamente
-          if (resolvedValue && typeof resolvedValue === 'string' && !resolvedValue.match(/^\{[^}]+\}$/)) {
-            tokens[`--${cssVarName}`] = resolvedValue;
-          } else if (resolvedValue && typeof resolvedValue === 'string' && resolvedValue.match(/^\{[^}]+\}$/)) {
-            // Guardar referencia sin resolver para intentar resolver después
-            unresolvedRefs[`--${cssVarName}`] = resolvedValue;
+          // Procesar tanto strings como números (para fontSize, lineHeight, etc.)
+          if (resolvedValue !== undefined && resolvedValue !== null) {
+            if (typeof resolvedValue === 'string' && !resolvedValue.match(/^\{[^}]+\}$/)) {
+              tokens[`--${cssVarName}`] = resolvedValue;
+            } else if (typeof resolvedValue === 'number') {
+              // Para valores numéricos, agregar 'px' si es fontSize o lineHeight, o el valor directo
+              const isSize = cssVarName.includes('fontsize') || cssVarName.includes('lineheight');
+              tokens[`--${cssVarName}`] = isSize ? `${resolvedValue}px` : String(resolvedValue);
+            } else if (typeof resolvedValue === 'string' && resolvedValue.match(/^\{[^}]+\}$/)) {
+              // Guardar referencia sin resolver para intentar resolver después
+              unresolvedRefs[`--${cssVarName}`] = resolvedValue;
+            }
           }
         }
       }
@@ -117,12 +132,28 @@ function extractFigmaTokens(figmaData, mode, primitives) {
   function findModeNodes(obj, currentPath = []) {
     if (typeof obj === 'object' && obj !== null) {
       for (const key in obj) {
-        if (key === mode) {
-          // Encontramos el modo, extraer tokens desde aquí
+        // Normalizar el nombre de la clave para comparar (case-insensitive, sin espacios)
+        const normalizedKey = key.toLowerCase().replace(/\s+/g, '').replace(/\//g, '');
+        const normalizedMode = mode.toLowerCase();
+        
+        // Buscar "Light Mode", "light", "Dark Mode", "dark", etc.
+        const isLightMode = normalizedKey.includes('light') && (normalizedKey.includes('mode') || normalizedKey === 'light');
+        const isDarkMode = normalizedKey.includes('dark') && (normalizedKey.includes('mode') || normalizedKey === 'dark');
+        
+        if (key === mode || (normalizedMode === 'light' && isLightMode) || (normalizedMode === 'dark' && isDarkMode)) {
+          // Encontramos el modo correcto, extraer tokens desde aquí
           extract(obj[key], [...currentPath, key]);
-        } else if (key === 'light' || key === 'dark') {
-          // Si encontramos light/dark directamente, extraer tokens
+        } else if ((key === 'light' && mode === 'light') || (key === 'dark' && mode === 'dark')) {
+          // Si encontramos light/dark directamente Y coincide con el modo actual, extraer tokens
           extract(obj[key], [...currentPath, key]);
+        } else if (isLightMode && mode === 'dark') {
+          // Si encontramos "Light Mode" pero estamos en modo "dark", saltarlo completamente
+          // No continuar buscando en este nodo
+          continue;
+        } else if (isDarkMode && mode === 'light') {
+          // Si encontramos "Dark Mode" pero estamos en modo "light", saltarlo completamente
+          // No continuar buscando en este nodo
+          continue;
         } else {
           // Si el objeto tiene $value directamente (sin light/dark), también extraerlo
           if (obj[key] && typeof obj[key] === 'object' && obj[key].$value !== undefined && obj[key].$type) {
@@ -132,6 +163,19 @@ function extractFigmaTokens(figmaData, mode, primitives) {
           findModeNodes(obj[key], [...currentPath, key]);
         }
       }
+    }
+  }
+  
+  // Buscar en la raíz primero (s-colors/Light Mode, s-colors/Dark Mode)
+  if (figmaData[''] && figmaData['']['s-colors']) {
+    const sColors = figmaData['']['s-colors'];
+    const lightModeKey = Object.keys(sColors).find(k => k.toLowerCase().includes('light') && k.toLowerCase().includes('mode'));
+    const darkModeKey = Object.keys(sColors).find(k => k.toLowerCase().includes('dark') && k.toLowerCase().includes('mode'));
+    
+    if (mode === 'light' && lightModeKey) {
+      extract(sColors[lightModeKey], ['s-colors', lightModeKey]);
+    } else if (mode === 'dark' && darkModeKey) {
+      extract(sColors[darkModeKey], ['s-colors', darkModeKey]);
     }
   }
   

@@ -367,3 +367,228 @@ export const Body: Story = {
   },
 };
 
+/**
+ * Story - Uso Práctico: Text Styles Combinados
+ * 
+ * Muestra cómo aplicar los text styles combinados en CSS
+ * aplicando los tokens individuales al mismo tiempo
+ */
+export const UsoPractico: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '24px';
+    container.style.maxWidth = '1400px';
+    
+    const title = document.createElement('h2');
+    title.textContent = 'Uso Práctico: Text Styles Combinados';
+    title.style.fontSize = '24px';
+    title.style.fontWeight = '700';
+    title.style.marginBottom = '16px';
+    container.appendChild(title);
+    
+    const description = document.createElement('p');
+    description.innerHTML = `
+      <strong>Importante:</strong> No creamos tokens CSS nuevos combinados. 
+      Aplicamos los tokens individuales de Figma al mismo tiempo en CSS.
+      <br><br>
+      Los text styles se construyen combinando:
+      <ul style="margin-left: 20px; margin-top: 8px;">
+        <li><code>font-size</code>: Token de Figma (ej: <code>--modifiers-normal-body-md-semibold-fontsize</code>)</li>
+        <li><code>font-weight</code>: Token numérico UBITS (ej: <code>--ubits-font-weight-semibold, 600</code>)</li>
+        <li><code>line-height</code>: Token de Figma (ej: <code>--modifiers-normal-body-md-semibold-lineheight</code>)</li>
+      </ul>
+    `;
+    description.style.fontSize = '16px';
+    description.style.color = '#5c646f';
+    description.style.marginBottom = '32px';
+    description.style.lineHeight = '1.6';
+    description.style.padding = '16px';
+    description.style.backgroundColor = '#f9fafb';
+    description.style.border = '1px solid #e5e7eb';
+    description.style.borderRadius = '8px';
+    container.appendChild(description);
+    
+    // Text styles más usados
+    const textStyles = [
+      {
+        name: 'Body MD Semibold',
+        description: 'Usado en títulos de acordeones, botones (MD), labels importantes',
+        css: `
+font-family: var(--font-family-noto-sans-font-family);
+font-size: var(--modifiers-normal-body-md-semibold-fontsize);
+font-weight: var(--ubits-font-weight-semibold, 600);
+line-height: var(--modifiers-normal-body-md-semibold-lineheight);
+        `.trim(),
+        preview: 'Texto de ejemplo con Body MD Semibold'
+      },
+      {
+        name: 'Body SM Semibold',
+        description: 'Usado en badges, botones (SM, XS), labels pequeños',
+        css: `
+font-family: var(--font-family-noto-sans-font-family);
+font-size: var(--modifiers-normal-body-sm-semibold-fontsize);
+font-weight: var(--ubits-font-weight-semibold, 600);
+line-height: var(--modifiers-normal-body-sm-semibold-lineheight);
+        `.trim(),
+        preview: 'Texto de ejemplo con Body SM Semibold'
+      },
+      {
+        name: 'Body MD Regular',
+        description: 'Usado en párrafos, descripciones, contenido general',
+        css: `
+font-family: var(--font-family-noto-sans-font-family);
+font-size: var(--modifiers-normal-body-md-regular-fontsize);
+font-weight: var(--ubits-font-weight-regular, 400);
+line-height: var(--modifiers-normal-body-md-regular-lineheight);
+        `.trim(),
+        preview: 'Texto de ejemplo con Body MD Regular para párrafos y descripciones largas.'
+      },
+      {
+        name: 'Body SM Regular',
+        description: 'Usado en subheaders, helper text, metadatos',
+        css: `
+font-family: var(--font-family-noto-sans-font-family);
+font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+font-weight: var(--ubits-font-weight-regular, 400);
+line-height: var(--modifiers-normal-body-sm-regular-lineheight);
+        `.trim(),
+        preview: 'Texto de ejemplo con Body SM Regular'
+      },
+      {
+        name: 'Body XS Semibold',
+        description: 'Usado en botones extra pequeños (XS)',
+        css: `
+font-family: var(--font-family-noto-sans-font-family);
+font-size: var(--modifiers-normal-body-xs-semibold-fontsize);
+font-weight: var(--ubits-font-weight-semibold, 600);
+line-height: var(--modifiers-normal-body-xs-semibold-lineheight);
+        `.trim(),
+        preview: 'XS Semibold'
+      }
+    ];
+    
+    textStyles.forEach((style, index) => {
+      const styleCard = document.createElement('div');
+      styleCard.style.marginBottom = '32px';
+      styleCard.style.padding = '20px';
+      styleCard.style.border = '1px solid #e5e7eb';
+      styleCard.style.borderRadius = '12px';
+      styleCard.style.backgroundColor = '#ffffff';
+      
+      const styleName = document.createElement('h3');
+      styleName.textContent = style.name;
+      styleName.style.fontSize = '18px';
+      styleName.style.fontWeight = '600';
+      styleName.style.marginBottom = '8px';
+      styleName.style.color = '#303a47';
+      styleCard.appendChild(styleName);
+      
+      const styleDesc = document.createElement('p');
+      styleDesc.textContent = style.description;
+      styleDesc.style.fontSize = '14px';
+      styleDesc.style.color = '#6b7280';
+      styleDesc.style.marginBottom = '16px';
+      styleCard.appendChild(styleDesc);
+      
+      // Preview
+      const previewContainer = document.createElement('div');
+      previewContainer.style.marginBottom = '16px';
+      previewContainer.style.padding = '16px';
+      previewContainer.style.backgroundColor = '#f9fafb';
+      previewContainer.style.border = '1px solid #e5e7eb';
+      previewContainer.style.borderRadius = '8px';
+      
+      const previewLabel = document.createElement('div');
+      previewLabel.textContent = 'Preview:';
+      previewLabel.style.fontSize = '12px';
+      previewLabel.style.fontWeight = '600';
+      previewLabel.style.color = '#6b7280';
+      previewLabel.style.marginBottom = '8px';
+      previewLabel.style.textTransform = 'uppercase';
+      previewLabel.style.letterSpacing = '0.5px';
+      previewContainer.appendChild(previewLabel);
+      
+      const preview = document.createElement('div');
+      preview.textContent = style.preview;
+      preview.style.fontFamily = 'var(--font-family-noto-sans-font-family)';
+      preview.style.fontSize = 'var(--modifiers-normal-body-md-semibold-fontsize)';
+      preview.style.fontWeight = 'var(--ubits-font-weight-semibold, 600)';
+      preview.style.lineHeight = 'var(--modifiers-normal-body-md-semibold-lineheight)';
+      preview.style.color = '#303a47';
+      
+      // Aplicar estilos específicos según el text style
+      if (style.name.includes('SM')) {
+        preview.style.fontSize = 'var(--modifiers-normal-body-sm-semibold-fontsize)';
+        preview.style.lineHeight = 'var(--modifiers-normal-body-sm-semibold-lineheight)';
+        if (style.name.includes('Regular')) {
+          preview.style.fontWeight = 'var(--ubits-font-weight-regular, 400)';
+        }
+      } else if (style.name.includes('XS')) {
+        preview.style.fontSize = 'var(--modifiers-normal-body-xs-semibold-fontsize)';
+        preview.style.lineHeight = 'var(--modifiers-normal-body-xs-semibold-lineheight)';
+      } else if (style.name.includes('Regular')) {
+        preview.style.fontSize = 'var(--modifiers-normal-body-md-regular-fontsize)';
+        preview.style.fontWeight = 'var(--ubits-font-weight-regular, 400)';
+        preview.style.lineHeight = 'var(--modifiers-normal-body-md-regular-lineheight)';
+      }
+      
+      previewContainer.appendChild(preview);
+      styleCard.appendChild(previewContainer);
+      
+      // CSS Code
+      const codeLabel = document.createElement('div');
+      codeLabel.textContent = 'CSS:';
+      codeLabel.style.fontSize = '12px';
+      codeLabel.style.fontWeight = '600';
+      codeLabel.style.color = '#6b7280';
+      codeLabel.style.marginBottom = '8px';
+      codeLabel.style.textTransform = 'uppercase';
+      codeLabel.style.letterSpacing = '0.5px';
+      styleCard.appendChild(codeLabel);
+      
+      const codeBlock = document.createElement('pre');
+      codeBlock.style.margin = '0';
+      codeBlock.style.padding = '12px';
+      codeBlock.style.backgroundColor = '#1e293b';
+      codeBlock.style.borderRadius = '6px';
+      codeBlock.style.overflow = 'auto';
+      
+      const code = document.createElement('code');
+      code.textContent = style.css;
+      code.style.fontFamily = 'monospace';
+      code.style.fontSize = '13px';
+      code.style.color = '#e2e8f0';
+      code.style.lineHeight = '1.6';
+      codeBlock.appendChild(code);
+      styleCard.appendChild(codeBlock);
+      
+      container.appendChild(styleCard);
+    });
+    
+    // Nota sobre font-weight
+    const note = document.createElement('div');
+    note.style.marginTop = '32px';
+    note.style.padding = '16px';
+    note.style.backgroundColor = '#fef3c7';
+    note.style.border = '1px solid #fbbf24';
+    note.style.borderRadius = '8px';
+    note.innerHTML = `
+      <strong>⚠️ Nota sobre font-weight:</strong><br>
+      Los tokens de Figma devuelven strings ("Regular", "SemiBold", "Bold") en lugar de números.
+      Por eso creamos tokens numéricos en <code>tokens.css</code>:
+      <ul style="margin-left: 20px; margin-top: 8px;">
+        <li><code>--ubits-font-weight-regular: 400</code></li>
+        <li><code>--ubits-font-weight-semibold: 600</code></li>
+        <li><code>--ubits-font-weight-bold: 700</code></li>
+      </ul>
+      Estos tokens se usan junto con los tokens de Figma para construir los text styles completos.
+    `;
+    note.style.fontSize = '14px';
+    note.style.color = '#92400e';
+    note.style.lineHeight = '1.6';
+    container.appendChild(note);
+    
+    return container;
+  },
+};
+

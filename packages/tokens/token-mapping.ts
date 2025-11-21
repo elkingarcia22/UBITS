@@ -351,6 +351,73 @@ export const TOKEN_MAPPING: TokenMapping[] = [
   },
 
   // ============================================
+  // TYPOGRAPHY TOKENS
+  // ============================================
+  {
+    old: '--font-sans',
+    new: '--font-family-noto-sans-font-family',
+    category: 'typography',
+    notes: 'Font family Noto Sans'
+  },
+  {
+    old: '--font-body-sm-size',
+    new: '--modifiers-normal-body-sm-regular-fontsize',
+    category: 'typography',
+    notes: 'Body small font size (13px)'
+  },
+  {
+    old: '--font-body-sm-line',
+    new: '--modifiers-normal-body-sm-regular-lineheight',
+    category: 'typography',
+    notes: 'Body small line height (23.4px)'
+  },
+  {
+    old: '--font-body-md-size',
+    new: '--modifiers-normal-body-md-regular-fontsize',
+    category: 'typography',
+    notes: 'Body medium font size (16px)'
+  },
+  {
+    old: '--font-body-md-line',
+    new: '--modifiers-normal-body-md-regular-lineheight',
+    category: 'typography',
+    notes: 'Body medium line height (28.8px)'
+  },
+  {
+    old: '--font-body-xs-size',
+    new: '--modifiers-normal-body-xs-regular-fontsize',
+    category: 'typography',
+    notes: 'Body extra small font size (11px)'
+  },
+  {
+    old: '--font-body-xs-line',
+    new: '--modifiers-normal-body-xs-regular-lineheight',
+    category: 'typography',
+    notes: 'Body extra small line height (19.8px)'
+  },
+  // NOTA: font-weight está acoplado a estilos específicos en Figma
+  // Mapear según el contexto (body-sm-regular, body-sm-semibold, body-sm-bold, etc.)
+  // Por defecto, usar regular, pero ajustar manualmente según el contexto
+  {
+    old: '--weight-regular',
+    new: '--modifiers-normal-body-sm-regular-fontweight',
+    category: 'typography',
+    notes: 'Font weight regular (usar body-sm-regular por defecto, ajustar según contexto)'
+  },
+  {
+    old: '--weight-semibold',
+    new: '--modifiers-normal-body-sm-semibold-fontweight',
+    category: 'typography',
+    notes: 'Font weight semibold (usar body-sm-semibold por defecto, ajustar según contexto)'
+  },
+  {
+    old: '--weight-bold',
+    new: '--modifiers-normal-body-sm-bold-fontweight',
+    category: 'typography',
+    notes: 'Font weight bold (usar body-sm-bold por defecto, ajustar según contexto)'
+  },
+
+  // ============================================
   // EFFECTS TOKENS
   // ============================================
   {

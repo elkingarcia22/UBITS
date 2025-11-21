@@ -13,11 +13,16 @@ Migrar todos los componentes UBITS del sistema de tokens antiguo (`--ubits-*`) a
 
 ## 🎓 Lecciones Aprendidas del Button
 
-### 1. Sistema de Fallbacks de 3 Niveles
+### 1. Sistema de Tokens (ACTUALIZADO)
 ```css
-/* SIEMPRE usar este patrón */
+/* FASE INICIAL: Usar fallbacks de 3 niveles durante migración */
 property: var(--token-nuevo-figma, var(--token-antiguo-ubits, valor-hardcodeado)) !important;
+
+/* FASE FINAL: Eliminar fallbacks antiguos y hardcodeados, dejar SOLO token nuevo */
+property: var(--token-nuevo-figma) !important;
 ```
+
+**⚠️ IMPORTANTE**: Después de la migración, en la Fase 5 se eliminan los fallbacks antiguos y valores hardcodeados, dejando SOLO los tokens nuevos de Figma.
 
 ### 2. Especificidad CSS con `!important`
 - Usar `!important` en propiedades críticas (background, color, border)
@@ -37,6 +42,42 @@ property: var(--token-nuevo-figma, var(--token-antiguo-ubits, valor-hardcodeado)
 - Buscar valores hardcodeados (px, %, etc.)
 - Verificar que todos los tokens tengan fallbacks
 - Probar en Storybook todos los estados
+
+### 6. Soporte Dark Mode (NUEVO - CRÍTICO)
+**⚠️ PROBLEMA CRÍTICO ENCONTRADO**: Los componentes migrados usan tokens con `-light-` hardcodeados, por lo que NO cambian automáticamente en dark mode.
+
+**Solución**: Ejecutar el script `fix-dark-mode-tokens.cjs` que agrega reglas `[data-theme="dark"]` que redefinen las variables CSS para que apunten a tokens `-dark-`.
+
+**Pasos Requeridos:**
+1. Ejecutar `cd packages/tokens && node scripts/fix-dark-mode-tokens.cjs` después de migrar tokens
+2. Verificar que las reglas `[data-theme="dark"]` se agregaron
+3. Corregir manualmente reglas específicas que usen tokens `-light-` dentro de `[data-theme="dark"]`
+4. Probar componente en dark mode en Storybook
+
+**Documentación completa**: Ver `docs/PROBLEMA-DARK-MODE-TOKENS.md`
+
+### 7. Verificación de Tokens en el DOM (CRÍTICO)
+**⚠️ PROBLEMA CRÍTICO ENCONTRADO**: Los tokens pueden existir en `figma-tokens.css` pero NO estar disponibles en el DOM.
+
+**Causa**: El script `build-css.cjs` puede estar filtrando incorrectamente los tokens, eliminando `'light'` o `'dark'` del nombre del token.
+
+**Verificación Requerida:**
+1. ✅ Verificar que los tokens existen en `figma-tokens.css`
+2. ✅ Verificar que los tokens están en el bloque correcto:
+   - Tokens con `'light'` en el nombre → `:root` (líneas 1-3000 aprox.)
+   - Tokens con `'dark'` en el nombre → `[data-theme="dark"]` (líneas 3000+)
+3. ✅ Verificar que los tokens están disponibles en el DOM:
+   ```javascript
+   // En consola del navegador
+   getComputedStyle(document.documentElement).getPropertyValue('--modifiers-normal-color-light-feedback-bg-info-subtle-default')
+   // Debe retornar un valor (ej: "#f3f2ff"), NO una cadena vacía
+   ```
+4. ✅ Verificar visualmente en Storybook que los componentes muestran los colores correctos
+
+**Si los tokens NO están disponibles:**
+1. Regenerar tokens: `cd packages/tokens && node build-css.cjs`
+2. Verificar que `build-css.cjs` NO filtre `'light'` o `'dark'` del nombre (solo `'Light Mode'` y `'Dark Mode'`)
+3. Verificar que los tokens estén en el bloque correcto del CSS generado
 
 ---
 
@@ -254,11 +295,98 @@ property: var(--token-nuevo-figma, var(--token-antiguo-ubits, valor-hardcodeado)
 - [ ] Verificar que todos los tokens tengan fallback de 3 niveles
 - [ ] Verificar que los fallbacks sean correctos
 
+#### 4.5 Verificar Tokens en el DOM (CRÍTICO - NUEVO)
+- [ ] Verificar que los tokens existen en `figma-tokens.css`
+  ```bash
+  grep "modifiers-normal-color-light-feedback-bg-info-subtle-default" packages/tokens/dist/figma-tokens.css
+  ```
+
+- [ ] Verificar que los tokens están en el bloque correcto
+  ```bash
+  # Tokens con 'light' deben estar en :root (líneas 1-3000 aprox.)
+  sed -n '1,3000p' packages/tokens/dist/figma-tokens.css | grep "modifiers-normal-color-light"
+  
+  # Tokens con 'light' NO deben estar en [data-theme="dark"]
+  sed -n '3001,$p' packages/tokens/dist/figma-tokens.css | grep "modifiers-normal-color-light"
+  # Debe retornar vacío (o solo tokens que realmente son dark)
+  ```
+
+- [ ] Verificar que los tokens están disponibles en el DOM
+  ```javascript
+  // Ejecutar en consola del navegador (Storybook)
+  const token = '--modifiers-normal-color-light-feedback-bg-info-subtle-default';
+  const value = getComputedStyle(document.documentElement).getPropertyValue(token).trim();
+  console.log(`Token: ${token}`);
+  console.log(`Valor: ${value || 'NO DEFINIDO'}`);
+  // Debe mostrar un valor hexadecimal (ej: "#f3f2ff"), NO "NO DEFINIDO"
+  ```
+
+- [ ] Si los tokens NO están disponibles:
+  - [ ] Regenerar tokens: `cd packages/tokens && node build-css.cjs`
+  - [ ] Verificar que `build-css.cjs` NO filtre `'light'` o `'dark'` del nombre
+  - [ ] Verificar que solo filtre `'Light Mode'` y `'Dark Mode'`
+  - [ ] Recargar Storybook y verificar nuevamente
+
 ---
 
-### Fase 5: Documentación y Testing (30 min)
+### Fase 5: Limpieza Final - Eliminar Fallbacks Antiguos y Hardcodeados (30 min)
 
-#### 5.1 Actualizar Documentación
+**🎯 OBJETIVO**: Dejar SOLO tokens nuevos de Figma, sin fallbacks antiguos ni valores hardcodeados.
+
+#### 5.1 Limpiar Fallbacks Antiguos de Tokens de Color
+- [ ] Eliminar fallbacks antiguos (`--ubits-*`) de tokens que SÍ tienen equivalente en Figma
+  ```bash
+  ./scripts/cleanup-token-fallbacks.sh [COMPONENTE]
+  ```
+  
+  **Antes:**
+  ```css
+  color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
+  ```
+  
+  **Después:**
+  ```css
+  color: var(--modifiers-normal-color-light-fg-1-high) !important;
+  ```
+
+#### 5.2 Mantener Tokens Sin Equivalente
+- [ ] **NO eliminar** tokens antiguos que NO tienen equivalente en Figma:
+  - `--ubits-spacing-*` (xs, sm, md, lg, xl, none)
+  - `--ubits-border-radius-*` (xs, sm, md, lg, xl, full)
+  - `--ubits-button-focus-ring` (si no tiene equivalente)
+  - `--ubits-btn-primary-fg` (si no tiene equivalente)
+  - Cualquier otro token documentado en `token-mapping.ts` como "sin equivalente"
+
+#### 5.3 Verificar Limpieza
+- [ ] Verificar que no queden fallbacks antiguos de tokens de color
+  ```bash
+  grep -E "var\(--modifiers-normal-[^,)]+,\s*var\(--ubits-" packages/components/[COMPONENTE]/src/styles/*.css
+  ```
+  Debe retornar vacío (excepto para tokens sin equivalente)
+
+- [ ] Verificar que no queden valores hardcodeados en tokens de color
+  ```bash
+  grep -E "var\(--modifiers-normal-[^,)]+,\s*#[0-9a-fA-F]{3,8}\)" packages/components/[COMPONENTE]/src/styles/*.css
+  grep -E "var\(--modifiers-normal-[^,)]+,\s*rgba\(" packages/components/[COMPONENTE]/src/styles/*.css
+  ```
+  Debe retornar vacío
+
+- [ ] Verificar que solo queden tokens nuevos de Figma
+  ```bash
+  grep -E "var\(--modifiers-normal-[^,)]+\)" packages/components/[COMPONENTE]/src/styles/*.css | head -5
+  ```
+
+#### 5.4 Testing Post-Limpieza
+- [ ] Probar componente en Storybook
+- [ ] Verificar que todos los estados funcionan
+- [ ] Verificar modo dark
+- [ ] Verificar que funciona con `figma-tokens.css` cargado
+
+---
+
+### Fase 6: Documentación y Testing (30 min)
+
+#### 6.1 Actualizar Documentación
 - [ ] Actualizar `README.md` del componente
   - Indicar que requiere `figma-tokens.css` y `tokens.css`
   - Documentar tokens sin equivalente (si los hay)
@@ -267,14 +395,14 @@ property: var(--token-nuevo-figma, var(--token-antiguo-ubits, valor-hardcodeado)
   - Agregar nuevos mapeos si es necesario
   - Documentar tokens sin equivalente
 
-#### 5.2 Testing Manual
+#### 6.2 Testing Manual
 - [ ] Probar componente en aplicación real
 - [ ] Verificar que funciona sin `figma-tokens.css` (usando fallbacks)
 - [ ] Verificar que funciona con `figma-tokens.css`
 - [ ] Verificar modo dark
 - [ ] Verificar responsive
 
-#### 5.3 Commit y PR
+#### 6.3 Commit y PR
 - [ ] Commit con mensaje descriptivo
   ```bash
   git commit -m "feat([COMPONENTE]): migrar tokens a sistema Figma
@@ -292,6 +420,28 @@ property: var(--token-nuevo-figma, var(--token-antiguo-ubits, valor-hardcodeado)
 ---
 
 ## 🔧 Scripts de Ayuda
+
+### Script 0: Limpieza de Fallbacks Antiguos
+```bash
+#!/usr/bin/env python3
+# scripts/cleanup-token-fallbacks.py [COMPONENTE]
+
+# Elimina fallbacks antiguos y valores hardcodeados
+# Deja SOLO tokens nuevos de Figma
+python3 scripts/cleanup-token-fallbacks.py button
+```
+
+**Uso:**
+```bash
+# Limpiar fallbacks de un componente
+python3 scripts/cleanup-token-fallbacks.py button
+
+# El script:
+# 1. Crea un backup automático
+# 2. Elimina var(--token-nuevo, var(--token-antiguo, #valor)) → var(--token-nuevo)
+# 3. Elimina var(--token-nuevo, #valor) → var(--token-nuevo)
+# 4. Mantiene tokens sin equivalente (spacing, border-radius, etc.)
+```
 
 ### Script 1: Inventario de Tokens
 ```bash
@@ -396,11 +546,11 @@ fi
 ## 🎯 Métricas de Éxito
 
 Para cada componente migrado:
-- ✅ Todos los tokens tienen fallbacks de 3 niveles
-- ✅ No hay valores hardcodeados (excepto valores específicos como `50%`, `inherit`)
+- ✅ **Todos los tokens de color usan SOLO tokens nuevos de Figma** (sin fallbacks antiguos ni hardcodeados)
+- ✅ Tokens sin equivalente (spacing, border-radius) se mantienen en sistema antiguo
+- ✅ No hay valores hardcodeados en tokens de color (excepto valores específicos como `50%`, `inherit`)
 - ✅ Todos los estados funcionan en Storybook
-- ✅ Funciona sin `figma-tokens.css` (usando fallbacks)
-- ✅ Funciona con `figma-tokens.css`
+- ✅ Funciona con `figma-tokens.css` cargado
 - ✅ Funciona en modo dark
 - ✅ Funciona en responsive
 - ✅ No hay regresiones visuales
@@ -410,21 +560,30 @@ Para cada componente migrado:
 ## 📚 Recursos
 
 - `docs/LECCIONES-APRENDIDAS-MIGRACION-BUTTON.md` - Lecciones aprendidas
+- `docs/LECCION-CRITICA-TOKENS-DOM.md` - Lección crítica sobre verificación de tokens en el DOM
+- `docs/PROBLEMA-DARK-MODE-TOKENS.md` - **NUEVO**: Problema y solución de dark mode
 - `docs/TOKENS-FALTANTES-MIGRACION-BUTTON.md` - Análisis de tokens faltantes
 - `packages/tokens/token-mapping.ts` - Mapeo completo de tokens
 - `packages/tokens/scripts/migrate-tokens.cjs` - Script de migración automatizada
+- `packages/tokens/scripts/fix-dark-mode-tokens.cjs` - **NUEVO**: Script de corrección dark mode
+- `scripts/cleanup-token-fallbacks.py` - Script para eliminar fallbacks antiguos y hardcodeados
 
 ---
 
 ## 🚨 Errores Comunes a Evitar
 
 1. **NO migrar tokens sin equivalente** - Mantenerlos en sistema antiguo
-2. **NO olvidar fallbacks** - Siempre 3 niveles
+2. **NO olvidar la Fase 5 de limpieza** - Eliminar fallbacks antiguos y hardcodeados después de migrar
 3. **NO usar estilos inline en Storybook** - Usar atributos data
 4. **NO migrar múltiples estados a la vez** - Uno por uno
 5. **NO olvidar `!important`** - En propiedades críticas
-6. **NO dejar valores hardcodeados** - Migrar a tokens
-7. **NO olvidar verificar** - Ejecutar scripts de verificación
+6. **NO dejar valores hardcodeados en tokens de color** - Solo tokens nuevos de Figma
+7. **NO eliminar tokens sin equivalente** - Mantener spacing y border-radius en sistema antiguo
+8. **NO olvidar verificar** - Ejecutar scripts de verificación
+9. **NO asumir que los tokens están disponibles** - SIEMPRE verificar que los tokens estén en el DOM (Fase 4.5)
+10. **NO filtrar 'light' o 'dark' del nombre del token** - Solo filtrar 'Light Mode' y 'Dark Mode' en build-css.cjs
+11. **NO olvidar agregar soporte dark mode** - Ejecutar `fix-dark-mode-tokens.cjs` después de migrar tokens
+12. **NO dejar tokens `-light-` en reglas `[data-theme="dark"]`** - Reemplazar con tokens `-dark-` explícitos
 
 ---
 
@@ -432,16 +591,20 @@ Para cada componente migrado:
 
 Antes de marcar un componente como "migrado":
 
-- [ ] Todos los tokens de color migrados con fallbacks
-- [ ] Todos los valores hardcodeados de spacing migrados
-- [ ] Todos los valores hardcodeados de border-radius migrados
-- [ ] Storybook actualizado con `data-state-preview`
-- [ ] Script de verificación ejecutado sin errores
-- [ ] README actualizado
-- [ ] Testing manual completado
-- [ ] Commit y PR creados
+- [ ] Todos los tokens de color migrados con fallbacks (Fase 2)
+- [ ] Todos los valores hardcodeados de spacing migrados (Fase 2)
+- [ ] Todos los valores hardcodeados de border-radius migrados (Fase 2)
+- [ ] Storybook actualizado con `data-state-preview` (Fase 3)
+- [ ] **Soporte dark mode agregado (fix-dark-mode-tokens.cjs ejecutado) (Fase 3.5)**
+- [ ] **Componente probado en dark mode (Fase 3.5)**
+- [ ] Script de verificación ejecutado sin errores (Fase 4)
+- [ ] **Fallbacks antiguos eliminados - Solo tokens nuevos de Figma (Fase 5)**
+- [ ] **Valores hardcodeados eliminados de tokens de color (Fase 5)**
+- [ ] README actualizado (Fase 6)
+- [ ] Testing manual completado (Fase 6)
+- [ ] Commit y PR creados (Fase 6)
 
 ---
 
-**Última actualización**: Basado en la migración del componente Button (2024)
+**Última actualización**: Basado en la migración del componente Button y corrección de dark mode en 8 componentes migrados (Diciembre 2024)
 

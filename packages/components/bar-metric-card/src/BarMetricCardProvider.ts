@@ -468,10 +468,10 @@ function renderCategory(
     : 'ubits-body-sm-regular';
   
   const percentageClass = size === 'sm'
-    ? 'ubits-body-sm-bold'
+    ? 'ubits-body-md-bold'
     : size === 'lg'
     ? 'ubits-body-md-bold'
-    : 'ubits-body-sm-bold';
+    : 'ubits-body-md-bold';
   
   return `
     <div class="ubits-bar-metric-card__category">
@@ -509,10 +509,10 @@ function renderCategoryWithProgressBar(
     : 'ubits-body-sm-regular';
   
   const percentageClass = size === 'sm'
-    ? 'ubits-body-sm-bold'
+    ? 'ubits-body-md-bold'
     : size === 'lg'
     ? 'ubits-body-md-bold'
-    : 'ubits-body-sm-bold';
+    : 'ubits-body-md-bold';
   
   // Mapear el tamaño de la card al tamaño del progress bar
   const progressBarSize = size === 'sm' ? 'sm' : size === 'lg' ? 'lg' : 'md';

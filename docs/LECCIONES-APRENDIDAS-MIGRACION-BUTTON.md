@@ -478,3 +478,73 @@ La migración del Button nos enseñó que:
 
 Estas lecciones deben aplicarse a todos los componentes futuros para garantizar una migración exitosa y sin regresiones.
 
+---
+
+## 🐛 Lección Crítica: Verificación de Tokens en el DOM
+
+### Problema Encontrado Durante Migración de Alert
+
+**Síntoma:**
+- Los tokens aparecían en el CSS generado (`figma-tokens.css`)
+- Los tokens NO estaban disponibles en el DOM cuando se consultaban con `getComputedStyle()`
+- Los componentes mostraban colores incorrectos o faltantes
+
+**Causa Raíz:**
+El script `build-css.cjs` estaba filtrando incorrectamente los tokens al generar los nombres CSS:
+- ❌ **Error**: Filtrar `'light'` y `'dark'` del path al generar el nombre CSS
+- ✅ **Correcto**: Solo filtrar `'Light Mode'` y `'Dark Mode'`, pero **MANTENER** `'light'` y `'dark'` en el nombre
+
+**Ejemplo del Error:**
+```javascript
+// ❌ INCORRECTO: Filtra 'light' del path
+const cssVarName = path
+  .filter(p => p !== 'light' && p !== 'dark') // ❌ Esto elimina 'light' del nombre
+  .join('-');
+// Resultado: --modifiers-normal-color-feedback-bg-info-subtle-default
+// ❌ Falta 'light' en el nombre, el token no se encuentra en el DOM
+```
+
+**Ejemplo Correcto:**
+```javascript
+// ✅ CORRECTO: Solo filtra 'Light Mode' y 'Dark Mode'
+const cssVarName = path
+  .filter(p => {
+    const pLower = p.toLowerCase();
+    return pLower !== 'light mode' && pLower !== 'dark mode';
+    // ✅ Mantiene 'light' y 'dark' en el nombre
+  })
+  .join('-');
+// Resultado: --modifiers-normal-color-light-feedback-bg-info-subtle-default
+// ✅ Incluye 'light' en el nombre, el token se encuentra correctamente
+```
+
+**Solución Implementada:**
+1. **Actualizar `build-css.cjs`** para mantener `'light'` y `'dark'` en el nombre del token
+2. **Verificar que los tokens estén en el bloque correcto**:
+   - Tokens con `'light'` en el nombre → `:root` (modo light)
+   - Tokens con `'dark'` en el nombre → `[data-theme="dark"]` (modo dark)
+
+**Lección Aprendida:**
+- **Los nombres de tokens deben preservar información del modo** (`light`/`dark`) para que el CSS pueda aplicarlos correctamente
+- **Solo debemos filtrar nombres de estructura** (`Light Mode`, `Dark Mode`), no información semántica (`light`, `dark`)
+- **Siempre verificar** que los tokens generados estén en el bloque CSS correcto (`:root` vs `[data-theme="dark"]`)
+
+**Verificación Post-Migración:**
+Después de migrar un componente, SIEMPRE verificar:
+1. ✅ Los tokens existen en `figma-tokens.css`
+2. ✅ Los tokens están en el bloque correcto (`:root` para light, `[data-theme="dark"]` para dark)
+3. ✅ Los tokens están disponibles en el DOM (usar `getComputedStyle()` en consola)
+4. ✅ Los componentes muestran los colores correctos en Storybook
+
+**Script de Verificación:**
+```bash
+# Verificar que un token existe en el bloque correcto
+grep -n "modifiers-normal-color-light-feedback-bg-info-subtle-default" packages/tokens/dist/figma-tokens.css
+
+# Verificar que está en :root (líneas 1-3000 aproximadamente)
+sed -n '1,3000p' packages/tokens/dist/figma-tokens.css | grep "modifiers-normal-color-light"
+
+# Verificar que NO está en [data-theme="dark"] (líneas 3000+)
+sed -n '3001,$p' packages/tokens/dist/figma-tokens.css | grep "modifiers-normal-color-light"
+```
+

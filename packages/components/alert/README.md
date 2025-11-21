@@ -147,3 +147,17 @@ showAlert('success', 'Operación completada', {
 - `@ubits/tokens`: Tokens de diseño
 - `@ubits/icons`: Sistema de iconos
 
+## Requisitos de Tokens
+
+⚠️ **IMPORTANTE**: Este componente requiere que cargues `figma-tokens.css` ANTES del CSS del componente:
+
+```html
+<!-- 1. Primero cargar tokens de Figma -->
+<link rel="stylesheet" href="@ubits/tokens/dist/figma-tokens.css" />
+
+<!-- 2. Luego cargar el componente -->
+<link rel="stylesheet" href="@ubits/alert/styles" />
+```
+
+El componente usa **SOLO tokens nuevos de Figma** (sin fallbacks). Si no cargas `figma-tokens.css`, los colores no se mostrarán correctamente.
+
