@@ -14,8 +14,8 @@
     align-items: center;
     justify-content: center;
     border-radius: var(--ubits-border-radius-full, 1000px);
-    border: 1px solid var(--modifiers-normal-color-light-border-1) !important;
-    background-color: var(--modifiers-normal-color-light-bg-1) !important;
+    border: 1px solid var(--ubits-border-1, #d0d2d5);
+    background-color: var(--ubits-bg-1, #ffffff);
     box-sizing: border-box;
     overflow: visible; /* Cambiado de hidden a visible para que el badge se vea */
     flex-shrink: 0;
@@ -27,7 +27,7 @@
 
 /* Variante Photo (imagen) */
 .ubits-avatar--photo {
-    padding: var(--ubits-spacing-none, 0);
+    padding: 0;
 }
 
 /* Contenedor interno para la imagen con overflow hidden */
@@ -47,7 +47,7 @@
 
 /* Variante Initials (texto) */
 .ubits-avatar--initials {
-    color: var(--modifiers-normal-color-light-fg-1-high) !important;
+    color: var(--ubits-fg-1-high, #303a47);
     font-family: var(--font-sans);
     font-weight: var(--weight-semibold, 600);
     line-height: 1;
@@ -57,7 +57,7 @@
 
 /* Variante Icon */
 .ubits-avatar--icon {
-    color: var(--modifiers-normal-color-light-fg-1-high) !important;
+    color: var(--ubits-fg-1-high, #303a47);
 }
 
 .ubits-avatar--icon i {
@@ -86,8 +86,8 @@
     left: auto;
     /* Asegurar que el badge no se mueva por su contenido */
     transform: translate(50%, 50%);
-    margin: var(--ubits-spacing-none, 0);
-    padding: var(--ubits-spacing-none, 0);
+    margin: 0;
+    padding: 0;
 }
 
 /* Sobrescribir el posicionamiento del badge absoluto */
@@ -107,7 +107,7 @@
     top: auto !important;
     left: auto !important;
     transform: translate(50%, 50%) !important; /* Mover el badge para que su centro esté en la esquina */
-    margin: var(--ubits-spacing-none, 0) !important;
+    margin: 0 !important;
     /* El badge se posiciona desde su centro, quedando mitad dentro y mitad fuera */
     /* translate(50%, 50%) mueve el badge 50% de su tamaño hacia afuera en ambas direcciones */
     /* bottom: 2px y right: 2px lo posicionan más arriba y más cerca del borde */
@@ -124,7 +124,6 @@
 
 .ubits-avatar[role="button"]:hover {
     transform: scale(1.05);
-    /* NOTA: No hay token directo de box-shadow en Figma, mantener valor hardcodeado */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -133,7 +132,7 @@
 }
 
 .ubits-avatar[role="button"]:focus {
-    outline: 2px solid var(--modifiers-static-inverted-color-light-accent-brand) !important;
+    outline: 2px solid var(--ubits-accent-brand-static-inverted, #0c5bef);
     outline-offset: 2px;
 }
 

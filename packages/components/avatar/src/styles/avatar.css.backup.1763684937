@@ -14,8 +14,8 @@
     align-items: center;
     justify-content: center;
     border-radius: var(--ubits-border-radius-full, 1000px);
-    border: 1px solid var(--modifiers-normal-color-light-border-1) !important;
-    background-color: var(--modifiers-normal-color-light-bg-1) !important;
+    border: 1px solid var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
+    background-color: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
     box-sizing: border-box;
     overflow: visible; /* Cambiado de hidden a visible para que el badge se vea */
     flex-shrink: 0;
@@ -47,7 +47,7 @@
 
 /* Variante Initials (texto) */
 .ubits-avatar--initials {
-    color: var(--modifiers-normal-color-light-fg-1-high) !important;
+    color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
     font-family: var(--font-sans);
     font-weight: var(--weight-semibold, 600);
     line-height: 1;
@@ -57,7 +57,7 @@
 
 /* Variante Icon */
 .ubits-avatar--icon {
-    color: var(--modifiers-normal-color-light-fg-1-high) !important;
+    color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
 }
 
 .ubits-avatar--icon i {
@@ -133,7 +133,7 @@
 }
 
 .ubits-avatar[role="button"]:focus {
-    outline: 2px solid var(--modifiers-static-inverted-color-light-accent-brand) !important;
+    outline: 2px solid var(--modifiers-static-inverted-color-light-accent-brand, var(--ubits-accent-brand-static-inverted, #0c5bef)) !important;
     outline-offset: 2px;
 }
 
