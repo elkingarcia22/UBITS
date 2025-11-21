@@ -94,7 +94,7 @@ const meta: Meta<ButtonOptions> = {
     },
     active: {
       control: { type: 'boolean' },
-      description: 'Modificador active/outline',
+      description: 'Modificador active/outline (fondo transparente + overlay azul). IMPORTANTE: Esto es diferente del estado "active" del controlador de estados (que simula "pressed")',
       table: {
         defaultValue: { summary: 'false' },
       },
@@ -104,16 +104,6 @@ const meta: Meta<ButtonOptions> = {
       description: 'Modificador floating (botón flotante con sombra del sistema de diseño)',
       table: {
         defaultValue: { summary: 'false' },
-      },
-    },
-    state: {
-      control: { type: 'select' },
-      options: ['default', 'hover', 'active', 'focus', 'disabled', 'loading'],
-      description: 'Estado visual del botón (para preview)',
-      table: {
-        defaultValue: { summary: 'default' },
-        type: { summary: 'default | hover | active | focus | disabled | loading' },
-        category: 'Estado Visual',
       },
     },
     fullWidth: {
@@ -174,7 +164,6 @@ export const Default: Story = {
     badge: false,
     active: false,
     floating: true,
-    state: 'default',
     fullWidth: false,
     block: false,
     dropdown: false,
@@ -269,20 +258,12 @@ export const Default: Story = {
             if (buttonArgs.iconOnly && buttonArgs.showTooltip && buttonArgs.tooltipText) {
               applyUBITSTooltip(button, buttonArgs.tooltipText);
             }
-            // Aplicar estado visual
-            if (args.state && args.state !== 'default') {
-              applyButtonState(button, args.state as string);
-            }
           } else {
             buttonWrapper.appendChild(button);
             applyActiveStyles(button);
             // Aplicar tooltip UBITS si es necesario
             if (buttonArgs.iconOnly && buttonArgs.showTooltip && buttonArgs.tooltipText) {
               applyUBITSTooltip(button, buttonArgs.tooltipText);
-            }
-            // Aplicar estado visual
-            if (args.state && args.state !== 'default') {
-              applyButtonState(button, args.state as string);
             }
           }
         } catch (error) {
@@ -315,9 +296,6 @@ export const Default: Story = {
             if (buttonArgs.iconOnly && buttonArgs.showTooltip && buttonArgs.tooltipText) {
               applyUBITSTooltip(button, buttonArgs.tooltipText);
             }
-            if (args.state && args.state !== 'default') {
-              applyButtonState(button, args.state as string);
-            }
           }
         }
       });
@@ -333,6 +311,8 @@ export const Default: Story = {
       
       const buttonHTML = renderButton(buttonArgs);
       console.log('🔍 [Button Story] HTML generado:', buttonHTML);
+      console.log('🔍 [Button Story] buttonArgs.active:', buttonArgs.active);
+      console.log('🔍 [Button Story] args.active:', args.active);
       
       const buttonContainer = document.createElement('div');
       buttonContainer.innerHTML = buttonHTML;
@@ -342,43 +322,128 @@ export const Default: Story = {
       requestAnimationFrame(() => {
         const button = buttonContainer.querySelector('button') as HTMLButtonElement;
         if (button) {
+          console.log('🔍 [Button Story] Botón encontrado, clases iniciales:', button.className);
+          console.log('🔍 [Button Story] Tiene ubits-button--active?', button.classList.contains('ubits-button--active'));
           // Logs para debugging del botón flotante
           if (buttonArgs.floating) {
-            console.log('🔍 [Button Story] Botón renderizado:', {
-              hasFloatingClass: button.classList.contains('ubits-button--floating'),
-              allClasses: button.className,
-              computedBoxShadow: window.getComputedStyle(button).boxShadow,
-              elevationFloating: getComputedStyle(document.documentElement).getPropertyValue('--ubits-elevation-floating'),
-              buttonElement: button,
-              rawHTML: button.outerHTML
+            const root = document.documentElement;
+            const computedStyle = getComputedStyle(root);
+            
+            // Verificar tokens de Figma
+            const floating0X = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-0-x').trim();
+            const floating0Y = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-0-y').trim();
+            const floating0Blur = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-0-blur').trim();
+            const floating0Spread = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-0-spread').trim();
+            const floating0Color = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-0-color').trim();
+            
+            const floating1X = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-1-x').trim();
+            const floating1Y = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-1-y').trim();
+            const floating1Blur = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-1-blur').trim();
+            const floating1Spread = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-1-spread').trim();
+            const floating1Color = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-1-color').trim();
+            
+            const elevationFloating = computedStyle.getPropertyValue('--ubits-elevation-floating').trim();
+            
+            const buttonStyle = getComputedStyle(button);
+            const boxShadow = buttonStyle.boxShadow;
+            
+            console.log('🔍 [Button Story] ========================================');
+            console.log('🔍 [Button Story] VERIFICACIÓN COMPLETA DE FLOATING');
+            console.log('🔍 [Button Story] ========================================');
+            console.log('   📋 Clases del botón:', button.className);
+            console.log('   ✅ Tiene clase floating:', button.classList.contains('ubits-button--floating'));
+            console.log('');
+            console.log('   🎨 TOKENS DE FIGMA:');
+            console.log('      Floating-0:', {
+              x: floating0X || '❌ NO DEFINIDO',
+              y: floating0Y || '❌ NO DEFINIDO',
+              blur: floating0Blur || '❌ NO DEFINIDO',
+              spread: floating0Spread || '❌ NO DEFINIDO',
+              color: floating0Color || '❌ NO DEFINIDO'
             });
+            console.log('      Floating-1:', {
+              x: floating1X || '❌ NO DEFINIDO',
+              y: floating1Y || '❌ NO DEFINIDO',
+              blur: floating1Blur || '❌ NO DEFINIDO',
+              spread: floating1Spread || '❌ NO DEFINIDO',
+              color: floating1Color || '❌ NO DEFINIDO'
+            });
+            console.log('');
+            console.log('   🔗 VARIABLE CONSTRUIDA:');
+            console.log('      --ubits-elevation-floating:', elevationFloating || '❌ NO DEFINIDO');
+            console.log('');
+            console.log('   🎯 BOX-SHADOW APLICADO AL BOTÓN:');
+            console.log('      box-shadow:', boxShadow || '❌ NO DEFINIDO');
+            console.log('🔍 [Button Story] ========================================');
+            console.log('');
             
             // Intentar agregar la clase manualmente si no está
             if (!button.classList.contains('ubits-button--floating')) {
               console.warn('⚠️ [Button Story] La clase floating no se agregó, agregándola manualmente');
               button.classList.add('ubits-button--floating');
-              console.log('🔍 [Button Story] Después de agregar manualmente:', {
-                hasFloatingClass: button.classList.contains('ubits-button--floating'),
-                computedBoxShadow: window.getComputedStyle(button).boxShadow
-              });
+              
+              // Verificar nuevamente después de agregar la clase
+              setTimeout(() => {
+                const newButtonStyle = getComputedStyle(button);
+                const newBoxShadow = newButtonStyle.boxShadow;
+                console.log('🔍 [Button Story] Después de agregar clase manualmente:');
+                console.log('   ✅ Tiene clase floating:', button.classList.contains('ubits-button--floating'));
+                console.log('   🎯 Nuevo box-shadow:', newBoxShadow || '❌ NO DEFINIDO');
+              }, 100);
             }
           }
 
           // IMPORTANTE: Si active es true, agregar la clase ubits-button--active
-          if (buttonArgs.active || args.active) {
+          // renderButton ya debería haber agregado la clase, pero verificamos y agregamos si falta
+          console.log('🔍 [Button Story] Verificando active:', {
+            buttonArgsActive: buttonArgs.active,
+            argsActive: args.active,
+            buttonClassesBefore: button.className,
+            hasActiveClassBefore: button.classList.contains('ubits-button--active'),
+          });
+          
+          // Verificar si renderButton agregó la clase (debería haberlo hecho si active: true)
+          const hasActiveFromRender = button.classList.contains('ubits-button--active');
+          
+          // Si active es true pero no tiene la clase, agregarla
+          if ((buttonArgs.active || args.active) && !hasActiveFromRender) {
+            console.log('🔍 [Button Story] ⚠️ Active es true pero la clase no está, agregándola');
             button.classList.add('ubits-button--active');
+          } else if (buttonArgs.active || args.active) {
+            console.log('🔍 [Button Story] ✅ Active es true y la clase ya está presente');
+          } else {
+            console.log('🔍 [Button Story] ℹ️ Active es false, no se agrega la clase');
           }
           
-          // Verificar si tiene la clase active
+          // Verificar si tiene la clase active después de verificar
           const hasActiveClass = button.classList.contains('ubits-button--active');
+          console.log('🔍 [Button Story] Estado inicial:', {
+            hasActiveClass,
+            activeArg: buttonArgs.active || args.active,
+            buttonClasses: button.className,
+            computedBefore: {
+              background: getComputedStyle(button).background,
+              backgroundColor: getComputedStyle(button).backgroundColor,
+              color: getComputedStyle(button).color,
+            },
+          });
           
           // Si el botón está en estado active, asegurar color azul desde el inicio
           if (buttonArgs.active || args.active || hasActiveClass) {
+            console.log('🔍 [Button Story] Aplicando estilos active iniciales');
             // Asegurar fondo active con múltiples capas: bg-active-button sobre bg1
             const root = document.documentElement;
             const bgActiveButton = getComputedStyle(root).getPropertyValue('--ubits-bg-active-button').trim() || 'var(--ubits-bg-active-button)';
             const bg1 = getComputedStyle(root).getPropertyValue('--ubits-bg-1').trim() || 'var(--ubits-bg-1)';
             const backgroundValue = `${bgActiveButton}, ${bg1}`;
+            
+            console.log('🔍 [Button Story] Tokens encontrados:', {
+              bgActiveButton,
+              bg1,
+              backgroundValue,
+              tokenBgActive: getComputedStyle(root).getPropertyValue('--modifiers-normal-color-light-bg-active'),
+              tokenAccentBrand: getComputedStyle(root).getPropertyValue('--modifiers-normal-color-light-accent-brand'),
+            });
             
             // Usar setProperty con !important para asegurar que se aplique
             button.style.setProperty('background', backgroundValue, 'important');
@@ -394,16 +459,22 @@ export const Default: Story = {
             icons.forEach((icon) => {
               icon.style.color = 'var(--ubits-button-active-fg, var(--ubits-accent-brand-static))';
             });
+            
+            console.log('🔍 [Button Story] Después de aplicar estilos active:', {
+              inlineBackground: button.style.background,
+              inlineBackgroundColor: button.style.backgroundColor,
+              inlineColor: button.style.color,
+              computedAfter: {
+                background: getComputedStyle(button).background,
+                backgroundColor: getComputedStyle(button).backgroundColor,
+                color: getComputedStyle(button).color,
+              },
+            });
           }
           
           // Aplicar tooltip UBITS si es necesario
           if (buttonArgs.iconOnly && buttonArgs.showTooltip && buttonArgs.tooltipText) {
             applyUBITSTooltip(button, buttonArgs.tooltipText);
-          }
-          
-          // Aplicar estado visual
-          if (args.state && args.state !== 'default') {
-            applyButtonState(button, args.state as string);
           }
         } else {
           console.error('❌ Botón no encontrado');
@@ -417,173 +488,8 @@ export const Default: Story = {
   },
 };
 
-// Función helper para aplicar estados visuales al botón
-function applyButtonState(button: HTMLButtonElement, state: string): void {
-  // Remover estados anteriores
-  button.removeAttribute('data-state-preview');
-  button.disabled = false;
-  button.classList.remove('ubits-button--loading');
-  button.removeAttribute('data-loading');
-  button.removeAttribute('aria-busy');
-  
-  // Remover spinner si existe (cuando se cambia de loading a otro estado)
-  const existingSpinner = button.querySelector('.ubits-button__spinner');
-  if (existingSpinner && state !== 'loading') {
-    existingSpinner.remove();
-  }
-  
-  // Limpiar todos los estilos inline para dejar que el CSS haga su trabajo
-  button.style.removeProperty('background');
-  button.style.removeProperty('background-color');
-  button.style.removeProperty('border');
-  button.style.removeProperty('border-color');
-  button.style.removeProperty('color');
-  button.style.removeProperty('transform');
-  
-  // Limpiar estilos de elementos hijos
-  const spans = button.querySelectorAll('span');
-  spans.forEach((span) => {
-    (span as HTMLElement).style.removeProperty('color');
-  });
-  const icons = button.querySelectorAll('i');
-  icons.forEach((icon) => {
-    (icon as HTMLElement).style.removeProperty('color');
-  });
-  
-  // Detectar variante del botón
-  const isPrimary = button.classList.contains('ubits-button--primary') || (!button.classList.contains('ubits-button--secondary') && !button.classList.contains('ubits-button--tertiary'));
-  const isSecondary = button.classList.contains('ubits-button--secondary');
-  const isTertiary = button.classList.contains('ubits-button--tertiary');
-  
-  // Agregar reglas CSS dinámicas para simular estados
-  const styleId = 'button-state-preview-styles';
-  let styleEl = document.getElementById(styleId) as HTMLStyleElement;
-  if (!styleEl) {
-    styleEl = document.createElement('style');
-    styleEl.id = styleId;
-    document.head.appendChild(styleEl);
-  }
-  
-  switch (state) {
-    case 'hover':
-      button.setAttribute('data-state-preview', 'hover');
-      // Crear reglas CSS que simulen :hover
-      styleEl.textContent = `
-        .ubits-button[data-state-preview="hover"]:not(:disabled):not(.ubits-button--loading) {
-          /* El CSS ya tiene las reglas :hover, estas reglas las fuerzan */
-        }
-      `;
-      break;
-      
-    case 'focus':
-      button.setAttribute('data-state-preview', 'focus');
-      button.focus();
-      // El focus ring se aplica automáticamente con CSS :focus-visible
-      break;
-      
-    case 'active':
-      // El estado 'active' aquí se refiere al estado pressed (cuando se presiona el botón)
-      button.setAttribute('data-state-preview', 'active');
-      // Crear reglas CSS que simulen :active
-      styleEl.textContent = `
-        .ubits-button[data-state-preview="active"]:not(:disabled):not(.ubits-button--loading) {
-          /* El CSS ya tiene las reglas :active, estas reglas las fuerzan */
-        }
-      `;
-      break;
-      
-    case 'disabled':
-      button.disabled = true;
-      // El CSS manejará el estado disabled automáticamente
-      styleEl.textContent = '';
-      break;
-      
-    case 'loading':
-      button.classList.add('ubits-button--loading');
-      button.setAttribute('data-loading', 'true');
-      button.setAttribute('aria-busy', 'true');
-      
-      // Obtener el texto del botón (del span si existe)
-      const textSpan = button.querySelector('span:not(.ubits-button__badge)');
-      const buttonText = textSpan?.textContent?.trim() || '';
-      
-      // Asegurar que el spinner esté presente en el HTML
-      // Si no existe, agregarlo usando renderSpinner
-      let spinner = button.querySelector('.ubits-button__spinner');
-      if (!spinner) {
-        // Detectar tamaño y variante del botón
-        const size = button.classList.contains('ubits-button--xs') ? 'xs' :
-                     button.classList.contains('ubits-button--sm') ? 'sm' :
-                     button.classList.contains('ubits-button--lg') ? 'lg' :
-                     button.classList.contains('ubits-button--xl') ? 'xl' : 'md';
-        
-        const spinnerSizeMap: Record<string, 'xs' | 'sm' | 'md' | 'lg' | 'xl'> = {
-          xs: 'xs',
-          sm: 'sm',
-          md: 'sm',
-          lg: 'md',
-          xl: 'lg'
-        };
-        const spinnerSize = spinnerSizeMap[size] || 'sm';
-        
-        const variant = button.classList.contains('ubits-button--primary') ? 'primary' :
-                        button.classList.contains('ubits-button--secondary') ? 'secondary' :
-                        button.classList.contains('ubits-button--tertiary') ? 'secondary' : 'primary';
-        
-        const spinnerVariantMap: Record<string, 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info'> = {
-          primary: 'primary',
-          secondary: 'secondary',
-          tertiary: 'secondary',
-          active: 'primary'
-        };
-        const spinnerVariant = spinnerVariantMap[variant] || 'primary';
-        
-        // Crear un div temporal para parsear el HTML del spinner
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = renderSpinner({
-          size: spinnerSize,
-          variant: spinnerVariant,
-          animated: true,
-          className: 'ubits-button__spinner'
-        });
-        
-        spinner = tempDiv.firstElementChild as HTMLElement;
-        if (spinner) {
-          // Si hay texto, asegurar que el span tenga la clase 'button-text' para que no se oculte
-          if (textSpan && buttonText) {
-            textSpan.classList.add('button-text');
-            // Insertar el spinner antes del texto (si iconPosition es left) o después (si es right)
-            const iconPosition = button.classList.contains('ubits-button--icon-right') ? 'right' : 'left';
-            if (iconPosition === 'right') {
-              // Spinner después del texto
-              textSpan.parentNode?.insertBefore(spinner, textSpan.nextSibling);
-            } else {
-              // Spinner antes del texto
-              textSpan.parentNode?.insertBefore(spinner, textSpan);
-            }
-          } else {
-            // No hay texto, insertar el spinner al principio
-            button.insertBefore(spinner, button.firstChild);
-          }
-        }
-      } else {
-        // Spinner ya existe, asegurar que el texto tenga la clase 'button-text'
-        if (textSpan && buttonText && !textSpan.classList.contains('button-text')) {
-          textSpan.classList.add('button-text');
-        }
-      }
-      
-      // El CSS manejará el estado loading automáticamente
-      styleEl.textContent = '';
-      break;
-      
-    case 'default':
-    default:
-      // Estado por defecto - limpiar estilos dinámicos
-      styleEl.textContent = '';
-      break;
-  }
-}
+// Función helper eliminada - el controlador de state fue removido
+// La función applyButtonState fue completamente removida
 
 // Función helper para aplicar tooltip UBITS a botones icon-only
 function applyUBITSTooltip(button: HTMLButtonElement, tooltipText: string): void {

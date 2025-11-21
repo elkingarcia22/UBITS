@@ -1,11 +1,12 @@
 /**
- * Tokens UBITS - Effects (Elevation y Focus)
+ * Tokens UBITS - Effects (Elevation, Focus y Floating)
  * 
- * Tokens para efectos visuales como sombras (elevation) y focus rings.
+ * Tokens para efectos visuales como sombras (elevation), focus rings y elevación flotante.
  * 
  * Estructura:
  * - Elevation: Sombras con estados Default y Hover
  * - Focus: Anillos de enfoque con propiedades configurables
+ * - Floating: Elevación flotante construida con tokens de Figma (elevation-floating-0 y -1)
  */
 
 import type { Meta, StoryObj } from '@storybook/html';
@@ -18,7 +19,7 @@ const meta: Meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Tokens para efectos visuales: elevation (sombras) y focus (anillos de enfoque). Los efectos de elevation tienen estados Default y Hover, mientras que focus tiene propiedades configurables (position, blur, spread, color).',
+        component: 'Tokens para efectos visuales: elevation (sombras), focus (anillos de enfoque) y floating (elevación flotante). Los efectos de elevation tienen estados Default y Hover, focus tiene propiedades configurables (position, blur, spread, color), y floating usa tokens de Figma con dos sombras combinadas.',
       },
     },
   },
@@ -549,6 +550,135 @@ export const Interactive: Story = {
     hoverSection.appendChild(hoverPreview);
 
     container.appendChild(hoverSection);
+
+    return container;
+  },
+};
+
+/**
+ * Story - Floating (Elevation flotante con tokens de Figma)
+ */
+export const Floating: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.padding = '24px';
+    container.style.maxWidth = '1400px';
+
+    const title = document.createElement('h2');
+    title.textContent = 'Floating - Elevación Flotante';
+    title.style.fontSize = '24px';
+    title.style.fontWeight = '700';
+    title.style.marginBottom = '24px';
+    container.appendChild(title);
+
+    const description = document.createElement('p');
+    description.textContent = 'Elevación flotante construida con tokens de Figma. Usa dos sombras combinadas (floating-0 y floating-1) para crear un efecto de profundidad.';
+    description.style.fontSize = '16px';
+    description.style.color = '#5c646f';
+    description.style.marginBottom = '32px';
+    description.style.lineHeight = '1.6';
+    container.appendChild(description);
+
+    // Obtener valores de tokens de Figma
+    const root = document.documentElement;
+    const getToken = (token: string): string => {
+      return getComputedStyle(root).getPropertyValue(token).trim();
+    };
+
+    const floating0X = parseFloat(getToken('--modifiers-normal-elevation-floating-0-x')) || 0;
+    const floating0Y = parseFloat(getToken('--modifiers-normal-elevation-floating-0-y')) || 14;
+    const floating0Blur = parseFloat(getToken('--modifiers-normal-elevation-floating-0-blur')) || 28.8;
+    const floating0Spread = parseFloat(getToken('--modifiers-normal-elevation-floating-0-spread')) || 0;
+    const floating0Color = getToken('--modifiers-normal-elevation-floating-0-color') || '#0000003d';
+
+    const floating1X = parseFloat(getToken('--modifiers-normal-elevation-floating-1-x')) || 0;
+    const floating1Y = parseFloat(getToken('--modifiers-normal-elevation-floating-1-y')) || 0;
+    const floating1Blur = parseFloat(getToken('--modifiers-normal-elevation-floating-1-blur')) || 8;
+    const floating1Spread = parseFloat(getToken('--modifiers-normal-elevation-floating-1-spread')) || 0;
+    const floating1Color = getToken('--modifiers-normal-elevation-floating-1-color') || '#00000033';
+
+    // Construir sombra combinada
+    const shadow0 = `${floating0X}px ${floating0Y}px ${floating0Blur}px ${floating0Spread}px ${floating0Color}`;
+    const shadow1 = `${floating1X}px ${floating1Y}px ${floating1Blur}px ${floating1Spread}px ${floating1Color}`;
+    const combinedShadow = `${shadow0}, ${shadow1}`;
+
+    // Preview principal
+    const floatingSection = document.createElement('div');
+    floatingSection.style.marginBottom = '40px';
+
+    const floatingTitle = document.createElement('h3');
+    floatingTitle.textContent = 'Floating';
+    floatingTitle.style.fontSize = '20px';
+    floatingTitle.style.fontWeight = '600';
+    floatingTitle.style.marginBottom = '16px';
+    floatingTitle.style.color = '#303a47';
+    floatingSection.appendChild(floatingTitle);
+
+    // Crear preview con los valores de los tokens
+    const floatingPreview = createShadowPreview('Floating', combinedShadow, floating0X, floating0Y, floating0Blur, floating0Spread, floating0Color);
+    floatingSection.appendChild(floatingPreview);
+
+    container.appendChild(floatingSection);
+
+    // Tokens de Figma
+    const tokensSection = document.createElement('div');
+    tokensSection.style.marginTop = '40px';
+    tokensSection.style.padding = '20px';
+    tokensSection.style.backgroundColor = '#f9fafb';
+    tokensSection.style.border = '1px solid #e5e7eb';
+    tokensSection.style.borderRadius = '12px';
+
+    const tokensTitle = document.createElement('h3');
+    tokensTitle.textContent = 'Tokens de Figma';
+    tokensTitle.style.fontSize = '18px';
+    tokensTitle.style.fontWeight = '600';
+    tokensTitle.style.marginBottom = '16px';
+    tokensTitle.style.color = '#303a47';
+    tokensSection.appendChild(tokensTitle);
+
+    const tokensList = document.createElement('div');
+    tokensList.style.display = 'flex';
+    tokensList.style.flexDirection = 'column';
+    tokensList.style.gap = '12px';
+
+    // Tokens floating-0
+    const floating0Tokens = [
+      '--modifiers-normal-elevation-floating-0-x',
+      '--modifiers-normal-elevation-floating-0-y',
+      '--modifiers-normal-elevation-floating-0-blur',
+      '--modifiers-normal-elevation-floating-0-spread',
+      '--modifiers-normal-elevation-floating-0-color'
+    ];
+
+    floating0Tokens.forEach(token => {
+      const tokenElement = createColorSwatch(token, 'light', {
+        showVariable: true,
+        showValue: true,
+        width: '100%'
+      });
+      tokensList.appendChild(tokenElement);
+    });
+
+    // Tokens floating-1
+    const floating1Tokens = [
+      '--modifiers-normal-elevation-floating-1-x',
+      '--modifiers-normal-elevation-floating-1-y',
+      '--modifiers-normal-elevation-floating-1-blur',
+      '--modifiers-normal-elevation-floating-1-spread',
+      '--modifiers-normal-elevation-floating-1-color'
+    ];
+
+    floating1Tokens.forEach(token => {
+      const tokenElement = createColorSwatch(token, 'light', {
+        showVariable: true,
+        showValue: true,
+        width: '100%'
+      });
+      tokensList.appendChild(tokenElement);
+    });
+
+    tokensSection.appendChild(tokensList);
+    container.appendChild(tokensSection);
 
     return container;
   },

@@ -52,7 +52,7 @@ export const Introduccion: Story = {
       { name: '1. Modificadores (.modifiers)', description: 'Todos los colores con modificadores (Normal, Inverted, Static, Static Inverted) - Incluye Light/Dark mode' },
       { name: '2. Semánticos', description: 'Colores con significado (Feedback, Brand, Chart)' },
       { name: '3. Componentes', description: 'Tokens específicos de componentes (Button Tone, AI Button, Scroll Bar, Toggle)' },
-      { name: '4. Effects', description: 'Efectos visuales: Elevation (sombras) y Focus (anillos de enfoque)' },
+      { name: '4. Effects', description: 'Efectos visuales: Elevation (sombras), Focus (anillos de enfoque) y Floating (elevación flotante)' },
       { name: '5. Tipografía', description: 'Font-family, font-size, font-weight, line-height, letter-spacing' },
       { name: '6. Spacing', description: 'Valores de espaciado (p-spacing, s-spacing)' },
       { name: '7. Border Radius', description: 'Valores de border-radius' },
