@@ -198,7 +198,7 @@
 }
 
 .ubits-calendar__day--today:not(.ubits-calendar__day--selected):not(.ubits-calendar__day--in-range) {
-    border: 1px solid var(--modifiers-normal-color-light-accent-brand) !important;
+    border: 1px solid var(--modifiers-normal-button-color-light-brand-primary-bg-default) !important;
 }
 
 /* ========================================
@@ -206,14 +206,14 @@
    ======================================== */
 
 .ubits-calendar__day--selected {
-    background: var(--modifiers-normal-color-light-accent-brand) !important;
+    background: var(--modifiers-normal-button-color-light-brand-primary-bg-default) !important;
     color: var(--modifiers-normal-color-light-fg-bold) !important;
     font-weight: var(--modifiers-normal-body-md-semibold-fontweight, 600);
 }
 
 .ubits-calendar__day--selected:hover {
-    background: var(--modifiers-normal-color-light-accent-brand) !important;
-    opacity: 0.9;
+    background: var(--modifiers-normal-button-color-light-brand-primary-bg-hover) !important;
+    opacity: 1;
 }
 
 /* ========================================
@@ -222,18 +222,18 @@
 
 .ubits-calendar--range .ubits-calendar__day--range-start,
 .ubits-calendar--range .ubits-calendar__day--range-end {
-    background: var(--modifiers-normal-color-light-accent-brand) !important;
+    background: var(--modifiers-normal-button-color-light-brand-primary-bg-default) !important;
     color: var(--modifiers-normal-color-light-fg-bold) !important;
     font-weight: var(--modifiers-normal-body-md-semibold-fontweight, 600);
 }
 
 .ubits-calendar--range .ubits-calendar__day--in-range {
-    background: color-mix(in srgb, var(--modifiers-normal-color-light-accent-brand) 10%, transparent);
+    background: color-mix(in srgb, var(--modifiers-normal-button-color-light-brand-primary-bg-default) 10%, transparent);
     color: var(--modifiers-normal-color-light-fg-1-high) !important;
 }
 
 .ubits-calendar--range .ubits-calendar__day--in-range:hover {
-    background: color-mix(in srgb, var(--modifiers-normal-color-light-accent-brand) 15%, transparent);
+    background: color-mix(in srgb, var(--modifiers-normal-button-color-light-brand-primary-bg-default) 15%, transparent);
 }
 
 /* ========================================
@@ -323,7 +323,10 @@
   --modifiers-normal-color-light-bg-2: var(--modifiers-normal-color-dark-bg-2);
   --modifiers-static-inverted-color-light-accent-brand: var(--modifiers-static-inverted-color-dark-accent-brand);
   --modifiers-static-inverted-color-light-fg-1-high: var(--modifiers-static-inverted-color-dark-fg-1-high);
-  --modifiers-normal-color-light-accent-brand: var(--modifiers-normal-color-dark-accent-brand);
   --modifiers-normal-color-light-fg-disabled: var(--modifiers-normal-color-dark-fg-disabled);
   --modifiers-normal-color-light-fg-bold: var(--modifiers-normal-color-dark-fg-bold);
+  /* Usar tokens de botón para consistencia con botones primary */
+  --modifiers-normal-button-color-light-brand-primary-bg-default: var(--modifiers-normal-button-color-dark-brand-primary-bg-default);
+  --modifiers-normal-button-color-light-brand-primary-bg-hover: var(--modifiers-normal-button-color-dark-brand-primary-bg-hover);
+  --modifiers-normal-button-color-light-brand-primary-bg-pressed: var(--modifiers-normal-button-color-dark-brand-primary-bg-pressed);
 }
