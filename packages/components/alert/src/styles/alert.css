@@ -223,6 +223,40 @@
 
 [data-theme="dark"] {
 
+
+
+  --modifiers-normal-color-light-fg-1-medium: var(--modifiers-normal-color-dark-fg-1-medium);
+  --modifiers-normal-color-light-bg-2: var(--modifiers-normal-color-dark-bg-2);
+  --modifiers-normal-color-light-feedback-bg-success-subtle-default: var(--modifiers-normal-color-dark-feedback-bg-success-subtle-default);
+  --modifiers-normal-color-light-feedback-fg-success-subtle-default: var(--modifiers-normal-color-dark-feedback-fg-success-subtle-default);
+  --modifiers-normal-color-light-feedback-border-success: var(--modifiers-normal-color-dark-feedback-border-success);
+  --modifiers-normal-color-light-feedback-bg-info-subtle-default: var(--modifiers-normal-color-dark-feedback-bg-info-subtle-default);
+  --modifiers-normal-color-light-feedback-fg-info-subtle-default: var(--modifiers-normal-color-dark-feedback-fg-info-subtle-default);
+  --modifiers-normal-color-light-feedback-border-info: var(--modifiers-normal-color-dark-feedback-border-info);
+  --modifiers-normal-color-light-feedback-bg-warning-subtle-default: var(--modifiers-normal-color-dark-feedback-bg-warning-subtle-default);
+  --modifiers-normal-color-light-feedback-fg-warning-subtle-default: var(--modifiers-normal-color-dark-feedback-fg-warning-subtle-default);
+  --modifiers-normal-color-light-feedback-border-warning: var(--modifiers-normal-color-dark-feedback-border-warning);
+  --modifiers-normal-color-light-feedback-bg-error-subtle-default: var(--modifiers-normal-color-dark-feedback-bg-error-subtle-default);
+  --modifiers-normal-color-light-feedback-fg-error-subtle-default: var(--modifiers-normal-color-dark-feedback-fg-error-subtle-default);
+  --modifiers-normal-color-light-feedback-border-error: var(--modifiers-normal-color-dark-feedback-border-error);
+
+
+  --modifiers-normal-color-light-fg-1-medium: var(--modifiers-normal-color-dark-fg-1-medium);
+  --modifiers-normal-color-light-bg-2: var(--modifiers-normal-color-dark-bg-2);
+  --modifiers-normal-color-light-feedback-bg-success-subtle-default: var(--modifiers-normal-color-dark-feedback-bg-success-subtle-default);
+  --modifiers-normal-color-light-feedback-fg-success-subtle-default: var(--modifiers-normal-color-dark-feedback-fg-success-subtle-default);
+  --modifiers-normal-color-light-feedback-border-success: var(--modifiers-normal-color-dark-feedback-border-success);
+  --modifiers-normal-color-light-feedback-bg-info-subtle-default: var(--modifiers-normal-color-dark-feedback-bg-info-subtle-default);
+  --modifiers-normal-color-light-feedback-fg-info-subtle-default: var(--modifiers-normal-color-dark-feedback-fg-info-subtle-default);
+  --modifiers-normal-color-light-feedback-border-info: var(--modifiers-normal-color-dark-feedback-border-info);
+  --modifiers-normal-color-light-feedback-bg-warning-subtle-default: var(--modifiers-normal-color-dark-feedback-bg-warning-subtle-default);
+  --modifiers-normal-color-light-feedback-fg-warning-subtle-default: var(--modifiers-normal-color-dark-feedback-fg-warning-subtle-default);
+  --modifiers-normal-color-light-feedback-border-warning: var(--modifiers-normal-color-dark-feedback-border-warning);
+  --modifiers-normal-color-light-feedback-bg-error-subtle-default: var(--modifiers-normal-color-dark-feedback-bg-error-subtle-default);
+  --modifiers-normal-color-light-feedback-fg-error-subtle-default: var(--modifiers-normal-color-dark-feedback-fg-error-subtle-default);
+  --modifiers-normal-color-light-feedback-border-error: var(--modifiers-normal-color-dark-feedback-border-error);
+
+
   --modifiers-normal-color-light-fg-1-medium: var(--modifiers-normal-color-dark-fg-1-medium);
   --modifiers-normal-color-light-bg-2: var(--modifiers-normal-color-dark-bg-2);
   --modifiers-normal-color-light-feedback-bg-success-subtle-default: var(--modifiers-normal-color-dark-feedback-bg-success-subtle-default);

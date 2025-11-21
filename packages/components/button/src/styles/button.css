@@ -415,6 +415,8 @@
 
 [data-theme="dark"] {
 
+
+
     --ubits-elevation-floating: calc(var(--modifiers-normal-elevation-floating-0-x) * 1px) calc(var(--modifiers-normal-elevation-floating-0-y) * 1px) calc(var(--modifiers-normal-elevation-floating-0-blur) * 1px) calc(var(--modifiers-normal-elevation-floating-0-spread) * 1px) var(--modifiers-normal-elevation-floating-0-color), calc(var(--modifiers-normal-elevation-floating-1-x) * 1px) calc(var(--modifiers-normal-elevation-floating-1-y) * 1px) calc(var(--modifiers-normal-elevation-floating-1-blur) * 1px) calc(var(--modifiers-normal-elevation-floating-1-spread) * 1px) var(--modifiers-normal-elevation-floating-1-color);
     --ubits-elevation-floating-hover: calc(var(--modifiers-normal-elevation-hover-0-x) * 1px) calc(var(--modifiers-normal-elevation-hover-0-y) * 1px) calc(var(--modifiers-normal-elevation-hover-0-blur) * 1px) calc(var(--modifiers-normal-elevation-hover-0-spread) * 1px) var(--modifiers-normal-elevation-hover-0-color), calc(var(--modifiers-normal-elevation-hover-1-x) * 1px) calc(var(--modifiers-normal-elevation-hover-1-y) * 1px) calc(var(--modifiers-normal-elevation-hover-1-blur) * 1px) calc(var(--modifiers-normal-elevation-hover-1-spread) * 1px) var(--modifiers-normal-elevation-hover-1-color);
     --ubits-elevation-floating-active: calc(var(--modifiers-normal-elevation-default-0-x) * 1px) calc(var(--modifiers-normal-elevation-default-0-y) * 1px) calc(var(--modifiers-normal-elevation-default-0-blur) * 1px) calc(var(--modifiers-normal-elevation-default-0-spread) * 1px) var(--modifiers-normal-elevation-default-0-color), calc(var(--modifiers-normal-elevation-default-1-x) * 1px) calc(var(--modifiers-normal-elevation-default-1-y) * 1px) calc(var(--modifiers-normal-elevation-default-1-blur) * 1px) calc(var(--modifiers-normal-elevation-default-1-spread) * 1px) var(--modifiers-normal-elevation-default-1-color);
@@ -439,6 +441,48 @@
   --modifiers-normal-button-color-light-brand-tertiary-bg-pressed: var(--modifiers-normal-button-color-dark-brand-tertiary-bg-pressed);
   --modifiers-normal-color-light-feedback-accent-error: var(--modifiers-normal-color-dark-feedback-accent-error);
   --modifiers-static-inverted-color-light-accent-brand: var(--modifiers-static-inverted-color-dark-accent-brand);
+
+
+  --modifiers-normal-button-color-light-brand-primary-bg-default: var(--modifiers-normal-button-color-dark-brand-primary-bg-default);
+  --modifiers-normal-color-light-fg-bold: var(--modifiers-normal-color-dark-fg-bold);
+  --modifiers-normal-button-color-light-brand-primary-bg-hover: var(--modifiers-normal-button-color-dark-brand-primary-bg-hover);
+  --modifiers-normal-button-color-light-brand-primary-bg-pressed: var(--modifiers-normal-button-color-dark-brand-primary-bg-pressed);
+  --modifiers-normal-color-light-bg-disabled: var(--modifiers-normal-color-dark-bg-disabled);
+  --modifiers-normal-color-light-fg-on-disabled: var(--modifiers-normal-color-dark-fg-on-disabled);
+  --modifiers-normal-color-light-border-disabled: var(--modifiers-normal-color-dark-border-disabled);
+  --modifiers-normal-button-color-light-brand-tertiary-fg: var(--modifiers-normal-button-color-dark-brand-tertiary-fg);
+  --modifiers-normal-button-color-light-brand-secondary-fg-default: var(--modifiers-normal-button-color-dark-brand-secondary-fg-default);
+  --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
+  --modifiers-normal-color-light-accent-brand: var(--modifiers-normal-color-dark-accent-brand);
+  --modifiers-normal-color-light-bg-active: var(--modifiers-normal-color-dark-bg-active);
+  --modifiers-normal-button-color-light-brand-secondary-bg-default: var(--modifiers-normal-button-color-dark-brand-secondary-bg-default);
+  --modifiers-normal-button-color-light-brand-secondary-border: var(--modifiers-normal-button-color-dark-brand-secondary-border);
+  --modifiers-normal-button-color-light-brand-secondary-bg-hover: var(--modifiers-normal-button-color-dark-brand-secondary-bg-hover);
+  --modifiers-normal-button-color-light-brand-secondary-bg-pressed: var(--modifiers-normal-button-color-dark-brand-secondary-bg-pressed);
+  --modifiers-normal-button-color-light-brand-tertiary-bg-hover: var(--modifiers-normal-button-color-dark-brand-tertiary-bg-hover);
+  --modifiers-normal-button-color-light-brand-tertiary-bg-pressed: var(--modifiers-normal-button-color-dark-brand-tertiary-bg-pressed);
+  --modifiers-normal-color-light-feedback-accent-error: var(--modifiers-normal-color-dark-feedback-accent-error);
+
+
+  --modifiers-normal-button-color-light-brand-primary-bg-default: var(--modifiers-normal-button-color-dark-brand-primary-bg-default);
+  --modifiers-normal-color-light-fg-bold: var(--modifiers-normal-color-dark-fg-bold);
+  --modifiers-normal-button-color-light-brand-primary-bg-hover: var(--modifiers-normal-button-color-dark-brand-primary-bg-hover);
+  --modifiers-normal-button-color-light-brand-primary-bg-pressed: var(--modifiers-normal-button-color-dark-brand-primary-bg-pressed);
+  --modifiers-normal-color-light-bg-disabled: var(--modifiers-normal-color-dark-bg-disabled);
+  --modifiers-normal-color-light-fg-on-disabled: var(--modifiers-normal-color-dark-fg-on-disabled);
+  --modifiers-normal-color-light-border-disabled: var(--modifiers-normal-color-dark-border-disabled);
+  --modifiers-normal-button-color-light-brand-tertiary-fg: var(--modifiers-normal-button-color-dark-brand-tertiary-fg);
+  --modifiers-normal-button-color-light-brand-secondary-fg-default: var(--modifiers-normal-button-color-dark-brand-secondary-fg-default);
+  --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
+  --modifiers-normal-color-light-accent-brand: var(--modifiers-normal-color-dark-accent-brand);
+  --modifiers-normal-color-light-bg-active: var(--modifiers-normal-color-dark-bg-active);
+  --modifiers-normal-button-color-light-brand-secondary-bg-default: var(--modifiers-normal-button-color-dark-brand-secondary-bg-default);
+  --modifiers-normal-button-color-light-brand-secondary-border: var(--modifiers-normal-button-color-dark-brand-secondary-border);
+  --modifiers-normal-button-color-light-brand-secondary-bg-hover: var(--modifiers-normal-button-color-dark-brand-secondary-bg-hover);
+  --modifiers-normal-button-color-light-brand-secondary-bg-pressed: var(--modifiers-normal-button-color-dark-brand-secondary-bg-pressed);
+  --modifiers-normal-button-color-light-brand-tertiary-bg-hover: var(--modifiers-normal-button-color-dark-brand-tertiary-bg-hover);
+  --modifiers-normal-button-color-light-brand-tertiary-bg-pressed: var(--modifiers-normal-button-color-dark-brand-tertiary-bg-pressed);
+  --modifiers-normal-color-light-feedback-accent-error: var(--modifiers-normal-color-dark-feedback-accent-error);
 
 }
 

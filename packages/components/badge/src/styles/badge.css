@@ -757,6 +757,32 @@
 
 [data-theme="dark"] {
 
+
+
+  --modifiers-normal-color-light-fg-bold: var(--modifiers-normal-color-dark-fg-bold);
+  --modifiers-normal-color-light-feedback-accent-error: var(--modifiers-normal-color-dark-feedback-accent-error);
+  --modifiers-normal-color-light-fg-1-medium: var(--modifiers-normal-color-dark-fg-1-medium);
+  --modifiers-normal-color-light-feedback-accent-success: var(--modifiers-normal-color-dark-feedback-accent-success);
+  --modifiers-normal-color-light-feedback-accent-warning: var(--modifiers-normal-color-dark-feedback-accent-warning);
+  --modifiers-normal-color-light-feedback-accent-info: var(--modifiers-normal-color-dark-feedback-accent-info);
+  --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
+  --modifiers-normal-color-light-border-1: var(--modifiers-normal-color-dark-border-1);
+  --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
+  --modifiers-normal-color-light-accent-brand: var(--modifiers-normal-color-dark-accent-brand);
+
+
+  --modifiers-normal-color-light-fg-bold: var(--modifiers-normal-color-dark-fg-bold);
+  --modifiers-normal-color-light-feedback-accent-error: var(--modifiers-normal-color-dark-feedback-accent-error);
+  --modifiers-normal-color-light-fg-1-medium: var(--modifiers-normal-color-dark-fg-1-medium);
+  --modifiers-normal-color-light-feedback-accent-success: var(--modifiers-normal-color-dark-feedback-accent-success);
+  --modifiers-normal-color-light-feedback-accent-warning: var(--modifiers-normal-color-dark-feedback-accent-warning);
+  --modifiers-normal-color-light-feedback-accent-info: var(--modifiers-normal-color-dark-feedback-accent-info);
+  --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
+  --modifiers-normal-color-light-border-1: var(--modifiers-normal-color-dark-border-1);
+  --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
+  --modifiers-normal-color-light-accent-brand: var(--modifiers-normal-color-dark-accent-brand);
+
+
   --modifiers-normal-color-light-fg-bold: var(--modifiers-normal-color-dark-fg-bold);
   --modifiers-normal-color-light-feedback-accent-error: var(--modifiers-normal-color-dark-feedback-accent-error);
   --modifiers-normal-color-light-fg-1-medium: var(--modifiers-normal-color-dark-fg-1-medium);

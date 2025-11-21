@@ -223,6 +223,24 @@
 
 [data-theme="dark"] {
 
+
+
+  --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
+  --modifiers-normal-color-light-fg-2-medium: var(--modifiers-normal-color-dark-fg-2-medium);
+  --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
+  --modifiers-normal-color-light-bg-2: var(--modifiers-normal-color-dark-bg-2);
+  --modifiers-normal-color-light-border-2: var(--modifiers-normal-color-dark-border-2);
+  --modifiers-normal-color-light-bg-3: var(--modifiers-normal-color-dark-bg-3);
+
+
+  --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
+  --modifiers-normal-color-light-fg-2-medium: var(--modifiers-normal-color-dark-fg-2-medium);
+  --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
+  --modifiers-normal-color-light-bg-2: var(--modifiers-normal-color-dark-bg-2);
+  --modifiers-normal-color-light-border-2: var(--modifiers-normal-color-dark-border-2);
+  --modifiers-normal-color-light-bg-3: var(--modifiers-normal-color-dark-bg-3);
+
+
   --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
   --modifiers-normal-color-light-fg-2-medium: var(--modifiers-normal-color-dark-fg-2-medium);
   --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);

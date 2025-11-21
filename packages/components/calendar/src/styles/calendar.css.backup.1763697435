@@ -13,13 +13,13 @@
     flex-direction: column;
     width: 100%;
     max-width: 352px; /* Aumentado de 320px a 352px para dar espacio al header (320px + 32px extra) */
-    background: var(--modifiers-normal-color-light-bg-1) !important;
-    border: 1px solid var(--modifiers-normal-color-light-border-1) !important;
+    background: var(--ubits-bg-1);
+    border: 1px solid var(--ubits-border-1);
     border-radius: var(--ubits-border-radius-sm, 8px);
     /* Elevation default UBITS: 0px 1px 2px 0px rgba(0, 0, 0, 0.12) */
-    box-shadow: calc(var(--modifiers-normal-elevation-default-0-x) * 1px) calc(var(--modifiers-normal-elevation-default-0-y) * 1px) calc(var(--modifiers-normal-elevation-default-0-blur) * 1px) calc(var(--modifiers-normal-elevation-default-0-spread) * 1px) var(--modifiers-normal-elevation-default-0-color);
-    padding: var(--ubits-spacing-none, 0); /* Sin padding para que el header use todo el ancho */
-    font-family: var(--font-family-noto-sans-font-family);
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.12);
+    padding: 0; /* Sin padding para que el header use todo el ancho */
+    font-family: var(--font-sans);
     box-sizing: border-box;
     overflow: visible; /* Permite que los dropdowns se muestren fuera del contenedor */
     position: relative; /* Contexto de posicionamiento para dropdowns */
@@ -29,12 +29,12 @@
 /* Agregar padding solo a los elementos internos necesarios */
 .ubits-calendar__weekdays,
 .ubits-calendar__days {
-    padding-left: var(--ubits-spacing-lg, 16px);
-    padding-right: var(--ubits-spacing-lg, 16px);
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
 .ubits-calendar__days {
-    padding-bottom: var(--ubits-spacing-lg, 16px);
+    padding-bottom: 16px;
 }
 
 /* ========================================
@@ -46,14 +46,14 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start; /* Usar flex-start para que gap funcione correctamente */
-    margin-bottom: var(--ubits-spacing-lg, 16px);
-    padding: var(--ubits-spacing-lg, 16px) var(--ubits-spacing-lg, 16px) var(--ubits-spacing-none, 0) var(--ubits-spacing-lg, 16px);
+    margin-bottom: 16px;
+    padding: 16px 16px 0 16px;
     width: 100%; /* Usar el ancho completo del contenedor que ahora es más ancho */
     min-width: 100%; /* Asegurar que use todo el ancho disponible */
     box-sizing: border-box;
     overflow: visible;
     position: relative;
-    gap: var(--ubits-spacing-lg, 16px); /* Espacio entre elementos - esto funciona mejor con flex-start */
+    gap: 16px; /* Espacio entre elementos - esto funciona mejor con flex-start */
 }
 
 .ubits-calendar__nav-button {
@@ -61,8 +61,8 @@
     flex-grow: 0;
     width: 32px;
     height: 32px;
-    margin: var(--ubits-spacing-none, 0);
-    padding: var(--ubits-spacing-none, 0);
+    margin: 0;
+    padding: 0;
 }
 
 .ubits-calendar__nav-button--prev {
@@ -79,20 +79,20 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: var(--ubits-spacing-sm, 8px);
+    gap: 8px;
     flex: 1;
     justify-content: center;
     min-width: 0;
     overflow: visible;
-    margin: var(--ubits-spacing-none, 0);
-    padding: var(--ubits-spacing-none, 0);
+    margin: 0;
+    padding: 0;
 }
 
 .ubits-calendar__month-input,
 .ubits-calendar__year-input {
     /* Los inputs usan las clases UBITS Input, solo ajustamos tamaño */
-    font-size: var(--modifiers-normal-body-md-regular-fontsize);
-    font-weight: var(--ubits-font-weight-semibold, 600);
+    font-size: var(--font-body-md-size);
+    font-weight: var(--weight-semibold);
     cursor: pointer;
     width: 100%;
     box-sizing: border-box;
@@ -126,7 +126,7 @@
     left: 0;
     right: 0;
     z-index: 1000;
-    margin-top: var(--ubits-spacing-xs, 4px);
+    margin-top: 4px;
     max-width: 100%;
     box-sizing: border-box;
 }
@@ -138,8 +138,8 @@
 .ubits-calendar__weekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: var(--ubits-spacing-xs, 4px);
-    margin-bottom: var(--ubits-spacing-sm, 8px);
+    gap: 4px;
+    margin-bottom: 8px;
 }
 
 .ubits-calendar__weekday {
@@ -147,10 +147,10 @@
     align-items: center;
     justify-content: center;
     height: 32px;
-    font-family: var(--font-family-noto-sans-font-family);
-    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
-    font-weight: var(--ubits-font-weight-semibold, 600);
-    color: var(--modifiers-normal-color-light-fg-1-medium) !important;
+    font-family: var(--font-sans);
+    font-size: var(--font-body-sm-size);
+    font-weight: var(--weight-semibold);
+    color: var(--ubits-fg-1-medium);
     text-align: center;
 }
 
@@ -161,7 +161,7 @@
 .ubits-calendar__days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: var(--ubits-spacing-xs, 4px);
+    gap: 4px;
 }
 
 .ubits-calendar__day {
@@ -174,18 +174,18 @@
     border: none;
     border-radius: var(--ubits-border-radius-sm, 8px);
     background: transparent;
-    color: var(--modifiers-normal-color-light-fg-1-high) !important;
-    font-family: var(--font-family-noto-sans-font-family);
-    font-size: var(--modifiers-normal-body-md-regular-fontsize);
-    font-weight: var(--ubits-font-weight-regular, 400);
+    color: var(--ubits-fg-1-high);
+    font-family: var(--font-sans);
+    font-size: var(--font-body-md-size);
+    font-weight: var(--weight-regular);
     cursor: pointer;
     transition: all 0.2s ease;
     position: relative;
 }
 
 .ubits-calendar__day:hover:not(.ubits-calendar__day--disabled):not(.ubits-calendar__day--selected) {
-    background: var(--modifiers-normal-color-light-bg-2) !important;
-    color: var(--modifiers-static-inverted-color-light-accent-brand) !important;
+    background: var(--ubits-bg-2);
+    color: var(--ubits-accent-brand-static-inverted);
 }
 
 .ubits-calendar__day--empty {
@@ -194,11 +194,11 @@
 }
 
 .ubits-calendar__day--today {
-    font-weight: var(--ubits-font-weight-semibold, 600);
+    font-weight: var(--weight-semibold);
 }
 
 .ubits-calendar__day--today:not(.ubits-calendar__day--selected):not(.ubits-calendar__day--in-range) {
-    border: 1px solid var(--modifiers-static-inverted-color-light-accent-brand) !important;
+    border: 1px solid var(--ubits-accent-brand-static-inverted);
 }
 
 /* ========================================
@@ -206,13 +206,13 @@
    ======================================== */
 
 .ubits-calendar__day--selected {
-    background: var(--modifiers-static-inverted-color-light-accent-brand) !important;
-    color: var(--modifiers-static-inverted-color-light-fg-1-high) !important;
-    font-weight: var(--ubits-font-weight-semibold, 600);
+    background: var(--ubits-accent-brand-static-inverted);
+    color: var(--ubits-fg-1-high-static-inverted);
+    font-weight: var(--weight-semibold);
 }
 
 .ubits-calendar__day--selected:hover {
-    background: var(--modifiers-static-inverted-color-light-accent-brand) !important;
+    background: var(--ubits-accent-brand-static-inverted);
     opacity: 0.9;
 }
 
@@ -222,18 +222,18 @@
 
 .ubits-calendar--range .ubits-calendar__day--range-start,
 .ubits-calendar--range .ubits-calendar__day--range-end {
-    background: var(--modifiers-static-inverted-color-light-accent-brand) !important;
-    color: var(--modifiers-static-inverted-color-light-fg-1-high) !important;
-    font-weight: var(--ubits-font-weight-semibold, 600);
+    background: var(--ubits-accent-brand-static-inverted);
+    color: var(--ubits-fg-1-high-static-inverted);
+    font-weight: var(--weight-semibold);
 }
 
 .ubits-calendar--range .ubits-calendar__day--in-range {
-    background: color-mix(in srgb, var(--modifiers-normal-color-light-accent-brand) 10%, transparent);
-    color: var(--modifiers-static-inverted-color-light-accent-brand) !important;
+    background: rgba(12, 91, 239, 0.1);
+    color: var(--ubits-accent-brand-static-inverted);
 }
 
 .ubits-calendar--range .ubits-calendar__day--in-range:hover {
-    background: color-mix(in srgb, var(--modifiers-normal-color-light-accent-brand) 15%, transparent);
+    background: rgba(12, 91, 239, 0.15);
 }
 
 /* ========================================
@@ -241,14 +241,14 @@
    ======================================== */
 
 .ubits-calendar__day--disabled {
-    color: var(--modifiers-normal-color-light-fg-disabled) !important;
+    color: var(--ubits-fg-1-low);
     cursor: not-allowed;
     opacity: 0.5;
 }
 
 .ubits-calendar__day--disabled:hover {
     background: transparent;
-    color: var(--modifiers-normal-color-light-fg-disabled) !important;
+    color: var(--ubits-fg-1-low);
 }
 
 /* ========================================
@@ -309,22 +309,3 @@
     opacity: 1 !important;
 }
 
-
-
-/* ========================================
-   DARK MODE
-   ======================================== */
-
-[data-theme="dark"] {
-
-  --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
-  --modifiers-normal-color-light-border-1: var(--modifiers-normal-color-dark-border-1);
-  --modifiers-normal-color-light-fg-1-medium: var(--modifiers-normal-color-dark-fg-1-medium);
-  --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
-  --modifiers-normal-color-light-bg-2: var(--modifiers-normal-color-dark-bg-2);
-  --modifiers-static-inverted-color-light-accent-brand: var(--modifiers-static-inverted-color-dark-accent-brand);
-  --modifiers-static-inverted-color-light-fg-1-high: var(--modifiers-static-inverted-color-dark-fg-1-high);
-  --modifiers-normal-color-light-accent-brand: var(--modifiers-normal-color-dark-accent-brand);
-  --modifiers-normal-color-light-fg-disabled: var(--modifiers-normal-color-dark-fg-disabled);
-
-}

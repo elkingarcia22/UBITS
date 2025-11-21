@@ -16,6 +16,7 @@ const COMPONENTS = [
   'bar-metric-card',
   'breadcrumb',
   'button',
+  'calendar',
   'csat-metric-card',
 ];
 
