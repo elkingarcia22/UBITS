@@ -340,8 +340,6 @@
   --modifiers-normal-color-light-fg-1-medium: var(--modifiers-normal-color-dark-fg-1-medium);
   --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
   --modifiers-normal-color-light-bg-2: var(--modifiers-normal-color-dark-bg-2);
-  --modifiers-static-inverted-color-light-accent-brand: var(--modifiers-static-inverted-color-dark-accent-brand);
-  --modifiers-static-inverted-color-light-fg-1-high: var(--modifiers-static-inverted-color-dark-fg-1-high);
   --modifiers-normal-color-light-fg-disabled: var(--modifiers-normal-color-dark-fg-disabled);
   --modifiers-normal-color-light-fg-bold: var(--modifiers-normal-color-dark-fg-bold);
   /* Usar tokens de botón para consistencia con botones primary */

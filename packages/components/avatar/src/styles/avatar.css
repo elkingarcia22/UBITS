@@ -144,24 +144,8 @@
    ======================================== */
 
 [data-theme="dark"] {
-
-
-
   --modifiers-normal-color-light-border-1: var(--modifiers-normal-color-dark-border-1);
   --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
   --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
   --modifiers-static-inverted-color-light-accent-brand: var(--modifiers-static-inverted-color-dark-accent-brand);
-
-
-  --modifiers-normal-color-light-border-1: var(--modifiers-normal-color-dark-border-1);
-  --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
-  --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
-  --modifiers-static-inverted-color-light-accent-brand: var(--modifiers-static-inverted-color-dark-accent-brand);
-
-
-  --modifiers-normal-color-light-border-1: var(--modifiers-normal-color-dark-border-1);
-  --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
-  --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
-  --modifiers-static-inverted-color-light-accent-brand: var(--modifiers-static-inverted-color-dark-accent-brand);
-
 }

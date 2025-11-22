@@ -1,7 +1,7 @@
 /* ========================================
    UBITS SIDEBAR COMPONENT
    Componente de navegación lateral
-   Usando tokens UBITS del nuevo playground
+   Migrado a tokens Figma (mantiene tokens específicos del sidebar)
    ======================================== */
 
 /* ========================================
@@ -10,21 +10,21 @@
 
 .ubits-sidebar {
     background-color: var(--ubits-sidebar-bg);
-    width: 96px;
-    min-width: 96px;
-    max-width: 96px;
-    height: 578px;
-    padding: 16px 28px;
+    width: 96px; /* MANTENER MEDIDA ORIGINAL */
+    min-width: 96px; /* MANTENER MEDIDA ORIGINAL */
+    max-width: 96px; /* MANTENER MEDIDA ORIGINAL */
+    height: 578px; /* MANTENER MEDIDA ORIGINAL */
+    padding: 16px 28px; /* MANTENER MEDIDAS ORIGINALES (dimensiones del componente) */
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--ubits-spacing-lg);
     align-items: center;
     justify-content: flex-start;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: var(--ubits-border-radius-md);
     position: fixed;
-    left: 24px;
-    top: 16px;
+    left: 24px; /* MANTENER MEDIDA ORIGINAL */
+    top: 16px; /* MANTENER MEDIDA ORIGINAL */
     z-index: 10;
     box-sizing: border-box;
 }
@@ -33,7 +33,7 @@
 .ubits-sidebar-main {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--ubits-spacing-lg);
     align-items: center;
     flex-shrink: 0;
 }
@@ -52,14 +52,14 @@
 
 .ubits-sidebar-logo {
     display: flex;
-    gap: 8px;
+    gap: var(--ubits-spacing-sm);
     align-items: center;
     justify-content: flex-start;
     flex-shrink: 0;
     cursor: pointer;
     transition: none;
-    padding: 4px;
-    border-radius: 6px;
+    padding: var(--ubits-spacing-xs);
+    border-radius: var(--ubits-border-radius-sm);
 }
 
 /* Sin efecto hover para el logo */
@@ -69,8 +69,8 @@
 }
 
 .ubits-sidebar-logo img {
-    width: 24px;
-    height: 25px;
+    width: 24px; /* MANTENER MEDIDA ORIGINAL */
+    height: 25px; /* MANTENER MEDIDA ORIGINAL */
     object-fit: contain;
 }
 
@@ -82,7 +82,7 @@
     flex: none;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--ubits-spacing-sm);
     align-items: center;
     justify-content: flex-start;
     min-height: 0;
@@ -97,11 +97,11 @@
 .ubits-sidebar-footer {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--ubits-spacing-sm);
     align-items: center;
     justify-content: flex-start;
     margin-top: auto;
-    padding: 16px 0 0 0;
+    padding: var(--ubits-spacing-lg) 0 0 0;
     width: 100%;
     flex-shrink: 0;
     border-top: 1px solid var(--ubits-sidebar-button-fg-default);
@@ -115,7 +115,7 @@
     left: 0;
     right: 0;
     height: 1px;
-    background-color: var(--ubits-fg-1-medium);
+    background-color: var(--modifiers-normal-color-light-fg-1-medium);
 }
 
 /* ========================================
@@ -125,8 +125,8 @@
 .ubits-sidebar-nav-button {
     background: rgba(255, 255, 255, 0);
     border: none;
-    padding: 8px;
-    border-radius: 1000px;
+    padding: var(--ubits-spacing-sm);
+    border-radius: 1000px; /* MANTENER (para círculos perfectos) */
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -135,18 +135,18 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     flex-shrink: 0;
-    width: 40px;
-    height: 40px;
+    width: 40px; /* MANTENER MEDIDA ORIGINAL */
+    height: 40px; /* MANTENER MEDIDA ORIGINAL */
     overflow: hidden;
     box-sizing: border-box;
     text-align: center;
 }
 
 .ubits-sidebar-nav-button i {
-    font-size: 16px;
+    font-size: 16px; /* MANTENER MEDIDA ORIGINAL */
     color: var(--ubits-sidebar-button-fg-default);
-    width: 24px;
-    height: 24px;
+    width: 24px; /* MANTENER MEDIDA ORIGINAL */
+    height: 24px; /* MANTENER MEDIDA ORIGINAL */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -313,7 +313,7 @@
 
 /* Cambio de icono en modo oscuro */
 .ubits-sidebar-nav-button#ubits-darkmode-toggle[data-theme="dark"] i {
-    color: var(--ubits-fg-yellow-subtle);
+    color: var(--modifiers-normal-color-light-fg-yellow-subtle-default);
 }
 
 .ubits-sidebar-nav-button#ubits-darkmode-toggle[data-theme="light"] i {
@@ -335,14 +335,14 @@
 }
 
 .ubits-sidebar-user-avatar {
-    width: 40px;
-    height: 40px;
+    width: 40px; /* MANTENER MEDIDA ORIGINAL */
+    height: 40px; /* MANTENER MEDIDA ORIGINAL */
     border-radius: 50%;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--ubits-fg-1-medium);
+    background: var(--modifiers-normal-color-light-fg-1-medium);
     flex-shrink: 0;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -350,7 +350,7 @@
 }
 
 .ubits-sidebar-user-avatar:hover {
-    background: var(--ubits-fg-1-medium);
+    background: var(--modifiers-normal-color-light-fg-1-medium);
     transform: scale(1.05);
 }
 
@@ -364,12 +364,12 @@
 }
 
 .ubits-sidebar-user-avatar:hover img {
-    border-color: var(--ubits-fg-bold);
+    border-color: var(--modifiers-normal-color-light-fg-1-high-inverted);
 }
 
 /* Avatar active state */
 .ubits-sidebar-user-avatar.active img {
-    border: 2px solid var(--ubits-accent-brand-static-inverted) !important;
+    border: 2px solid var(--modifiers-static-inverted-color-light-accent-brand) !important;
 }
 
 /* ========================================
@@ -379,18 +379,18 @@
 .ubits-sidebar-tooltip {
     position: fixed;
     background: var(--ubits-sidebar-bg);
-    color: var(--ubits-fg-1-high-static-inverted);
-    padding: 8px 12px;
-    border-radius: 6px;
+    color: var(--modifiers-static-inverted-color-light-fg-1-high);
+    padding: var(--ubits-spacing-sm) var(--ubits-spacing-md);
+    border-radius: var(--ubits-border-radius-sm);
     white-space: nowrap;
     z-index: 10000;
     box-shadow: 0px 2px 8px rgba(0,0,0,0.15);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.2s ease;
-    font-family: var(--font-sans);
-    font-size: 14px;
-    font-weight: 400;
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular, 400);
 }
 
 .ubits-sidebar-tooltip::before {
@@ -414,15 +414,15 @@
 .ubits-sidebar-profile-menu {
     display: none;
     position: fixed;
-    left: 96px; /* 96px (sidebar) - completamente pegado, sin espacio - se sobrescribe con position: absolute en el playground */
-    bottom: 27px;
-    width: 200px;
+    left: 96px; /* MANTENER MEDIDA ORIGINAL (96px sidebar) */
+    bottom: 27px; /* MANTENER MEDIDA ORIGINAL */
+    width: 200px; /* MANTENER MEDIDA ORIGINAL */
     background: var(--ubits-sidebar-bg);
-    border: 1px solid var(--ubits-border-1);
-    border-radius: 8px;
+    border: 1px solid var(--modifiers-normal-color-light-border-1);
+    border-radius: var(--ubits-border-radius-md);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     z-index: 2000;
-    padding: 8px 0;
+    padding: var(--ubits-spacing-sm) 0;
 }
 
 .ubits-sidebar-profile-menu.show {
@@ -432,7 +432,7 @@
 .ubits-sidebar-profile-menu-item {
     display: flex;
     align-items: center;
-    padding: 8px 16px;
+    padding: var(--ubits-spacing-sm) var(--ubits-spacing-lg);
     color: var(--ubits-sidebar-button-fg-default);
     text-decoration: none;
     cursor: pointer;
@@ -441,10 +441,10 @@
 
 .ubits-sidebar-profile-menu-item span {
     color: inherit;
-    font-family: var(--font-sans);
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 19.5px;
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: var(--modifiers-normal-body-xs-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular, 400);
+    line-height: var(--modifiers-normal-body-xs-regular-lineheight);
 }
 
 .ubits-sidebar-profile-menu-item:hover {
@@ -458,10 +458,10 @@
 }
 
 .ubits-sidebar-profile-menu-item i {
-    font-size: 14px;
-    margin-right: 10px;
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+    margin-right: 10px; /* MANTENER MEDIDA ORIGINAL */
     color: var(--ubits-sidebar-button-fg-default);
-    width: 16px;
+    width: 16px; /* MANTENER MEDIDA ORIGINAL */
     text-align: center;
 }
 
@@ -472,8 +472,8 @@
 /* Profile menu divider */
 .ubits-sidebar-profile-menu-divider {
     height: 1px;
-    background: var(--ubits-border-1);
-    margin: 4px 0;
+    background: var(--modifiers-normal-color-light-border-1);
+    margin: var(--ubits-spacing-xs) 0;
 }
 
 /* ========================================
@@ -489,15 +489,15 @@
 
 @media (max-width: 1024px) {
     .ubits-sidebar-nav-button {
-        width: 36px;
-        height: 36px;
-        padding: 6px;
+        width: 36px; /* MANTENER MEDIDA ORIGINAL */
+        height: 36px; /* MANTENER MEDIDA ORIGINAL */
+        padding: 6px; /* MANTENER MEDIDA ORIGINAL */
     }
     
     .ubits-sidebar-nav-button i {
-        width: 20px;
-        height: 20px;
-        font-size: 14px;
+        width: 20px; /* MANTENER MEDIDA ORIGINAL */
+        height: 20px; /* MANTENER MEDIDA ORIGINAL */
+        font-size: var(--modifiers-normal-body-sm-regular-fontsize);
     }
 }
 
@@ -507,6 +507,7 @@
 
 /* Nota: Los colores del sidebar NO cambian con el tema (intencional) */
 /* Los tokens del sidebar son los mismos en light y dark mode */
+/* Sin embargo, los tokens migrados (fg-1-medium, border-1, etc.) SÍ cambian con el tema */
 
 /* Asegurar que el sidebar mantenga sus colores en dark mode */
 body[data-theme="dark"] .ubits-sidebar,
@@ -527,6 +528,39 @@ html[data-theme="dark"] .ubits-sidebar-nav-button.active i {
 body[data-theme="dark"] .ubits-sidebar-profile-menu,
 html[data-theme="dark"] .ubits-sidebar-profile-menu {
     background: var(--ubits-sidebar-bg) !important;
-    border-color: var(--ubits-border-1) !important;
+    border-color: var(--modifiers-normal-color-dark-border-1) !important;
+}
+
+/* Dark mode para tokens migrados */
+[data-theme="dark"] .ubits-sidebar-footer::before {
+    background-color: var(--modifiers-normal-color-dark-fg-1-medium);
+}
+
+[data-theme="dark"] .ubits-sidebar-user-avatar {
+    background: var(--modifiers-normal-color-dark-fg-1-medium);
+}
+
+[data-theme="dark"] .ubits-sidebar-user-avatar:hover {
+    background: var(--modifiers-normal-color-dark-fg-1-medium);
+}
+
+[data-theme="dark"] .ubits-sidebar-user-avatar:hover img {
+    border-color: var(--modifiers-normal-color-dark-fg-1-high-inverted);
+}
+
+[data-theme="dark"] .ubits-sidebar-tooltip {
+    color: var(--modifiers-static-inverted-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-sidebar-profile-menu {
+    border-color: var(--modifiers-normal-color-dark-border-1);
+}
+
+[data-theme="dark"] .ubits-sidebar-profile-menu-divider {
+    background: var(--modifiers-normal-color-dark-border-1);
+}
+
+[data-theme="dark"] .ubits-sidebar-nav-button#ubits-darkmode-toggle[data-theme="dark"] i {
+    color: var(--modifiers-normal-color-dark-fg-yellow-subtle-default);
 }
 
