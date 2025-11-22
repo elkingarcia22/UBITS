@@ -14,6 +14,67 @@ Este documento describe los pasos **exactos** que sigo para migrar un componente
 
 ---
 
+## 📚 Entendiendo los Modifiers (CRÍTICO)
+
+**⚠️ IMPORTANTE**: Antes de migrar cualquier componente, es esencial entender cómo funcionan los diferentes tipos de modifiers en el sistema de tokens Figma.
+
+### **Tipos de Modifiers:**
+
+#### **1. Normal (`modifiers-normal`)**
+- **Comportamiento**: Los colores cambian de light a dark con su equivalente
+- **Light mode**: Un color específico
+- **Dark mode**: Su equivalente (diferente color que se adapta al tema)
+- **Ejemplo**: 
+  - `--modifiers-normal-color-light-accent-brand` → Azul (#0c5bef) en light mode
+  - `--modifiers-normal-color-dark-accent-brand` → Color equivalente adaptado para dark mode
+- **Cuándo usar**: Estados normales, elementos interactivos, progreso, navegación activa (CASI SIEMPRE)
+
+#### **2. Inverted (`modifiers-inverted`)**
+- **Comportamiento**: Los colores pasan de dark a light con su equivalente
+- **Light mode**: Usa el color que normalmente sería de dark mode
+- **Dark mode**: Usa el color que normalmente sería de light mode
+- **Ejemplo**: 
+  - `--modifiers-inverted-color-light-accent-brand` → Color dark en light mode
+  - `--modifiers-inverted-color-dark-accent-brand` → Color light en dark mode
+- **Cuándo usar**: Cuando necesitas invertir la lógica normal de colores
+
+#### **3. Static (`modifiers-static`)**
+- **Comportamiento**: Se mantiene igual el color light en dark y light
+- **Light mode**: Un color específico
+- **Dark mode**: El mismo color (NO cambia con el tema)
+- **Ejemplo**: 
+  - `--modifiers-static-color-light-accent-brand` → Mismo color en ambos modos
+  - `--modifiers-static-color-dark-accent-brand` → Mismo color en ambos modos
+- **Cuándo usar**: Cuando necesitas que un color se mantenga constante independientemente del tema
+
+#### **4. Static Inverted (`modifiers-static-inverted`)**
+- **Comportamiento**: Se mantiene el color dark en dark y light
+- **Light mode**: Usa el color dark
+- **Dark mode**: Usa el mismo color dark (NO cambia con el tema)
+- **Ejemplo**: 
+  - `--modifiers-static-inverted-color-light-accent-brand` → Color dark en light mode (MORADO #3865f5)
+  - `--modifiers-static-inverted-color-dark-accent-brand` → Mismo color dark en dark mode
+- **Cuándo usar**: Casos muy específicos de diseño estático invertido (MUY RARO)
+
+### **Regla de Oro para Migración:**
+
+**✅ CASI SIEMPRE usar `modifiers-normal`:**
+- Estados activos/interactivos
+- Barras de progreso
+- Indicadores de navegación
+- Sliders y controles
+- Elementos que requieren adaptación al tema
+
+**❌ EVITAR `modifiers-static-inverted` para UI interactiva:**
+- NO usar para estados de progreso normales
+- NO usar para elementos interactivos comunes
+- NO usar para indicadores activos de navegación
+- Solo usar en casos muy específicos de diseño estático invertido
+
+**📝 Nota**: Si encuentras `--ubits-accent-brand-static-inverted` en el código original, NO usar automáticamente `--modifiers-static-inverted-color-light-accent-brand`. Evaluar el contexto: ¿es un elemento interactivo? ¿es un estado activo? Si la respuesta es SÍ, usar `--modifiers-normal-color-light-accent-brand` (AZUL).
+
+---
+
 ## 🚀 Proceso Completo
 
 ### **PASO 1: Preparación (30 min)**
@@ -133,26 +194,37 @@ background: var(--modifiers-normal-color-light-feedback-bg-success-subtle-defaul
 
 **⚠️ ERROR CRÍTICO: Token Morado vs Azul en Light Mode**
 
-**PROBLEMA ENCONTRADO**: Al migrar componentes como `card` y `calendar`, se estaba usando incorrectamente el token morado (`--modifiers-static-inverted-color-light-accent-brand`) en lugar del token azul (`--modifiers-normal-color-light-accent-brand`) para estados de progreso, barras de progreso y textos "En progreso" en light mode.
+**📚 Ver también**: Sección "Entendiendo los Modifiers" al inicio de este documento para comprender la diferencia entre `normal`, `inverted`, `static` y `static-inverted`.
+
+**PROBLEMA ENCONTRADO**: Al migrar componentes como `card`, `calendar`, `subnav`, `slider`, se estaba usando incorrectamente el token morado (`--modifiers-static-inverted-color-light-accent-brand`) en lugar del token azul (`--modifiers-normal-color-light-accent-brand`) para estados de progreso, barras de progreso, textos "En progreso", indicadores activos de navegación y elementos interactivos en light mode.
+
+**⚠️ CAUSA RAÍZ**: El mapeo automático de tokens puede llevar a usar el token incorrecto. Cuando se encuentra `--ubits-accent-brand-static-inverted` en el código original, el mapeo automático sugiere `--modifiers-static-inverted-color-light-accent-brand` (MORADO - color dark que se mantiene en light mode), pero en la mayoría de los casos de UI interactiva se debe usar `--modifiers-normal-color-light-accent-brand` (AZUL - color que cambia según el tema).
 
 **Diferencia entre tokens:**
-- `--modifiers-static-inverted-color-light-accent-brand` → **MORADO** (#3865f5) - Usar SOLO para casos específicos de diseño estático invertido
-- `--modifiers-normal-color-light-accent-brand` → **AZUL** (#0c5bef) - Usar para estados normales, progreso, y elementos interactivos
+- `--modifiers-static-inverted-color-light-accent-brand` → **MORADO** (#3865f5) - Usar SOLO para casos específicos de diseño estático invertido (muy raro)
+- `--modifiers-normal-color-light-accent-brand` → **AZUL** (#0c5bef) - Usar para estados normales, progreso, y elementos interactivos (CASI SIEMPRE)
 
 **Cuándo usar cada token:**
 - ✅ **Usar `--modifiers-normal-color-light-accent-brand` (AZUL)** para:
   - Barras de progreso en estado "en progreso"
   - Textos "En progreso"
   - Estados activos/interactivos
+  - Indicadores activos de navegación (tabs, subnav, stepper)
   - Bordes en hover
   - Elementos que requieren el color azul de marca
+  - Sliders, track fills, thumbs
+  - Cualquier elemento interactivo que requiera el color de marca azul
   
 - ❌ **NO usar `--modifiers-static-inverted-color-light-accent-brand` (MORADO)** para:
   - Estados de progreso normales
   - Textos de estado
   - Elementos interactivos comunes
+  - Indicadores activos de navegación
+  - Sliders o controles interactivos
 
-**Ejemplo de corrección:**
+**Ejemplos de corrección:**
+
+**Ejemplo 1: Barras de progreso y textos**
 ```css
 /* ❌ INCORRECTO - Usa morado en light mode */
 .course-status--progress {
@@ -173,10 +245,45 @@ background: var(--modifiers-normal-color-light-feedback-bg-success-subtle-defaul
 }
 ```
 
+**Ejemplo 2: Indicadores activos de navegación (SubNav, Tabs)**
+```css
+/* ❌ INCORRECTO - Usa morado en light mode */
+.ubits-sub-nav-tab.ubits-sub-nav-tab--active::after {
+  background-color: var(--modifiers-static-inverted-color-light-accent-brand);
+}
+
+/* ✅ CORRECTO - Usa azul en light mode */
+.ubits-sub-nav-tab.ubits-sub-nav-tab--active::after {
+  background-color: var(--modifiers-normal-color-light-accent-brand);
+}
+```
+
+**Ejemplo 3: Sliders y controles interactivos**
+```css
+/* ❌ INCORRECTO - Usa morado en light mode */
+.ubits-slider-track-fill {
+  background: var(--modifiers-static-inverted-color-light-accent-brand);
+}
+
+.ubits-slider-thumb {
+  background: var(--modifiers-static-inverted-color-light-accent-brand);
+}
+
+/* ✅ CORRECTO - Usa azul en light mode */
+.ubits-slider-track-fill {
+  background: var(--modifiers-normal-color-light-accent-brand);
+}
+
+.ubits-slider-thumb {
+  background: var(--modifiers-normal-color-light-accent-brand);
+}
+```
+
 **Verificación:**
 - Buscar en el CSS: `grep -r "static-inverted-color-light-accent-brand" packages/components/[COMPONENTE]/src/styles/`
 - Verificar visualmente en Storybook que los elementos muestran azul, no morado
-- Revisar que el dark mode también use el token correcto
+- Revisar que el dark mode también use el token correcto (`--modifiers-normal-color-dark-accent-brand`)
+- **REGLA DE ORO**: Si encuentras `--ubits-accent-brand-static-inverted` en el código original, NO usar automáticamente `--modifiers-static-inverted-color-light-accent-brand`. Evaluar el contexto: ¿es un elemento interactivo? ¿es un estado activo? ¿es progreso? Si la respuesta es SÍ, usar `--modifiers-normal-color-light-accent-brand` (AZUL).
 
 **Orden de migración:**
 1. Tokens base (default state)
@@ -188,12 +295,34 @@ background: var(--modifiers-normal-color-light-feedback-bg-success-subtle-defaul
 
 **🎯 REGLA DE ORO**: NADA hardcodeado ni con tokens antiguos. Si no hay equivalente exacto, buscar el token más parecido de Figma. Si hay algo que no se pueda reemplazar, se evalúa pero NO se deja así sin intentar encontrar una solución.
 
+**⚠️ IMPORTANTE: Verificar tokens UBITS existentes ANTES de migrar**
+
+**ANTES de migrar cualquier token, verificar si existe en:**
+1. `packages/tokens/dist/tokens.css` - Tokens UBITS base
+2. `packages/typography/tokens-typography.css` - Tokens de tipografía UBITS
+3. Storybook - Verificar visualmente que el token existe y funciona
+
+**Tokens UBITS que SÍ existen y se deben mantener:**
+- `--ubits-border-radius-xs` (4px) - Existe en `packages/tokens/dist/tokens.css`
+- `--ubits-border-radius-sm` (8px) - Existe en `packages/tokens/dist/tokens.css`
+- `--ubits-border-radius-md` (12px) - Existe en `packages/tokens/dist/tokens.css`
+- `--ubits-border-radius-lg` (16px) - Existe en `packages/tokens/dist/tokens.css`
+- `--ubits-border-radius-xl` (20px) - Existe en `packages/tokens/dist/tokens.css`
+- `--ubits-border-radius-full` (1000px) - Existe en `packages/tokens/dist/tokens.css`
+- `--weight-regular` (400) - Existe en `packages/typography/tokens-typography.css`
+- `--weight-semibold` (600) - Existe en `packages/typography/tokens-typography.css`
+- `--weight-bold` (700) - Existe en `packages/typography/tokens-typography.css`
+
+**❌ NO crear tokens nuevos** como `--ubits-font-weight-regular` cuando `--weight-regular` ya existe.
+
 **Estrategia:**
-1. Buscar tokens antiguos de typography (`--font-*`, `--weight-*`, `--line-height-*`, etc.)
-2. Buscar valores hardcodeados de typography (`font-size: 12px`, `font-weight: 600`, etc.)
-3. Verificar si tienen equivalente exacto en Figma (consultar `figma-tokens.css` o Storybook)
-4. **Si tienen equivalente exacto**: Migrar a tokens nuevos de Figma
-5. **Si NO tienen equivalente exacto**: 
+1. **PRIMERO**: Verificar si el token UBITS existe en `tokens.css` o `tokens-typography.css`
+2. **SI EXISTE**: Mantener el token UBITS original (NO migrar)
+3. **SI NO EXISTE**: Buscar tokens antiguos de typography (`--font-*`, `--weight-*`, `--line-height-*`, etc.)
+4. Buscar valores hardcodeados de typography (`font-size: 12px`, `font-weight: 600`, etc.)
+5. Verificar si tienen equivalente exacto en Figma (consultar `figma-tokens.css` o Storybook)
+6. **Si tienen equivalente exacto**: Migrar a tokens nuevos de Figma
+7. **Si NO tienen equivalente exacto**: 
    - Buscar el token más parecido en Figma (comparar tamaños, características)
    - Usar el token más parecido de Figma
    - Ajustar line-height si es necesario (usar valores relativos como `1.5` o calcular)
@@ -260,22 +389,36 @@ font-weight: var(--ubits-font-weight-bold); /* Token vacío, devuelve nada */
 font-weight: var(--modifiers-normal-body-md-bold-fontweight); /* Devuelve "Bold" (string) */
 ```
 
-**✅ CORRECTO - Token de Figma con fallback numérico:**
+**✅ CORRECTO - Usar token UBITS si existe, o token de Figma con fallback numérico:**
 ```css
-/* Para body-sm-bold */
+/* Para regular - USAR TOKEN UBITS que existe */
+font-weight: var(--weight-regular, 400); /* ✅ Token UBITS existe en tokens-typography.css */
+
+/* Para semibold - USAR TOKEN UBITS que existe */
+font-weight: var(--weight-semibold, 600); /* ✅ Token UBITS existe en tokens-typography.css */
+
+/* Para bold - USAR TOKEN UBITS que existe */
+font-weight: var(--weight-bold, 700); /* ✅ Token UBITS existe en tokens-typography.css */
+
+/* Para body-sm-bold - Token de Figma con fallback numérico */
 font-weight: var(--modifiers-normal-body-sm-bold-fontweight, 700) !important;
 
-/* Para body-md-bold */
+/* Para body-md-bold - Token de Figma con fallback numérico */
 font-weight: var(--modifiers-normal-body-md-bold-fontweight, 700) !important;
 
-/* Para heading-h2 (bold) */
+/* Para heading-h2 (bold) - Token de Figma con fallback numérico */
 font-weight: var(--modifiers-normal-heading-h2-fontweight, 700) !important;
 
-/* Para semibold */
+/* Para semibold específico de body-md - Token de Figma con fallback numérico */
 font-weight: var(--modifiers-normal-body-md-semibold-fontweight, 600) !important;
 ```
 
-**Tokens disponibles de Figma con fallback:**
+**Tokens UBITS disponibles (usar estos primero):**
+- `--weight-regular, 400` - Regular (existe en `packages/typography/tokens-typography.css`)
+- `--weight-semibold, 600` - Semibold (existe en `packages/typography/tokens-typography.css`)
+- `--weight-bold, 700` - Bold (existe en `packages/typography/tokens-typography.css`)
+
+**Tokens disponibles de Figma con fallback (usar solo si necesitas específico de body/heading):**
 - `--modifiers-normal-body-sm-bold-fontweight, 700` - Bold para body small
 - `--modifiers-normal-body-md-bold-fontweight, 700` - Bold para body medium
 - `--modifiers-normal-body-lg-bold-fontweight, 700` - Bold para body large
@@ -287,31 +430,42 @@ font-weight: var(--modifiers-normal-body-md-semibold-fontweight, 600) !important
 
 **⚠️ PROBLEMA: Tokens Antiguos de Typography**
 
-Los tokens antiguos (`--font-body-*`, `--weight-*`, `--font-h1-*`, etc.) deben reemplazarse por tokens de Figma.
+**IMPORTANTE**: Antes de reemplazar tokens antiguos, verificar si existen tokens UBITS equivalentes.
+
+**Tokens UBITS que SÍ existen (mantener, NO migrar):**
+- `--weight-regular` (400) - Existe en `packages/typography/tokens-typography.css`
+- `--weight-semibold` (600) - Existe en `packages/typography/tokens-typography.css`
+- `--weight-bold` (700) - Existe en `packages/typography/tokens-typography.css`
 
 **Ejemplos de reemplazo:**
 ```css
-/* ❌ INCORRECTO - Tokens antiguos */
+/* ❌ INCORRECTO - Crear token nuevo cuando ya existe */
+font-weight: var(--ubits-font-weight-regular, 400); /* Token no existe */
+
+/* ✅ CORRECTO - Usar token UBITS que existe */
+font-weight: var(--weight-regular, 400); /* Token existe en tokens-typography.css */
+
+/* ❌ INCORRECTO - Tokens antiguos de font-size y line-height */
 font-size: var(--font-body-md-size);
-font-weight: var(--weight-semibold);
 line-height: var(--font-body-md-line);
 font-size: var(--font-h1-size, 20px);
 font-size: var(--font-h2-size, 18px);
 
-/* ✅ CORRECTO - Tokens de Figma + tokens numéricos UBITS */
-font-size: var(--modifiers-normal-body-md-semibold-fontsize);
-font-weight: var(--ubits-font-weight-semibold, 600);
-line-height: var(--modifiers-normal-body-md-semibold-lineheight);
+/* ✅ CORRECTO - Tokens de Figma para font-size y line-height */
+font-size: var(--modifiers-normal-body-md-regular-fontsize);
+line-height: var(--modifiers-normal-body-md-regular-lineheight);
 font-size: var(--modifiers-normal-heading-h1-fontsize, 20px);
 font-size: var(--modifiers-normal-heading-h2-fontsize, 18px);
 ```
 
 **Checklist de Typography:**
-- [ ] Buscar TODOS los tokens antiguos (`--font-*`, `--weight-*`)
+- [ ] **PRIMERO**: Verificar si tokens UBITS existen (`--weight-regular`, `--weight-semibold`, `--weight-bold`) en `packages/typography/tokens-typography.css`
+- [ ] **SI EXISTEN**: Mantener tokens UBITS originales (NO migrar) - Ejemplo: `var(--weight-regular, 400)`
+- [ ] **SI NO EXISTEN**: Buscar tokens antiguos (`--font-*`, `--weight-*`)
 - [ ] Buscar TODOS los valores hardcodeados (`font-size: 12px`, `font-weight: 600`, etc.)
-- [ ] Reemplazar tokens antiguos por tokens de Figma
+- [ ] Reemplazar tokens antiguos por tokens de Figma (solo si no existe token UBITS)
 - [ ] Reemplazar valores hardcodeados por tokens de Figma (usar el más parecido)
-- [ ] Reemplazar `--modifiers-normal-*-fontweight` (strings) por `--ubits-font-weight-*` (numéricos)
+- [ ] Reemplazar `--modifiers-normal-*-fontweight` (strings) por tokens UBITS (`--weight-*`) o tokens de Figma con fallback numérico
 - [ ] Verificar que NO queden tokens antiguos ni valores hardcodeados
 
 #### 2.3 Migrar Tokens de Spacing
@@ -939,10 +1093,12 @@ node scripts/fix-dark-mode-tokens.cjs
 20. **Mapear spacing correctamente** - Al reemplazar un spacing, verificar el valor en px del original y mapear correctamente: `4px` → `--ubits-spacing-xs`, `8px` → `--ubits-spacing-sm`, `12px` → `--ubits-spacing-md`, `16px` → `--ubits-spacing-lg`, `20px` → `--ubits-spacing-xl`.
 21. **NO olvidar agregar soporte dark mode** - Ejecutar `fix-dark-mode-tokens.cjs` después de migrar tokens para que los componentes funcionen en dark mode
 22. **NO dejar tokens `-light-` en reglas `[data-theme="dark"]`** - Reemplazar con tokens `-dark-` explícitos en reglas específicas
-23. **⚠️ NO usar token morado en lugar de azul para progreso** - **CRÍTICO**: Para estados de progreso, barras de progreso y textos "En progreso" en light mode, usar `--modifiers-normal-color-light-accent-brand` (AZUL #0c5bef), NO `--modifiers-static-inverted-color-light-accent-brand` (MORADO #3865f5). El token morado es solo para casos específicos de diseño estático invertido. Ver sección 2.1 para más detalles.
+23. **⚠️ NO usar token morado en lugar de azul para elementos interactivos** - **CRÍTICO**: Para estados de progreso, barras de progreso, textos "En progreso", indicadores activos de navegación (tabs, subnav, stepper), sliders, y cualquier elemento interactivo en light mode, usar `--modifiers-normal-color-light-accent-brand` (AZUL #0c5bef), NO `--modifiers-static-inverted-color-light-accent-brand` (MORADO #3865f5). **CAUSA RAÍZ**: El mapeo automático de `--ubits-accent-brand-static-inverted` sugiere `--modifiers-static-inverted-color-light-accent-brand`, pero esto es INCORRECTO para elementos interactivos. El token morado es solo para casos específicos de diseño estático invertido (muy raro). **REGLA DE ORO**: Si encuentras `--ubits-accent-brand-static-inverted` en el código original, evaluar el contexto: ¿es interactivo? ¿es estado activo? Si SÍ → usar `--modifiers-normal-color-light-accent-brand` (AZUL). Ver sección 2.1 para más detalles y ejemplos completos.
 24. **🚨 NO CAMBIAR MEDIDAS DE COMPONENTES** - **CRÍTICO**: NUNCA convertir medidas de componentes (width, height, min-width, max-width, dimensiones específicas) a tokens de spacing usando `calc()`. Si un componente tiene `width: 240px`, mantenerlo como `240px`. NO convertir a `calc(var(--ubits-spacing-12) * 3)` porque esto podría cambiar el tamaño del componente y reducir horizontalmente los elementos. Solo migrar spacing interno (padding, gap, margin) a tokens. Las dimensiones del componente (width, height, min-width, max-width, etc.) deben mantenerse exactas en píxeles o en las unidades originales. Esto ha causado problemas en varios componentes (Popover, Participants Menu, etc.) donde se redujeron los anchos al convertir a tokens.
 
-25. **⚠️ FONT-WEIGHT BOLD NO FUNCIONA - Token Inexistente o String** - **CRÍTICO**: Los textos que deberían estar en bold no se muestran en bold. **Causa**: El token `--ubits-font-weight-bold` NO existe o está vacío. Los tokens de Figma `--modifiers-normal-*-bold-fontweight` devuelven strings ("Bold") en lugar de números (700), lo que CSS no puede usar directamente. **Síntomas**: Los logs muestran `font-weight: 400` cuando debería ser `700`, o el token está vacío. **Solución**: Usar tokens de Figma con fallback numérico: `var(--modifiers-normal-body-sm-bold-fontweight, 700) !important` para body-sm-bold, `var(--modifiers-normal-body-md-bold-fontweight, 700) !important` para body-md-bold, `var(--modifiers-normal-heading-h2-fontweight, 700) !important` para heading-h2. **Ver sección 2.2 para más detalles y ejemplos completos.**
+25. **⚠️ FONT-WEIGHT BOLD NO FUNCIONA - Token Inexistente o String** - **CRÍTICO**: Los textos que deberían estar en bold no se muestran en bold. **Causa**: El token `--ubits-font-weight-bold` NO existe o está vacío. Los tokens de Figma `--modifiers-normal-*-bold-fontweight` devuelven strings ("Bold") en lugar de números (700), lo que CSS no puede usar directamente. **Síntomas**: Los logs muestran `font-weight: 400` cuando debería ser `700`, o el token está vacío. **Solución**: **PRIMERO verificar si existe `--weight-bold` en `packages/typography/tokens-typography.css`**. Si existe, usar `var(--weight-bold, 700)`. Si no existe, usar tokens de Figma con fallback numérico: `var(--modifiers-normal-body-sm-bold-fontweight, 700) !important` para body-sm-bold, `var(--modifiers-normal-body-md-bold-fontweight, 700) !important` para body-md-bold, `var(--modifiers-normal-heading-h2-fontweight, 700) !important` para heading-h2. **Ver sección 2.2 para más detalles y ejemplos completos.**
+
+26. **🚨 VERIFICAR TOKENS UBITS EXISTENTES ANTES DE MIGRAR** - **CRÍTICO**: Antes de migrar cualquier token, verificar si ya existe en los archivos UBITS. **Tokens UBITS que SÍ existen y se deben mantener**: `--ubits-border-radius-xs` (4px), `--ubits-border-radius-sm` (8px), `--ubits-border-radius-md` (12px), `--ubits-border-radius-lg` (16px), `--ubits-border-radius-xl` (20px), `--ubits-border-radius-full` (1000px) - todos existen en `packages/tokens/dist/tokens.css`. `--weight-regular` (400), `--weight-semibold` (600), `--weight-bold` (700) - todos existen en `packages/typography/tokens-typography.css`. **❌ NO crear tokens nuevos** como `--ubits-font-weight-regular` cuando `--weight-regular` ya existe. **Solución**: Siempre verificar en `packages/tokens/dist/tokens.css` y `packages/typography/tokens-typography.css` ANTES de migrar. Si el token UBITS existe, mantenerlo. Si no existe, entonces migrar a Figma. **Paso a paso**: 1) Buscar el token en `packages/tokens/dist/tokens.css` (para border-radius y colores), 2) Buscar el token en `packages/typography/tokens-typography.css` (para font-weight), 3) Si existe, mantenerlo, 4) Si no existe, buscar equivalente en Figma. **Ver sección 2.2 para más detalles.**
 
 ---
 
