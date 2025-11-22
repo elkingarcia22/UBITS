@@ -151,6 +151,8 @@ export const TodosLosSemanticos: Story = {
     const feedbackCount = SEMANTIC_TOKENS.feedback.accent.light.length + 
                           SEMANTIC_TOKENS.feedback.border.light.length + 
                           SEMANTIC_TOKENS.feedback.chart.light.length;
+    const brandCount = SEMANTIC_TOKENS.brand.light.length;
+    const chartCount = SEMANTIC_TOKENS.chart.length;
     const summary = document.createElement('div');
     summary.style.marginBottom = '24px';
     summary.style.padding = '16px';
@@ -161,9 +163,9 @@ export const TodosLosSemanticos: Story = {
     summary.innerHTML = `
       <strong>Resumen:</strong><br>
       • Feedback: ${feedbackCount} tokens (Light) + ${feedbackCount} tokens (Dark) = ${feedbackCount * 2} tokens total<br>
-      • Brand: ${SEMANTIC_TOKENS.brand.length} tokens<br>
-      • Chart: ${SEMANTIC_TOKENS.chart.length} tokens<br>
-      <strong>Total: ${feedbackCount * 2 + SEMANTIC_TOKENS.brand.length + SEMANTIC_TOKENS.chart.length} tokens</strong>
+      • Brand: ${brandCount} tokens (Light) + ${brandCount} tokens (Dark) = ${brandCount * 2} tokens total<br>
+      • Chart: ${chartCount} tokens<br>
+      <strong>Total: ${feedbackCount * 2 + brandCount * 2 + chartCount} tokens</strong>
     `;
     container.appendChild(summary);
 
