@@ -1,7 +1,7 @@
 /* ========================================
    UBITS MENU COMPONENT
    Componente de menú lateral con secciones
-   Usando tokens UBITS
+   Usando tokens UBITS del nuevo sistema Figma
    ======================================== */
 
 /* ========================================
@@ -13,12 +13,12 @@
   flex-direction: column;
   height: 100%;
   min-height: 100%;
-  background: var(--ubits-bg-1);
-  border-right: 1px solid var(--ubits-border-1);
-  padding: var(--ubits-spacing-md, 16px);
-  gap: var(--ubits-spacing-lg, 24px);
+  background: var(--modifiers-normal-color-light-bg-1);
+  border-right: 1px solid var(--modifiers-normal-color-light-border-1);
+  padding: var(--ubits-spacing-md);
+  gap: var(--ubits-spacing-xl);
   overflow: hidden;
-  min-width: 240px;
+  min-width: calc(var(--ubits-spacing-12) * 5);
   box-sizing: border-box;
 }
 
@@ -29,9 +29,9 @@
 .ubits-menu-header {
   display: flex;
   align-items: center;
-  gap: var(--ubits-spacing-sm, 12px);
-  padding-bottom: var(--ubits-spacing-md, 16px);
-  border-bottom: 1px solid var(--ubits-border-1);
+  gap: var(--ubits-spacing-sm);
+  padding-bottom: var(--ubits-spacing-md);
+  border-bottom: 1px solid var(--modifiers-normal-color-light-border-1);
   flex-shrink: 0;
 }
 
@@ -39,8 +39,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: var(--ubits-spacing-10);
+  height: var(--ubits-spacing-10);
   cursor: pointer;
   transition: opacity 0.2s ease;
 }
@@ -56,11 +56,11 @@
 }
 
 .ubits-menu-app-name {
-  font-family: var(--font-sans);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--weight-bold);
-  line-height: var(--font-body-md-line);
-  color: var(--ubits-fg-1-high);
+  font-family: var(--font-family-noto-sans-font-family);
+  font-size: var(--modifiers-normal-body-md-regular-fontsize);
+  font-weight: var(--ubits-font-weight-semibold);
+  line-height: var(--modifiers-normal-body-md-regular-lineheight);
+  color: var(--modifiers-normal-color-light-fg-1-high);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -72,7 +72,7 @@
 .ubits-menu-body {
   display: flex;
   flex-direction: column;
-  gap: var(--ubits-spacing-xl, 32px);
+  gap: var(--ubits-spacing-8);
   flex: 1;
   min-height: 0;
   overflow-y: auto;
@@ -85,17 +85,17 @@
 .ubits-menu-section {
   display: flex;
   flex-direction: column;
-  gap: var(--ubits-spacing-xs, 8px);
+  gap: var(--ubits-spacing-sm);
 }
 
 .ubits-menu-section-title {
-  font-family: var(--font-sans);
-  font-size: var(--font-body-sm-size);
-  font-weight: var(--weight-bold);
-  line-height: var(--font-body-sm-line);
-  color: var(--ubits-fg-1-high);
-  margin: 0;
-  padding: 0 var(--ubits-spacing-xs, 8px);
+  font-family: var(--font-family-noto-sans-font-family);
+  font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+  font-weight: var(--ubits-font-weight-semibold);
+  line-height: var(--modifiers-normal-body-sm-regular-lineheight);
+  color: var(--modifiers-normal-color-light-fg-1-high);
+  margin: var(--ubits-spacing-none);
+  padding: 0 var(--ubits-spacing-sm);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -103,7 +103,7 @@
 .ubits-menu-section-items {
   display: flex;
   flex-direction: column;
-  gap: var(--ubits-spacing-xs, 4px);
+  gap: var(--ubits-spacing-xs);
 }
 
 /* ========================================
@@ -113,31 +113,31 @@
 .ubits-menu-item {
   display: flex;
   align-items: center;
-  gap: var(--ubits-spacing-sm, 12px);
-  padding: var(--ubits-spacing-sm, 12px) var(--ubits-spacing-xs, 8px);
+  gap: var(--ubits-spacing-sm);
+  padding: var(--ubits-spacing-sm) var(--ubits-spacing-sm);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--ubits-border-radius-sm);
   background: transparent;
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: left;
   width: 100%;
-  font-family: var(--font-sans);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--weight-regular);
-  line-height: var(--font-body-md-line);
-  color: var(--ubits-fg-1-high);
+  font-family: var(--font-family-noto-sans-font-family);
+  font-size: var(--modifiers-normal-body-md-regular-fontsize);
+  font-weight: var(--ubits-font-weight-regular);
+  line-height: var(--modifiers-normal-body-md-regular-lineheight);
+  color: var(--modifiers-normal-color-light-fg-1-high);
   position: relative;
 }
 
 .ubits-menu-item:hover:not(.ubits-menu-item--disabled) {
-  background: var(--ubits-bg-2);
+  background: var(--modifiers-normal-color-light-bg-2);
 }
 
 .ubits-menu-item--active {
   position: relative;
-  background-color: var(--ubits-bg-1, #ffffff);
-  color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+  background-color: var(--modifiers-normal-color-light-bg-1);
+  color: var(--modifiers-normal-color-light-accent-brand);
   border: none;
 }
 
@@ -148,33 +148,33 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15));
+  background-color: var(--modifiers-normal-color-light-bg-active);
   border-radius: inherit;
   pointer-events: none;
   z-index: 0;
 }
 
 .ubits-menu-item--active:hover:not(.ubits-menu-item--disabled) {
-  background-color: var(--ubits-bg-1, #ffffff);
-  color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+  background-color: var(--modifiers-normal-color-light-bg-1);
+  color: var(--modifiers-normal-color-light-accent-brand);
   border: none;
 }
 
 .ubits-menu-item--active:hover:not(.ubits-menu-item--disabled)::before {
-  background-color: var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15));
+  background-color: var(--modifiers-normal-color-light-bg-active);
 }
 
 .ubits-menu-item--active .ubits-menu-item-label {
   position: relative;
   z-index: 1;
-  color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static)) !important;
-  font-weight: var(--weight-semibold);
+  color: var(--modifiers-normal-color-light-accent-brand) !important;
+  font-weight: var(--ubits-font-weight-semibold);
 }
 
 .ubits-menu-item--active .ubits-menu-item-icon {
   position: relative;
   z-index: 1;
-  color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+  color: var(--modifiers-normal-color-light-accent-brand);
 }
 
 .ubits-menu-item--disabled {
@@ -186,9 +186,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
-  color: var(--ubits-fg-1-medium);
+  width: var(--ubits-spacing-5);
+  height: var(--ubits-spacing-5);
+  color: var(--modifiers-normal-color-light-fg-1-medium);
   flex-shrink: 0;
 }
 
@@ -204,19 +204,14 @@
 .ubits-menu-item-right {
   display: flex;
   align-items: center;
-  gap: var(--ubits-spacing-xs, 8px);
+  gap: var(--ubits-spacing-sm);
   flex-shrink: 0;
 }
 
-/* ========================================
-   MENU ITEM BADGE
-   Usa el componente Badge de UBITS
-   ======================================== */
-
-.ubits-menu-item-right {
-  display: flex;
-  align-items: center;
-  gap: var(--ubits-spacing-xs, 8px);
+/* Asegurar que los badges dentro del menu usen nuestros estilos correctamente */
+.ubits-menu-item-right .ubits-badge {
+  /* No sobrescribir estilos del badge, solo asegurar que se muestre correctamente */
+  display: inline-flex;
   flex-shrink: 0;
 }
 
@@ -227,18 +222,18 @@
 .ubits-menu-user-info {
   display: flex;
   align-items: center;
-  gap: var(--ubits-spacing-sm, 12px);
-  padding-top: var(--ubits-spacing-md, 16px);
-  border-top: 1px solid var(--ubits-border-1);
+  gap: var(--ubits-spacing-sm);
+  padding-top: var(--ubits-spacing-md);
+  border-top: 1px solid var(--modifiers-normal-color-light-border-1);
   margin-top: auto;
   flex-shrink: 0;
   min-height: fit-content;
 }
 
 .ubits-menu-user-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: var(--ubits-spacing-10);
+  height: var(--ubits-spacing-10);
+  border-radius: var(--ubits-border-radius-full);
   overflow: hidden;
   flex-shrink: 0;
   cursor: pointer;
@@ -258,28 +253,28 @@
 .ubits-menu-user-details {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--ubits-spacing-xs);
   flex: 1;
   min-width: 0;
 }
 
 .ubits-menu-user-name {
-  font-family: var(--font-sans);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--weight-semibold);
-  line-height: var(--font-body-md-line);
-  color: var(--ubits-fg-1-high);
+  font-family: var(--font-family-noto-sans-font-family);
+  font-size: var(--modifiers-normal-body-md-regular-fontsize);
+  font-weight: var(--ubits-font-weight-semibold);
+  line-height: var(--modifiers-normal-body-md-regular-lineheight);
+  color: var(--modifiers-normal-color-light-fg-1-high);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .ubits-menu-user-role {
-  font-family: var(--font-sans);
-  font-size: var(--font-body-sm-size);
-  font-weight: var(--weight-regular);
-  line-height: var(--font-body-sm-line);
-  color: var(--ubits-fg-1-medium);
+  font-family: var(--font-family-noto-sans-font-family);
+  font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+  font-weight: var(--ubits-font-weight-regular);
+  line-height: var(--modifiers-normal-body-sm-regular-lineheight);
+  color: var(--modifiers-normal-color-light-fg-1-medium);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -291,12 +286,83 @@
 
 @media (max-width: 768px) {
   .ubits-menu {
-    min-width: 200px;
-    padding: var(--ubits-spacing-sm, 12px);
+    min-width: calc(var(--ubits-spacing-12) * 4.17);
+    padding: var(--ubits-spacing-sm);
   }
   
   .ubits-menu-app-name {
-    font-size: var(--font-body-sm-size);
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
   }
+}
+
+/* ========================================
+   DARK MODE
+   ======================================== */
+
+[data-theme="dark"] .ubits-menu {
+  background: var(--modifiers-normal-color-dark-bg-1);
+  border-right-color: var(--modifiers-normal-color-dark-border-1);
+}
+
+[data-theme="dark"] .ubits-menu-header {
+  border-bottom-color: var(--modifiers-normal-color-dark-border-1);
+}
+
+[data-theme="dark"] .ubits-menu-app-name {
+  color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-menu-section-title {
+  color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-menu-item {
+  color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-menu-item:hover:not(.ubits-menu-item--disabled) {
+  background: var(--modifiers-normal-color-dark-bg-2);
+}
+
+[data-theme="dark"] .ubits-menu-item--active {
+  background-color: var(--modifiers-normal-color-dark-bg-1);
+  color: var(--modifiers-normal-color-dark-accent-brand);
+}
+
+[data-theme="dark"] .ubits-menu-item--active::before {
+  background-color: var(--modifiers-normal-color-dark-bg-active);
+}
+
+[data-theme="dark"] .ubits-menu-item--active:hover:not(.ubits-menu-item--disabled) {
+  background-color: var(--modifiers-normal-color-dark-bg-1);
+  color: var(--modifiers-normal-color-dark-accent-brand);
+}
+
+[data-theme="dark"] .ubits-menu-item--active:hover:not(.ubits-menu-item--disabled)::before {
+  background-color: var(--modifiers-normal-color-dark-bg-active);
+}
+
+[data-theme="dark"] .ubits-menu-item--active .ubits-menu-item-label {
+  color: var(--modifiers-normal-color-dark-accent-brand) !important;
+}
+
+[data-theme="dark"] .ubits-menu-item--active .ubits-menu-item-icon {
+  color: var(--modifiers-normal-color-dark-accent-brand);
+}
+
+[data-theme="dark"] .ubits-menu-item-icon {
+  color: var(--modifiers-normal-color-dark-fg-1-medium);
+}
+
+[data-theme="dark"] .ubits-menu-user-info {
+  border-top-color: var(--modifiers-normal-color-dark-border-1);
+}
+
+[data-theme="dark"] .ubits-menu-user-name {
+  color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-menu-user-role {
+  color: var(--modifiers-normal-color-dark-fg-1-medium);
 }
 

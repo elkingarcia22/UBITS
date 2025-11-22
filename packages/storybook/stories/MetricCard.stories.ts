@@ -57,7 +57,7 @@ const meta: Meta<MetricCardOptions> = {
     },
     titleIconColor: {
       control: { type: 'color' },
-      description: 'Color del icono del título (puede usar tokens UBITS como var(--ubits-fg-2-medium))',
+      description: 'Color del icono del título (puede usar tokens UBITS como var(--modifiers-normal-color-light-fg-2-medium))',
       table: {
         type: { summary: 'string' },
       },
@@ -108,15 +108,15 @@ export const Default: Story = {
     container.style.display = 'flex';
     container.style.justifyContent = 'center';
     container.style.alignItems = 'flex-start';
-    container.style.padding = '48px';
-    container.style.background = 'var(--ubits-bg-2)';
-    container.style.border = '1px solid var(--ubits-border-1)';
-    container.style.borderRadius = '8px';
-    container.style.minHeight = '200px';
+    container.style.padding = 'var(--ubits-spacing-12)';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
+    container.style.border = `1px solid var(--modifiers-normal-color-light-border-1)`;
+    container.style.borderRadius = 'var(--ubits-border-radius-sm)';
+    container.style.minHeight = 'calc(var(--ubits-spacing-12) * 2.5)';
     
-    // Crear wrapper para la card (max-width 400px)
+    // Crear wrapper para la card (max-width más ancho)
     const wrapper = document.createElement('div');
-    wrapper.style.maxWidth = '400px';
+    wrapper.style.maxWidth = 'calc(var(--ubits-spacing-12) * 8)';
     wrapper.style.width = '100%';
     
     // Renderizar card

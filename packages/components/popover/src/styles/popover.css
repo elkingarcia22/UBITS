@@ -54,7 +54,7 @@
     transform: translateY(1px) !important;
 }
 
-/* Anchos del popover */
+/* Anchos del popover - MANTENER MEDIDAS EXACTAS ORIGINALES */
 .ubits-popover--width-sm {
     width: 240px;
 }
@@ -76,8 +76,9 @@
    ======================================== */
 
 .ubits-popover__content {
-    background-color: var(--ubits-bg-1-high, #202837);
-    border-radius: var(--ubits-border-radius-sm, 8px);
+    background-color: var(--modifiers-static-inverted-color-light-bg-1);
+    border-radius: var(--ubits-border-radius-sm);
+    /* Box-shadow: No hay token Figma equivalente, mantener hardcoded */
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.14), 0px 0px 2px 0px rgba(0, 0, 0, 0.12);
     display: flex;
     flex-direction: column;
@@ -128,7 +129,7 @@
 .ubits-popover__tail-inner {
     width: 100%;
     height: 100%;
-    background-color: var(--ubits-bg-1-high, #202837);
+    background-color: var(--modifiers-static-inverted-color-light-bg-1);
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
 
@@ -137,20 +138,20 @@
    ======================================== */
 
 .ubits-popover__header {
-    padding: var(--ubits-spacing-md, 12px);
-    padding-bottom: var(--ubits-spacing-sm, 8px);
+    padding: var(--ubits-spacing-md);
+    padding-bottom: var(--ubits-spacing-sm);
     border-bottom: none;
 }
 
 .ubits-popover__header-title {
     display: flex;
     align-items: center;
-    gap: var(--ubits-spacing-xs, 4px);
+    gap: var(--ubits-spacing-xs);
 }
 
 .ubits-popover__header-title p {
     margin: 0;
-    color: var(--ubits-fg-1-high-static-inverted, #edeeef);
+    color: var(--modifiers-static-inverted-color-light-fg-1-high);
 }
 
 /* ========================================
@@ -160,7 +161,7 @@
 .ubits-popover__body {
     display: flex;
     flex-direction: row;
-    gap: var(--ubits-spacing-xs, 4px);
+    gap: var(--ubits-spacing-xs);
     flex: 1;
     overflow: hidden;
     min-height: 0;
@@ -168,14 +169,14 @@
 
 .ubits-popover__body-content {
     flex: 1;
-    padding: var(--ubits-spacing-sm, 8px) var(--ubits-spacing-md, 12px);
+    padding: var(--ubits-spacing-sm) var(--ubits-spacing-md);
     overflow-y: auto;
     overflow-x: hidden;
-    color: var(--ubits-fg-1-high-static-inverted, #edeeef);
-    font-family: var(--font-sans, 'Noto Sans', sans-serif);
-    font-size: var(--ubits-font-size-md, 13px);
-    font-weight: var(--weight-regular, 400);
-    line-height: var(--ubits-line-height-md, 19.5px);
+    color: var(--modifiers-static-inverted-color-light-fg-1-high);
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular);
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
 }
 
 .ubits-popover__body-content::-webkit-scrollbar {
@@ -192,7 +193,7 @@
 }
 
 .ubits-popover__placeholder {
-    color: var(--ubits-fg-1-medium-static-inverted, #979ba3);
+    color: var(--modifiers-static-inverted-color-light-fg-1-medium);
     font-style: italic;
 }
 
@@ -205,7 +206,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding: var(--ubits-spacing-sm, 8px) var(--ubits-scroll-bar-padding, 4px);
+    padding: var(--ubits-spacing-sm) var(--ubits-scroll-bar-padding, 4px);
     padding-bottom: 31px;
     overflow: hidden;
     flex-shrink: 0;
@@ -216,8 +217,8 @@
     flex: 1;
     min-height: 20px;
     width: 8px;
-    background-color: var(--ubits-scroll-bar-color-bg-default, #979ba3);
-    border-radius: var(--ubits-border-radius-full, 1000px);
+    background-color: var(--color-scroll-bar-color-bg-default);
+    border-radius: var(--ubits-border-radius-full);
     opacity: 0;
     transition: opacity 0.2s ease;
 }
@@ -232,8 +233,8 @@
    ======================================== */
 
 .ubits-popover__footer {
-    padding: var(--ubits-spacing-md, 12px);
-    padding-top: var(--ubits-spacing-sm, 8px);
+    padding: var(--ubits-spacing-md);
+    padding-top: var(--ubits-spacing-sm);
     border-top: none;
     flex-shrink: 0;
     min-width: 0;
@@ -244,7 +245,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--ubits-spacing-md, 12px);
+    gap: var(--ubits-spacing-md);
     flex-wrap: nowrap;
     min-width: 0;
     overflow: visible;
@@ -270,7 +271,7 @@
 .ubits-popover__footer-right {
     display: flex;
     align-items: center;
-    gap: var(--ubits-spacing-md, 12px);
+    gap: var(--ubits-spacing-md);
     flex-shrink: 0;
     min-width: 0;
 }
@@ -300,3 +301,26 @@
     }
 }
 
+/* ========================================
+   DARK MODE
+   ======================================== */
+
+[data-theme="dark"] .ubits-popover__content {
+    background-color: var(--modifiers-static-inverted-color-dark-bg-1);
+}
+
+[data-theme="dark"] .ubits-popover__tail-inner {
+    background-color: var(--modifiers-static-inverted-color-dark-bg-1);
+}
+
+[data-theme="dark"] .ubits-popover__header-title p {
+    color: var(--modifiers-static-inverted-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-popover__body-content {
+    color: var(--modifiers-static-inverted-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-popover__placeholder {
+    color: var(--modifiers-static-inverted-color-dark-fg-1-medium);
+}

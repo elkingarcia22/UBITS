@@ -113,25 +113,25 @@ export interface NPSCardOptions {
   
   /**
    * Color del gauge para el segmento rojo (0-20)
-   * @default 'var(--ubits-semantic-error, #E53E3E)'
+   * @default 'var(--modifiers-normal-color-light-feedback-accent-error)'
    */
   lowColor?: string;
   
   /**
    * Color del gauge para el segmento amarillo (20-60)
-   * @default 'var(--ubits-semantic-warning, #F6AD55)'
+   * @default 'var(--modifiers-normal-color-light-feedback-accent-warning)'
    */
   mediumColor?: string;
   
   /**
    * Color del gauge para el segmento verde (60-100)
-   * @default 'var(--ubits-semantic-success, #38A169)'
+   * @default 'var(--modifiers-normal-color-light-feedback-accent-success)'
    */
   highColor?: string;
   
   /**
    * Color de fondo del gauge (token UBITS)
-   * @default 'var(--ubits-bg-3)'
+   * @default 'var(--modifiers-normal-color-light-bg-3)'
    */
   gaugeBackgroundColor?: string;
   

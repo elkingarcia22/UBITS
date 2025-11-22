@@ -11,7 +11,7 @@ export interface MenuBadge {
   /**
    * Variante del badge
    */
-  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';
+  variant?: 'success' | 'warning' | 'error' | 'info';
 }
 
 export interface MenuItem {

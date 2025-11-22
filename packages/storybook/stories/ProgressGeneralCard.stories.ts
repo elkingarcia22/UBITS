@@ -106,7 +106,7 @@ const meta: Meta<ProgressGeneralCardOptions & {
       control: { type: 'text' },
       description: 'Color del progreso circular (token UBITS o color hexadecimal)',
       table: {
-        defaultValue: { summary: 'var(--ubits-chart-color-bg-neutral-blue-base, #557593)' },
+        defaultValue: { summary: 'var(--ubits-chart-color-bg-neutral-blue-base)' },
         type: { summary: 'string' },
       },
     },
@@ -114,7 +114,7 @@ const meta: Meta<ProgressGeneralCardOptions & {
       control: { type: 'text' },
       description: 'Color de fondo del círculo (token UBITS o color hexadecimal)',
       table: {
-        defaultValue: { summary: 'var(--ubits-bg-3)' },
+        defaultValue: { summary: 'var(--modifiers-normal-color-light-bg-3)' },
         type: { summary: 'string' },
       },
     },
@@ -254,8 +254,8 @@ export const Default: Story = {
     showCategories: true,
     showInfoIcon: true,
     showActionButton: true,
-    progressColor: 'var(--ubits-chart-color-bg-neutral-blue-base, #557593)',
-    circleBackgroundColor: 'var(--ubits-bg-3)',
+    progressColor: 'var(--ubits-chart-color-bg-neutral-blue-base)',
+    circleBackgroundColor: 'var(--modifiers-normal-color-light-bg-3)',
     category1Label: 'Área',
     category1Current: 3,
     category1Total: 20,
@@ -293,10 +293,13 @@ export const Default: Story = {
     container.style.justifyContent = 'center';
     container.style.alignItems = 'flex-start';
     container.style.padding = '48px';
-    container.style.background = 'var(--ubits-bg-2)';
-    container.style.border = '1px solid var(--ubits-border-1)';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
+    container.style.border = `var(--ubits-spacing-xs) solid var(--modifiers-normal-color-light-border-1)`;
     container.style.borderRadius = '8px';
     container.style.minHeight = '400px';
+    
+    console.log('🔍 [ProgressGeneralCard Story] render - DEBUG:');
+    console.log('  - options:', JSON.stringify(options, null, 2));
     
     // Crear wrapper para la card
     const wrapper = document.createElement('div');
@@ -313,6 +316,38 @@ export const Default: Story = {
     const cardHTML = renderProgressGeneralCard(options);
     wrapper.innerHTML = cardHTML;
     container.appendChild(wrapper);
+    
+    // Debug: Verificar elementos renderizados
+    setTimeout(() => {
+      const cardElement = wrapper.querySelector('.ubits-progress-general-card');
+      if (cardElement) {
+        console.log('🔍 [ProgressGeneralCard Story] Elementos renderizados - DEBUG:');
+        
+        // Verificar porcentaje del círculo
+        const circlePercentage = cardElement.querySelector('.ubits-progress-general-card__circle-percentage');
+        if (circlePercentage) {
+          const computed = window.getComputedStyle(circlePercentage);
+          console.log('  - Circle Percentage:');
+          console.log('    - classes:', circlePercentage.className);
+          console.log('    - font-weight:', computed.fontWeight);
+          console.log('    - font-size:', computed.fontSize);
+          console.log('    - textContent:', circlePercentage.textContent);
+          console.log('    - --ubits-font-weight-bold:', getComputedStyle(document.documentElement).getPropertyValue('--ubits-font-weight-bold'));
+        }
+        
+        // Verificar porcentajes de categorías
+        const categoryPercentages = cardElement.querySelectorAll('.ubits-progress-general-card__category-percentage');
+        categoryPercentages.forEach((el, index) => {
+          const computed = window.getComputedStyle(el);
+          console.log(`  - Category Percentage ${index + 1}:`);
+          console.log('    - classes:', el.className);
+          console.log('    - font-weight:', computed.fontWeight);
+          console.log('    - font-size:', computed.fontSize);
+          console.log('    - textContent:', el.textContent);
+          console.log('    - --ubits-font-weight-bold:', getComputedStyle(document.documentElement).getPropertyValue('--ubits-font-weight-bold'));
+        });
+      }
+    }, 100);
     
     return container;
   },

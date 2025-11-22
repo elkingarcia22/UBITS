@@ -247,11 +247,11 @@ export const Default: Story = {
     container.style.cssText = `
       display: flex;
       flex-direction: column;
-      gap: var(--ubits-spacing-lg, 24px);
-      padding: var(--ubits-spacing-lg, 24px);
-      background: var(--ubits-bg-2, #f3f3f4);
-      border-radius: var(--ubits-border-radius-md, 8px);
-      min-height: 200px;
+      gap: var(--ubits-spacing-lg);
+      padding: var(--ubits-spacing-lg);
+      background: var(--modifiers-normal-color-light-bg-2);
+      border-radius: var(--ubits-border-radius-md);
+      min-height: calc(var(--ubits-spacing-12) * 2.5);
     `;
 
     // Contenedor del menubar
@@ -259,9 +259,9 @@ export const Default: Story = {
     menubarContainer.id = 'menubar-story-container';
     menubarContainer.style.cssText = `
       position: relative;
-      background: var(--ubits-bg-1, #ffffff);
-      border-radius: var(--ubits-border-radius-md, 8px);
-      padding: var(--ubits-spacing-md, 16px);
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: var(--ubits-border-radius-md);
+      padding: var(--ubits-spacing-md);
     `;
 
     // Agregar el contenedor al DOM primero
@@ -288,17 +288,15 @@ export const Default: Story = {
       // Crear wrapper para logo, menubar y botón dark mode
       const wrapper = document.createElement('div');
       wrapper.className = 'ubits-menubar-wrapper';
-      wrapper.style.cssText = 'display: flex; gap: var(--ubits-spacing-md, 16px); align-items: center; width: 100%; background: transparent; border: none; border-radius: 0; padding: var(--ubits-spacing-md, 16px);';
+      wrapper.style.cssText = 'display: flex; gap: var(--ubits-spacing-md); align-items: center; width: 100%; background: transparent; border: none; border-radius: 0; padding: var(--ubits-spacing-md);';
 
       // Logo
       const logo = document.createElement('a');
       logo.href = '#';
       logo.className = 'ubits-logo';
-      logo.style.cssText = 'display: flex; align-items: center; gap: 8px; margin-right: 16px; text-decoration: none; transition: transform 0.2s ease;';
+      logo.style.cssText = `display: flex; align-items: center; text-decoration: none; transition: transform 0.2s ease;`;
       logo.innerHTML = `
-        <img src="/images/autoframe-logo-dark.png" alt="autoframe Logo" class="autoframe-logo-dark" style="width: 28px; height: 28px; display: block;" />
-        <img src="/images/autoframe-logo-light.png" alt="autoframe Logo" class="autoframe-logo-light" style="width: 28px; height: 28px; display: none;" />
-        <span class="ubits-logo-text" style="font-size: var(--font-body-lg-size); font-weight: var(--weight-bold); color: var(--ubits-fg-1-high); transition: color 0.2s ease;">autoframe</span>
+        <span class="ubits-logo-text" style="font-size: var(--modifiers-normal-heading-h2-fontsize); font-weight: 700; color: var(--modifiers-normal-color-light-fg-1-high); transition: color 0.2s ease;">UBITS</span>
       `;
       wrapper.appendChild(logo);
 
@@ -314,7 +312,7 @@ export const Default: Story = {
       darkModeToggle.id = 'storybook-darkmode-toggle';
       darkModeToggle.setAttribute('data-theme', 'dark');
       darkModeToggle.title = 'Modo oscuro';
-      darkModeToggle.style.cssText = 'display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0; border: none; background: transparent; color: var(--ubits-fg-1-medium); cursor: pointer; border-radius: 8px; transition: all 0.15s ease; margin-left: auto;';
+      darkModeToggle.style.cssText = `display: flex; align-items: center; justify-content: center; width: var(--ubits-spacing-10); height: var(--ubits-spacing-10); padding: 0; border: none; background: transparent; color: var(--modifiers-normal-color-light-fg-1-medium); cursor: pointer; border-radius: var(--ubits-border-radius-sm); transition: all 0.15s ease; margin-left: auto;`;
       darkModeToggle.innerHTML = '<i class="fa-solid fa-sun-bright"></i>';
       wrapper.appendChild(darkModeToggle);
 
@@ -405,12 +403,8 @@ export const Default: Story = {
         // Estilos para logo según tema
         const style = document.createElement('style');
         style.textContent = `
-          [data-theme="dark"] .autoframe-logo-dark { display: block !important; }
-          [data-theme="dark"] .autoframe-logo-light { display: none !important; }
-          [data-theme="light"] .autoframe-logo-dark { display: none !important; }
-          [data-theme="light"] .autoframe-logo-light { display: block !important; }
           .ubits-logo:hover { transform: scale(1.05); }
-          .ubits-logo:hover .ubits-logo-text { color: var(--ubits-accent-brand-static-inverted); }
+          .ubits-logo:hover .ubits-logo-text { color: var(--modifiers-normal-color-light-accent-brand); }
           @keyframes iconSpinFade {
             0% { transform: rotate(0deg) scale(1); opacity: 1; }
             50% { transform: rotate(180deg) scale(1.2); opacity: 0.6; }
@@ -434,22 +428,22 @@ export const Default: Story = {
     // Panel de información (opcional, para mostrar detalles)
     const infoPanel = document.createElement('div');
     infoPanel.style.cssText = `
-      padding: var(--ubits-spacing-md, 16px);
-      background: var(--ubits-bg-1, #ffffff);
-      border-radius: var(--ubits-border-radius-md, 8px);
-      border: 1px solid var(--ubits-border-1);
+      padding: var(--ubits-spacing-md);
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: var(--ubits-border-radius-md);
+      border: 1px solid var(--modifiers-normal-color-light-border-1);
     `;
 
     const infoContent = document.createElement('div');
     infoContent.style.cssText = `
-      font-family: var(--font-sans);
-      color: var(--ubits-fg-1-medium);
-      font-size: var(--font-body-sm-size);
-      line-height: var(--font-body-sm-line);
+      font-family: var(--font-family-noto-sans-font-family);
+      color: var(--modifiers-normal-color-light-fg-1-medium);
+      font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+      line-height: var(--modifiers-normal-body-sm-regular-lineheight);
     `;
 
     infoContent.innerHTML = `
-      <h3 style="margin: 0 0 12px 0; color: var(--ubits-fg-1-high); font-weight: 600; font-size: var(--font-body-md-size);">Componente Menubar</h3>
+      <h3 style="margin: 0 0 var(--ubits-spacing-sm) 0; color: var(--modifiers-normal-color-light-fg-1-high); font-weight: var(--ubits-font-weight-semibold); font-size: var(--modifiers-normal-body-md-regular-fontsize);">Componente Menubar</h3>
       <p style="margin: 0 0 12px 0;">Este componente muestra un menubar horizontal con:</p>
       <ul style="margin: 0 0 16px 0; padding-left: 20px;">
         <li>Items de navegación con iconos opcionales</li>

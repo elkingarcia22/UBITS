@@ -97,13 +97,13 @@ export interface ProgressGeneralCardOptions {
   
   /**
    * Color del progreso circular (token UBITS)
-   * @default 'var(--ubits-chart-color-bg-neutral-blue-base, #557593)'
+   * @default 'var(--ubits-chart-color-bg-neutral-blue-base)'
    */
   progressColor?: string;
   
   /**
    * Color de fondo del círculo (token UBITS)
-   * @default 'var(--ubits-bg-3)'
+   * @default 'var(--modifiers-normal-color-light-bg-3)'
    */
   circleBackgroundColor?: string;
   

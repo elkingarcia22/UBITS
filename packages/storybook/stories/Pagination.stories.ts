@@ -111,7 +111,7 @@ export const Default: Story = {
     const container = document.createElement('div');
     container.id = containerId;
     container.style.width = '100%';
-    container.style.padding = '20px';
+    container.style.padding = 'var(--ubits-spacing-5)';
     container.style.display = 'flex';
     container.style.justifyContent = 'center';
 

@@ -22,8 +22,8 @@ function renderCircularProgress(
   percentage: number,
   size: number = 120,
   strokeWidth: number = 12,
-  progressColor: string = 'var(--ubits-accent-brand)',
-  backgroundColor: string = 'var(--ubits-bg-3)'
+  progressColor: string = 'var(--modifiers-normal-color-light-accent-brand)',
+  backgroundColor: string = 'var(--modifiers-normal-color-light-bg-3)'
 ): string {
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -90,7 +90,14 @@ function renderCategory(
     ? 'ubits-body-sm-bold'
     : size === 'lg'
     ? 'ubits-body-md-bold'
-    : 'ubits-body-sm-bold';
+    : 'ubits-body-md-bold'; // md también usa body-md-bold
+  
+  console.log('🔍 [ProgressGeneralCard] renderCategory - DEBUG:');
+  console.log('  - size:', size);
+  console.log('  - percentageClass:', percentageClass);
+  console.log('  - percentage:', percentage);
+  console.log('  - labelClass:', labelClass);
+  console.log('  - valueClass:', valueClass);
   
   return `
     <div class="ubits-progress-general-card__category">
@@ -120,8 +127,8 @@ export function renderProgressGeneralCard(options: ProgressGeneralCardOptions): 
     showCategories = true,
     showInfoIcon = false,
     showActionButton = false,
-    progressColor = 'var(--ubits-chart-color-bg-neutral-blue-base, #557593)',
-    circleBackgroundColor = 'var(--ubits-bg-3)',
+    progressColor = 'var(--ubits-chart-color-bg-neutral-blue-base)',
+    circleBackgroundColor = 'var(--modifiers-normal-color-light-bg-3)',
     className = '',
     attributes = {}
   } = options;
@@ -147,6 +154,13 @@ export function renderProgressGeneralCard(options: ProgressGeneralCardOptions): 
   const titleClass = 'ubits-body-md-bold';
   const percentageClass = 'ubits-heading-h2';
   const mainLabelClass = 'ubits-body-sm-bold';
+  
+  console.log('🔍 [ProgressGeneralCard] renderProgressGeneralCard - DEBUG:');
+  console.log('  - size:', size);
+  console.log('  - mainPercentage:', mainPercentage);
+  console.log('  - percentageClass (círculo):', percentageClass);
+  console.log('  - titleClass:', titleClass);
+  console.log('  - mainLabelClass:', mainLabelClass);
 
   // Renderizar icono de información como botón terciario si está habilitado
   const infoIconHTML = showInfoIcon

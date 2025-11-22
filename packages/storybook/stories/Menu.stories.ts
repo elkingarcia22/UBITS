@@ -33,7 +33,7 @@ interface MenuStoryArgs {
   section2Item2Icon?: string;
   section2Item2IconStyle?: 'regular' | 'solid';
   section2Item2Badge?: number;
-  section2Item2BadgeVariant?: 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';
+  section2Item2BadgeVariant?: 'success' | 'warning' | 'error' | 'info';
   section2Item2Active?: boolean;
   section2Item2Disabled?: boolean;
   section2Item3Label?: string;
@@ -261,11 +261,11 @@ const meta: Meta<MenuStoryArgs> = {
     },
     section2Item2BadgeVariant: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'success', 'warning', 'error', 'info'],
+      options: ['success', 'warning', 'error', 'info'],
       description: 'Variante del badge',
       table: {
         category: 'Sección 2 - Item 2',
-        defaultValue: { summary: 'primary' },
+        defaultValue: { summary: 'error' },
       },
     },
     section2Item2Active: {
@@ -415,7 +415,7 @@ function buildSectionsFromArgs(args: MenuStoryArgs): MenuSection[] {
         icon: args.section2Item2Icon,
         iconStyle: args.section2Item2IconStyle || 'regular',
         badge: args.section2Item2Badge && args.section2Item2Badge > 0 
-          ? { content: args.section2Item2Badge, variant: args.section2Item2BadgeVariant || 'primary' }
+          ? { content: args.section2Item2Badge, variant: args.section2Item2BadgeVariant || 'error' }
           : undefined,
         active: args.section2Item2Active || false,
         disabled: args.section2Item2Disabled || false,
@@ -476,7 +476,7 @@ export const Default: Story = {
     section2Item2Icon: 'envelope',
     section2Item2IconStyle: 'regular',
     section2Item2Badge: 2,
-    section2Item2BadgeVariant: 'primary',
+    section2Item2BadgeVariant: 'error',
     section2Item2Active: false,
     section2Item2Disabled: false,
     section2Item3Label: 'Logout',
@@ -493,9 +493,9 @@ export const Default: Story = {
     const container = document.createElement('div');
     container.style.cssText = `
       display: flex;
-      min-height: 600px;
-      background: var(--ubits-bg-2, #f3f3f4);
-      border-radius: 8px;
+      min-height: calc(var(--ubits-spacing-12) * 12.5);
+      background: var(--modifiers-normal-color-light-bg-2);
+      border-radius: var(--ubits-border-radius-sm);
       overflow: hidden;
     `;
 
@@ -530,9 +530,9 @@ export const Default: Story = {
     menuContainer.id = 'menu-story-container';
     menuContainer.style.cssText = `
       position: relative;
-      height: 600px;
-      min-height: 600px;
-      background: var(--ubits-bg-1, #ffffff);
+      height: calc(var(--ubits-spacing-12) * 12.5);
+      min-height: calc(var(--ubits-spacing-12) * 12.5);
+      background: var(--modifiers-normal-color-light-bg-1);
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -607,37 +607,37 @@ export const Default: Story = {
     const infoPanel = document.createElement('div');
     infoPanel.style.cssText = `
       flex: 1;
-      padding: 24px;
-      background: var(--ubits-bg-1, #ffffff);
-      border-left: 1px solid var(--ubits-border-1);
+      padding: var(--ubits-spacing-6);
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-left: 1px solid var(--modifiers-normal-color-light-border-1);
       overflow-y: auto;
     `;
 
     const infoContent = document.createElement('div');
     infoContent.style.cssText = `
-      font-family: var(--font-sans);
-      color: var(--ubits-fg-1-medium);
-      font-size: 14px;
+      font-family: var(--font-family-noto-sans-font-family);
+      color: var(--modifiers-normal-color-light-fg-1-medium);
+      font-size: var(--modifiers-normal-body-sm-regular-fontsize);
       line-height: 1.6;
     `;
 
     infoContent.innerHTML = `
-      <h3 style="margin: 0 0 16px 0; color: var(--ubits-fg-1-high); font-weight: 600;">Componente Menu</h3>
-      <p style="margin: 0 0 12px 0;">Este componente muestra un menú lateral con:</p>
-      <ul style="margin: 0 0 16px 0; padding-left: 20px;">
+      <h3 style="margin: 0 0 var(--ubits-spacing-lg) 0; color: var(--modifiers-normal-color-light-fg-1-high); font-weight: var(--ubits-font-weight-semibold);">Componente Menu</h3>
+      <p style="margin: 0 0 var(--ubits-spacing-md) 0;">Este componente muestra un menú lateral con:</p>
+      <ul style="margin: 0 0 var(--ubits-spacing-lg) 0; padding-left: var(--ubits-spacing-5);">
         <li>Logo de Autoframe y nombre de la aplicación</li>
         <li>Secciones con títulos</li>
         <li>Items con iconos, texto y badges</li>
         <li>Información del usuario al final</li>
       </ul>
-      <p style="margin: 0 0 12px 0; font-weight: 600;">Características:</p>
-      <ul style="margin: 0; padding-left: 20px;">
+      <p style="margin: 0 0 var(--ubits-spacing-md) 0; font-weight: var(--ubits-font-weight-semibold);">Características:</p>
+      <ul style="margin: 0; padding-left: var(--ubits-spacing-5);">
         <li>Usa tokens UBITS para colores, tipografía y espaciado</li>
         <li>Soporta items activos, deshabilitados</li>
         <li>Badges de UBITS con diferentes variantes</li>
         <li>Responsive design</li>
       </ul>
-      <p style="margin: 16px 0 0 0; padding-top: 16px; border-top: 1px solid var(--ubits-border-1);">
+      <p style="margin: var(--ubits-spacing-lg) 0 0 0; padding-top: var(--ubits-spacing-lg); border-top: 1px solid var(--modifiers-normal-color-light-border-1);">
         <strong>Nota:</strong> Usa los controles en el panel lateral para personalizar todos los aspectos del menú.
       </p>
     `;

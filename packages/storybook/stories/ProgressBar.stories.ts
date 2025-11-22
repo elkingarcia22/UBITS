@@ -175,8 +175,8 @@ export const Default: Story = {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 40px;
-      background: var(--ubits-bg-2, #f3f3f4);
+      padding: var(--ubits-spacing-10);
+      background: var(--modifiers-normal-color-light-bg-2);
     `;
 
     // Contenedor principal
@@ -184,9 +184,9 @@ export const Default: Story = {
     wrapper.style.cssText = `
       width: 100%;
       max-width: 600px;
-      background: var(--ubits-bg-1, #ffffff);
-      padding: 32px;
-      border-radius: 12px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      padding: var(--ubits-spacing-8);
+      border-radius: var(--ubits-border-radius-md);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     `;
 
@@ -194,20 +194,20 @@ export const Default: Story = {
     const title = document.createElement('h2');
     title.textContent = 'Progress Bar';
     title.style.cssText = `
-      margin: 0 0 16px 0;
-      color: var(--ubits-fg-1-high, #303a47);
-      font-size: var(--font-heading-h2-size, 24px);
-      font-weight: var(--weight-bold, 700);
+      margin: 0 0 var(--ubits-spacing-lg) 0;
+      color: var(--modifiers-normal-color-light-fg-1-high);
+      font-size: var(--modifiers-normal-heading-h2-fontsize);
+      font-weight: var(--ubits-font-weight-bold);
     `;
 
     // Descripción
     const description = document.createElement('p');
     description.textContent = 'Componente para mostrar el progreso de una tarea o proceso. Puede mostrar un solo valor o múltiples segmentos con diferentes colores.';
     description.style.cssText = `
-      margin: 0 0 24px 0;
-      color: var(--ubits-fg-1-medium, #5c646f);
-      font-size: var(--font-body-md-size, 16px);
-      line-height: var(--font-body-md-line, 24px);
+      margin: 0 0 var(--ubits-spacing-6) 0;
+      color: var(--modifiers-normal-color-light-fg-1-medium);
+      font-size: var(--modifiers-normal-body-md-regular-fontsize);
+      line-height: var(--modifiers-normal-body-md-regular-lineheight);
     `;
 
     // Contenedor para el progress bar - más pequeño y centrado
@@ -216,7 +216,7 @@ export const Default: Story = {
     progressContainer.style.cssText = `
       width: 100%;
       max-width: 500px;
-      margin: 0 auto 24px auto;
+      margin: 0 auto var(--ubits-spacing-6) auto;
     `;
 
     let progressBarInstance: any = null;

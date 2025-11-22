@@ -5,7 +5,10 @@
  */
 
 import type { MenubarOptions, MenubarItem, MenubarSubmenuItem } from './types/MenubarOptions';
+import { createList, renderList } from '../../list/src/ListProvider';
+import type { ListOptions, ListItem } from '../../list/src/types/ListOptions';
 import './styles/menubar.css';
+import '../../list/src/styles/list.css';
 
 // Helper para renderizar iconos FontAwesome
 function renderIconHelper(iconName: string, iconStyle: 'regular' | 'solid' = 'regular'): string {
@@ -14,23 +17,43 @@ function renderIconHelper(iconName: string, iconStyle: 'regular' | 'solid' = 're
   return `<i class="${iconClass} ${name}"></i>`;
 }
 
+// Convertir MenubarSubmenuItem a ListItem para usar nuestro componente List
+function convertSubmenuItemToListItem(item: MenubarSubmenuItem, parentId: string): ListItem {
+  return {
+    label: item.label,
+    value: item.id,
+    state: item.disabled ? 'disabled' : (item.active ? 'active' : 'default'),
+    selected: item.active || false,
+    attributes: {
+      'data-item-id': item.id,
+      'data-parent-id': parentId,
+      ...(item.href ? { 'data-href': item.href } : {}),
+      ...(item.onClick ? { 'data-has-click-handler': 'true' } : {}),
+      ...(item.submenu && item.submenu.length > 0 ? { 'data-has-submenu': 'true' } : {})
+    }
+  };
+}
+
 // Renderizar subitem del submenú (puede tener submenú anidado)
 function renderSubmenuItem(item: MenubarSubmenuItem, parentId: string, level: number = 1): string {
+  const hasSubmenu = item.submenu && item.submenu.length > 0;
+  const submenuId = hasSubmenu ? `ubits-menubar-submenu-${parentId}-${item.id}-${level}` : '';
+
+  // Para items con submenú anidado, usar HTML nativo (por ahora)
+  // Para items sin submenú, podríamos usar List, pero mantenemos consistencia con el diseño actual
   const classes = [
     'ubits-menubar-submenu-item',
     item.active && 'ubits-menubar-submenu-item--active',
     item.disabled && 'ubits-menubar-submenu-item--disabled',
-    item.submenu && item.submenu.length > 0 && 'ubits-menubar-submenu-item--has-submenu'
+    hasSubmenu && 'ubits-menubar-submenu-item--has-submenu'
   ].filter(Boolean).join(' ');
 
   const iconHTML = item.icon ? renderIconHelper(item.icon, item.iconStyle) : '';
-  const hasSubmenu = item.submenu && item.submenu.length > 0;
   const chevronHTML = hasSubmenu ? '<i class="far fa-chevron-right ubits-menubar-submenu-chevron"></i>' : '';
   
   const onClickAttr = item.onClick ? 'data-has-click-handler="true"' : '';
   const hrefAttr = item.href ? `data-href="${item.href}"` : '';
   const disabledAttr = item.disabled ? 'disabled' : '';
-  const submenuId = hasSubmenu ? `ubits-menubar-submenu-${parentId}-${item.id}-${level}` : '';
 
   const submenuHTML = hasSubmenu ? `
     <ul class="ubits-menubar-submenu ubits-menubar-submenu--level-${level + 1}" id="${submenuId}">
@@ -57,17 +80,44 @@ function renderSubmenuItem(item: MenubarSubmenuItem, parentId: string, level: nu
   `;
 }
 
-// Renderizar dropdown del menubar
+// Renderizar dropdown del menubar usando nuestro componente List
 function renderDropdown(item: MenubarItem): string {
   if (!item.submenu || item.submenu.length === 0) return '';
   
   const dropdownId = `ubits-menubar-dropdown-${item.id}`;
   
-  return `
-    <ul class="ubits-menubar-dropdown" id="${dropdownId}">
-      ${item.submenu.map(subItem => renderSubmenuItem(subItem, item.id)).join('')}
-    </ul>
-  `;
+  // Convertir submenu items a ListItems (solo items sin submenú anidado)
+  // Para items con submenú anidado, usamos HTML nativo en renderSubmenuItem
+  const listItems: ListItem[] = item.submenu
+    .filter(subItem => !subItem.submenu || subItem.submenu.length === 0)
+    .map(subItem => convertSubmenuItemToListItem(subItem, item.id));
+  
+  // Si hay items con submenú anidado, usar HTML nativo para todo el dropdown
+  const hasNestedSubmenus = item.submenu.some(subItem => subItem.submenu && subItem.submenu.length > 0);
+  
+  if (hasNestedSubmenus) {
+    // Usar HTML nativo para mantener soporte de submenús anidados
+    return `
+      <ul class="ubits-menubar-dropdown" id="${dropdownId}">
+        ${item.submenu.map(subItem => renderSubmenuItem(subItem, item.id)).join('')}
+      </ul>
+    `;
+  }
+  
+  // Renderizar usando nuestro componente List (solo si no hay submenús anidados)
+  const listOptions: ListOptions = {
+    containerId: '', // No se usa en renderList
+    items: listItems,
+    size: 'md',
+    maxHeight: 'none',
+    className: 'ubits-menubar-dropdown-list',
+    attributes: {
+      id: dropdownId,
+      'data-parent-id': item.id
+    }
+  };
+  
+  return `<div class="ubits-menubar-dropdown" id="${dropdownId}">${renderList(listOptions)}</div>`;
 }
 
 // Renderizar item del menubar
@@ -160,9 +210,15 @@ function initMenubarEvents(menubarElement: HTMLElement, options: MenubarOptions)
           const dropdown = document.getElementById(dropdownId);
           const isExpanded = linkElement.getAttribute('aria-expanded') === 'true';
           
-          // Cerrar todos los dropdowns
+          // Cerrar todos los dropdowns (tanto HTML nativo como List)
           menubarElement.querySelectorAll('.ubits-menubar-dropdown').forEach(dd => {
             dd.classList.remove('ubits-menubar-dropdown--open');
+            // Si contiene un List, también ocultarlo
+            const listInside = dd.querySelector('.ubits-list');
+            if (listInside) {
+              listInside.style.opacity = '0';
+              listInside.style.visibility = 'hidden';
+            }
           });
           menubarElement.querySelectorAll('.ubits-menubar-link').forEach(link => {
             link.setAttribute('aria-expanded', 'false');
@@ -172,6 +228,12 @@ function initMenubarEvents(menubarElement: HTMLElement, options: MenubarOptions)
           if (!isExpanded && dropdown) {
             dropdown.classList.add('ubits-menubar-dropdown--open');
             linkElement.setAttribute('aria-expanded', 'true');
+            // Si contiene un List, mostrarlo
+            const listInside = dropdown.querySelector('.ubits-list');
+            if (listInside) {
+              listInside.style.opacity = '1';
+              listInside.style.visibility = 'visible';
+            }
           }
         }
       } else {
@@ -210,12 +272,25 @@ function initMenubarEvents(menubarElement: HTMLElement, options: MenubarOptions)
     });
   });
 
-  // Click en subitems del dropdown
-  const submenuItems = menubarElement.querySelectorAll('.ubits-menubar-submenu-item > .ubits-menubar-submenu-link');
+  // Click en subitems del dropdown (tanto HTML nativo como List)
+  const submenuItems = menubarElement.querySelectorAll('.ubits-menubar-submenu-item > .ubits-menubar-submenu-link, .ubits-menubar-dropdown .ubits-list-item');
   submenuItems.forEach((linkElement) => {
-    const itemElement = linkElement.closest('.ubits-menubar-submenu-item') as HTMLElement;
-    const itemId = itemElement?.getAttribute('data-item-id');
-    const parentId = itemElement?.getAttribute('data-parent-id');
+    // Para items de List, obtener itemId del data-value o data-item-id
+    let itemElement: HTMLElement | null = null;
+    let itemId: string | null = null;
+    let parentId: string | null = null;
+    
+    if (linkElement.classList.contains('ubits-list-item')) {
+      // Es un item de nuestro componente List
+      itemElement = linkElement as HTMLElement;
+      itemId = linkElement.getAttribute('data-value') || linkElement.getAttribute('data-item-id');
+      parentId = linkElement.closest('.ubits-menubar-dropdown')?.getAttribute('data-parent-id') || null;
+    } else {
+      // Es un item HTML nativo
+      itemElement = linkElement.closest('.ubits-menubar-submenu-item') as HTMLElement;
+      itemId = itemElement?.getAttribute('data-item-id');
+      parentId = itemElement?.getAttribute('data-parent-id');
+    }
     
     if (!itemId) return;
 
@@ -244,8 +319,16 @@ function initMenubarEvents(menubarElement: HTMLElement, options: MenubarOptions)
       
       if (subItem!.disabled) return;
 
-      // Si tiene submenú anidado, toggle el submenú
-      if (subItem!.submenu && subItem!.submenu.length > 0) {
+      // Si es un item de List, remover active de todos y agregar al clickeado
+      if (linkElement.classList.contains('ubits-list-item')) {
+        menubarElement.querySelectorAll('.ubits-list-item').forEach(li => {
+          li.classList.remove('ubits-list-item--active');
+        });
+        linkElement.classList.add('ubits-list-item--active');
+      }
+
+      // Si tiene submenú anidado, toggle el submenú (solo para HTML nativo)
+      if (subItem!.submenu && subItem!.submenu.length > 0 && !linkElement.classList.contains('ubits-list-item')) {
         const submenuId = linkElement.getAttribute('data-submenu-id');
         if (submenuId) {
           const submenu = document.getElementById(submenuId);
@@ -266,17 +349,27 @@ function initMenubarEvents(menubarElement: HTMLElement, options: MenubarOptions)
         }
       } else {
         // Si no tiene submenú, manejar como item normal
-        // Remover active de todos los items
-        menubarElement.querySelectorAll('.ubits-menubar-item, .ubits-menubar-submenu-item').forEach(li => {
-          li.classList.remove('ubits-menubar-item--active', 'ubits-menubar-submenu-item--active');
+        // Remover active de todos los items (tanto HTML nativo como List)
+        menubarElement.querySelectorAll('.ubits-menubar-item, .ubits-menubar-submenu-item, .ubits-list-item').forEach(li => {
+          li.classList.remove('ubits-menubar-item--active', 'ubits-menubar-submenu-item--active', 'ubits-list-item--active');
         });
         
         // Agregar active al item clickeado
-        itemElement.classList.add('ubits-menubar-submenu-item--active');
+        if (linkElement.classList.contains('ubits-list-item')) {
+          linkElement.classList.add('ubits-list-item--active');
+        } else if (itemElement) {
+          itemElement.classList.add('ubits-menubar-submenu-item--active');
+        }
 
         // Cerrar todos los dropdowns
         menubarElement.querySelectorAll('.ubits-menubar-dropdown').forEach(dd => {
           dd.classList.remove('ubits-menubar-dropdown--open');
+          // Si contiene un List, ocultarlo
+          const listInside = dd.querySelector('.ubits-list');
+          if (listInside) {
+            listInside.style.opacity = '0';
+            listInside.style.visibility = 'hidden';
+          }
         });
         menubarElement.querySelectorAll('.ubits-menubar-link').forEach(link => {
           link.setAttribute('aria-expanded', 'false');

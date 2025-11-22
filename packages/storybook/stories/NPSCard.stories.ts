@@ -123,7 +123,7 @@ const meta: Meta<NPSCardOptions & {
       control: { type: 'color' },
       description: 'Color del gauge para el segmento rojo (0-20)',
       table: {
-        defaultValue: { summary: 'var(--ubits-semantic-error, #E53E3E)' },
+        defaultValue: { summary: 'var(--modifiers-normal-color-light-feedback-accent-error)' },
         type: { summary: 'string' },
       },
     },
@@ -131,7 +131,7 @@ const meta: Meta<NPSCardOptions & {
       control: { type: 'color' },
       description: 'Color del gauge para el segmento amarillo (20-60)',
       table: {
-        defaultValue: { summary: 'var(--ubits-semantic-warning, #F6AD55)' },
+        defaultValue: { summary: 'var(--modifiers-normal-color-light-feedback-accent-warning)' },
         type: { summary: 'string' },
       },
     },
@@ -139,7 +139,7 @@ const meta: Meta<NPSCardOptions & {
       control: { type: 'color' },
       description: 'Color del gauge para el segmento verde (60-100)',
       table: {
-        defaultValue: { summary: 'var(--ubits-semantic-success, #38A169)' },
+        defaultValue: { summary: 'var(--modifiers-normal-color-light-feedback-accent-success)' },
         type: { summary: 'string' },
       },
     },
@@ -147,7 +147,7 @@ const meta: Meta<NPSCardOptions & {
       control: { type: 'color' },
       description: 'Color de fondo del gauge (token UBITS o color hexadecimal)',
       table: {
-        defaultValue: { summary: 'var(--ubits-bg-3)' },
+        defaultValue: { summary: 'var(--modifiers-normal-color-light-bg-3)' },
         type: { summary: 'string' },
       },
     },
@@ -180,7 +180,7 @@ const meta: Meta<NPSCardOptions & {
       control: { type: 'color' },
       description: 'Color de la categoría 1',
       table: {
-        defaultValue: { summary: 'var(--ubits-semantic-error, #E53E3E)' },
+        defaultValue: { summary: 'var(--modifiers-normal-color-light-feedback-accent-error)' },
         type: { summary: 'string' },
       },
     },
@@ -213,7 +213,7 @@ const meta: Meta<NPSCardOptions & {
       control: { type: 'color' },
       description: 'Color de la categoría 2',
       table: {
-        defaultValue: { summary: 'var(--ubits-semantic-warning, #F6AD55)' },
+        defaultValue: { summary: 'var(--modifiers-normal-color-light-feedback-accent-warning)' },
         type: { summary: 'string' },
       },
     },
@@ -246,7 +246,7 @@ const meta: Meta<NPSCardOptions & {
       control: { type: 'color' },
       description: 'Color de la categoría 3',
       table: {
-        defaultValue: { summary: 'var(--ubits-semantic-success, #38A169)' },
+        defaultValue: { summary: 'var(--modifiers-normal-color-light-feedback-accent-success)' },
         type: { summary: 'string' },
       },
     },
@@ -280,7 +280,7 @@ function buildCategories(args: Story['args']): NPSCategory[] {
       label: args.category1Label || 'No tienen confianza',
       current: args.category1Current ?? 50,
       total: args.category1Total ?? 100,
-      color: args.category1Color || 'var(--ubits-semantic-error, #E53E3E)',
+      color: args.category1Color || 'var(--modifiers-normal-color-light-feedback-accent-error)',
     });
   }
   
@@ -289,7 +289,7 @@ function buildCategories(args: Story['args']): NPSCategory[] {
       label: args.category2Label || 'Neutrales',
       current: args.category2Current ?? 10,
       total: args.category2Total ?? 100,
-      color: args.category2Color || 'var(--ubits-semantic-warning, #F6AD55)',
+      color: args.category2Color || 'var(--modifiers-normal-color-light-feedback-accent-warning)',
     });
   }
   
@@ -298,7 +298,7 @@ function buildCategories(args: Story['args']): NPSCategory[] {
       label: args.category3Label || 'Tienen confianza',
       current: args.category3Current ?? 30,
       total: args.category3Total ?? 100,
-      color: args.category3Color || 'var(--ubits-semantic-success, #38A169)',
+      color: args.category3Color || 'var(--modifiers-normal-color-light-feedback-accent-success)',
     });
   }
   
@@ -322,7 +322,7 @@ export const Default: Story = {
     lowColor: '#E53E3E',
     mediumColor: '#F6AD55',
     highColor: '#38A169',
-    gaugeBackgroundColor: 'var(--ubits-bg-2, #F3F3F4)',
+    gaugeBackgroundColor: 'var(--modifiers-normal-color-light-bg-2)',
     category1Label: 'No tienen confianza',
     category1Current: 50,
     category1Total: 100,
@@ -366,21 +366,89 @@ export const Default: Story = {
     container.style.display = 'flex';
     container.style.justifyContent = 'center';
     container.style.alignItems = 'flex-start';
-    container.style.padding = '48px';
-    container.style.background = 'var(--ubits-bg-2)';
-    container.style.border = '1px solid var(--ubits-border-1)';
-    container.style.borderRadius = '8px';
-    container.style.minHeight = '500px';
+    container.style.padding = 'var(--ubits-spacing-12)';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
+    container.style.border = `1px solid var(--modifiers-normal-color-light-border-1)`;
+    container.style.borderRadius = 'var(--ubits-border-radius-sm)';
+    container.style.minHeight = 'calc(var(--ubits-spacing-12) * 6.25)';
     
     // Crear wrapper para la card
     const wrapper = document.createElement('div');
-    wrapper.style.maxWidth = '500px';
+    wrapper.style.maxWidth = 'calc(var(--ubits-spacing-12) * 6.25)';
     wrapper.style.width = '100%';
     
     // Renderizar card
     const cardHTML = renderNPSCard(options);
     wrapper.innerHTML = cardHTML;
     container.appendChild(wrapper);
+    
+    // Logs para debugging de porcentajes
+    setTimeout(() => {
+      const percentageElements = container.querySelectorAll('.ubits-nps-card__category-percentage');
+      console.log('🔍 [NPSCard Storybook] Debug porcentajes - Total encontrados:', percentageElements.length);
+      
+      Array.from(percentageElements).forEach((el, idx) => {
+        const computed = window.getComputedStyle(el);
+        const classes = el.className;
+        const text = el.textContent;
+        const parent = el.parentElement;
+        const parentClasses = parent?.className || '';
+        
+        console.log(`\n📊 Porcentaje #${idx + 1}:`, {
+          text,
+          classes: classes.split(' '),
+          parentClasses: parentClasses.split(' '),
+          hasBoldClass: classes.includes('ubits-body-md-bold'),
+          hasPercentageClass: classes.includes('ubits-nps-card__category-percentage'),
+          computedStyles: {
+            fontSize: computed.fontSize,
+            fontWeight: computed.fontWeight,
+            fontFamily: computed.fontFamily,
+            lineHeight: computed.lineHeight,
+            color: computed.color
+          },
+          inlineStyle: el.getAttribute('style'),
+          elementHTML: el.outerHTML
+        });
+        
+        // Verificar reglas CSS aplicadas
+        const allRules = Array.from(document.styleSheets).flatMap(sheet => {
+          try {
+            return Array.from(sheet.cssRules || []);
+          } catch (e) {
+            return [];
+          }
+        });
+        
+        const matchingRules = allRules.filter(rule => {
+          if (rule instanceof CSSStyleRule) {
+            try {
+              return el.matches(rule.selectorText);
+            } catch (e) {
+              return false;
+            }
+          }
+          return false;
+        });
+        
+        console.log(`  🎯 Reglas CSS que coinciden (${matchingRules.length}):`, 
+          matchingRules.map(r => ({
+            selector: r.selectorText,
+            fontWeight: r.style.fontWeight,
+            fontSize: r.style.fontSize,
+            cssText: r.cssText.substring(0, 200)
+          }))
+        );
+      });
+      
+      // Verificar tokens
+      const root = getComputedStyle(document.documentElement);
+      console.log('\n🔍 [NPSCard Storybook] Tokens verificados:');
+      console.log('  --ubits-font-weight-bold:', root.getPropertyValue('--ubits-font-weight-bold').trim() || '❌ NO DEFINIDO');
+      console.log('  --modifiers-normal-body-md-bold-fontsize:', root.getPropertyValue('--modifiers-normal-body-md-bold-fontsize').trim() || '❌ NO DEFINIDO');
+      console.log('  --modifiers-normal-body-md-bold-lineheight:', root.getPropertyValue('--modifiers-normal-body-md-bold-lineheight').trim() || '❌ NO DEFINIDO');
+      console.log('  --font-family-noto-sans-font-family:', root.getPropertyValue('--font-family-noto-sans-font-family').trim() || '❌ NO DEFINIDO');
+    }, 100);
     
     return container;
   },

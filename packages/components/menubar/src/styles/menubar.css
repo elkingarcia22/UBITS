@@ -15,7 +15,7 @@
   border: none;
   border-radius: 0;
   padding: 0;
-  gap: var(--ubits-spacing-xs, 4px);
+  gap: var(--ubits-spacing-xs);
   position: relative;
 }
 
@@ -26,8 +26,8 @@
   background: transparent;
   border: none;
   border-radius: 0;
-  padding: var(--ubits-spacing-md, 16px);
-  gap: var(--ubits-spacing-md, 16px);
+  padding: var(--ubits-spacing-md);
+  gap: var(--ubits-spacing-md);
   position: relative;
   width: 100%;
 }
@@ -38,7 +38,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: var(--ubits-spacing-md, 16px);
+  gap: var(--ubits-spacing-md);
 }
 
 /* ========================================
@@ -55,31 +55,31 @@
 .ubits-menubar-link {
   display: flex;
   align-items: center;
-  gap: var(--ubits-spacing-sm, 12px);
-  padding: var(--ubits-spacing-sm, 12px) var(--ubits-spacing-md, 16px);
+  gap: var(--ubits-spacing-sm);
+  padding: var(--ubits-spacing-sm) var(--ubits-spacing-md);
   border: none;
-  border-radius: var(--ubits-border-radius-md, 8px);
+  border-radius: var(--ubits-border-radius-md);
   background: transparent;
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
-  font-family: var(--font-sans);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--weight-regular);
-  line-height: var(--font-body-md-line);
-  color: var(--ubits-fg-1-high);
+  font-family: var(--font-family-noto-sans-font-family);
+  font-size: var(--modifiers-normal-body-md-regular-fontsize);
+  font-weight: var(--ubits-font-weight-regular);
+  line-height: var(--modifiers-normal-body-md-regular-lineheight);
+  color: var(--modifiers-normal-color-light-fg-1-high);
   position: relative;
   white-space: nowrap;
 }
 
 .ubits-menubar-link:hover:not(:disabled) {
-  background: var(--ubits-bg-2);
+  background: var(--modifiers-normal-color-light-bg-2);
 }
 
 .ubits-menubar-item--active > .ubits-menubar-link {
   position: relative;
-  background-color: var(--ubits-bg-1, #ffffff);
-  color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+  background-color: var(--modifiers-normal-color-light-bg-1);
+  color: var(--modifiers-normal-color-light-accent-brand);
 }
 
 .ubits-menubar-item--active > .ubits-menubar-link::before {
@@ -89,7 +89,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15));
+  background-color: var(--modifiers-normal-color-light-bg-active);
   border-radius: inherit;
   pointer-events: none;
   z-index: 0;
@@ -98,14 +98,14 @@
 .ubits-menubar-item--active > .ubits-menubar-link .ubits-menubar-label {
   position: relative;
   z-index: 1;
-  color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
-  font-weight: var(--weight-semibold);
+  color: var(--modifiers-normal-color-light-accent-brand);
+  font-weight: var(--ubits-font-weight-semibold);
 }
 
 .ubits-menubar-item--active > .ubits-menubar-link .ubits-menubar-icon {
   position: relative;
   z-index: 1;
-  color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+  color: var(--modifiers-normal-color-light-accent-brand);
 }
 
 .ubits-menubar-item--disabled > .ubits-menubar-link {
@@ -117,9 +117,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
-  color: var(--ubits-fg-1-medium);
+  width: var(--ubits-spacing-4);
+  height: var(--ubits-spacing-4);
+  color: var(--modifiers-normal-color-light-fg-1-medium);
   flex-shrink: 0;
 }
 
@@ -136,12 +136,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 12px;
-  height: 12px;
-  color: var(--ubits-fg-1-medium);
+  width: var(--ubits-spacing-3);
+  height: var(--ubits-spacing-3);
+  color: var(--modifiers-normal-color-light-fg-1-medium);
   flex-shrink: 0;
   transition: transform 0.2s ease;
-  margin-left: var(--ubits-spacing-xs, 4px);
+  margin-left: var(--ubits-spacing-xs);
 }
 
 .ubits-menubar-item--has-dropdown > .ubits-menubar-link[aria-expanded="true"] .ubits-menubar-chevron {
@@ -154,26 +154,40 @@
 
 .ubits-menubar-dropdown {
   position: absolute;
-  top: calc(100% + var(--ubits-spacing-xs, 4px));
+  top: calc(100% + var(--ubits-spacing-xs));
   left: 0;
-  min-width: 200px;
+  min-width: calc(var(--ubits-spacing-12) * 2.5);
   width: max-content;
-  max-width: 400px;
-  background: var(--ubits-bg-1);
-  border: 1px solid var(--ubits-border-1);
-  border-radius: var(--ubits-border-radius-md, 8px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  list-style: none;
-  margin: 0;
-  padding: var(--ubits-spacing-xs, 4px);
+  max-width: calc(var(--ubits-spacing-12) * 5);
   z-index: 1000;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-8px);
+  transform: translateY(calc(var(--ubits-spacing-sm) * -1));
   transition: all 0.2s ease;
 }
 
-[data-theme="dark"] .ubits-menubar-dropdown {
+/* Estilos para el List dentro del dropdown */
+.ubits-menubar-dropdown .ubits-list {
+  background: var(--modifiers-normal-color-light-bg-1);
+  border: 1px solid var(--modifiers-normal-color-light-border-1);
+  border-radius: var(--ubits-border-radius-md);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* No hay equivalente exacto en Figma */
+  padding: var(--ubits-spacing-xs);
+  margin: 0;
+  max-height: none !important;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+}
+
+.ubits-menubar-dropdown--open .ubits-list {
+  opacity: 1;
+  visibility: visible;
+}
+
+[data-theme="dark"] .ubits-menubar-dropdown .ubits-list {
+  background: var(--modifiers-normal-color-dark-bg-1);
+  border-color: var(--modifiers-normal-color-dark-border-1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
@@ -197,19 +211,19 @@
 .ubits-menubar-submenu-link {
   display: flex;
   align-items: center;
-  gap: var(--ubits-spacing-sm, 12px);
-  padding: var(--ubits-spacing-sm, 12px) var(--ubits-spacing-md, 16px);
+  gap: var(--ubits-spacing-sm);
+  padding: var(--ubits-spacing-sm) var(--ubits-spacing-md);
   border: none;
-  border-radius: var(--ubits-border-radius-sm, 6px);
+  border-radius: var(--ubits-border-radius-sm);
   background: transparent;
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
-  font-family: var(--font-sans);
-  font-size: var(--font-body-md-size);
-  font-weight: var(--weight-regular);
-  line-height: var(--font-body-md-line);
-  color: var(--ubits-fg-1-high);
+  font-family: var(--font-family-noto-sans-font-family);
+  font-size: var(--modifiers-normal-body-md-regular-fontsize);
+  font-weight: var(--ubits-font-weight-regular);
+  line-height: var(--modifiers-normal-body-md-regular-lineheight);
+  color: var(--modifiers-normal-color-light-fg-1-high);
   position: relative;
   white-space: nowrap;
   min-width: 100%;
@@ -217,13 +231,13 @@
 }
 
 .ubits-menubar-submenu-link:hover:not(:disabled) {
-  background: var(--ubits-bg-2);
+  background: var(--modifiers-normal-color-light-bg-2);
 }
 
 .ubits-menubar-submenu-item--active > .ubits-menubar-submenu-link {
   position: relative;
-  background-color: var(--ubits-bg-1, #ffffff);
-  color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+  background-color: var(--modifiers-normal-color-light-bg-1);
+  color: var(--modifiers-normal-color-light-accent-brand);
 }
 
 .ubits-menubar-submenu-item--active > .ubits-menubar-submenu-link::before {
@@ -233,7 +247,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15));
+  background-color: var(--modifiers-normal-color-light-bg-active);
   border-radius: inherit;
   pointer-events: none;
   z-index: 0;
@@ -242,14 +256,14 @@
 .ubits-menubar-submenu-item--active > .ubits-menubar-submenu-link .ubits-menubar-submenu-label {
   position: relative;
   z-index: 1;
-  color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
-  font-weight: var(--weight-semibold);
+  color: var(--modifiers-normal-color-light-accent-brand);
+  font-weight: var(--ubits-font-weight-semibold);
 }
 
 .ubits-menubar-submenu-item--active > .ubits-menubar-submenu-link .ubits-menubar-submenu-icon {
   position: relative;
   z-index: 1;
-  color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+  color: var(--modifiers-normal-color-light-accent-brand);
 }
 
 .ubits-menubar-submenu-item--disabled > .ubits-menubar-submenu-link {
@@ -261,9 +275,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
-  color: var(--ubits-fg-1-medium);
+  width: var(--ubits-spacing-4);
+  height: var(--ubits-spacing-4);
+  color: var(--modifiers-normal-color-light-fg-1-medium);
   flex-shrink: 0;
 }
 
@@ -280,16 +294,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 12px;
-  height: 12px;
-  color: var(--ubits-fg-1-medium);
+  width: var(--ubits-spacing-3);
+  height: var(--ubits-spacing-3);
+  color: var(--modifiers-normal-color-light-fg-1-medium);
   flex-shrink: 0;
   transition: transform 0.2s ease;
   margin-left: auto;
 }
 
 .ubits-menubar-submenu-item--has-submenu > .ubits-menubar-submenu-link:hover .ubits-menubar-submenu-chevron {
-  transform: translateX(2px);
+  transform: translateX(var(--ubits-spacing-xs));
 }
 
 /* ========================================
@@ -299,21 +313,21 @@
 .ubits-menubar-submenu {
   position: absolute;
   top: 0;
-  left: calc(100% + var(--ubits-spacing-xs, 4px));
-  min-width: 200px;
+  left: calc(100% + var(--ubits-spacing-xs));
+  min-width: calc(var(--ubits-spacing-12) * 2.5);
   width: max-content;
-  max-width: 400px;
-  background: var(--ubits-bg-1);
-  border: 1px solid var(--ubits-border-1);
-  border-radius: var(--ubits-border-radius-md, 8px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: calc(var(--ubits-spacing-12) * 5);
+  background: var(--modifiers-normal-color-light-bg-1);
+  border: 1px solid var(--modifiers-normal-color-light-border-1);
+  border-radius: var(--ubits-border-radius-md);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* No hay equivalente exacto en Figma */
   list-style: none;
   margin: 0;
-  padding: var(--ubits-spacing-xs, 4px);
+  padding: var(--ubits-spacing-xs);
   z-index: 1001;
   opacity: 0;
   visibility: hidden;
-  transform: translateX(-8px);
+  transform: translateX(calc(var(--ubits-spacing-sm) * -1));
   transition: all 0.2s ease;
 }
 
@@ -338,23 +352,107 @@
    RESPONSIVE
    ======================================== */
 
+/* ========================================
+   DARK MODE
+   ======================================== */
+
+[data-theme="dark"] .ubits-menubar-link {
+  color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-menubar-link:hover:not(:disabled) {
+  background: var(--modifiers-normal-color-dark-bg-2);
+}
+
+[data-theme="dark"] .ubits-menubar-item--active > .ubits-menubar-link {
+  background-color: var(--modifiers-normal-color-dark-bg-1);
+  color: var(--modifiers-normal-color-dark-accent-brand);
+}
+
+[data-theme="dark"] .ubits-menubar-item--active > .ubits-menubar-link::before {
+  background-color: var(--modifiers-normal-color-dark-bg-active);
+}
+
+[data-theme="dark"] .ubits-menubar-item--active > .ubits-menubar-link .ubits-menubar-label {
+  color: var(--modifiers-normal-color-dark-accent-brand);
+}
+
+[data-theme="dark"] .ubits-menubar-item--active > .ubits-menubar-link .ubits-menubar-icon {
+  color: var(--modifiers-normal-color-dark-accent-brand);
+}
+
+[data-theme="dark"] .ubits-menubar-icon {
+  color: var(--modifiers-normal-color-dark-fg-1-medium);
+}
+
+[data-theme="dark"] .ubits-menubar-chevron {
+  color: var(--modifiers-normal-color-dark-fg-1-medium);
+}
+
+[data-theme="dark"] .ubits-menubar-dropdown {
+  background: var(--modifiers-normal-color-dark-bg-1);
+  border-color: var(--modifiers-normal-color-dark-border-1);
+}
+
+[data-theme="dark"] .ubits-menubar-submenu-link {
+  color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-menubar-submenu-link:hover:not(:disabled) {
+  background: var(--modifiers-normal-color-dark-bg-2);
+}
+
+[data-theme="dark"] .ubits-menubar-submenu-item--active > .ubits-menubar-submenu-link {
+  background-color: var(--modifiers-normal-color-dark-bg-1);
+  color: var(--modifiers-normal-color-dark-accent-brand);
+}
+
+[data-theme="dark"] .ubits-menubar-submenu-item--active > .ubits-menubar-submenu-link::before {
+  background-color: var(--modifiers-normal-color-dark-bg-active);
+}
+
+[data-theme="dark"] .ubits-menubar-submenu-item--active > .ubits-menubar-submenu-link .ubits-menubar-submenu-label {
+  color: var(--modifiers-normal-color-dark-accent-brand);
+}
+
+[data-theme="dark"] .ubits-menubar-submenu-item--active > .ubits-menubar-submenu-link .ubits-menubar-submenu-icon {
+  color: var(--modifiers-normal-color-dark-accent-brand);
+}
+
+[data-theme="dark"] .ubits-menubar-submenu-icon {
+  color: var(--modifiers-normal-color-dark-fg-1-medium);
+}
+
+[data-theme="dark"] .ubits-menubar-submenu-chevron {
+  color: var(--modifiers-normal-color-dark-fg-1-medium);
+}
+
+[data-theme="dark"] .ubits-menubar-submenu {
+  background: var(--modifiers-normal-color-dark-bg-1);
+  border-color: var(--modifiers-normal-color-dark-border-1);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
 @media (max-width: 768px) {
   .ubits-menubar {
     flex-wrap: wrap;
-    padding: var(--ubits-spacing-xs, 4px);
+    padding: var(--ubits-spacing-xs);
   }
   
   .ubits-menubar-link {
-    padding: var(--ubits-spacing-xs, 8px) var(--ubits-spacing-sm, 12px);
-    font-size: var(--font-body-sm-size);
+    padding: var(--ubits-spacing-sm) var(--ubits-spacing-sm);
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
   }
   
   .ubits-menubar-dropdown {
     position: fixed;
-    left: var(--ubits-spacing-md, 16px);
-    right: var(--ubits-spacing-md, 16px);
+    left: var(--ubits-spacing-md);
+    right: var(--ubits-spacing-md);
     width: auto;
-    max-width: calc(100vw - 32px);
+    max-width: calc(100vw - calc(var(--ubits-spacing-md) * 2));
   }
 }
 

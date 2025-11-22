@@ -8,6 +8,8 @@ Este documento describe los pasos **exactos** que sigo para migrar un componente
 
 **⚠️ VERIFICACIÓN CRÍTICA DE TOKENS**: Antes de usar cualquier token, VERIFICAR que existe en el archivo generado (`packages/tokens/dist/figma-tokens.css` o `packages/tokens/tokens.json`). NO asumir que un token existe solo porque está en el `token-mapping.json`. Si el token no existe, usar el token UBITS equivalente que SÍ existe.
 
+**🚨 REGLA CRÍTICA: MANTENER MEDIDAS ORIGINALES**: **NUNCA cambiar las medidas (anchos, alturas, dimensiones) de los componentes durante la migración**. Si un componente tiene `width: 240px`, debe mantenerse como `240px` (NO convertir a `calc(var(--ubits-spacing-12) * 3)` que podría dar un valor diferente). Las medidas originales son parte del diseño y deben respetarse exactamente. Solo migrar tokens de color, tipografía, spacing interno, border-radius y effects. Las dimensiones del componente (width, height, min-width, max-width, etc.) deben mantenerse en píxeles exactos o en las unidades originales.
+
 **Tiempo estimado total**: 4-6 horas por componente
 
 ---
@@ -239,24 +241,49 @@ letter-spacing: var(--modifiers-normal-body-sm-regular-letterspacing, 0%);
 
 **⚠️ PROBLEMA CRÍTICO: Font-weight Strings vs Numéricos**
 
-Los tokens de Figma para `font-weight` devuelven strings ("Regular", "SemiBold", "Bold") en lugar de números. Esto causa problemas en CSS.
+Los tokens de Figma para `font-weight` devuelven strings ("Regular", "SemiBold", "Bold") en lugar de números. Esto causa problemas en CSS porque `font-weight` necesita valores numéricos (400, 600, 700) o palabras clave ("normal", "bold").
 
-**Solución:**
-1. Crear tokens numéricos en `tokens.css`:
-   ```css
-   --ubits-font-weight-regular: 400;
-   --ubits-font-weight-semibold: 600;
-   --ubits-font-weight-bold: 700;
-   ```
+**Síntomas del problema:**
+- Los logs muestran `font-weight: 400` cuando debería ser `700` (bold)
+- El token `--ubits-font-weight-bold` está vacío o no existe
+- Los textos que deberían estar en bold aparecen en peso normal
 
-2. Reemplazar tokens de Figma con strings por tokens numéricos UBITS:
-   ```css
-   /* ❌ INCORRECTO - Devuelve "SemiBold" (string) */
-   font-weight: var(--modifiers-normal-body-md-semibold-fontweight);
-   
-   /* ✅ CORRECTO - Devuelve 600 (número) */
-   font-weight: var(--ubits-font-weight-semibold, 600);
-   ```
+**Solución CORRECTA (usar tokens de Figma con fallback numérico):**
+
+**❌ INCORRECTO - Token que no existe:**
+```css
+font-weight: var(--ubits-font-weight-bold); /* Token vacío, devuelve nada */
+```
+
+**❌ INCORRECTO - Token de Figma sin fallback (devuelve string):**
+```css
+font-weight: var(--modifiers-normal-body-md-bold-fontweight); /* Devuelve "Bold" (string) */
+```
+
+**✅ CORRECTO - Token de Figma con fallback numérico:**
+```css
+/* Para body-sm-bold */
+font-weight: var(--modifiers-normal-body-sm-bold-fontweight, 700) !important;
+
+/* Para body-md-bold */
+font-weight: var(--modifiers-normal-body-md-bold-fontweight, 700) !important;
+
+/* Para heading-h2 (bold) */
+font-weight: var(--modifiers-normal-heading-h2-fontweight, 700) !important;
+
+/* Para semibold */
+font-weight: var(--modifiers-normal-body-md-semibold-fontweight, 600) !important;
+```
+
+**Tokens disponibles de Figma con fallback:**
+- `--modifiers-normal-body-sm-bold-fontweight, 700` - Bold para body small
+- `--modifiers-normal-body-md-bold-fontweight, 700` - Bold para body medium
+- `--modifiers-normal-body-lg-bold-fontweight, 700` - Bold para body large
+- `--modifiers-normal-heading-h2-fontweight, 700` - Bold para heading h2
+- `--modifiers-normal-body-sm-semibold-fontweight, 600` - Semibold para body small
+- `--modifiers-normal-body-md-semibold-fontweight, 600` - Semibold para body medium
+
+**⚠️ IMPORTANTE**: Siempre usar `!important` cuando se necesita forzar el bold, especialmente si hay otros estilos que puedan sobrescribirlo.
 
 **⚠️ PROBLEMA: Tokens Antiguos de Typography**
 
@@ -290,6 +317,8 @@ font-size: var(--modifiers-normal-heading-h2-fontsize, 18px);
 #### 2.3 Migrar Tokens de Spacing
 
 **🎯 REGLA DE ORO**: Todos los tokens de spacing existen en Storybook y tokens.json. **CRÍTICO**: Verificar que el token existe antes de usarlo. Los tokens `--p-spacing-mode-1-xs/sm/md/lg/xl` NO existen en el archivo generado. Usar `--ubits-spacing-*` directamente. NUNCA dejar hardcodeado.
+
+**🚨 REGLA CRÍTICA: NO CAMBIAR MEDIDAS DE COMPONENTES**: **NUNCA convertir medidas de componentes (width, height, min-width, max-width) a tokens de spacing**. Si un componente tiene `width: 240px`, mantenerlo como `240px`. NO convertir a `calc(var(--ubits-spacing-12) * 3)` porque esto podría cambiar el tamaño del componente. Solo migrar spacing interno (padding, gap, margin) a tokens. Las dimensiones del componente deben mantenerse exactas.
 
 **⚠️ PROBLEMA CRÍTICO IDENTIFICADO:**
 
@@ -349,6 +378,35 @@ padding: var(--p-spacing-mode-1-md) var(--p-spacing-mode-1-lg);
 gap: var(--ubits-spacing-sm);
 padding: var(--ubits-spacing-md) var(--ubits-spacing-lg);
 ```
+
+**🚨 ERROR CRÍTICO: NO CAMBIAR MEDIDAS DE COMPONENTES**
+```css
+/* ❌ INCORRECTO - Cambiar dimensiones del componente */
+.ubits-popover--width-sm {
+    width: calc(var(--ubits-spacing-12) * 3); /* 240px → podría dar 216px o 224px */
+}
+
+.ubits-participants-menu {
+    min-width: calc(var(--ubits-spacing-12) * 3.5); /* Cambia el tamaño original */
+}
+
+/* ✅ CORRECTO - Mantener medidas exactas originales */
+.ubits-popover--width-sm {
+    width: 240px; /* Mantener exactamente como estaba */
+}
+
+.ubits-participants-menu {
+    min-width: 280px; /* Mantener exactamente como estaba */
+}
+
+/* ✅ CORRECTO - Migrar spacing interno */
+.ubits-popover__header {
+    padding: var(--ubits-spacing-md); /* 12px → token correcto */
+    gap: var(--ubits-spacing-xs); /* 4px → token correcto */
+}
+```
+
+**Regla**: Solo migrar spacing interno (`padding`, `gap`, `margin`, `border-width`). Las dimensiones del componente (`width`, `height`, `min-width`, `max-width`, `min-height`, `max-height`) deben mantenerse exactas en píxeles o en las unidades originales.
 
 **Tokens disponibles:**
 - **UBITS (Storybook)**: `--ubits-spacing-none`, `--ubits-spacing-xs`, `--ubits-spacing-sm`, `--ubits-spacing-md`, `--ubits-spacing-lg`, `--ubits-spacing-xl`, `--ubits-spacing-2xl`, etc.
@@ -879,9 +937,12 @@ node scripts/fix-dark-mode-tokens.cjs
 18. **NO usar tokens de spacing que no existen** - Los tokens `--p-spacing-mode-1-xs/sm/md/lg/xl` NO existen en `figma-tokens.css`. Siempre usar `--ubits-spacing-*` directamente. Antes de reemplazar un spacing, verificar el valor en px y mapear correctamente (4px=xs, 8px=sm, 12px=md, 16px=lg, 20px=xl).
 19. **VERIFICAR tokens antes de usarlos** - Antes de usar cualquier token, verificar que existe en `packages/tokens/dist/figma-tokens.css` o `packages/tokens/tokens.json`. NO asumir que existe solo porque está en `token-mapping.json`. Si el token no existe, usar el token UBITS equivalente.
 20. **Mapear spacing correctamente** - Al reemplazar un spacing, verificar el valor en px del original y mapear correctamente: `4px` → `--ubits-spacing-xs`, `8px` → `--ubits-spacing-sm`, `12px` → `--ubits-spacing-md`, `16px` → `--ubits-spacing-lg`, `20px` → `--ubits-spacing-xl`.
-18. **NO olvidar agregar soporte dark mode** - Ejecutar `fix-dark-mode-tokens.cjs` después de migrar tokens para que los componentes funcionen en dark mode
-19. **NO dejar tokens `-light-` en reglas `[data-theme="dark"]`** - Reemplazar con tokens `-dark-` explícitos en reglas específicas
-20. **⚠️ NO usar token morado en lugar de azul para progreso** - **CRÍTICO**: Para estados de progreso, barras de progreso y textos "En progreso" en light mode, usar `--modifiers-normal-color-light-accent-brand` (AZUL #0c5bef), NO `--modifiers-static-inverted-color-light-accent-brand` (MORADO #3865f5). El token morado es solo para casos específicos de diseño estático invertido. Ver sección 2.1 para más detalles.
+21. **NO olvidar agregar soporte dark mode** - Ejecutar `fix-dark-mode-tokens.cjs` después de migrar tokens para que los componentes funcionen en dark mode
+22. **NO dejar tokens `-light-` en reglas `[data-theme="dark"]`** - Reemplazar con tokens `-dark-` explícitos en reglas específicas
+23. **⚠️ NO usar token morado en lugar de azul para progreso** - **CRÍTICO**: Para estados de progreso, barras de progreso y textos "En progreso" en light mode, usar `--modifiers-normal-color-light-accent-brand` (AZUL #0c5bef), NO `--modifiers-static-inverted-color-light-accent-brand` (MORADO #3865f5). El token morado es solo para casos específicos de diseño estático invertido. Ver sección 2.1 para más detalles.
+24. **🚨 NO CAMBIAR MEDIDAS DE COMPONENTES** - **CRÍTICO**: NUNCA convertir medidas de componentes (width, height, min-width, max-width, dimensiones específicas) a tokens de spacing usando `calc()`. Si un componente tiene `width: 240px`, mantenerlo como `240px`. NO convertir a `calc(var(--ubits-spacing-12) * 3)` porque esto podría cambiar el tamaño del componente y reducir horizontalmente los elementos. Solo migrar spacing interno (padding, gap, margin) a tokens. Las dimensiones del componente (width, height, min-width, max-width, etc.) deben mantenerse exactas en píxeles o en las unidades originales. Esto ha causado problemas en varios componentes (Popover, Participants Menu, etc.) donde se redujeron los anchos al convertir a tokens.
+
+25. **⚠️ FONT-WEIGHT BOLD NO FUNCIONA - Token Inexistente o String** - **CRÍTICO**: Los textos que deberían estar en bold no se muestran en bold. **Causa**: El token `--ubits-font-weight-bold` NO existe o está vacío. Los tokens de Figma `--modifiers-normal-*-bold-fontweight` devuelven strings ("Bold") en lugar de números (700), lo que CSS no puede usar directamente. **Síntomas**: Los logs muestran `font-weight: 400` cuando debería ser `700`, o el token está vacío. **Solución**: Usar tokens de Figma con fallback numérico: `var(--modifiers-normal-body-sm-bold-fontweight, 700) !important` para body-sm-bold, `var(--modifiers-normal-body-md-bold-fontweight, 700) !important` para body-md-bold, `var(--modifiers-normal-heading-h2-fontweight, 700) !important` para heading-h2. **Ver sección 2.2 para más detalles y ejemplos completos.**
 
 ---
 

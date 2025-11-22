@@ -250,12 +250,12 @@ export const Default: Story = {
     // Crear contenedor
     const container = document.createElement('div');
     container.style.cssText = `
-      width: 320px;
-      height: 600px;
-      background: var(--ubits-bg-1, #ffffff);
+      width: calc(var(--ubits-spacing-12) * 6.5);
+      height: calc(var(--ubits-spacing-12) * 10);
+      background: var(--modifiers-normal-color-light-bg-1);
       position: relative;
       border: none;
-      border-radius: var(--ubits-border-radius-md, 6px);
+      border-radius: var(--ubits-border-radius-md);
       overflow: hidden;
     `;
 
@@ -481,7 +481,7 @@ export const Default: Story = {
           }
         } catch (error) {
           console.error('[Story] Error:', error);
-          menuContainer.innerHTML = '<p style="color: var(--ubits-feedback-error-text); padding: 16px;">Error al crear el menú</p>';
+          menuContainer.innerHTML = '<p style="color: var(--modifiers-normal-color-light-feedback-accent-error); padding: var(--ubits-spacing-lg);">Error al crear el menú</p>';
         }
       }, 0);
     };

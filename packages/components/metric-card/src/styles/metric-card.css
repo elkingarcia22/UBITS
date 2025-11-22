@@ -12,11 +12,11 @@
   /* Base styles usando tokens UBITS */
   display: flex;
   flex-direction: column;
-  background: var(--ubits-bg-1);
-  border-radius: 8px;
-  padding: 12px;
+  background: var(--modifiers-normal-color-light-bg-1);
+  border-radius: var(--ubits-border-radius-sm);
+  padding: var(--ubits-spacing-sm);
   gap: var(--ubits-spacing-md);
-  font-family: var(--font-sans);
+  font-family: var(--font-family-noto-sans-font-family);
   transition: all 0.2s ease;
   width: 100%;
   box-sizing: border-box;
@@ -30,17 +30,17 @@
    ======================================== */
 
 .ubits-metric-card--sm {
-  padding: 12px;
+  padding: var(--ubits-spacing-sm);
   gap: var(--ubits-spacing-sm);
 }
 
 .ubits-metric-card--md {
-  padding: 12px;
+  padding: var(--ubits-spacing-sm);
   gap: var(--ubits-spacing-md);
 }
 
 .ubits-metric-card--lg {
-  padding: 12px;
+  padding: var(--ubits-spacing-sm);
   gap: var(--ubits-spacing-lg);
 }
 
@@ -61,9 +61,9 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
-  color: var(--ubits-fg-2-medium);
+  width: var(--ubits-spacing-6);
+  height: var(--ubits-spacing-6);
+  color: var(--modifiers-normal-color-light-fg-2-medium);
 }
 
 .ubits-metric-card__title-group {
@@ -71,12 +71,16 @@
   align-items: center;
   gap: var(--ubits-spacing-xs);
   flex: 1;
+  min-width: 0; /* Permite que el flex item se contraiga */
 }
 
 .ubits-metric-card__title {
   margin: 0;
-  font-family: var(--font-sans);
-  color: var(--ubits-fg-1-high);
+  font-family: var(--font-family-noto-sans-font-family);
+  color: var(--modifiers-normal-color-light-fg-1-high);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Botón terciario de información justo después del título */
@@ -116,15 +120,15 @@
 }
 
 .ubits-metric-card__value {
-  color: var(--ubits-fg-1-high);
-  font-weight: var(--weight-semibold);
+  color: var(--modifiers-normal-color-light-fg-1-high);
+  font-weight: var(--ubits-font-weight-semibold);
   margin: 0;
   line-height: 1.2;
 }
 
 .ubits-metric-card__label {
-  color: var(--ubits-fg-2-medium);
-  font-weight: var(--weight-regular);
+  color: var(--modifiers-normal-color-light-fg-2-medium);
+  font-weight: var(--ubits-font-weight-regular);
   margin: 0;
 }
 
@@ -137,12 +141,45 @@
 }
 
 .ubits-metric-card[data-clickable="true"]:hover {
-  background: var(--ubits-bg-2);
-  border-color: var(--ubits-border-2);
+  background: var(--modifiers-normal-color-light-bg-2);
+  border-color: var(--modifiers-normal-color-light-border-2);
 }
 
 .ubits-metric-card[data-clickable="true"]:active {
-  background: var(--ubits-bg-3);
+  background: var(--modifiers-normal-color-light-bg-3);
+}
+
+/* ========================================
+   DARK MODE
+   ======================================== */
+
+[data-theme="dark"] .ubits-metric-card {
+  background: var(--modifiers-normal-color-dark-bg-1);
+}
+
+[data-theme="dark"] .ubits-metric-card__title-icon {
+  color: var(--modifiers-normal-color-dark-fg-2-medium);
+}
+
+[data-theme="dark"] .ubits-metric-card__title {
+  color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-metric-card__value {
+  color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-metric-card__label {
+  color: var(--modifiers-normal-color-dark-fg-2-medium);
+}
+
+[data-theme="dark"] .ubits-metric-card[data-clickable="true"]:hover {
+  background: var(--modifiers-normal-color-dark-bg-2);
+  border-color: var(--modifiers-normal-color-dark-border-2);
+}
+
+[data-theme="dark"] .ubits-metric-card[data-clickable="true"]:active {
+  background: var(--modifiers-normal-color-dark-bg-3);
 }
 
 /* ========================================

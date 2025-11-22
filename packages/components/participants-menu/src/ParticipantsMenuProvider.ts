@@ -114,8 +114,8 @@ function renderParticipant(
   ].filter(Boolean).join(' ');
   
   const nameColor = isSelected 
-    ? 'var(--ubits-button-active-fg, var(--ubits-accent-brand-static, #0c5bef))' 
-    : 'var(--ubits-fg-1-high, #303a47)';
+    ? 'var(--modifiers-normal-color-light-accent-brand)' 
+    : 'var(--modifiers-normal-color-light-fg-1-high)';
   
   const statusTag = (showStatusTag && participant.status) ? renderParticipantStatusTag(participant.status) : '';
   const avatar = showAvatar ? renderParticipantAvatar(participant) : '';
@@ -124,15 +124,15 @@ function renderParticipant(
     <div class="${itemClasses}" data-participant-id="${escapeHtml(participant.id)}" style="
       display: flex;
       align-items: center;
-      gap: var(--ubits-spacing-sm, 8px);
-      padding: 8px 12px;
-      max-height: 46px;
-      min-height: 46px;
+      gap: var(--ubits-spacing-sm);
+      padding: var(--ubits-spacing-sm) var(--ubits-spacing-md);
+      max-height: calc(var(--ubits-spacing-12) - var(--ubits-spacing-xs));
+      min-height: calc(var(--ubits-spacing-12) - var(--ubits-spacing-xs));
       box-sizing: border-box;
-      border-radius: var(--ubits-border-radius-md, 6px);
+      border-radius: var(--ubits-border-radius-md);
       cursor: pointer;
       transition: background-color 0.2s ease;
-      ${isSelected ? 'background-color: var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15));' : ''}
+      ${isSelected ? 'background-color: var(--modifiers-normal-color-light-bg-active);' : ''}
     ">
       ${avatar}
       <div class="ubits-participants-menu__item-content" style="
@@ -140,14 +140,14 @@ function renderParticipant(
         min-width: 0;
         display: flex;
         flex-direction: column;
-        gap: 0px;
+        gap: var(--ubits-spacing-none);
         justify-content: center;
       ">
         <div class="ubits-participants-menu__item-name ubits-body-sm-bold" style="
           color: ${nameColor};
-          font-size: var(--font-body-sm-size, 13px);
-          font-weight: var(--weight-bold, 700);
-          line-height: var(--font-body-sm-line, 19.5px);
+          font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+          font-weight: var(--ubits-font-weight-bold);
+          line-height: var(--modifiers-normal-body-sm-regular-lineheight);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -158,16 +158,16 @@ function renderParticipant(
         </div>
         ${showRole ? `
         <div class="ubits-participants-menu__item-role ubits-body-sm-regular" style="
-          color: var(--ubits-fg-1-medium, #5c646f);
-          font-size: var(--font-body-sm-size, 13px);
-          font-weight: var(--weight-regular, 400);
-          line-height: var(--font-body-sm-line, 19.5px);
+          color: var(--modifiers-normal-color-light-fg-1-medium);
+          font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+          font-weight: var(--ubits-font-weight-regular);
+          line-height: var(--modifiers-normal-body-sm-regular-lineheight);
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
           margin: 0;
           padding: 0;
-          margin-top: -2px;
+          margin-top: calc(var(--ubits-spacing-xs) * -0.5);
         ">
           ${escapeHtml(participant.role)}
         </div>
@@ -296,18 +296,18 @@ export function renderParticipantsMenu(options: ParticipantsMenuOptions): string
       <div class="ubits-participants-menu__header">
         <h2 class="ubits-participants-menu__title ubits-body-md-bold" style="
           margin: 0;
-          font-size: var(--font-body-md-size, 15px);
-          font-weight: var(--weight-bold, 700);
-          line-height: var(--font-body-md-line, 22.5px);
-          color: var(--ubits-fg-1-high, #303a47);
-          margin-bottom: var(--ubits-spacing-md, 16px);
+          font-size: var(--modifiers-normal-body-md-regular-fontsize);
+          font-weight: var(--ubits-font-weight-bold);
+          line-height: var(--modifiers-normal-body-md-regular-lineheight);
+          color: var(--modifiers-normal-color-light-fg-1-high);
+          margin-bottom: var(--ubits-spacing-md);
         ">
           ${escapeHtml(title)}
         </h2>
         <div class="ubits-participants-menu__search-container" style="
           display: flex;
-          gap: var(--ubits-spacing-sm, 8px);
-          margin-bottom: var(--ubits-spacing-md, 16px);
+          gap: var(--ubits-spacing-sm);
+          margin-bottom: var(--ubits-spacing-md);
         ">
           <div class="ubits-participants-menu__search-input-wrapper" style="
             flex: 1;
@@ -460,26 +460,26 @@ export function createParticipantsMenu(options: ParticipantsMenuOptions): {
       }).join('');
 
       return `
-        <div class="ubits-participants-menu__filters-container" style="padding: var(--ubits-spacing-lg, 24px);">
-          <div style="margin-bottom: var(--ubits-spacing-lg, 24px);">
+        <div class="ubits-participants-menu__filters-container" style="padding: var(--ubits-spacing-6);">
+          <div style="margin-bottom: var(--ubits-spacing-6);">
             <h3 style="
-              font-size: var(--font-body-md-size, 15px);
-              font-weight: var(--weight-bold, 700);
-              color: var(--ubits-fg-1-high, #303a47);
-              margin: 0 0 var(--ubits-spacing-md, 16px) 0;
+              font-size: var(--modifiers-normal-body-md-regular-fontsize);
+              font-weight: var(--ubits-font-weight-bold);
+              color: var(--modifiers-normal-color-light-fg-1-high);
+              margin: 0 0 var(--ubits-spacing-md) 0;
             ">Rol</h3>
-            <div style="display: flex; flex-direction: column; gap: var(--ubits-spacing-sm, 8px);">
+            <div style="display: flex; flex-direction: column; gap: var(--ubits-spacing-sm);">
               ${rolesHTML}
             </div>
           </div>
-          <div style="margin-bottom: var(--ubits-spacing-lg, 24px);">
+          <div style="margin-bottom: var(--ubits-spacing-6);">
             <h3 style="
-              font-size: var(--font-body-md-size, 15px);
-              font-weight: var(--weight-bold, 700);
-              color: var(--ubits-fg-1-high, #303a47);
-              margin: 0 0 var(--ubits-spacing-md, 16px) 0;
+              font-size: var(--modifiers-normal-body-md-regular-fontsize);
+              font-weight: var(--ubits-font-weight-bold);
+              color: var(--modifiers-normal-color-light-fg-1-high);
+              margin: 0 0 var(--ubits-spacing-md) 0;
             ">Estado</h3>
-            <div style="display: flex; flex-direction: column; gap: var(--ubits-spacing-sm, 8px);">
+            <div style="display: flex; flex-direction: column; gap: var(--ubits-spacing-sm);">
               ${statusesHTML}
             </div>
           </div>
@@ -817,7 +817,7 @@ export function createParticipantsMenu(options: ParticipantsMenuOptions): {
             previousItem.classList.remove('ubits-participants-menu__item--selected');
             const previousName = previousItem.querySelector('.ubits-participants-menu__item-name') as HTMLElement;
             if (previousName) {
-              previousName.style.color = 'var(--ubits-fg-1-high, #303a47)';
+              previousName.style.color = 'var(--modifiers-normal-color-light-fg-1-high)';
             }
             (previousItem as HTMLElement).style.backgroundColor = '';
           });
@@ -826,10 +826,10 @@ export function createParticipantsMenu(options: ParticipantsMenuOptions): {
           item.classList.add('ubits-participants-menu__item--selected');
           const newName = item.querySelector('.ubits-participants-menu__item-name') as HTMLElement;
           if (newName) {
-            newName.style.color = 'var(--ubits-button-active-fg, var(--ubits-accent-brand-static, #0c5bef))';
+            newName.style.color = 'var(--modifiers-normal-color-light-accent-brand)';
           } else {
           }
-          (item as HTMLElement).style.backgroundColor = 'var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15))';
+          (item as HTMLElement).style.backgroundColor = 'var(--modifiers-normal-color-light-bg-active)';
           
           // Verificar que solo un item esté seleccionado
           const allSelected = menuElement.querySelectorAll('.ubits-participants-menu__item--selected');
@@ -1090,7 +1090,7 @@ export function createParticipantsMenu(options: ParticipantsMenuOptions): {
               previousItem.classList.remove('ubits-participants-menu__item--selected');
               const previousName = previousItem.querySelector('.ubits-participants-menu__item-name') as HTMLElement;
               if (previousName) {
-                previousName.style.color = 'var(--ubits-fg-1-high, #303a47)';
+                previousName.style.color = 'var(--modifiers-normal-color-light-fg-1-high)';
               }
               (previousItem as HTMLElement).style.backgroundColor = '';
             });
@@ -1099,9 +1099,9 @@ export function createParticipantsMenu(options: ParticipantsMenuOptions): {
             newItem.classList.add('ubits-participants-menu__item--selected');
             const newName = newItem.querySelector('.ubits-participants-menu__item-name') as HTMLElement;
             if (newName) {
-              newName.style.color = 'var(--ubits-button-active-fg, var(--ubits-accent-brand-static, #0c5bef))';
+              newName.style.color = 'var(--modifiers-normal-color-light-accent-brand)';
             }
-            (newItem as HTMLElement).style.backgroundColor = 'var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15))';
+            (newItem as HTMLElement).style.backgroundColor = 'var(--modifiers-normal-color-light-bg-active)';
             
             // Llamar callback
             try {

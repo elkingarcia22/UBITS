@@ -1,24 +1,24 @@
 import type { ProgressOptions, ProgressSegment } from './types/ProgressOptions';
 
 /**
- * Mapeo de colores de segmentos a tokens UBITS
+ * Mapeo de colores de segmentos a tokens UBITS/Figma
  */
 const COLOR_TOKENS: Record<string, string> = {
-  yellow: 'var(--ubits-fg-yellow-subtle-inverted, #ffd555)',
-  green: 'var(--ubits-feedback-accent-success, #56ce51)',
-  gray: 'var(--ubits-bg-4, #dbdde0)',
-  info: 'var(--ubits-feedback-accent-info-static-inverted, #4a74ee)',
-  error: 'var(--ubits-button-badge, #cf0e34)'
+  yellow: 'var(--modifiers-normal-color-light-feedback-chart-warning-bold)',
+  green: 'var(--modifiers-normal-color-light-feedback-accent-success)',
+  gray: 'var(--modifiers-normal-color-light-bg-4)',
+  info: 'var(--modifiers-normal-color-light-feedback-chart-info-bold)',
+  error: 'var(--modifiers-normal-color-light-feedback-accent-error)'
 };
 
 /**
- * Tamaños del progress bar en píxeles
+ * Tamaños del progress bar en píxeles - MANTENER MEDIDAS EXACTAS ORIGINALES
  */
 const PROGRESS_SIZES: Record<string, { height: number; indicatorFontSize: string }> = {
-  xs: { height: 4, indicatorFontSize: 'var(--font-body-xs-size, 11px)' },
-  sm: { height: 8, indicatorFontSize: 'var(--font-body-sm-size, 13px)' },
-  md: { height: 16, indicatorFontSize: 'var(--font-body-md-size, 16px)' },
-  lg: { height: 20, indicatorFontSize: 'var(--font-body-lg-size, 18px)' }
+  xs: { height: 4, indicatorFontSize: 'var(--modifiers-normal-body-xs-regular-fontsize)' },
+  sm: { height: 8, indicatorFontSize: 'var(--modifiers-normal-body-sm-regular-fontsize)' },
+  md: { height: 16, indicatorFontSize: 'var(--modifiers-normal-body-md-regular-fontsize)' },
+  lg: { height: 20, indicatorFontSize: 'var(--modifiers-normal-body-lg-regular-fontsize)' }
 };
 
 /**

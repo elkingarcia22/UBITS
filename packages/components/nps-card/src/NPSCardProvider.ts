@@ -23,10 +23,10 @@ function renderSemicircularGauge(
   score: number,
   size: number = 200,
   strokeWidth: number = 16,
-  lowColor: string = 'var(--ubits-semantic-error, #E53E3E)',
-  mediumColor: string = 'var(--ubits-semantic-warning, #F6AD55)',
-  highColor: string = 'var(--ubits-semantic-success, #38A169)',
-  backgroundColor: string = 'var(--ubits-bg-3)'
+    lowColor: string = 'var(--modifiers-normal-color-light-feedback-accent-error)',
+    mediumColor: string = 'var(--modifiers-normal-color-light-feedback-accent-warning)',
+    highColor: string = 'var(--modifiers-normal-color-light-feedback-accent-success)',
+    backgroundColor: string = 'var(--modifiers-normal-color-light-bg-3)'
 ): string {
   // Calcular dimensiones
   const padding = strokeWidth / 2;
@@ -57,7 +57,7 @@ function renderSemicircularGauge(
   const backgroundPath = `M ${startCoords.x} ${startCoords.y} A ${radius} ${radius} 0 1 1 ${endCoords.x} ${endCoords.y}`;
   
   // Usar el mismo color azul que el circle metric card
-  const progressColor = 'var(--ubits-chart-color-bg-neutral-blue-base, #557593)';
+  const progressColor = 'var(--modifiers-normal-chart-color-bg-neutral-blue-base)';
   
   // Calcular el ángulo del score (0-100 mapeado a 180-0 grados pasando por 270°)
   let scoreAngle: number;
@@ -132,13 +132,13 @@ function renderSemicircularGauge(
       <text
         x="${textPos.x}"
         y="${textPos.y}"
-        font-family="var(--font-sans)"
-        font-size="var(--font-body-sm-size, 13px)"
-        font-weight="var(--weight-regular, 400)"
-        fill="var(--ubits-fg-2-medium)"
+        font-family="var(--font-family-noto-sans-font-family)"
+        font-size="var(--modifiers-normal-body-sm-regular-fontsize)"
+        font-weight="var(--ubits-font-weight-regular)"
+        fill="var(--modifiers-normal-color-light-fg-2-medium)"
         text-anchor="middle"
         dominant-baseline="middle"
-        style="font-size: var(--font-body-sm-size, 13px) !important; font-weight: var(--weight-regular, 400) !important; font-family: var(--font-sans) !important;"
+        style="font-size: var(--modifiers-normal-body-sm-regular-fontsize) !important; font-weight: var(--ubits-font-weight-regular) !important; font-family: var(--font-family-noto-sans-font-family) !important;"
       >${mark}</text>
     `;
   }).join('');
@@ -227,11 +227,18 @@ function renderCategory(
     ? 'ubits-body-md-regular'
     : 'ubits-body-sm-regular';
   
-  const percentageClass = size === 'sm'
-    ? 'ubits-body-sm-bold'
-    : size === 'lg'
-    ? 'ubits-body-md-bold'
-    : 'ubits-body-sm-bold';
+  const percentageClass = 'ubits-body-md-bold';
+  
+  // Logs para debugging
+  console.log('🔍 [NPSCard] renderCategory - Debug:', {
+    categoryLabel: category.label,
+    percentage,
+    size,
+    percentageClass,
+    labelClass,
+    valueClass,
+    generatedHTML: `<span class="ubits-nps-card__category-percentage ${percentageClass}">${percentage}%</span>`
+  });
   
   return `
     <div class="ubits-nps-card__category">
@@ -263,10 +270,10 @@ export function renderNPSCard(options: NPSCardOptions): string {
     showCategories = true,
     showInfoIcon = false,
     showActionButton = false,
-    lowColor = 'var(--ubits-semantic-error, #E53E3E)',
-    mediumColor = 'var(--ubits-semantic-warning, #F6AD55)',
-    highColor = 'var(--ubits-semantic-success, #38A169)',
-    gaugeBackgroundColor = 'var(--ubits-bg-3)',
+    lowColor = 'var(--modifiers-normal-color-light-feedback-accent-error)',
+    mediumColor = 'var(--modifiers-normal-color-light-feedback-accent-warning)',
+    highColor = 'var(--modifiers-normal-color-light-feedback-accent-success)',
+    gaugeBackgroundColor = 'var(--modifiers-normal-color-light-bg-3)',
     className = '',
     attributes = {}
   } = options;

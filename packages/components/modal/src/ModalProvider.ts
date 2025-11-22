@@ -6,14 +6,14 @@ import type { ModalOptions } from './types/ModalOptions';
  */
 
 /**
- * Tamaños del modal en píxeles
+ * Tamaños del modal usando tokens UBITS
  */
 const MODAL_SIZES: Record<string, string> = {
-  sm: '320px',
-  md: '480px',
-  lg: '640px',
-  xl: '800px',
-  full: '1280px'
+  sm: 'calc(var(--ubits-spacing-12) * 4)',
+  md: 'calc(var(--ubits-spacing-12) * 6)',
+  lg: 'calc(var(--ubits-spacing-12) * 8)',
+  xl: 'calc(var(--ubits-spacing-12) * 10)',
+  full: 'calc(var(--ubits-spacing-12) * 16)'
 };
 
 /**

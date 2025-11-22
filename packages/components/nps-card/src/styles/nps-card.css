@@ -12,11 +12,11 @@
   /* Base styles usando tokens UBITS */
   display: flex;
   flex-direction: column;
-  background: var(--ubits-bg-1);
-  border-radius: 8px;
-  padding: 8px 12px 12px 12px; /* Reducir padding superior */
-  gap: 0; /* Eliminar gap por defecto */
-  font-family: var(--font-sans);
+  background: var(--modifiers-normal-color-light-bg-1);
+  border-radius: var(--ubits-border-radius-sm);
+  padding: var(--ubits-spacing-xs) var(--ubits-spacing-sm) var(--ubits-spacing-sm) var(--ubits-spacing-sm);
+  gap: var(--ubits-spacing-none);
+  font-family: var(--font-family-noto-sans-font-family);
   transition: all 0.2s ease;
   width: 100%;
   max-width: 100%;
@@ -31,17 +31,17 @@
    ======================================== */
 
 .ubits-nps-card--sm {
-  padding: 12px;
+  padding: var(--ubits-spacing-sm);
   gap: var(--ubits-spacing-sm);
 }
 
 .ubits-nps-card--md {
-  padding: 12px;
+  padding: var(--ubits-spacing-sm);
   gap: var(--ubits-spacing-md);
 }
 
 .ubits-nps-card--lg {
-  padding: 12px;
+  padding: var(--ubits-spacing-sm);
   gap: var(--ubits-spacing-lg);
 }
 
@@ -71,7 +71,7 @@
   flex: 1;
   min-width: 0;
   /* Asegurar que el botón de acción no se solape */
-  padding-right: 40px; /* Espacio para el botón de acción */
+  padding-right: var(--ubits-spacing-10);
 }
 
 /* ========================================
@@ -80,8 +80,8 @@
 
 .ubits-nps-card__title {
   margin: 0;
-  font-family: var(--font-sans);
-  color: var(--ubits-fg-1-high);
+  font-family: var(--font-family-noto-sans-font-family);
+  color: var(--modifiers-normal-color-light-fg-1-high);
   text-align: left;
 }
 
@@ -92,8 +92,8 @@
 
 /* Contador de respuestas - ahora está debajo del título */
 .ubits-nps-card__responses-count {
-  color: var(--ubits-fg-2-medium);
-  font-family: var(--font-sans);
+  color: var(--modifiers-normal-color-light-fg-2-medium);
+  font-family: var(--font-family-noto-sans-font-family);
   margin: 0;
   white-space: nowrap;
   width: 100%;
@@ -131,7 +131,7 @@
   margin-top: calc(var(--ubits-spacing-lg) * -2);
   padding-top: 0;
   /* Mantener padding inferior cuando no hay categorías */
-  padding-bottom: 12px;
+  padding-bottom: var(--ubits-spacing-sm);
   /* Log para debugging - verificar dimensiones */
   /* background: rgba(0, 255, 0, 0.1); /* Descomentar para ver el área del content */
 }
@@ -151,20 +151,20 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 200px;
-  height: 200px;
+  width: calc(var(--ubits-spacing-12) * 2.5);
+  height: calc(var(--ubits-spacing-12) * 2.5);
 }
 
 .ubits-nps-card__gauge-svg {
   display: block;
-  width: 360px;
-  height: 360px;
+  width: calc(var(--ubits-spacing-12) * 4.5);
+  height: calc(var(--ubits-spacing-12) * 4.5);
   margin: 0;
   padding: 0;
   /* Eliminar espacio extra del SVG */
   vertical-align: top;
   /* Recortar espacio inferior */
-  margin-bottom: -60px;
+  margin-bottom: calc(var(--ubits-spacing-12) * -0.75);
 }
 
 .ubits-nps-card__gauge-progress {
@@ -179,7 +179,7 @@
 .ubits-nps-card__gauge-container {
   position: relative;
   display: inline-block;
-  width: 360px;
+  width: calc(var(--ubits-spacing-12) * 4.5);
   height: auto;
   /* Eliminar márgenes que causan espacio en blanco */
   margin: 0;
@@ -194,12 +194,12 @@
 .ubits-nps-card__gauge-wrapper {
   position: relative;
   display: inline-block;
-  width: 360px;
+  width: calc(var(--ubits-spacing-12) * 4.5);
   height: auto;
   margin: 0;
   padding: 0;
   /* Reducir espacio inferior */
-  margin-bottom: -60px;
+  margin-bottom: calc(var(--ubits-spacing-12) * -0.75);
   --text-position: 85%;
 }
 
@@ -220,29 +220,29 @@
 }
 
 .ubits-nps-card__gauge-score {
-  color: var(--ubits-fg-1-high);
-  font-family: var(--font-sans);
+  color: var(--modifiers-normal-color-light-fg-1-high);
+  font-family: var(--font-family-noto-sans-font-family);
   margin: 0;
 }
 
 /* Aplicar estilos display-3-bold cuando tenga la clase ubits-display-3-bold */
 .ubits-nps-card__gauge-score.ubits-display-3-bold {
-  font-size: var(--font-display-3-size, 32px);
-  line-height: var(--font-display-3-line, 40px);
-  font-weight: var(--weight-bold, 700);
+  font-size: var(--modifiers-normal-display-d3-bold-fontsize);
+  line-height: var(--modifiers-normal-display-d3-bold-lineheight);
+  font-weight: var(--ubits-font-weight-bold, 700);
 }
 
 .ubits-nps-card__gauge-label {
-  color: var(--ubits-fg-2-medium);
-  font-family: var(--font-sans);
+  color: var(--modifiers-normal-color-light-fg-2-medium);
+  font-family: var(--font-family-noto-sans-font-family);
   margin: 0;
 }
 
 /* Aplicar estilos sm-bold cuando tenga la clase ubits-body-sm-bold */
 .ubits-nps-card__gauge-label.ubits-body-sm-bold {
-  font-size: var(--font-body-sm-size, 13px);
-  line-height: var(--font-body-sm-line, 19.5px);
-  font-weight: var(--weight-bold, 700);
+  font-size: var(--modifiers-normal-body-sm-bold-fontsize);
+  line-height: var(--modifiers-normal-body-sm-bold-lineheight);
+  font-weight: var(--ubits-font-weight-bold, 700);
 }
 
 /* ========================================
@@ -268,44 +268,49 @@
 }
 
 .ubits-nps-card__category-indicator {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
+  width: var(--ubits-spacing-sm);
+  height: var(--ubits-spacing-sm);
+  border-radius: var(--ubits-border-radius-full);
   flex-shrink: 0;
 }
 
 .ubits-nps-card__category-label {
-  color: var(--ubits-fg-2-medium);
-  font-family: var(--font-sans);
+  color: var(--modifiers-normal-color-light-fg-2-medium);
+  font-family: var(--font-family-noto-sans-font-family);
   margin: 0;
   flex: 1;
   min-width: 0;
 }
 
 .ubits-nps-card__category-value {
-  color: var(--ubits-fg-1-high);
-  font-family: var(--font-sans);
+  color: var(--modifiers-normal-color-light-fg-1-high);
+  font-family: var(--font-family-noto-sans-font-family);
   margin: 0;
   flex-shrink: 0;
   white-space: nowrap;
 }
 
 .ubits-nps-card__category-percentage {
-  color: var(--ubits-fg-1-high);
-  font-family: var(--font-sans);
+  color: var(--modifiers-normal-color-light-fg-1-high);
+  font-family: var(--font-family-noto-sans-font-family);
 }
 
 /* Aplicar estilos bold cuando tenga la clase ubits-body-sm-bold */
-.ubits-nps-card__category-value .ubits-body-sm-bold {
-  font-size: var(--font-body-sm-size, 13px);
-  line-height: var(--font-body-sm-line, 19.5px);
-  font-weight: var(--weight-bold, 700);
+.ubits-nps-card__category-value .ubits-body-sm-bold,
+.ubits-nps-card__category-percentage.ubits-body-sm-bold {
+  font-size: var(--modifiers-normal-body-sm-bold-fontsize);
+  line-height: var(--modifiers-normal-body-sm-bold-lineheight);
+  font-weight: var(--ubits-font-weight-bold, 700);
 }
 
-.ubits-nps-card__category-value .ubits-body-md-bold {
-  font-size: var(--font-body-md-size, 16px);
-  line-height: var(--font-body-md-line, 24px);
-  font-weight: var(--weight-bold, 700);
+/* Aplicar estilos bold cuando tenga la clase ubits-body-md-bold */
+.ubits-nps-card__category-value .ubits-body-md-bold,
+.ubits-nps-card__category-percentage.ubits-body-md-bold,
+.ubits-nps-card__category-percentage.ubits-body-md-bold * {
+  font-size: var(--modifiers-normal-body-md-bold-fontsize) !important;
+  line-height: var(--modifiers-normal-body-md-bold-lineheight) !important;
+  font-weight: var(--ubits-font-weight-bold, 700) !important;
+  font-family: var(--font-family-noto-sans-font-family) !important;
 }
 
 /* ========================================
@@ -317,12 +322,12 @@
 }
 
 .ubits-nps-card[data-clickable="true"]:hover {
-  background: var(--ubits-bg-2);
-  border-color: var(--ubits-border-2);
+  background: var(--modifiers-normal-color-light-bg-2);
+  border-color: var(--modifiers-normal-color-light-border-2);
 }
 
 .ubits-nps-card[data-clickable="true"]:active {
-  background: var(--ubits-bg-3);
+  background: var(--modifiers-normal-color-light-bg-3);
 }
 
 /* ========================================
@@ -340,12 +345,57 @@
   }
   
   .ubits-nps-card__gauge-wrapper {
-    width: 180px;
-    height: 180px;
+    width: calc(var(--ubits-spacing-12) * 2.25);
+    height: calc(var(--ubits-spacing-12) * 2.25);
   }
   
   .ubits-nps-card__categories {
     gap: var(--ubits-spacing-sm);
   }
+}
+
+/* ========================================
+   DARK MODE
+   ======================================== */
+
+[data-theme="dark"] .ubits-nps-card {
+  background: var(--modifiers-normal-color-dark-bg-1);
+}
+
+[data-theme="dark"] .ubits-nps-card__title {
+  color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-nps-card__responses-count {
+  color: var(--modifiers-normal-color-dark-fg-2-medium);
+}
+
+[data-theme="dark"] .ubits-nps-card__gauge-score {
+  color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-nps-card__gauge-label {
+  color: var(--modifiers-normal-color-dark-fg-2-medium);
+}
+
+[data-theme="dark"] .ubits-nps-card__category-label {
+  color: var(--modifiers-normal-color-dark-fg-2-medium);
+}
+
+[data-theme="dark"] .ubits-nps-card__category-value {
+  color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-nps-card__category-percentage {
+  color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-nps-card[data-clickable="true"]:hover {
+  background: var(--modifiers-normal-color-dark-bg-2);
+  border-color: var(--modifiers-normal-color-dark-border-2);
+}
+
+[data-theme="dark"] .ubits-nps-card[data-clickable="true"]:active {
+  background: var(--modifiers-normal-color-dark-bg-3);
 }
 

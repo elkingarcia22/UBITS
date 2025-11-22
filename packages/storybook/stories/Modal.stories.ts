@@ -28,7 +28,7 @@ const meta: Meta<ModalOptions> = {
     size: {
       control: { type: 'select' },
       options: ['sm', 'md', 'lg', 'xl', 'full'],
-      description: 'Tamaño del modal (sm: 320px, md: 480px, lg: 640px, xl: 800px, full: 1280px).',
+      description: 'Tamaño del modal usando tokens UBITS (sm, md, lg, xl, full).',
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'md' },
@@ -117,8 +117,8 @@ export const Default: Story = {
     size: 'md',
     fullScreen: false,
     bodyContent: `
-      <div style="padding: 16px;">
-        <p style="margin: 0; font-size: var(--font-body-md-size, 16px); color: var(--ubits-fg-1-high); line-height: var(--font-body-md-line-height, 24px);">
+      <div style="padding: var(--ubits-spacing-lg);">
+        <p style="margin: 0; font-size: var(--modifiers-normal-body-md-regular-fontsize); color: var(--modifiers-normal-color-light-fg-1-high); line-height: var(--modifiers-normal-body-md-regular-lineheight);">
           Este es el contenido del modal. Puedes agregar cualquier contenido HTML aquí, como formularios, texto, imágenes, etc.
         </p>
       </div>
@@ -138,11 +138,11 @@ export const Default: Story = {
     container.style.height = '100vh';
     container.style.position = 'relative';
     container.style.overflow = 'hidden';
-    container.style.background = 'var(--ubits-bg-2, #f9fafb)';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
     container.style.display = 'flex';
     container.style.alignItems = 'center';
     container.style.justifyContent = 'center';
-    container.style.padding = '40px';
+    container.style.padding = 'var(--ubits-spacing-10)';
     
     const openButton = document.createElement('button');
     openButton.className = 'ubits-button ubits-button--primary ubits-button--md';

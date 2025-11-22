@@ -8,6 +8,8 @@ import type { MenuOptions, MenuSection, MenuItem, MenuBadge } from './types/Menu
 import { renderBadge } from '../../badge/src/BadgeProvider';
 import type { BadgeOptions } from '../../badge/src/types/BadgeOptions';
 import './styles/menu.css';
+// Importar estilos del Badge para que se carguen
+import '../../badge/src/styles/badge.css';
 
 // Helper para renderizar iconos FontAwesome
 function renderIconHelper(iconName: string, iconStyle: 'regular' | 'solid' = 'regular'): string {
@@ -20,9 +22,10 @@ function renderIconHelper(iconName: string, iconStyle: 'regular' | 'solid' = 're
 function renderMenuBadge(badge: MenuBadge): string {
   const badgeOptions: BadgeOptions = {
     content: typeof badge.content === 'number' ? String(badge.content) : badge.content,
-    variant: badge.variant || 'primary',
+    variant: badge.variant || 'error', // Cambiar de 'primary' a 'error' (primary ya no existe)
     type: 'number',
     size: 'sm',
+    style: 'light', // Usar style light para badges en menu
   };
   return renderBadge(badgeOptions);
 }
