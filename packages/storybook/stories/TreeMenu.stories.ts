@@ -272,12 +272,12 @@ function renderTreeNode(
   // Espaciado según modo (cascada o vertical)
   const paddingLeft = cascade 
     ? (size === 'xs'
-      ? `calc(var(--ubits-spacing-sm, 8px) * ${level})`
+      ? `calc(var(--p-spacing-mode-1-sm, 8px) * ${level})`
       : size === 'sm' 
-      ? `calc(var(--ubits-spacing-md, 16px) * ${level})` 
+      ? `calc(var(--p-spacing-mode-1-md, 16px) * ${level})` 
       : size === 'lg'
-      ? `calc(var(--ubits-spacing-lg, 24px) * ${level})`
-      : `calc(var(--ubits-spacing-md, 16px) * ${level})`)
+      ? `calc(var(--p-spacing-mode-1-lg, 24px) * ${level})`
+      : `calc(var(--p-spacing-mode-1-md, 16px) * ${level})`)
     : '0';
   
   // Tamaños de iconos y chevrons según tamaño (matching List component)
@@ -291,8 +291,8 @@ function renderTreeNode(
   // lg: padding 16px 20px, font-size 20px, line-height 30px, min-height 48px
   const padding = size === 'xs' ? '8px 12px' : size === 'sm' ? '10px 14px' : size === 'lg' ? '16px 20px' : '12px 16px';
   const minHeight = size === 'xs' ? '28px' : size === 'sm' ? '32px' : size === 'lg' ? '48px' : '40px';
-  const fontSize = size === 'xs' ? 'var(--font-body-xs-size)' : size === 'sm' ? 'var(--font-body-sm-size)' : size === 'lg' ? 'var(--font-body-lg-size)' : 'var(--font-body-md-size)';
-  const lineHeight = size === 'xs' ? 'var(--font-body-xs-line)' : size === 'sm' ? 'var(--font-body-sm-line)' : size === 'lg' ? 'var(--font-body-lg-line)' : 'var(--font-body-md-line)';
+  const fontSize = size === 'xs' ? 'var(--modifiers-normal-body-xs-regular-fontsize)' : size === 'sm' ? 'var(--modifiers-normal-body-sm-regular-fontsize)' : size === 'lg' ? 'var(--modifiers-normal-body-lg-regular-fontsize)' : 'var(--modifiers-normal-body-md-regular-fontsize)';
+  const lineHeight = size === 'xs' ? 'var(--modifiers-normal-body-xs-regular-lineheight)' : size === 'sm' ? 'var(--modifiers-normal-body-sm-regular-lineheight)' : size === 'lg' ? 'var(--modifiers-normal-body-lg-regular-lineheight)' : 'var(--modifiers-normal-body-md-regular-lineheight)';
   
   let html = `
     <div class="ubits-tree-node ${cascade ? 'ubits-tree-node--cascade' : 'ubits-tree-node--vertical'}" data-level="${level}" style="${cascade ? `padding-left: ${paddingLeft};` : ''}">
@@ -379,26 +379,26 @@ export const Default: Story = {
     // Crear contenedor principal
     const container = document.createElement('div');
     container.style.cssText = `
-      padding: var(--ubits-spacing-lg, 24px);
-      background: var(--ubits-bg-2, #F3F3F4);
-      border-radius: 8px;
+      padding: var(--p-spacing-mode-1-lg, 24px);
+      background: var(--modifiers-normal-color-light-bg-2);
+      border-radius: var(--ubits-border-radius-md, 8px);
       max-width: 600px;
     `;
     
     // Panel de información
     const infoPanel = document.createElement('div');
     infoPanel.style.cssText = `
-      padding: var(--ubits-spacing-md, 16px);
-      background: var(--ubits-bg-2, #f9fafb);
-      border-radius: 8px;
-      border: 1px solid var(--ubits-border-1, #e5e7eb);
-      margin-bottom: var(--ubits-spacing-lg, 24px);
+      padding: var(--p-spacing-mode-1-md, 16px);
+      background: var(--modifiers-normal-color-light-bg-2);
+      border-radius: var(--ubits-border-radius-md, 8px);
+      border: 1px solid var(--modifiers-normal-color-light-border-1);
+      margin-bottom: var(--p-spacing-mode-1-lg, 24px);
     `;
     infoPanel.innerHTML = `
       <div style="margin-bottom: 12px;">
-        <strong class="ubits-body-md-semibold" style="color: var(--ubits-fg-1-high, #303a47);">Configuración:</strong>
+        <strong class="ubits-body-md-semibold" style="color: var(--modifiers-normal-color-light-fg-1-high);">Configuración:</strong>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; font-size: 13px; color: var(--ubits-fg-1-medium, #5c646f);" class="ubits-body-sm-regular">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; font-size: 13px; color: var(--modifiers-normal-color-light-fg-1-medium);" class="ubits-body-sm-regular">
         <div><strong>Iconos:</strong> ${args.showIcons ? 'Sí' : 'No'}</div>
         <div><strong>Chevron:</strong> ${args.showChevron !== false ? 'Sí' : 'No'}</div>
         <div><strong>Niveles:</strong> ${args.maxLevels || 3}</div>
@@ -411,9 +411,9 @@ export const Default: Story = {
     // Contenedor del árbol
     const treeContainer = document.createElement('div');
     treeContainer.style.cssText = `
-      background: var(--ubits-bg-1, #ffffff);
-      border-radius: 8px;
-      padding: var(--ubits-spacing-md, 16px);
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: var(--ubits-border-radius-md, 8px);
+      padding: var(--p-spacing-mode-1-md, 16px);
     `;
     
     // Renderizar el árbol
@@ -438,14 +438,14 @@ export const Default: Story = {
         .ubits-tree-node__content {
           display: flex;
           align-items: center;
-          gap: var(--ubits-spacing-sm, 8px);
-          border-radius: 6px;
+          gap: var(--p-spacing-mode-1-sm, 8px);
+          border-radius: var(--ubits-border-radius-sm, 6px);
           cursor: ${args.maxLevels && args.maxLevels > 1 ? 'pointer' : 'default'};
           transition: all 0.2s ease;
-          color: var(--ubits-fg-1-high, #303a47);
+          color: var(--modifiers-normal-color-light-fg-1-high);
           background: transparent;
           position: relative;
-          font-family: var(--font-sans);
+          font-family: var(--font-family-noto-sans-font-family);
           box-sizing: border-box;
           margin: 0;
           border: none;
@@ -457,9 +457,9 @@ export const Default: Story = {
         /* xs: padding 8px 12px, font-size 11px, line-height 16.5px, min-height 28px */
         .ubits-tree-node__content[data-size="xs"] {
           padding: 8px 12px !important;
-          font-size: var(--font-body-xs-size) !important;
-          font-weight: var(--weight-regular) !important;
-          line-height: var(--font-body-xs-line) !important;
+          font-size: var(--modifiers-normal-body-xs-regular-fontsize) !important;
+          font-weight: var(--weight-regular, 400) !important;
+          line-height: var(--modifiers-normal-body-xs-regular-lineheight) !important;
           min-height: 28px !important;
           height: auto !important;
           margin: 0 !important;
@@ -468,9 +468,9 @@ export const Default: Story = {
         /* sm: padding 10px 14px, font-size 13px, line-height 19.5px, min-height 32px */
         .ubits-tree-node__content[data-size="sm"] {
           padding: 10px 14px !important;
-          font-size: var(--font-body-sm-size) !important;
-          font-weight: var(--weight-regular) !important;
-          line-height: var(--font-body-sm-line) !important;
+          font-size: var(--modifiers-normal-body-sm-regular-fontsize) !important;
+          font-weight: var(--weight-regular, 400) !important;
+          line-height: var(--modifiers-normal-body-sm-regular-lineheight) !important;
           min-height: 32px !important;
           height: auto !important;
           margin: 0 !important;
@@ -479,9 +479,9 @@ export const Default: Story = {
         /* md: padding 12px 16px, font-size 16px, line-height 24px, min-height 40px */
         .ubits-tree-node__content[data-size="md"] {
           padding: 12px 16px !important;
-          font-size: var(--font-body-md-size) !important;
-          font-weight: var(--weight-regular) !important;
-          line-height: var(--font-body-md-line) !important;
+          font-size: var(--modifiers-normal-body-md-regular-fontsize) !important;
+          font-weight: var(--weight-regular, 400) !important;
+          line-height: var(--modifiers-normal-body-md-regular-lineheight) !important;
           min-height: 40px !important;
           height: auto !important;
           margin: 0 !important;
@@ -490,9 +490,9 @@ export const Default: Story = {
         /* lg: padding 16px 20px, font-size 20px, line-height 30px, min-height 48px */
         .ubits-tree-node__content[data-size="lg"] {
           padding: 16px 20px !important;
-          font-size: var(--font-body-lg-size) !important;
-          font-weight: var(--weight-regular) !important;
-          line-height: var(--font-body-lg-line) !important;
+          font-size: var(--modifiers-normal-body-lg-regular-fontsize) !important;
+          font-weight: var(--weight-regular, 400) !important;
+          line-height: var(--modifiers-normal-body-lg-regular-lineheight) !important;
           min-height: 48px !important;
           height: auto !important;
           margin: 0 !important;
@@ -501,9 +501,9 @@ export const Default: Story = {
         /* Default size (md) - cuando no tiene data-size */
         .ubits-tree-node__content:not([data-size]) {
           padding: 12px 16px !important;
-          font-size: var(--font-body-md-size) !important;
-          font-weight: var(--weight-regular) !important;
-          line-height: var(--font-body-md-line) !important;
+          font-size: var(--modifiers-normal-body-md-regular-fontsize) !important;
+          font-weight: var(--weight-regular, 400) !important;
+          line-height: var(--modifiers-normal-body-md-regular-lineheight) !important;
           min-height: 40px !important;
           height: auto !important;
           margin: 0 !important;
@@ -540,26 +540,26 @@ export const Default: Story = {
         
         /* Hover state - similar a Accordion component */
         .ubits-tree-node__content:hover:not(.ubits-tree-node__content--active) {
-          background: var(--ubits-bg-2, #F3F3F4);
+          background: var(--modifiers-normal-color-light-bg-2);
         }
         
         .ubits-tree-node__content:hover:not(.ubits-tree-node__content--active) .ubits-tree-node__chevron {
-          color: var(--ubits-fg-1-high, #303a47);
+          color: var(--modifiers-normal-color-light-fg-1-high);
         }
         
         .ubits-tree-node__content:hover:not(.ubits-tree-node__content--active) .ubits-tree-node__icon {
-          color: var(--ubits-fg-1-high, #303a47);
+          color: var(--modifiers-normal-color-light-fg-1-high);
         }
         
         .ubits-tree-node__content:hover:not(.ubits-tree-node__content--active) .ubits-tree-node__label {
-          color: var(--ubits-fg-1-high, #303a47);
+          color: var(--modifiers-normal-color-light-fg-1-high);
         }
         
         /* Active state - similar a Button active state */
         .ubits-tree-node__content--active,
         .ubits-tree-node__content[aria-selected="true"] {
-          color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
-          background: var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15));
+          color: var(--modifiers-normal-color-light-accent-brand);
+          background: var(--modifiers-normal-color-light-bg-active);
         }
         
         /* Asegurar que los tamaños se mantengan en estado active */
@@ -585,25 +585,25 @@ export const Default: Story = {
         
         .ubits-tree-node__content--active .ubits-tree-node__chevron,
         .ubits-tree-node__content[aria-selected="true"] .ubits-tree-node__chevron {
-          color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+          color: var(--modifiers-normal-color-light-accent-brand);
         }
         
         .ubits-tree-node__content--active .ubits-tree-node__icon,
         .ubits-tree-node__content[aria-selected="true"] .ubits-tree-node__icon {
-          color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+          color: var(--modifiers-normal-color-light-accent-brand);
         }
         
         .ubits-tree-node__content--active .ubits-tree-node__label,
         .ubits-tree-node__content[aria-selected="true"] .ubits-tree-node__label {
-          color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+          color: var(--modifiers-normal-color-light-accent-brand);
           font-weight: var(--weight-semibold, 600);
         }
         
         /* Focus state - similar a Button component */
         .ubits-tree-node__content--expandable:focus-visible {
-          outline: 2px solid var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+          outline: 2px solid var(--modifiers-normal-color-light-accent-brand);
           outline-offset: -2px;
-          border-radius: 6px;
+          border-radius: var(--ubits-border-radius-sm, 6px);
         }
         
         .ubits-tree-node__chevron {
@@ -611,7 +611,7 @@ export const Default: Story = {
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
-          color: var(--ubits-fg-1-medium, #5c646f);
+          color: var(--modifiers-normal-color-light-fg-1-medium);
           transition: color 0.2s ease;
           margin: 0;
           padding: 0;
@@ -623,7 +623,7 @@ export const Default: Story = {
           align-items: center;
           justify-content: center;
           flex-shrink: 0;
-          color: var(--ubits-fg-1-medium, #5c646f);
+          color: var(--modifiers-normal-color-light-fg-1-medium);
           width: 20px;
           transition: color 0.2s ease;
           margin: 0;
@@ -633,7 +633,7 @@ export const Default: Story = {
         
         .ubits-tree-node__label {
           flex: 1;
-          color: var(--ubits-fg-1-high, #303a47);
+          color: var(--modifiers-normal-color-light-fg-1-high);
           transition: color 0.2s ease, font-weight 0.2s ease;
           margin: 0;
           padding: 0;
@@ -662,55 +662,47 @@ export const Default: Story = {
         }
         
         /* Dark mode support */
-        @media (prefers-color-scheme: dark) {
-          .ubits-tree-node__content:hover:not(.ubits-tree-node__content--active) {
-            background: var(--ubits-bg-2, #F3F3F4);
-          }
-          
-          .ubits-tree-node__content--active,
-          .ubits-tree-node__content[aria-selected="true"] {
-            background: var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15));
-            color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
-          }
-          
-          .ubits-tree-node__content--active .ubits-tree-node__chevron,
-          .ubits-tree-node__content[aria-selected="true"] .ubits-tree-node__chevron {
-            color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
-          }
-          
-          .ubits-tree-node__content--active .ubits-tree-node__icon,
-          .ubits-tree-node__content[aria-selected="true"] .ubits-tree-node__icon {
-            color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
-          }
-          
-          .ubits-tree-node__content--active .ubits-tree-node__label,
-          .ubits-tree-node__content[aria-selected="true"] .ubits-tree-node__label {
-            color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
-            font-weight: var(--weight-semibold, 600);
-          }
+        [data-theme="dark"] .ubits-tree-node__content {
+          color: var(--modifiers-normal-color-dark-fg-1-high);
         }
         
-        /* Dark mode support usando data-theme */
+        [data-theme="dark"] .ubits-tree-node__content:hover:not(.ubits-tree-node__content--active) {
+          background: var(--modifiers-normal-color-dark-bg-2);
+        }
+        
+        [data-theme="dark"] .ubits-tree-node__content:hover:not(.ubits-tree-node__content--active) .ubits-tree-node__chevron,
+        [data-theme="dark"] .ubits-tree-node__content:hover:not(.ubits-tree-node__content--active) .ubits-tree-node__icon,
+        [data-theme="dark"] .ubits-tree-node__content:hover:not(.ubits-tree-node__content--active) .ubits-tree-node__label {
+          color: var(--modifiers-normal-color-dark-fg-1-high);
+        }
+        
         [data-theme="dark"] .ubits-tree-node__content--active,
         [data-theme="dark"] .ubits-tree-node__content[aria-selected="true"] {
-          background: rgba(12, 91, 239, 0.15);
-          color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+          background: var(--modifiers-normal-color-dark-bg-active);
+          color: var(--modifiers-normal-color-dark-accent-brand);
         }
         
         [data-theme="dark"] .ubits-tree-node__content--active .ubits-tree-node__chevron,
-        [data-theme="dark"] .ubits-tree-node__content[aria-selected="true"] .ubits-tree-node__chevron {
-          color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
-        }
-        
+        [data-theme="dark"] .ubits-tree-node__content[aria-selected="true"] .ubits-tree-node__chevron,
         [data-theme="dark"] .ubits-tree-node__content--active .ubits-tree-node__icon,
-        [data-theme="dark"] .ubits-tree-node__content[aria-selected="true"] .ubits-tree-node__icon {
-          color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+        [data-theme="dark"] .ubits-tree-node__content[aria-selected="true"] .ubits-tree-node__icon,
+        [data-theme="dark"] .ubits-tree-node__content--active .ubits-tree-node__label,
+        [data-theme="dark"] .ubits-tree-node__content[aria-selected="true"] .ubits-tree-node__label {
+          color: var(--modifiers-normal-color-dark-accent-brand);
         }
         
         [data-theme="dark"] .ubits-tree-node__content--active .ubits-tree-node__label,
         [data-theme="dark"] .ubits-tree-node__content[aria-selected="true"] .ubits-tree-node__label {
-          color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
           font-weight: var(--weight-semibold, 600);
+        }
+        
+        [data-theme="dark"] .ubits-tree-node__chevron,
+        [data-theme="dark"] .ubits-tree-node__icon {
+          color: var(--modifiers-normal-color-dark-fg-1-medium);
+        }
+        
+        [data-theme="dark"] .ubits-tree-node__label {
+          color: var(--modifiers-normal-color-dark-fg-1-high);
         }
       `;
       document.head.appendChild(style);

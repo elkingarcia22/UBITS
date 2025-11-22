@@ -1,7 +1,7 @@
 /* ========================================
    UBITS TABBAR COMPONENT
    Componente de navegación inferior para móviles
-   Usando tokens UBITS del nuevo playground
+   Migrado a tokens Figma
    ======================================== */
 
 .ubits-tabbar {
@@ -68,8 +68,8 @@
 }
 
 .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabbar-text {
-    color: var(--ubits-sidebar-button-bg-active);
-    font-weight: 700;
+    color: var(--ubits-sidebar-button-bg-active); /* Token sidebar específico - mantener */
+    font-weight: var(--ubits-font-weight-bold, 700) !important;
 }
 
 .ubits-tabbar-icon {
@@ -112,13 +112,13 @@
 }
 
 .ubits-tabbar-text {
-    color: var(--ubits-sidebar-button-fg-default);
+    color: var(--ubits-sidebar-button-fg-default); /* Token sidebar específico - mantener */
     text-align: center;
     line-height: 1.2;
     transition: color 0.2s ease;
-    font-family: var(--font-sans, 'Noto Sans', sans-serif);
-    font-size: 12px;
-    font-weight: 400;
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: 12px; /* MANTENER MEDIDA ORIGINAL */
+    font-weight: var(--ubits-font-weight-regular, 400);
 }
 
 .ubits-tabbar-item:hover .ubits-tabbar-text {
@@ -273,10 +273,10 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 }
 
 .ubits-floating-menu-title {
-    font-family: var(--font-sans, 'Noto Sans', sans-serif);
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--ubits-sidebar-button-fg-default);
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: 18px; /* MANTENER MEDIDA ORIGINAL */
+    font-weight: var(--ubits-font-weight-semibold, 600);
+    color: var(--ubits-sidebar-button-fg-default); /* Token sidebar específico - mantener */
     margin: 0;
 }
 
@@ -328,15 +328,15 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 .ubits-accordion-title {
     display: flex;
     align-items: center;
-    font-family: var(--font-sans, 'Noto Sans', sans-serif);
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--ubits-sidebar-button-fg-default);
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: 14px; /* MANTENER MEDIDA ORIGINAL */
+    font-weight: var(--ubits-font-weight-semibold, 600);
+    color: var(--ubits-sidebar-button-fg-default); /* Token sidebar específico - mantener */
 }
 
 .ubits-accordion-title.active {
-    color: var(--ubits-sidebar-button-bg-active);
-    font-weight: 700;
+    color: var(--ubits-sidebar-button-bg-active); /* Token sidebar específico - mantener */
+    font-weight: var(--ubits-font-weight-bold, 700) !important;
 }
 
 .ubits-accordion-chevron {
@@ -367,8 +367,8 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 }
 
 .ubits-accordion-link.active {
-    color: var(--ubits-sidebar-button-bg-active);
-    font-weight: 600;
+    color: var(--ubits-sidebar-button-bg-active); /* Token sidebar específico - mantener */
+    font-weight: var(--ubits-font-weight-semibold, 600) !important;
 }
 
 .ubits-accordion-icon-circle {
@@ -477,7 +477,7 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
     width: 100%; /* ⚠️ IMPORTANTE: Ancho completo, igual que el playground antiguo */
     background: var(--ubits-sidebar-bg);
     border-radius: 0; /* Sin border-radius, igual que el playground antiguo */
-    border-top: 1px solid var(--ubits-border-1);
+    border-top: 1px solid var(--modifiers-normal-color-light-border-1);
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     padding: 8px 0;
     z-index: 2001;
@@ -518,9 +518,9 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 }
 
 .ubits-profile-menu-text {
-    color: var(--ubits-sidebar-button-fg-default);
-    font-family: var(--font-sans, 'Noto Sans', sans-serif);
-    font-size: 14px;
+    color: var(--ubits-sidebar-button-fg-default); /* Token sidebar específico - mantener */
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: 14px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 /* Modo oscuro - Profile Menu */
@@ -617,17 +617,17 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 .ubits-tree-menu-header {
     display: flex;
     align-items: center;
-    gap: var(--ubits-spacing-sm, 8px);
+    gap: var(--p-spacing-mode-1-sm, 8px);
     cursor: pointer;
     transition: all 0.2s ease;
-    border-radius: 6px;
+    border-radius: var(--ubits-border-radius-sm, 6px);
     margin-bottom: 0;
-    color: var(--ubits-fg-1-high, #303a47);
+    color: var(--modifiers-normal-color-light-fg-1-high);
     background: transparent;
     position: relative;
     min-width: 0; /* Permitir que el contenido se ajuste */
     overflow: visible; /* Matching TreeMenu Storybook */
-    font-family: var(--font-sans);
+    font-family: var(--font-family-noto-sans-font-family);
     box-sizing: border-box;
     margin: 0;
     border: none;
@@ -635,80 +635,106 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 
 /* Tamaños - Matching List component exactly */
 .ubits-tree-menu-header--xs {
-    padding: 8px 12px;
-    font-size: var(--font-body-xs-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-xs-line);
-    min-height: 28px;
+    padding: 8px 12px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-xs-regular-fontsize);
+    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
+    line-height: var(--modifiers-normal-body-xs-regular-lineheight);
+    min-height: 28px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-tree-menu-header--sm {
-    padding: 10px 14px;
-    font-size: var(--font-body-sm-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-sm-line);
-    min-height: 32px;
+    padding: 10px 14px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
+    line-height: var(--modifiers-normal-body-sm-regular-lineheight);
+    min-height: 32px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-tree-menu-header--md {
-    padding: 12px 16px;
-    font-size: var(--font-body-md-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-md-line);
-    min-height: 40px;
+    padding: 12px 16px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    min-height: 40px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-tree-menu-header--lg {
-    padding: 16px 20px;
-    font-size: var(--font-body-lg-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-lg-line);
-    min-height: 48px;
+    padding: 16px 20px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-lg-regular-fontsize);
+    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
+    line-height: var(--modifiers-normal-body-lg-regular-lineheight);
+    min-height: 48px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 /* Default size (md) */
 .ubits-tree-menu-header:not(.ubits-tree-menu-header--xs):not(.ubits-tree-menu-header--sm):not(.ubits-tree-menu-header--md):not(.ubits-tree-menu-header--lg) {
-    padding: 12px 16px;
-    font-size: var(--font-body-md-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-md-line);
-    min-height: 40px;
+    padding: 12px 16px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    min-height: 40px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 /* Hover state - matching TreeMenu Storybook exactly */
 .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) {
-    background: var(--ubits-bg-2, #F3F3F4);
+    background: var(--modifiers-normal-color-light-bg-2);
 }
 
 .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-chevron i {
-    color: var(--ubits-fg-1-high, #303a47);
+    color: var(--modifiers-normal-color-light-fg-1-high);
 }
 
 .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-icon i {
-    color: var(--ubits-fg-1-high, #303a47);
+    color: var(--modifiers-normal-color-light-fg-1-high);
 }
 
 .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-text {
-    color: var(--ubits-fg-1-high, #303a47);
+    color: var(--modifiers-normal-color-light-fg-1-high);
 }
 
 /* Active state - matching TreeMenu Storybook exactly */
 .ubits-tree-menu-header--active {
-    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
-    background: var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15));
+    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
+    background: var(--modifiers-normal-color-light-bg-active);
 }
 
 .ubits-tree-menu-header--active .ubits-tree-menu-chevron i {
-    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
 }
 
 .ubits-tree-menu-header--active .ubits-tree-menu-icon i {
-    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
 }
 
 .ubits-tree-menu-header--active .ubits-tree-menu-text {
-    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
-    font-weight: var(--weight-semibold, 600);
+    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
+    font-weight: var(--weight-semibold, 600) !important; /* Token UBITS existe */
+}
+
+/* Dark mode support */
+[data-theme="dark"] .ubits-tree-menu-header {
+    color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) {
+    background: var(--modifiers-normal-color-dark-bg-2);
+}
+
+[data-theme="dark"] .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-chevron i,
+[data-theme="dark"] .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-icon i,
+[data-theme="dark"] .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-text {
+    color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-tree-menu-header--active {
+    color: var(--modifiers-normal-color-dark-accent-brand);
+    background: var(--modifiers-normal-color-dark-bg-active);
+}
+
+[data-theme="dark"] .ubits-tree-menu-header--active .ubits-tree-menu-chevron i,
+[data-theme="dark"] .ubits-tree-menu-header--active .ubits-tree-menu-icon i,
+[data-theme="dark"] .ubits-tree-menu-header--active .ubits-tree-menu-text {
+    color: var(--modifiers-normal-color-dark-accent-brand);
 }
 
 /* No border-left in active state - matching TreeMenu Storybook */
@@ -716,18 +742,18 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 .ubits-tree-menu-link {
     display: flex;
     align-items: center;
-    gap: var(--ubits-spacing-sm, 8px);
+    gap: var(--p-spacing-mode-1-sm, 8px);
     justify-content: space-between;
     text-decoration: none;
-    color: var(--ubits-fg-1-high, #303a47);
+    color: var(--modifiers-normal-color-light-fg-1-high);
     transition: all 0.2s ease;
-    border-radius: 6px;
+    border-radius: var(--ubits-border-radius-sm, 6px);
     margin-bottom: 0;
     position: relative;
     background: transparent;
     min-width: 0; /* Permitir que el contenido se ajuste */
     overflow: visible; /* Matching TreeMenu Storybook */
-    font-family: var(--font-sans);
+    font-family: var(--font-family-noto-sans-font-family);
     box-sizing: border-box;
     margin: 0;
     border: none;
@@ -735,80 +761,106 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 
 /* Tamaños - Matching List component exactly */
 .ubits-tree-menu-link--xs {
-    padding: 8px 12px;
-    font-size: var(--font-body-xs-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-xs-line);
-    min-height: 28px;
+    padding: 8px 12px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-xs-regular-fontsize);
+    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
+    line-height: var(--modifiers-normal-body-xs-regular-lineheight);
+    min-height: 28px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-tree-menu-link--sm {
-    padding: 10px 14px;
-    font-size: var(--font-body-sm-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-sm-line);
-    min-height: 32px;
+    padding: 10px 14px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
+    line-height: var(--modifiers-normal-body-sm-regular-lineheight);
+    min-height: 32px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-tree-menu-link--md {
-    padding: 12px 16px;
-    font-size: var(--font-body-md-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-md-line);
-    min-height: 40px;
+    padding: 12px 16px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    min-height: 40px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-tree-menu-link--lg {
-    padding: 16px 20px;
-    font-size: var(--font-body-lg-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-lg-line);
-    min-height: 48px;
+    padding: 16px 20px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-lg-regular-fontsize);
+    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
+    line-height: var(--modifiers-normal-body-lg-regular-lineheight);
+    min-height: 48px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 /* Default size (md) */
 .ubits-tree-menu-link:not(.ubits-tree-menu-link--xs):not(.ubits-tree-menu-link--sm):not(.ubits-tree-menu-link--md):not(.ubits-tree-menu-link--lg) {
-    padding: 12px 16px;
-    font-size: var(--font-body-md-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-md-line);
-    min-height: 40px;
+    padding: 12px 16px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    min-height: 40px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 /* Hover state - matching TreeMenu Storybook exactly */
 .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) {
-    background: var(--ubits-bg-2, #F3F3F4);
+    background: var(--modifiers-normal-color-light-bg-2);
 }
 
 .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-chevron i {
-    color: var(--ubits-fg-1-high, #303a47);
+    color: var(--modifiers-normal-color-light-fg-1-high);
 }
 
 .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-icon i {
-    color: var(--ubits-fg-1-high, #303a47);
+    color: var(--modifiers-normal-color-light-fg-1-high);
 }
 
 .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-text {
-    color: var(--ubits-fg-1-high, #303a47);
+    color: var(--modifiers-normal-color-light-fg-1-high);
 }
 
 /* Active state - matching TreeMenu Storybook exactly */
 .ubits-tree-menu-link--active {
-    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
-    background: var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15));
+    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
+    background: var(--modifiers-normal-color-light-bg-active);
 }
 
 .ubits-tree-menu-link--active .ubits-tree-menu-chevron i {
-    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
 }
 
 .ubits-tree-menu-link--active .ubits-tree-menu-icon i {
-    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
 }
 
 .ubits-tree-menu-link--active .ubits-tree-menu-text {
-    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
-    font-weight: var(--weight-semibold, 600);
+    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
+    font-weight: var(--weight-semibold, 600) !important; /* Token UBITS existe */
+}
+
+/* Dark mode support */
+[data-theme="dark"] .ubits-tree-menu-link {
+    color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) {
+    background: var(--modifiers-normal-color-dark-bg-2);
+}
+
+[data-theme="dark"] .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-chevron i,
+[data-theme="dark"] .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-icon i,
+[data-theme="dark"] .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-text {
+    color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-tree-menu-link--active {
+    color: var(--modifiers-normal-color-dark-accent-brand);
+    background: var(--modifiers-normal-color-dark-bg-active);
+}
+
+[data-theme="dark"] .ubits-tree-menu-link--active .ubits-tree-menu-chevron i,
+[data-theme="dark"] .ubits-tree-menu-link--active .ubits-tree-menu-icon i,
+[data-theme="dark"] .ubits-tree-menu-link--active .ubits-tree-menu-text {
+    color: var(--modifiers-normal-color-dark-accent-brand);
 }
 
 /* No border-left in active state - matching TreeMenu Storybook */
@@ -838,18 +890,18 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 }
 
 .ubits-tree-menu-icon i {
-    font-size: 16px;
-    color: var(--ubits-fg-1-medium, #5c646f);
+    font-size: 16px; /* MANTENER MEDIDA ORIGINAL */
+    color: var(--modifiers-normal-color-light-fg-1-medium);
     transition: color 0.2s ease;
 }
 
 .ubits-tree-menu-text {
     flex: 1;
-    font-family: var(--font-sans);
-    font-size: var(--font-body-md-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-md-line);
-    color: var(--ubits-fg-1-high, #303a47);
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    color: var(--modifiers-normal-color-light-fg-1-high);
     transition: color 0.2s ease, font-weight 0.2s ease;
     min-width: 0; /* Permitir que el texto se ajuste */
     margin: 0;
@@ -861,7 +913,7 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    color: var(--ubits-fg-1-medium, #5c646f);
+    color: var(--modifiers-normal-color-light-fg-1-medium);
     transition: color 0.2s ease;
     margin: 0;
     padding: 0;
@@ -869,11 +921,25 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 }
 
 .ubits-tree-menu-chevron i {
-    font-size: 14px;
-    color: var(--ubits-fg-1-medium, #5c646f);
+    font-size: 14px; /* MANTENER MEDIDA ORIGINAL */
+    color: var(--modifiers-normal-color-light-fg-1-medium);
     transition: color 0.2s ease;
     display: block;
     line-height: 1;
+}
+
+/* Dark mode support */
+[data-theme="dark"] .ubits-tree-menu-icon i {
+    color: var(--modifiers-normal-color-dark-fg-1-medium);
+}
+
+[data-theme="dark"] .ubits-tree-menu-text {
+    color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-tree-menu-chevron,
+[data-theme="dark"] .ubits-tree-menu-chevron i {
+    color: var(--modifiers-normal-color-dark-fg-1-medium);
 }
 
 .ubits-tree-menu-children {
@@ -954,8 +1020,8 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 .ubits-tabbar .ubits-floating-menu .ubits-tree-menu-link--active,
 [data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header--active,
 [data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link--active {
-    color: #b6b5fc !important; /* Dark mode button-active-fg */
-    background: rgba(12, 91, 239, 0.15) !important; /* Dark mode bg-active-button */
+    color: var(--modifiers-normal-color-dark-accent-brand) !important; /* Dark mode accent brand */
+    background: var(--modifiers-normal-color-dark-bg-active) !important; /* Dark mode bg-active */
 }
 
 .ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-chevron i,
@@ -976,7 +1042,7 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 [data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-icon i,
 [data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-text,
 [data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-text {
-    color: #b6b5fc !important; /* Dark mode button-active-fg */
+    color: var(--modifiers-normal-color-dark-accent-brand) !important; /* Dark mode accent brand */
 }
 
 .ubits-floating-menu .ubits-tree-menu-icon i,
@@ -1030,15 +1096,15 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 .ubits-profile-tree-header {
     display: flex;
     align-items: center;
-    gap: var(--ubits-spacing-sm, 8px);
+    gap: var(--p-spacing-mode-1-sm, 8px);
     cursor: pointer;
     transition: all 0.2s ease;
-    border-radius: 6px;
+    border-radius: var(--ubits-border-radius-sm, 6px);
     margin-bottom: 0;
-    color: var(--ubits-fg-1-high, #303a47);
+    color: var(--modifiers-normal-color-light-fg-1-high);
     background: transparent;
     position: relative;
-    font-family: var(--font-sans);
+    font-family: var(--font-family-noto-sans-font-family);
     box-sizing: border-box;
     margin: 0;
     border: none;
@@ -1047,94 +1113,94 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 
 /* Tamaños - Matching List component exactly */
 .ubits-profile-tree-header--xs {
-    padding: 8px 12px;
-    font-size: var(--font-body-xs-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-xs-line);
-    min-height: 28px;
+    padding: 8px 12px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-xs-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular, 400);
+    line-height: var(--modifiers-normal-body-xs-regular-lineheight);
+    min-height: 28px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-profile-tree-header--sm {
-    padding: 10px 14px;
-    font-size: var(--font-body-sm-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-sm-line);
-    min-height: 32px;
+    padding: 10px 14px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular, 400);
+    line-height: var(--modifiers-normal-body-sm-regular-lineheight);
+    min-height: 32px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-profile-tree-header--md {
-    padding: 12px 16px;
-    font-size: var(--font-body-md-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-md-line);
-    min-height: 40px;
+    padding: 12px 16px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular, 400);
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    min-height: 40px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-profile-tree-header--lg {
-    padding: 16px 20px;
-    font-size: var(--font-body-lg-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-lg-line);
-    min-height: 48px;
+    padding: 16px 20px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-lg-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular, 400);
+    line-height: var(--modifiers-normal-body-lg-regular-lineheight);
+    min-height: 48px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 /* Default size (md) */
 .ubits-profile-tree-header:not(.ubits-profile-tree-header--xs):not(.ubits-profile-tree-header--sm):not(.ubits-profile-tree-header--md):not(.ubits-profile-tree-header--lg) {
-    padding: 12px 16px;
-    font-size: var(--font-body-md-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-md-line);
-    min-height: 40px;
+    padding: 12px 16px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular, 400);
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    min-height: 40px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 /* Hover state - matching TreeMenu Storybook exactly */
 .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) {
-    background: var(--ubits-bg-2, #F3F3F4);
+    background: var(--modifiers-normal-color-light-bg-2);
 }
 
 .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-chevron i {
-    color: var(--ubits-fg-1-high, #303a47);
+    color: var(--modifiers-normal-color-light-fg-1-high);
 }
 
 .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-icon i {
-    color: var(--ubits-fg-1-high, #303a47);
+    color: var(--modifiers-normal-color-light-fg-1-high);
 }
 
 .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-text {
-    color: var(--ubits-fg-1-high, #303a47);
+    color: var(--modifiers-normal-color-light-fg-1-high);
 }
 
 /* Active state - matching TreeMenu Storybook exactly */
 .ubits-profile-tree-header--active {
-    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
-    background: var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15));
+    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
+    background: var(--modifiers-normal-color-light-bg-active);
 }
 
 .ubits-profile-tree-header--active .ubits-profile-tree-chevron i {
-    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
 }
 
 .ubits-profile-tree-header--active .ubits-profile-tree-icon i {
-    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
 }
 
 .ubits-profile-tree-header--active .ubits-profile-tree-text {
-    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
-    font-weight: var(--weight-semibold, 600);
+    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
+    font-weight: var(--ubits-font-weight-semibold, 600) !important;
 }
 
 .ubits-profile-tree-link {
     display: flex;
     align-items: center;
-    gap: var(--ubits-spacing-sm, 8px);
+    gap: var(--p-spacing-mode-1-sm, 8px);
     text-decoration: none;
-    color: var(--ubits-fg-1-high, #303a47);
+    color: var(--modifiers-normal-color-light-fg-1-high);
     transition: all 0.2s ease;
-    border-radius: 6px;
+    border-radius: var(--ubits-border-radius-sm, 6px);
     margin-bottom: 0;
     position: relative;
     background: transparent;
-    font-family: var(--font-sans);
+    font-family: var(--font-family-noto-sans-font-family);
     box-sizing: border-box;
     margin: 0;
     border: none;
@@ -1143,80 +1209,80 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 
 /* Tamaños - Matching List component exactly */
 .ubits-profile-tree-link--xs {
-    padding: 8px 12px;
-    font-size: var(--font-body-xs-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-xs-line);
-    min-height: 28px;
+    padding: 8px 12px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-xs-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular, 400);
+    line-height: var(--modifiers-normal-body-xs-regular-lineheight);
+    min-height: 28px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-profile-tree-link--sm {
-    padding: 10px 14px;
-    font-size: var(--font-body-sm-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-sm-line);
-    min-height: 32px;
+    padding: 10px 14px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular, 400);
+    line-height: var(--modifiers-normal-body-sm-regular-lineheight);
+    min-height: 32px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-profile-tree-link--md {
-    padding: 12px 16px;
-    font-size: var(--font-body-md-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-md-line);
-    min-height: 40px;
+    padding: 12px 16px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular, 400);
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    min-height: 40px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-profile-tree-link--lg {
-    padding: 16px 20px;
-    font-size: var(--font-body-lg-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-lg-line);
-    min-height: 48px;
+    padding: 16px 20px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-lg-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular, 400);
+    line-height: var(--modifiers-normal-body-lg-regular-lineheight);
+    min-height: 48px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 /* Default size (md) */
 .ubits-profile-tree-link:not(.ubits-profile-tree-link--xs):not(.ubits-profile-tree-link--sm):not(.ubits-profile-tree-link--md):not(.ubits-profile-tree-link--lg) {
-    padding: 12px 16px;
-    font-size: var(--font-body-md-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-md-line);
-    min-height: 40px;
+    padding: 12px 16px; /* MANTENER MEDIDAS ORIGINALES */
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular, 400);
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    min-height: 40px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 /* Hover state - matching TreeMenu Storybook exactly */
 .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) {
-    background: var(--ubits-bg-2, #F3F3F4);
+    background: var(--modifiers-normal-color-light-bg-2);
 }
 
 .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-chevron i {
-    color: var(--ubits-fg-1-high, #303a47);
+    color: var(--modifiers-normal-color-light-fg-1-high);
 }
 
 .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-icon i {
-    color: var(--ubits-fg-1-high, #303a47);
+    color: var(--modifiers-normal-color-light-fg-1-high);
 }
 
 .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-text {
-    color: var(--ubits-fg-1-high, #303a47);
+    color: var(--modifiers-normal-color-light-fg-1-high);
 }
 
 /* Active state - matching TreeMenu Storybook exactly */
 .ubits-profile-tree-link--active {
-    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
-    background: var(--ubits-bg-active-button, rgba(12, 91, 239, 0.15));
+    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
+    background: var(--modifiers-normal-color-light-bg-active);
 }
 
 .ubits-profile-tree-link--active .ubits-profile-tree-chevron i {
-    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
 }
 
 .ubits-profile-tree-link--active .ubits-profile-tree-icon i {
-    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
+    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
 }
 
 .ubits-profile-tree-link--active .ubits-profile-tree-text {
-    color: var(--ubits-button-active-fg, var(--ubits-accent-brand-static));
-    font-weight: var(--weight-semibold, 600);
+    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
+    font-weight: var(--ubits-font-weight-semibold, 600) !important;
 }
 
 .ubits-profile-tree-icon {
@@ -1232,18 +1298,18 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 }
 
 .ubits-profile-tree-icon i {
-    font-size: 16px;
-    color: var(--ubits-fg-1-medium, #5c646f);
+    font-size: 16px; /* MANTENER MEDIDA ORIGINAL */
+    color: var(--modifiers-normal-color-light-fg-1-medium);
     transition: color 0.2s ease;
 }
 
 .ubits-profile-tree-text {
     flex: 1;
-    font-family: var(--font-sans);
-    font-size: var(--font-body-md-size);
-    font-weight: var(--weight-regular);
-    line-height: var(--font-body-md-line);
-    color: var(--ubits-fg-1-high, #303a47);
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    font-weight: var(--ubits-font-weight-regular, 400);
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    color: var(--modifiers-normal-color-light-fg-1-high);
     transition: color 0.2s ease, font-weight 0.2s ease;
     margin: 0;
     padding: 0;
@@ -1254,7 +1320,7 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    color: var(--ubits-fg-1-medium, #5c646f);
+    color: var(--modifiers-normal-color-light-fg-1-medium);
     transition: color 0.2s ease;
     margin: 0;
     padding: 0;
@@ -1262,8 +1328,8 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 }
 
 .ubits-profile-tree-chevron i {
-    font-size: 14px;
-    color: var(--ubits-fg-1-medium, #5c646f);
+    font-size: 14px; /* MANTENER MEDIDA ORIGINAL */
+    color: var(--modifiers-normal-color-light-fg-1-medium);
     transition: color 0.2s ease;
     display: block;
     line-height: 1;
@@ -1317,8 +1383,8 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 .ubits-tabbar .ubits-profile-menu .ubits-profile-tree-link--active,
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-header--active,
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link--active {
-    color: #b6b5fc !important; /* Dark mode button-active-fg */
-    background: rgba(12, 91, 239, 0.15) !important; /* Dark mode bg-active-button */
+    color: var(--modifiers-normal-color-dark-accent-brand) !important; /* Dark mode accent brand */
+    background: var(--modifiers-normal-color-dark-bg-active) !important; /* Dark mode bg-active */
 }
 
 .ubits-profile-menu .ubits-profile-tree-header--active .ubits-profile-tree-chevron i,
@@ -1339,7 +1405,7 @@ html[data-theme="dark"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabb
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link--active .ubits-profile-tree-icon i,
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-header--active .ubits-profile-tree-text,
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link--active .ubits-profile-tree-text {
-    color: #b6b5fc !important; /* Dark mode button-active-fg */
+    color: var(--modifiers-normal-color-dark-accent-brand) !important; /* Dark mode accent brand */
 }
 
 .ubits-profile-menu .ubits-profile-tree-icon i,

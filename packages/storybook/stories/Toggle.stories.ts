@@ -147,8 +147,14 @@ export const Default: Story = {
       // Agregar event listener para cambio
       const inputElement = container.querySelector('.ubits-toggle__input') as HTMLInputElement;
       
-      if (inputElement && args.onChange) {
+      if (inputElement) {
+        // Actualizar el estado checked cuando el usuario hace click
         inputElement.addEventListener('change', (e) => {
+          const target = e.target as HTMLInputElement;
+          // Actualizar args.checked con el nuevo valor
+          args.checked = target.checked;
+          
+          // Llamar al callback onChange si existe
           if (args.onChange) {
             args.onChange(e);
           }
