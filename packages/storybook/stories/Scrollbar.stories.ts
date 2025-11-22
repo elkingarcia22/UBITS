@@ -56,13 +56,13 @@ export const Default: Story = {
       align-items: center;
       justify-content: center;
       padding: 40px;
-      background: var(--ubits-bg-2, #f3f3f4);
+      background: var(--modifiers-normal-color-light-bg-2, #f3f3f4);
     `;
 
     // Contenedor principal
     const wrapper = document.createElement('div');
     wrapper.style.cssText = `
-      background: var(--ubits-bg-1, #ffffff);
+      background: var(--modifiers-normal-color-light-bg-1, #ffffff);
       padding: 24px;
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -99,9 +99,9 @@ export const Default: Story = {
           overflow-y: auto;
           overflow-x: hidden;
           padding: 16px;
-          background: var(--ubits-bg-2, #f3f3f4);
+          background: var(--modifiers-normal-color-light-bg-2, #f3f3f4);
           border-radius: 8px;
-          border: 1px solid var(--ubits-border-1, #d0d2d5);
+          border: 1px solid var(--modifiers-normal-color-light-border-1, #d0d2d5);
           -ms-overflow-style: none;
           scrollbar-width: none;
         `;
@@ -133,7 +133,7 @@ export const Default: Story = {
         title.textContent = 'Scrollbar Vertical';
         title.style.cssText = `
           margin: 0 0 16px 0;
-          color: var(--ubits-fg-1-high, #303a47);
+          color: var(--modifiers-normal-color-light-fg-1-high, #303a47);
           font-size: var(--font-body-md-size, 16px);
           font-weight: var(--weight-bold, 700);
         `;
@@ -142,7 +142,7 @@ export const Default: Story = {
         description.textContent = 'Este es un ejemplo de contenido largo que requiere scroll vertical. El scrollbar aparecerá a la derecha cuando pases el mouse sobre el contenedor. Puedes arrastrar la barra del scrollbar o hacer clic en el área del scrollbar para navegar.';
         description.style.cssText = `
           margin: 0 0 24px 0;
-          color: var(--ubits-fg-1-medium, #5c646f);
+          color: var(--modifiers-normal-color-light-fg-1-medium, #5c646f);
           font-size: var(--font-body-sm-size, 13px);
         `;
         
@@ -157,15 +157,15 @@ export const Default: Story = {
           const item = document.createElement('div');
           item.style.cssText = `
             padding: 12px;
-            background: var(--ubits-bg-1, #ffffff);
+            background: var(--modifiers-normal-color-light-bg-1, #ffffff);
             border-radius: 8px;
-            border: 1px solid var(--ubits-border-1, #d0d2d5);
+            border: 1px solid var(--modifiers-normal-color-light-border-1, #d0d2d5);
           `;
           const itemText = document.createElement('p');
           itemText.textContent = `Elemento ${i}`;
           itemText.style.cssText = `
             margin: 0;
-            color: var(--ubits-fg-1-high, #303a47);
+            color: var(--modifiers-normal-color-light-fg-1-high, #303a47);
             font-size: var(--font-body-sm-size, 13px);
           `;
           item.appendChild(itemText);
@@ -215,9 +215,9 @@ export const Default: Story = {
           overflow-x: auto;
           overflow-y: hidden;
           padding: 16px;
-          background: var(--ubits-bg-2, #f3f3f4);
+          background: var(--modifiers-normal-color-light-bg-2, #f3f3f4);
           border-radius: 8px;
-          border: 1px solid var(--ubits-border-1, #d0d2d5);
+          border: 1px solid var(--modifiers-normal-color-light-border-1, #d0d2d5);
           -ms-overflow-style: none;
           scrollbar-width: none;
         `;
@@ -249,7 +249,7 @@ export const Default: Story = {
         title.textContent = 'Scrollbar Horizontal';
         title.style.cssText = `
           margin: 0 0 16px 0;
-          color: var(--ubits-fg-1-high, #303a47);
+          color: var(--modifiers-normal-color-light-fg-1-high, #303a47);
           font-size: var(--font-body-md-size, 16px);
           font-weight: var(--weight-bold, 700);
         `;
@@ -258,7 +258,7 @@ export const Default: Story = {
         description.textContent = 'Este es un ejemplo de contenido ancho que requiere scroll horizontal. El scrollbar aparecerá abajo cuando pases el mouse sobre el contenedor. Puedes arrastrar la barra del scrollbar o hacer clic en el área del scrollbar para navegar.';
         description.style.cssText = `
           margin: 0 0 24px 0;
-          color: var(--ubits-fg-1-medium, #5c646f);
+          color: var(--modifiers-normal-color-light-fg-1-medium, #5c646f);
           font-size: var(--font-body-sm-size, 13px);
         `;
         
@@ -273,15 +273,15 @@ export const Default: Story = {
           item.style.cssText = `
             min-width: 200px;
             padding: 12px;
-            background: var(--ubits-bg-1, #ffffff);
+            background: var(--modifiers-normal-color-light-bg-1, #ffffff);
             border-radius: 8px;
-            border: 1px solid var(--ubits-border-1, #d0d2d5);
+            border: 1px solid var(--modifiers-normal-color-light-border-1, #d0d2d5);
           `;
           const itemText = document.createElement('p');
           itemText.textContent = `Elemento ${i}`;
           itemText.style.cssText = `
             margin: 0;
-            color: var(--ubits-fg-1-high, #303a47);
+            color: var(--modifiers-normal-color-light-fg-1-high, #303a47);
             font-size: var(--font-body-sm-size, 13px);
           `;
           item.appendChild(itemText);

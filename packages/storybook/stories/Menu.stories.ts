@@ -53,11 +53,11 @@ const meta: Meta<MenuStoryArgs> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Menu UBITS de navegación lateral con secciones, items, shortcuts, badges e información de usuario. Usa tokens UBITS para colores, tipografía y espaciado.',
-      },
-    },
-    layout: 'padded',
-  },
+        component: 'Componente Menu UBITS de navegación lateral con secciones, items, shortcuts, badges e información de usuario. Usa tokens UBITS para colores, tipografía y espaciado.'
+}
+},
+    layout: 'padded'
+},
   argTypes: {
     // Header
     logoImage: {
@@ -65,290 +65,290 @@ const meta: Meta<MenuStoryArgs> = {
       description: 'URL de la imagen del logo',
       table: {
         category: 'Header',
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+}
+},
     appName: {
       control: { type: 'text' },
       description: 'Nombre de la aplicación',
       table: {
         category: 'Header',
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+}
+},
     logoHref: {
       control: { type: 'text' },
       description: 'URL a la que redirige el logo',
       table: {
         category: 'Header',
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+}
+},
     width: {
       control: { type: 'number' },
       description: 'Ancho del menú en píxeles',
       table: {
         category: 'Layout',
         type: { summary: 'number' },
-        defaultValue: { summary: 280 },
-      },
-    },
+        defaultValue: { summary: 280 }
+}
+},
     // Sección 1
     section1Title: {
       control: { type: 'text' },
       description: 'Título de la primera sección',
       table: {
         category: 'Sección 1',
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+}
+},
     section1Item1Label: {
       control: { type: 'text' },
       description: 'Label del primer item de la sección 1',
       table: {
-        category: 'Sección 1 - Item 1',
-      },
-    },
+        category: 'Sección 1 - Item 1'
+}
+},
     section1Item1Icon: {
       control: { type: 'text' },
       description: 'Icono FontAwesome (sin prefijo fa-)',
       table: {
-        category: 'Sección 1 - Item 1',
-      },
-    },
+        category: 'Sección 1 - Item 1'
+}
+},
     section1Item1IconStyle: {
       control: { type: 'select' },
       options: ['regular', 'solid'],
       description: 'Estilo del icono',
       table: {
         category: 'Sección 1 - Item 1',
-        defaultValue: { summary: 'regular' },
-      },
-    },
+        defaultValue: { summary: 'regular' }
+}
+},
     section1Item1Active: {
       control: { type: 'boolean' },
       description: 'Si el item está activo',
       table: {
         category: 'Sección 1 - Item 1',
-        defaultValue: { summary: false },
-      },
-    },
+        defaultValue: { summary: false }
+}
+},
     section1Item1Disabled: {
       control: { type: 'boolean' },
       description: 'Si el item está deshabilitado',
       table: {
         category: 'Sección 1 - Item 1',
-        defaultValue: { summary: false },
-      },
-    },
+        defaultValue: { summary: false }
+}
+},
     section1Item2Label: {
       control: { type: 'text' },
       description: 'Label del segundo item de la sección 1',
       table: {
-        category: 'Sección 1 - Item 2',
-      },
-    },
+        category: 'Sección 1 - Item 2'
+}
+},
     section1Item2Icon: {
       control: { type: 'text' },
       description: 'Icono FontAwesome (sin prefijo fa-)',
       table: {
-        category: 'Sección 1 - Item 2',
-      },
-    },
+        category: 'Sección 1 - Item 2'
+}
+},
     section1Item2IconStyle: {
       control: { type: 'select' },
       options: ['regular', 'solid'],
       description: 'Estilo del icono',
       table: {
         category: 'Sección 1 - Item 2',
-        defaultValue: { summary: 'regular' },
-      },
-    },
+        defaultValue: { summary: 'regular' }
+}
+},
     section1Item2Active: {
       control: { type: 'boolean' },
       description: 'Si el item está activo',
       table: {
         category: 'Sección 1 - Item 2',
-        defaultValue: { summary: false },
-      },
-    },
+        defaultValue: { summary: false }
+}
+},
     section1Item2Disabled: {
       control: { type: 'boolean' },
       description: 'Si el item está deshabilitado',
       table: {
         category: 'Sección 1 - Item 2',
-        defaultValue: { summary: false },
-      },
-    },
+        defaultValue: { summary: false }
+}
+},
     // Sección 2
     section2Title: {
       control: { type: 'text' },
       description: 'Título de la segunda sección',
       table: {
         category: 'Sección 2',
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+}
+},
     section2Item1Label: {
       control: { type: 'text' },
       description: 'Label del primer item de la sección 2',
       table: {
-        category: 'Sección 2 - Item 1',
-      },
-    },
+        category: 'Sección 2 - Item 1'
+}
+},
     section2Item1Icon: {
       control: { type: 'text' },
       description: 'Icono FontAwesome (sin prefijo fa-)',
       table: {
-        category: 'Sección 2 - Item 1',
-      },
-    },
+        category: 'Sección 2 - Item 1'
+}
+},
     section2Item1IconStyle: {
       control: { type: 'select' },
       options: ['regular', 'solid'],
       description: 'Estilo del icono',
       table: {
         category: 'Sección 2 - Item 1',
-        defaultValue: { summary: 'regular' },
-      },
-    },
+        defaultValue: { summary: 'regular' }
+}
+},
     section2Item1Active: {
       control: { type: 'boolean' },
       description: 'Si el item está activo',
       table: {
         category: 'Sección 2 - Item 1',
-        defaultValue: { summary: false },
-      },
-    },
+        defaultValue: { summary: false }
+}
+},
     section2Item1Disabled: {
       control: { type: 'boolean' },
       description: 'Si el item está deshabilitado',
       table: {
         category: 'Sección 2 - Item 1',
-        defaultValue: { summary: false },
-      },
-    },
+        defaultValue: { summary: false }
+}
+},
     section2Item2Label: {
       control: { type: 'text' },
       description: 'Label del segundo item de la sección 2',
       table: {
-        category: 'Sección 2 - Item 2',
-      },
-    },
+        category: 'Sección 2 - Item 2'
+}
+},
     section2Item2Icon: {
       control: { type: 'text' },
       description: 'Icono FontAwesome (sin prefijo fa-)',
       table: {
-        category: 'Sección 2 - Item 2',
-      },
-    },
+        category: 'Sección 2 - Item 2'
+}
+},
     section2Item2IconStyle: {
       control: { type: 'select' },
       options: ['regular', 'solid'],
       description: 'Estilo del icono',
       table: {
         category: 'Sección 2 - Item 2',
-        defaultValue: { summary: 'regular' },
-      },
-    },
+        defaultValue: { summary: 'regular' }
+}
+},
     section2Item2Badge: {
       control: { type: 'number' },
       description: 'Número del badge (0 para ocultar)',
       table: {
         category: 'Sección 2 - Item 2',
-        defaultValue: { summary: 0 },
-      },
-    },
+        defaultValue: { summary: 0 }
+}
+},
     section2Item2BadgeVariant: {
       control: { type: 'select' },
       options: ['success', 'warning', 'error', 'info'],
       description: 'Variante del badge',
       table: {
         category: 'Sección 2 - Item 2',
-        defaultValue: { summary: 'error' },
-      },
-    },
+        defaultValue: { summary: 'error' }
+}
+},
     section2Item2Active: {
       control: { type: 'boolean' },
       description: 'Si el item está activo',
       table: {
         category: 'Sección 2 - Item 2',
-        defaultValue: { summary: false },
-      },
-    },
+        defaultValue: { summary: false }
+}
+},
     section2Item2Disabled: {
       control: { type: 'boolean' },
       description: 'Si el item está deshabilitado',
       table: {
         category: 'Sección 2 - Item 2',
-        defaultValue: { summary: false },
-      },
-    },
+        defaultValue: { summary: false }
+}
+},
     section2Item3Label: {
       control: { type: 'text' },
       description: 'Label del tercer item de la sección 2',
       table: {
-        category: 'Sección 2 - Item 3',
-      },
-    },
+        category: 'Sección 2 - Item 3'
+}
+},
     section2Item3Icon: {
       control: { type: 'text' },
       description: 'Icono FontAwesome (sin prefijo fa-)',
       table: {
-        category: 'Sección 2 - Item 3',
-      },
-    },
+        category: 'Sección 2 - Item 3'
+}
+},
     section2Item3IconStyle: {
       control: { type: 'select' },
       options: ['regular', 'solid'],
       description: 'Estilo del icono',
       table: {
         category: 'Sección 2 - Item 3',
-        defaultValue: { summary: 'regular' },
-      },
-    },
+        defaultValue: { summary: 'regular' }
+}
+},
     section2Item3Active: {
       control: { type: 'boolean' },
       description: 'Si el item está activo',
       table: {
         category: 'Sección 2 - Item 3',
-        defaultValue: { summary: false },
-      },
-    },
+        defaultValue: { summary: false }
+}
+},
     section2Item3Disabled: {
       control: { type: 'boolean' },
       description: 'Si el item está deshabilitado',
       table: {
         category: 'Sección 2 - Item 3',
-        defaultValue: { summary: false },
-      },
-    },
+        defaultValue: { summary: false }
+}
+},
     // Usuario
     userAvatarImage: {
       control: { type: 'text' },
       description: 'URL de la imagen del avatar',
       table: {
         category: 'Usuario',
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+}
+},
     userName: {
       control: { type: 'text' },
       description: 'Nombre del usuario',
       table: {
         category: 'Usuario',
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+}
+},
     userRole: {
       control: { type: 'text' },
       description: 'Rol del usuario',
       table: {
         category: 'Usuario',
-        type: { summary: 'string' },
-      },
-    },
-  },
+        type: { summary: 'string' }
+}
+}
+}
 };
 
 export default meta;
@@ -369,8 +369,8 @@ function buildSectionsFromArgs(args: MenuStoryArgs): MenuSection[] {
         icon: args.section1Item1Icon,
         iconStyle: args.section1Item1IconStyle || 'regular',
         active: args.section1Item1Active || false,
-        disabled: args.section1Item1Disabled || false,
-      });
+        disabled: args.section1Item1Disabled || false
+});
     }
     
     if (args.section1Item2Label) {
@@ -380,16 +380,16 @@ function buildSectionsFromArgs(args: MenuStoryArgs): MenuSection[] {
         icon: args.section1Item2Icon,
         iconStyle: args.section1Item2IconStyle || 'regular',
         active: args.section1Item2Active || false,
-        disabled: args.section1Item2Disabled || false,
-      });
+        disabled: args.section1Item2Disabled || false
+});
     }
 
     if (section1Items.length > 0) {
       sections.push({
         id: 'section1',
         title: args.section1Title,
-        items: section1Items,
-      });
+        items: section1Items
+});
     }
   }
 
@@ -404,8 +404,8 @@ function buildSectionsFromArgs(args: MenuStoryArgs): MenuSection[] {
         icon: args.section2Item1Icon,
         iconStyle: args.section2Item1IconStyle || 'regular',
         active: args.section2Item1Active || false,
-        disabled: args.section2Item1Disabled || false,
-      });
+        disabled: args.section2Item1Disabled || false
+});
     }
     
     if (args.section2Item2Label) {
@@ -418,8 +418,8 @@ function buildSectionsFromArgs(args: MenuStoryArgs): MenuSection[] {
           ? { content: args.section2Item2Badge, variant: args.section2Item2BadgeVariant || 'error' }
           : undefined,
         active: args.section2Item2Active || false,
-        disabled: args.section2Item2Disabled || false,
-      });
+        disabled: args.section2Item2Disabled || false
+});
     }
     
     if (args.section2Item3Label) {
@@ -429,16 +429,16 @@ function buildSectionsFromArgs(args: MenuStoryArgs): MenuSection[] {
         icon: args.section2Item3Icon,
         iconStyle: args.section2Item3IconStyle || 'regular',
         active: args.section2Item3Active || false,
-        disabled: args.section2Item3Disabled || false,
-      });
+        disabled: args.section2Item3Disabled || false
+});
     }
 
     if (section2Items.length > 0) {
       sections.push({
         id: 'section2',
         title: args.section2Title,
-        items: section2Items,
-      });
+        items: section2Items
+});
     }
   }
 
@@ -487,15 +487,13 @@ export const Default: Story = {
     // Usuario
     userAvatarImage: '/images/Profile-image.jpg',
     userName: 'Amy Elsner',
-    userRole: 'Admin',
-  },
+    userRole: 'Admin'
+},
   render: (args) => {
     const container = document.createElement('div');
     container.style.cssText = `
       display: flex;
-      min-height: calc(var(--ubits-spacing-12) * 12.5);
       background: var(--modifiers-normal-color-light-bg-2);
-      border-radius: var(--ubits-border-radius-sm);
       overflow: hidden;
     `;
 
@@ -505,8 +503,8 @@ export const Default: Story = {
       ? {
           avatarImage: args.userAvatarImage,
           name: args.userName,
-          role: args.userRole,
-        }
+          role: args.userRole
+}
       : undefined;
 
     const menuOptions: MenuOptions = {
@@ -522,16 +520,14 @@ export const Default: Story = {
       },
       onAvatarClick: () => {
         // Handler para click en avatar
-      },
-    };
+      }
+};
 
     // Contenedor del menú
     const menuContainer = document.createElement('div');
     menuContainer.id = 'menu-story-container';
     menuContainer.style.cssText = `
       position: relative;
-      height: calc(var(--ubits-spacing-12) * 12.5);
-      min-height: calc(var(--ubits-spacing-12) * 12.5);
       background: var(--modifiers-normal-color-light-bg-1);
       display: flex;
       flex-direction: column;
@@ -540,8 +536,8 @@ export const Default: Story = {
 
     // Renderizar HTML directamente (sin containerId para evitar el error)
     const menuOptionsWithoutContainer: Omit<MenuOptions, 'containerId'> = {
-      ...menuOptions,
-    };
+      ...menuOptions
+};
     delete (menuOptionsWithoutContainer as any).containerId;
     
     menuContainer.innerHTML = renderMenu(menuOptionsWithoutContainer);
@@ -607,7 +603,6 @@ export const Default: Story = {
     const infoPanel = document.createElement('div');
     infoPanel.style.cssText = `
       flex: 1;
-      padding: var(--ubits-spacing-6);
       background: var(--modifiers-normal-color-light-bg-1);
       border-left: 1px solid var(--modifiers-normal-color-light-border-1);
       overflow-y: auto;
@@ -622,22 +617,16 @@ export const Default: Story = {
     `;
 
     infoContent.innerHTML = `
-      <h3 style="margin: 0 0 var(--ubits-spacing-lg) 0; color: var(--modifiers-normal-color-light-fg-1-high); font-weight: var(--ubits-font-weight-semibold);">Componente Menu</h3>
-      <p style="margin: 0 0 var(--ubits-spacing-md) 0;">Este componente muestra un menú lateral con:</p>
-      <ul style="margin: 0 0 var(--ubits-spacing-lg) 0; padding-left: var(--ubits-spacing-5);">
         <li>Logo de Autoframe y nombre de la aplicación</li>
         <li>Secciones con títulos</li>
         <li>Items con iconos, texto y badges</li>
         <li>Información del usuario al final</li>
       </ul>
-      <p style="margin: 0 0 var(--ubits-spacing-md) 0; font-weight: var(--ubits-font-weight-semibold);">Características:</p>
-      <ul style="margin: 0; padding-left: var(--ubits-spacing-5);">
         <li>Usa tokens UBITS para colores, tipografía y espaciado</li>
         <li>Soporta items activos, deshabilitados</li>
         <li>Badges de UBITS con diferentes variantes</li>
         <li>Responsive design</li>
       </ul>
-      <p style="margin: var(--ubits-spacing-lg) 0 0 0; padding-top: var(--ubits-spacing-lg); border-top: 1px solid var(--modifiers-normal-color-light-border-1);">
         <strong>Nota:</strong> Usa los controles en el panel lateral para personalizar todos los aspectos del menú.
       </p>
     `;
@@ -646,6 +635,6 @@ export const Default: Story = {
     container.appendChild(infoPanel);
 
     return container;
-  },
+  }
 };
 

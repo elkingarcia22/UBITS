@@ -59,7 +59,7 @@
 .ubits-accordion--list .ubits-accordion-title {
   font-family: var(--font-family-noto-sans-font-family, 'Noto Sans', sans-serif);
   font-size: var(--modifiers-normal-body-md-semibold-fontsize, 16px);
-  font-weight: var(--ubits-font-weight-semibold, 600);
+  font-weight: var(--weight-semibold, 600);
   line-height: var(--modifiers-normal-body-md-semibold-lineheight, 28.8px);
   color: var(--modifiers-normal-color-light-fg-1-high) !important;
   margin: var(--ubits-spacing-none, 0);
@@ -102,7 +102,7 @@
 .ubits-accordion--list .ubits-accordion-body-content {
   font-family: var(--font-family-noto-sans-font-family, 'Noto Sans', sans-serif);
   font-size: var(--modifiers-normal-body-md-regular-fontsize, 16px);
-  font-weight: var(--ubits-font-weight-regular, 400);
+  font-weight: var(--weight-regular, 400);
   line-height: var(--modifiers-normal-body-md-regular-lineheight, 28.8px);
   color: var(--modifiers-normal-color-light-fg-1-medium) !important;
   padding-top: var(--p-spacing-mode-1-sm, 8px);
@@ -168,7 +168,7 @@
 .ubits-accordion--boxed .ubits-accordion-title {
   font-family: var(--font-family-noto-sans-font-family, 'Noto Sans', sans-serif);
   font-size: var(--modifiers-normal-body-md-semibold-fontsize, 16px);
-  font-weight: var(--ubits-font-weight-semibold, 600);
+  font-weight: var(--weight-semibold, 600);
   line-height: var(--modifiers-normal-body-md-semibold-lineheight, 28.8px);
   color: var(--modifiers-normal-color-light-fg-1-high) !important;
   margin: var(--ubits-spacing-none, 0);
@@ -177,7 +177,7 @@
 .ubits-accordion--boxed .ubits-accordion-subheader {
   font-family: var(--font-family-noto-sans-font-family, 'Noto Sans', sans-serif);
   font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px);
-  font-weight: var(--ubits-font-weight-regular, 400);
+  font-weight: var(--weight-regular, 400);
   line-height: var(--modifiers-normal-body-sm-regular-lineheight, 23.4px);
   color: var(--modifiers-normal-color-light-fg-1-medium) !important;
   margin: var(--ubits-spacing-none, 0);
@@ -211,7 +211,7 @@
 .ubits-accordion--boxed .ubits-accordion-body-content {
   font-family: var(--font-family-noto-sans-font-family, 'Noto Sans', sans-serif);
   font-size: var(--modifiers-normal-body-md-regular-fontsize, 16px);
-  font-weight: var(--ubits-font-weight-regular, 400);
+  font-weight: var(--weight-regular, 400);
   line-height: var(--modifiers-normal-body-md-regular-lineheight, 28.8px);
   color: var(--modifiers-normal-color-light-fg-1-medium) !important;
   padding-top: var(--p-spacing-mode-1-sm, 8px);

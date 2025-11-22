@@ -10,11 +10,11 @@ const meta: Meta<ModalOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Modal UBITS centrado con overlay. Ideal para diálogos, confirmaciones y formularios. Soporta diferentes tamaños, variante full-screen, header con título y botón de cerrar, body con contenido scrollable y footer con botones de acción.',
-      },
-    },
-    layout: 'fullscreen',
-  },
+        component: 'Componente Modal UBITS centrado con overlay. Ideal para diálogos, confirmaciones y formularios. Soporta diferentes tamaños, variante full-screen, header con título y botón de cerrar, body con contenido scrollable y footer con botones de acción.'
+}
+},
+    layout: 'fullscreen'
+},
   argTypes: {
     title: {
       control: { type: 'text' },
@@ -22,9 +22,9 @@ const meta: Meta<ModalOptions> = {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'Título del modal' },
-        category: 'Contenido',
-      },
-    },
+        category: 'Contenido'
+}
+},
     size: {
       control: { type: 'select' },
       options: ['sm', 'md', 'lg', 'xl', 'full'],
@@ -32,80 +32,80 @@ const meta: Meta<ModalOptions> = {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'md' },
-        category: 'Apariencia',
-      },
-    },
+        category: 'Apariencia'
+}
+},
     fullScreen: {
       control: { type: 'boolean' },
       description: 'Si el modal debe ocupar altura máxima (full-screen).',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: false },
-        category: 'Apariencia',
-      },
-    },
+        category: 'Apariencia'
+}
+},
     bodyContent: {
       control: { type: 'text' },
       description: 'Contenido HTML del cuerpo del modal. Puede ser una cadena HTML o una función que devuelve HTML.',
       table: {
         type: { summary: 'string | (() => string)' },
         defaultValue: { summary: '...' },
-        category: 'Contenido',
-      },
-    },
+        category: 'Contenido'
+}
+},
     'footerButtons.tertiary.label': {
       control: { type: 'text' },
       name: 'Label Botón Terciario',
       description: 'Label del botón terciario (izquierda del footer).',
-      table: { category: 'Footer Buttons' },
-    },
+      table: { category: 'Footer Buttons' }
+},
     'footerButtons.tertiary.enabled': {
       control: { type: 'boolean' },
       name: 'Habilitar Botón Terciario',
       description: 'Controla la visibilidad del botón terciario.',
-      table: { category: 'Footer Buttons' },
-    },
+      table: { category: 'Footer Buttons' }
+},
     'footerButtons.secondary.label': {
       control: { type: 'text' },
       name: 'Label Botón Secundario',
       description: 'Label del botón secundario (derecha del footer).',
-      table: { category: 'Footer Buttons' },
-    },
+      table: { category: 'Footer Buttons' }
+},
     'footerButtons.secondary.enabled': {
       control: { type: 'boolean' },
       name: 'Habilitar Botón Secundario',
       description: 'Controla la visibilidad del botón secundario.',
-      table: { category: 'Footer Buttons' },
-    },
+      table: { category: 'Footer Buttons' }
+},
     'footerButtons.primary.label': {
       control: { type: 'text' },
       name: 'Label Botón Primario',
       description: 'Label del botón primario (derecha del footer).',
-      table: { category: 'Footer Buttons' },
-    },
+      table: { category: 'Footer Buttons' }
+},
     'footerButtons.primary.enabled': {
       control: { type: 'boolean' },
       name: 'Habilitar Botón Primario',
       description: 'Controla la visibilidad del botón primario.',
-      table: { category: 'Footer Buttons' },
-    },
+      table: { category: 'Footer Buttons' }
+},
     closeOnOverlayClick: {
       control: { type: 'boolean' },
       description: 'Si el modal se cierra al hacer clic fuera de él.',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: true },
-        category: 'Comportamiento',
-      },
-    },
+        category: 'Comportamiento'
+}
+},
     onClose: {
       action: 'closed',
       description: 'Callback que se ejecuta cuando el modal se cierra.',
       table: {
-        disable: true,
-      },
-    },
-  },
+        disable: true
+}
+}
+}
 };
 
 export default meta;
@@ -117,11 +117,9 @@ export const Default: Story = {
     size: 'md',
     fullScreen: false,
     bodyContent: `
-      <div style="padding: var(--ubits-spacing-lg);">
-        <p style="margin: 0; font-size: var(--modifiers-normal-body-md-regular-fontsize); color: var(--modifiers-normal-color-light-fg-1-high); line-height: var(--modifiers-normal-body-md-regular-lineheight);">
+        <p>
           Este es el contenido del modal. Puedes agregar cualquier contenido HTML aquí, como formularios, texto, imágenes, etc.
         </p>
-      </div>
     `,
     'footerButtons.tertiary.label': 'Cancelar',
     'footerButtons.tertiary.enabled': true,
@@ -129,8 +127,8 @@ export const Default: Story = {
     'footerButtons.secondary.enabled': true,
     'footerButtons.primary.label': 'Aplicar',
     'footerButtons.primary.enabled': true,
-    closeOnOverlayClick: true,
-  },
+    closeOnOverlayClick: true
+},
   render: (args) => {
     const container = document.createElement('div');
     container.id = 'modal-story-container';
@@ -142,7 +140,6 @@ export const Default: Story = {
     container.style.display = 'flex';
     container.style.alignItems = 'center';
     container.style.justifyContent = 'center';
-    container.style.padding = 'var(--ubits-spacing-10)';
     
     const openButton = document.createElement('button');
     openButton.className = 'ubits-button ubits-button--primary ubits-button--md';
@@ -154,6 +151,19 @@ export const Default: Story = {
     
     const handleOpenModal = () => {
       if (!modalInstance) {
+        console.log('🔍 [Modal Storybook] handleOpenModal - INICIO');
+        console.log('🔍 [Modal Storybook] args recibidos:', {
+          title: args.title,
+          size: args.size,
+          fullScreen: args.fullScreen,
+          bodyContent: args.bodyContent,
+          bodyContentType: typeof args.bodyContent,
+          bodyContentLength: typeof args.bodyContent === 'string' ? args.bodyContent.length : 'N/A',
+          'footerButtons.tertiary.enabled': args['footerButtons.tertiary.enabled'],
+          'footerButtons.secondary.enabled': args['footerButtons.secondary.enabled'],
+          'footerButtons.primary.enabled': args['footerButtons.primary.enabled']
+        });
+        
         // Construir footerButtons desde los args individuales
         const footerButtons: any = {};
         
@@ -162,8 +172,8 @@ export const Default: Story = {
             label: args['footerButtons.tertiary.label'] || 'Cancelar',
             onClick: () => {
               console.log('Botón Tertiary clickeado');
-            },
-          };
+            }
+};
         }
         
         if (args['footerButtons.secondary.enabled']) {
@@ -171,8 +181,8 @@ export const Default: Story = {
             label: args['footerButtons.secondary.label'] || 'Guardar',
             onClick: () => {
               console.log('Botón Secondary clickeado');
-            },
-          };
+            }
+};
         }
         
         if (args['footerButtons.primary.enabled']) {
@@ -180,9 +190,12 @@ export const Default: Story = {
             label: args['footerButtons.primary.label'] || 'Aplicar',
             onClick: () => {
               console.log('Botón Primary clickeado');
-            },
-          };
+            }
+};
         }
+        
+        console.log('🔍 [Modal Storybook] footerButtons construido:', footerButtons);
+        console.log('🔍 [Modal Storybook] bodyContent antes de pasar a createModal:', args.bodyContent);
         
         modalInstance = createModal({
           title: args.title,
@@ -205,12 +218,30 @@ export const Default: Story = {
             openButton.style.display = 'flex';
             openButton.style.visibility = 'visible';
           },
-          open: true,
+          open: true
+});
+        
+        console.log('🔍 [Modal Storybook] Modal creado:', {
+          hasElement: !!modalInstance.element,
+          elementClassName: modalInstance.element?.className
         });
+        
+        // Verificar el contenido después de crear el modal
+        setTimeout(() => {
+          const bodyContentEl = modalInstance?.element?.querySelector('.ubits-modal__body-content');
+          console.log('🔍 [Modal Storybook] Verificación después de crear:', {
+            hasBodyContent: !!bodyContentEl,
+            bodyContentInnerHTML: bodyContentEl?.innerHTML?.substring(0, 200),
+            bodyContentTextContent: bodyContentEl?.textContent?.substring(0, 200),
+            bodyContentChildrenCount: bodyContentEl?.children.length || 0
+          });
+        }, 100);
         
         // Ocultar el botón
         openButton.style.display = 'none';
         openButton.style.visibility = 'hidden';
+        
+        console.log('🔍 [Modal Storybook] handleOpenModal - FIN');
       }
     };
     
@@ -219,6 +250,6 @@ export const Default: Story = {
     container.appendChild(openButton);
     
     return container;
-  },
+  }
 };
 

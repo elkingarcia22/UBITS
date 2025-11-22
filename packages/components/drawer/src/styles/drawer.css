@@ -129,7 +129,7 @@
     margin: var(--ubits-spacing-none);
     color: var(--modifiers-normal-color-light-fg-1-high);
     font-family: var(--font-family-noto-sans-font-family);
-    font-weight: var(--ubits-font-weight-semibold);
+    font-weight: var(--weight-semibold);
     font-size: var(--modifiers-normal-body-md-regular-fontsize);
     line-height: var(--modifiers-normal-body-md-regular-lineheight);
 }
@@ -146,7 +146,7 @@
     margin: var(--ubits-spacing-none);
     color: var(--modifiers-normal-color-light-fg-1-medium);
     font-family: var(--font-family-noto-sans-font-family);
-    font-weight: var(--ubits-font-weight-regular);
+    font-weight: var(--weight-regular);
     font-size: var(--modifiers-normal-body-sm-regular-fontsize);
     line-height: var(--modifiers-normal-body-sm-regular-lineheight);
 }

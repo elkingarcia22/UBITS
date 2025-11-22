@@ -121,14 +121,14 @@
 
 .ubits-metric-card__value {
   color: var(--modifiers-normal-color-light-fg-1-high);
-  font-weight: var(--ubits-font-weight-semibold);
+  font-weight: var(--weight-semibold);
   margin: 0;
   line-height: 1.2;
 }
 
 .ubits-metric-card__label {
   color: var(--modifiers-normal-color-light-fg-2-medium);
-  font-weight: var(--ubits-font-weight-regular);
+  font-weight: var(--weight-regular);
   margin: 0;
 }
 

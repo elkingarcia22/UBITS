@@ -229,7 +229,7 @@
 .ubits-nps-card__gauge-score.ubits-display-3-bold {
   font-size: var(--modifiers-normal-display-d3-bold-fontsize);
   line-height: var(--modifiers-normal-display-d3-bold-lineheight);
-  font-weight: var(--ubits-font-weight-bold, 700);
+  font-weight: var(--weight-bold, 700);
 }
 
 .ubits-nps-card__gauge-label {
@@ -242,7 +242,7 @@
 .ubits-nps-card__gauge-label.ubits-body-sm-bold {
   font-size: var(--modifiers-normal-body-sm-bold-fontsize);
   line-height: var(--modifiers-normal-body-sm-bold-lineheight);
-  font-weight: var(--ubits-font-weight-bold, 700);
+  font-weight: var(--weight-bold, 700);
 }
 
 /* ========================================
@@ -300,7 +300,7 @@
 .ubits-nps-card__category-percentage.ubits-body-sm-bold {
   font-size: var(--modifiers-normal-body-sm-bold-fontsize);
   line-height: var(--modifiers-normal-body-sm-bold-lineheight);
-  font-weight: var(--ubits-font-weight-bold, 700);
+  font-weight: var(--weight-bold, 700);
 }
 
 /* Aplicar estilos bold cuando tenga la clase ubits-body-md-bold */
@@ -309,7 +309,7 @@
 .ubits-nps-card__category-percentage.ubits-body-md-bold * {
   font-size: var(--modifiers-normal-body-md-bold-fontsize) !important;
   line-height: var(--modifiers-normal-body-md-bold-lineheight) !important;
-  font-weight: var(--ubits-font-weight-bold, 700) !important;
+  font-weight: var(--weight-bold, 700) !important;
   font-family: var(--font-family-noto-sans-font-family) !important;
 }
 

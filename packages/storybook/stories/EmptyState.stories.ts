@@ -126,14 +126,14 @@ export const Default: Story = {
     // Contenedor principal
     const container = document.createElement('div');
     container.style.padding = '40px';
-    container.style.background = 'var(--ubits-bg-1, #ffffff)';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-1, #ffffff)';
     container.style.borderRadius = '8px';
     container.style.width = '100%';
     container.style.boxSizing = 'border-box';
     
     // Contenedor de preview - igual que en la web
     const preview = document.createElement('div');
-    preview.style.background = 'var(--ubits-bg-1)';
+    preview.style.background = 'var(--modifiers-normal-color-light-bg-1)';
     preview.style.padding = '48px';
     preview.style.borderRadius = '8px';
     preview.style.border = 'none';

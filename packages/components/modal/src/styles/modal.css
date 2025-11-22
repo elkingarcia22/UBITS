@@ -44,6 +44,8 @@
     box-shadow: 0px 14px 28.8px 0px rgba(0, 0, 0, 0.24), 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
     max-height: calc(100vh - var(--ubits-spacing-8));
     width: 100%;
+    min-height: 0;
+    height: auto;
     transform: scale(0.95);
     opacity: 0;
     transition: transform 0.3s ease, opacity 0.3s ease;
@@ -187,19 +189,35 @@
    ======================================== */
 
 .ubits-modal__body {
-    flex: 1;
+    flex: 1 1 auto;
     display: flex;
     overflow: hidden;
     position: relative;
-    min-height: 0;
+    min-height: 100px;
+    max-height: 100%;
 }
 
 .ubits-modal__body-content {
-    flex: 1;
+    flex: 1 1 auto;
     overflow-y: auto;
     padding: var(--ubits-spacing-lg);
+    min-height: 100px;
+    height: auto;
+    color: var(--modifiers-normal-color-light-fg-1-high);
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+}
+
+/* Ajustar espaciado de párrafos dentro del body-content */
+.ubits-modal__body-content p {
+    margin: 0 0 var(--p-spacing-mode-1-md, 16px) 0;
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+}
+
+.ubits-modal__body-content p:last-child {
+    margin-bottom: 0;
 }
 
 /* Ocultar scrollbar para Webkit (Chrome, Safari) */

@@ -9,10 +9,10 @@ const meta: Meta<SkeletonOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Skeleton UBITS para mostrar placeholders de carga. Soporta múltiples variantes (text, circle, rectangle, custom), tamaños y animaciones.',
-      },
-    },
-  },
+        component: 'Componente Skeleton UBITS para mostrar placeholders de carga. Soporta múltiples variantes (text, circle, rectangle, custom), tamaños y animaciones.'
+}
+}
+},
   argTypes: {
     variant: {
       control: { type: 'select' },
@@ -20,44 +20,44 @@ const meta: Meta<SkeletonOptions> = {
       description: 'Variante del skeleton',
       table: {
         defaultValue: { summary: 'text' },
-        type: { summary: 'text | circle | rectangle | custom' },
-      },
-    },
+        type: { summary: 'text | circle | rectangle | custom' }
+}
+},
     size: {
       control: { type: 'select' },
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
       description: 'Tamaño del skeleton',
       table: {
         defaultValue: { summary: 'md' },
-        type: { summary: 'xs | sm | md | lg | xl' },
-      },
-    },
+        type: { summary: 'xs | sm | md | lg | xl' }
+}
+},
     width: {
       control: { type: 'text' },
       description: 'Ancho del skeleton (número en px, porcentaje, o "full")',
       table: {
-        defaultValue: { summary: 'full' },
-      },
-    },
+        defaultValue: { summary: 'full' }
+}
+},
     height: {
       control: { type: 'text' },
-      description: 'Alto del skeleton (número en px o porcentaje)',
-    },
+      description: 'Alto del skeleton (número en px o porcentaje)'
+},
     lines: {
       control: { type: 'number', min: 1, max: 10 },
       description: 'Número de líneas de texto (solo para variant="text")',
       table: {
-        defaultValue: { summary: '1' },
-      },
-    },
+        defaultValue: { summary: '1' }
+}
+},
     animated: {
       control: { type: 'boolean' },
       description: 'Si el skeleton debe tener animación de pulso',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
-  },
+        defaultValue: { summary: 'true' }
+}
+}
+}
 };
 
 export default meta;
@@ -71,22 +71,20 @@ export const Default: Story = {
     width: 'full',
     height: '',
     lines: 3,
-    animated: true,
-  },
+    animated: true
+},
   render: (args) => {
     const container = document.createElement('div');
     container.style.padding = '40px';
-    container.style.background = 'var(--ubits-bg-1)';
-    container.style.borderRadius = '8px';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
     container.style.width = '100%';
     container.style.minHeight = '300px';
     container.style.boxSizing = 'border-box';
     
     // Contenedor de preview - igual que en la web
     const preview = document.createElement('div');
-    preview.style.background = 'var(--ubits-bg-1)';
+    preview.style.background = 'var(--modifiers-normal-color-light-bg-1)';
     preview.style.padding = '48px';
-    preview.style.borderRadius = '8px';
     preview.style.border = 'none';
     preview.style.marginBottom = '24px';
     preview.style.minHeight = '200px';
@@ -134,6 +132,6 @@ export const Default: Story = {
     preview.appendChild(innerContainer);
     container.appendChild(preview);
     return container;
-  },
+  }
 };
 

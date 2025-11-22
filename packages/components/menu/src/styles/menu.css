@@ -58,7 +58,7 @@
 .ubits-menu-app-name {
   font-family: var(--font-family-noto-sans-font-family);
   font-size: var(--modifiers-normal-body-md-regular-fontsize);
-  font-weight: var(--ubits-font-weight-semibold);
+  font-weight: var(--weight-semibold);
   line-height: var(--modifiers-normal-body-md-regular-lineheight);
   color: var(--modifiers-normal-color-light-fg-1-high);
   text-transform: uppercase;
@@ -91,7 +91,7 @@
 .ubits-menu-section-title {
   font-family: var(--font-family-noto-sans-font-family);
   font-size: var(--modifiers-normal-body-sm-regular-fontsize);
-  font-weight: var(--ubits-font-weight-semibold);
+  font-weight: var(--weight-semibold);
   line-height: var(--modifiers-normal-body-sm-regular-lineheight);
   color: var(--modifiers-normal-color-light-fg-1-high);
   margin: var(--ubits-spacing-none);
@@ -124,7 +124,7 @@
   width: 100%;
   font-family: var(--font-family-noto-sans-font-family);
   font-size: var(--modifiers-normal-body-md-regular-fontsize);
-  font-weight: var(--ubits-font-weight-regular);
+  font-weight: var(--weight-regular);
   line-height: var(--modifiers-normal-body-md-regular-lineheight);
   color: var(--modifiers-normal-color-light-fg-1-high);
   position: relative;
@@ -168,7 +168,7 @@
   position: relative;
   z-index: 1;
   color: var(--modifiers-normal-color-light-accent-brand) !important;
-  font-weight: var(--ubits-font-weight-semibold);
+  font-weight: var(--weight-semibold);
 }
 
 .ubits-menu-item--active .ubits-menu-item-icon {
@@ -261,7 +261,7 @@
 .ubits-menu-user-name {
   font-family: var(--font-family-noto-sans-font-family);
   font-size: var(--modifiers-normal-body-md-regular-fontsize);
-  font-weight: var(--ubits-font-weight-semibold);
+  font-weight: var(--weight-semibold);
   line-height: var(--modifiers-normal-body-md-regular-lineheight);
   color: var(--modifiers-normal-color-light-fg-1-high);
   white-space: nowrap;
@@ -272,7 +272,7 @@
 .ubits-menu-user-role {
   font-family: var(--font-family-noto-sans-font-family);
   font-size: var(--modifiers-normal-body-sm-regular-fontsize);
-  font-weight: var(--ubits-font-weight-regular);
+  font-weight: var(--weight-regular);
   line-height: var(--modifiers-normal-body-sm-regular-lineheight);
   color: var(--modifiers-normal-color-light-fg-1-medium);
   white-space: nowrap;

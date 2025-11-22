@@ -48,17 +48,17 @@ function ensureContainer(containerId?: string): HTMLElement {
     // Aplicar estilos al contenedor
     container.style.cssText = `
       position: fixed;
-      top: 16px;
+      top: var(--p-spacing-mode-1-lg, 16px);
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: var(--p-spacing-mode-1-md, 12px);
       width: 100%;
       max-width: 560px;
       min-width: 320px;
-      padding: 0 16px;
+      padding: 0 var(--p-spacing-mode-1-lg, 16px);
       box-sizing: border-box;
       z-index: 10000;
       pointer-events: none;

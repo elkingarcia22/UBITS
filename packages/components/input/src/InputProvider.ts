@@ -156,7 +156,7 @@ export function renderInput(options: InputOptions): string {
       
       let textareaStyle = `width: 100%; min-height: 80px; resize: vertical; ${paddingLeft} ${paddingRight}; border: none; border-radius: 0;`;
       if (state === 'disabled') {
-        textareaStyle += `; background: var(--ubits-bg-3) !important; color: var(--ubits-fg-1-low) !important;`;
+        textareaStyle += `; background: var(--modifiers-normal-color-light-bg-3) !important; color: var(--modifiers-normal-color-light-fg-1-low) !important;`;
       }
       const textareaId = `${containerId}-textarea`;
       inputHTML += `<textarea id="${textareaId}" class="${inputClasses.join(' ')}" style="${textareaStyle}" placeholder="${placeholder}"${disabledAttr}${maxLengthAttr}>${value}</textarea>`;
@@ -166,7 +166,7 @@ export function renderInput(options: InputOptions): string {
       // Textarea sin barra de herramientas (comportamiento normal)
     let textareaStyle = `width: 100%; min-height: 80px; resize: vertical; ${paddingLeft} ${paddingRight}`;
     if (state === 'disabled') {
-      textareaStyle += `; background: var(--ubits-bg-3) !important; color: var(--ubits-fg-1-low) !important; border-color: var(--ubits-border-2) !important;`;
+      textareaStyle += `; background: var(--modifiers-normal-color-light-bg-3) !important; color: var(--modifiers-normal-color-light-fg-1-low) !important; border-color: var(--modifiers-normal-color-light-border-2) !important;`;
     }
       const textareaId = `${containerId}-textarea`;
       inputHTML += `<textarea id="${textareaId}" class="${inputClasses.join(' ')}" style="${textareaStyle}" placeholder="${placeholder}"${disabledAttr}${maxLengthAttr}>${value}</textarea>`;
@@ -192,7 +192,7 @@ export function renderInput(options: InputOptions): string {
 
     let searchStyle = `width: 100%; ${searchPaddingLeft} ${searchPaddingRight}`;
     if (state === 'disabled') {
-      searchStyle += `; background: var(--ubits-bg-3) !important; color: var(--ubits-fg-1-low) !important; border-color: var(--ubits-border-2) !important;`;
+      searchStyle += `; background: var(--modifiers-normal-color-light-bg-3) !important; color: var(--modifiers-normal-color-light-fg-1-low) !important; border-color: var(--modifiers-normal-color-light-border-2) !important;`;
     }
     inputHTML += `<input type="text" class="${inputClasses.join(' ')}" style="${searchStyle}" placeholder="${placeholder}" value="${value}" autocomplete="off"${disabledAttr}${maxLengthAttr}>`;
   } else if (type === 'autocomplete') {
@@ -216,7 +216,7 @@ export function renderInput(options: InputOptions): string {
 
     let autocompleteStyle = `width: 100%; ${autocompletePaddingLeft} ${autocompletePaddingRight}`;
     if (state === 'disabled') {
-      autocompleteStyle += `; background: var(--ubits-bg-3) !important; color: var(--ubits-fg-1-low) !important; border-color: var(--ubits-border-2) !important;`;
+      autocompleteStyle += `; background: var(--modifiers-normal-color-light-bg-3) !important; color: var(--modifiers-normal-color-light-fg-1-low) !important; border-color: var(--modifiers-normal-color-light-border-2) !important;`;
     }
     inputHTML += `<input type="text" class="${inputClasses.join(' ')}" style="${autocompleteStyle}" placeholder="${placeholder}" value="${value}" autocomplete="off"${disabledAttr}${maxLengthAttr}>`;
   } else if (type === 'calendar') {
@@ -233,7 +233,7 @@ export function renderInput(options: InputOptions): string {
 
     let calendarStyle = `width: 100%; ${calendarPaddingLeft} ${calendarPaddingRight}`;
     if (state === 'disabled') {
-      calendarStyle += `; background: var(--ubits-bg-3) !important; color: var(--ubits-fg-1-low) !important; border-color: var(--ubits-border-2) !important;`;
+      calendarStyle += `; background: var(--modifiers-normal-color-light-bg-3) !important; color: var(--modifiers-normal-color-light-fg-1-low) !important; border-color: var(--modifiers-normal-color-light-border-2) !important;`;
     }
     inputHTML += `<input type="text" class="${inputClasses.join(' ')}" style="${calendarStyle}" placeholder="${placeholder}" value="${value}" readonly${disabledAttr}>`;
   } else if (type === 'password') {
@@ -250,24 +250,28 @@ export function renderInput(options: InputOptions): string {
 
     let passwordStyle = `width: 100%; ${passwordPaddingLeft} ${passwordPaddingRight}`;
     if (state === 'disabled') {
-      passwordStyle += `; background: var(--ubits-bg-3) !important; color: var(--ubits-fg-1-low) !important; border-color: var(--ubits-border-2) !important;`;
+      passwordStyle += `; background: var(--modifiers-normal-color-light-bg-3) !important; color: var(--modifiers-normal-color-light-fg-1-low) !important; border-color: var(--modifiers-normal-color-light-border-2) !important;`;
     }
     inputHTML += `<input type="password" class="${inputClasses.join(' ')}" style="${passwordStyle}" placeholder="${placeholder}" value="${value}"${disabledAttr}${maxLengthAttr}>`;
   } else {
     // INPUT normal (text, email, number, tel, url)
-    inputHTML += `<input type="${type}" class="${inputClasses.join(' ')}" style="width: 100%; ${paddingLeft} ${paddingRight}" placeholder="${placeholder}" value="${value}"${disabledAttr}${maxLengthAttr}>`;
+    const step = type === 'number' ? (attributes as any).step || '1' : '';
+    const min = type === 'number' ? (attributes as any).min || '' : '';
+    const max = type === 'number' ? (attributes as any).max || '' : '';
+    const numberAttrs = type === 'number' ? ` step="${step}"${min ? ` min="${min}"` : ''}${max ? ` max="${max}"` : ''}` : '';
+    inputHTML += `<input type="${type}" class="${inputClasses.join(' ')}" style="width: 100%; ${paddingLeft} ${paddingRight}" placeholder="${placeholder}" value="${value}"${numberAttrs}${disabledAttr}${maxLengthAttr}>`;
   }
 
   // Icono izquierdo con posicionamiento absoluto
   if (finalHasLeftIcon) {
     const leftIconClass = finalLeftIcon.startsWith('fa-') ? `far ${finalLeftIcon}` : `far fa-${finalLeftIcon}`;
-    inputHTML += `<i class="${leftIconClass} ubits-input-icon-left" style="position: absolute; left: var(--ubits-spacing-md, 12px); top: 50%; transform: translateY(-50%); color: var(--ubits-fg-1-medium); pointer-events: none; z-index: 1;"></i>`;
+    inputHTML += `<i class="${leftIconClass} ubits-input-icon-left" style="position: absolute; left: var(--ubits-spacing-md, 12px); top: 50%; transform: translateY(-50%); color: var(--modifiers-normal-color-light-fg-1-medium); pointer-events: none; z-index: 1;"></i>`;
   }
 
   // Icono derecho con posicionamiento absoluto
   if (finalHasRightIcon) {
     const rightIconClass = finalRightIcon.startsWith('fa-') ? `far ${finalRightIcon}` : `far fa-${finalRightIcon}`;
-    inputHTML += `<i class="${rightIconClass} ubits-input-icon-right" style="position: absolute; right: var(--ubits-spacing-md, 12px); top: 50%; transform: translateY(-50%); color: var(--ubits-fg-1-medium); pointer-events: none; z-index: 1;"></i>`;
+    inputHTML += `<i class="${rightIconClass} ubits-input-icon-right" style="position: absolute; right: var(--ubits-spacing-md, 12px); top: 50%; transform: translateY(-50%); color: var(--modifiers-normal-color-light-fg-1-medium); pointer-events: none; z-index: 1;"></i>`;
   }
 
   inputHTML += '</div>';
@@ -902,7 +906,7 @@ function createCalendarPicker(container: HTMLElement, inputElement: HTMLInputEle
       console.error('❌ [Calendar Picker] Error cargando Calendar UBITS:', error);
       // Fallback: mostrar mensaje de error
       if (calendarContainer) {
-        calendarContainer.innerHTML = `<div style="padding: var(--ubits-spacing-lg, 16px); background: var(--ubits-bg-1); border: 1px solid var(--ubits-border-1); border-radius: var(--ubits-border-radius-lg, 8px); color: var(--ubits-fg-1-high);">Error al cargar el calendario</div>`;
+        calendarContainer.innerHTML = `<div style="padding: var(--ubits-spacing-lg, 16px); background: var(--modifiers-normal-color-light-bg-1); border: 1px solid var(--modifiers-normal-color-light-border-1); border-radius: var(--ubits-border-radius-lg, 8px); color: var(--modifiers-normal-color-light-fg-1-high);">Error al cargar el calendario</div>`;
         calendarContainer.style.display = 'block';
       }
     }
@@ -1162,13 +1166,13 @@ function showInsertTableModal(editableDiv: HTMLElement, syncContent: () => void)
         table.style.borderCollapse = 'collapse';
         table.style.width = '100%';
         table.style.margin = `var(--ubits-spacing-sm, 8px) 0`;
-        table.style.border = `1px solid var(--ubits-border-1)`;
+        table.style.border = `1px solid var(--modifiers-normal-color-light-border-1)`;
         
         for (let i = 0; i < rows; i++) {
           const tr = document.createElement('tr');
           for (let j = 0; j < cols; j++) {
             const td = document.createElement('td');
-            td.style.border = `1px solid var(--ubits-border-1)`;
+            td.style.border = `1px solid var(--modifiers-normal-color-light-border-1)`;
             td.style.padding = `var(--ubits-spacing-sm, 8px)`;
             td.style.minWidth = '50px';
             td.textContent = ' ';
@@ -1661,7 +1665,7 @@ function setupRichTextToolbar(container: HTMLElement, textareaElement: HTMLTextA
         if (selection && selection.rangeCount > 0) {
           const range = selection.getRangeAt(0);
           const code = document.createElement('code');
-          code.style.background = 'var(--ubits-bg-2)';
+          code.style.background = 'var(--modifiers-normal-color-light-bg-2)';
           code.style.padding = `var(--ubits-spacing-xs, 2px) var(--ubits-spacing-sm, 4px)`;
           code.style.borderRadius = `var(--ubits-border-radius-sm, 4px)`;
           code.style.fontFamily = 'var(--font-mono, monospace)';

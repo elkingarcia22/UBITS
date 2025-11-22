@@ -368,7 +368,7 @@ export const Default: Story = {
     } catch (error) {
       console.error('Error al crear calendario:', error);
       const errorDiv = document.createElement('div');
-      errorDiv.style.cssText = 'color: var(--ubits-fg-1-high); padding: 20px; text-align: center;';
+      errorDiv.style.cssText = 'color: var(--modifiers-normal-color-light-fg-1-high); padding: 20px; text-align: center;';
       errorDiv.textContent = `Error al cargar el calendario: ${error}`;
       return errorDiv;
     }

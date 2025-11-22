@@ -83,17 +83,17 @@ function ensureToastContainer(): HTMLElement {
     container.id = containerId;
     container.style.cssText = `
       position: fixed;
-      top: 16px;
+      top: var(--p-spacing-mode-1-lg, 16px);
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: var(--p-spacing-mode-1-md, 12px);
       width: 100%;
       max-width: 560px;
       min-width: 320px;
-      padding: 0 16px;
+      padding: 0 var(--p-spacing-mode-1-lg, 16px);
       box-sizing: border-box;
       z-index: 10000;
       pointer-events: none;
@@ -136,15 +136,15 @@ export const Default: Story = {
     
     const container = document.createElement('div');
     container.style.padding = '20px';
-    container.style.background = 'var(--ubits-bg-1, #ffffff)';
-    container.style.borderRadius = '8px';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
+    container.style.borderRadius = '8px)';
     container.style.width = '100%';
     container.style.maxWidth = '800px';
     
     // Botones para mostrar toast
     const controls = document.createElement('div');
     controls.style.display = 'flex';
-    controls.style.gap = '12px';
+    controls.style.gap = 'var(--p-spacing-mode-1-md, 12px)';
     controls.style.flexWrap = 'wrap';
     controls.style.marginBottom = '24px';
     
@@ -152,28 +152,28 @@ export const Default: Story = {
     showButton.textContent = 'Mostrar Toast';
     showButton.style.cssText = `
       padding: 10px 20px;
-      background: var(--ubits-button-bg-primary);
-      color: var(--ubits-button-fg-primary);
-      border: 1px solid var(--ubits-button-border-primary);
+      background: var(--modifiers-normal-color-light-button-bg-primary);
+      color: var(--modifiers-normal-color-light-button-fg-primary);
+      border: 1px solid var(--modifiers-normal-color-light-button-border-primary);
       border-radius: 6px;
       cursor: pointer;
-      font-family: var(--font-sans);
-      font-size: 14px;
-      font-weight: 600;
+      font-family: var(--font-family-noto-sans-font-family);
+      font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+      font-weight: var(--weight-semibold, 600);
     `;
     
     const clearButton = document.createElement('button');
     clearButton.textContent = 'Limpiar Toasts';
     clearButton.style.cssText = `
       padding: 10px 20px;
-      background: var(--ubits-button-bg-secondary);
-      color: var(--ubits-button-fg-secondary);
-      border: 1px solid var(--ubits-button-border-secondary);
+      background: var(--modifiers-normal-color-light-button-bg-secondary);
+      color: var(--modifiers-normal-color-light-button-fg-secondary);
+      border: 1px solid var(--modifiers-normal-color-light-button-border-secondary);
       border-radius: 6px;
       cursor: pointer;
-      font-family: var(--font-sans);
-      font-size: 14px;
-      font-weight: 600;
+      font-family: var(--font-family-noto-sans-font-family);
+      font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+      font-weight: var(--weight-semibold, 600);
     `;
     
     showButton.addEventListener('click', () => {
@@ -286,12 +286,12 @@ export const Default: Story = {
     
     // Agregar información adicional sobre el toast
     const info = document.createElement('div');
-    info.style.padding = '16px';
-    info.style.background = 'var(--ubits-bg-2, #f9fafb)';
-    info.style.borderRadius = '8px';
-    info.style.fontSize = '14px';
-    info.style.color = 'var(--ubits-fg-1-medium, #5c646f)';
-    info.style.border = '1px solid var(--ubits-border-1)';
+    info.style.padding = 'var(--p-spacing-mode-1-lg, 16px)';
+    info.style.background = 'var(--modifiers-normal-color-light-bg-2)';
+    info.style.borderRadius = '8px)';
+    info.style.fontSize = 'var(--modifiers-normal-body-sm-regular-fontsize)';
+    info.style.color = 'var(--modifiers-normal-color-light-fg-1-medium)';
+    info.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
     info.style.lineHeight = '1.6';
     info.innerHTML = `
       <strong>Tipo:</strong> ${args.type}<br>

@@ -85,7 +85,7 @@
 
 .ubits-pagination__page-button.ubits-button--secondary.ubits-button--active span {
   color: var(--modifiers-normal-color-light-accent-brand);
-  font-weight: var(--ubits-font-weight-semibold);
+  font-weight: var(--weight-semibold);
 }
 
 .ubits-pagination__page-button.ubits-button--secondary.ubits-button--active:hover:not(:disabled) {
@@ -122,7 +122,7 @@
   color: var(--modifiers-normal-color-light-fg-2-medium);
   font-family: var(--font-family-noto-sans-font-family);
   font-size: var(--modifiers-normal-body-md-regular-fontsize);
-  font-weight: var(--ubits-font-weight-regular);
+  font-weight: var(--weight-regular);
   user-select: none;
   min-width: var(--ubits-spacing-8);
   height: var(--ubits-spacing-10);

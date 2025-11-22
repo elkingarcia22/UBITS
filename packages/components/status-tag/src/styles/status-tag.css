@@ -17,7 +17,7 @@
     border: 1px solid;
     font-family: var(--font-family-noto-sans-font-family);
     font-size: var(--modifiers-normal-body-sm-regular-fontsize);
-    font-weight: var(--ubits-font-weight-semibold);
+    font-weight: var(--weight-semibold);
     line-height: var(--modifiers-normal-body-sm-regular-lineheight);
     white-space: nowrap;
     box-sizing: border-box;

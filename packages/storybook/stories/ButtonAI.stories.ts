@@ -119,7 +119,7 @@ export const Default: Story = {
       justify-content: center;
       padding: 40px;
       min-height: 200px;
-      background: var(--ubits-bg-2, #f9fafb);
+      background: var(--modifiers-normal-color-light-bg-2, #f9fafb);
       border-radius: 8px;
     `;
 
@@ -137,7 +137,7 @@ export const Default: Story = {
         }
       } catch (error) {
         console.error('Error creating ButtonAI:', error);
-        container.innerHTML = `<div style="color: var(--ubits-feedback-fg-error); padding: 16px;">Error: ${error instanceof Error ? error.message : String(error)}</div>`;
+        container.innerHTML = `<div style="color: var(--modifiers-normal-color-light-feedback-fg-error-subtle-default); padding: 16px;">Error: ${error instanceof Error ? error.message : String(error)}</div>`;
       }
     });
 

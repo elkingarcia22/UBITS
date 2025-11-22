@@ -11,7 +11,7 @@
 .ubits-radio-button {
     display: inline-flex;
     align-items: flex-start;
-    gap: var(--p-spacing-mode-1-sm);
+    gap: var(--p-spacing-mode-1-sm, 8px);
     cursor: pointer;
     user-select: none;
     transition: all 0.2s ease;
@@ -59,7 +59,7 @@
 .ubits-radio-button__label {
     font-family: var(--font-family-noto-sans-font-family, var(--font-sans, 'Noto Sans', sans-serif));
     font-size: var(--modifiers-normal-body-sm-regular-fontsize);
-    font-weight: var(--ubits-font-weight-regular);
+    font-weight: var(--weight-regular);
     line-height: var(--modifiers-normal-body-sm-regular-lineheight);
     color: var(--modifiers-normal-color-light-fg-1-high);
     white-space: nowrap;
@@ -68,7 +68,7 @@
 .ubits-radio-button__complementary-text {
     font-family: var(--font-family-noto-sans-font-family, var(--font-sans, 'Noto Sans', sans-serif));
     font-size: var(--modifiers-normal-body-sm-regular-fontsize);
-    font-weight: var(--ubits-font-weight-regular);
+    font-weight: var(--weight-regular);
     line-height: var(--modifiers-normal-body-sm-regular-lineheight);
     color: var(--modifiers-normal-color-light-fg-1-medium);
     white-space: normal;

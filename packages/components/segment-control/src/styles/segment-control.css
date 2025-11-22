@@ -5,7 +5,7 @@
 /* Segment Control Container */
 .ubits-segment-control {
   display: flex;
-  gap: 0;
+  Menu de Participantes  gap: 0;
   align-items: center;
   background-color: var(--modifiers-normal-color-light-bg-2);
   padding: 4px;
@@ -32,7 +32,7 @@
   font-size: var(--modifiers-normal-body-sm-regular-fontsize);
   line-height: var(--modifiers-normal-body-sm-regular-lineheight);
   color: var(--modifiers-normal-color-light-fg-1-medium);
-  font-weight: var(--ubits-font-weight-semibold);
+  font-weight: var(--weight-semibold);
   white-space: nowrap;
   width: fit-content;
 }
@@ -53,7 +53,7 @@
 /* Segment Label - Inactive */
 .ubits-segment__label {
   color: var(--modifiers-normal-color-light-fg-1-medium);
-  font-weight: var(--ubits-font-weight-semibold);
+  font-weight: var(--weight-semibold);
 }
 
 /* Hover State (solo para segmentos inactivos) */

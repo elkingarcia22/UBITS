@@ -1,22 +1,21 @@
 /**
  * Tokens UBITS - Spacing
  * 
- * Tokens de espaciado:
- * - p-spacing (primitive spacing)
- * - s-spacing (semantic spacing)
- * - ubits-spacing (tokens actuales UBITS)
+ * Tokens de espaciado del sistema UBITS:
+ * - Spacing básico (xs, sm, md, lg, xl, 2xl)
+ * - Spacing extendido (valores numéricos)
  */
 
 import type { Meta, StoryObj } from '@storybook/html';
 
 const meta: Meta = {
-  title: 'Tokens UBITS/5. Spacing',
+  title: 'Tokens UBITS/07. Spacing',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Tokens de espaciado del sistema UBITS. Incluye p-spacing (primitive), s-spacing (semantic) y ubits-spacing (tokens actuales).',
+        component: 'Tokens de espaciado del sistema UBITS. Incluye valores básicos (xs, sm, md, lg, xl, 2xl) y valores extendidos (numéricos).',
       },
     },
   },
@@ -25,291 +24,178 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-// Tokens de spacing organizados por categoría
-// NOTA: Los tokens están en tokens.css con prefijo ubits-spacing
-// Los tokens aparecen en light y dark mode, pero los valores son los mismos
-const SPACING_TOKENS = {
-  'ubits-spacing': [
-    '--ubits-spacing-none',
-    '--ubits-spacing-xs',
-    '--ubits-spacing-sm',
-    '--ubits-spacing-md',
-    '--ubits-spacing-lg',
-    '--ubits-spacing-xl',
-    '--ubits-spacing-2xl',
-    '--ubits-spacing-3xl',
-    '--ubits-spacing-4xl',
-    '--ubits-spacing-5xl',
-    '--ubits-spacing-6xl',
-    '--ubits-spacing-7',
-    '--ubits-spacing-8',
-    '--ubits-spacing-10',
-    '--ubits-spacing-12',
-    '--ubits-spacing-16',
-    '--ubits-spacing-20',
-    '--ubits-spacing-24',
-    '--ubits-spacing-32',
-    '--ubits-spacing-40',
-    '--ubits-spacing-48',
-    '--ubits-spacing-64',
-    '--ubits-spacing-80',
-    '--ubits-spacing-96',
-  ],
-  'p-spacing': [
-    // Los tokens p-spacing no están en figma-tokens.css actualmente
-  ],
-  's-spacing': [
-    // Los tokens s-spacing no están en figma-tokens.css actualmente
-  ],
-} as const;
+// Tokens de espaciado básico (UBITS)
+const SPACING_BASIC_TOKENS = [
+  '--ubits-spacing-none',
+  '--ubits-spacing-xs',
+  '--ubits-spacing-sm',
+  '--ubits-spacing-md',
+  '--ubits-spacing-lg',
+  '--ubits-spacing-xl',
+  '--ubits-spacing-2xl',
+] as const;
 
-/**
- * Obtiene el valor de un token CSS
- */
-function getTokenValue(token: string): string {
+// Tokens de espaciado extendido (Figma - p-spacing-mode-1)
+const SPACING_EXTENDED_TOKENS = [
+  '--p-spacing-mode-1-space-0',
+  '--p-spacing-mode-1-space-1',
+  '--p-spacing-mode-1-space-2',
+  '--p-spacing-mode-1-space-3',
+  '--p-spacing-mode-1-space-4',
+  '--p-spacing-mode-1-space-5',
+  '--p-spacing-mode-1-space-6',
+  '--p-spacing-mode-1-space-7',
+  '--p-spacing-mode-1-space-8',
+  '--p-spacing-mode-1-space-9',
+  '--p-spacing-mode-1-space-10',
+  '--p-spacing-mode-1-space-11',
+  '--p-spacing-mode-1-space-12',
+  '--p-spacing-mode-1-space-14',
+  '--p-spacing-mode-1-space-16',
+  '--p-spacing-mode-1-space-20',
+  '--p-spacing-mode-1-space-24',
+  '--p-spacing-mode-1-space-28',
+  '--p-spacing-mode-1-space-32',
+  '--p-spacing-mode-1-space-36',
+  '--p-spacing-mode-1-space-40',
+  '--p-spacing-mode-1-space-44',
+  '--p-spacing-mode-1-space-48',
+  '--p-spacing-mode-1-space-52',
+  '--p-spacing-mode-1-space-56',
+  '--p-spacing-mode-1-space-60',
+  '--p-spacing-mode-1-space-64',
+  '--p-spacing-mode-1-space-72',
+  '--p-spacing-mode-1-space-80',
+  '--p-spacing-mode-1-space-96',
+] as const;
+
+function createSpacingItem(token: string) {
   const root = document.documentElement;
-  const value = getComputedStyle(root).getPropertyValue(token).trim();
-  return value || 'N/A';
+  const value = getComputedStyle(root).getPropertyValue(token).trim() || '0';
+  
+  // Para tokens Figma que son números sin px, necesitamos agregar px
+  let pxValue: number;
+  let displayValue: string;
+  
+  if (token.startsWith('--p-spacing-mode-1-')) {
+    // Tokens Figma son números sin unidades
+    const numValue = parseFloat(value) || 0;
+    pxValue = numValue;
+    displayValue = numValue > 0 ? `${numValue}px` : '0';
+  } else {
+    // Tokens UBITS ya tienen px
+    pxValue = parseFloat(value) || 0;
+    displayValue = value || '0';
+  }
+  
+  const wrap = document.createElement('div');
+  wrap.style.display = 'grid';
+  wrap.style.gridTemplateColumns = '300px 1fr';
+  wrap.style.alignItems = 'center';
+  wrap.style.gap = '16px';
+  wrap.style.padding = '12px 16px';
+  wrap.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
+  wrap.style.borderRadius = 'var(--ubits-border-radius-sm, 8px)';
+  wrap.style.background = 'var(--modifiers-normal-color-light-bg-1)';
+  
+  const nameEl = document.createElement('code');
+  nameEl.textContent = token;
+  nameEl.style.fontSize = '13px';
+  nameEl.style.color = 'var(--modifiers-normal-color-light-fg-1-high)';
+  nameEl.style.fontFamily = 'Monaco, Menlo, monospace';
+  
+  const right = document.createElement('div');
+  right.style.display = 'flex';
+  right.style.alignItems = 'center';
+  right.style.gap = '12px';
+  
+  // Visual bar representing the spacing
+  const bar = document.createElement('div');
+  const maxWidth = 200;
+  const scaleFactor = Math.min(1, maxWidth / Math.max(pxValue, 1));
+  const barWidth = pxValue > 0 ? Math.max(pxValue * scaleFactor, 2) : 0;
+  
+  bar.style.width = `${barWidth}px`;
+  bar.style.height = '24px';
+  bar.style.background = 'var(--modifiers-normal-color-light-accent-brand)';
+  bar.style.borderRadius = 'var(--ubits-border-radius-sm, 8px)';
+  bar.style.minWidth = pxValue > 0 ? '2px' : '0';
+  
+  const valueEl = document.createElement('span');
+  valueEl.textContent = displayValue;
+  valueEl.style.fontSize = '13px';
+  valueEl.style.color = 'var(--modifiers-normal-color-light-fg-1-medium)';
+  valueEl.style.fontFamily = 'Monaco, Menlo, monospace';
+  valueEl.style.minWidth = '60px';
+  valueEl.style.textAlign = 'right';
+  
+  right.appendChild(bar);
+  right.appendChild(valueEl);
+  
+  wrap.appendChild(nameEl);
+  wrap.appendChild(right);
+  
+  return wrap;
 }
 
-/**
- * Crea una fila de tabla para mostrar un token de spacing
- */
-function createSpacingRow(token: string): HTMLElement {
-  const row = document.createElement('tr');
-  row.style.borderBottom = '1px solid #e5e7eb';
-
-  const tokenCell = document.createElement('td');
-  tokenCell.style.padding = '12px';
-  tokenCell.style.fontFamily = 'monospace';
-  tokenCell.style.fontSize = '13px';
-  tokenCell.style.color = '#303a47';
-  tokenCell.textContent = token;
-  row.appendChild(tokenCell);
-
-  const valueCell = document.createElement('td');
-  valueCell.style.padding = '12px';
-  valueCell.style.fontSize = '14px';
-  valueCell.style.color = '#6b7280';
-  
-  const value = getTokenValue(token);
-  valueCell.textContent = value;
-  row.appendChild(valueCell);
-
-  const previewCell = document.createElement('td');
-  previewCell.style.padding = '12px';
-  previewCell.style.width = '200px';
-  
-  const preview = document.createElement('div');
-  preview.style.display = 'flex';
-  preview.style.alignItems = 'center';
-  preview.style.gap = '8px';
-  
-  const box = document.createElement('div');
-  box.style.width = value;
-  box.style.height = '24px';
-  box.style.backgroundColor = '#3b82f6';
-  box.style.borderRadius = '4px';
-  box.style.minWidth = '2px';
-  preview.appendChild(box);
-  
-  const label = document.createElement('span');
-  label.textContent = value;
-  label.style.fontSize = '12px';
-  label.style.color = '#6b7280';
-  preview.appendChild(label);
-  
-  previewCell.appendChild(preview);
-  row.appendChild(previewCell);
-
-  return row;
-}
-
-/**
- * Story principal que muestra todos los tokens de spacing
- */
-export const TodosLosTokens: Story = {
+export const Basic: Story = {
   render: () => {
     const container = document.createElement('div');
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.gap = '16px';
     container.style.padding = '24px';
-    container.style.maxWidth = '1400px';
-
-    const title = document.createElement('h2');
-    title.textContent = 'Spacing - Todos los Tokens';
-    title.style.fontSize = '24px';
-    title.style.fontWeight = '700';
-    title.style.marginBottom = '16px';
-    container.appendChild(title);
-
-    const totalCount = Object.values(SPACING_TOKENS).reduce((sum, tokens) => sum + tokens.length, 0);
-    const summary = document.createElement('div');
-    summary.style.marginBottom = '24px';
-    summary.style.padding = '16px';
-    summary.style.backgroundColor = '#f3f4f6';
-    summary.style.border = '1px solid #d1d5db';
-    summary.style.borderRadius = '8px';
-    summary.style.fontSize = '14px';
-    summary.innerHTML = `
-      <strong>Resumen:</strong><br>
-      • UBITS Spacing: ${SPACING_TOKENS['ubits-spacing'].length} tokens<br>
-      • p-spacing: ${SPACING_TOKENS['p-spacing'].length} tokens (no disponibles en figma-tokens.css)<br>
-      • s-spacing: ${SPACING_TOKENS['s-spacing'].length} tokens (no disponibles en figma-tokens.css)<br>
-      <strong>Total: ${totalCount} tokens</strong>
-    `;
-    container.appendChild(summary);
-
-    // Renderizar cada categoría
-    Object.entries(SPACING_TOKENS).forEach(([category, tokens]) => {
-      if (tokens.length === 0) return;
-
-      const section = document.createElement('div');
-      section.style.marginBottom = '40px';
-
-      const sectionTitle = document.createElement('h3');
-      sectionTitle.textContent = `${category.charAt(0).toUpperCase() + category.slice(1).replace('-', ' ')} (${tokens.length} tokens)`;
-      sectionTitle.style.fontSize = '20px';
-      sectionTitle.style.fontWeight = '600';
-      sectionTitle.style.marginBottom = '16px';
-      sectionTitle.style.paddingBottom = '8px';
-      sectionTitle.style.borderBottom = '2px solid #e5e7eb';
-      section.appendChild(sectionTitle);
-
-      const table = document.createElement('table');
-      table.style.width = '100%';
-      table.style.borderCollapse = 'collapse';
-      table.style.backgroundColor = '#ffffff';
-      table.style.border = '1px solid #e5e7eb';
-      table.style.borderRadius = '8px';
-      table.style.overflow = 'hidden';
-
-      const thead = document.createElement('thead');
-      thead.style.backgroundColor = '#f9fafb';
-      const headerRow = document.createElement('tr');
-      
-      const tokenHeader = document.createElement('th');
-      tokenHeader.textContent = 'Token';
-      tokenHeader.style.padding = '12px';
-      tokenHeader.style.textAlign = 'left';
-      tokenHeader.style.fontSize = '14px';
-      tokenHeader.style.fontWeight = '600';
-      tokenHeader.style.color = '#303a47';
-      tokenHeader.style.borderBottom = '2px solid #e5e7eb';
-      headerRow.appendChild(tokenHeader);
-
-      const valueHeader = document.createElement('th');
-      valueHeader.textContent = 'Valor';
-      valueHeader.style.padding = '12px';
-      valueHeader.style.textAlign = 'left';
-      valueHeader.style.fontSize = '14px';
-      valueHeader.style.fontWeight = '600';
-      valueHeader.style.color = '#303a47';
-      valueHeader.style.borderBottom = '2px solid #e5e7eb';
-      headerRow.appendChild(valueHeader);
-
-      const previewHeader = document.createElement('th');
-      previewHeader.textContent = 'Preview';
-      previewHeader.style.padding = '12px';
-      previewHeader.style.textAlign = 'left';
-      previewHeader.style.fontSize = '14px';
-      previewHeader.style.fontWeight = '600';
-      previewHeader.style.color = '#303a47';
-      previewHeader.style.borderBottom = '2px solid #e5e7eb';
-      headerRow.appendChild(previewHeader);
-
-      thead.appendChild(headerRow);
-      table.appendChild(thead);
-
-      const tbody = document.createElement('tbody');
-      tokens.forEach(token => {
-        tbody.appendChild(createSpacingRow(token));
-      });
-      table.appendChild(tbody);
-
-      section.appendChild(table);
-      container.appendChild(section);
-    });
-
-    return container;
-  },
-};
-
-/**
- * Story para UBITS Spacing
- */
-export const UBITSSpacing: Story = {
-  render: () => {
-    const container = document.createElement('div');
-    container.style.padding = '24px';
-    container.style.maxWidth = '1400px';
-
-    const title = document.createElement('h2');
-    title.textContent = 'UBITS Spacing';
-    title.style.fontSize = '24px';
-    title.style.fontWeight = '700';
-    title.style.marginBottom = '16px';
-    container.appendChild(title);
-
-    const count = document.createElement('div');
-    count.style.marginBottom = '16px';
-    count.style.fontSize = '16px';
-    count.style.fontWeight = '600';
-    count.textContent = `Total: ${SPACING_TOKENS['ubits-spacing'].length} tokens`;
-    container.appendChild(count);
-
-    const table = document.createElement('table');
-    table.style.width = '100%';
-    table.style.borderCollapse = 'collapse';
-    table.style.backgroundColor = '#ffffff';
-    table.style.border = '1px solid #e5e7eb';
-    table.style.borderRadius = '8px';
-    table.style.overflow = 'hidden';
-
-    const thead = document.createElement('thead');
-    thead.style.backgroundColor = '#f9fafb';
-    const headerRow = document.createElement('tr');
+    container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
+    container.style.borderRadius = 'var(--ubits-border-radius-md, 8px)';
     
-    const tokenHeader = document.createElement('th');
-    tokenHeader.textContent = 'Token';
-    tokenHeader.style.padding = '12px';
-    tokenHeader.style.textAlign = 'left';
-    tokenHeader.style.fontSize = '14px';
-    tokenHeader.style.fontWeight = '600';
-    tokenHeader.style.color = '#303a47';
-    tokenHeader.style.borderBottom = '2px solid #e5e7eb';
-    headerRow.appendChild(tokenHeader);
-
-    const valueHeader = document.createElement('th');
-    valueHeader.textContent = 'Valor';
-    valueHeader.style.padding = '12px';
-    valueHeader.style.textAlign = 'left';
-    valueHeader.style.fontSize = '14px';
-    valueHeader.style.fontWeight = '600';
-    valueHeader.style.color = '#303a47';
-    valueHeader.style.borderBottom = '2px solid #e5e7eb';
-    headerRow.appendChild(valueHeader);
-
-    const previewHeader = document.createElement('th');
-    previewHeader.textContent = 'Preview';
-    previewHeader.style.padding = '12px';
-    previewHeader.style.textAlign = 'left';
-    previewHeader.style.fontSize = '14px';
-    previewHeader.style.fontWeight = '600';
-    previewHeader.style.color = '#303a47';
-    previewHeader.style.borderBottom = '2px solid #e5e7eb';
-    headerRow.appendChild(previewHeader);
-
-    thead.appendChild(headerRow);
-    table.appendChild(thead);
-
-    const tbody = document.createElement('tbody');
-    SPACING_TOKENS['ubits-spacing'].forEach(token => {
-      tbody.appendChild(createSpacingRow(token));
+    const title = document.createElement('h2');
+    title.textContent = 'Spacing Básico (UBITS)';
+    title.style.margin = '0 0 16px 0';
+    title.style.fontSize = '18px';
+    title.style.fontWeight = '600';
+    title.style.color = 'var(--modifiers-normal-color-light-fg-1-high)';
+    
+    container.appendChild(title);
+    
+    SPACING_BASIC_TOKENS.forEach(token => {
+      container.appendChild(createSpacingItem(token));
     });
-    table.appendChild(tbody);
-
-    container.appendChild(table);
-
+    
     return container;
   },
 };
 
+export const Extended: Story = {
+  render: () => {
+    const container = document.createElement('div');
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.gap = '16px';
+    container.style.padding = '24px';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
+    container.style.borderRadius = 'var(--ubits-border-radius-md, 8px)';
+    
+    const title = document.createElement('h2');
+    title.textContent = 'Spacing Extendido (Figma - p-spacing-mode-1)';
+    title.style.margin = '0 0 16px 0';
+    title.style.fontSize = '18px';
+    title.style.fontWeight = '600';
+    title.style.color = 'var(--modifiers-normal-color-light-fg-1-high)';
+    
+    const note = document.createElement('p');
+    note.textContent = 'Nota: Los tokens de Figma son valores numéricos sin unidades. Se muestran con "px" para referencia visual.';
+    note.style.margin = '0 0 16px 0';
+    note.style.fontSize = '13px';
+    note.style.color = 'var(--modifiers-normal-color-light-fg-1-medium)';
+    note.style.fontStyle = 'italic';
+    
+    container.appendChild(title);
+    container.appendChild(note);
+    
+    SPACING_EXTENDED_TOKENS.forEach(token => {
+      container.appendChild(createSpacingItem(token));
+    });
+    
+    return container;
+  },
+};

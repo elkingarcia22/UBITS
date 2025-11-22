@@ -4545,8 +4545,8 @@ export function createDataTable(options: DataTableOptions): {
           position: fixed;
           z-index: 10000;
           display: none;
-          background-color: var(--ubits-bg-1);
-          border: 1px solid var(--ubits-border-1);
+          background-color: var(--modifiers-normal-color-light-bg-1);
+          border: 1px solid var(--modifiers-normal-color-light-border-1);
           border-radius: var(--ubits-border-radius-md, 8px);
           box-shadow: var(--ubits-elevation-2, 0 4px 6px rgba(0, 0, 0, 0.1));
           min-width: 200px;

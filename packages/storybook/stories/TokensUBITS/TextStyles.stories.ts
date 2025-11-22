@@ -12,7 +12,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 
 const meta: Meta = {
-  title: 'Tokens UBITS/8. Text Styles',
+  title: 'Tokens UBITS/08. Text Styles',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
@@ -394,7 +394,7 @@ export const UsoPractico: Story = {
       Los text styles se construyen combinando:
       <ul style="margin-left: 20px; margin-top: 8px;">
         <li><code>font-size</code>: Token de Figma (ej: <code>--modifiers-normal-body-md-semibold-fontsize</code>)</li>
-        <li><code>font-weight</code>: Token numérico UBITS (ej: <code>--ubits-font-weight-semibold, 600</code>)</li>
+        <li><code>font-weight</code>: Token numérico UBITS (ej: <code>--weight-semibold, 600</code>)</li>
         <li><code>line-height</code>: Token de Figma (ej: <code>--modifiers-normal-body-md-semibold-lineheight</code>)</li>
       </ul>
     `;
@@ -416,7 +416,7 @@ export const UsoPractico: Story = {
         css: `
 font-family: var(--font-family-noto-sans-font-family);
 font-size: var(--modifiers-normal-body-md-semibold-fontsize);
-font-weight: var(--ubits-font-weight-semibold, 600);
+font-weight: var(--weight-semibold, 600);
 line-height: var(--modifiers-normal-body-md-semibold-lineheight);
         `.trim(),
         preview: 'Texto de ejemplo con Body MD Semibold'
@@ -427,7 +427,7 @@ line-height: var(--modifiers-normal-body-md-semibold-lineheight);
         css: `
 font-family: var(--font-family-noto-sans-font-family);
 font-size: var(--modifiers-normal-body-sm-semibold-fontsize);
-font-weight: var(--ubits-font-weight-semibold, 600);
+font-weight: var(--weight-semibold, 600);
 line-height: var(--modifiers-normal-body-sm-semibold-lineheight);
         `.trim(),
         preview: 'Texto de ejemplo con Body SM Semibold'
@@ -438,7 +438,7 @@ line-height: var(--modifiers-normal-body-sm-semibold-lineheight);
         css: `
 font-family: var(--font-family-noto-sans-font-family);
 font-size: var(--modifiers-normal-body-md-regular-fontsize);
-font-weight: var(--ubits-font-weight-regular, 400);
+font-weight: var(--weight-regular, 400);
 line-height: var(--modifiers-normal-body-md-regular-lineheight);
         `.trim(),
         preview: 'Texto de ejemplo con Body MD Regular para párrafos y descripciones largas.'
@@ -449,7 +449,7 @@ line-height: var(--modifiers-normal-body-md-regular-lineheight);
         css: `
 font-family: var(--font-family-noto-sans-font-family);
 font-size: var(--modifiers-normal-body-sm-regular-fontsize);
-font-weight: var(--ubits-font-weight-regular, 400);
+font-weight: var(--weight-regular, 400);
 line-height: var(--modifiers-normal-body-sm-regular-lineheight);
         `.trim(),
         preview: 'Texto de ejemplo con Body SM Regular'
@@ -460,7 +460,7 @@ line-height: var(--modifiers-normal-body-sm-regular-lineheight);
         css: `
 font-family: var(--font-family-noto-sans-font-family);
 font-size: var(--modifiers-normal-body-xs-semibold-fontsize);
-font-weight: var(--ubits-font-weight-semibold, 600);
+font-weight: var(--weight-semibold, 600);
 line-height: var(--modifiers-normal-body-xs-semibold-lineheight);
         `.trim(),
         preview: 'XS Semibold'
@@ -512,7 +512,7 @@ line-height: var(--modifiers-normal-body-xs-semibold-lineheight);
       preview.textContent = style.preview;
       preview.style.fontFamily = 'var(--font-family-noto-sans-font-family)';
       preview.style.fontSize = 'var(--modifiers-normal-body-md-semibold-fontsize)';
-      preview.style.fontWeight = 'var(--ubits-font-weight-semibold, 600)';
+      preview.style.fontWeight = 'var(--weight-semibold, 600)';
       preview.style.lineHeight = 'var(--modifiers-normal-body-md-semibold-lineheight)';
       preview.style.color = '#303a47';
       
@@ -521,14 +521,14 @@ line-height: var(--modifiers-normal-body-xs-semibold-lineheight);
         preview.style.fontSize = 'var(--modifiers-normal-body-sm-semibold-fontsize)';
         preview.style.lineHeight = 'var(--modifiers-normal-body-sm-semibold-lineheight)';
         if (style.name.includes('Regular')) {
-          preview.style.fontWeight = 'var(--ubits-font-weight-regular, 400)';
+          preview.style.fontWeight = 'var(--weight-regular, 400)';
         }
       } else if (style.name.includes('XS')) {
         preview.style.fontSize = 'var(--modifiers-normal-body-xs-semibold-fontsize)';
         preview.style.lineHeight = 'var(--modifiers-normal-body-xs-semibold-lineheight)';
       } else if (style.name.includes('Regular')) {
         preview.style.fontSize = 'var(--modifiers-normal-body-md-regular-fontsize)';
-        preview.style.fontWeight = 'var(--ubits-font-weight-regular, 400)';
+        preview.style.fontWeight = 'var(--weight-regular, 400)';
         preview.style.lineHeight = 'var(--modifiers-normal-body-md-regular-lineheight)';
       }
       
@@ -575,11 +575,11 @@ line-height: var(--modifiers-normal-body-xs-semibold-lineheight);
     note.innerHTML = `
       <strong>⚠️ Nota sobre font-weight:</strong><br>
       Los tokens de Figma devuelven strings ("Regular", "SemiBold", "Bold") en lugar de números.
-      Por eso creamos tokens numéricos en <code>tokens.css</code>:
+      Por eso usamos tokens numéricos UBITS en <code>tokens-typography.css</code>:
       <ul style="margin-left: 20px; margin-top: 8px;">
-        <li><code>--ubits-font-weight-regular: 400</code></li>
-        <li><code>--ubits-font-weight-semibold: 600</code></li>
-        <li><code>--ubits-font-weight-bold: 700</code></li>
+        <li><code>--weight-regular: 400</code></li>
+        <li><code>--weight-semibold: 600</code></li>
+        <li><code>--weight-bold: 700</code></li>
       </ul>
       Estos tokens se usan junto con los tokens de Figma para construir los text styles completos.
     `;

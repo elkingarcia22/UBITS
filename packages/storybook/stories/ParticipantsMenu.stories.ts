@@ -14,11 +14,11 @@ const meta: Meta<ParticipantsMenuOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente de menú lateral UBITS para mostrar una lista de participantes. Incluye búsqueda, filtro y lista de participantes con avatar, nombre, rol y estado.',
-      },
-    },
-    layout: 'fullscreen',
-  },
+        component: 'Componente de menú lateral UBITS para mostrar una lista de participantes. Incluye búsqueda, filtro y lista de participantes con avatar, nombre, rol y estado.'
+}
+},
+    layout: 'fullscreen'
+},
   argTypes: {
     title: {
       control: { type: 'text' },
@@ -26,54 +26,54 @@ const meta: Meta<ParticipantsMenuOptions> = {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'Participantes' },
-        category: 'Contenido',
-      },
-    },
+        category: 'Contenido'
+}
+},
     searchPlaceholder: {
       control: { type: 'text' },
       description: 'Placeholder del input de búsqueda',
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'Buscar participan...' },
-        category: 'Contenido',
-      },
-    },
+        category: 'Contenido'
+}
+},
     showAvatar: {
       control: { type: 'boolean' },
       description: 'Mostrar avatar de los participantes',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
-        category: 'Apariencia',
-      },
-    },
+        category: 'Apariencia'
+}
+},
     showRole: {
       control: { type: 'boolean' },
       description: 'Mostrar rol (texto complementario) de los participantes',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
-        category: 'Apariencia',
-      },
-    },
+        category: 'Apariencia'
+}
+},
     showStatusTag: {
       control: { type: 'boolean' },
       description: 'Mostrar status tag de los participantes',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
-        category: 'Apariencia',
-      },
-    },
+        category: 'Apariencia'
+}
+},
     enableScrollbar: {
       control: { type: 'boolean' },
       description: 'Activar scrollbar de UBITS para la lista de participantes',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
-        category: 'Funcionalidad',
-      },
-    },
+        category: 'Funcionalidad'
+}
+},
     selectedParticipantId: {
       control: { type: 'select' },
       options: ['1', '2', '3', '4', '5', '6', '7', '8', '9', undefined],
@@ -81,10 +81,10 @@ const meta: Meta<ParticipantsMenuOptions> = {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: '1' },
-        category: 'Estado',
-      },
-    },
-  },
+        category: 'Estado'
+}
+}
+}
 };
 
 export default meta;
@@ -244,20 +244,23 @@ export const Default: Story = {
     showAvatar: true,
     showRole: true,
     showStatusTag: true,
-    enableScrollbar: true,
-  },
+    enableScrollbar: true
+},
   render: (args) => {
     // Crear contenedor
     const container = document.createElement('div');
     container.style.cssText = `
-      width: calc(var(--ubits-spacing-12) * 6.5);
-      height: calc(var(--ubits-spacing-12) * 10);
+      width: 100%;
+      padding: 24px;
       background: var(--modifiers-normal-color-light-bg-1);
       position: relative;
       border: none;
-      border-radius: var(--ubits-border-radius-md);
       overflow: hidden;
     `;
+
+    // Wrapper para limitar el ancho
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = 'max-width: 500px; width: 100%; margin: 0 auto;';
 
     // Contenedor para el menú
     const menuContainer = document.createElement('div');
@@ -268,8 +271,10 @@ export const Default: Story = {
       height: 100%;
     `;
     
-    // Insertar el contenedor del menú ANTES de crear el menú
-    container.appendChild(menuContainer);
+    // Insertar el contenedor del menú en el wrapper
+    wrapper.appendChild(menuContainer);
+    // Insertar el wrapper en el container
+    container.appendChild(wrapper);
 
     // Variable para preservar el valor del input de búsqueda
     let preservedSearchValue = '';
@@ -481,7 +486,6 @@ export const Default: Story = {
           }
         } catch (error) {
           console.error('[Story] Error:', error);
-          menuContainer.innerHTML = '<p style="color: var(--modifiers-normal-color-light-feedback-accent-error); padding: var(--ubits-spacing-lg);">Error al crear el menú</p>';
         }
       }, 0);
     };
@@ -523,6 +527,6 @@ export const Default: Story = {
 
     // El menuContainer ya fue insertado arriba, no necesitamos insertarlo de nuevo
     return container;
-  },
+  }
 };
 

@@ -110,7 +110,7 @@
 .ubits-file-upload__drop-text {
     font-family: var(--font-family-noto-sans-font-family);
     font-size: var(--modifiers-normal-body-md-regular-fontsize);
-    font-weight: var(--ubits-font-weight-regular);
+    font-weight: var(--weight-regular);
     line-height: var(--modifiers-normal-body-md-regular-lineheight);
     color: var(--modifiers-normal-color-light-fg-1-high);
     margin: var(--ubits-spacing-none);
@@ -119,7 +119,7 @@
 .ubits-file-upload__constraints {
     font-family: var(--font-family-noto-sans-font-family);
     font-size: var(--modifiers-normal-body-sm-regular-fontsize);
-    font-weight: var(--ubits-font-weight-regular);
+    font-weight: var(--weight-regular);
     line-height: var(--modifiers-normal-body-sm-regular-lineheight);
     color: var(--modifiers-normal-color-light-fg-1-medium);
     margin: var(--ubits-spacing-none);
@@ -169,7 +169,7 @@
 .ubits-file-upload__title {
     font-family: var(--font-family-noto-sans-font-family);
     font-size: var(--modifiers-normal-body-md-regular-fontsize);
-    font-weight: var(--ubits-font-weight-semibold);
+    font-weight: var(--weight-semibold);
     line-height: var(--modifiers-normal-body-md-regular-lineheight);
     color: var(--modifiers-normal-color-light-fg-1-high);
     margin: var(--ubits-spacing-none);
@@ -232,7 +232,7 @@
 .ubits-file-upload__file-name {
     font-family: var(--font-family-noto-sans-font-family);
     font-size: var(--modifiers-normal-body-md-regular-fontsize);
-    font-weight: var(--ubits-font-weight-regular);
+    font-weight: var(--weight-regular);
     line-height: var(--modifiers-normal-body-md-regular-lineheight);
     color: var(--modifiers-normal-color-light-fg-1-high);
     white-space: nowrap;
@@ -243,7 +243,7 @@
 .ubits-file-upload__file-size {
     font-family: var(--font-family-noto-sans-font-family);
     font-size: var(--modifiers-normal-body-sm-regular-fontsize);
-    font-weight: var(--ubits-font-weight-regular);
+    font-weight: var(--weight-regular);
     line-height: var(--modifiers-normal-body-sm-regular-lineheight);
     color: var(--modifiers-normal-color-light-fg-1-medium);
 }

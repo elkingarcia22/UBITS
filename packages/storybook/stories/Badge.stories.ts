@@ -124,7 +124,7 @@ export const Default: Story = {
   render: (args) => {
     const container = document.createElement('div');
     container.style.padding = '20px';
-    container.style.background = 'var(--ubits-bg-1, #ffffff)';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-1, #ffffff)';
     container.style.borderRadius = '8px';
     
     const preview = document.createElement('div');
@@ -133,7 +133,7 @@ export const Default: Story = {
     preview.style.alignItems = 'center';
     preview.style.padding = '40px';
     preview.style.minHeight = '120px';
-    preview.style.background = 'var(--ubits-bg-2, #f9fafb)';
+    preview.style.background = 'var(--modifiers-normal-color-light-bg-2, #f9fafb)';
     preview.style.borderRadius = '8px';
     preview.style.marginBottom = '20px';
     preview.style.position = 'relative';
@@ -143,7 +143,7 @@ export const Default: Story = {
     badgeContainer.style.alignItems = 'center';
     badgeContainer.style.gap = '16px';
     badgeContainer.style.fontSize = '16px';
-    badgeContainer.style.color = 'var(--ubits-fg-1-high, #303a47)';
+    badgeContainer.style.color = 'var(--modifiers-normal-color-light-fg-1-high, #303a47)';
     
     // Mostrar badge standalone
     badgeContainer.innerHTML = renderBadge(args);
@@ -154,8 +154,8 @@ export const Default: Story = {
       relativeContainer.style.position = 'relative';
       relativeContainer.style.display = 'inline-block';
       relativeContainer.style.padding = '20px';
-      relativeContainer.style.background = 'var(--ubits-bg-1)';
-      relativeContainer.style.border = '1px solid var(--ubits-border-1)';
+      relativeContainer.style.background = 'var(--modifiers-normal-color-light-bg-1)';
+      relativeContainer.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
       relativeContainer.style.borderRadius = '8px';
       relativeContainer.innerHTML = '<span style="font-size: 14px;">Elemento con badge</span>';
       relativeContainer.innerHTML += renderBadge(args);

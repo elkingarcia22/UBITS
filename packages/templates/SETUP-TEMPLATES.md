@@ -102,7 +102,7 @@ Los templates deben incluir estos CSS:
 - Pagination, Checkbox, Toggle, Radio Button
 - Selection Card, Empty State, Tooltip, Spinner
 - Calendar, Tabs, Segment Control, Breadcrumb
-- Stepper, Participants Menu, Metric Card, Menubar
+- Stepper, Participants Menu, Metric Card
 
 ### 3. Scripts Requeridos
 

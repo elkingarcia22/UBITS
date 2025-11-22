@@ -383,9 +383,9 @@ export const Default: Story = {
       max-width: 375px;
       margin: 0 auto;
       padding: 16px;
-      background: var(--ubits-bg-2);
-      border-radius: 8px;
-      border: 1px solid var(--ubits-border-1);
+      background: var(--modifiers-normal-color-light-bg-2);
+      border-radius: 8px);
+      border: 1px solid var(--modifiers-normal-color-light-border-1);
       position: relative;
       display: flex;
       flex-direction: column;
@@ -397,17 +397,17 @@ export const Default: Story = {
     infoPanel.style.cssText = `
       margin-bottom: 16px;
       padding: 12px;
-      background: var(--ubits-bg-2);
-      border-radius: 6px;
-      font-family: var(--font-sans);
-      font-size: 12px;
+      background: var(--modifiers-normal-color-light-bg-2);
+      border-radius: 6px);
+      font-family: var(--font-family-noto-sans-font-family);
+      font-size: var(--modifiers-normal-body-xs-regular-fontsize);
       order: 1;
     `;
 
     const activeItem = args.items?.find(item => item.id === args.activeTabId) || args.items?.[0];
 
     infoPanel.innerHTML = `
-      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; font-size: 11px; color: var(--ubits-fg-1-medium);">
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; font-size: 11px; color: var(--modifiers-normal-color-light-fg-1-medium);">
         <div><strong>Variante:</strong> ${variant === 'colaborador' ? 'Colaborador' : 'Admin'}</div>
         <div><strong>Items:</strong> ${args.items?.length || 0}</div>
         <div><strong>Tab Activo:</strong> ${activeItem?.label || args.activeTabId || 'Ninguno'}</div>
@@ -434,8 +434,8 @@ export const Default: Story = {
       overflow: visible;
       box-sizing: border-box;
       isolation: isolate;
-      background: var(--ubits-bg-2);
-      border-radius: 8px;
+      background: var(--modifiers-normal-color-light-bg-2);
+      border-radius: 8px);
     `;
 
     wrapper.appendChild(container);
@@ -512,7 +512,7 @@ export const Default: Story = {
 
             if (!tabBarElement) {
               console.error('Error: createTabBar retornó null');
-              container.innerHTML = `<p style="color: var(--ubits-feedback-border-error); padding: 16px; font-size: 12px;">Error: No se pudo crear el TabBar</p>`;
+              container.innerHTML = `<p style="color: var(--modifiers-normal-color-light-feedback-border-error); padding: 16px; font-size: 12px;">Error: No se pudo crear el TabBar</p>`;
             }
             
             // Restaurar focus después de un tiempo
@@ -531,7 +531,7 @@ export const Default: Story = {
             }, 2000);
           } catch (error) {
             console.error('Error creando TabBar:', error);
-            container.innerHTML = `<p style="color: var(--ubits-feedback-border-error); padding: 16px; font-size: 12px;">Error: ${error}</p>`;
+            container.innerHTML = `<p style="color: var(--modifiers-normal-color-light-feedback-border-error); padding: 16px; font-size: 12px;">Error: ${error}</p>`;
           }
         }, 500);
       });

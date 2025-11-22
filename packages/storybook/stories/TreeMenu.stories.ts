@@ -381,7 +381,7 @@ export const Default: Story = {
     container.style.cssText = `
       padding: var(--p-spacing-mode-1-lg, 24px);
       background: var(--modifiers-normal-color-light-bg-2);
-      border-radius: var(--ubits-border-radius-md, 8px);
+      border-radius: 8px);
       max-width: 600px;
     `;
     
@@ -390,7 +390,7 @@ export const Default: Story = {
     infoPanel.style.cssText = `
       padding: var(--p-spacing-mode-1-md, 16px);
       background: var(--modifiers-normal-color-light-bg-2);
-      border-radius: var(--ubits-border-radius-md, 8px);
+      border-radius: 8px);
       border: 1px solid var(--modifiers-normal-color-light-border-1);
       margin-bottom: var(--p-spacing-mode-1-lg, 24px);
     `;
@@ -412,7 +412,7 @@ export const Default: Story = {
     const treeContainer = document.createElement('div');
     treeContainer.style.cssText = `
       background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: var(--ubits-border-radius-md, 8px);
+      border-radius: 8px);
       padding: var(--p-spacing-mode-1-md, 16px);
     `;
     
@@ -439,7 +439,7 @@ export const Default: Story = {
           display: flex;
           align-items: center;
           gap: var(--p-spacing-mode-1-sm, 8px);
-          border-radius: var(--ubits-border-radius-sm, 6px);
+          border-radius: 6px);
           cursor: ${args.maxLevels && args.maxLevels > 1 ? 'pointer' : 'default'};
           transition: all 0.2s ease;
           color: var(--modifiers-normal-color-light-fg-1-high);
@@ -603,7 +603,7 @@ export const Default: Story = {
         .ubits-tree-node__content--expandable:focus-visible {
           outline: 2px solid var(--modifiers-normal-color-light-accent-brand);
           outline-offset: -2px;
-          border-radius: var(--ubits-border-radius-sm, 6px);
+          border-radius: 6px);
         }
         
         .ubits-tree-node__chevron {

@@ -9,83 +9,83 @@ const meta: Meta<MetricCardOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente MetricCard UBITS para mostrar métricas numéricas. Usa tokens UBITS para colores, tipografía y espaciado. Soporta iconos, tamaños y es completamente personalizable.',
-      },
-    },
-  },
+        component: 'Componente MetricCard UBITS para mostrar métricas numéricas. Usa tokens UBITS para colores, tipografía y espaciado. Soporta iconos, tamaños y es completamente personalizable.'
+}
+}
+},
   argTypes: {
     title: {
       control: { type: 'text' },
       description: 'Título de la métrica',
       table: {
         defaultValue: { summary: 'Net confidence score' },
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+}
+},
     value: {
       control: { type: 'text' },
       description: 'Valor principal (puede ser número o string, ej: "200 / 204")',
       table: {
         defaultValue: { summary: '200 / 204' },
-        type: { summary: 'string | number' },
-      },
-    },
+        type: { summary: 'string | number' }
+}
+},
     label: {
       control: { type: 'text' },
       description: 'Texto descriptivo debajo del valor',
       table: {
         defaultValue: { summary: 'Colaboradores' },
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+}
+},
     titleIcon: {
       control: { type: 'text' },
       description: 'Nombre del icono FontAwesome para el título (sin prefijo fa-)',
       table: {
         type: { summary: 'string' },
-        example: { summary: 'user, users, chart-line, etc.' },
-      },
-    },
+        example: { summary: 'user, users, chart-line, etc.' }
+}
+},
     titleIconStyle: {
       control: { type: 'select' },
       options: ['regular', 'solid'],
       description: 'Estilo del icono del título',
       table: {
         defaultValue: { summary: 'regular' },
-        type: { summary: 'regular | solid' },
-      },
-    },
+        type: { summary: 'regular | solid' }
+}
+},
     titleIconColor: {
       control: { type: 'color' },
       description: 'Color del icono del título (puede usar tokens UBITS como var(--modifiers-normal-color-light-fg-2-medium))',
       table: {
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+}
+},
     showInfoIcon: {
       control: { type: 'boolean' },
       description: 'Mostrar icono de información junto al título',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     showActionButton: {
       control: { type: 'boolean' },
       description: 'Mostrar botón de acción con flecha a la derecha en la esquina superior derecha',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     size: {
       control: { type: 'select' },
       options: ['sm', 'md', 'lg'],
       description: 'Tamaño de la tarjeta',
       table: {
         defaultValue: { summary: 'md' },
-        type: { summary: 'sm | md | lg' },
-      },
-    },
-  },
+        type: { summary: 'sm | md | lg' }
+}
+}
+}
 };
 
 export default meta;
@@ -100,24 +100,23 @@ export const Default: Story = {
     titleIconStyle: 'regular',
     showInfoIcon: true,
     showActionButton: true,
-    size: 'md',
-  },
+    size: 'md'
+},
   render: (args) => {
     // Crear contenedor
     const container = document.createElement('div');
     container.style.display = 'flex';
     container.style.justifyContent = 'center';
     container.style.alignItems = 'flex-start';
-    container.style.padding = 'var(--ubits-spacing-12)';
     container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
     container.style.border = `1px solid var(--modifiers-normal-color-light-border-1)`;
-    container.style.borderRadius = 'var(--ubits-border-radius-sm)';
-    container.style.minHeight = 'calc(var(--ubits-spacing-12) * 2.5)';
     
-    // Crear wrapper para la card (max-width más ancho)
+    // Crear wrapper para la card
     const wrapper = document.createElement('div');
-    wrapper.style.maxWidth = 'calc(var(--ubits-spacing-12) * 8)';
     wrapper.style.width = '100%';
+    wrapper.style.maxWidth = '400px';
+    wrapper.style.margin = '0 auto';
+    wrapper.style.padding = '24px';
     
     // Renderizar card
     const cardHTML = renderMetricCard(args);
@@ -125,6 +124,6 @@ export const Default: Story = {
     container.appendChild(wrapper);
     
     return container;
-  },
+  }
 };
 

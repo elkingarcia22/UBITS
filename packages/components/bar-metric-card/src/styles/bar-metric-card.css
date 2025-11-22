@@ -221,7 +221,7 @@
 /* Asegurar que los textos del SVG siempre usen body sm regular (13px) independiente del ancho de la card */
 .ubits-bar-metric-card__chart-svg text {
   font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px) !important;
-  font-weight: var(--ubits-font-weight-regular, 400) !important;
+  font-weight: var(--weight-regular, 400) !important;
   font-family: var(--font-family-noto-sans-font-family) !important;
 }
 
@@ -303,13 +303,13 @@
 .ubits-bar-metric-card__category-percentage.ubits-body-sm-bold {
   font-size: var(--modifiers-normal-body-md-bold-fontsize, 16px);
   line-height: var(--modifiers-normal-body-md-bold-lineheight, 28.8px);
-  font-weight: var(--ubits-font-weight-bold, 700);
+  font-weight: var(--weight-bold, 700);
 }
 
 .ubits-bar-metric-card__category-percentage.ubits-body-md-bold {
   font-size: var(--modifiers-normal-body-md-bold-fontsize, 16px);
   line-height: var(--modifiers-normal-body-md-bold-lineheight, 28.8px);
-  font-weight: var(--ubits-font-weight-bold, 700);
+  font-weight: var(--weight-bold, 700);
 }
 
 /* ========================================
@@ -347,7 +347,7 @@
 
 /* El indicador del progress bar debe ser regular (no semibold) */
 .ubits-bar-metric-card__category-progress-wrapper .ubits-progress-bar__indicator {
-  font-weight: var(--ubits-font-weight-regular, 400) !important;
+  font-weight: var(--weight-regular, 400) !important;
 }
 
 /* El porcentaje dentro del indicador debe ser bold */
@@ -355,7 +355,7 @@
 .ubits-bar-metric-card__category-progress-wrapper .ubits-progress-bar__indicator .ubits-body-md-bold {
   font-size: var(--modifiers-normal-body-md-bold-fontsize, 16px) !important;
   line-height: var(--modifiers-normal-body-md-bold-lineheight, 28.8px) !important;
-  font-weight: var(--ubits-font-weight-bold, 700) !important;
+  font-weight: var(--weight-bold, 700) !important;
 }
 
 /* En layout horizontal, las categorías con progress bars ocupan todo el ancho */

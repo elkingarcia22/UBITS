@@ -11,7 +11,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { createLightDarkComparison, createColorSwatch } from './utils';
 
 const meta: Meta = {
-  title: 'Tokens UBITS/2. Semánticos',
+  title: 'Tokens UBITS/03. Semánticos',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',

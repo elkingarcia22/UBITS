@@ -134,7 +134,7 @@ export function createColorSwatch(
   
   let bg: string;
   if (isWhite) {
-    bg = 'repeating-conic-gradient(#eee 0% 25%, var(--ubits-bg-1) 0% 50%) 50%/12px 12px';
+    bg = 'repeating-conic-gradient(#eee 0% 25%, var(--modifiers-normal-color-light-bg-1) 0% 50%) 50%/12px 12px';
   } else if (hasOpacity) {
     bg = `${value}, ${bg1Value}`;
   } else {
@@ -291,8 +291,17 @@ export function createLightDarkComparison(
   }
 
   tokens.forEach(token => {
-    lightCol.appendChild(createColorSwatch(token, 'light'));
-    darkCol.appendChild(createColorSwatch(token, 'dark'));
+    // Si el token contiene -light-, solo mostrarlo en la columna light
+    // Si el token contiene -dark-, solo mostrarlo en la columna dark
+    // Si no contiene ninguno, mostrarlo en ambas columnas
+    if (token.includes('-light-')) {
+      lightCol.appendChild(createColorSwatch(token, 'light'));
+    } else if (token.includes('-dark-')) {
+      darkCol.appendChild(createColorSwatch(token, 'dark'));
+    } else {
+      lightCol.appendChild(createColorSwatch(token, 'light'));
+      darkCol.appendChild(createColorSwatch(token, 'dark'));
+    }
   });
 
   container.appendChild(lightCol);

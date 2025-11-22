@@ -342,7 +342,6 @@ import '../../addons/breadcrumb/src/styles/breadcrumb.css'
 import '../../addons/stepper/src/styles/stepper.css'
 import '../../addons/participants-menu/src/styles/participants-menu.css'
 import '../../addons/metric-card/src/styles/metric-card.css'
-import '../../addons/menubar/src/styles/menubar.css'
 import '../docs-site/.storybook/fontawesome-icons.css'
 
 const preview: Preview = {

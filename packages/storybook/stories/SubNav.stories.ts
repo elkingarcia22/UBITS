@@ -102,9 +102,9 @@ export const Default: Story = {
       width: 100%;
       max-width: 1200px;
       padding: 24px;
-      background: var(--ubits-bg-2);
-      border-radius: 12px;
-      border: 1px solid var(--ubits-border-1);
+      background: var(--modifiers-normal-color-light-bg-2);
+      border-radius: 12px);
+      border: 1px solid var(--modifiers-normal-color-light-border-1);
     `;
 
     // Contenedor para el SubNav
@@ -122,16 +122,16 @@ export const Default: Story = {
     infoPanel.style.cssText = `
       margin-top: 20px;
       padding: 16px;
-      background: var(--ubits-bg-2);
-      border-radius: 8px;
-      font-family: var(--font-sans);
-      font-size: 14px;
+      background: var(--modifiers-normal-color-light-bg-2);
+      border-radius: 8px);
+      font-family: var(--font-family-noto-sans-font-family);
+      font-size: var(--modifiers-normal-body-sm-regular-fontsize);
     `;
 
     const activeTab = config.tabs.find(tab => tab.id === activeTabId);
 
     infoPanel.innerHTML = `
-      <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: var(--weight-semibold); color: var(--ubits-fg-1-high);">Información del SubNav</h3>
+      <h3 style="margin: 0 0 12px 0; font-size: var(--modifiers-normal-body-md-regular-fontsize); font-weight: var(--weight-semibold, 600); color: var(--modifiers-normal-color-light-fg-1-high);">Información del SubNav</h3>
       <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 13px;">
         <div><strong>Variante:</strong> ${config.name}</div>
         <div><strong>Tab Activo:</strong> ${activeTab ? activeTab.label : activeTabId}</div>
@@ -168,7 +168,7 @@ export const Default: Story = {
         });
       } catch (error) {
         console.error('Error creando SubNav:', error);
-        container.innerHTML = `<p style="color: var(--ubits-feedback-border-error); padding: 16px;">Error: ${error}</p>`;
+        container.innerHTML = `<p style="color: var(--modifiers-normal-color-light-feedback-border-error); padding: 16px;">Error: ${error}</p>`;
       }
     });
 

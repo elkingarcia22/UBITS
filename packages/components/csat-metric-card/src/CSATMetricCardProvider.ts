@@ -45,7 +45,7 @@ function renderFacesRating(score: number): string {
     const faceClass = isSelected 
       ? 'ubits-csat-metric-card__face ubits-csat-metric-card__face--selected'
       : 'ubits-csat-metric-card__face ubits-csat-metric-card__face--empty';
-    const faceColor = isSelected ? face.color : 'var(--ubits-border-1)';
+    const faceColor = isSelected ? face.color : 'var(--modifiers-normal-color-light-border-1)';
     
     facesHTML += `
       <div class="ubits-csat-metric-card__face-wrapper">

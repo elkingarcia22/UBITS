@@ -163,8 +163,8 @@ export const Default: Story = {
     container.style.justifyContent = 'center';
     container.style.alignItems = 'flex-start';
     container.style.padding = '48px';
-    container.style.background = 'var(--ubits-bg-1)';
-    container.style.border = '1px solid var(--ubits-border-1)';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
+    container.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
     container.style.borderRadius = '8px';
     container.style.minHeight = '400px';
     

@@ -110,7 +110,7 @@ export const Default: Story = {
   render: (args) => {
     const container = document.createElement('div');
     container.style.padding = '20px';
-    container.style.background = 'var(--ubits-bg-1, #ffffff)';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-1, #ffffff)';
     container.style.borderRadius = '8px';
     
     const preview = document.createElement('div');
@@ -119,7 +119,7 @@ export const Default: Story = {
     preview.style.alignItems = 'center';
     preview.style.padding = '48px';
     preview.style.minHeight = '120px';
-    preview.style.background = 'var(--ubits-bg-2, #f9fafb)';
+    preview.style.background = 'var(--modifiers-normal-color-light-bg-2, #f9fafb)';
     preview.style.borderRadius = '8px';
     preview.style.marginBottom = '20px';
     

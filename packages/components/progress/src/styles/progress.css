@@ -82,7 +82,7 @@
 .ubits-progress-bar__indicator {
     flex-shrink: 0;
     font-family: var(--font-family-noto-sans-font-family);
-    font-weight: var(--ubits-font-weight-semibold);
+    font-weight: var(--weight-semibold);
     color: var(--modifiers-normal-color-light-fg-1-high);
     white-space: nowrap;
     line-height: 1;

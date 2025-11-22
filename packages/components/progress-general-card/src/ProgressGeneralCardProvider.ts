@@ -16,6 +16,38 @@ function calculatePercentage(current: number, total: number): number {
 }
 
 /**
+ * Resuelve un token CSS a su valor hexadecimal
+ * Los SVG no siempre resuelven correctamente las variables CSS en atributos inline
+ */
+function resolveColorToken(token: string): string {
+  if (typeof window === 'undefined' || !window.document || !window.getComputedStyle) {
+    console.warn('⚠️ [ProgressGeneralCard] resolveColorToken: window no disponible, retornando token original');
+    return token;
+  }
+  
+  try {
+    const root = document.documentElement;
+    // Extraer el nombre del token (sin var() y sin espacios)
+    const tokenName = token.replace(/var\(|\)/g, '').trim();
+    
+    const resolved = getComputedStyle(root).getPropertyValue(tokenName).trim();
+    
+    if (resolved) {
+      // Limpiar cualquier carácter extra (como paréntesis)
+      const cleaned = resolved.replace(/[()]/g, '').trim();
+      console.log(`✅ [ProgressGeneralCard] Color resuelto: ${token} -> ${cleaned}`);
+      return cleaned;
+    } else {
+      console.warn(`⚠️ [ProgressGeneralCard] Token no encontrado: ${tokenName}, usando token original`);
+      return token;
+    }
+  } catch (error) {
+    console.error(`❌ [ProgressGeneralCard] Error resolviendo token ${token}:`, error);
+    return token;
+  }
+}
+
+/**
  * Renderiza el SVG del donut chart circular
  */
 function renderCircularProgress(
@@ -30,6 +62,21 @@ function renderCircularProgress(
   const offset = circumference - (percentage / 100) * circumference;
   const center = size / 2;
   
+  // Resolver los colores antes de pasarlos al SVG
+  const resolvedProgressColor = progressColor.startsWith('var(') 
+    ? resolveColorToken(progressColor) 
+    : progressColor;
+  const resolvedBackgroundColor = backgroundColor.startsWith('var(') 
+    ? resolveColorToken(backgroundColor) 
+    : backgroundColor;
+  
+  console.log('🔍 [ProgressGeneralCard] renderCircularProgress:', {
+    progressColor,
+    resolvedProgressColor,
+    backgroundColor,
+    resolvedBackgroundColor
+  });
+  
   return `
     <svg 
       class="ubits-progress-general-card__circle-svg" 
@@ -43,7 +90,7 @@ function renderCircularProgress(
         cy="${center}"
         r="${radius}"
         fill="none"
-        stroke="${backgroundColor}"
+        stroke="${resolvedBackgroundColor}"
         stroke-width="${strokeWidth}"
       />
       <!-- Círculo de progreso -->
@@ -52,7 +99,7 @@ function renderCircularProgress(
         cy="${center}"
         r="${radius}"
         fill="none"
-        stroke="${progressColor}"
+        stroke="${resolvedProgressColor}"
         stroke-width="${strokeWidth}"
         stroke-dasharray="${circumference}"
         stroke-dashoffset="${offset}"

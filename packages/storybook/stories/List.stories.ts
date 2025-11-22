@@ -269,7 +269,7 @@ export const Default: Story = {
     // Crear contenedor
     const container = document.createElement('div');
     container.style.padding = '20px';
-    container.style.background = 'var(--ubits-bg-1, #ffffff)';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-1, #ffffff)';
     container.style.borderRadius = '8px';
     
     // Preview container
@@ -281,14 +281,14 @@ export const Default: Story = {
     // Info panel
     const infoPanel = document.createElement('div');
     infoPanel.style.padding = '16px';
-    infoPanel.style.background = 'var(--ubits-bg-2, #f9fafb)';
+    infoPanel.style.background = 'var(--modifiers-normal-color-light-bg-2, #f9fafb)';
     infoPanel.style.borderRadius = '8px';
-    infoPanel.style.border = '1px solid var(--ubits-border-1, #e5e7eb)';
+    infoPanel.style.border = '1px solid var(--modifiers-normal-color-light-border-1, #e5e7eb)';
     infoPanel.innerHTML = `
       <div style="margin-bottom: 12px;">
-        <strong style="color: var(--ubits-fg-1-high, #303a47); font-size: 14px;">Configuración:</strong>
+        <strong style="color: var(--modifiers-normal-color-light-fg-1-high, #303a47); font-size: 14px;">Configuración:</strong>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; font-size: 13px; color: var(--ubits-fg-1-medium, #5c646f);">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; font-size: 13px; color: var(--modifiers-normal-color-light-fg-1-medium, #5c646f);">
         <div><strong>Tamaño:</strong> ${args.size || 'md'}</div>
         <div><strong>Altura máxima:</strong> ${args.maxHeight || '400px'}</div>
         <div><strong>Scrollbar UBITS:</strong> ${args.showScrollbar ? 'Sí' : 'No'}</div>

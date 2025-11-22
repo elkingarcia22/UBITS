@@ -120,13 +120,13 @@
 
 .ubits-csat-metric-card__responses {
   color: var(--modifiers-normal-color-light-fg-2-medium) !important;
-  font-weight: var(--ubits-font-weight-regular, 400);
+  font-weight: var(--weight-regular, 400);
   margin: calc(var(--p-spacing-mode-1-space-0) * 1px);
 }
 
 .ubits-csat-metric-card__average {
   color: var(--modifiers-normal-color-light-fg-2-medium) !important;
-  font-weight: var(--ubits-font-weight-regular, 400);
+  font-weight: var(--weight-regular, 400);
   margin: calc(var(--p-spacing-mode-1-space-0) * 1px);
 }
 

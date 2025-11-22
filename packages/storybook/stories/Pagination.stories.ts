@@ -8,98 +8,98 @@ const meta: Meta<PaginationOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Pagination UBITS para paginación de datos usando tokens UBITS, tipografía UBITS y componentes UBITS. Ideal para tablas y listas de datos.',
-      },
-    },
-  },
+        component: 'Componente Pagination UBITS para paginación de datos usando tokens UBITS, tipografía UBITS y componentes UBITS. Ideal para tablas y listas de datos.'
+}
+}
+},
   argTypes: {
     currentPage: {
       control: { type: 'number', min: 1, max: 100 },
       description: 'Página actual (1-indexed)',
       table: {
-        defaultValue: { summary: '1' },
-      },
-    },
+        defaultValue: { summary: '1' }
+}
+},
     totalPages: {
       control: { type: 'number', min: 1, max: 100 },
       description: 'Total de páginas',
       table: {
-        defaultValue: { summary: '10' },
-      },
-    },
+        defaultValue: { summary: '10' }
+}
+},
     totalItems: {
       control: { type: 'number', min: 0 },
       description: 'Total de items (para mostrar información)',
       table: {
-        defaultValue: { summary: 'undefined' },
-      },
-    },
+        defaultValue: { summary: 'undefined' }
+}
+},
     itemsPerPage: {
       control: { type: 'number', min: 1 },
       description: 'Items por página',
       table: {
-        defaultValue: { summary: 'undefined' },
-      },
-    },
+        defaultValue: { summary: 'undefined' }
+}
+},
     variant: {
       control: { type: 'select' },
       options: ['default', 'compact', 'minimal'],
       description: 'Variante visual del paginador',
       table: {
-        defaultValue: { summary: 'default' },
-      },
-    },
+        defaultValue: { summary: 'default' }
+}
+},
     size: {
       control: { type: 'select' },
       options: ['sm', 'md', 'lg'],
       description: 'Tamaño del paginador',
       table: {
-        defaultValue: { summary: 'md' },
-      },
-    },
+        defaultValue: { summary: 'md' }
+}
+},
     maxVisiblePages: {
       control: { type: 'number', min: 3, max: 15 },
       description: 'Número máximo de páginas visibles',
       table: {
-        defaultValue: { summary: '7' },
-      },
-    },
+        defaultValue: { summary: '7' }
+}
+},
     showFirst: {
       control: 'boolean',
       description: 'Mostrar botón "Primera página"',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showLast: {
       control: 'boolean',
       description: 'Mostrar botón "Última página"',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showPrevNext: {
       control: 'boolean',
       description: 'Mostrar botones anterior/siguiente',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showInfo: {
       control: 'boolean',
       description: 'Mostrar información de items (ej: "1-10 de 100")',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     showItemsPerPage: {
       control: 'boolean',
       description: 'Mostrar selector de items por página',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
-  },
+        defaultValue: { summary: 'false' }
+}
+}
+}
 };
 
 export default meta;
@@ -111,7 +111,6 @@ export const Default: Story = {
     const container = document.createElement('div');
     container.id = containerId;
     container.style.width = '100%';
-    container.style.padding = 'var(--ubits-spacing-5)';
     container.style.display = 'flex';
     container.style.justifyContent = 'center';
 

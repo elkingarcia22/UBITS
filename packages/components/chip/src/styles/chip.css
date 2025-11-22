@@ -15,12 +15,12 @@
     gap: var(--p-spacing-mode-1-xs, 4px);
     padding: var(--p-spacing-mode-1-xs, 4px) var(--p-spacing-mode-1-sm, 8px);
     border-radius: var(--ubits-border-radius-sm, 8px);
-    border: 1px solid var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
-    background-color: var(--modifiers-normal-color-light-bg-2, var(--ubits-bg-2, #F3F3F4)) !important;
-    color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
+    border: 1px solid var(--modifiers-normal-color-light-border-1) !important;
+    background-color: var(--modifiers-normal-color-light-bg-2) !important;
+    color: var(--modifiers-normal-color-light-fg-1-high) !important;
     font-family: var(--font-family-noto-sans-font-family, var(--font-sans, 'Noto Sans', sans-serif));
     font-size: var(--modifiers-normal-body-sm-regular-fontsize, var(--ubits-font-size-md, 13px));
-    font-weight: var(--ubits-font-weight-regular, 400);
+    font-weight: var(--weight-regular, 400);
     line-height: var(--modifiers-normal-body-sm-regular-lineheight, var(--ubits-line-height-md, 19.5px));
     white-space: nowrap;
     transition: all 0.2s ease;
@@ -139,25 +139,25 @@
 
 /* Default State */
 .ubits-chip--default {
-    background-color: var(--modifiers-normal-color-light-bg-2, var(--ubits-bg-2, #F3F3F4)) !important;
-    color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
-    border-color: var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
+    background-color: var(--modifiers-normal-color-light-bg-2) !important;
+    color: var(--modifiers-normal-color-light-fg-1-high) !important;
+    border-color: var(--modifiers-normal-color-light-border-1) !important;
 }
 
 /* Hover State */
 .ubits-chip--hover:not(.ubits-chip--disabled),
 .ubits-chip:hover:not(.ubits-chip--disabled) {
-    background-color: var(--modifiers-normal-color-light-bg-4, var(--ubits-bg-4, #dbdde0)) !important;
-    color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
-    border-color: var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
+    background-color: var(--modifiers-normal-color-light-bg-4) !important;
+    color: var(--modifiers-normal-color-light-fg-1-high) !important;
+    border-color: var(--modifiers-normal-color-light-border-1) !important;
 }
 
 /* Active State */
 .ubits-chip--active {
     position: relative;
-    background-color: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
-    color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
-    border-color: var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
+    background-color: var(--modifiers-normal-color-light-bg-1) !important;
+    color: var(--modifiers-normal-color-light-fg-1-high) !important;
+    border-color: var(--modifiers-normal-color-light-border-1) !important;
 }
 
 .ubits-chip--active::before {
@@ -177,15 +177,15 @@
 .ubits-chip--active .ubits-chip__right-icon {
     position: relative;
     z-index: 1;
-    color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
+    color: var(--modifiers-normal-color-light-fg-1-high) !important;
 }
 
 /* Pressed State */
 .ubits-chip--pressed:not(.ubits-chip--disabled),
 .ubits-chip:active:not(.ubits-chip--disabled) {
     background-color: var(--modifiers-normal-color-light-bg-4, var(--ubits-fg-gray-subtle-hover, #c5c6cb)) !important;
-    color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
-    border-color: var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
+    color: var(--modifiers-normal-color-light-fg-1-high) !important;
+    border-color: var(--modifiers-normal-color-light-border-1) !important;
     transform: translateY(1px);
 }
 
@@ -201,7 +201,7 @@
 .ubits-chip--disabled,
 .ubits-chip[aria-disabled="true"] {
     background-color: var(--modifiers-normal-color-light-bg-disabled, var(--ubits-bg-disabled, #edeeef)) !important;
-    color: var(--modifiers-normal-color-light-fg-on-disabled, var(--ubits-fg-on-disabled-button, #979ba3)) !important;
+    color: var(--modifiers-normal-color-light-fg-on-disabled) !important;
     border-color: var(--modifiers-normal-color-light-border-disabled, var(--ubits-border-disabled-button, #d0d2d5)) !important;
     cursor: not-allowed;
     pointer-events: none;
@@ -212,7 +212,7 @@
 .ubits-chip--disabled .ubits-chip__right-icon,
 .ubits-chip[aria-disabled="true"] .ubits-chip__left-icon,
 .ubits-chip[aria-disabled="true"] .ubits-chip__right-icon {
-    color: var(--modifiers-normal-color-light-fg-on-disabled, var(--ubits-fg-on-disabled-button, #979ba3)) !important;
+    color: var(--modifiers-normal-color-light-fg-on-disabled) !important;
     cursor: not-allowed;
 }
 
@@ -225,7 +225,7 @@
 }
 
 .ubits-chip--clickable:not(.ubits-chip--disabled):hover {
-    background-color: var(--modifiers-normal-color-light-bg-4, var(--ubits-bg-4, #dbdde0)) !important;
+    background-color: var(--modifiers-normal-color-light-bg-4) !important;
 }
 
 .ubits-chip--clickable:not(.ubits-chip--disabled):active {
@@ -238,7 +238,7 @@
    ======================================== */
 
 .ubits-chip--closable .ubits-chip__right-icon:hover:not(:disabled) {
-    background-color: var(--modifiers-normal-color-light-bg-4, var(--ubits-bg-4, #dbdde0)) !important;
+    background-color: var(--modifiers-normal-color-light-bg-4) !important;
     border-radius: var(--ubits-border-radius-xs, 4px);
 }
 

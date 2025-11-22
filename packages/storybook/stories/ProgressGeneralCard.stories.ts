@@ -20,180 +20,180 @@ const meta: Meta<ProgressGeneralCardOptions & {
   parameters: {
     docs: {
       description: {
-        component: 'Componente ProgressGeneralCard UBITS para mostrar progreso general con indicador circular (donut chart) y categorías de progreso. Soporta layout vertical y horizontal, múltiples tamaños y controles completos para personalización. Usa tokens UBITS para colores, tipografía y espaciado.',
-      },
-    },
-  },
+        component: 'Componente ProgressGeneralCard UBITS para mostrar progreso general con indicador circular (donut chart) y categorías de progreso. Soporta layout vertical y horizontal, múltiples tamaños y controles completos para personalización. Usa tokens UBITS para colores, tipografía y espaciado.'
+}
+}
+},
   argTypes: {
     title: {
       control: { type: 'text' },
       description: 'Título del componente',
       table: {
         defaultValue: { summary: 'Progreso general' },
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+}
+},
     mainPercentage: {
       control: { type: 'number', min: 0, max: 100, step: 1 },
       description: 'Porcentaje principal mostrado en el círculo',
       table: {
         defaultValue: { summary: '50' },
-        type: { summary: 'number' },
-      },
-    },
+        type: { summary: 'number' }
+}
+},
     mainLabel: {
       control: { type: 'text' },
       description: 'Etiqueta del porcentaje principal (ej: "Ciclos")',
       table: {
         defaultValue: { summary: 'Ciclos' },
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+}
+},
     layout: {
       control: { type: 'select' },
       options: ['vertical', 'horizontal'],
       description: 'Layout del componente',
       table: {
         defaultValue: { summary: 'vertical' },
-        type: { summary: 'vertical | horizontal' },
-      },
-    },
+        type: { summary: 'vertical | horizontal' }
+}
+},
     size: {
       control: { type: 'select' },
       options: ['sm', 'md', 'lg'],
       description: 'Tamaño del componente',
       table: {
         defaultValue: { summary: 'md' },
-        type: { summary: 'sm | md | lg' },
-      },
-    },
+        type: { summary: 'sm | md | lg' }
+}
+},
     showTitle: {
       control: { type: 'boolean' },
       description: 'Mostrar el título',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showCircularProgress: {
       control: { type: 'boolean' },
       description: 'Mostrar el indicador circular',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showCategories: {
       control: { type: 'boolean' },
       description: 'Mostrar las categorías',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showInfoIcon: {
       control: { type: 'boolean' },
       description: 'Mostrar icono de información junto al título',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     showActionButton: {
       control: { type: 'boolean' },
       description: 'Mostrar botón de acción con flecha a la derecha en la esquina superior derecha',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     progressColor: {
       control: { type: 'text' },
       description: 'Color del progreso circular (token UBITS o color hexadecimal)',
       table: {
         defaultValue: { summary: 'var(--ubits-chart-color-bg-neutral-blue-base)' },
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+}
+},
     circleBackgroundColor: {
       control: { type: 'text' },
       description: 'Color de fondo del círculo (token UBITS o color hexadecimal)',
       table: {
         defaultValue: { summary: 'var(--modifiers-normal-color-light-bg-3)' },
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+}
+},
     // Controles para categoría 1
     category1Label: {
       control: { type: 'text' },
       description: 'Etiqueta de la categoría 1',
       table: {
         defaultValue: { summary: 'Área' },
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+}
+},
     category1Current: {
       control: { type: 'number', min: 0, step: 1 },
       description: 'Valor actual de la categoría 1',
       table: {
         defaultValue: { summary: '3' },
-        type: { summary: 'number' },
-      },
-    },
+        type: { summary: 'number' }
+}
+},
     category1Total: {
       control: { type: 'number', min: 1, step: 1 },
       description: 'Valor total de la categoría 1',
       table: {
         defaultValue: { summary: '20' },
-        type: { summary: 'number' },
-      },
-    },
+        type: { summary: 'number' }
+}
+},
     // Controles para categoría 2
     category2Label: {
       control: { type: 'text' },
       description: 'Etiqueta de la categoría 2',
       table: {
         defaultValue: { summary: 'Equipo' },
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+}
+},
     category2Current: {
       control: { type: 'number', min: 0, step: 1 },
       description: 'Valor actual de la categoría 2',
       table: {
         defaultValue: { summary: '8' },
-        type: { summary: 'number' },
-      },
-    },
+        type: { summary: 'number' }
+}
+},
     category2Total: {
       control: { type: 'number', min: 1, step: 1 },
       description: 'Valor total de la categoría 2',
       table: {
         defaultValue: { summary: '50' },
-        type: { summary: 'number' },
-      },
-    },
+        type: { summary: 'number' }
+}
+},
     // Controles para categoría 3
     category3Label: {
       control: { type: 'text' },
       description: 'Etiqueta de la categoría 3',
       table: {
         defaultValue: { summary: 'Propio' },
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+}
+},
     category3Current: {
       control: { type: 'number', min: 0, step: 1 },
       description: 'Valor actual de la categoría 3',
       table: {
         defaultValue: { summary: '5' },
-        type: { summary: 'number' },
-      },
-    },
+        type: { summary: 'number' }
+}
+},
     category3Total: {
       control: { type: 'number', min: 1, step: 1 },
       description: 'Valor total de la categoría 3',
       table: {
         defaultValue: { summary: '30' },
-        type: { summary: 'number' },
-      },
-    },
-  },
+        type: { summary: 'number' }
+}
+}
+}
 };
 
 export default meta;
@@ -219,24 +219,24 @@ function buildCategories(args: Story['args']): ProgressCategory[] {
     categories.push({
       label: args.category1Label || 'Área',
       current: args.category1Current ?? 3,
-      total: args.category1Total ?? 20,
-    });
+      total: args.category1Total ?? 20
+});
   }
   
   if (args.category2Label !== undefined) {
     categories.push({
       label: args.category2Label || 'Equipo',
       current: args.category2Current ?? 8,
-      total: args.category2Total ?? 50,
-    });
+      total: args.category2Total ?? 50
+});
   }
   
   if (args.category3Label !== undefined) {
     categories.push({
       label: args.category3Label || 'Propio',
       current: args.category3Current ?? 5,
-      total: args.category3Total ?? 30,
-    });
+      total: args.category3Total ?? 30
+});
   }
   
   return categories;
@@ -264,8 +264,8 @@ export const Default: Story = {
     category2Total: 50,
     category3Label: 'Propio',
     category3Current: 5,
-    category3Total: 30,
-  },
+    category3Total: 30
+},
   render: (args) => {
     // Construir las categorías desde los args
     const categories = buildCategories(args);
@@ -284,8 +284,8 @@ export const Default: Story = {
       showInfoIcon: args.showInfoIcon,
       showActionButton: args.showActionButton,
       progressColor: args.progressColor,
-      circleBackgroundColor: args.circleBackgroundColor,
-    };
+      circleBackgroundColor: args.circleBackgroundColor
+};
     
     // Crear contenedor
     const container = document.createElement('div');
@@ -294,7 +294,6 @@ export const Default: Story = {
     container.style.alignItems = 'flex-start';
     container.style.padding = '48px';
     container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
-    container.style.border = `var(--ubits-spacing-xs) solid var(--modifiers-normal-color-light-border-1)`;
     container.style.borderRadius = '8px';
     container.style.minHeight = '400px';
     
@@ -332,7 +331,7 @@ export const Default: Story = {
           console.log('    - font-weight:', computed.fontWeight);
           console.log('    - font-size:', computed.fontSize);
           console.log('    - textContent:', circlePercentage.textContent);
-          console.log('    - --ubits-font-weight-bold:', getComputedStyle(document.documentElement).getPropertyValue('--ubits-font-weight-bold'));
+          console.log('    - --weight-bold:', getComputedStyle(document.documentElement).getPropertyValue('--weight-bold'));
         }
         
         // Verificar porcentajes de categorías
@@ -344,12 +343,12 @@ export const Default: Story = {
           console.log('    - font-weight:', computed.fontWeight);
           console.log('    - font-size:', computed.fontSize);
           console.log('    - textContent:', el.textContent);
-          console.log('    - --ubits-font-weight-bold:', getComputedStyle(document.documentElement).getPropertyValue('--ubits-font-weight-bold'));
+          console.log('    - --weight-bold:', getComputedStyle(document.documentElement).getPropertyValue('--weight-bold'));
         });
       }
     }, 100);
     
     return container;
-  },
+  }
 };
 

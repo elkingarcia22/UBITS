@@ -105,7 +105,7 @@
     background: transparent;
     font-family: var(--font-family-noto-sans-font-family);
     font-size: var(--modifiers-normal-body-md-regular-fontsize);
-    font-weight: var(--ubits-font-weight-regular);
+    font-weight: var(--weight-regular);
     line-height: var(--modifiers-normal-body-md-regular-lineheight);
     color: var(--modifiers-normal-color-light-fg-1-high);
     min-width: 0;

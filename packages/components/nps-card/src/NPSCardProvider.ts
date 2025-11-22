@@ -134,11 +134,11 @@ function renderSemicircularGauge(
         y="${textPos.y}"
         font-family="var(--font-family-noto-sans-font-family)"
         font-size="var(--modifiers-normal-body-sm-regular-fontsize)"
-        font-weight="var(--ubits-font-weight-regular)"
+        font-weight="var(--weight-regular, 400)"
         fill="var(--modifiers-normal-color-light-fg-2-medium)"
         text-anchor="middle"
         dominant-baseline="middle"
-        style="font-size: var(--modifiers-normal-body-sm-regular-fontsize) !important; font-weight: var(--ubits-font-weight-regular) !important; font-family: var(--font-family-noto-sans-font-family) !important;"
+        style="font-size: var(--modifiers-normal-body-sm-regular-fontsize) !important; font-weight: var(--weight-regular, 400) !important; font-family: var(--font-family-noto-sans-font-family) !important;"
       >${mark}</text>
     `;
   }).join('');

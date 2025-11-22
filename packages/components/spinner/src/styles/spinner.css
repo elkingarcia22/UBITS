@@ -205,7 +205,7 @@
 
 .ubits-spinner__label {
     font-family: var(--font-family-noto-sans-font-family);
-    font-weight: var(--ubits-font-weight-regular);
+    font-weight: var(--weight-regular);
     text-align: center;
     margin-top: var(--p-spacing-mode-1-xs);
     color: var(--modifiers-normal-color-light-fg-1-medium);

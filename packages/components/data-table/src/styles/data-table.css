@@ -55,7 +55,7 @@
   margin: 0;
   font-family: var(--font-family-noto-sans-font-family);
   font-size: var(--modifiers-normal-body-md-semibold-fontsize);
-  font-weight: var(--ubits-font-weight-semibold);
+  font-weight: var(--weight-semibold);
   line-height: var(--modifiers-normal-body-md-semibold-lineheight);
   color: var(--modifiers-normal-color-light-fg-1-high);
 }
@@ -64,7 +64,7 @@
   margin: 0;
   font-family: var(--font-family-noto-sans-font-family);
   font-size: var(--modifiers-normal-body-sm-regular-fontsize);
-  font-weight: var(--ubits-font-weight-regular);
+  font-weight: var(--weight-regular);
   line-height: var(--modifiers-normal-body-sm-regular-lineheight);
   color: var(--modifiers-normal-color-light-fg-1-medium);
 }
@@ -764,7 +764,7 @@
     position: sticky !important;
     /* left se establece inline desde el código */
     z-index: 10 !important; /* Mismo z-index que otras columnas pinned */
-    background-color: var(--ubits-bg-1) !important;
+    background-color: var(--modifiers-normal-color-light-bg-1) !important;
 }
 
 /* Wrapper interno para centrar con flex en header */
@@ -849,7 +849,7 @@
     position: sticky !important;
     /* left se establece inline desde el código */
     z-index: 12 !important; /* Mismo z-index que otras celdas pinned */
-    background-color: var(--ubits-bg-1) !important;
+    background-color: var(--modifiers-normal-color-light-bg-1) !important;
 }
 
 /* Wrapper interno para centrar con flex */

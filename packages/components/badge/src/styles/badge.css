@@ -15,7 +15,7 @@
     flex-shrink: 0;
     font-family: var(--font-family-noto-sans-font-family);
     font-size: var(--modifiers-normal-body-sm-semibold-fontsize, 13px);
-    font-weight: var(--ubits-font-weight-semibold, 600);
+    font-weight: var(--weight-semibold, 600);
     line-height: 1;
     color: var(--modifiers-normal-color-light-fg-bold) !important;
     white-space: nowrap;
@@ -291,7 +291,7 @@
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    font-weight: var(--ubits-font-weight-semibold, 600) !important;
+    font-weight: var(--weight-semibold, 600) !important;
     line-height: 1 !important;
 }
 
@@ -309,7 +309,7 @@
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    font-weight: var(--ubits-font-weight-semibold, 600) !important;
+    font-weight: var(--weight-semibold, 600) !important;
     line-height: 1 !important;
 }
 
@@ -327,7 +327,7 @@
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    font-weight: var(--ubits-font-weight-semibold, 600) !important;
+    font-weight: var(--weight-semibold, 600) !important;
     line-height: 1 !important;
 }
 
@@ -345,7 +345,7 @@
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    font-weight: var(--ubits-font-weight-semibold, 600) !important;
+    font-weight: var(--weight-semibold, 600) !important;
     line-height: 1 !important;
 }
 
@@ -363,7 +363,7 @@
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    font-weight: var(--ubits-font-weight-semibold, 600) !important;
+    font-weight: var(--weight-semibold, 600) !important;
     line-height: 1 !important;
 }
 
@@ -381,7 +381,7 @@
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    font-weight: var(--ubits-font-weight-semibold, 600) !important;
+    font-weight: var(--weight-semibold, 600) !important;
     line-height: 1 !important;
 }
 
@@ -412,7 +412,7 @@
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    font-weight: var(--ubits-font-weight-semibold, 600) !important;
+    font-weight: var(--weight-semibold, 600) !important;
     line-height: 1 !important;
     font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px) !important; /* 12px no tiene token exacto, usar sm más cercano */
 }
@@ -427,7 +427,7 @@
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    font-weight: var(--ubits-font-weight-semibold, 600) !important;
+    font-weight: var(--weight-semibold, 600) !important;
     line-height: 1 !important;
     font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px) !important; /* 12px no tiene token exacto, usar sm más cercano */
 }
@@ -442,7 +442,7 @@
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    font-weight: var(--ubits-font-weight-semibold, 600) !important;
+    font-weight: var(--weight-semibold, 600) !important;
     line-height: 1 !important;
     font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px) !important; /* 12px no tiene token exacto, usar sm más cercano */
 }
@@ -457,7 +457,7 @@
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    font-weight: var(--ubits-font-weight-semibold, 600) !important;
+    font-weight: var(--weight-semibold, 600) !important;
     line-height: 1 !important;
     font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px) !important; /* 12px no tiene token exacto, usar sm más cercano */
 }
@@ -472,7 +472,7 @@
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    font-weight: var(--ubits-font-weight-semibold, 600) !important;
+    font-weight: var(--weight-semibold, 600) !important;
     line-height: 1 !important;
     font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px) !important; /* 12px no tiene token exacto, usar sm más cercano */
 }
@@ -487,7 +487,7 @@
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    font-weight: var(--ubits-font-weight-semibold, 600) !important;
+    font-weight: var(--weight-semibold, 600) !important;
     line-height: 1 !important;
     font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px) !important; /* 12px no tiene token exacto, usar sm más cercano */
 }
@@ -505,7 +505,7 @@
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    font-weight: var(--ubits-font-weight-semibold, 600) !important;
+    font-weight: var(--weight-semibold, 600) !important;
     line-height: 1 !important;
     position: relative !important;
     z-index: 1 !important;
@@ -519,7 +519,7 @@
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    font-weight: var(--ubits-font-weight-semibold, 600) !important;
+    font-weight: var(--weight-semibold, 600) !important;
     line-height: 1 !important;
     position: relative !important;
     z-index: 1 !important;
@@ -533,7 +533,7 @@
     display: inline-block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    font-weight: var(--ubits-font-weight-semibold, 600) !important;
+    font-weight: var(--weight-semibold, 600) !important;
     line-height: 1 !important;
     position: relative !important;
     z-index: 1 !important;

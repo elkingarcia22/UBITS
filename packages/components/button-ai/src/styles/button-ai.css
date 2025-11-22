@@ -18,7 +18,7 @@
     border: none;
     border-radius: 9999px; /* Completamente redondeado (pill shape) */
     font-family: var(--font-family-noto-sans-font-family, var(--font-sans, 'Noto Sans', sans-serif));
-    font-weight: var(--ubits-font-weight-semibold, 600);
+    font-weight: var(--weight-semibold, 600);
     line-height: 1;
     text-decoration: none;
     cursor: pointer;
@@ -41,7 +41,7 @@
 .ubits-button-ai span {
     font-family: var(--font-family-noto-sans-font-family, var(--font-sans, 'Noto Sans', sans-serif));
     font-size: var(--modifiers-normal-body-md-regular-fontsize, var(--font-body-md-size, 16px));
-    font-weight: var(--ubits-font-weight-semibold, 600);
+    font-weight: var(--weight-semibold, 600);
     line-height: var(--modifiers-normal-body-md-regular-lineheight, var(--font-body-md-line, 24px));
 }
 
@@ -64,7 +64,7 @@
 /* Focus State */
 .ubits-button-ai:focus-visible {
     outline: none;
-    box-shadow: 0px 0px 0px 4px var(--modifiers-normal-focus-color, var(--ubits-button-focus-ring, rgba(82, 151, 244, 0.3)));
+    box-shadow: 0px 0px 0px 4px var(--modifiers-normal-focus-color));
 }
 
 /* Disabled State */
@@ -97,7 +97,7 @@
 
 /* Remover gradiente cuando está en estado active */
 .ubits-button-ai--primary.ubits-button-ai--active {
-    background: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
+    background: var(--modifiers-normal-color-light-bg-1) !important;
 }
 
 .ubits-button-ai--primary:hover:not(:disabled) {
@@ -150,7 +150,7 @@
 .ubits-button-ai--primary.ubits-button-ai--active {
     position: relative;
     background-color: transparent !important;
-    color: var(--modifiers-normal-color-light-accent-brand, var(--ubits-button-active-fg, var(--ubits-accent-brand-static))) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
     border: none !important;
 }
 
@@ -169,7 +169,7 @@
 
 .ubits-button-ai--primary.ubits-button-ai--active:hover:not(:disabled) {
     background-color: transparent !important;
-    color: var(--modifiers-normal-color-light-accent-brand, var(--ubits-button-active-fg, var(--ubits-accent-brand-static))) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
     border: none !important;
 }
 
@@ -179,7 +179,7 @@
 
 .ubits-button-ai--primary.ubits-button-ai--active:active:not(:disabled) {
     background-color: transparent !important;
-    color: var(--modifiers-normal-color-light-accent-brand, var(--ubits-button-active-fg, var(--ubits-accent-brand-static))) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
     border: none !important;
 }
 
@@ -191,14 +191,14 @@
 .ubits-button-ai--primary.ubits-button-ai--active i {
     position: relative;
     z-index: 1;
-    color: var(--modifiers-normal-color-light-accent-brand, var(--ubits-button-active-fg, var(--ubits-accent-brand-static))) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 /* Asegurar que el texto (span) también tenga el color correcto en estado active */
 .ubits-button-ai--primary.ubits-button-ai--active span {
     position: relative;
     z-index: 1;
-    color: var(--modifiers-normal-color-light-accent-brand, var(--ubits-button-active-fg, var(--ubits-accent-brand-static))) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 /* ========================================
@@ -206,7 +206,7 @@
    ======================================== */
 
 .ubits-button-ai--secondary {
-    background: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
+    background: var(--modifiers-normal-color-light-bg-1) !important;
     color: var(--modifiers-normal-button-color-light-brand-secondary-fg-default) !important;
     border: 1px solid transparent;
     position: relative;
@@ -219,7 +219,7 @@
     inset: 0;
     border-radius: 9999px; /* Completamente redondeado (pill shape) */
     padding: 1px;
-    background: radial-gradient(circle at var(--gradient-x, 50%) var(--gradient-y, 180%), var(--modifiers-static-color-light-accent-brand, var(--ubits-accent-brand-static)) 0%, var(--modifiers-normal-ai-button-color-light-secondary-accent-gradient-end, #6457ff) 95%);
+    background: radial-gradient(circle at var(--gradient-x, 50%) var(--gradient-y, 180%), var(--modifiers-static-color-light-accent-brand) 0%, var(--modifiers-normal-ai-button-color-light-secondary-accent-gradient-end, #6457ff) 95%);
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -248,14 +248,14 @@
 }
 
 .ubits-button-ai--secondary:active:not(:disabled)::before {
-    background: radial-gradient(circle at 50% 180%, var(--modifiers-static-color-light-accent-brand, var(--ubits-accent-brand-static)) 0%, var(--modifiers-normal-ai-button-color-light-secondary-accent-gradient-end, #6457ff) 95%);
+    background: radial-gradient(circle at 50% 180%, var(--modifiers-static-color-light-accent-brand) 0%, var(--modifiers-normal-ai-button-color-light-secondary-accent-gradient-end, #6457ff) 95%);
 }
 
 /* Secondary Active State - Exactamente igual que el primary active */
 .ubits-button-ai--secondary.ubits-button-ai--active {
     position: relative;
     background-color: transparent !important;
-    color: var(--modifiers-normal-color-light-accent-brand, var(--ubits-button-active-fg, var(--ubits-accent-brand-static))) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
     border: none !important;
 }
 
@@ -281,7 +281,7 @@
 
 .ubits-button-ai--secondary.ubits-button-ai--active:hover:not(:disabled) {
     background-color: transparent !important;
-    color: var(--modifiers-normal-color-light-accent-brand, var(--ubits-button-active-fg, var(--ubits-accent-brand-static))) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
     border: none !important;
 }
 
@@ -291,7 +291,7 @@
 
 .ubits-button-ai--secondary.ubits-button-ai--active:active:not(:disabled) {
     background-color: transparent !important;
-    color: var(--modifiers-normal-color-light-accent-brand, var(--ubits-button-active-fg, var(--ubits-accent-brand-static))) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
     border: none !important;
 }
 
@@ -303,7 +303,7 @@
 .ubits-button-ai--secondary.ubits-button-ai--active i {
     position: relative;
     z-index: 1;
-    color: var(--modifiers-normal-color-light-accent-brand, var(--ubits-button-active-fg, var(--ubits-accent-brand-static))) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
     /* Remover el gradiente del icono en estado active */
     background: none !important;
     -webkit-background-clip: unset !important;
@@ -315,7 +315,7 @@
 .ubits-button-ai--secondary.ubits-button-ai--active span {
     position: relative;
     z-index: 1;
-    color: var(--modifiers-normal-color-light-accent-brand, var(--ubits-button-active-fg, var(--ubits-accent-brand-static))) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 /* Asegurar que el contenido esté por encima del pseudo-elemento */
@@ -328,7 +328,7 @@
 .ubits-button-ai--secondary i {
     position: relative;
     z-index: 1;
-    background: radial-gradient(circle at 50% 180%, var(--modifiers-static-color-light-accent-brand, var(--ubits-accent-brand-static)) 0%, var(--modifiers-normal-ai-button-color-light-secondary-accent-gradient-end, #6457ff) 95%);
+    background: radial-gradient(circle at 50% 180%, var(--modifiers-static-color-light-accent-brand) 0%, var(--modifiers-normal-ai-button-color-light-secondary-accent-gradient-end, #6457ff) 95%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -382,7 +382,7 @@
 .ubits-button-ai--xs span {
     font-family: var(--font-family-noto-sans-font-family, var(--font-sans, 'Noto Sans', sans-serif)) !important;
     font-size: var(--modifiers-normal-body-xs-regular-fontsize, var(--font-body-xs-size, 13px)) !important;
-    font-weight: var(--ubits-font-weight-semibold, 600) !important;
+    font-weight: var(--weight-semibold, 600) !important;
     line-height: var(--modifiers-normal-body-xs-regular-lineheight, var(--font-body-xs-line, 20.8px)) !important;
 }
 
@@ -410,7 +410,7 @@
 .ubits-button-ai--sm span {
     font-family: var(--font-family-noto-sans-font-family, var(--font-sans, 'Noto Sans', sans-serif)) !important;
     font-size: var(--modifiers-normal-body-sm-regular-fontsize, var(--font-body-sm-size, 14px)) !important;
-    font-weight: var(--ubits-font-weight-semibold, 600) !important;
+    font-weight: var(--weight-semibold, 600) !important;
     line-height: var(--modifiers-normal-body-sm-regular-lineheight, var(--font-body-sm-line, 23.4px)) !important;
 }
 
@@ -438,7 +438,7 @@
 .ubits-button-ai--md span {
     font-family: var(--font-family-noto-sans-font-family, var(--font-sans, 'Noto Sans', sans-serif));
     font-size: var(--modifiers-normal-body-md-regular-fontsize, var(--font-body-md-size, 16px));
-    font-weight: var(--ubits-font-weight-semibold, 600);
+    font-weight: var(--weight-semibold, 600);
     line-height: var(--modifiers-normal-body-md-regular-lineheight, var(--font-body-md-line, 24px));
 }
 
@@ -461,7 +461,7 @@
 .ubits-button-ai--lg span {
     font-family: var(--font-family-noto-sans-font-family, var(--font-sans, 'Noto Sans', sans-serif));
     font-size: var(--modifiers-normal-body-lg-regular-fontsize, var(--font-body-lg-size, 18px));
-    font-weight: var(--ubits-font-weight-semibold, 600);
+    font-weight: var(--weight-semibold, 600);
     line-height: var(--modifiers-normal-body-lg-regular-lineheight, var(--font-body-lg-line, 27px));
 }
 
@@ -487,7 +487,7 @@
 .ubits-button-ai--xl span {
     font-family: var(--font-family-noto-sans-font-family, var(--font-sans, 'Noto Sans', sans-serif));
     font-size: 22px; /* Tamaño específico para xl, mantener hardcodeado */
-    font-weight: var(--ubits-font-weight-semibold, 600);
+    font-weight: var(--weight-semibold, 600);
     line-height: 33px; /* Line-height específico para xl, mantener hardcodeado */
 }
 
@@ -523,7 +523,7 @@
     right: -3px !important;
     width: 10px !important;
     height: 10px !important;
-    background: var(--modifiers-normal-color-light-feedback-accent-error, var(--ubits-button-badge, #EF4444)) !important;
+    background: var(--modifiers-normal-color-light-feedback-accent-error) !important;
     border-radius: 50% !important;
     z-index: 100 !important; /* MUY ALTO z-index para estar por encima de TODO, incluyendo ::before */
     display: block !important;

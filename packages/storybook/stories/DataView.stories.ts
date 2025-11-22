@@ -16,20 +16,20 @@ const meta: Meta<DataViewOptions & {
   parameters: {
     docs: {
       description: {
-        component: 'Componente DataView UBITS para mostrar listas de productos con imagen, categoría, nombre, rating, precio, botón de favoritos y botón de compra. Usa tokens UBITS para colores, tipografía y espaciado.',
-      },
-    },
-    layout: 'padded',
-  },
+        component: 'Componente DataView UBITS para mostrar listas de productos con imagen, categoría, nombre, rating, precio, botón de favoritos y botón de compra. Usa tokens UBITS para colores, tipografía y espaciado.'
+}
+},
+    layout: 'padded'
+},
   argTypes: {
     productCount: {
       control: { type: 'number', min: 1, max: 10, step: 1 },
       description: 'Número de productos a mostrar',
       table: {
         defaultValue: { summary: '5' },
-        type: { summary: 'number' },
-      },
-    },
+        type: { summary: 'number' }
+}
+},
     size: {
       control: { type: 'select' },
       options: ['sm', 'md', 'lg'],
@@ -37,91 +37,91 @@ const meta: Meta<DataViewOptions & {
       table: {
         defaultValue: { summary: 'md' },
         type: { summary: 'sm | md | lg' },
-        category: 'Tamaño',
-      },
-    },
+        category: 'Tamaño'
+}
+},
     showCategory: {
       control: { type: 'boolean' },
       description: 'Mostrar categoría del producto',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showRating: {
       control: { type: 'boolean' },
       description: 'Mostrar rating con estrellas',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showPrice: {
       control: { type: 'boolean' },
       description: 'Mostrar precio del producto',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showWishlist: {
       control: { type: 'boolean' },
       description: 'Mostrar botón de favoritos',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showBuyButton: {
       control: { type: 'boolean' },
       description: 'Mostrar botón de compra',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     buyButtonText: {
       control: { type: 'text' },
       description: 'Texto del botón de compra',
       table: {
-        defaultValue: { summary: 'Buy Now' },
-      },
-    },
+        defaultValue: { summary: 'Buy Now' }
+}
+},
     buyButtonIcon: {
       control: { type: 'text' },
       description: 'Icono del botón de compra (nombre FontAwesome sin prefijo fa-)',
       table: {
-        defaultValue: { summary: 'shopping-cart' },
-      },
-    },
+        defaultValue: { summary: 'shopping-cart' }
+}
+},
     wishlistIcon: {
       control: { type: 'text' },
       description: 'Icono del botón de favoritos (nombre FontAwesome sin prefijo fa-)',
       table: {
-        defaultValue: { summary: 'heart' },
-      },
-    },
+        defaultValue: { summary: 'heart' }
+}
+},
     defaultStockStatus: {
       control: { type: 'select' },
       options: ['INSTOCK', 'LOWSTOCK', 'OUTOFSTOCK'],
       description: 'Estado de stock por defecto para los productos',
       table: {
         defaultValue: { summary: 'INSTOCK' },
-        type: { summary: 'INSTOCK | LOWSTOCK | OUTOFSTOCK' },
-      },
-    },
+        type: { summary: 'INSTOCK | LOWSTOCK | OUTOFSTOCK' }
+}
+},
     defaultRating: {
       control: { type: 'number', min: 0, max: 5, step: 0.5 },
       description: 'Rating por defecto para los productos',
       table: {
         defaultValue: { summary: '4' },
-        type: { summary: 'number (0-5)' },
-      },
-    },
+        type: { summary: 'number (0-5)' }
+}
+},
     defaultPrice: {
       control: { type: 'number', min: 0, step: 1 },
       description: 'Precio por defecto para los productos',
       table: {
         defaultValue: { summary: '50' },
-        type: { summary: 'number' },
-      },
-    },
-  },
+        type: { summary: 'number' }
+}
+}
+}
 };
 
 export default meta;
@@ -143,8 +143,8 @@ const sampleProducts: ProductData[] = [
     rating: 5,
     price: 65,
     stockStatus: 'INSTOCK',
-    inWishlist: false,
-  },
+    inWishlist: false
+},
   {
     id: '2',
     image: '/images/cards-learn/segmenta-la-experiencia-del-cliente.jpg',
@@ -154,8 +154,8 @@ const sampleProducts: ProductData[] = [
     rating: 4,
     price: 72,
     stockStatus: 'INSTOCK',
-    inWishlist: false,
-  },
+    inWishlist: false
+},
   {
     id: '3',
     image: '/images/cards-learn/introduccion-al-backend-node-js.jpeg',
@@ -165,8 +165,8 @@ const sampleProducts: ProductData[] = [
     rating: 3,
     price: 79,
     stockStatus: 'LOWSTOCK',
-    inWishlist: false,
-  },
+    inWishlist: false
+},
   {
     id: '4',
     image: '/images/cards-learn/introduccion-al-desarrollo-web.jpeg',
@@ -176,8 +176,8 @@ const sampleProducts: ProductData[] = [
     rating: 5,
     price: 29,
     stockStatus: 'INSTOCK',
-    inWishlist: true,
-  },
+    inWishlist: true
+},
   {
     id: '5',
     image: '/images/cards-learn/como-ejercer-el-liderazgo-inclusivo.jpeg',
@@ -187,8 +187,8 @@ const sampleProducts: ProductData[] = [
     rating: 4,
     price: 15,
     stockStatus: 'INSTOCK',
-    inWishlist: false,
-  },
+    inWishlist: false
+}
 ];
 
 // Función helper para generar productos desde los args
@@ -209,8 +209,8 @@ function generateProducts(
     'Smart Watch',
     'Running Shoes',
     'Yoga Mat',
-    'Water Bottle',
-  ];
+    'Water Bottle'
+];
 
   return Array.from({ length: count }, (_, index) => {
     const categoryIndex = index % categories.length;
@@ -239,8 +239,8 @@ function generateProducts(
       '/images/cards-learn/react-context-api.jpeg',
       '/images/cards-learn/agilidad-emocional.jpeg',
       '/images/cards-learn/primeros-pasos-en-react.jpeg',
-      '/images/cards-learn/neuroliderazgo-configura-tu-mente.jpeg',
-    ];
+      '/images/cards-learn/neuroliderazgo-configura-tu-mente.jpeg'
+];
 
     return {
       id: `product-${index + 1}`,
@@ -271,8 +271,8 @@ export const Default: Story = {
     wishlistIcon: 'heart',
     defaultStockStatus: 'INSTOCK',
     defaultRating: 4,
-    defaultPrice: 50,
-  },
+    defaultPrice: 50
+},
   render: (args) => {
     const {
       productCount = 5,
@@ -287,8 +287,8 @@ export const Default: Story = {
       showBuyButton = true,
       buyButtonText = 'Buy Now',
       buyButtonIcon = 'shopping-cart',
-      wishlistIcon = 'heart',
-    } = args;
+      wishlistIcon = 'heart'
+} = args;
 
     // Generar productos
     const products = generateProducts(productCount, defaultStockStatus, defaultRating, defaultPrice);
@@ -299,9 +299,7 @@ export const Default: Story = {
     container.style.width = '100%';
     container.style.maxWidth = '800px';
     container.style.margin = '0 auto';
-    container.style.padding = 'var(--ubits-spacing-lg)';
     container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
-    container.style.borderRadius = 'var(--ubits-border-radius-md)';
     container.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
 
     // Función para re-renderizar el DataView
@@ -332,8 +330,8 @@ export const Default: Story = {
           }
           const newDataView = createDataView(dataViewOptions);
           container.appendChild(newDataView);
-        },
-      };
+        }
+};
 
       return createDataView(dataViewOptions);
     };
@@ -343,6 +341,6 @@ export const Default: Story = {
     container.appendChild(dataView);
 
     return container;
-  },
+  }
 };
 

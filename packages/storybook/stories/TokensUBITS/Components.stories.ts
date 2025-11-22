@@ -12,7 +12,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { createLightDarkComparison, createColorSwatch } from './utils';
 
 const meta: Meta = {
-  title: 'Tokens UBITS/3. Componentes',
+  title: 'Tokens UBITS/04. Componentes',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
@@ -224,7 +224,8 @@ const COMPONENT_TOKENS = {
     '--color-scroll-bar-color-bg-dragged',
   ],
   'toggle': [
-    '--color-toggle-color-bg-active',
+    '--modifiers-normal-toggle-color-light-bg-active',
+    '--modifiers-normal-toggle-color-dark-bg-active',
   ],
 } as const;
 

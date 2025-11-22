@@ -109,9 +109,9 @@ export function renderSelectionCard(cardData: SelectionCardData): string {
   // Verificar que los tokens UBITS estén disponibles (solo en desarrollo)
   if (typeof window !== 'undefined') {
     const rootStyle = getComputedStyle(document.documentElement);
-    const bgToken = rootStyle.getPropertyValue('--ubits-bg-1').trim();
+    const bgToken = rootStyle.getPropertyValue('--modifiers-normal-color-light-bg-1').trim();
     if (!bgToken) {
-      console.warn('⚠️ [SelectionCard] Token --ubits-bg-1 no encontrado. Verifica que tokens.css esté cargado.');
+      console.warn('⚠️ [SelectionCard] Token --modifiers-normal-color-light-bg-1 no encontrado. Verifica que tokens.css esté cargado.');
     }
   }
 
@@ -145,7 +145,7 @@ export function loadSelectionCards(options: SelectionCardOptions): void {
   // Verificar carga de estilos (solo en desarrollo)
   if (process.env.NODE_ENV === 'development') {
     const rootStyle = getComputedStyle(document.documentElement);
-    const hasTokens = rootStyle.getPropertyValue('--ubits-bg-1').trim();
+    const hasTokens = rootStyle.getPropertyValue('--modifiers-normal-color-light-bg-1').trim();
     if (!hasTokens) {
       console.warn('⚠️ [SelectionCard] Tokens UBITS no detectados');
     }
@@ -310,9 +310,9 @@ export function createSelectionCard(cardData: SelectionCardData): HTMLElement {
     
     // Verificar tokens críticos
     const tokens = {
-      '--ubits-border-1': rootStyle.getPropertyValue('--ubits-border-1').trim() || 'NO ENCONTRADO',
-      '--ubits-accent-brand-static-inverted': rootStyle.getPropertyValue('--ubits-accent-brand-static-inverted').trim() || 'NO ENCONTRADO',
-      '--ubits-bg-1': rootStyle.getPropertyValue('--ubits-bg-1').trim() || 'NO ENCONTRADO',
+      '--modifiers-normal-color-light-border-1': rootStyle.getPropertyValue('--modifiers-normal-color-light-border-1').trim() || 'NO ENCONTRADO',
+      '--modifiers-static-inverted-color-light-accent-brand': rootStyle.getPropertyValue('--modifiers-static-inverted-color-light-accent-brand').trim() || 'NO ENCONTRADO',
+      '--modifiers-normal-color-light-bg-1': rootStyle.getPropertyValue('--modifiers-normal-color-light-bg-1').trim() || 'NO ENCONTRADO',
       '--ubits-spacing-lg': rootStyle.getPropertyValue('--ubits-spacing-lg').trim() || 'NO ENCONTRADO',
       '--ubits-spacing-sm': rootStyle.getPropertyValue('--ubits-spacing-sm').trim() || 'NO ENCONTRADO',
       '--ubits-border-radius-md': rootStyle.getPropertyValue('--ubits-border-radius-md').trim() || 'NO ENCONTRADO',
@@ -384,7 +384,7 @@ export function createSelectionCard(cardData: SelectionCardData): HTMLElement {
     
     // Verificar si el borde se está aplicando
     if (isSelected) {
-      const expectedBorderColor = tokens['--ubits-accent-brand-static-inverted'];
+      const expectedBorderColor = tokens['--modifiers-static-inverted-color-light-accent-brand'];
       const actualBorderColor = computedStyle.borderColor;
       const actualBorderWidth = computedStyle.borderWidth;
       const actualBorderStyle = computedStyle.borderStyle;

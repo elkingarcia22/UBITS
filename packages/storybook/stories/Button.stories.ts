@@ -178,7 +178,7 @@ export const Default: Story = {
   render: (args) => {
     const container = document.createElement('div');
     container.style.padding = '20px';
-    container.style.background = 'var(--ubits-bg-1, #ffffff)';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-1), #ffffff)';
     container.style.borderRadius = '8px';
     
     const preview = document.createElement('div');
@@ -187,7 +187,7 @@ export const Default: Story = {
     preview.style.alignItems = 'flex-start';
     preview.style.padding = '40px';
     preview.style.minHeight = '120px';
-    preview.style.background = 'var(--ubits-bg-2, #f9fafb)';
+    preview.style.background = 'var(--modifiers-normal-color-light-bg-2), #f9fafb)';
     preview.style.borderRadius = '8px';
     preview.style.marginBottom = '20px';
     preview.style.position = 'relative';
@@ -227,21 +227,21 @@ export const Default: Story = {
             if (buttonArgs.active || args.active) {
               // Aplicar fondo active con múltiples capas
               const root = document.documentElement;
-              const bgActiveButton = getComputedStyle(root).getPropertyValue('--ubits-bg-active-button').trim() || 'var(--ubits-bg-active-button)';
-              const bg1 = getComputedStyle(root).getPropertyValue('--ubits-bg-1').trim() || '#ffffff';
+              const bgActiveButton = getComputedStyle(root).getPropertyValue('--modifiers-normal-color-light-bg-active-button').trim() || 'var(--modifiers-normal-color-light-bg-active-button)';
+              const bg1 = getComputedStyle(root).getPropertyValue('--modifiers-normal-color-light-bg-1').trim() || '#ffffff';
               const backgroundValue = `${bgActiveButton}, ${bg1}`;
               btn.style.setProperty('background', backgroundValue, 'important');
               btn.style.setProperty('border', 'none', 'important');
-              btn.style.setProperty('color', 'var(--ubits-button-active-fg, var(--ubits-accent-brand-static))', 'important');
+              btn.style.setProperty('color', 'var(--modifiers-normal-color-light-accent-brand))', 'important');
               
               const spans = btn.querySelectorAll('span');
               spans.forEach((span) => {
-                span.style.color = 'var(--ubits-button-active-fg, var(--ubits-accent-brand-static))';
+                span.style.color = 'var(--modifiers-normal-color-light-accent-brand))';
               });
               
               const icons = btn.querySelectorAll('i');
               icons.forEach((icon) => {
-                icon.style.color = 'var(--ubits-button-active-fg, var(--ubits-accent-brand-static))';
+                icon.style.color = 'var(--modifiers-normal-color-light-accent-brand))';
               });
             }
           };
@@ -278,19 +278,19 @@ export const Default: Story = {
             if (buttonArgs.active || args.active) {
               // Aplicar fondo active con múltiples capas
               const root = document.documentElement;
-              const bgActiveButton = getComputedStyle(root).getPropertyValue('--ubits-bg-active-button').trim() || 'var(--ubits-bg-active-button)';
-              const bg1 = getComputedStyle(root).getPropertyValue('--ubits-bg-1').trim() || '#ffffff';
+              const bgActiveButton = getComputedStyle(root).getPropertyValue('--modifiers-normal-color-light-bg-active-button').trim() || 'var(--modifiers-normal-color-light-bg-active-button)';
+              const bg1 = getComputedStyle(root).getPropertyValue('--modifiers-normal-color-light-bg-1').trim() || '#ffffff';
               const backgroundValue = `${bgActiveButton}, ${bg1}`;
               button.style.setProperty('background', backgroundValue, 'important');
-              button.style.setProperty('color', 'var(--ubits-button-active-fg, var(--ubits-accent-brand-static))', 'important');
+              button.style.setProperty('color', 'var(--modifiers-normal-color-light-accent-brand))', 'important');
               button.style.setProperty('border', 'none', 'important');
               const spans = button.querySelectorAll('span');
               spans.forEach(span => {
-                span.style.color = 'var(--ubits-button-active-fg, var(--ubits-accent-brand-static))';
+                span.style.color = 'var(--modifiers-normal-color-light-accent-brand))';
               });
               const icons = button.querySelectorAll('i');
               icons.forEach(icon => {
-                icon.style.color = 'var(--ubits-button-active-fg, var(--ubits-accent-brand-static))';
+                icon.style.color = 'var(--modifiers-normal-color-light-accent-brand))';
               });
             }
             if (buttonArgs.iconOnly && buttonArgs.showTooltip && buttonArgs.tooltipText) {
@@ -342,8 +342,6 @@ export const Default: Story = {
             const floating1Spread = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-1-spread').trim();
             const floating1Color = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-1-color').trim();
             
-            const elevationFloating = computedStyle.getPropertyValue('--ubits-elevation-floating').trim();
-            
             const buttonStyle = getComputedStyle(button);
             const boxShadow = buttonStyle.boxShadow;
             
@@ -368,9 +366,6 @@ export const Default: Story = {
               spread: floating1Spread || '❌ NO DEFINIDO',
               color: floating1Color || '❌ NO DEFINIDO'
             });
-            console.log('');
-            console.log('   🔗 VARIABLE CONSTRUIDA:');
-            console.log('      --ubits-elevation-floating:', elevationFloating || '❌ NO DEFINIDO');
             console.log('');
             console.log('   🎯 BOX-SHADOW APLICADO AL BOTÓN:');
             console.log('      box-shadow:', boxShadow || '❌ NO DEFINIDO');
@@ -433,8 +428,8 @@ export const Default: Story = {
             console.log('🔍 [Button Story] Aplicando estilos active iniciales');
             // Asegurar fondo active con múltiples capas: bg-active-button sobre bg1
             const root = document.documentElement;
-            const bgActiveButton = getComputedStyle(root).getPropertyValue('--ubits-bg-active-button').trim() || 'var(--ubits-bg-active-button)';
-            const bg1 = getComputedStyle(root).getPropertyValue('--ubits-bg-1').trim() || 'var(--ubits-bg-1)';
+            const bgActiveButton = getComputedStyle(root).getPropertyValue('--modifiers-normal-color-light-bg-active-button').trim() || 'var(--modifiers-normal-color-light-bg-active-button)';
+            const bg1 = getComputedStyle(root).getPropertyValue('--modifiers-normal-color-light-bg-1').trim() || 'var(--modifiers-normal-color-light-bg-1)';
             const backgroundValue = `${bgActiveButton}, ${bg1}`;
             
             console.log('🔍 [Button Story] Tokens encontrados:', {
@@ -448,16 +443,16 @@ export const Default: Story = {
             // Usar setProperty con !important para asegurar que se aplique
             button.style.setProperty('background', backgroundValue, 'important');
             button.style.setProperty('border', 'none', 'important');
-            button.style.setProperty('color', 'var(--ubits-button-active-fg, var(--ubits-accent-brand-static))', 'important');
+            button.style.setProperty('color', 'var(--modifiers-normal-color-light-accent-brand))', 'important');
             
             const spans = button.querySelectorAll('span');
             spans.forEach((span) => {
-              span.style.color = 'var(--ubits-button-active-fg, var(--ubits-accent-brand-static))';
+              span.style.color = 'var(--modifiers-normal-color-light-accent-brand))';
             });
             
             const icons = button.querySelectorAll('i');
             icons.forEach((icon) => {
-              icon.style.color = 'var(--ubits-button-active-fg, var(--ubits-accent-brand-static))';
+              icon.style.color = 'var(--modifiers-normal-color-light-accent-brand))';
             });
             
             console.log('🔍 [Button Story] Después de aplicar estilos active:', {
@@ -635,13 +630,13 @@ export const ActiveState: Story = {
   render: (args) => {
     const container = document.createElement('div');
     container.style.padding = '40px';
-    container.style.background = 'var(--ubits-bg-1, #ffffff)';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-1), #ffffff)';
     container.style.borderRadius = '8px';
     
     const title = document.createElement('h3');
     title.textContent = 'Estado Active - Con nuevo fondo bg-active-button y texto accent-brand';
     title.style.marginBottom = '24px';
-    title.style.color = 'var(--ubits-fg-1-high, #303a47)';
+    title.style.color = 'var(--modifiers-normal-color-light-fg-1-high, #303a47)';
     container.appendChild(title);
     
     const grid = document.createElement('div');
@@ -658,7 +653,7 @@ export const ActiveState: Story = {
     const primaryLabel = document.createElement('label');
     primaryLabel.textContent = 'Primary Active';
     primaryLabel.style.fontSize = '14px';
-    primaryLabel.style.color = 'var(--ubits-fg-1-medium, #5c646f)';
+    primaryLabel.style.color = 'var(--modifiers-normal-color-light-fg-1-medium, #5c646f)';
     primaryLabel.style.fontWeight = '500';
     primaryContainer.appendChild(primaryLabel);
     primaryContainer.innerHTML += renderButton({
@@ -677,7 +672,7 @@ export const ActiveState: Story = {
     const secondaryLabel = document.createElement('label');
     secondaryLabel.textContent = 'Secondary Active';
     secondaryLabel.style.fontSize = '14px';
-    secondaryLabel.style.color = 'var(--ubits-fg-1-medium, #5c646f)';
+    secondaryLabel.style.color = 'var(--modifiers-normal-color-light-fg-1-medium, #5c646f)';
     secondaryLabel.style.fontWeight = '500';
     secondaryContainer.appendChild(secondaryLabel);
     secondaryContainer.innerHTML += renderButton({
@@ -696,7 +691,7 @@ export const ActiveState: Story = {
     const tertiaryLabel = document.createElement('label');
     tertiaryLabel.textContent = 'Tertiary Active';
     tertiaryLabel.style.fontSize = '14px';
-    tertiaryLabel.style.color = 'var(--ubits-fg-1-medium, #5c646f)';
+    tertiaryLabel.style.color = 'var(--modifiers-normal-color-light-fg-1-medium, #5c646f)';
     tertiaryLabel.style.fontWeight = '500';
     tertiaryContainer.appendChild(tertiaryLabel);
     tertiaryContainer.innerHTML += renderButton({
@@ -712,14 +707,14 @@ export const ActiveState: Story = {
     // Información sobre el estilo
     const info = document.createElement('div');
     info.style.padding = '16px';
-    info.style.background = 'var(--ubits-bg-2, #f3f3f4)';
+    info.style.background = 'var(--modifiers-normal-color-light-bg-2), #f3f3f4)';
     info.style.borderRadius = '8px';
     info.style.marginTop = '24px';
     info.innerHTML = `
-      <p style="margin: 0 0 8px 0; color: var(--ubits-fg-1-high, #303a47); font-weight: 600;">Estilo Active:</p>
-      <ul style="margin: 0; padding-left: 20px; color: var(--ubits-fg-1-medium, #5c646f);">
-        <li>Fondo: <code style="background: var(--ubits-bg-2); padding: 2px 6px; border-radius: 4px;">var(--ubits-bg-active-button)</code> sobre <code style="background: var(--ubits-bg-2); padding: 2px 6px; border-radius: 4px;">var(--ubits-bg-1)</code></li>
-        <li>Texto: <code style="background: var(--ubits-bg-2); padding: 2px 6px; border-radius: 4px;">var(--ubits-button-active-fg)</code> (usa token accent-brand según tema)</li>
+      <p style="margin: 0 0 8px 0; color: var(--modifiers-normal-color-light-fg-1-high, #303a47); font-weight: 600;">Estilo Active:</p>
+      <ul style="margin: 0; padding-left: 20px; color: var(--modifiers-normal-color-light-fg-1-medium, #5c646f);">
+        <li>Fondo: <code style="background: var(--modifiers-normal-color-light-bg-2)); padding: 2px 6px; border-radius: 4px;">var(--modifiers-normal-color-light-bg-active-button)</code> sobre <code style="background: var(--modifiers-normal-color-light-bg-2)); padding: 2px 6px; border-radius: 4px;">var(--modifiers-normal-color-light-bg-1)</code></li>
+        <li>Texto: <code style="background: var(--modifiers-normal-color-light-bg-2)); padding: 2px 6px; border-radius: 4px;">var(--modifiers-normal-color-light-accent-brand))</code> (usa token accent-brand según tema)</li>
         <li>Sin borde</li>
       </ul>
     `;

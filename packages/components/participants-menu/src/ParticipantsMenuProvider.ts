@@ -146,7 +146,7 @@ function renderParticipant(
         <div class="ubits-participants-menu__item-name ubits-body-sm-bold" style="
           color: ${nameColor};
           font-size: var(--modifiers-normal-body-sm-regular-fontsize);
-          font-weight: var(--ubits-font-weight-bold);
+          font-weight: var(--weight-bold, 700);
           line-height: var(--modifiers-normal-body-sm-regular-lineheight);
           white-space: nowrap;
           overflow: hidden;
@@ -160,7 +160,7 @@ function renderParticipant(
         <div class="ubits-participants-menu__item-role ubits-body-sm-regular" style="
           color: var(--modifiers-normal-color-light-fg-1-medium);
           font-size: var(--modifiers-normal-body-sm-regular-fontsize);
-          font-weight: var(--ubits-font-weight-regular);
+          font-weight: var(--weight-regular, 400);
           line-height: var(--modifiers-normal-body-sm-regular-lineheight);
           white-space: nowrap;
           overflow: hidden;
@@ -297,7 +297,7 @@ export function renderParticipantsMenu(options: ParticipantsMenuOptions): string
         <h2 class="ubits-participants-menu__title ubits-body-md-bold" style="
           margin: 0;
           font-size: var(--modifiers-normal-body-md-regular-fontsize);
-          font-weight: var(--ubits-font-weight-bold);
+          font-weight: var(--weight-bold, 700);
           line-height: var(--modifiers-normal-body-md-regular-lineheight);
           color: var(--modifiers-normal-color-light-fg-1-high);
           margin-bottom: var(--ubits-spacing-md);
@@ -464,7 +464,7 @@ export function createParticipantsMenu(options: ParticipantsMenuOptions): {
           <div style="margin-bottom: var(--ubits-spacing-6);">
             <h3 style="
               font-size: var(--modifiers-normal-body-md-regular-fontsize);
-              font-weight: var(--ubits-font-weight-bold);
+              font-weight: var(--weight-bold, 700);
               color: var(--modifiers-normal-color-light-fg-1-high);
               margin: 0 0 var(--ubits-spacing-md) 0;
             ">Rol</h3>
@@ -475,7 +475,7 @@ export function createParticipantsMenu(options: ParticipantsMenuOptions): {
           <div style="margin-bottom: var(--ubits-spacing-6);">
             <h3 style="
               font-size: var(--modifiers-normal-body-md-regular-fontsize);
-              font-weight: var(--ubits-font-weight-bold);
+              font-weight: var(--weight-bold, 700);
               color: var(--modifiers-normal-color-light-fg-1-high);
               margin: 0 0 var(--ubits-spacing-md) 0;
             ">Estado</h3>

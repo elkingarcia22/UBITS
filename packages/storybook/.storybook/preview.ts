@@ -36,7 +36,6 @@ import '../../addons/breadcrumb/src/styles/breadcrumb.css'
 import '../../addons/stepper/src/styles/stepper.css'
 import '../../addons/participants-menu/src/styles/participants-menu.css'
 import '../../addons/metric-card/src/styles/metric-card.css'
-import '../../addons/menubar/src/styles/menubar.css'
 import '../../addons/header-section/src/styles/header-section.css'
 import '../../addons/status-tag/src/styles/status-tag.css'
 import '../../components/button-ai/src/styles/button-ai.css'
@@ -72,7 +71,7 @@ const preview: Preview = {
       document.body.setAttribute('data-theme', theme)
       document.documentElement.setAttribute('data-theme', theme)
       // Asegurar que el fondo del body sea diferente al sidebar
-      document.body.style.backgroundColor = 'var(--ubits-bg-2)'
+      document.body.style.backgroundColor = 'var(--modifiers-normal-color-light-bg-2)'
       
       // Agregar CSS para hacer transparente el contenedor de Storybook
       const style = document.createElement('style')

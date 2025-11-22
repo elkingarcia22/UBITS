@@ -82,7 +82,7 @@ const meta: Meta<CSATMetricCardOptions> = {
     },
     titleIconColor: {
       control: { type: 'color' },
-      description: 'Color del icono del título (puede usar tokens UBITS como var(--ubits-fg-2-medium))',
+      description: 'Color del icono del título (puede usar tokens UBITS como var(--modifiers-normal-color-light-fg-2-medium))',
       table: {
         type: { summary: 'string' },
       },
@@ -137,7 +137,7 @@ export const Default: Story = {
     container.style.padding = '48px';
     container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
     container.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
-    container.style.borderRadius = 'var(--ubits-border-radius-sm, 8px)';
+    container.style.borderRadius = '8px)';
     container.style.minHeight = '200px';
     
     // Crear wrapper para la card (max-width 400px)

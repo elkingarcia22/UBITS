@@ -11,11 +11,11 @@ const meta: Meta<FileUploadOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente File Upload personalizado UBITS. Diseño moderno con dos vistas: Drop Zone (área de arrastrar y soltar con icono circular) y Files List (lista de archivos con progreso). Usa componentes UBITS (Button) y tokens UBITS exclusivamente.',
-      },
-    },
-    layout: 'fullscreen',
-  },
+        component: 'Componente File Upload personalizado UBITS. Diseño moderno con dos vistas: Drop Zone (área de arrastrar y soltar con icono circular) y Files List (lista de archivos con progreso). Usa componentes UBITS (Button) y tokens UBITS exclusivamente.'
+}
+},
+    layout: 'fullscreen'
+},
   argTypes: {
     state: {
       control: { type: 'select' },
@@ -24,82 +24,82 @@ const meta: Meta<FileUploadOptions> = {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'default' },
-        category: 'Apariencia',
-      },
-    },
+        category: 'Apariencia'
+}
+},
     files: {
       control: { type: 'object' },
       description: 'Array de archivos a mostrar (para vista files-list).',
       table: {
         type: { summary: 'FileInfo[]' },
         defaultValue: { summary: '[]' },
-        category: 'Contenido',
-      },
-    },
+        category: 'Contenido'
+}
+},
     maxFiles: {
       control: { type: 'number', min: 1, max: 20 },
       description: 'Número máximo de archivos permitidos.',
       table: {
         type: { summary: 'number' },
         defaultValue: { summary: '6' },
-        category: 'Comportamiento',
-      },
-    },
+        category: 'Comportamiento'
+}
+},
     maxSize: {
       control: { type: 'number', min: 1024, step: 1024 },
       description: 'Tamaño máximo por archivo en bytes.',
       table: {
         type: { summary: 'number' },
         defaultValue: { summary: '5242880 (5MB)' },
-        category: 'Comportamiento',
-      },
-    },
+        category: 'Comportamiento'
+}
+},
     dropText: {
       control: { type: 'text' },
       description: 'Texto para el área de drop.',
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'Arrastra tus archivos aquí' },
-        category: 'Contenido',
-      },
-    },
+        category: 'Contenido'
+}
+},
     selectButtonText: {
       control: { type: 'text' },
       description: 'Texto del botón de selección.',
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'Seleccionar archivos' },
-        category: 'Contenido',
-      },
-    },
+        category: 'Contenido'
+}
+},
     showIcon: {
       control: { type: 'boolean' },
       description: 'Si se muestra el icono en el drop zone.',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
-        category: 'Apariencia',
-      },
-    },
+        category: 'Apariencia'
+}
+},
     showFileSize: {
       control: { type: 'boolean' },
       description: 'Si se muestra el tamaño del archivo.',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
-        category: 'Comportamiento',
-      },
-    },
+        category: 'Comportamiento'
+}
+},
     showProgress: {
       control: { type: 'boolean' },
       description: 'Si se muestra la barra de progreso.',
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
-        category: 'Comportamiento',
-      },
-    },
-  },
+        category: 'Comportamiento'
+}
+}
+}
 };
 
 export default meta;
@@ -115,8 +115,8 @@ export const Default: Story = {
     selectButtonText: 'Seleccionar archivos',
     showIcon: false,
     showFileSize: true,
-    showProgress: true,
-  },
+    showProgress: true
+},
   render: (args) => {
     const container = document.createElement('div');
     container.style.cssText = `
@@ -125,33 +125,30 @@ export const Default: Story = {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: var(--ubits-spacing-10);
       background: var(--modifiers-normal-color-light-bg-2);
     `;
 
     const wrapper = document.createElement('div');
     wrapper.style.cssText = `
       width: 100%;
-      max-width: calc(var(--ubits-spacing-80) * 2.5);
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 24px;
       background: var(--modifiers-normal-color-light-bg-1);
-      padding: var(--ubits-spacing-8);
       border-radius: var(--ubits-border-radius-md);
-      box-shadow: 0 var(--ubits-spacing-xs) var(--ubits-spacing-sm) rgba(0, 0, 0, 0.1);
     `;
 
     const title = document.createElement('h2');
     title.textContent = 'File Upload';
     title.style.cssText = `
-      margin: var(--ubits-spacing-none) var(--ubits-spacing-none) var(--ubits-spacing-lg) var(--ubits-spacing-none);
       color: var(--modifiers-normal-color-light-fg-1-high);
       font-size: var(--modifiers-normal-heading-h2-fontsize);
-      font-weight: var(--ubits-font-weight-semibold);
+      font-weight: var(--weight-semibold, 600);
     `;
 
     const description = document.createElement('p');
     description.textContent = 'Componente File Upload con diseño moderno. Soporta dos vistas: Drop Zone (área de arrastrar y soltar) y Files List (lista de archivos con progreso). Usa componentes UBITS y tokens UBITS exclusivamente.';
     description.style.cssText = `
-      margin: var(--ubits-spacing-none) var(--ubits-spacing-none) var(--ubits-spacing-6xl) var(--ubits-spacing-none);
       color: var(--modifiers-normal-color-light-fg-1-medium);
       font-size: var(--modifiers-normal-body-md-regular-fontsize);
       line-height: var(--modifiers-normal-body-md-regular-lineheight);
@@ -159,7 +156,6 @@ export const Default: Story = {
 
     const fileUploadContainer = document.createElement('div');
     fileUploadContainer.id = `file-upload-container-${Date.now()}`;
-    fileUploadContainer.style.cssText = `width: 100%; margin: var(--ubits-spacing-none) auto;`;
 
     const createFileUploadContent = () => {
       fileUploadContainer.innerHTML = '';
@@ -184,23 +180,23 @@ export const Default: Story = {
             name: 'documento-ejemplo.pdf',
             size: 2048576, // 2MB
             progress: 45,
-            status: 'uploading' as const,
-          },
+            status: 'uploading' as const
+},
           {
             id: 'file-2',
             name: 'imagen-ejemplo.jpg',
             size: 1024000, // 1MB
             progress: 100,
-            status: 'completed' as const,
-          },
+            status: 'completed' as const
+},
           {
             id: 'file-3',
             name: 'archivo-ejemplo.docx',
             size: 512000, // 512KB
             progress: 0,
-            status: 'pending' as const,
-          },
-        ];
+            status: 'pending' as const
+}
+];
         console.log('🔍 [FileUpload Storybook] Archivos de ejemplo agregados para probar controles:', filesToUse);
       }
       
@@ -225,8 +221,8 @@ export const Default: Story = {
         selectButtonText: args.selectButtonText || 'Seleccionar archivos',
         showIcon: args.showIcon !== undefined ? args.showIcon : false,
         showFileSize: showFileSizeValue,
-        showProgress: showProgressValue,
-      };
+        showProgress: showProgressValue
+};
       
       console.log('🔍 [FileUpload Storybook] Options finales:');
       console.log('  - showFileSize:', options.showFileSize, '| tipo:', typeof options.showFileSize);
@@ -257,8 +253,8 @@ export const Default: Story = {
         state: args.state,
         files: args.files,
         maxFiles: args.maxFiles,
-        maxSize: args.maxSize,
-      };
+        maxSize: args.maxSize
+};
       
       // Comparar con el snapshot anterior
       const argsChanged = !lastArgsSnapshot || 
@@ -279,6 +275,6 @@ export const Default: Story = {
     container.appendChild(wrapper);
 
     return container;
-  },
+  }
 };
 

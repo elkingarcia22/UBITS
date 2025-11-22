@@ -1,20 +1,19 @@
 /**
  * Tokens UBITS - Border Radius
  * 
- * Tokens de border-radius:
- * - ubits-border-radius (tokens actuales UBITS)
+ * Tokens de border-radius del sistema UBITS.
  */
 
 import type { Meta, StoryObj } from '@storybook/html';
 
 const meta: Meta = {
-  title: 'Tokens UBITS/6. Border Radius',
+  title: 'Tokens UBITS/09. Border Radius',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Tokens de border-radius del sistema UBITS. Incluye valores desde none (0) hasta full (1000px).',
+        component: 'Tokens de border-radius del sistema UBITS. Incluye valores desde none hasta full (círculo completo).',
       },
     },
   },
@@ -23,8 +22,6 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-// Tokens de border-radius
-// NOTA: Los tokens aparecen en light y dark mode, pero los valores son los mismos
 const BORDER_RADIUS_TOKENS = [
   '--ubits-border-radius-none',
   '--ubits-border-radius-xs',
@@ -35,222 +32,156 @@ const BORDER_RADIUS_TOKENS = [
   '--ubits-border-radius-full',
 ] as const;
 
-/**
- * Obtiene el valor de un token CSS
- */
-function getTokenValue(token: string): string {
+function borderRadiusItem(token: string) {
   const root = document.documentElement;
   const value = getComputedStyle(root).getPropertyValue(token).trim();
-  return value || 'N/A';
-}
 
-/**
- * Crea una fila de tabla para mostrar un token de border-radius
- */
-function createBorderRadiusRow(token: string): HTMLElement {
-  const row = document.createElement('tr');
-  row.style.borderBottom = '1px solid #e5e7eb';
+  const wrap = document.createElement('div');
+  wrap.style.display = 'grid';
+  wrap.style.gridTemplateColumns = '300px 1fr';
+  wrap.style.alignItems = 'center';
+  wrap.style.gap = '16px';
+  wrap.style.padding = '12px 16px';
+  wrap.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
+  wrap.style.borderRadius = 'var(--ubits-border-radius-md, 8px)';
+  wrap.style.background = 'var(--modifiers-normal-color-light-bg-1)';
+  wrap.style.fontFamily = 'var(--modifiers-normal-body-md-regular-fontfamily)';
+  wrap.style.color = 'var(--modifiers-normal-color-light-fg-1-high)';
 
-  const tokenCell = document.createElement('td');
-  tokenCell.style.padding = '12px';
-  tokenCell.style.fontFamily = 'monospace';
-  tokenCell.style.fontSize = '13px';
-  tokenCell.style.color = '#303a47';
-  tokenCell.textContent = token;
-  row.appendChild(tokenCell);
+  const nameEl = document.createElement('code');
+  nameEl.textContent = token;
+  nameEl.style.fontSize = '13px';
+  nameEl.style.color = 'var(--modifiers-normal-color-light-fg-1-high)';
 
-  const valueCell = document.createElement('td');
-  valueCell.style.padding = '12px';
-  valueCell.style.fontSize = '14px';
-  valueCell.style.color = '#6b7280';
-  
-  const value = getTokenValue(token);
-  valueCell.textContent = value;
-  row.appendChild(valueCell);
+  const right = document.createElement('div');
+  right.style.display = 'flex';
+  right.style.alignItems = 'center';
+  right.style.gap = '12px';
 
-  const previewCell = document.createElement('td');
-  previewCell.style.padding = '12px';
-  previewCell.style.width = '200px';
-  
-  const preview = document.createElement('div');
-  preview.style.display = 'flex';
-  preview.style.alignItems = 'center';
-  preview.style.gap = '12px';
-  
+  // Visual box representing the border-radius
   const box = document.createElement('div');
+  const pxValue = parseInt(value) || 0;
   box.style.width = '80px';
   box.style.height = '80px';
-  box.style.borderRadius = value;
-  box.style.backgroundColor = '#3b82f6';
-  box.style.border = '2px solid #1e40af';
+  box.style.borderRadius = value || '0';
+  box.style.background = 'var(--modifiers-normal-color-light-accent-brand)';
+  box.style.border = '2px solid var(--modifiers-normal-color-light-border-1)';
+  box.style.display = 'flex';
+  box.style.alignItems = 'center';
+  box.style.justifyContent = 'center';
   box.style.flexShrink = '0';
-  preview.appendChild(box);
-  
-  const label = document.createElement('span');
-  label.textContent = value;
-  label.style.fontSize = '12px';
-  label.style.color = '#6b7280';
-  preview.appendChild(label);
-  
-  previewCell.appendChild(preview);
-  row.appendChild(previewCell);
 
-  return row;
+  const valueEl = document.createElement('span');
+  valueEl.textContent = value || '0';
+  valueEl.style.fontSize = '14px';
+  valueEl.style.fontWeight = 'var(--weight-semibold, 600)';
+
+  right.appendChild(box);
+  right.appendChild(valueEl);
+  wrap.appendChild(nameEl);
+  wrap.appendChild(right);
+
+  return wrap;
 }
 
-/**
- * Story principal que muestra todos los tokens de border-radius
- */
-export const TodosLosTokens: Story = {
+export const TodosLosBorderRadius: Story = {
   render: () => {
     const container = document.createElement('div');
-    container.style.padding = '24px';
-    container.style.maxWidth = '1400px';
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.gap = '16px';
+    container.style.padding = '20px';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
+    container.style.borderRadius = 'var(--ubits-border-radius-md, 8px)';
+    container.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
 
-    const title = document.createElement('h2');
+    const title = document.createElement('h3');
     title.textContent = 'Border Radius - Todos los Tokens';
-    title.style.fontSize = '24px';
-    title.style.fontWeight = '700';
+    title.style.color = 'var(--modifiers-normal-color-light-fg-1-high)';
+    title.style.fontFamily = 'var(--modifiers-normal-heading-h3-fontfamily)';
+    title.style.fontSize = 'var(--modifiers-normal-heading-h3-fontsize)';
     title.style.marginBottom = '16px';
     container.appendChild(title);
 
-    const summary = document.createElement('div');
-    summary.style.marginBottom = '24px';
-    summary.style.padding = '16px';
-    summary.style.backgroundColor = '#f3f4f6';
-    summary.style.border = '1px solid #d1d5db';
-    summary.style.borderRadius = '8px';
-    summary.style.fontSize = '14px';
-    summary.innerHTML = `
-      <strong>Resumen:</strong><br>
-      • Border Radius: ${BORDER_RADIUS_TOKENS.length} tokens<br>
-      <strong>Total: ${BORDER_RADIUS_TOKENS.length} tokens</strong>
-    `;
-    container.appendChild(summary);
-
-    const table = document.createElement('table');
-    table.style.width = '100%';
-    table.style.borderCollapse = 'collapse';
-    table.style.backgroundColor = '#ffffff';
-    table.style.border = '1px solid #e5e7eb';
-    table.style.borderRadius = '8px';
-    table.style.overflow = 'hidden';
-
-    const thead = document.createElement('thead');
-    thead.style.backgroundColor = '#f9fafb';
-    const headerRow = document.createElement('tr');
-    
-    const tokenHeader = document.createElement('th');
-    tokenHeader.textContent = 'Token';
-    tokenHeader.style.padding = '12px';
-    tokenHeader.style.textAlign = 'left';
-    tokenHeader.style.fontSize = '14px';
-    tokenHeader.style.fontWeight = '600';
-    tokenHeader.style.color = '#303a47';
-    tokenHeader.style.borderBottom = '2px solid #e5e7eb';
-    headerRow.appendChild(tokenHeader);
-
-    const valueHeader = document.createElement('th');
-    valueHeader.textContent = 'Valor';
-    valueHeader.style.padding = '12px';
-    valueHeader.style.textAlign = 'left';
-    valueHeader.style.fontSize = '14px';
-    valueHeader.style.fontWeight = '600';
-    valueHeader.style.color = '#303a47';
-    valueHeader.style.borderBottom = '2px solid #e5e7eb';
-    headerRow.appendChild(valueHeader);
-
-    const previewHeader = document.createElement('th');
-    previewHeader.textContent = 'Preview';
-    previewHeader.style.padding = '12px';
-    previewHeader.style.textAlign = 'left';
-    previewHeader.style.fontSize = '14px';
-    previewHeader.style.fontWeight = '600';
-    previewHeader.style.color = '#303a47';
-    previewHeader.style.borderBottom = '2px solid #e5e7eb';
-    headerRow.appendChild(previewHeader);
-
-    thead.appendChild(headerRow);
-    table.appendChild(thead);
-
-    const tbody = document.createElement('tbody');
     BORDER_RADIUS_TOKENS.forEach(token => {
-      tbody.appendChild(createBorderRadiusRow(token));
+      container.appendChild(borderRadiusItem(token));
     });
-    table.appendChild(tbody);
-
-    container.appendChild(table);
 
     return container;
   },
 };
 
-/**
- * Story con preview visual mejorado
- */
-export const PreviewVisual: Story = {
+export const EjemplosDeUso: Story = {
   render: () => {
     const container = document.createElement('div');
-    container.style.padding = '24px';
-    container.style.maxWidth = '1400px';
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.gap = '24px';
+    container.style.padding = '20px';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
+    container.style.borderRadius = 'var(--ubits-border-radius-md, 8px)';
+    container.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
 
-    const title = document.createElement('h2');
-    title.textContent = 'Border Radius - Preview Visual';
-    title.style.fontSize = '24px';
-    title.style.fontWeight = '700';
+    const title = document.createElement('h3');
+    title.textContent = 'Ejemplos de Uso';
+    title.style.color = 'var(--modifiers-normal-color-light-fg-1-high)';
+    title.style.fontFamily = 'var(--modifiers-normal-heading-h3-fontfamily)';
+    title.style.fontSize = 'var(--modifiers-normal-heading-h3-fontsize)';
     title.style.marginBottom = '16px';
     container.appendChild(title);
 
-    const grid = document.createElement('div');
-    grid.style.display = 'grid';
-    grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(200px, 1fr))';
-    grid.style.gap = '24px';
-    grid.style.marginTop = '24px';
+    const examples = [
+      { token: '--ubits-border-radius-none', label: 'Sin borde redondeado', use: 'Elementos con esquinas rectas' },
+      { token: '--ubits-border-radius-xs', label: 'Extra pequeño (4px)', use: 'Elementos pequeños, badges' },
+      { token: '--ubits-border-radius-sm', label: 'Pequeño (8px)', use: 'Botones pequeños, inputs' },
+      { token: '--ubits-border-radius-md', label: 'Mediano (12px)', use: 'Cards, contenedores, botones estándar' },
+      { token: '--ubits-border-radius-lg', label: 'Grande (16px)', use: 'Modales, paneles grandes' },
+      { token: '--ubits-border-radius-xl', label: 'Extra grande (20px)', use: 'Elementos destacados, hero sections' },
+      { token: '--ubits-border-radius-full', label: 'Completo (1000px)', use: 'Círculos perfectos, avatares, pills' },
+    ];
 
-    BORDER_RADIUS_TOKENS.forEach(token => {
-      const card = document.createElement('div');
-      card.style.padding = '16px';
-      card.style.border = '1px solid #e5e7eb';
-      card.style.borderRadius = '8px';
-      card.style.backgroundColor = '#ffffff';
-      card.style.display = 'flex';
-      card.style.flexDirection = 'column';
-      card.style.alignItems = 'center';
-      card.style.gap = '12px';
-
-      const value = getTokenValue(token);
-      
-      const box = document.createElement('div');
-      box.style.width = '120px';
-      box.style.height = '120px';
-      box.style.borderRadius = value;
-      box.style.backgroundColor = '#3b82f6';
-      box.style.border = '3px solid #1e40af';
-      box.style.display = 'flex';
-      box.style.alignItems = 'center';
-      box.style.justifyContent = 'center';
-      card.appendChild(box);
+    examples.forEach(example => {
+      const exampleBox = document.createElement('div');
+      exampleBox.style.padding = '16px';
+      exampleBox.style.background = 'var(--modifiers-normal-color-light-bg-1)';
+      exampleBox.style.borderRadius = 'var(--ubits-border-radius-md, 8px)';
+      exampleBox.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
 
       const tokenName = document.createElement('code');
-      tokenName.textContent = token;
-      tokenName.style.fontSize = '11px';
-      tokenName.style.fontFamily = 'monospace';
-      tokenName.style.color = '#6b7280';
-      tokenName.style.textAlign = 'center';
-      tokenName.style.wordBreak = 'break-word';
-      card.appendChild(tokenName);
+      tokenName.textContent = example.token;
+      tokenName.style.display = 'block';
+      tokenName.style.marginBottom = '8px';
+      tokenName.style.fontSize = '13px';
+      tokenName.style.color = 'var(--modifiers-normal-color-light-fg-1-high)';
 
-      const valueLabel = document.createElement('div');
-      valueLabel.textContent = value;
-      valueLabel.style.fontSize = '14px';
-      valueLabel.style.fontWeight = '600';
-      valueLabel.style.color = '#303a47';
-      card.appendChild(valueLabel);
+      const label = document.createElement('strong');
+      label.textContent = example.label;
+      label.style.display = 'block';
+      label.style.marginBottom = '4px';
+      label.style.fontSize = '14px';
+      label.style.color = 'var(--modifiers-normal-color-light-fg-1-high)';
 
-      grid.appendChild(card);
+      const use = document.createElement('span');
+      use.textContent = example.use;
+      use.style.display = 'block';
+      use.style.fontSize = '13px';
+      use.style.color = 'var(--modifiers-normal-color-light-fg-1-medium)';
+
+      const preview = document.createElement('div');
+      preview.style.width = '100px';
+      preview.style.height = '100px';
+      preview.style.background = 'var(--modifiers-normal-color-light-accent-brand)';
+      preview.style.borderRadius = `var(${example.token})`;
+      preview.style.marginTop = '12px';
+      preview.style.border = '2px solid var(--modifiers-normal-color-light-border-1)';
+
+      exampleBox.appendChild(tokenName);
+      exampleBox.appendChild(label);
+      exampleBox.appendChild(use);
+      exampleBox.appendChild(preview);
+
+      container.appendChild(exampleBox);
     });
-
-    container.appendChild(grid);
 
     return container;
   },

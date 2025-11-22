@@ -109,7 +109,7 @@
 
 .course-status {
   font-size: var(--modifiers-normal-body-xs-regular-fontsize, 11px);
-  font-weight: var(--ubits-font-weight-bold, 700);
+  font-weight: var(--weight-bold, 700);
 }
 
 .course-status--progress {

@@ -129,19 +129,19 @@ export interface BarMetricCardOptions {
   
   /**
    * Color de las barras (token UBITS)
-   * @default 'var(--ubits-chart-color-bg-neutral-blue-base, #557593)'
+   * @default 'var(--ubits-chart-color-bg-neutral-blue-base)'
    */
   barColor?: string;
   
   /**
    * Color de fondo del gráfico (token UBITS)
-   * @default 'var(--ubits-bg-1)'
+   * @default 'var(--modifiers-normal-color-light-bg-1)'
    */
   chartBackgroundColor?: string;
   
   /**
    * Color de las líneas de la grilla (token UBITS)
-   * @default 'var(--ubits-border-1)'
+   * @default 'var(--modifiers-normal-color-light-border-1)'
    */
   gridLineColor?: string;
   

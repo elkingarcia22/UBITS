@@ -9,436 +9,436 @@ const meta: Meta<DataTableOptions & { columnsCount?: number }> = {
   parameters: {
     docs: {
       description: {
-        component: 'Tabla de datos UBITS con soporte para columnas fijadas, reordenamiento, ordenamiento, selección múltiple, filas expandibles y menú de columnas.',
-      },
-    },
-  },
+        component: 'Tabla de datos UBITS con soporte para columnas fijadas, reordenamiento, ordenamiento, selección múltiple, filas expandibles y menú de columnas.'
+}
+}
+},
   argTypes: {
     columnReorderable: {
       control: 'boolean',
       description: 'Permite reordenar columnas mediante drag & drop',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     rowReorderable: {
       control: 'boolean',
       description: 'Permite reordenar filas mediante drag & drop',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     rowExpandable: {
       control: 'boolean',
       description: 'Muestra el icono de expandir/colapsar en las filas',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     columnSortable: {
       control: 'boolean',
       description: 'Muestra botones de ordenamiento en los headers de las columnas',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showCheckbox: {
       control: 'boolean',
       description: 'Muestra la columna de checkbox para selección múltiple',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showVerticalScrollbar: {
       control: 'boolean',
       description: 'Muestra scrollbar vertical',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     showHorizontalScrollbar: {
       control: 'boolean',
       description: 'Muestra scrollbar horizontal',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     showColumnMenu: {
       control: 'boolean',
       description: 'Muestra el botón de menú (3 puntos) en los headers de las columnas. Usa este menú para fijar/desfijar columnas.',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showContextMenu: {
       control: 'boolean',
       description: 'Muestra el menú contextual (click derecho) en las filas con las opciones de acciones.',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     checkboxSticky: {
       control: 'boolean',
       description: 'Hace que la columna de checkbox sea sticky (fija) al hacer scroll horizontal',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     dragHandleSticky: {
       control: 'boolean',
       description: 'Hace que la columna de drag handle (mover filas) sea sticky (fija) al hacer scroll horizontal. Nota: Requiere que rowReorderable esté habilitado.',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     expandSticky: {
       control: 'boolean',
       description: 'Hace que la columna de expand (desplegar filas) sea sticky (fija) al hacer scroll horizontal. Nota: Requiere que rowExpandable esté habilitado.',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     columnsCount: {
       control: { type: 'number', min: 1, max: 10, step: 1 },
       description: 'Número de columnas de datos a mostrar (excluyendo checkbox)',
       table: {
-        defaultValue: { summary: '3' },
-      },
-    },
+        defaultValue: { summary: '3' }
+}
+},
     columnType1: {
       control: { type: 'select' },
       options: ['nombre', 'nombre-avatar', 'nombre-avatar-texto', 'progreso', 'estado', 'radio', 'toggle', 'checkbox', 'correo', 'fecha', 'pais', 'ciudad'],
       description: 'Tipo de columna 1 (Nombre)',
       table: {
-        defaultValue: { summary: 'nombre' },
-      },
-    },
+        defaultValue: { summary: 'nombre' }
+}
+},
     columnType2: {
       control: { type: 'select' },
       options: ['nombre', 'nombre-avatar', 'nombre-avatar-texto', 'progreso', 'estado', 'radio', 'toggle', 'checkbox', 'correo', 'fecha', 'pais', 'ciudad'],
       description: 'Tipo de columna 2 (Email)',
       table: {
-        defaultValue: { summary: 'correo' },
-      },
-    },
+        defaultValue: { summary: 'correo' }
+}
+},
     columnType3: {
       control: { type: 'select' },
       options: ['nombre', 'nombre-avatar', 'nombre-avatar-texto', 'progreso', 'estado', 'radio', 'toggle', 'checkbox', 'correo', 'fecha', 'pais', 'ciudad'],
       description: 'Tipo de columna 3 (Estado)',
       table: {
-        defaultValue: { summary: 'estado' },
-      },
-    },
+        defaultValue: { summary: 'estado' }
+}
+},
     columnType4: {
       control: { type: 'select' },
       options: ['nombre', 'nombre-avatar', 'nombre-avatar-texto', 'progreso', 'estado', 'radio', 'toggle', 'checkbox', 'correo', 'fecha', 'pais', 'ciudad'],
       description: 'Tipo de columna 4',
       table: {
-        defaultValue: { summary: 'nombre' },
-      },
-    },
+        defaultValue: { summary: 'nombre' }
+}
+},
     // Controles para columna 1 (Nombre)
     column1AvatarVariant: {
       control: { type: 'select' },
       options: ['photo', 'initials', 'icon'],
       description: 'Variante de avatar para columna 1 (solo si es nombre-avatar o nombre-avatar-texto)',
       table: {
-        defaultValue: { summary: 'initials' },
-      },
-    },
+        defaultValue: { summary: 'initials' }
+}
+},
     column1Editable: {
       control: 'boolean',
       description: 'Hacer editable la columna 1 (solo si es nombre, nombre-avatar, estado, fecha, checkbox o radio)',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     // Controles para columna 2 (Email)
     column2EmailClickable: {
       control: 'boolean',
       description: 'Hacer el email clicable en columna 2 (solo si es correo)',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     // Controles para columna 3 (Estado)
     column3Editable: {
       control: 'boolean',
       description: 'Hacer editable la columna 3 (solo si es nombre, nombre-avatar, estado, fecha, checkbox o radio)',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     column3RadioLabel: {
       control: 'boolean',
       description: 'Mostrar label en columna 3 (solo si es radio)',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     column3ToggleLabel: {
       control: 'boolean',
       description: 'Mostrar label en columna 3 (solo si es toggle)',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     column3CheckboxLabel: {
       control: 'boolean',
       description: 'Mostrar label en checkbox de columna 3 (solo si es tipo checkbox). Si es true, muestra el label automáticamente. Este checkbox es diferente al checkbox fijo (checkbox-2) que está en una columna separada.',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     // Controles para columna 4 (Progreso) - no tiene controles adicionales
     showPagination: {
       control: 'boolean',
       description: 'Muestra el paginador debajo de la tabla',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     currentPage: {
       control: { type: 'number', min: 1, step: 1 },
       description: 'Página actual',
       table: {
-        defaultValue: { summary: '1' },
-      },
-    },
+        defaultValue: { summary: '1' }
+}
+},
     itemsPerPage: {
       control: { type: 'number', min: 5, max: 100, step: 5 },
       description: 'Items por página',
       table: {
-        defaultValue: { summary: '10' },
-      },
-    },
+        defaultValue: { summary: '10' }
+}
+},
     paginationVariant: {
       control: { type: 'select' },
       options: ['default', 'compact', 'minimal'],
       description: 'Variante del paginador',
       table: {
-        defaultValue: { summary: 'default' },
-      },
-    },
+        defaultValue: { summary: 'default' }
+}
+},
     paginationSize: {
       control: { type: 'select' },
       options: ['sm', 'md', 'lg'],
       description: 'Tamaño del paginador',
       table: {
-        defaultValue: { summary: 'md' },
-      },
-    },
+        defaultValue: { summary: 'md' }
+}
+},
     // Controles del header
     headerTitle: {
       control: { type: 'text' },
       description: 'Título del header',
       table: {
-        defaultValue: { summary: 'Lista de elementos' },
-      },
-    },
+        defaultValue: { summary: 'Lista de elementos' }
+}
+},
     showHeaderTitle: {
       control: 'boolean',
       description: 'Mostrar título del header',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     headerCounter: {
       control: { type: 'select' },
       options: [true, false, 'total-only'],
       description: 'Modo del contador: true = "X/Y resultados", "total-only" = solo "Y resultados", false = oculto',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     headerDisplayedItems: {
       control: { type: 'number', min: 1, step: 1 },
       description: 'Items mostrados actualmente (para el contador X/Y)',
       table: {
-        defaultValue: { summary: '32' },
-      },
-    },
+        defaultValue: { summary: '32' }
+}
+},
     headerTotalItems: {
       control: { type: 'number', min: 1, step: 1 },
       description: 'Total de items para el contador',
       table: {
-        defaultValue: { summary: '206' },
-      },
-    },
+        defaultValue: { summary: '206' }
+}
+},
     showHeaderPrimaryButton: {
       control: 'boolean',
       description: 'Mostrar botón primario',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     headerPrimaryButtonText: {
       control: { type: 'text' },
       description: 'Texto del botón primario',
       table: {
-        defaultValue: { summary: 'Nuevo' },
-      },
-    },
+        defaultValue: { summary: 'Nuevo' }
+}
+},
     showHeaderSecondaryButtons: {
       control: 'boolean',
       description: 'Mostrar botones secundarios',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showHeaderSearchButton: {
       control: 'boolean',
       description: 'Mostrar botón de búsqueda',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showHeaderFilterButton: {
       control: 'boolean',
       description: 'Mostrar botón de filtros',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showHeaderColumnSelectorButton: {
       control: 'boolean',
       description: 'Mostrar botón de seleccionar columnas',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     // Controles de la barra de acciones
     showActionButtonViewSelected: {
       control: 'boolean',
       description: 'Mostrar botón "Ver seleccionados" en la barra de acciones',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showActionButtonNotifications: {
       control: 'boolean',
       description: 'Mostrar botón "Notificaciones" en la barra de acciones',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showActionButtonCopy: {
       control: 'boolean',
       description: 'Mostrar botón "Copiar" en la barra de acciones (solo modo individual)',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showActionButtonView: {
       control: 'boolean',
       description: 'Mostrar botón "Ver" en la barra de acciones (solo modo individual)',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showActionButtonEdit: {
       control: 'boolean',
       description: 'Mostrar botón "Editar" en la barra de acciones (solo modo individual)',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showActionButtonDownload: {
       control: 'boolean',
       description: 'Mostrar botón "Descargar" en la barra de acciones (solo modo individual)',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     showActionButtonDelete: {
       control: 'boolean',
       description: 'Mostrar botón "Eliminar" en la barra de acciones',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     // Controles de Empty State - No Data
     emptyStateNoDataTitle: {
       control: { type: 'text' },
       description: 'Título del empty state cuando no hay datos',
       table: {
-        defaultValue: { summary: 'No hay datos' },
-      },
-    },
+        defaultValue: { summary: 'No hay datos' }
+}
+},
     emptyStateNoDataDescription: {
       control: { type: 'text' },
-      description: 'Descripción del empty state cuando no hay datos',
-    },
+      description: 'Descripción del empty state cuando no hay datos'
+},
     emptyStateNoDataIcon: {
       control: { type: 'text' },
-      description: 'Icono FontAwesome del empty state cuando no hay datos (ej: "inbox", "database")',
-    },
+      description: 'Icono FontAwesome del empty state cuando no hay datos (ej: "inbox", "database")'
+},
     emptyStateNoDataActionLabel: {
       control: { type: 'text' },
-      description: 'Texto del botón de acción cuando no hay datos',
-    },
+      description: 'Texto del botón de acción cuando no hay datos'
+},
     emptyStateNoDataShowPrimaryButton: {
       control: 'boolean',
       description: 'Mostrar botón primario cuando no hay datos',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     // Controles de Empty State - No Search Results
     emptyStateNoSearchResultsTitle: {
       control: { type: 'text' },
       description: 'Título del empty state cuando no hay resultados de búsqueda',
       table: {
-        defaultValue: { summary: 'No se encontraron resultados' },
-      },
-    },
+        defaultValue: { summary: 'No se encontraron resultados' }
+}
+},
     emptyStateNoSearchResultsDescription: {
       control: { type: 'text' },
-      description: 'Descripción del empty state cuando no hay resultados de búsqueda',
-    },
+      description: 'Descripción del empty state cuando no hay resultados de búsqueda'
+},
     emptyStateNoSearchResultsIcon: {
       control: { type: 'text' },
-      description: 'Icono FontAwesome del empty state cuando no hay resultados de búsqueda (ej: "search")',
-    },
+      description: 'Icono FontAwesome del empty state cuando no hay resultados de búsqueda (ej: "search")'
+},
     emptyStateNoSearchResultsActionLabel: {
       control: { type: 'text' },
-      description: 'Texto del botón de acción cuando no hay resultados de búsqueda',
-    },
+      description: 'Texto del botón de acción cuando no hay resultados de búsqueda'
+},
     emptyStateNoSearchResultsShowPrimaryButton: {
       control: 'boolean',
       description: 'Mostrar botón primario cuando no hay resultados de búsqueda',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     // Controles de Empty State - No Filter Results
     emptyStateNoFilterResultsTitle: {
       control: { type: 'text' },
       description: 'Título del empty state cuando no hay resultados de filtros',
       table: {
-        defaultValue: { summary: 'No hay resultados con los filtros aplicados' },
-      },
-    },
+        defaultValue: { summary: 'No hay resultados con los filtros aplicados' }
+}
+},
     emptyStateNoFilterResultsDescription: {
       control: { type: 'text' },
-      description: 'Descripción del empty state cuando no hay resultados de filtros',
-    },
+      description: 'Descripción del empty state cuando no hay resultados de filtros'
+},
     emptyStateNoFilterResultsIcon: {
       control: { type: 'text' },
-      description: 'Icono FontAwesome del empty state cuando no hay resultados de filtros (ej: "filter")',
-    },
+      description: 'Icono FontAwesome del empty state cuando no hay resultados de filtros (ej: "filter")'
+},
     emptyStateNoFilterResultsActionLabel: {
       control: { type: 'text' },
-      description: 'Texto del botón de acción cuando no hay resultados de filtros',
-    },
+      description: 'Texto del botón de acción cuando no hay resultados de filtros'
+},
     emptyStateNoFilterResultsShowPrimaryButton: {
       control: 'boolean',
       description: 'Mostrar botón primario cuando no hay resultados de filtros',
       table: {
-        defaultValue: { summary: 'true' },
-      },
-    },
-  },
+        defaultValue: { summary: 'true' }
+}
+}
+}
 };
 
 export default meta;
@@ -584,8 +584,8 @@ export const Default: Story = {
       'checkbox': { id: 'checkbox-col', title: 'Marcar' },
       'telefono': { id: 'telefono', title: 'Teléfono' },
       'categoria': { id: 'categoria', title: 'Categoría' },
-      'prioridad': { id: 'prioridad', title: 'Prioridad' },
-    };
+      'prioridad': { id: 'prioridad', title: 'Prioridad' }
+};
     
     // Función helper para construir columnas limpiamente según el tipo
     const buildColumn = (
@@ -606,8 +606,8 @@ export const Default: Story = {
         title: config.title,
         type: columnType as any,
         visible: true,
-        width: width,
-      };
+        width: width
+};
       
       // Agregar propiedades SOLO según el tipo actual
       if (columnType === 'nombre-avatar' || columnType === 'nombre-avatar-texto') {
@@ -648,8 +648,8 @@ export const Default: Story = {
     const col1Config = columnTypeMapping[columnType1] || { id: 'nombre', title: 'Nombre' };
     const col1 = buildColumn(columnType1, col1Config, 200, {
       avatarVariant: column1AvatarVariant,
-      editable: column1Editable,
-    });
+      editable: column1Editable
+});
     
     // Columna 2 - ID y título dinámicos según el tipo
     const col2Config = columnTypeMapping[columnType2] || { id: 'email', title: 'Email' };
@@ -664,8 +664,8 @@ export const Default: Story = {
       editable: column3Editable,
       radioLabel: column3RadioLabel,
       toggleLabel: column3ToggleLabel,
-      checkboxLabel: column3CheckboxLabel,
-    });
+      checkboxLabel: column3CheckboxLabel
+});
     
     // Columna 4 - ID y título dinámicos según el tipo
     const col4Config = columnTypeMapping[columnType4] || { id: 'progreso', title: 'Progreso' };
@@ -689,8 +689,8 @@ export const Default: Story = {
       buildColumn(columnType7, col7Config, 150),
       buildColumn(columnType8, col8Config, 150),
       buildColumn(columnType9, col9Config, 150),
-      buildColumn(columnType10, col10Config, 150),
-    ];
+      buildColumn(columnType10, col10Config, 150)
+];
     
     // Seleccionar solo las columnas necesarias según columnsCount
     const columns: TableColumn[] = allColumns.slice(0, columnsCount);
@@ -714,8 +714,8 @@ export const Default: Story = {
         pais: rowData.pais || '',
         fecha: rowData.fecha || '',
         categoria: rowData.categoria || '',
-        prioridad: rowData.prioridad || '',
-      };
+        prioridad: rowData.prioridad || ''
+};
     };
     
     // Función helper para generar todas las 100 filas (igual que en la web)
@@ -820,8 +820,8 @@ export const Default: Story = {
         { id: 97, nombre: 'Carlos Betancur', email: 'carlos.betancur2@empresa.com', estado: 'Inactivo', area: 'Ventas', avatar: { initials: 'CB', badgeColor: 'blue', imageUrl: '/images/Profile-image.jpg' } },
         { id: 98, nombre: 'Olga Cárdenas', email: 'olga.cardenas2@empresa.com', estado: 'Activo', area: 'Desarrollo', avatar: { initials: 'OC', badgeColor: 'green', imageUrl: '/images/Profile-image.jpg' } },
         { id: 99, nombre: 'Jairo Quintero', email: 'jairo.quintero2@empresa.com', estado: 'Pendiente', area: 'Marketing', avatar: { initials: 'JQ', badgeColor: 'orange', imageUrl: '/images/Profile-image.jpg' } },
-        { id: 100, nombre: 'Amparo Gómez', email: 'amparo.gomez2@empresa.com', estado: 'Activo', area: 'Recursos Humanos', avatar: { initials: 'AG', badgeColor: 'purple', imageUrl: '/images/Profile-image.jpg' } },
-      ];
+        { id: 100, nombre: 'Amparo Gómez', email: 'amparo.gomez2@empresa.com', estado: 'Activo', area: 'Recursos Humanos', avatar: { initials: 'AG', badgeColor: 'purple', imageUrl: '/images/Profile-image.jpg' } }
+];
 
       return allRowsData.map((rowData) => ({
         id: rowData.id,
@@ -838,13 +838,11 @@ export const Default: Story = {
           categoria: rowData.area,
           prioridad: ['Alta', 'Media', 'Baja'][Math.floor(Math.random() * 3)],
           'checkbox-2': false,
-          avatar: rowData.avatar,
-        }, rowData.id),
+          avatar: rowData.avatar
+}, rowData.id),
         expanded: false,
         renderExpandedContent: (data) => {
           return `
-            <div style="padding: var(--ubits-spacing-md);">
-              <h4 style="margin: 0 0 var(--ubits-spacing-sm) 0; font-size: var(--modifiers-normal-body-sm-regular-fontsize); font-weight: 600; color: var(--modifiers-normal-color-light-fg-1-high);">
                 Información adicional
               </h4>
               <p style="margin: 0; font-size: var(--modifiers-normal-body-sm-regular-fontsize); color: var(--modifiers-normal-color-light-fg-1-medium);">
@@ -852,8 +850,8 @@ export const Default: Story = {
               </p>
             </div>
           `;
-        },
-      }));
+        }
+}));
     };
 
     // Filas que coinciden con la implementación de la web (100 filas)
@@ -867,8 +865,8 @@ export const Default: Story = {
       viewSelectedActive: boolean;
     } = {
       selectedRowIds: new Set(),
-      viewSelectedActive: false,
-    };
+      viewSelectedActive: false
+};
     
     // Función para renderizar la barra de acciones
     const renderActionBar = (container: HTMLElement) => {
@@ -889,8 +887,6 @@ export const Default: Story = {
           display: flex;
           align-items: center;
           justify-content: flex-start;
-          padding: var(--ubits-spacing-sm) 0;
-          gap: var(--ubits-spacing-xs);
           flex-wrap: wrap;
           background-color: var(--modifiers-normal-color-light-bg-1);
         `;
@@ -1374,8 +1370,8 @@ export const Default: Story = {
           console.warn('🎯 [SELECT ALL] ⚠️ Container no encontrado:', tableContainerId);
         }
         console.log('🎯 [SELECT ALL] ========== FIN ==========');
-      },
-    };
+      }
+};
 
     // Agregar el contenedor de la tabla al contenedor principal
     container.appendChild(tableContainer);
@@ -1486,7 +1482,7 @@ export const Default: Story = {
     showHeaderSecondaryButtons: true,
     showHeaderSearchButton: true,
     showHeaderFilterButton: true,
-    showHeaderColumnSelectorButton: true,
-  },
+    showHeaderColumnSelectorButton: true
+}
 };
 

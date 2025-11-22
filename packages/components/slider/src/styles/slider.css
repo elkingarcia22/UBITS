@@ -1,7 +1,7 @@
 /* ========================================
    UBITS SLIDER COMPONENT
    Componente de slider con todas las variantes
-   Usando tokens UBITS del nuevo autoframe
+   Migrado a tokens Figma
    ======================================== */
 
 /* ========================================
@@ -29,19 +29,19 @@
    ======================================== */
 
 .ubits-slider-label {
-  font-family: var(--font-sans);
-  font-size: var(--font-body-sm-size);
-  font-weight: var(--weight-semibold);
-  line-height: var(--font-body-sm-line);
-  color: var(--ubits-fg-1-high);
-  margin-bottom: var(--ubits-spacing-xs, 4px);
+  font-family: var(--font-family-noto-sans-font-family);
+  font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+  font-weight: var(--weight-semibold, 600);
+  line-height: var(--modifiers-normal-body-sm-regular-lineheight);
+  color: var(--modifiers-normal-color-light-fg-1-high);
+  margin-bottom: var(--ubits-spacing-xs);
 }
 
 .ubits-slider--vertical .ubits-slider-label {
   /* Título horizontal en slider vertical */
   writing-mode: horizontal-tb;
   text-orientation: mixed;
-  margin-bottom: var(--ubits-spacing-xs, 4px);
+  margin-bottom: var(--ubits-spacing-xs);
   margin-right: 0;
   width: 100%;
   text-align: center;
@@ -98,56 +98,56 @@
 
 .ubits-slider-track {
   position: relative;
-  background: var(--ubits-bg-3);
-  border-radius: var(--ubits-border-radius-full, 9999px);
+  background: var(--modifiers-normal-color-light-bg-3);
+  border-radius: var(--ubits-border-radius-full);
   cursor: pointer;
   flex: 1;
-  min-width: 100px;
-  min-height: 4px;
+  min-width: 100px; /* MANTENER MEDIDA ORIGINAL */
+  min-height: 4px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-slider--vertical .ubits-slider-track {
-  width: 4px;
-  min-width: 4px;
-  min-height: 100px;
+  width: 4px; /* MANTENER MEDIDA ORIGINAL */
+  min-width: 4px; /* MANTENER MEDIDA ORIGINAL */
+  min-height: 100px; /* MANTENER MEDIDA ORIGINAL */
   height: 100%;
 }
 
 /* Sizes */
 .ubits-slider--xs .ubits-slider-track {
-  min-height: 2px;
+  min-height: 2px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-slider--xs.ubits-slider--vertical .ubits-slider-track {
-  width: 2px;
-  min-width: 2px;
+  width: 2px; /* MANTENER MEDIDA ORIGINAL */
+  min-width: 2px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-slider--sm .ubits-slider-track {
-  min-height: 3px;
+  min-height: 3px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-slider--sm.ubits-slider--vertical .ubits-slider-track {
-  width: 3px;
-  min-width: 3px;
+  width: 3px; /* MANTENER MEDIDA ORIGINAL */
+  min-width: 3px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-slider--md .ubits-slider-track {
-  min-height: 4px;
+  min-height: 4px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-slider--md.ubits-slider--vertical .ubits-slider-track {
-  width: 4px;
-  min-width: 4px;
+  width: 4px; /* MANTENER MEDIDA ORIGINAL */
+  min-width: 4px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-slider--lg .ubits-slider-track {
-  min-height: 6px;
+  min-height: 6px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-slider--lg.ubits-slider--vertical .ubits-slider-track {
-  width: 6px;
-  min-width: 6px;
+  width: 6px; /* MANTENER MEDIDA ORIGINAL */
+  min-width: 6px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 /* ========================================
@@ -156,8 +156,8 @@
 
 .ubits-slider-track-fill {
   position: absolute;
-  background: var(--ubits-accent-brand-static-inverted);
-  border-radius: var(--ubits-border-radius-full, 9999px);
+  background: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: usar azul, no morado */
+  border-radius: var(--ubits-border-radius-full);
   height: 100%;
   width: 0;
   transition: all 0.2s ease;
@@ -173,7 +173,7 @@
 }
 
 .ubits-slider--disabled .ubits-slider-track-fill {
-  background: var(--ubits-border-2);
+  background: var(--modifiers-normal-color-light-border-2);
 }
 
 /* ========================================
@@ -182,11 +182,11 @@
 
 .ubits-slider-thumb {
   position: absolute;
-  width: 16px;
-  height: 16px;
-  background: var(--ubits-accent-brand-static-inverted);
-  border: 2px solid var(--ubits-bg-1);
-  border-radius: var(--ubits-border-radius-full, 9999px);
+  width: 16px; /* MANTENER MEDIDA ORIGINAL */
+  height: 16px; /* MANTENER MEDIDA ORIGINAL */
+  background: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: usar azul, no morado */
+  border: 2px solid var(--modifiers-normal-color-light-bg-1);
+  border-radius: var(--ubits-border-radius-full);
   cursor: grab;
   top: 50%;
   left: 0;
@@ -221,31 +221,31 @@
 }
 
 .ubits-slider-thumb--disabled {
-  background: var(--ubits-border-2);
-  border-color: var(--ubits-bg-3);
+  background: var(--modifiers-normal-color-light-border-2);
+  border-color: var(--modifiers-normal-color-light-bg-3);
   cursor: not-allowed;
   pointer-events: none;
 }
 
 /* Sizes */
 .ubits-slider--xs .ubits-slider-thumb {
-  width: 12px;
-  height: 12px;
+  width: 12px; /* MANTENER MEDIDA ORIGINAL */
+  height: 12px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-slider--sm .ubits-slider-thumb {
-  width: 14px;
-  height: 14px;
+  width: 14px; /* MANTENER MEDIDA ORIGINAL */
+  height: 14px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-slider--md .ubits-slider-thumb {
-  width: 16px;
-  height: 16px;
+  width: 16px; /* MANTENER MEDIDA ORIGINAL */
+  height: 16px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-slider--lg .ubits-slider-thumb {
-  width: 20px;
-  height: 20px;
+  width: 20px; /* MANTENER MEDIDA ORIGINAL */
+  height: 20px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 /* ========================================
@@ -262,8 +262,8 @@
 
 .ubits-slider-track-range {
   position: absolute;
-  background: var(--ubits-accent-brand-static-inverted);
-  border-radius: var(--ubits-border-radius-full, 9999px);
+  background: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: usar azul, no morado */
+  border-radius: var(--ubits-border-radius-full);
   height: 100%;
   width: 0;
   transition: all 0.2s ease;
@@ -277,7 +277,7 @@
 }
 
 .ubits-slider--disabled .ubits-slider-track-range {
-  background: var(--ubits-border-2);
+  background: var(--modifiers-normal-color-light-border-2);
 }
 
 /* ========================================
@@ -295,9 +295,9 @@
 }
 
 .ubits-slider-input {
-  width: 100px;
-  min-width: 80px;
-  max-width: 100px;
+  width: 100px; /* MANTENER MEDIDA ORIGINAL */
+  min-width: 80px; /* MANTENER MEDIDA ORIGINAL */
+  max-width: 100px; /* MANTENER MEDIDA ORIGINAL */
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -305,7 +305,7 @@
 
 /* En vertical, centrar el input con el slider */
 .ubits-slider--vertical .ubits-slider-input {
-  width: 100px;
+  width: 100px; /* MANTENER MEDIDA ORIGINAL */
   margin: 0 auto; /* Centrar el input */
 }
 
@@ -328,10 +328,10 @@
 
 /* Separador entre inputs en modo range */
 .ubits-slider-input-separator {
-  font-family: var(--font-sans);
-  font-size: var(--font-body-md-size);
-  color: var(--ubits-fg-1-medium);
-  margin: 0 var(--ubits-spacing-xs, 4px);
+  font-family: var(--font-family-noto-sans-font-family);
+  font-size: var(--modifiers-normal-body-md-regular-fontsize);
+  color: var(--modifiers-normal-color-light-fg-1-medium);
+  margin: 0 var(--ubits-spacing-xs);
   flex-shrink: 0;
 }
 
@@ -350,28 +350,28 @@
 
 /* Thumbs del mismo tamaño para single y range */
 .ubits-slider-thumb {
-  width: 16px;
-  height: 16px;
+  width: 16px; /* MANTENER MEDIDA ORIGINAL */
+  height: 16px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-slider--xs .ubits-slider-thumb {
-  width: 12px;
-  height: 12px;
+  width: 12px; /* MANTENER MEDIDA ORIGINAL */
+  height: 12px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-slider--sm .ubits-slider-thumb {
-  width: 14px;
-  height: 14px;
+  width: 14px; /* MANTENER MEDIDA ORIGINAL */
+  height: 14px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-slider--md .ubits-slider-thumb {
-  width: 16px;
-  height: 16px;
+  width: 16px; /* MANTENER MEDIDA ORIGINAL */
+  height: 16px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-slider--lg .ubits-slider-thumb {
-  width: 20px;
-  height: 20px;
+  width: 20px; /* MANTENER MEDIDA ORIGINAL */
+  height: 20px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 /* ========================================
@@ -392,16 +392,16 @@
 
 .ubits-slider-mark {
   position: absolute;
-  width: 2px;
-  height: 6px;
-  background: var(--ubits-border-1);
+  width: 2px; /* MANTENER MEDIDA ORIGINAL */
+  height: 6px; /* MANTENER MEDIDA ORIGINAL */
+  background: var(--modifiers-normal-color-light-border-1);
   transform: translateX(-50%) translateY(-50%);
   top: 50%;
 }
 
 .ubits-slider--vertical .ubits-slider-mark {
-  width: 6px;
-  height: 2px;
+  width: 6px; /* MANTENER MEDIDA ORIGINAL */
+  height: 2px; /* MANTENER MEDIDA ORIGINAL */
   transform: translateX(-50%) translateY(50%);
   left: 50%;
   top: auto;
@@ -409,18 +409,18 @@
 
 .ubits-slider-mark-label {
   position: absolute;
-  font-family: var(--font-sans);
-  font-size: var(--font-body-xs-size);
-  color: var(--ubits-fg-1-medium);
+  font-family: var(--font-family-noto-sans-font-family);
+  font-size: var(--modifiers-normal-body-xs-regular-fontsize);
+  color: var(--modifiers-normal-color-light-fg-1-medium);
   transform: translateX(-50%);
-  margin-top: var(--ubits-spacing-xs, 4px);
+  margin-top: var(--ubits-spacing-xs);
   white-space: nowrap;
 }
 
 .ubits-slider--vertical .ubits-slider-mark-label {
   transform: translateY(50%);
   margin-top: 0;
-  margin-left: var(--ubits-spacing-xs, 4px);
+  margin-left: var(--ubits-spacing-xs);
 }
 
 /* ========================================
@@ -428,14 +428,14 @@
    ======================================== */
 
 .ubits-slider-helper {
-  font-family: var(--font-sans);
-  font-size: var(--font-body-xs-size);
-  color: var(--ubits-fg-1-medium);
-  margin-top: var(--ubits-spacing-xs, 4px);
+  font-family: var(--font-family-noto-sans-font-family);
+  font-size: var(--modifiers-normal-body-xs-regular-fontsize);
+  color: var(--modifiers-normal-color-light-fg-1-medium);
+  margin-top: var(--ubits-spacing-xs);
 }
 
 .ubits-slider--vertical .ubits-input-helper {
-  margin-top: var(--ubits-spacing-xs, 4px);
+  margin-top: var(--ubits-spacing-xs);
   margin-left: 0;
   width: 100%;
   text-align: center; /* Centrar el helper text */
@@ -447,7 +447,7 @@
 
 .ubits-slider-range-guide-wrapper {
   position: relative;
-  margin-top: var(--ubits-spacing-xs, 4px);
+  margin-top: var(--ubits-spacing-xs);
   /* Alinear con el slider-wrapper: usar el mismo ancho y posición */
   display: flex;
   align-items: center;
@@ -456,20 +456,20 @@
 
 /* Cuando hay input izquierdo (range mode), compensar el ancho del input izquierdo */
 .ubits-slider-main-wrapper:has(.ubits-slider-input:first-child) ~ .ubits-slider-range-guide-wrapper {
-  margin-left: calc(100px + var(--ubits-spacing-lg, 16px)); /* 100px input + spacing-lg gap */
-  width: calc(100% - 100px - var(--ubits-spacing-lg, 16px)); /* Restar el espacio del input izquierdo */
+  margin-left: calc(100px + var(--ubits-spacing-lg)); /* 100px input + spacing-lg gap */
+  width: calc(100% - 100px - var(--ubits-spacing-lg)); /* Restar el espacio del input izquierdo */
 }
 
 /* Cuando hay input derecho pero no izquierdo (single mode), el ancho debe ser el del slider-wrapper */
 .ubits-slider-main-wrapper:has(.ubits-slider-input:last-child:not(:first-child)) ~ .ubits-slider-range-guide-wrapper {
-  width: calc(100% - 100px - var(--ubits-spacing-lg, 16px)); /* Restar el espacio del input derecho para que coincida con el slider-wrapper */
+  width: calc(100% - 100px - var(--ubits-spacing-lg)); /* Restar el espacio del input derecho para que coincida con el slider-wrapper */
   /* No usar margin-right, solo ajustar el ancho */
 }
 
 /* Cuando hay inputs a ambos lados (range mode con inputs) */
 .ubits-slider-main-wrapper:has(.ubits-slider-input:first-child):has(.ubits-slider-input:last-child) ~ .ubits-slider-range-guide-wrapper {
-  margin-left: calc(100px + var(--ubits-spacing-lg, 16px)); /* 100px input izquierdo + spacing-lg gap */
-  width: calc(100% - 200px - calc(var(--ubits-spacing-lg, 16px) * 2)); /* Restar espacio de ambos inputs */
+  margin-left: calc(100px + var(--ubits-spacing-lg)); /* 100px input izquierdo + spacing-lg gap */
+  width: calc(100% - 200px - calc(var(--ubits-spacing-lg) * 2)); /* Restar espacio de ambos inputs */
 }
 
 /* Cuando no hay inputs, usar el ancho completo */
@@ -486,7 +486,7 @@
 .ubits-slider-range-guide {
   position: relative;
   width: 100%;
-  height: 16px;
+  height: 16px; /* MANTENER MEDIDA ORIGINAL */
   pointer-events: none; /* No bloquear eventos del slider */
   /* Asegurar que el 100% se alinee con el final del slider-wrapper */
   box-sizing: border-box;
@@ -495,17 +495,17 @@
 .ubits-slider-range-guide-value {
   position: absolute;
   transform: translateX(-50%);
-  font-family: var(--font-sans);
-  font-size: var(--font-body-xs-size);
-  font-weight: var(--weight-medium);
-  color: var(--ubits-fg-1-medium);
+  font-family: var(--font-family-noto-sans-font-family);
+  font-size: var(--modifiers-normal-body-xs-regular-fontsize);
+  font-weight: var(--weight-semibold, 600); /* weight-medium no existe, usar semibold */
+  color: var(--modifiers-normal-color-light-fg-1-medium);
   line-height: 1;
   white-space: nowrap;
 }
 
 /* Cuando la regla está desactivada, los valores 0 y 100 deben estar en bold */
 .ubits-slider-range-guide-value--bold {
-  font-weight: var(--weight-bold, 700);
+  font-weight: var(--weight-bold, 700) !important;
 }
 
 .ubits-slider--vertical .ubits-slider-range-guide {
@@ -517,19 +517,19 @@
    ======================================== */
 
 .ubits-slider--disabled .ubits-slider-track {
-  background: var(--ubits-bg-3);
+  background: var(--modifiers-normal-color-light-bg-3);
   cursor: not-allowed;
 }
 
 .ubits-slider--disabled .ubits-slider-thumb {
-  background: var(--ubits-border-2);
-  border-color: var(--ubits-bg-3);
+  background: var(--modifiers-normal-color-light-border-2);
+  border-color: var(--modifiers-normal-color-light-bg-3);
   cursor: not-allowed;
 }
 
 .ubits-slider--disabled .ubits-slider-input input {
-  background: var(--ubits-bg-3);
-  color: var(--ubits-fg-1-low);
+  background: var(--modifiers-normal-color-light-bg-3);
+  color: var(--modifiers-normal-color-light-fg-disabled);
   cursor: not-allowed;
 }
 
@@ -539,7 +539,7 @@
 
 .ubits-slider-thumb:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 4px var(--ubits-button-focus-ring);
+  box-shadow: 0 0 0 4px var(--modifiers-normal-focus-color);
 }
 
 /* ========================================
@@ -547,11 +547,11 @@
    ======================================== */
 
 .ubits-slider-value {
-  font-family: var(--font-sans);
-  font-size: var(--font-body-sm-size);
-  font-weight: var(--weight-semibold);
-  color: var(--ubits-fg-1-high);
-  min-width: 40px;
+  font-family: var(--font-family-noto-sans-font-family);
+  font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--modifiers-normal-color-light-fg-1-high);
+  min-width: 40px; /* MANTENER MEDIDA ORIGINAL */
   text-align: center;
 }
 
@@ -562,10 +562,90 @@
 
 /* Valor display en el helper */
 .ubits-slider-value-display {
-  font-family: var(--font-sans);
-  font-size: var(--font-body-sm-size);
-  font-weight: var(--weight-semibold);
-  color: var(--ubits-fg-1-high);
+  font-family: var(--font-family-noto-sans-font-family);
+  font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+  font-weight: var(--weight-semibold, 600);
+  color: var(--modifiers-normal-color-light-fg-1-high);
   margin-left: auto;
+}
+
+/* ========================================
+   DARK MODE
+   ======================================== */
+
+[data-theme="dark"] .ubits-slider-label {
+  color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-slider-track {
+  background: var(--modifiers-normal-color-dark-bg-3);
+}
+
+[data-theme="dark"] .ubits-slider-track-fill {
+  background: var(--modifiers-normal-color-dark-accent-brand); /* CORREGIDO: usar azul, no morado */
+}
+
+[data-theme="dark"] .ubits-slider--disabled .ubits-slider-track-fill {
+  background: var(--modifiers-normal-color-dark-border-2);
+}
+
+[data-theme="dark"] .ubits-slider-thumb {
+  background: var(--modifiers-normal-color-dark-accent-brand); /* CORREGIDO: usar azul, no morado */
+  border-color: var(--modifiers-normal-color-dark-bg-1);
+}
+
+[data-theme="dark"] .ubits-slider-thumb--disabled {
+  background: var(--modifiers-normal-color-dark-border-2);
+  border-color: var(--modifiers-normal-color-dark-bg-3);
+}
+
+[data-theme="dark"] .ubits-slider-track-range {
+  background: var(--modifiers-normal-color-dark-accent-brand); /* CORREGIDO: usar azul, no morado */
+}
+
+[data-theme="dark"] .ubits-slider--disabled .ubits-slider-track-range {
+  background: var(--modifiers-normal-color-dark-border-2);
+}
+
+[data-theme="dark"] .ubits-slider-input-separator {
+  color: var(--modifiers-normal-color-dark-fg-1-medium);
+}
+
+[data-theme="dark"] .ubits-slider-mark {
+  background: var(--modifiers-normal-color-dark-border-1);
+}
+
+[data-theme="dark"] .ubits-slider-mark-label {
+  color: var(--modifiers-normal-color-dark-fg-1-medium);
+}
+
+[data-theme="dark"] .ubits-slider-helper {
+  color: var(--modifiers-normal-color-dark-fg-1-medium);
+}
+
+[data-theme="dark"] .ubits-slider-range-guide-value {
+  color: var(--modifiers-normal-color-dark-fg-1-medium);
+}
+
+[data-theme="dark"] .ubits-slider--disabled .ubits-slider-track {
+  background: var(--modifiers-normal-color-dark-bg-3);
+}
+
+[data-theme="dark"] .ubits-slider--disabled .ubits-slider-thumb {
+  background: var(--modifiers-normal-color-dark-border-2);
+  border-color: var(--modifiers-normal-color-dark-bg-3);
+}
+
+[data-theme="dark"] .ubits-slider--disabled .ubits-slider-input input {
+  background: var(--modifiers-normal-color-dark-bg-3);
+  color: var(--modifiers-normal-color-dark-fg-disabled);
+}
+
+[data-theme="dark"] .ubits-slider-value {
+  color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-slider-value-display {
+  color: var(--modifiers-normal-color-dark-fg-1-high);
 }
 

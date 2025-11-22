@@ -207,7 +207,7 @@ export const Default: Story = {
     container.style.cssText = `
       width: 100%;
       padding: 40px;
-      background: var(--ubits-bg-1, #ffffff);
+      background: var(--modifiers-normal-color-light-bg-1);
       min-height: 200px;
     `;
 
@@ -256,7 +256,7 @@ export const Default: Story = {
         stepperContainer.innerHTML = html;
       } catch (error) {
         console.error('Error al renderizar stepper:', error);
-        stepperContainer.innerHTML = '<p style="color: var(--ubits-feedback-accent-error);">Error al renderizar el stepper</p>';
+        stepperContainer.innerHTML = '<p style="color: var(--modifiers-normal-color-light-feedback-accent-error);">Error al renderizar el stepper</p>';
       }
     };
 

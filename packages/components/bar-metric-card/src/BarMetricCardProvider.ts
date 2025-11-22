@@ -54,15 +54,24 @@ function renderBarChart(
   barLabels: string[] = [],
   maxValue?: number,
   minValue?: number,
-  barColor: string = 'var(--ubits-chart-color-bg-neutral-blue-base, #557593)',
-  chartBackgroundColor: string = 'var(--ubits-bg-1)',
-  gridLineColor: string = 'var(--ubits-border-1)',
+  barColor: string = 'var(--ubits-chart-color-bg-neutral-blue-base)',
+  chartBackgroundColor: string = 'var(--modifiers-normal-color-light-bg-1)',
+  gridLineColor: string = 'var(--modifiers-normal-color-light-border-1)',
   width: number = 360,
   height: number = 158,
   showNegativeValues: boolean = true,
   showGridLines: boolean = true,
   size: BarMetricCardOptions['size'] = 'md'
 ): string {
+  console.log('🎨 [renderBarChart] INICIO - Parámetros recibidos:', {
+    barDataLength: barData.length,
+    barColor: barColor,
+    barColorType: typeof barColor,
+    barColorLength: barColor ? barColor.length : 0,
+    width,
+    height,
+    size
+  });
   // Si showNegativeValues es false, filtrar valores negativos para el cálculo del rango
   const dataForRange = showNegativeValues ? barData : barData.filter(v => v >= 0);
   const range = maxValue !== undefined && minValue !== undefined
@@ -252,7 +261,8 @@ function renderBarChart(
       height: barHeightValue,
       value: barInfo.value,
       label: barInfo.label,
-      isPositive: barInfo.isPositive
+      isPositive: barInfo.isPositive,
+      index: barInfo.index // Agregar index para los logs
     };
   });
   
@@ -337,7 +347,7 @@ function renderBarChart(
           font-family="var(--font-sans)"
           font-size="var(--font-body-sm-size, 13px)"
           font-weight="var(--weight-regular, 400)"
-          fill="var(--ubits-fg-2-medium)"
+          fill="var(--modifiers-normal-color-light-fg-2-medium)"
           text-anchor="end"
           style="font-size: var(--font-body-sm-size, 13px) !important; font-weight: var(--weight-regular, 400) !important;"
         >${line.value}</text>
@@ -420,11 +430,33 @@ function renderBarChart(
           path = `M ${x1} ${y1} L ${x2} ${y2} L ${x2} ${y3 - rx} Q ${x2} ${y3} ${x2 - rx} ${y3} L ${x1 + rx} ${y3} Q ${x1} ${y3} ${x1} ${y3 - rx} Z`;
         }
         
+        console.log(`🎨 [BarChart] Renderizando barra ${bar.index + 1}:`, {
+          isPositive: bar.isPositive,
+          value: bar.value,
+          barColor: barColor,
+          barColorType: typeof barColor,
+          barColorLength: barColor.length,
+          x: bar.x,
+          y: bar.y,
+          width: bar.width,
+          height: bar.height
+        });
+        
+        const fillValue = barColor;
+        console.log(`🎨 [BarChart] Valor de fill para barra ${bar.index + 1}:`, {
+          fillValue: fillValue,
+          fillValueType: typeof fillValue,
+          fillValueLength: fillValue ? fillValue.length : 0,
+          isHex: /^#[0-9A-Fa-f]{6}$/.test(fillValue),
+          isVar: fillValue.startsWith('var('),
+          pathPreview: path.substring(0, 50) + '...'
+        });
+        
         return `
         <g class="ubits-bar-metric-card__bar-group">
           <path
             d="${path}"
-            fill="${barColor}"
+            fill="${fillValue}"
             class="ubits-bar-metric-card__bar"
           />
           <text
@@ -434,7 +466,7 @@ function renderBarChart(
           font-size="var(--font-body-sm-size, 13px)"
           font-weight="var(--weight-regular, 400)"
           class="ubits-bar-metric-card__bar-label"
-          fill="var(--ubits-fg-2-medium)"
+          fill="var(--modifiers-normal-color-light-fg-2-medium)"
           text-anchor="middle"
           style="font-size: var(--font-body-sm-size, 13px) !important; font-weight: var(--weight-regular, 400) !important; font-family: var(--font-sans) !important;"
         >${bar.label}</text>
@@ -491,7 +523,7 @@ function renderCategory(
 function renderCategoryWithProgressBar(
   category: BarMetricCardOptions['categories'][0],
   size: BarMetricCardOptions['size'] = 'md',
-  barColor: string = 'var(--ubits-chart-color-bg-neutral-blue-base, #557593)'
+  barColor: string = 'var(--ubits-chart-color-bg-neutral-blue-base)'
 ): string {
   const percentage = category.percentage ?? calculatePercentage(category.current, category.total);
   
@@ -581,9 +613,9 @@ export function renderBarMetricCard(options: BarMetricCardOptions): string {
     showActionButton = true,
     showNegativeValues = true,
     showGridLines = true,
-    barColor = 'var(--ubits-chart-color-bg-neutral-blue-base, #557593)',
-    chartBackgroundColor = 'var(--ubits-bg-1)',
-    gridLineColor = 'var(--ubits-border-1)',
+    barColor = 'var(--ubits-chart-color-bg-neutral-blue-base)',
+    chartBackgroundColor = 'var(--modifiers-normal-color-light-bg-1)',
+    gridLineColor = 'var(--modifiers-normal-color-light-border-1)',
     className = '',
     attributes = {}
   } = options;
@@ -676,6 +708,98 @@ export function renderBarMetricCard(options: BarMetricCardOptions): string {
     `
     : '';
 
+  // Resolver el valor real del token de color antes de pasarlo al SVG
+  // Los SVG no siempre resuelven correctamente las variables CSS en atributos inline
+  const resolveColorToken = (token: string): string => {
+    console.log('🔍 [BarMetricCard] resolveColorToken - INICIO');
+    console.log('🔍 [BarMetricCard] Token recibido:', token);
+    console.log('🔍 [BarMetricCard] typeof window:', typeof window);
+    console.log('🔍 [BarMetricCard] window.document:', typeof window !== 'undefined' ? window.document : 'undefined');
+    console.log('🔍 [BarMetricCard] window.getComputedStyle:', typeof window !== 'undefined' ? typeof window.getComputedStyle : 'undefined');
+    
+    if (typeof window !== 'undefined' && window.document && window.getComputedStyle) {
+      try {
+        const root = document.documentElement;
+        // Extraer el nombre del token (sin var() y sin espacios)
+        const tokenName = token.replace(/var\(|\)/g, '').trim();
+        console.log('🔍 [BarMetricCard] Token name extraído:', tokenName);
+        
+        const resolved = getComputedStyle(root).getPropertyValue(tokenName).trim();
+        console.log('🔍 [BarMetricCard] Valor resuelto de getComputedStyle:', resolved);
+        console.log('🔍 [BarMetricCard] Longitud del valor resuelto:', resolved.length);
+        
+        if (resolved) {
+          // Limpiar cualquier paréntesis extra que pueda haber quedado
+          const cleaned = resolved.replace(/\)+$/, '').trim();
+          console.log(`✅ [BarMetricCard] Token resuelto exitosamente: ${tokenName} = ${cleaned}`);
+          return cleaned;
+        } else {
+          console.warn(`⚠️ [BarMetricCard] Token no resuelto (valor vacío): ${tokenName}`);
+          console.warn(`⚠️ [BarMetricCard] Intentando verificar si el token existe en el DOM...`);
+          
+          // Intentar leer directamente del CSS
+          const allStyles = Array.from(document.styleSheets);
+          let foundValue = null;
+          for (const sheet of allStyles) {
+            try {
+              const rules = Array.from(sheet.cssRules || []);
+              for (const rule of rules) {
+                if (rule instanceof CSSStyleRule && rule.selectorText === ':root') {
+                  const style = rule.style;
+                  const value = style.getPropertyValue(tokenName);
+                  if (value) {
+                    foundValue = value.trim().replace(/\)+$/, '').trim(); // Limpiar paréntesis extra
+                    console.log(`✅ [BarMetricCard] Token encontrado en CSS: ${tokenName} = ${foundValue}`);
+                    break;
+                  }
+                }
+              }
+              if (foundValue) break;
+            } catch (e) {
+              console.warn(`⚠️ [BarMetricCard] Error leyendo stylesheet:`, e);
+            }
+          }
+          
+          if (foundValue) {
+            return foundValue;
+          }
+        }
+      } catch (e) {
+        console.error(`❌ [BarMetricCard] Error resolviendo token: ${token}`, e);
+        console.error(`❌ [BarMetricCard] Stack trace:`, e.stack);
+      }
+    } else {
+      console.warn(`⚠️ [BarMetricCard] No se puede resolver token (window/document no disponible)`);
+    }
+    
+    // Fallback: si el token es el esperado, usar el valor directo del token
+    if (token === 'var(--ubits-chart-color-bg-neutral-blue-base)') {
+      console.log(`🔄 [BarMetricCard] Usando fallback directo: #557593`);
+      return '#557593'; // Valor del token según tokens.css
+    }
+    
+    // Limpiar cualquier paréntesis extra que pueda haber quedado
+    const cleaned = token.replace(/\)+$/, '').trim();
+    if (cleaned !== token) {
+      console.log(`🧹 [BarMetricCard] Limpiando paréntesis extra: "${token}" -> "${cleaned}"`);
+      return cleaned;
+    }
+    
+    // Fallback al token original si no se puede resolver
+    console.warn(`⚠️ [BarMetricCard] Usando token original como fallback: ${token}`);
+    return token;
+  };
+  
+  console.log('🔍 [BarMetricCard] barColor original:', barColor);
+  let resolvedBarColor = barColor.startsWith('var(') ? resolveColorToken(barColor) : barColor;
+  
+  // Limpiar cualquier paréntesis extra que pueda haber quedado
+  resolvedBarColor = resolvedBarColor.replace(/\)+$/, '').trim();
+  
+  console.log('🔍 [BarMetricCard] resolvedBarColor final (después de limpiar):', resolvedBarColor);
+  console.log('🔍 [BarMetricCard] Tipo de resolvedBarColor:', typeof resolvedBarColor);
+  console.log('🔍 [BarMetricCard] Es hex válido:', /^#[0-9A-Fa-f]{6}$/.test(resolvedBarColor));
+
   // Renderizar gráfico de barras
   // En layout horizontal, no mostrar el gráfico SVG (solo progress bars)
   const barChartHTML = showBarChart && barData.length > 0 && layout !== 'horizontal'
@@ -685,7 +809,7 @@ export function renderBarMetricCard(options: BarMetricCardOptions): string {
           barLabels,
           maxValue,
           minValue,
-          barColor,
+          resolvedBarColor,
           chartBackgroundColor,
           gridLineColor,
           chartWidth,
@@ -722,7 +846,7 @@ export function renderBarMetricCard(options: BarMetricCardOptions): string {
           // Usar progress bars para layout horizontal
           return `
             <div class="ubits-bar-metric-card__categories">
-              ${categories.map(cat => renderCategoryWithProgressBar(cat, size, barColor)).join('')}
+              ${categories.map(cat => renderCategoryWithProgressBar(cat, size, resolvedBarColor)).join('')}
             </div>
           `;
         } else {

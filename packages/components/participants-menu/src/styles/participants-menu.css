@@ -29,7 +29,7 @@
 .ubits-participants-menu__title {
   margin: 0;
   font-size: var(--modifiers-normal-body-md-regular-fontsize);
-  font-weight: var(--ubits-font-weight-bold);
+  font-weight: var(--weight-bold);
   line-height: var(--modifiers-normal-body-md-regular-lineheight);
   color: var(--modifiers-normal-color-light-fg-1-high);
   margin-bottom: var(--ubits-spacing-md);
@@ -162,7 +162,7 @@
 
 .ubits-participants-menu__item-name {
   font-size: var(--modifiers-normal-body-sm-regular-fontsize);
-  font-weight: var(--ubits-font-weight-bold);
+  font-weight: var(--weight-bold);
   line-height: var(--modifiers-normal-body-sm-regular-lineheight);
   color: var(--modifiers-normal-color-light-fg-1-high);
   white-space: nowrap;
@@ -178,7 +178,7 @@
 
 .ubits-participants-menu__item-role {
   font-size: var(--modifiers-normal-body-sm-regular-fontsize);
-  font-weight: var(--ubits-font-weight-regular);
+  font-weight: var(--weight-regular);
   line-height: var(--modifiers-normal-body-sm-regular-lineheight);
   color: var(--modifiers-normal-color-light-fg-1-medium);
   white-space: nowrap;
@@ -198,7 +198,7 @@
   padding: var(--ubits-spacing-xs) var(--ubits-spacing-sm);
   border-radius: var(--ubits-border-radius-sm);
   font-size: var(--modifiers-normal-body-xs-regular-fontsize);
-  font-weight: var(--ubits-font-weight-regular);
+  font-weight: var(--weight-regular);
   line-height: var(--modifiers-normal-body-xs-regular-lineheight);
   white-space: nowrap;
   flex-shrink: 0;

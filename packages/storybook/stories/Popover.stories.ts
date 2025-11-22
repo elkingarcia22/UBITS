@@ -142,7 +142,7 @@ export const Default: Story = {
   args: {
     title: 'Title',
     bodyContent: `
-      <p style="margin: 0; font-size: var(--font-body-sm-size, 13px); color: var(--ubits-fg-1-high-static-inverted, #edeeef); line-height: var(--ubits-line-height-md, 19.5px);">
+      <p style="margin: 0; font-size: var(--font-body-sm-size, 13px); color: var(--modifiers-normal-color-light-fg-1-high-static-inverted, #edeeef); line-height: 19.5px);">
         Tooltips are used to describe or identify an element. In most scenarios, tooltips help the user understand the meaning, function or alt-text of an element.
       </p>
     `,
@@ -164,7 +164,7 @@ export const Default: Story = {
     container.style.height = '100vh';
     container.style.position = 'relative';
     container.style.overflow = 'hidden';
-    container.style.background = 'var(--ubits-bg-2, #f9fafb)';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-2, #f9fafb)';
     container.style.display = 'flex';
     container.style.alignItems = 'center';
     container.style.justifyContent = 'center';

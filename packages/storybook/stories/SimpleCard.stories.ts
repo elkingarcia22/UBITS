@@ -10,36 +10,26 @@ const BACKGROUND_TOKENS = [
   'var(--modifiers-normal-color-light-bg-2)',
   'var(--modifiers-normal-color-light-bg-3)',
   'var(--modifiers-normal-color-light-bg-4)',
-  'var(--modifiers-normal-color-light-bg-5)',
+  'var(--modifiers-normal-color-light-bg-5)'
 ] as const;
 
 const BORDER_COLOR_TOKENS = [
   'var(--modifiers-normal-color-light-border-1)',
   'var(--modifiers-normal-color-light-border-2)',
-  'var(--modifiers-normal-color-light-border-3)',
+  'var(--modifiers-normal-color-light-border-3)'
 ] as const;
 
 const BORDER_RADIUS_TOKENS = [
-  'var(--ubits-border-radius-sm)',
-  'var(--ubits-border-radius-md)',
-  'var(--ubits-border-radius-lg)',
-  'var(--ubits-border-radius-xl)',
 ] as const;
 
 const PADDING_TOKENS = [
-  'var(--ubits-spacing-xs)',
-  'var(--ubits-spacing-sm)',
-  'var(--ubits-spacing-md)',
-  'var(--ubits-spacing-lg)',
-  'var(--ubits-spacing-xl)',
-  'var(--ubits-spacing-2xl)',
 ] as const;
 
 const HEADER_BACKGROUND_TOKENS = [
   'var(--modifiers-normal-color-light-bg-4)',
   'var(--modifiers-normal-color-light-bg-5)',
   'var(--modifiers-normal-color-light-accent-brand)',
-  'var(--modifiers-normal-color-light-feedback-border-error)',
+  'var(--modifiers-normal-color-light-feedback-border-error)'
 ] as const;
 
 const TYPOGRAPHY_CLASSES = [
@@ -47,7 +37,7 @@ const TYPOGRAPHY_CLASSES = [
   'ubits-heading-h2',
   'ubits-body-lg',
   'ubits-body-md',
-  'ubits-body-sm',
+  'ubits-body-sm'
 ] as const;
 
 const meta: Meta<SimpleCardOptions & {
@@ -74,11 +64,11 @@ const meta: Meta<SimpleCardOptions & {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Simple Card UBITS con header decorativo, contenido y botones de acción. Usa tokens UBITS para colores, tipografía y espaciado. Incluye controladores completos para personalizar todos los aspectos del componente.',
-      },
-    },
-    layout: 'centered',
-  },
+        component: 'Componente Simple Card UBITS con header decorativo, contenido y botones de acción. Usa tokens UBITS para colores, tipografía y espaciado. Incluye controladores completos para personalizar todos los aspectos del componente.'
+}
+},
+    layout: 'centered'
+},
   argTypes: {
     // Contenido
     title: {
@@ -87,43 +77,43 @@ const meta: Meta<SimpleCardOptions & {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'Advanced Card' },
-        category: 'Contenido',
-      },
-    },
+        category: 'Contenido'
+}
+},
     subtitle: {
       control: { type: 'text' },
       description: 'Subtítulo de la card',
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'Card subtitle' },
-        category: 'Contenido',
-      },
-    },
+        category: 'Contenido'
+}
+},
     content: {
       control: { type: 'text' },
       description: 'Contenido de la card',
       table: {
         type: { summary: 'string' },
-        category: 'Contenido',
-      },
-    },
+        category: 'Contenido'
+}
+},
     // Header
     showHeader: {
       control: { type: 'boolean' },
       description: 'Mostrar header decorativo',
       table: {
         defaultValue: { summary: 'true' },
-        category: 'Header',
-      },
-    },
+        category: 'Header'
+}
+},
     headerDecorations: {
       control: { type: 'boolean' },
       description: 'Mostrar burbujas decorativas en el header',
       table: {
         defaultValue: { summary: 'true' },
-        category: 'Header',
-      },
-    },
+        category: 'Header'
+}
+},
     headerBackgroundToken: {
       control: { type: 'select' },
       options: HEADER_BACKGROUND_TOKENS,
@@ -131,9 +121,9 @@ const meta: Meta<SimpleCardOptions & {
       table: {
         type: { summary: 'CSS Variable' },
         defaultValue: { summary: 'var(--modifiers-normal-color-light-bg-4)' },
-        category: 'Tokens - Header',
-      },
-    },
+        category: 'Tokens - Header'
+}
+},
     // Tokens - Colores
     backgroundColorToken: {
       control: { type: 'select' },
@@ -142,9 +132,9 @@ const meta: Meta<SimpleCardOptions & {
       table: {
         type: { summary: 'CSS Variable' },
         defaultValue: { summary: 'var(--modifiers-normal-color-light-bg-1)' },
-        category: 'Tokens - Colores',
-      },
-    },
+        category: 'Tokens - Colores'
+}
+},
     borderColorToken: {
       control: { type: 'select' },
       options: BORDER_COLOR_TOKENS,
@@ -152,9 +142,9 @@ const meta: Meta<SimpleCardOptions & {
       table: {
         type: { summary: 'CSS Variable' },
         defaultValue: { summary: 'var(--modifiers-normal-color-light-border-1)' },
-        category: 'Tokens - Colores',
-      },
-    },
+        category: 'Tokens - Colores'
+}
+},
     // Tokens - Espaciado
     paddingToken: {
       control: { type: 'select' },
@@ -162,10 +152,9 @@ const meta: Meta<SimpleCardOptions & {
       description: 'Token de espaciado para el padding de la card',
       table: {
         type: { summary: 'CSS Variable' },
-        defaultValue: { summary: 'var(--ubits-spacing-lg)' },
-        category: 'Tokens - Espaciado',
-      },
-    },
+        category: 'Tokens - Espaciado'
+}
+},
     // Tokens - Border Radius
     borderRadiusToken: {
       control: { type: 'select' },
@@ -173,10 +162,9 @@ const meta: Meta<SimpleCardOptions & {
       description: 'Token de border radius para la card',
       table: {
         type: { summary: 'CSS Variable' },
-        defaultValue: { summary: 'var(--ubits-border-radius-md)' },
-        category: 'Tokens - Border Radius',
-      },
-    },
+        category: 'Tokens - Border Radius'
+}
+},
     // Tipografía
     titleTypographyClass: {
       control: { type: 'select' },
@@ -185,9 +173,9 @@ const meta: Meta<SimpleCardOptions & {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'ubits-heading-h2' },
-        category: 'Tipografía',
-      },
-    },
+        category: 'Tipografía'
+}
+},
     subtitleTypographyClass: {
       control: { type: 'select' },
       options: TYPOGRAPHY_CLASSES,
@@ -195,9 +183,9 @@ const meta: Meta<SimpleCardOptions & {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'ubits-body-md' },
-        category: 'Tipografía',
-      },
-    },
+        category: 'Tipografía'
+}
+},
     contentTypographyClass: {
       control: { type: 'select' },
       options: TYPOGRAPHY_CLASSES,
@@ -205,9 +193,9 @@ const meta: Meta<SimpleCardOptions & {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'ubits-body-md' },
-        category: 'Tipografía',
-      },
-    },
+        category: 'Tipografía'
+}
+},
     // Variantes
     variant: {
       control: { type: 'select' },
@@ -216,9 +204,9 @@ const meta: Meta<SimpleCardOptions & {
       table: {
         defaultValue: { summary: 'default' },
         type: { summary: 'default | elevated | bordered | flat' },
-        category: 'Apariencia',
-      },
-    },
+        category: 'Apariencia'
+}
+},
     // Tamaño
     size: {
       control: { type: 'select' },
@@ -227,80 +215,80 @@ const meta: Meta<SimpleCardOptions & {
       table: {
         defaultValue: { summary: 'md' },
         type: { summary: 'sm | md | lg | xl' },
-        category: 'Tamaño',
-      },
-    },
+        category: 'Tamaño'
+}
+},
     maxWidth: {
       control: { type: 'text' },
       description: 'Ancho máximo personalizado (sobrescribe el tamaño por defecto)',
       table: {
         type: { summary: 'string' },
         example: { summary: '500px | 50% | 100vw' },
-        category: 'Tamaño',
-      },
-    },
+        category: 'Tamaño'
+}
+},
     // Botones
     showButtons: {
       control: { type: 'boolean' },
       description: 'Mostrar botones en el footer',
       table: {
         defaultValue: { summary: 'true' },
-        category: 'Botones',
-      },
-    },
+        category: 'Botones'
+}
+},
     button1Label: {
       control: { type: 'text' },
       description: 'Texto del primer botón',
       table: {
         defaultValue: { summary: 'Cancel' },
-        category: 'Botones',
-      },
-    },
+        category: 'Botones'
+}
+},
     button1Variant: {
       control: { type: 'select' },
       options: ['primary', 'secondary', 'tertiary'],
       description: 'Variante del primer botón',
       table: {
         defaultValue: { summary: 'secondary' },
-        category: 'Botones',
-      },
-    },
+        category: 'Botones'
+}
+},
     button1Size: {
       control: { type: 'select' },
       options: ['xs', 'sm', 'md', 'lg'],
       description: 'Tamaño del primer botón',
       table: {
         defaultValue: { summary: 'md' },
-        category: 'Botones',
-      },
-    },
+        category: 'Botones'
+}
+},
     button2Label: {
       control: { type: 'text' },
       description: 'Texto del segundo botón',
       table: {
         defaultValue: { summary: 'Save' },
-        category: 'Botones',
-      },
-    },
+        category: 'Botones'
+}
+},
     button2Variant: {
       control: { type: 'select' },
       options: ['primary', 'secondary', 'tertiary'],
       description: 'Variante del segundo botón',
       table: {
         defaultValue: { summary: 'primary' },
-        category: 'Botones',
-      },
-    },
+        category: 'Botones'
+}
+},
     button2Size: {
       control: { type: 'select' },
       options: ['xs', 'sm', 'md', 'lg'],
       description: 'Tamaño del segundo botón',
       table: {
         defaultValue: { summary: 'md' },
-        category: 'Botones',
-      },
-    },
-  },
+        category: 'Botones'
+}
+}
+}
 };
 
 export default meta;
@@ -332,15 +320,15 @@ function buildSimpleCardOptions(args: any): SimpleCardOptions {
       buttons.push({
         label: args.button1Label,
         variant: args.button1Variant || 'secondary',
-        size: args.button1Size || 'md',
-      });
+        size: args.button1Size || 'md'
+});
     }
     if (args.button2Label) {
       buttons.push({
         label: args.button2Label,
         variant: args.button2Variant || 'primary',
-        size: args.button2Size || 'md',
-      });
+        size: args.button2Size || 'md'
+});
     }
   }
 
@@ -353,8 +341,6 @@ function buildSimpleCardOptions(args: any): SimpleCardOptions {
     headerBackground: args.headerBackgroundToken || 'var(--modifiers-normal-color-light-bg-4)',
     backgroundColor: args.backgroundColorToken || 'var(--modifiers-normal-color-light-bg-1)',
     borderColor: args.borderColorToken || 'var(--modifiers-normal-color-light-border-1)',
-    borderRadius: args.borderRadiusToken || 'var(--ubits-border-radius-md)',
-    padding: args.paddingToken || 'var(--ubits-spacing-lg)',
     titleTypography: (args.titleTypographyClass || 'ubits-heading-h2') as any,
     subtitleTypography: (args.subtitleTypographyClass || 'ubits-body-md') as any,
     contentTypography: (args.contentTypographyClass || 'ubits-body-md') as any,
@@ -362,8 +348,8 @@ function buildSimpleCardOptions(args: any): SimpleCardOptions {
     showButtons: args.showButtons !== false,
     variant: args.variant || 'default',
     size: args.size || 'md',
-    maxWidth: args.maxWidth,
-  };
+    maxWidth: args.maxWidth
+};
 }
 
 export const Default: Story = {
@@ -376,8 +362,6 @@ export const Default: Story = {
     headerBackgroundToken: 'var(--modifiers-normal-color-light-bg-4)',
     backgroundColorToken: 'var(--modifiers-normal-color-light-bg-1)',
     borderColorToken: 'var(--modifiers-normal-color-light-border-1)',
-    borderRadiusToken: 'var(--ubits-border-radius-md)',
-    paddingToken: 'var(--ubits-spacing-lg)',
     titleTypographyClass: 'ubits-heading-h2',
     subtitleTypographyClass: 'ubits-body-md',
     contentTypographyClass: 'ubits-body-md',
@@ -389,8 +373,8 @@ export const Default: Story = {
     button1Size: 'md',
     button2Label: 'Save',
     button2Variant: 'primary',
-    button2Size: 'md',
-  },
+    button2Size: 'md'
+},
   render: (args) => {
     const cardOptions = buildSimpleCardOptions(args);
     
@@ -416,6 +400,6 @@ export const Default: Story = {
     container.appendChild(wrapper);
     
     return container;
-  },
+  }
 };
 

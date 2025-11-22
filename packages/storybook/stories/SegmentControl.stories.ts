@@ -18,42 +18,42 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Componente Segment Control UBITS de navegación horizontal con soporte para iconos opcionales. Similar a Tabs pero con contenedor con padding interno de 4px y altura de 30px. El segmento activo muestra fondo blanco, icono solid oscuro, texto en negrita. Los segmentos inactivos muestran icono regular y texto en gris claro sin fondo.',
-      },
-    },
-  },
+        component: 'Componente Segment Control UBITS de navegación horizontal con soporte para iconos opcionales. Similar a Tabs pero con contenedor con padding interno de 4px y altura de 30px. El segmento activo muestra fondo blanco, icono solid oscuro, texto en negrita. Los segmentos inactivos muestran icono regular y texto en gris claro sin fondo.'
+}
+}
+},
   argTypes: {
     segments: {
       control: { type: 'object' },
       description: 'Array de segmentos a mostrar',
       table: {
-        type: { summary: 'SegmentItem[]' },
-      },
-    },
+        type: { summary: 'SegmentItem[]' }
+}
+},
     activeSegmentId: {
       control: { type: 'text' },
       description: 'ID del segmento activo',
       table: {
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+}
+},
     showIcons: {
       control: { type: 'boolean' },
       description: 'Mostrar iconos en los segmentos',
       table: {
         type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
-      },
-    },
+        defaultValue: { summary: 'true' }
+}
+},
     segmentCount: {
       control: { type: 'number', min: 1, max: 10, step: 1 },
       description: 'Número de segmentos a mostrar',
       table: {
         type: { summary: 'number' },
-        defaultValue: { summary: '5' },
-      },
-    },
-  },
+        defaultValue: { summary: '5' }
+}
+}
+}
 } satisfies Meta<SegmentControlOptions & { showIcons?: boolean; segmentCount?: number }>;
 
 export default meta;
@@ -70,8 +70,8 @@ function generateSegments(count: number = 5, withIcons: boolean = true): Segment
     id: `segment-${i + 1}`,
     label: labels[i] || `Label ${i + 1}`,
     icon: withIcons ? `far ${icons[i] || 'fa-th'}` : undefined,
-    active: i === 0,
-  }));
+    active: i === 0
+}));
 }
 
 /**
@@ -82,8 +82,8 @@ export const Default: Story = {
     segments: generateSegments(5, true),
     activeSegmentId: 'segment-1',
     showIcons: true,
-    segmentCount: 5,
-  },
+    segmentCount: 5
+},
   render: (args) => {
     // Generar segmentos según los controles - SIEMPRE regenerar basándose en showIcons
     const shouldShowIcons = args.showIcons !== false;
@@ -100,10 +100,7 @@ export const Default: Story = {
     wrapper.style.cssText = `
       width: 100%;
       max-width: 1200px;
-      padding: var(--ubits-spacing-6);
       background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: var(--ubits-border-radius-md);
-      border: var(--ubits-spacing-xs) solid var(--modifiers-normal-color-light-border-1);
     `;
 
     // Contenedor para el Segment Control
@@ -111,7 +108,6 @@ export const Default: Story = {
     container.id = 'segment-control-story-container';
     container.style.cssText = `
       width: 100%;
-      margin-bottom: var(--ubits-spacing-6);
     `;
 
     wrapper.appendChild(container);
@@ -120,10 +116,7 @@ export const Default: Story = {
     const infoPanel = document.createElement('div');
     infoPanel.id = 'segment-control-info-panel';
     infoPanel.style.cssText = `
-      margin-top: var(--ubits-spacing-5);
-      padding: var(--ubits-spacing-lg);
       background: var(--modifiers-normal-color-light-bg-2);
-      border-radius: var(--ubits-border-radius-sm);
       font-family: var(--font-family-noto-sans-font-family);
       font-size: var(--modifiers-normal-body-sm-regular-fontsize);
     `;
@@ -133,8 +126,6 @@ export const Default: Story = {
     const updateInfoPanel = (currentActiveId: string) => {
       const currentSegment = segments.find(segment => segment.id === currentActiveId);
       infoPanel.innerHTML = `
-        <h3 style="margin: 0 0 var(--ubits-spacing-md) 0; font-size: var(--modifiers-normal-body-md-regular-fontsize); font-weight: var(--ubits-font-weight-semibold); color: var(--modifiers-normal-color-light-fg-1-high);">Información del Segment Control</h3>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--ubits-spacing-sm); font-size: var(--modifiers-normal-body-sm-regular-fontsize);">
           <div><strong>Segmento Activo:</strong> ${currentSegment ? currentSegment.label : currentActiveId}</div>
           <div><strong>Segmentos totales:</strong> ${segments.length}</div>
           <div><strong>Con iconos:</strong> ${shouldShowIcons ? 'Sí' : 'No'}</div>
@@ -164,7 +155,6 @@ export const Default: Story = {
         }, container.id);
       } catch (error) {
         console.error('Error creando Segment Control:', error);
-        container.innerHTML = `<p style="color: var(--modifiers-normal-color-light-feedback-border-error); padding: var(--ubits-spacing-lg);">Error: ${error}</p>`;
       }
     });
 

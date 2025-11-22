@@ -83,9 +83,9 @@ export const Default: Story = {
       width: 100%;
       max-width: 1200px;
       padding: 24px;
-      background: var(--ubits-bg-1, #ffffff);
+      background: var(--modifiers-normal-color-light-bg-1, #ffffff);
       border-radius: 12px;
-      border: 1px solid var(--ubits-border-1, #d0d2d5);
+      border: 1px solid var(--modifiers-normal-color-light-border-1, #d0d2d5);
     `;
 
     // Contenedor para el Breadcrumb
@@ -104,7 +104,7 @@ export const Default: Story = {
     infoPanel.style.cssText = `
       margin-top: 20px;
       padding: 16px;
-      background: var(--ubits-bg-2, #F3F3F4);
+      background: var(--modifiers-normal-color-light-bg-2, #F3F3F4);
       border-radius: 8px;
       font-family: var(--font-sans);
       font-size: 14px;
@@ -114,7 +114,7 @@ export const Default: Story = {
 
     const updateInfoPanel = () => {
       infoPanel.innerHTML = `
-        <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: var(--weight-semibold, 600); color: var(--ubits-fg-1-high, #303a47);">Información del Breadcrumb</h3>
+        <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: var(--weight-semibold, 600); color: var(--modifiers-normal-color-light-fg-1-high, #303a47);">Información del Breadcrumb</h3>
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 13px;">
           <div><strong>Item Activo:</strong> ${activeItem ? activeItem.label : 'N/A'}</div>
           <div><strong>Items totales:</strong> ${items.length}</div>
@@ -145,7 +145,7 @@ export const Default: Story = {
         }, container.id);
       } catch (error) {
         console.error('Error creando Breadcrumb:', error);
-        container.innerHTML = `<p style="color: var(--ubits-feedback-border-error, #ef4444); padding: 16px;">Error: ${error}</p>`;
+        container.innerHTML = `<p style="color: #ef4444); padding: 16px;">Error: ${error}</p>`;
       }
     });
 

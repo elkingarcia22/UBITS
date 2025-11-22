@@ -13,7 +13,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { createColorSwatch } from './utils';
 
 const meta: Meta = {
-  title: 'Tokens UBITS/4. Effects',
+  title: 'Tokens UBITS/05. Effects',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
@@ -418,7 +418,7 @@ export const Elevation: Story = {
     tokensList.style.gap = '12px';
 
     // Token de shadow opacity
-    const shadowToken = createColorSwatch('--ubits-bottom-nav-shadow-opacity', 'light', {
+    const shadowToken = createColorSwatch('--modifiers-normal-effects-elevation-overlay', 'light', {
       showVariable: true,
       showValue: true,
       width: '100%'
@@ -479,7 +479,7 @@ export const Focus: Story = {
     tokensList.style.gap = '12px';
 
     // Token de focus ring
-    const focusToken = createColorSwatch('--ubits-button-focus-ring', 'light', {
+    const focusToken = createColorSwatch('--modifiers-normal-focus-color', 'light', {
       showVariable: true,
       showValue: true,
       width: '100%'

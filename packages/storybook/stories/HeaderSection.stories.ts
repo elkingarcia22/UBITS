@@ -308,13 +308,13 @@ export const Default: Story = {
     infoPanel.style.cssText = `
       margin-bottom: 24px;
       padding: 16px;
-      background: var(--ubits-bg-2);
-      border-radius: var(--ubits-radius-md, 8px);
+      background: var(--modifiers-normal-color-light-bg-2);
+      border-radius: 8px);
       font-size: 13px;
-      color: var(--ubits-fg-2-medium);
+      color: var(--modifiers-normal-color-light-fg-2-medium);
     `;
     infoPanel.innerHTML = `
-      <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: var(--weight-semibold); color: var(--ubits-fg-1-high);">Información del HeaderSection</h3>
+      <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: var(--weight-semibold); color: var(--modifiers-normal-color-light-fg-1-high);">Información del HeaderSection</h3>
       <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
         <div><strong>Título:</strong> ${args.title || '(vacío)'}</div>
         <div><strong>Mostrar título:</strong> ${args.showTitle ? 'Sí' : 'No'}</div>
@@ -444,7 +444,7 @@ export const Default: Story = {
         });
       } catch (error) {
         console.error('Error creating HeaderSection:', error);
-        container.innerHTML = `<div style="color: var(--ubits-feedback-fg-error); padding: 16px;">Error: ${error instanceof Error ? error.message : String(error)}</div>`;
+        container.innerHTML = `<div style="color: var(--modifiers-normal-color-light-feedback-fg-error-subtle-default); padding: 16px;">Error: ${error instanceof Error ? error.message : String(error)}</div>`;
       }
     });
 

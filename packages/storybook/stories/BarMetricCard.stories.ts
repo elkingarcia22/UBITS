@@ -173,7 +173,7 @@ const meta: Meta<BarMetricCardOptions & {
       description: 'Color de las barras (token UBITS)',
       table: {
         type: { summary: 'string' },
-        defaultValue: { summary: 'var(--ubits-chart-color-bg-neutral-blue-base)' },
+        defaultValue: { summary: 'var(--modifiers-normal-color-light-chart-bg-neutral-blue-base)' },
         category: 'Estilo',
       },
     },
@@ -182,7 +182,7 @@ const meta: Meta<BarMetricCardOptions & {
       description: 'Color de fondo del gráfico (token UBITS)',
       table: {
         type: { summary: 'string' },
-        defaultValue: { summary: 'var(--ubits-bg-1)' },
+        defaultValue: { summary: 'var(--modifiers-normal-color-light-bg-1)' },
         category: 'Estilo',
       },
     },
@@ -191,7 +191,7 @@ const meta: Meta<BarMetricCardOptions & {
       description: 'Color de las líneas de la grilla (token UBITS)',
       table: {
         type: { summary: 'string' },
-        defaultValue: { summary: 'var(--ubits-border-1)' },
+        defaultValue: { summary: 'var(--modifiers-normal-color-light-border-1)' },
         category: 'Estilo',
       },
     },
@@ -309,15 +309,15 @@ export const Default: Story = {
     showActionButton: true,
     showNegativeValues: true,
     showGridLines: true,
-    barColor: 'var(--ubits-chart-color-bg-neutral-blue-base, #557593)',
-    chartBackgroundColor: 'var(--ubits-bg-1)',
-    gridLineColor: 'var(--ubits-border-1)',
+    barColor: '#557593)',
+    chartBackgroundColor: 'var(--modifiers-normal-color-light-bg-1)',
+    gridLineColor: 'var(--modifiers-normal-color-light-border-1)',
   },
   render: (args) => {
     const container = document.createElement('div');
     container.style.cssText = `
       padding: 20px;
-      background: var(--ubits-bg-2, #f5f5f5);
+      background: var(--modifiers-normal-color-light-bg-2, #f5f5f5);
       border-radius: 8px;
       width: 100%;
       max-width: 100%;
@@ -388,9 +388,9 @@ export const Default: Story = {
       showActionButton: args.showActionButton !== undefined ? args.showActionButton : true,
       showNegativeValues: args.showNegativeValues !== undefined ? args.showNegativeValues : true,
       showGridLines: args.showGridLines !== undefined ? args.showGridLines : true,
-      barColor: args.barColor || 'var(--ubits-chart-color-bg-neutral-blue-base, #557593)',
-      chartBackgroundColor: args.chartBackgroundColor || 'var(--ubits-bg-1)',
-      gridLineColor: args.gridLineColor || 'var(--ubits-border-1)',
+      barColor: args.barColor || '#557593)',
+      chartBackgroundColor: args.chartBackgroundColor || 'var(--modifiers-normal-color-light-bg-1)',
+      gridLineColor: args.gridLineColor || 'var(--modifiers-normal-color-light-border-1)',
       onClick: args.onClick,
       onAction: args.onAction
     };

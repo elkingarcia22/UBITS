@@ -71,7 +71,7 @@ export const Default: Story = {
   render: (args) => {
     const container = document.createElement('div');
     container.style.padding = '20px';
-    container.style.background = 'var(--ubits-bg-1, #ffffff)';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-1, #ffffff)';
     container.style.borderRadius = '8px';
     container.style.width = '100%';
     container.style.maxWidth = '800px';
@@ -124,11 +124,11 @@ export const Default: Story = {
     // Agregar información adicional sobre el alert
     const info = document.createElement('div');
     info.style.padding = '16px';
-    info.style.background = 'var(--ubits-bg-2, #f9fafb)';
+    info.style.background = 'var(--modifiers-normal-color-light-bg-2, #f9fafb)';
     info.style.borderRadius = '8px';
     info.style.fontSize = '14px';
-    info.style.color = 'var(--ubits-fg-1-medium, #5c646f)';
-    info.style.border = '1px solid var(--ubits-border-1)';
+    info.style.color = 'var(--modifiers-normal-color-light-fg-1-medium, #5c646f)';
+    info.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
     info.innerHTML = `
       <strong>Tipo:</strong> ${args.type}<br>
       <strong>Cierre:</strong> ${args.closable ? 'Con botón' : 'Sin botón'}<br>

@@ -27,7 +27,7 @@
   align-items: center;
   font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px);
   line-height: var(--modifiers-normal-body-sm-regular-lineheight, 19.5px);
-  font-weight: var(--ubits-font-weight-regular, 400);
+  font-weight: var(--weight-regular, 400);
   color: var(--modifiers-normal-color-light-fg-1-medium) !important;
   text-decoration: none;
   background: none;
@@ -47,7 +47,7 @@
 /* Breadcrumb Item - Active State */
 .ubits-breadcrumb__item--active {
   color: var(--modifiers-normal-color-light-fg-1-high) !important;
-  font-weight: var(--ubits-font-weight-bold, 700);
+  font-weight: var(--weight-bold, 700);
   cursor: default;
   pointer-events: none;
 }

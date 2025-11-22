@@ -204,7 +204,7 @@
     color: var(--modifiers-static-inverted-color-light-fg-1-high);
     font-family: var(--font-family-noto-sans-font-family);
     font-size: var(--modifiers-normal-body-md-regular-fontsize);
-    font-weight: var(--ubits-font-weight-semibold);
+    font-weight: var(--weight-semibold, 600);
     line-height: var(--modifiers-normal-body-md-regular-lineheight);
     white-space: normal;
     word-wrap: break-word;
@@ -246,7 +246,7 @@
     color: var(--modifiers-static-inverted-color-light-fg-1-high);
     font-family: var(--font-family-noto-sans-font-family);
     font-size: var(--modifiers-normal-body-md-regular-fontsize);
-    font-weight: var(--ubits-font-weight-regular);
+    font-weight: var(--weight-regular, 400);
     line-height: var(--modifiers-normal-body-md-regular-lineheight);
     white-space: normal;
     word-wrap: break-word;

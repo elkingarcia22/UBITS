@@ -86,89 +86,89 @@ const meta: Meta<GalleryOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Gallery UBITS para mostrar imágenes en diferentes layouts (grid, masonry, list) con múltiples tamaños, soporte para lightbox, lazy loading y thumbnails.',
-      },
-    },
-    layout: 'padded',
-  },
+        component: 'Componente Gallery UBITS para mostrar imágenes en diferentes layouts (grid, masonry, list) con múltiples tamaños, soporte para lightbox, lazy loading y thumbnails.'
+}
+},
+    layout: 'padded'
+},
   argTypes: {
     items: {
       control: { type: 'object' },
       description: 'Array de items a mostrar en la galería',
       table: {
-        type: { summary: 'GalleryItem[]' },
-      },
-    },
+        type: { summary: 'GalleryItem[]' }
+}
+},
     layout: {
       control: { type: 'select' },
       options: ['grid', 'masonry', 'list'],
       description: 'Layout de la galería',
       table: {
         defaultValue: { summary: 'grid' },
-        type: { summary: 'grid | masonry | list' },
-      },
-    },
+        type: { summary: 'grid | masonry | list' }
+}
+},
     size: {
       control: { type: 'select' },
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
       description: 'Tamaño de la galería',
       table: {
         defaultValue: { summary: 'md' },
-        type: { summary: 'xs | sm | md | lg | xl' },
-      },
-    },
+        type: { summary: 'xs | sm | md | lg | xl' }
+}
+},
     columns: {
       control: { type: 'number', min: 1, max: 12, step: 1 },
       description: 'Número de columnas (solo para layout grid)',
       table: {
         defaultValue: { summary: '3' },
-        type: { summary: 'number' },
-      },
-    },
+        type: { summary: 'number' }
+}
+},
     gap: {
       control: { type: 'number', min: 0, max: 48, step: 4 },
       description: 'Espacio entre items en píxeles',
       table: {
         defaultValue: { summary: '16' },
-        type: { summary: 'number (px)' },
-      },
-    },
+        type: { summary: 'number (px)' }
+}
+},
     showThumbnails: {
       control: { type: 'boolean' },
       description: 'Mostrar thumbnails en lugar de imágenes completas',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     lazyLoad: {
       control: { type: 'boolean' },
       description: 'Cargar imágenes de forma diferida (lazy loading)',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     lightbox: {
       control: { type: 'boolean' },
       description: 'Activar lightbox al hacer click en las imágenes',
       table: {
-        defaultValue: { summary: 'false' },
-      },
-    },
+        defaultValue: { summary: 'false' }
+}
+},
     aspectRatio: {
       control: { type: 'text' },
       description: 'Aspect ratio para las imágenes (ej: 16/9, 1/1, 4/3)',
       table: {
-        type: { summary: 'string' },
-      },
-    },
+        type: { summary: 'string' }
+}
+},
     className: {
       control: { type: 'text' },
       description: 'Clase CSS adicional',
       table: {
-        type: { summary: 'string' },
-      },
-    },
-  },
+        type: { summary: 'string' }
+}
+}
+}
 };
 
 export default meta;
@@ -188,17 +188,16 @@ export const Default: Story = {
     lazyLoad: false,
     lightbox: true,
     aspectRatio: undefined,
-    className: '',
-  },
+    className: ''
+},
   render: (args) => {
     // Usar createGallery que ya incluye la inicialización
     const gallery = createGallery(args);
     const container = document.createElement('div');
     container.style.width = '100%';
-    container.style.maxWidth = 'calc(var(--ubits-spacing-80) * 1.5)'; // 1200px = 80 * 15
     container.style.margin = '0 auto';
     container.appendChild(gallery);
     return container;
-  },
+  }
 };
 

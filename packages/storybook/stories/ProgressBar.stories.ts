@@ -23,11 +23,11 @@ const meta: Meta<ExtendedProgressOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Progress Bar personalizado UBITS. Se usa para mostrar progreso de tareas o procesos. Soporta 4 tamaños (xs, sm, md, lg) y dos variantes: default (un solo color) y multi-color (múltiples segmentos con diferentes colores). El segmento gris se calcula automáticamente como el resto que falta para llegar a 100%. Incluye indicador opcional de texto o porcentaje.',
-      },
-    },
-    layout: 'fullscreen',
-  },
+        component: 'Componente Progress Bar personalizado UBITS. Se usa para mostrar progreso de tareas o procesos. Soporta 4 tamaños (xs, sm, md, lg) y dos variantes: default (un solo color) y multi-color (múltiples segmentos con diferentes colores). El segmento gris se calcula automáticamente como el resto que falta para llegar a 100%. Incluye indicador opcional de texto o porcentaje.'
+}
+},
+    layout: 'fullscreen'
+},
   argTypes: {
     size: {
       control: { type: 'select' },
@@ -36,9 +36,9 @@ const meta: Meta<ExtendedProgressOptions> = {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'md' },
-        category: 'Apariencia',
-      },
-    },
+        category: 'Apariencia'
+}
+},
     variant: {
       control: { type: 'select' },
       options: ['default', 'multi-color'],
@@ -46,103 +46,103 @@ const meta: Meta<ExtendedProgressOptions> = {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: 'default' },
-        category: 'Apariencia',
-      },
-    },
+        category: 'Apariencia'
+}
+},
     value: {
       control: { type: 'range', min: 0, max: 100, step: 1 },
       description: 'Valor del progreso (0-100). Solo se usa cuando variant es "default".',
       table: {
         type: { summary: 'number' },
         defaultValue: { summary: 0 },
-        category: 'Comportamiento',
-      },
-    },
+        category: 'Comportamiento'
+}
+},
     indicator: {
       control: { type: 'boolean' },
       description: 'Si es true, muestra el porcentaje automáticamente. Si es string, muestra ese texto.',
       table: {
         type: { summary: 'boolean | string' },
         defaultValue: { summary: false },
-        category: 'Apariencia',
-      },
-    },
+        category: 'Apariencia'
+}
+},
     numSegments: {
       control: { type: 'number', min: 1, max: 5, step: 1 },
       description: 'Número de segmentos activos (1-5). Solo se usa cuando variant es "multi-color".',
       table: {
         type: { summary: 'number' },
         defaultValue: { summary: 4 },
-        category: 'Comportamiento',
-      },
-      if: { arg: 'variant', eq: 'multi-color' },
-    },
+        category: 'Comportamiento'
+},
+      if: { arg: 'variant', eq: 'multi-color' }
+},
     segment1Value: {
       control: { type: 'range', min: 0, max: 100, step: 1 },
       description: 'Valor del segmento 1 (0-100).',
       table: { category: 'Segmentos Multi-color' },
-      if: { arg: 'variant', eq: 'multi-color' },
-    },
+      if: { arg: 'variant', eq: 'multi-color' }
+},
     segment1Color: {
       control: { type: 'select' },
       options: ['yellow', 'green', 'gray', 'info', 'error'],
       description: 'Color del segmento 1.',
       table: { category: 'Segmentos Multi-color' },
-      if: { arg: 'variant', eq: 'multi-color' },
-    },
+      if: { arg: 'variant', eq: 'multi-color' }
+},
     segment2Value: {
       control: { type: 'range', min: 0, max: 100, step: 1 },
       description: 'Valor del segmento 2 (0-100).',
       table: { category: 'Segmentos Multi-color' },
-      if: { arg: 'variant', eq: 'multi-color' },
-    },
+      if: { arg: 'variant', eq: 'multi-color' }
+},
     segment2Color: {
       control: { type: 'select' },
       options: ['yellow', 'green', 'gray', 'info', 'error'],
       description: 'Color del segmento 2.',
       table: { category: 'Segmentos Multi-color' },
-      if: { arg: 'variant', eq: 'multi-color' },
-    },
+      if: { arg: 'variant', eq: 'multi-color' }
+},
     segment3Value: {
       control: { type: 'range', min: 0, max: 100, step: 1 },
       description: 'Valor del segmento 3 (0-100).',
       table: { category: 'Segmentos Multi-color' },
-      if: { arg: 'variant', eq: 'multi-color' },
-    },
+      if: { arg: 'variant', eq: 'multi-color' }
+},
     segment3Color: {
       control: { type: 'select' },
       options: ['yellow', 'green', 'gray', 'info', 'error'],
       description: 'Color del segmento 3.',
       table: { category: 'Segmentos Multi-color' },
-      if: { arg: 'variant', eq: 'multi-color' },
-    },
+      if: { arg: 'variant', eq: 'multi-color' }
+},
     segment4Value: {
       control: { type: 'range', min: 0, max: 100, step: 1 },
       description: 'Valor del segmento 4 (0-100).',
       table: { category: 'Segmentos Multi-color' },
-      if: { arg: 'variant', eq: 'multi-color' },
-    },
+      if: { arg: 'variant', eq: 'multi-color' }
+},
     segment4Color: {
       control: { type: 'select' },
       options: ['yellow', 'green', 'gray', 'info', 'error'],
       description: 'Color del segmento 4.',
       table: { category: 'Segmentos Multi-color' },
-      if: { arg: 'variant', eq: 'multi-color' },
-    },
+      if: { arg: 'variant', eq: 'multi-color' }
+},
     segment5Value: {
       control: { type: 'range', min: 0, max: 100, step: 1 },
       description: 'Valor del segmento 5 (0-100).',
       table: { category: 'Segmentos Multi-color' },
-      if: { arg: 'variant', eq: 'multi-color' },
-    },
+      if: { arg: 'variant', eq: 'multi-color' }
+},
     segment5Color: {
       control: { type: 'select' },
       options: ['yellow', 'green', 'gray', 'info', 'error'],
       description: 'Color del segmento 5.',
       table: { category: 'Segmentos Multi-color' },
-      if: { arg: 'variant', eq: 'multi-color' },
-    },
-  },
+      if: { arg: 'variant', eq: 'multi-color' }
+}
+}
 };
 
 export default meta;
@@ -164,8 +164,8 @@ export const Default: Story = {
     segment4Value: 25,
     segment4Color: 'error',
     segment5Value: 0,
-    segment5Color: 'gray',
-  },
+    segment5Color: 'gray'
+},
   render: (args) => {
     // Crear contenedor fullscreen
     const container = document.createElement('div');
@@ -175,7 +175,6 @@ export const Default: Story = {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: var(--ubits-spacing-10);
       background: var(--modifiers-normal-color-light-bg-2);
     `;
 
@@ -185,8 +184,6 @@ export const Default: Story = {
       width: 100%;
       max-width: 600px;
       background: var(--modifiers-normal-color-light-bg-1);
-      padding: var(--ubits-spacing-8);
-      border-radius: var(--ubits-border-radius-md);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     `;
 
@@ -194,17 +191,15 @@ export const Default: Story = {
     const title = document.createElement('h2');
     title.textContent = 'Progress Bar';
     title.style.cssText = `
-      margin: 0 0 var(--ubits-spacing-lg) 0;
       color: var(--modifiers-normal-color-light-fg-1-high);
       font-size: var(--modifiers-normal-heading-h2-fontsize);
-      font-weight: var(--ubits-font-weight-bold);
+      font-weight: var(--weight-bold, 700);
     `;
 
     // Descripción
     const description = document.createElement('p');
     description.textContent = 'Componente para mostrar el progreso de una tarea o proceso. Puede mostrar un solo valor o múltiples segmentos con diferentes colores.';
     description.style.cssText = `
-      margin: 0 0 var(--ubits-spacing-6) 0;
       color: var(--modifiers-normal-color-light-fg-1-medium);
       font-size: var(--modifiers-normal-body-md-regular-fontsize);
       line-height: var(--modifiers-normal-body-md-regular-lineheight);
@@ -216,7 +211,6 @@ export const Default: Story = {
     progressContainer.style.cssText = `
       width: 100%;
       max-width: 500px;
-      margin: 0 auto var(--ubits-spacing-6) auto;
     `;
 
     let progressBarInstance: any = null;
@@ -240,8 +234,8 @@ export const Default: Story = {
         size: args.size || 'md',
         variant: args.variant || 'default',
         value: args.value !== undefined ? args.value : (args.variant === 'default' ? 75 : 0),
-        indicator: args.indicator !== undefined ? args.indicator : false,
-      };
+        indicator: args.indicator !== undefined ? args.indicator : false
+};
 
       // Si es multi-color, construir segmentos desde los controles individuales
       if (args.variant === 'multi-color') {
@@ -350,6 +344,6 @@ export const Default: Story = {
     container.appendChild(wrapper);
 
     return container;
-  },
+  }
 };
 

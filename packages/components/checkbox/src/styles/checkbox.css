@@ -32,8 +32,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
-    background-color: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
+    border: 1px solid var(--modifiers-normal-color-light-border-1) !important;
+    background-color: var(--modifiers-normal-color-light-bg-1) !important;
     border-radius: var(--ubits-border-radius-sm, 4px);
     transition: all 0.2s ease;
 }
@@ -53,7 +53,7 @@
     content: '';
     width: 4px;
     height: 8px;
-    border: solid var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff));
+    border: solid var(--modifiers-normal-color-light-bg-1);
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
     margin-top: -2px;
@@ -75,7 +75,7 @@
     content: '';
     width: 10px;
     height: 2px;
-    background-color: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff));
+    background-color: var(--modifiers-normal-color-light-bg-1);
     border-radius: 1px;
 }
 
@@ -90,17 +90,17 @@
 .ubits-checkbox__label {
     font-family: var(--font-family-noto-sans-font-family, var(--font-sans, 'Noto Sans', sans-serif));
     font-size: var(--modifiers-normal-body-sm-regular-fontsize, var(--ubits-font-size-sm, 13px));
-    font-weight: var(--ubits-font-weight-regular, 400);
+    font-weight: var(--weight-regular, 400);
     line-height: var(--modifiers-normal-body-sm-regular-lineheight, var(--ubits-line-height-sm, 19.5px));
-    color: var(--modifiers-normal-color-light-fg-1-high, var(--ubits-fg-1-high, #303a47)) !important;
+    color: var(--modifiers-normal-color-light-fg-1-high) !important;
     white-space: nowrap;
 }
 
 .ubits-checkbox__complementary-text {
     font-size: var(--modifiers-normal-body-sm-regular-fontsize, var(--ubits-font-size-sm, 13px));
-    font-weight: var(--ubits-font-weight-regular, 400);
+    font-weight: var(--weight-regular, 400);
     line-height: var(--modifiers-normal-body-sm-regular-lineheight, var(--ubits-line-height-sm, 19.5px));
-    color: var(--modifiers-normal-color-light-fg-1-medium, var(--ubits-fg-1-medium, #5c646f)) !important;
+    color: var(--modifiers-normal-color-light-fg-1-medium) !important;
     white-space: normal;
 }
 
@@ -147,33 +147,33 @@
 
 /* Default State */
 .ubits-checkbox--default .ubits-checkbox__square {
-    border-color: var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
-    background-color: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
+    border-color: var(--modifiers-normal-color-light-border-1) !important;
+    background-color: var(--modifiers-normal-color-light-bg-1) !important;
 }
 
 /* Hover State - cuando la clase hover está presente */
 .ubits-checkbox--hover:not(.ubits-checkbox--disabled):not(.ubits-checkbox--checked) .ubits-checkbox__square {
-    border-color: var(--modifiers-normal-color-light-accent-brand, var(--ubits-accent-brand-static-inverted, #0c5bef)) !important;
-    background-color: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
+    border-color: var(--modifiers-normal-color-light-accent-brand) !important;
+    background-color: var(--modifiers-normal-color-light-bg-1) !important;
 }
 
 /* Hover State - cuando se hace hover con el mouse */
 .ubits-checkbox--hover:not(.ubits-checkbox--disabled):not(.ubits-checkbox--checked):hover .ubits-checkbox__square,
 .ubits-checkbox:not(.ubits-checkbox--disabled):not(.ubits-checkbox--checked):hover .ubits-checkbox__square {
-    border-color: var(--modifiers-normal-color-light-accent-brand, var(--ubits-accent-brand-static-inverted, #0c5bef)) !important;
-    background-color: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
+    border-color: var(--modifiers-normal-color-light-accent-brand) !important;
+    background-color: var(--modifiers-normal-color-light-bg-1) !important;
 }
 
 /* Hover cuando está checked - mantener borde gris */
 .ubits-checkbox--checked:not(.ubits-checkbox--disabled):hover .ubits-checkbox__square {
-    border-color: var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
-    background-color: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
+    border-color: var(--modifiers-normal-color-light-border-1) !important;
+    background-color: var(--modifiers-normal-color-light-bg-1) !important;
 }
 
 /* Active State - cuadrado azul brand con checkmark blanco (solo cuando NO está checked) */
 .ubits-checkbox--active:not(.ubits-checkbox--checked) .ubits-checkbox__square {
-    border-color: var(--modifiers-normal-color-light-accent-brand, var(--ubits-accent-brand-static-inverted, #0c5bef)) !important;
-    background-color: var(--modifiers-normal-color-light-accent-brand, var(--ubits-accent-brand-static-inverted, #0c5bef)) !important;
+    border-color: var(--modifiers-normal-color-light-accent-brand) !important;
+    background-color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 .ubits-checkbox--active:not(.ubits-checkbox--checked) .ubits-checkbox__checkmark {
@@ -182,13 +182,13 @@
 }
 
 .ubits-checkbox--active:not(.ubits-checkbox--checked) .ubits-checkbox__checkmark::after {
-    border-color: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff));
+    border-color: var(--modifiers-normal-color-light-bg-1);
 }
 
 /* Checked State - el borde debe ser gris, fondo azul brand con checkmark blanco */
 .ubits-checkbox--checked .ubits-checkbox__square {
-    border-color: var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
-    background-color: var(--modifiers-normal-color-light-accent-brand, var(--ubits-accent-brand-static-inverted, #0c5bef)) !important;
+    border-color: var(--modifiers-normal-color-light-border-1) !important;
+    background-color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 .ubits-checkbox--checked .ubits-checkbox__checkmark {
@@ -197,13 +197,13 @@
 }
 
 .ubits-checkbox--checked .ubits-checkbox__checkmark::after {
-    border-color: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff));
+    border-color: var(--modifiers-normal-color-light-bg-1);
 }
 
 /* Indeterminate State - borde gris, fondo azul brand con línea horizontal blanca */
 .ubits-checkbox--indeterminate .ubits-checkbox__square {
-    border-color: var(--modifiers-normal-color-light-border-1, var(--ubits-border-1, #d0d2d5)) !important;
-    background-color: var(--modifiers-normal-color-light-accent-brand, var(--ubits-accent-brand-static-inverted, #0c5bef)) !important;
+    border-color: var(--modifiers-normal-color-light-border-1) !important;
+    background-color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 .ubits-checkbox--indeterminate .ubits-checkbox__indeterminate {
@@ -212,7 +212,7 @@
 }
 
 .ubits-checkbox--indeterminate .ubits-checkbox__indeterminate::after {
-    background-color: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff));
+    background-color: var(--modifiers-normal-color-light-bg-1);
 }
 
 /* Focus State */
@@ -231,39 +231,39 @@
 
 .ubits-checkbox--disabled .ubits-checkbox__square {
     border-color: var(--modifiers-normal-color-light-border-disabled, var(--ubits-border-disabled-button, #e1e2e5)) !important;
-    background-color: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
+    background-color: var(--modifiers-normal-color-light-bg-1) !important;
 }
 
 .ubits-checkbox--disabled .ubits-checkbox__checkmark::after {
-    border-color: var(--modifiers-normal-color-light-fg-on-disabled, var(--ubits-fg-on-disabled-button, #8d9199));
+    border-color: var(--modifiers-normal-color-light-fg-on-disabled);
 }
 
 .ubits-checkbox--disabled .ubits-checkbox__label {
-    color: var(--modifiers-normal-color-light-fg-disabled, var(--ubits-fg-1-low, #8d9199)) !important;
+    color: var(--modifiers-normal-color-light-fg-disabled) !important;
 }
 
 .ubits-checkbox--disabled .ubits-checkbox__complementary-text {
-    color: var(--modifiers-normal-color-light-fg-disabled, var(--ubits-fg-1-low, #8d9199)) !important;
+    color: var(--modifiers-normal-color-light-fg-disabled) !important;
 }
 
 /* Disabled checked state */
 .ubits-checkbox--disabled.ubits-checkbox--checked .ubits-checkbox__square {
     border-color: var(--modifiers-normal-color-light-border-disabled, var(--ubits-border-disabled-button, #e1e2e5)) !important;
-    background-color: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
+    background-color: var(--modifiers-normal-color-light-bg-1) !important;
 }
 
 .ubits-checkbox--disabled.ubits-checkbox--checked .ubits-checkbox__checkmark::after {
-    border-color: var(--modifiers-normal-color-light-fg-on-disabled, var(--ubits-fg-on-disabled-button, #8d9199));
+    border-color: var(--modifiers-normal-color-light-fg-on-disabled);
 }
 
 /* Disabled indeterminate state */
 .ubits-checkbox--disabled.ubits-checkbox--indeterminate .ubits-checkbox__square {
     border-color: var(--modifiers-normal-color-light-border-disabled, var(--ubits-border-disabled-button, #e1e2e5)) !important;
-    background-color: var(--modifiers-normal-color-light-bg-1, var(--ubits-bg-1, #ffffff)) !important;
+    background-color: var(--modifiers-normal-color-light-bg-1) !important;
 }
 
 .ubits-checkbox--disabled.ubits-checkbox--indeterminate .ubits-checkbox__indeterminate::after {
-    background-color: var(--modifiers-normal-color-light-fg-on-disabled, var(--ubits-fg-on-disabled-button, #8d9199));
+    background-color: var(--modifiers-normal-color-light-fg-on-disabled);
 }
 
 /* ========================================

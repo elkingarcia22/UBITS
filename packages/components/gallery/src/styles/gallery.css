@@ -158,7 +158,7 @@
 .ubits-gallery-item__title {
   margin: var(--ubits-spacing-none);
   font-size: var(--modifiers-normal-body-md-regular-fontsize);
-  font-weight: var(--ubits-font-weight-semibold);
+  font-weight: var(--weight-semibold);
   line-height: var(--modifiers-normal-body-md-regular-lineheight);
   color: var(--modifiers-normal-color-light-fg-1-high);
   font-family: var(--font-family-noto-sans-font-family);

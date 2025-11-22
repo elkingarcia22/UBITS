@@ -42,8 +42,8 @@ export async function ejemploDesdeCSS() {
       --ubits-accent-brand-static-inverted: var(--ubits-accent-brand-static-inverted);
       --ubits-button-primary-bg-default: var(--ubits-accent-brand-static-inverted);
       --ubits-button-primary-hover: var(--ubits-accent-brand-static-inverted);
-      --ubits-bg-1: var(--ubits-bg-1);
-      --ubits-fg-1-high: var(--ubits-fg-1-high);
+      --ubits-bg-1: var(--modifiers-normal-color-light-bg-1);
+      --ubits-fg-1-high: var(--modifiers-normal-color-light-fg-1-high);
     }
   `;
 
@@ -70,8 +70,8 @@ export async function ejemploDesdeJSON() {
         'ubits-button-primary-hover': 'var(--ubits-accent-brand-static-inverted)'
       },
       background: {
-        'ubits-bg-1': 'var(--ubits-bg-1)',
-        'ubits-bg-2': 'var(--ubits-bg-2)'
+        'ubits-bg-1': 'var(--modifiers-normal-color-light-bg-1)',
+        'ubits-bg-2': 'var(--modifiers-normal-color-light-bg-2)'
       }
     }
   };

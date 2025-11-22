@@ -242,14 +242,14 @@ export const Default: Story = {
       infoPanel.style.cssText = `
         margin-top: 20px;
         padding: 16px;
-        background: var(--ubits-bg-2);
+        background: var(--modifiers-normal-color-light-bg-2);
         border-radius: 8px;
         font-family: var(--font-sans);
         font-size: 14px;
       `;
       
       infoPanel.innerHTML = `
-        <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: var(--weight-semibold); color: var(--ubits-fg-1-high);">Información del Input</h3>
+        <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: var(--weight-semibold); color: var(--modifiers-normal-color-light-fg-1-high);">Información del Input</h3>
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 13px;">
           <div><strong>Tipo:</strong> ${args.type}</div>
           <div><strong>Tamaño:</strong> ${args.size}</div>
