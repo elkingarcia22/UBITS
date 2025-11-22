@@ -100,10 +100,10 @@ export const Default: Story = {
     wrapper.style.cssText = `
       width: 100%;
       max-width: 1200px;
-      padding: 24px;
-      background: var(--ubits-bg-1, #ffffff);
-      border-radius: 12px;
-      border: 1px solid var(--ubits-border-1, #d0d2d5);
+      padding: var(--ubits-spacing-6);
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: var(--ubits-border-radius-md);
+      border: var(--ubits-spacing-xs) solid var(--modifiers-normal-color-light-border-1);
     `;
 
     // Contenedor para el Segment Control
@@ -111,7 +111,7 @@ export const Default: Story = {
     container.id = 'segment-control-story-container';
     container.style.cssText = `
       width: 100%;
-      margin-bottom: 24px;
+      margin-bottom: var(--ubits-spacing-6);
     `;
 
     wrapper.appendChild(container);
@@ -120,12 +120,12 @@ export const Default: Story = {
     const infoPanel = document.createElement('div');
     infoPanel.id = 'segment-control-info-panel';
     infoPanel.style.cssText = `
-      margin-top: 20px;
-      padding: 16px;
-      background: var(--ubits-bg-2, #F3F3F4);
-      border-radius: 8px;
-      font-family: var(--font-sans);
-      font-size: 14px;
+      margin-top: var(--ubits-spacing-5);
+      padding: var(--ubits-spacing-lg);
+      background: var(--modifiers-normal-color-light-bg-2);
+      border-radius: var(--ubits-border-radius-sm);
+      font-family: var(--font-family-noto-sans-font-family);
+      font-size: var(--modifiers-normal-body-sm-regular-fontsize);
     `;
 
     const activeSegment = segments.find(segment => segment.id === activeId);
@@ -133,8 +133,8 @@ export const Default: Story = {
     const updateInfoPanel = (currentActiveId: string) => {
       const currentSegment = segments.find(segment => segment.id === currentActiveId);
       infoPanel.innerHTML = `
-        <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: var(--weight-semibold, 600); color: var(--ubits-fg-1-high, #303a47);">Información del Segment Control</h3>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 13px;">
+        <h3 style="margin: 0 0 var(--ubits-spacing-md) 0; font-size: var(--modifiers-normal-body-md-regular-fontsize); font-weight: var(--ubits-font-weight-semibold); color: var(--modifiers-normal-color-light-fg-1-high);">Información del Segment Control</h3>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--ubits-spacing-sm); font-size: var(--modifiers-normal-body-sm-regular-fontsize);">
           <div><strong>Segmento Activo:</strong> ${currentSegment ? currentSegment.label : currentActiveId}</div>
           <div><strong>Segmentos totales:</strong> ${segments.length}</div>
           <div><strong>Con iconos:</strong> ${shouldShowIcons ? 'Sí' : 'No'}</div>
@@ -164,7 +164,7 @@ export const Default: Story = {
         }, container.id);
       } catch (error) {
         console.error('Error creando Segment Control:', error);
-        container.innerHTML = `<p style="color: var(--ubits-feedback-border-error, #ef4444); padding: 16px;">Error: ${error}</p>`;
+        container.innerHTML = `<p style="color: var(--modifiers-normal-color-light-feedback-border-error); padding: var(--ubits-spacing-lg);">Error: ${error}</p>`;
       }
     });
 

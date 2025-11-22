@@ -135,10 +135,10 @@ export const Default: Story = {
     container.style.display = 'flex';
     container.style.justifyContent = 'center';
     container.style.alignItems = 'flex-start';
-    container.style.padding = '48px';
-    container.style.background = 'var(--ubits-bg-1)';
-    container.style.border = '1px solid var(--ubits-border-1)';
-    container.style.borderRadius = '8px';
+    container.style.padding = 'var(--ubits-spacing-12)';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
+    container.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
+    container.style.borderRadius = 'var(--ubits-border-radius-sm)';
     container.style.minHeight = '200px';
     
     // Crear wrapper para la card (max-width 500px)

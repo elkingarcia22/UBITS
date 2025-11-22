@@ -12,11 +12,11 @@
   /* Base styles usando tokens UBITS */
   display: flex;
   flex-direction: column;
-  background: var(--ubits-bg-1);
-  border-radius: 8px;
-  padding: 12px;
+  background: var(--modifiers-normal-color-light-bg-1);
+  border-radius: var(--ubits-border-radius-sm);
+  padding: var(--ubits-spacing-md);
   gap: var(--ubits-spacing-md);
-  font-family: var(--font-sans);
+  font-family: var(--font-family-noto-sans-font-family);
   transition: all 0.2s ease;
   width: 100%;
   box-sizing: border-box;
@@ -30,17 +30,17 @@
    ======================================== */
 
 .ubits-score-card-metrics--sm {
-  padding: 12px;
+  padding: var(--ubits-spacing-md);
   gap: var(--ubits-spacing-xl);
 }
 
 .ubits-score-card-metrics--md {
-  padding: 12px;
+  padding: var(--ubits-spacing-md);
   gap: var(--ubits-spacing-md);
 }
 
 .ubits-score-card-metrics--lg {
-  padding: 12px;
+  padding: var(--ubits-spacing-md);
   gap: var(--ubits-spacing-lg);
 }
 
@@ -61,9 +61,9 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
-  color: var(--ubits-fg-2-medium);
+  width: var(--ubits-spacing-6);
+  height: var(--ubits-spacing-6);
+  color: var(--modifiers-normal-color-light-fg-2-medium);
 }
 
 .ubits-score-card-metrics__title-group {
@@ -75,8 +75,8 @@
 
 .ubits-score-card-metrics__title {
   margin: 0;
-  font-family: var(--font-sans);
-  color: var(--ubits-fg-1-high);
+  font-family: var(--font-family-noto-sans-font-family);
+  color: var(--modifiers-normal-color-light-fg-1-high);
 }
 
 /* Botón terciario de información justo después del título */
@@ -119,14 +119,14 @@
 }
 
 .ubits-score-card-metrics__responses {
-  color: var(--ubits-fg-2-medium);
-  font-weight: var(--weight-regular);
+  color: var(--modifiers-normal-color-light-fg-2-medium);
+  font-weight: var(--modifiers-normal-body-sm-regular-fontweight, 400);
   margin: 0;
 }
 
 .ubits-score-card-metrics__average {
-  color: var(--ubits-fg-2-medium);
-  font-weight: var(--weight-regular);
+  color: var(--modifiers-normal-color-light-fg-2-medium);
+  font-weight: var(--modifiers-normal-body-sm-regular-fontweight, 400);
   margin: 0;
 }
 
@@ -158,26 +158,26 @@
 }
 
 .ubits-score-card-metrics__star {
-  font-size: 24px;
+  font-size: var(--ubits-spacing-6);
   line-height: 1;
   transition: all 0.2s ease;
   flex: 0 0 auto;
 }
 
 .ubits-score-card-metrics__star-number {
-  color: var(--ubits-fg-2-medium);
-  font-family: var(--font-sans);
-  font-size: 12px;
+  color: var(--modifiers-normal-color-light-fg-2-medium);
+  font-family: var(--font-family-noto-sans-font-family);
+  font-size: var(--modifiers-normal-body-xs-regular-fontsize);
   line-height: 1;
   margin: 0;
 }
 
 .ubits-score-card-metrics__star--filled {
-  color: var(--ubits-feedback-fg-warning-subtle-hover);
+  color: var(--modifiers-normal-color-light-feedback-chart-warning-bold);
 }
 
 .ubits-score-card-metrics__star--empty {
-  color: var(--ubits-border-1);
+  color: var(--modifiers-normal-color-light-border-1);
 }
 
 
@@ -191,12 +191,57 @@
 }
 
 .ubits-score-card-metrics[data-clickable="true"]:hover {
-  background: var(--ubits-bg-2);
-  border-color: var(--ubits-border-2);
+  background: var(--modifiers-normal-color-light-bg-2);
+  border-color: var(--modifiers-normal-color-light-border-2);
 }
 
 .ubits-score-card-metrics[data-clickable="true"]:active {
-  background: var(--ubits-bg-3);
+  background: var(--modifiers-normal-color-light-bg-3);
+}
+
+/* ========================================
+   DARK MODE
+   ======================================== */
+
+[data-theme="dark"] .ubits-score-card-metrics {
+  background: var(--modifiers-normal-color-dark-bg-1);
+}
+
+[data-theme="dark"] .ubits-score-card-metrics__title-icon {
+  color: var(--modifiers-normal-color-dark-fg-2-medium);
+}
+
+[data-theme="dark"] .ubits-score-card-metrics__title {
+  color: var(--modifiers-normal-color-dark-fg-1-high);
+}
+
+[data-theme="dark"] .ubits-score-card-metrics__responses {
+  color: var(--modifiers-normal-color-dark-fg-2-medium);
+}
+
+[data-theme="dark"] .ubits-score-card-metrics__average {
+  color: var(--modifiers-normal-color-dark-fg-2-medium);
+}
+
+[data-theme="dark"] .ubits-score-card-metrics__star-number {
+  color: var(--modifiers-normal-color-dark-fg-2-medium);
+}
+
+[data-theme="dark"] .ubits-score-card-metrics__star--filled {
+  color: var(--modifiers-normal-color-dark-feedback-chart-warning-bold);
+}
+
+[data-theme="dark"] .ubits-score-card-metrics__star--empty {
+  color: var(--modifiers-normal-color-dark-border-1);
+}
+
+[data-theme="dark"] .ubits-score-card-metrics[data-clickable="true"]:hover {
+  background: var(--modifiers-normal-color-dark-bg-2);
+  border-color: var(--modifiers-normal-color-dark-border-2);
+}
+
+[data-theme="dark"] .ubits-score-card-metrics[data-clickable="true"]:active {
+  background: var(--modifiers-normal-color-dark-bg-3);
 }
 
 /* ========================================
@@ -209,7 +254,7 @@
   }
   
   .ubits-score-card-metrics__star {
-    font-size: 20px;
+    font-size: var(--ubits-spacing-5);
   }
 }
 
