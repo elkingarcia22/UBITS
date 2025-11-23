@@ -370,18 +370,16 @@ export function createButton(options: ButtonOptions): HTMLButtonElement {
     });
   }
 
-  // Mover el botón fuera del div temporal (mantener el div si tiene dropdown)
-  if (!options.dropdown) {
-    const parent = button.parentElement;
-    if (parent) {
-      parent.replaceChild(button, parent);
-      return button;
-    }
-  } else {
-    // Si tiene dropdown, retornar el div wrapper que contiene el botón y el dropdown
+  // Retornar el botón (el div wrapper se mantiene si tiene dropdown)
+  // Cuando no hay dropdown, el botón está dentro del div temporal pero retornamos solo el botón
+  // El código que llama a createButton debe manejar el parentElement si necesita el wrapper
+  if (options.dropdown) {
+    // Si tiene dropdown, retornar el botón (que está dentro del div wrapper con el dropdown)
     return button;
   }
 
+  // Sin dropdown, retornar el botón directamente
+  // El div wrapper temporal se puede descartar, el botón se puede usar independientemente
   return button;
 }
 

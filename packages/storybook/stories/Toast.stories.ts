@@ -208,12 +208,12 @@ export const Default: Story = {
     };
     
     const showButton = createButton(showButtonOptions);
-    // createButton retorna el botón, pero está dentro de un div wrapper
+    // createButton retorna el botón, que puede estar dentro de un div wrapper temporal
+    // Si tiene parentElement, usar ese contenedor; si no, usar el botón directamente
     const showButtonContainer = showButton.parentElement;
-    if (showButtonContainer) {
+    if (showButtonContainer && showButtonContainer !== document.body) {
       controls.appendChild(showButtonContainer);
     } else {
-      // Fallback si no hay parent (no debería pasar)
       controls.appendChild(showButton);
     }
     
@@ -228,12 +228,12 @@ export const Default: Story = {
     };
     
     const clearButton = createButton(clearButtonOptions);
-    // createButton retorna el botón, pero está dentro de un div wrapper
+    // createButton retorna el botón, que puede estar dentro de un div wrapper temporal
+    // Si tiene parentElement, usar ese contenedor; si no, usar el botón directamente
     const clearButtonContainer = clearButton.parentElement;
-    if (clearButtonContainer) {
+    if (clearButtonContainer && clearButtonContainer !== document.body) {
       controls.appendChild(clearButtonContainer);
     } else {
-      // Fallback si no hay parent (no debería pasar)
       controls.appendChild(clearButton);
     }
     container.appendChild(controls);
