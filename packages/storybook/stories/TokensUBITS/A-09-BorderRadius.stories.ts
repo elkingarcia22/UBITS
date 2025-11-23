@@ -13,7 +13,7 @@ const meta: Meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Tokens de border-radius del sistema UBITS. Incluye valores desde none hasta full (círculo completo).',
+        component: 'Tokens de border-radius del sistema UBITS. Incluye valores desde none hasta full (circulo completo).',
       },
     },
   },
@@ -137,7 +137,7 @@ export const EjemplosDeUso: Story = {
       { token: '--ubits-border-radius-md', label: 'Mediano (12px)', use: 'Cards, contenedores, botones estándar' },
       { token: '--ubits-border-radius-lg', label: 'Grande (16px)', use: 'Modales, paneles grandes' },
       { token: '--ubits-border-radius-xl', label: 'Extra grande (20px)', use: 'Elementos destacados, hero sections' },
-      { token: '--ubits-border-radius-full', label: 'Completo (1000px)', use: 'Círculos perfectos, avatares, pills' },
+      { token: '--ubits-border-radius-full', label: 'Completo (1000px)', use: 'Circulos perfectos, avatares, pills' },
     ];
 
     examples.forEach(example => {
