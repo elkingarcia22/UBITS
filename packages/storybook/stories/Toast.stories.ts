@@ -157,13 +157,11 @@ export const Default: Story = {
       size: 'md',
       text: 'Mostrar Toast',
       onClick: () => {
-        console.log('🔔 Botón Mostrar Toast clickeado');
         clearToasts(); // Limpiar toasts anteriores
         setTimeout(() => {
           try {
             // Asegurar que el contenedor existe antes de mostrar el toast
             const container = ensureToastContainer();
-            console.log('✅ Contenedor de toast:', container);
             
             const toastOptions: Omit<ToastOptions, 'type' | 'message'> = {
               title: args.title,
@@ -182,18 +180,12 @@ export const Default: Story = {
               };
             }
             
-            console.log('📝 Opciones del toast:', toastOptions);
-            console.log('📝 Tipo:', args.type);
-            console.log('📝 Mensaje:', args.message);
-            
             const toastType = args.type || 'info';
-            const toastElement = showToast(toastType, args.message || '', toastOptions);
-            console.log('✅ Toast creado:', toastElement);
+            showToast(toastType, args.message || '', toastOptions);
             
             // Verificar que el toast se agregó al DOM
             setTimeout(() => {
               const toastsInContainer = container.querySelectorAll('.ubits-toast');
-              console.log('📊 Toasts en contenedor:', toastsInContainer.length);
               if (toastsInContainer.length === 0) {
                 console.error('❌ El toast no se agregó al contenedor');
                 alert('Error: El toast no se mostró. Revisa la consola para más detalles.');

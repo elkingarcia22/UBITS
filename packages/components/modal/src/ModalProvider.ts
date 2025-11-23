@@ -56,23 +56,9 @@ export function renderModal(options: ModalOptions): string {
   `;
 
   // Body HTML
-  console.log('🔍 [Modal] renderModal - Procesando bodyContent:', {
-    bodyContent: bodyContent,
-    bodyContentType: typeof bodyContent,
-    bodyContentLength: typeof bodyContent === 'string' ? bodyContent.length : 'N/A',
-    bodyContentIsEmpty: typeof bodyContent === 'string' && bodyContent.trim() === ''
-  });
-  
   const bodyHTMLContent = typeof bodyContent === 'function' 
     ? bodyContent() 
     : bodyContent || '<div class="ubits-modal__placeholder">Contenido del modal</div>';
-
-  console.log('🔍 [Modal] renderModal - bodyHTMLContent procesado:', {
-    bodyHTMLContent: bodyHTMLContent,
-    bodyHTMLContentType: typeof bodyHTMLContent,
-    bodyHTMLContentLength: bodyHTMLContent?.length || 0,
-    bodyHTMLContentIsEmpty: bodyHTMLContent?.trim() === ''
-  });
 
   const bodyHTML = `
     <div class="ubits-modal__body">
@@ -84,11 +70,6 @@ export function renderModal(options: ModalOptions): string {
       </div>
     </div>
   `;
-  
-  console.log('🔍 [Modal] renderModal - bodyHTML generado:', {
-    bodyHTML: bodyHTML,
-    bodyHTMLLength: bodyHTML.length
-  });
 
   // Footer HTML
   const footerHTML = footerButtons ? `
@@ -128,24 +109,6 @@ export function renderModal(options: ModalOptions): string {
     </div>
   `.trim();
   
-  console.log('🔍 [Modal] renderModal - INICIO');
-  console.log('🔍 [Modal] Opciones recibidas:', {
-    title,
-    size,
-    fullScreen,
-    hasBodyContent: !!bodyContent,
-    bodyContentType: typeof bodyContent,
-    hasFooterButtons: !!footerButtons,
-    footerButtonsCount: footerButtons ? Object.keys(footerButtons).length : 0
-  });
-  console.log('🔍 [Modal] Clases aplicadas:', classes);
-  console.log('🔍 [Modal] Ancho del modal:', modalWidth);
-  console.log('🔍 [Modal] Header HTML length:', headerHTML.length);
-  console.log('🔍 [Modal] Body HTML length:', bodyHTML.length);
-  console.log('🔍 [Modal] Footer HTML length:', footerHTML.length);
-  console.log('🔍 [Modal] Modal HTML total length:', modalHTML.length);
-  console.log('🔍 [Modal] renderModal - FIN');
-  
   return modalHTML;
 }
 
@@ -174,23 +137,8 @@ export function createModal(options: ModalOptions): {
   }
 
   // Crear elemento del modal
-  console.log('🔍 [Modal] createModal - INICIO');
-  console.log('🔍 [Modal] Opciones recibidas:', {
-    title: options.title,
-    size: options.size,
-    fullScreen: options.fullScreen,
-    hasBodyContent: !!options.bodyContent,
-    bodyContentType: typeof options.bodyContent,
-    hasFooterButtons: !!options.footerButtons,
-    containerId: options.containerId,
-    closeOnOverlayClick: options.closeOnOverlayClick,
-    open: options.open
-  });
-  
   const wrapper = document.createElement('div');
   const modalHTML = renderModal(options);
-  console.log('🔍 [Modal] HTML generado (primeros 500 chars):', modalHTML.substring(0, 500));
-  
   wrapper.innerHTML = modalHTML;
   const modalOverlay = wrapper.firstElementChild as HTMLElement;
 
@@ -199,62 +147,10 @@ export function createModal(options: ModalOptions): {
     throw new Error('No se pudo crear el modal');
   }
   
-  console.log('✅ [Modal] modalOverlay creado:', {
-    className: modalOverlay.className,
-    childrenCount: modalOverlay.children.length
-  });
-
   const modal = modalOverlay.querySelector('.ubits-modal') as HTMLElement;
   const closeButton = modalOverlay.querySelector('.ubits-modal__close') as HTMLButtonElement;
   const overlay = modalOverlay as HTMLElement;
   
-  console.log('🔍 [Modal] Elementos encontrados:', {
-    hasModal: !!modal,
-    hasCloseButton: !!closeButton,
-    hasOverlay: !!overlay,
-    modalClassName: modal?.className,
-    modalChildrenCount: modal?.children.length
-  });
-  
-  // Verificar elementos internos
-  if (modal) {
-    const header = modal.querySelector('.ubits-modal__header');
-    const body = modal.querySelector('.ubits-modal__body');
-    const bodyContent = modal.querySelector('.ubits-modal__body-content');
-    const footer = modal.querySelector('.ubits-modal__footer');
-    
-    console.log('🔍 [Modal] Elementos internos:', {
-      hasHeader: !!header,
-      hasBody: !!body,
-      hasBodyContent: !!bodyContent,
-      hasFooter: !!footer,
-      headerHTML: header?.innerHTML?.substring(0, 200),
-      bodyHTML: body?.innerHTML?.substring(0, 200),
-      bodyContentHTML: bodyContent?.innerHTML?.substring(0, 200),
-      bodyContentTextContent: bodyContent?.textContent?.substring(0, 200),
-      bodyContentChildrenCount: bodyContent?.children.length || 0,
-      footerHTML: footer?.innerHTML?.substring(0, 200)
-    });
-    
-    // Verificar estilos aplicados
-    if (bodyContent) {
-      const computedStyle = window.getComputedStyle(bodyContent);
-      console.log('🔍 [Modal] Estilos del bodyContent:', {
-        display: computedStyle.display,
-        visibility: computedStyle.visibility,
-        opacity: computedStyle.opacity,
-        color: computedStyle.color,
-        fontSize: computedStyle.fontSize,
-        height: computedStyle.height,
-        minHeight: computedStyle.minHeight,
-        overflow: computedStyle.overflow,
-        padding: computedStyle.padding
-      });
-    }
-  }
-  
-  console.log('🔍 [Modal] createModal - FIN');
-
   // Funciones de control
   const openModal = () => {
     modalOverlay.classList.add('ubits-modal-overlay--open');

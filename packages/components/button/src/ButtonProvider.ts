@@ -70,69 +70,6 @@ export function renderButton(options: ButtonOptions): string {
     className || null
   ].filter(Boolean).join(' ');
 
-  // Logs para debugging del botón flotante
-  console.log('🔍 [Button] renderButton llamado con:', {
-    floating,
-    floatingType: typeof floating,
-    floatingValue: floating,
-    willAddClass: floating && 'ubits-button--floating',
-    classes,
-    variant,
-    size,
-    active,
-    allOptions: options
-  });
-
-  // Si el botón es flotante, agregar logs después de renderizar
-  if (floating) {
-    // Usar setTimeout para que se ejecute después de que el DOM se actualice
-    setTimeout(() => {
-      const root = document.documentElement;
-      const computedStyle = getComputedStyle(root);
-      
-      // Obtener valores de tokens de Figma
-      const floating0X = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-0-x').trim();
-      const floating0Y = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-0-y').trim();
-      const floating0Blur = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-0-blur').trim();
-      const floating0Spread = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-0-spread').trim();
-      const floating0Color = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-0-color').trim();
-      
-      const floating1X = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-1-x').trim();
-      const floating1Y = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-1-y').trim();
-      const floating1Blur = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-1-blur').trim();
-      const floating1Spread = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-1-spread').trim();
-      const floating1Color = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-1-color').trim();
-      
-      const elevationFloating = computedStyle.getPropertyValue('--ubits-elevation-floating').trim();
-      
-      console.log('🔍 [Button Floating] TOKENS DE FIGMA:');
-      console.log('   Floating-0:', {
-        x: floating0X,
-        y: floating0Y,
-        blur: floating0Blur,
-        spread: floating0Spread,
-        color: floating0Color
-      });
-      console.log('   Floating-1:', {
-        x: floating1X,
-        y: floating1Y,
-        blur: floating1Blur,
-        spread: floating1Spread,
-        color: floating1Color
-      });
-      console.log('   --ubits-elevation-floating:', elevationFloating);
-      
-      // Buscar el botón en el DOM y verificar su box-shadow
-      const buttons = document.querySelectorAll('.ubits-button--floating');
-      buttons.forEach((button, index) => {
-        const buttonStyle = getComputedStyle(button as HTMLElement);
-        const boxShadow = buttonStyle.boxShadow;
-        console.log(`🔍 [Button Floating #${index}] box-shadow aplicado:`, boxShadow);
-        console.log(`   Clases:`, (button as HTMLElement).className);
-      });
-    }, 100);
-  }
-
   // Construir atributos HTML
   const attrs = [
     disabled && 'disabled',
