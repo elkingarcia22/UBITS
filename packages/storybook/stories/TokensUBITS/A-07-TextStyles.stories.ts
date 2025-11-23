@@ -12,7 +12,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 
 const meta: Meta = {
-  title: 'Tokens UBITS/7. Text Styles',
+  title: 'Tokens UBITS/07. Text Styles',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
