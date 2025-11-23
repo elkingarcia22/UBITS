@@ -102,8 +102,8 @@ export const Default: Story = {
       width: 100%;
       max-width: 1200px;
       padding: 24px;
-      background: var(--modifiers-normal-color-light-bg-2);
-      border-radius: 12px);
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 12px;
       border: 1px solid var(--modifiers-normal-color-light-border-1);
     `;
 
@@ -123,21 +123,22 @@ export const Default: Story = {
       margin-top: 20px;
       padding: 16px;
       background: var(--modifiers-normal-color-light-bg-2);
-      border-radius: 8px);
-      font-family: var(--font-family-noto-sans-font-family);
-      font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+      border-radius: 8px;
+      font-family: var(--font-family-noto-sans-font-family, 'Noto Sans', sans-serif);
+      font-size: 14px;
+      color: var(--modifiers-normal-color-light-fg-1-medium);
     `;
 
     const activeTab = config.tabs.find(tab => tab.id === activeTabId);
 
     infoPanel.innerHTML = `
-      <h3 style="margin: 0 0 12px 0; font-size: var(--modifiers-normal-body-md-regular-fontsize); font-weight: var(--weight-semibold, 600); color: var(--modifiers-normal-color-light-fg-1-high);">Información del SubNav</h3>
-      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 13px;">
-        <div><strong>Variante:</strong> ${config.name}</div>
-        <div><strong>Tab Activo:</strong> ${activeTab ? activeTab.label : activeTabId}</div>
-        <div><strong>Tabs disponibles:</strong> ${config.tabs.length}</div>
-        <div><strong>Iconos:</strong> ${args.showIcons ? 'Mostrados' : 'Ocultos'}</div>
-        <div><strong>IDs:</strong> ${config.tabs.map(t => t.id).join(', ')}</div>
+      <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: var(--weight-semibold, 600); color: var(--modifiers-normal-color-light-fg-1-high);">Información del SubNav</h3>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 13px; color: var(--modifiers-normal-color-light-fg-1-medium);">
+        <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Variante:</strong> ${config.name}</div>
+        <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Tab Activo:</strong> ${activeTab ? activeTab.label : activeTabId}</div>
+        <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Tabs disponibles:</strong> ${config.tabs.length}</div>
+        <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Iconos:</strong> ${args.showIcons ? 'Mostrados' : 'Ocultos'}</div>
+        <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">IDs:</strong> ${config.tabs.map(t => t.id).join(', ')}</div>
       </div>
     `;
 
