@@ -5,6 +5,7 @@
  */
 
 import type { CalendarOptions, CalendarMode } from './types/CalendarOptions';
+import { renderButton } from '../../button/src/ButtonProvider';
 
 /**
  * Nombres de meses en español
@@ -314,9 +315,17 @@ export function renderCalendar(options: CalendarOptions): string {
   const selectedMonthName = MONTH_NAMES[month];
   const headerHTML = `
     <div class="ubits-calendar__header">
-      <button type="button" class="ubits-button ubits-button--tertiary ubits-button--sm ubits-button--icon-only ubits-calendar__nav-button ubits-calendar__nav-button--prev" aria-label="Mes anterior">
-        <i class="far fa-chevron-left"></i>
-      </button>
+      ${renderButton({
+        variant: 'tertiary',
+        size: 'sm',
+        icon: 'chevron-left',
+        iconOnly: true,
+        className: 'ubits-calendar__nav-button ubits-calendar__nav-button--prev',
+        attributes: {
+          'type': 'button',
+          'aria-label': 'Mes anterior'
+        }
+      })}
       <div class="ubits-calendar__month-year">
         <div class="ubits-input-container" style="position: relative; flex: 1; min-width: 120px;">
           <input type="text" class="ubits-input ubits-input--sm ubits-calendar__month-input" value="${selectedMonthName}" readonly style="cursor: pointer;">
@@ -329,9 +338,17 @@ export function renderCalendar(options: CalendarOptions): string {
           <div class="ubits-calendar__year-dropdown" style="display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 1000; margin-top: 4px;"></div>
         </div>
       </div>
-      <button type="button" class="ubits-button ubits-button--tertiary ubits-button--sm ubits-button--icon-only ubits-calendar__nav-button ubits-calendar__nav-button--next" aria-label="Mes siguiente">
-        <i class="far fa-chevron-right"></i>
-      </button>
+      ${renderButton({
+        variant: 'tertiary',
+        size: 'sm',
+        icon: 'chevron-right',
+        iconOnly: true,
+        className: 'ubits-calendar__nav-button ubits-calendar__nav-button--next',
+        attributes: {
+          'type': 'button',
+          'aria-label': 'Mes siguiente'
+        }
+      })}
     </div>
   `;
 

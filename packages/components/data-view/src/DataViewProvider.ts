@@ -7,6 +7,7 @@
 console.log('🔵 [data-view/DataViewProvider.ts] Iniciando carga de DataViewProvider...');
 
 import type { DataViewOptions, ProductData, StockStatus } from './types/DataViewOptions';
+import { renderButton } from '../../button/src/ButtonProvider';
 console.log('✅ [data-view/DataViewProvider.ts] Tipos importados correctamente');
 
 // Importar estilos - Vite procesará estas importaciones durante el build
@@ -115,21 +116,29 @@ function renderProduct(product: ProductData, index: number, options: DataViewOpt
         <div class="ubits-data-view__right">
           ${showPrice ? `<span class="ubits-body-md-bold ubits-data-view__price">${formatPrice(product.price)}</span>` : ''}
           <div class="ubits-data-view__actions">
-            ${showWishlist ? `
-              <button 
-                class="ubits-button ubits-button--secondary ubits-button--sm ubits-data-view__wishlist-button ${inWishlist ? 'ubits-data-view__wishlist-button--active' : ''}"
-                data-action="wishlist"
-                aria-label="${inWishlist ? 'Remover de favoritos' : 'Agregar a favoritos'}"
-              >
-                ${renderIconHelper(wishlistIcon, inWishlist ? 'solid' : 'regular')}
-              </button>
-            ` : ''}
-            ${showBuyButton ? `
-              <button class="ubits-button ubits-button--primary ubits-button--sm ubits-data-view__buy-button" data-action="buy">
-                ${renderIconHelper(buyButtonIcon, 'solid')}
-                <span>${buyButtonText}</span>
-              </button>
-            ` : ''}
+            ${showWishlist ? renderButton({
+              variant: 'secondary',
+              size: 'sm',
+              icon: wishlistIcon,
+              iconStyle: inWishlist ? 'solid' : 'regular',
+              iconOnly: true,
+              className: `ubits-data-view__wishlist-button ${inWishlist ? 'ubits-data-view__wishlist-button--active' : ''}`,
+              attributes: {
+                'data-action': 'wishlist',
+                'aria-label': inWishlist ? 'Remover de favoritos' : 'Agregar a favoritos'
+              }
+            }) : ''}
+            ${showBuyButton ? renderButton({
+              variant: 'primary',
+              size: 'sm',
+              text: buyButtonText,
+              icon: buyButtonIcon,
+              iconStyle: 'solid',
+              className: 'ubits-data-view__buy-button',
+              attributes: {
+                'data-action': 'buy'
+              }
+            }) : ''}
           </div>
         </div>
       </div>
