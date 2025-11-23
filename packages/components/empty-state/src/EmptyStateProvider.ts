@@ -5,6 +5,7 @@
  */
 
 import type { EmptyStateOptions } from './types/EmptyStateOptions';
+import { renderButton } from '../../button/src/ButtonProvider';
 
 /**
  * Renderiza un empty state como HTML string
@@ -57,22 +58,31 @@ export function renderEmptyState(options: EmptyStateOptions): string {
 
   // Renderizar botones de acción
   let actionsHTML = '';
-  let primaryButtonContent = actionLabel || '';
-  if (showPrimaryButtonIcon && primaryButtonIcon) {
-    primaryButtonContent = `<i class="far fa-${primaryButtonIcon}"></i> ${primaryButtonContent}`;
-  }
-  
-  let secondaryButtonContent = secondaryActionLabel || '';
-  if (showSecondaryButtonIcon && secondaryButtonIcon) {
-    secondaryButtonContent = `<i class="far fa-${secondaryButtonIcon}"></i> ${secondaryButtonContent}`;
-  }
   
   const primaryButton = (showPrimaryButton && actionLabel)
-    ? `<button class="ubits-button ubits-button--primary ubits-button--sm" data-action="primary" type="button">${primaryButtonContent}</button>`
+    ? renderButton({
+        variant: 'primary',
+        size: 'sm',
+        text: actionLabel,
+        icon: showPrimaryButtonIcon && primaryButtonIcon ? primaryButtonIcon : undefined,
+        className: '',
+        attributes: {
+          'data-action': 'primary'
+        }
+      })
     : '';
   
   const secondaryButton = (showSecondaryButton && secondaryActionLabel)
-    ? `<button class="ubits-button ubits-button--secondary ubits-button--sm" data-action="secondary" type="button">${secondaryButtonContent}</button>`
+    ? renderButton({
+        variant: 'secondary',
+        size: 'sm',
+        text: secondaryActionLabel,
+        icon: showSecondaryButtonIcon && secondaryButtonIcon ? secondaryButtonIcon : undefined,
+        className: '',
+        attributes: {
+          'data-action': 'secondary'
+        }
+      })
     : '';
 
   if (primaryButton || secondaryButton) {

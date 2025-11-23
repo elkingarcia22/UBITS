@@ -6,6 +6,7 @@
 
 import type { FileUploadOptions, FileUploadState } from './types/FileUploadOptions';
 import { renderProgressBar } from '../../progress/src/ProgressProvider';
+import { renderButton } from '../../button/src/ButtonProvider';
 
 /**
  * Formatea el tamaño del archivo en formato legible (KB, MB, GB)
@@ -181,12 +182,26 @@ export function renderFileUpload(options: FileUploadOptions = {}): string {
       <div class="ubits-file-upload__header">
         <h3 class="ubits-file-upload__title">Files (${filesToShow.length})</h3>
         <div class="ubits-file-upload__header-actions">
-            <button class="ubits-button ubits-button--secondary ubits-button--sm ubits-file-upload__add-button" aria-label="Agregar archivos">
-              <i class="far fa-arrow-up-from-bracket"></i> Agregar archivos
-            </button>
-            <button class="ubits-button ubits-button--error ubits-button--sm ubits-file-upload__remove-all-button" aria-label="Eliminar todos">
-              <i class="far fa-trash"></i> Eliminar todos
-            </button>
+            ${renderButton({
+              variant: 'secondary',
+              size: 'sm',
+              text: 'Agregar archivos',
+              icon: 'arrow-up-from-bracket',
+              className: 'ubits-file-upload__add-button',
+              attributes: {
+                'aria-label': 'Agregar archivos'
+              }
+            })}
+            ${renderButton({
+              variant: 'error',
+              size: 'sm',
+              text: 'Eliminar todos',
+              icon: 'trash',
+              className: 'ubits-file-upload__remove-all-button',
+              attributes: {
+                'aria-label': 'Eliminar todos'
+              }
+            })}
         </div>
       </div>
     `;
@@ -230,14 +245,17 @@ export function renderFileUpload(options: FileUploadOptions = {}): string {
 
   // Botón de selección usando componente Button UBITS
   const isDisabled = actualState === 'disabled';
-  const selectButtonHtml = `
-    <button class="ubits-button ubits-button--secondary ubits-button--sm ubits-file-upload__select-button" 
-            type="button"
-            ${isDisabled ? 'disabled' : ''}
-            ${isDisabled ? 'aria-disabled="true"' : ''}>
-      <i class="far fa-arrow-up-from-bracket"></i> ${selectButtonText}
-    </button>
-  `;
+  const selectButtonHtml = renderButton({
+    variant: 'secondary',
+    size: 'sm',
+    text: selectButtonText,
+    icon: 'arrow-up-from-bracket',
+    disabled: isDisabled,
+    className: 'ubits-file-upload__select-button',
+    attributes: isDisabled ? {
+      'aria-disabled': 'true'
+    } : {}
+  });
 
   return `
     <div class="${classes}" 
