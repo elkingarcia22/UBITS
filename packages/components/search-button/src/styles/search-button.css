@@ -100,16 +100,25 @@
 
 .ubits-search-button__input {
     flex: 1;
-    border: none;
+    border: none !important;
+    border-radius: 0 !important;
     outline: none;
-    background: transparent;
+    background: transparent !important;
     font-family: var(--font-family-noto-sans-font-family);
     font-size: var(--modifiers-normal-body-md-regular-fontsize);
     font-weight: var(--weight-regular);
     line-height: var(--modifiers-normal-body-md-regular-lineheight);
     color: var(--modifiers-normal-color-light-fg-1-high);
     min-width: 0;
-    padding: var(--ubits-spacing-none);
+    padding: var(--ubits-spacing-none) !important;
+    box-shadow: none !important;
+}
+
+.ubits-search-button__input:hover,
+.ubits-search-button__input:focus {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
 }
 
 .ubits-search-button__input::placeholder {
