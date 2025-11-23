@@ -1,5 +1,6 @@
 import type { SearchButtonOptions } from './types/SearchButtonOptions';
 import { renderButton } from '../../button/src/ButtonProvider';
+import { renderInput } from '../../input/src/InputProvider';
 
 /**
  * Renderiza el icono de lupa
@@ -67,15 +68,20 @@ export function renderSearchButton(options: SearchButtonOptions): string {
     return `
       <div class="${inputWrapperClasses}" style="${widthStyle}">
         <div class="ubits-search-button__input-wrapper">
-          ${iconHTML}
-          <input
-            type="text"
-            class="ubits-search-button__input"
-            placeholder="${placeholder}"
-            value="${value}"
-            ${isDisabled ? 'disabled' : ''}
-            aria-label="Buscar"
-          />
+          ${renderInput({
+            type: 'text',
+            size: size,
+            placeholder: placeholder,
+            value: value,
+            showLabel: false,
+            showHelper: false,
+            leftIcon: 'magnifying-glass',
+            className: 'ubits-search-button__input',
+            state: isDisabled ? 'disabled' : 'default',
+            attributes: {
+              'aria-label': 'Buscar'
+            }
+          })}
           ${clearButtonHTML}
         </div>
       </div>

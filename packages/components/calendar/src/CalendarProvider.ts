@@ -6,6 +6,9 @@
 
 import type { CalendarOptions, CalendarMode } from './types/CalendarOptions';
 import { renderButton } from '../../button/src/ButtonProvider';
+import { renderInput } from '../../input/src/InputProvider';
+import { renderList } from '../../list/src/ListProvider';
+import type { ListItem } from '../../list/src/types/ListOptions';
 
 /**
  * Nombres de meses en español
@@ -71,37 +74,34 @@ function createListDropdown(
   const listId = `calendar-list-${Date.now()}`;
   const scrollbarContainerId = `calendar-scrollbar-${Date.now()}`;
   
-  // Crear HTML de la lista UBITS con scrollbar
-  // IMPORTANTE: Ocultar completamente el scrollbar nativo para evitar doble scrollbar
-  let listHTML = `
-    <div id="${listContainerId}" style="position: relative; width: 100%; max-height: 200px; overflow: hidden;">
-      <div id="${listId}" class="ubits-list" role="list" style="max-height: 200px; overflow-y: auto; overflow-x: hidden; -ms-overflow-style: none; scrollbar-width: none; padding-right: 0; background: var(--modifiers-normal-color-light-bg-1); border: 1px solid var(--modifiers-normal-color-light-border-1); border-radius: 6px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);">
-  `;
-  
-  items.forEach((item) => {
-    const itemState = item.selected ? 'active' : 'default';
-    const itemClasses = [
-      'ubits-list-item',
-      'ubits-list-item--sm',
-      itemState !== 'default' ? `ubits-list-item--${itemState}` : ''
-    ].filter(Boolean).join(' ');
-    
-    const itemAttrs = [];
-    if (itemState === 'active') {
-      itemAttrs.push('aria-selected="true"');
+  // Crear items de lista para renderList
+  const listItems: ListItem[] = items.map((item) => ({
+    label: item.label,
+    value: String(item.value),
+    selected: item.selected,
+    state: item.selected ? 'active' : 'default',
+    attributes: {
+      'data-value': String(item.value),
+      'style': 'cursor: pointer;'
     }
-    itemAttrs.push('tabindex="0"');
-    itemAttrs.push(`data-value="${item.value}"`);
-    
-    listHTML += `
-      <div class="${itemClasses}" role="listitem" ${itemAttrs.join(' ')} style="cursor: pointer;">
-        ${item.label}
-      </div>
-    `;
+  }));
+  
+  // Crear HTML de la lista UBITS con scrollbar usando renderList
+  // IMPORTANTE: Ocultar completamente el scrollbar nativo para evitar doble scrollbar
+  const listHTMLContent = renderList({
+    items: listItems,
+    size: 'sm',
+    maxHeight: '200px',
+    className: '',
+    attributes: {
+      id: listId,
+      style: 'overflow-y: auto; overflow-x: hidden; -ms-overflow-style: none; scrollbar-width: none; padding-right: 0; background: var(--modifiers-normal-color-light-bg-1); border: 1px solid var(--modifiers-normal-color-light-border-1); border-radius: 6px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);'
+    }
   });
   
-  listHTML += `
-      </div>
+  let listHTML = `
+    <div id="${listContainerId}" style="position: relative; width: 100%; max-height: 200px; overflow: hidden;">
+      ${listHTMLContent}
       <div id="${scrollbarContainerId}" style="position: absolute; top: 0; right: 0; width: 8px; height: 100%; max-height: 200px; overflow: hidden; pointer-events: auto; z-index: 10;"></div>
     </div>
     <style>
@@ -328,13 +328,35 @@ export function renderCalendar(options: CalendarOptions): string {
       })}
       <div class="ubits-calendar__month-year">
         <div class="ubits-input-container" style="position: relative; flex: 1; min-width: 120px;">
-          <input type="text" class="ubits-input ubits-input--sm ubits-calendar__month-input" value="${selectedMonthName}" readonly style="cursor: pointer;">
-          <i class="far fa-chevron-down ubits-input-icon-right" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--modifiers-normal-color-light-fg-1-medium); pointer-events: none; z-index: 1;"></i>
+          ${renderInput({
+            type: 'text',
+            size: 'sm',
+            value: selectedMonthName,
+            showLabel: false,
+            showHelper: false,
+            rightIcon: 'chevron-down',
+            className: 'ubits-calendar__month-input',
+            attributes: {
+              readonly: 'true',
+              style: 'cursor: pointer;'
+            }
+          })}
           <div class="ubits-calendar__month-dropdown" style="display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 1000; margin-top: 4px;"></div>
         </div>
         <div class="ubits-input-container" style="position: relative; flex: 1; min-width: 90px;">
-          <input type="text" class="ubits-input ubits-input--sm ubits-calendar__year-input" value="${year}" readonly style="cursor: pointer;">
-          <i class="far fa-chevron-down ubits-input-icon-right" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--modifiers-normal-color-light-fg-1-medium); pointer-events: none; z-index: 1;"></i>
+          ${renderInput({
+            type: 'text',
+            size: 'sm',
+            value: String(year),
+            showLabel: false,
+            showHelper: false,
+            rightIcon: 'chevron-down',
+            className: 'ubits-calendar__year-input',
+            attributes: {
+              readonly: 'true',
+              style: 'cursor: pointer;'
+            }
+          })}
           <div class="ubits-calendar__year-dropdown" style="display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 1000; margin-top: 4px;"></div>
         </div>
       </div>
