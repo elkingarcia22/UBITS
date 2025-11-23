@@ -1,4 +1,5 @@
 import type { PopoverOptions } from './types/PopoverOptions';
+import { renderButton } from '../../button/src/ButtonProvider';
 
 /**
  * Popover Provider
@@ -79,22 +80,27 @@ export function renderPopover(options: PopoverOptions): string {
       <div class="ubits-popover__footer-actions${!footerButtons.tertiary ? ' ubits-popover__footer-actions--no-tertiary' : ''}">
         ${footerButtons.tertiary ? `
         <div class="ubits-popover__footer-left">
-          <button class="ubits-button ubits-button--tertiary ubits-button--md ubits-popover__footer-button" type="button">
-            <span>${footerButtons.tertiary.label}</span>
-          </button>
+          ${renderButton({
+            variant: 'tertiary',
+            size: 'md',
+            text: footerButtons.tertiary.label,
+            className: 'ubits-popover__footer-button'
+          })}
         </div>
         ` : ''}
         <div class="ubits-popover__footer-right">
-          ${footerButtons.secondary ? `
-          <button class="ubits-button ubits-button--secondary ubits-button--md ubits-popover__footer-button" type="button">
-            <span>${footerButtons.secondary.label}</span>
-          </button>
-          ` : ''}
-          ${footerButtons.primary ? `
-          <button class="ubits-button ubits-button--primary ubits-button--md ubits-popover__footer-button" type="button">
-            <span>${footerButtons.primary.label}</span>
-          </button>
-          ` : ''}
+          ${footerButtons.secondary ? renderButton({
+            variant: 'secondary',
+            size: 'md',
+            text: footerButtons.secondary.label,
+            className: 'ubits-popover__footer-button'
+          }) : ''}
+          ${footerButtons.primary ? renderButton({
+            variant: 'primary',
+            size: 'md',
+            text: footerButtons.primary.label,
+            className: 'ubits-popover__footer-button'
+          }) : ''}
         </div>
       </div>
     </div>
@@ -312,8 +318,8 @@ export function createPopover(options: PopoverOptions): {
   // Agregar event listeners a los botones del footer
   if (options.footerButtons) {
     const tertiaryButton = popover.querySelector('.ubits-popover__footer-left .ubits-popover__footer-button') as HTMLButtonElement;
-    const secondaryButton = popover.querySelector('.ubits-popover__footer-right .ubits-button--secondary') as HTMLButtonElement;
-    const primaryButton = popover.querySelector('.ubits-popover__footer-right .ubits-button--primary') as HTMLButtonElement;
+    const secondaryButton = popover.querySelector('.ubits-popover__footer-right .ubits-button--secondary.ubits-popover__footer-button') as HTMLButtonElement;
+    const primaryButton = popover.querySelector('.ubits-popover__footer-right .ubits-button--primary.ubits-popover__footer-button') as HTMLButtonElement;
 
     if (tertiaryButton && options.footerButtons.tertiary?.onClick) {
       tertiaryButton.addEventListener('click', (e) => {

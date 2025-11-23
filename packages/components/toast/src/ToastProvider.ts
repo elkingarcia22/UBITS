@@ -5,6 +5,7 @@
  */
 
 import type { ToastOptions, ToastType } from './types/ToastOptions';
+import { renderButton } from '../../button/src/ButtonProvider';
 
 // Duraciones por defecto por tipo
 const DEFAULT_DURATIONS: Record<ToastType, number> = {
@@ -138,11 +139,16 @@ export function renderToast(options: ToastOptions): string {
     <div class="ubits-toast__header">
       <div class="ubits-toast__icon" aria-hidden="true">${renderIconHelper(iconClass, 'regular')}</div>
       <div class="ubits-toast__title">${title || ''}</div>
-      ${!noClose ? `
-        <button class="ubits-button ubits-button--tertiary ubits-button--sm ubits-toast__close" aria-label="Cerrar notificación">
-          ${renderIconHelper('fa-times', 'regular')}
-        </button>
-      ` : ''}
+      ${!noClose ? renderButton({
+        variant: 'tertiary',
+        size: 'sm',
+        icon: 'times',
+        iconOnly: true,
+        className: 'ubits-toast__close',
+        attributes: {
+          'aria-label': 'Cerrar notificación'
+        }
+      }) : ''}
     </div>
   `;
 
