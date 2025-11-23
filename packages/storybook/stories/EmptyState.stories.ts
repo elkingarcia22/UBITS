@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { renderEmptyState } from '../../addons/empty-state/src/EmptyStateProvider';
-import type { EmptyStateOptions } from '../../addons/empty-state/src/types/EmptyStateOptions';
+import { renderEmptyState } from '../../components/empty-state/src/EmptyStateProvider';
+import type { EmptyStateOptions } from '../../components/empty-state/src/types/EmptyStateOptions';
 
 const meta: Meta<EmptyStateOptions> = {
   title: 'Components/Empty State',
@@ -18,6 +18,7 @@ const meta: Meta<EmptyStateOptions> = {
       description: 'Título del empty state',
       table: {
         type: { summary: 'string' },
+        category: 'Contenido',
       },
     },
     description: {
@@ -25,6 +26,7 @@ const meta: Meta<EmptyStateOptions> = {
       description: 'Descripción o mensaje del empty state',
       table: {
         type: { summary: 'string' },
+        category: 'Contenido',
       },
     },
     imageUrl: {
@@ -32,6 +34,7 @@ const meta: Meta<EmptyStateOptions> = {
       description: 'URL de la imagen/ilustración (opcional)',
       table: {
         type: { summary: 'string' },
+        category: 'Visual',
       },
     },
     icon: {
@@ -39,6 +42,7 @@ const meta: Meta<EmptyStateOptions> = {
       description: 'Nombre del icono FontAwesome a mostrar (opcional, si no hay imagen)',
       table: {
         type: { summary: 'string' },
+        category: 'Visual',
       },
     },
     actionLabel: {
@@ -46,6 +50,7 @@ const meta: Meta<EmptyStateOptions> = {
       description: 'Texto del botón de acción principal (opcional)',
       table: {
         type: { summary: 'string' },
+        category: 'Botón Primario',
       },
     },
     showPrimaryButton: {
@@ -54,6 +59,7 @@ const meta: Meta<EmptyStateOptions> = {
       table: {
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' },
+        category: 'Botón Primario',
       },
     },
     primaryButtonIcon: {
@@ -61,6 +67,7 @@ const meta: Meta<EmptyStateOptions> = {
       description: 'Nombre del icono FontAwesome para el botón primario (opcional)',
       table: {
         type: { summary: 'string' },
+        category: 'Botón Primario',
       },
     },
     showPrimaryButtonIcon: {
@@ -69,6 +76,7 @@ const meta: Meta<EmptyStateOptions> = {
       table: {
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' },
+        category: 'Botón Primario',
       },
     },
     secondaryActionLabel: {
@@ -76,6 +84,7 @@ const meta: Meta<EmptyStateOptions> = {
       description: 'Texto del botón secundario (opcional)',
       table: {
         type: { summary: 'string' },
+        category: 'Botón Secundario',
       },
     },
     showSecondaryButton: {
@@ -84,6 +93,7 @@ const meta: Meta<EmptyStateOptions> = {
       table: {
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' },
+        category: 'Botón Secundario',
       },
     },
     secondaryButtonIcon: {
@@ -91,6 +101,7 @@ const meta: Meta<EmptyStateOptions> = {
       description: 'Nombre del icono FontAwesome para el botón secundario (opcional)',
       table: {
         type: { summary: 'string' },
+        category: 'Botón Secundario',
       },
     },
     showSecondaryButtonIcon: {
@@ -99,6 +110,7 @@ const meta: Meta<EmptyStateOptions> = {
       table: {
         defaultValue: { summary: 'false' },
         type: { summary: 'boolean' },
+        category: 'Botón Secundario',
       },
     },
   },
