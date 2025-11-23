@@ -79,20 +79,33 @@ export function renderSearchButton(options: SearchButtonOptions): string {
       state: isDisabled ? 'disabled' : 'default'
     });
     
+    console.log('🔍 [SearchButton] inputHTML completo:', inputHTML);
+    console.log('🔍 [SearchButton] inputHTML length:', inputHTML.length);
+    
     // renderInput genera: <div style="position: relative; display: inline-block; width: 100%;">...</div>
     // Necesitamos extraer solo el contenido interno (input + iconos) sin el wrapper div
     let inputContent = inputHTML;
+    console.log('🔍 [SearchButton] inputContent inicial:', inputContent);
+    
     // Remover el wrapper div externo si existe (el que tiene position: relative)
     const wrapperMatch = inputHTML.match(/^<div[^>]*style="[^"]*position:\s*relative[^"]*"[^>]*>(.*?)<\/div>$/s);
+    console.log('🔍 [SearchButton] wrapperMatch:', wrapperMatch);
+    
     if (wrapperMatch && wrapperMatch[1]) {
       inputContent = wrapperMatch[1].trim();
+      console.log('🔍 [SearchButton] inputContent después de extraer wrapper:', inputContent);
+    } else {
+      console.log('⚠️ [SearchButton] No se encontró wrapper, usando inputHTML completo');
     }
     
     // Agregar aria-label directamente al input dentro del contenido
+    const beforeReplace = inputContent;
     inputContent = inputContent.replace(
       /(<input[^>]*class="[^"]*ubits-search-button__input[^"]*"[^>]*)(>)/,
       '$1 aria-label="Buscar"$2'
     );
+    console.log('🔍 [SearchButton] inputContent antes de agregar aria-label:', beforeReplace);
+    console.log('🔍 [SearchButton] inputContent después de agregar aria-label:', inputContent);
     
     return `
       <div class="${inputWrapperClasses}" style="${widthStyle}">
