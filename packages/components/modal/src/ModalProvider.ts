@@ -1,4 +1,5 @@
 import type { ModalOptions } from './types/ModalOptions';
+import { renderButton } from '../../button/src/ButtonProvider';
 
 /**
  * Modal Provider
@@ -77,22 +78,27 @@ export function renderModal(options: ModalOptions): string {
       <div class="ubits-modal__footer-actions">
         ${footerButtons.tertiary ? `
         <div class="ubits-modal__footer-left">
-          <button class="ubits-button ubits-button--tertiary ubits-button--md ubits-modal__footer-button" type="button">
-            <span>${footerButtons.tertiary.label}</span>
-          </button>
+          ${renderButton({
+            variant: 'tertiary',
+            size: 'md',
+            text: footerButtons.tertiary.label,
+            className: 'ubits-modal__footer-button'
+          })}
         </div>
         ` : ''}
         <div class="ubits-modal__footer-right">
-          ${footerButtons.secondary ? `
-          <button class="ubits-button ubits-button--secondary ubits-button--md ubits-modal__footer-button" type="button">
-            <span>${footerButtons.secondary.label}</span>
-          </button>
-          ` : ''}
-          ${footerButtons.primary ? `
-          <button class="ubits-button ubits-button--primary ubits-button--md ubits-modal__footer-button" type="button">
-            <span>${footerButtons.primary.label}</span>
-          </button>
-          ` : ''}
+          ${footerButtons.secondary ? renderButton({
+            variant: 'secondary',
+            size: 'md',
+            text: footerButtons.secondary.label,
+            className: 'ubits-modal__footer-button'
+          }) : ''}
+          ${footerButtons.primary ? renderButton({
+            variant: 'primary',
+            size: 'md',
+            text: footerButtons.primary.label,
+            className: 'ubits-modal__footer-button'
+          }) : ''}
         </div>
       </div>
     </div>
@@ -202,8 +208,8 @@ export function createModal(options: ModalOptions): {
   // Agregar event listeners a los botones del footer
   if (options.footerButtons) {
     const tertiaryButton = modalOverlay.querySelector('.ubits-modal__footer-left .ubits-modal__footer-button') as HTMLButtonElement;
-    const secondaryButton = modalOverlay.querySelector('.ubits-modal__footer-right .ubits-button--secondary') as HTMLButtonElement;
-    const primaryButton = modalOverlay.querySelector('.ubits-modal__footer-right .ubits-button--primary') as HTMLButtonElement;
+    const secondaryButton = modalOverlay.querySelector('.ubits-modal__footer-right .ubits-button--secondary.ubits-modal__footer-button') as HTMLButtonElement;
+    const primaryButton = modalOverlay.querySelector('.ubits-modal__footer-right .ubits-button--primary.ubits-modal__footer-button') as HTMLButtonElement;
 
     if (tertiaryButton && options.footerButtons.tertiary?.onClick) {
       tertiaryButton.addEventListener('click', (e) => {

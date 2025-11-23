@@ -86,22 +86,27 @@ export function renderDrawer(options: DrawerOptions): string {
       <div class="ubits-drawer__footer-actions">
         ${footerButtons.tertiary ? `
         <div class="ubits-drawer__footer-left">
-          <button class="ubits-button ubits-button--tertiary ubits-button--md ubits-drawer__footer-button" type="button">
-            <span>${footerButtons.tertiary.label}</span>
-          </button>
+          ${renderButton({
+            variant: 'tertiary',
+            size: 'md',
+            text: footerButtons.tertiary.label,
+            className: 'ubits-drawer__footer-button'
+          })}
         </div>
         ` : ''}
         <div class="ubits-drawer__footer-right">
-          ${footerButtons.secondary ? `
-          <button class="ubits-button ubits-button--secondary ubits-button--md ubits-drawer__footer-button" type="button">
-            <span>${footerButtons.secondary.label}</span>
-          </button>
-          ` : ''}
-          ${footerButtons.primary ? `
-          <button class="ubits-button ubits-button--primary ubits-button--md ubits-drawer__footer-button" type="button">
-            <span>${footerButtons.primary.label}</span>
-          </button>
-          ` : ''}
+          ${footerButtons.secondary ? renderButton({
+            variant: 'secondary',
+            size: 'md',
+            text: footerButtons.secondary.label,
+            className: 'ubits-drawer__footer-button'
+          }) : ''}
+          ${footerButtons.primary ? renderButton({
+            variant: 'primary',
+            size: 'md',
+            text: footerButtons.primary.label,
+            className: 'ubits-drawer__footer-button'
+          }) : ''}
         </div>
       </div>
     </div>
@@ -216,8 +221,8 @@ export function createDrawer(options: DrawerOptions): {
   // Agregar event listeners a los botones del footer
   if (options.footerButtons) {
     const tertiaryButton = drawerOverlay.querySelector('.ubits-drawer__footer-left .ubits-drawer__footer-button') as HTMLButtonElement;
-    const secondaryButton = drawerOverlay.querySelector('.ubits-drawer__footer-right .ubits-button--secondary') as HTMLButtonElement;
-    const primaryButton = drawerOverlay.querySelector('.ubits-drawer__footer-right .ubits-button--primary') as HTMLButtonElement;
+    const secondaryButton = drawerOverlay.querySelector('.ubits-drawer__footer-right .ubits-button--secondary.ubits-drawer__footer-button') as HTMLButtonElement;
+    const primaryButton = drawerOverlay.querySelector('.ubits-drawer__footer-right .ubits-button--primary.ubits-drawer__footer-button') as HTMLButtonElement;
 
     if (tertiaryButton && options.footerButtons.tertiary?.onClick) {
       tertiaryButton.addEventListener('click', (e) => {

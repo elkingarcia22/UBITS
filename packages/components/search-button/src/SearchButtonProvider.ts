@@ -1,4 +1,5 @@
 import type { SearchButtonOptions } from './types/SearchButtonOptions';
+import { renderButton } from '../../button/src/ButtonProvider';
 
 /**
  * Renderiza el icono de lupa
@@ -84,26 +85,22 @@ export function renderSearchButton(options: SearchButtonOptions): string {
   // Si no está activo, usar el botón UBITS estándar (secondary, icon-only)
   // Agregar clases para simular estados hover y pressed cuando se seleccionan desde el control
   // Nota: 'active' ahora controla el despliegue, no el estado pressed del botón
-  const buttonClasses = [
-    'ubits-button',
-    'ubits-button--secondary',
-    'ubits-button--icon-only',
-    `ubits-button--${size}`,
+  const additionalClasses = [
     state === 'hover' ? 'ubits-search-button--force-hover' : '',
-    // 'active' ya no se usa para el estado pressed, se usa para desplegar
     className
   ].filter(Boolean).join(' ');
 
-  return `
-    <button
-      type="button"
-      class="${buttonClasses}"
-      ${isDisabled ? 'disabled' : ''}
-      aria-label="Buscar"
-    >
-      ${iconHTML}
-    </button>
-  `.trim();
+  return renderButton({
+    variant: 'secondary',
+    size: size,
+    icon: 'magnifying-glass',
+    iconOnly: true,
+    disabled: isDisabled,
+    className: additionalClasses,
+    attributes: {
+      'aria-label': 'Buscar'
+    }
+  });
 }
 
 /**
