@@ -14,7 +14,7 @@ const meta: Meta<{
   size?: 'xs' | 'sm' | 'md' | 'lg';
   cascade?: boolean;
 }> = {
-  title: 'Components/TreeMenu',
+  title: 'Navegación/TreeMenu',
   tags: ['autodocs'],
   parameters: {
     docs: {

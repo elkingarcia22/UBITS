@@ -5,7 +5,7 @@ import '../../addons/csat-metric-card/src/styles/csat-metric-card.css';
 import '../../addons/button/src/styles/button.css';
 
 const meta: Meta<CSATMetricCardOptions> = {
-  title: 'Components/CSAT Metric Card',
+  title: 'Charts/CSAT Metric Card',
   tags: ['autodocs'],
   parameters: {
     docs: {

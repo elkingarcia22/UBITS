@@ -11,7 +11,7 @@ import '../../addons/tabs/src/styles/tabs.css';
  * y una línea vertical rosa a la izquierda.
  */
 const meta = {
-  title: 'Components/Tabs',
+  title: 'Navegación/Tabs',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',

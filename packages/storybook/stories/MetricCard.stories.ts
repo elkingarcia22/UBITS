@@ -4,7 +4,7 @@ import type { MetricCardOptions } from '../../addons/metric-card/src/types/Metri
 import '../../addons/metric-card/src/styles/metric-card.css';
 
 const meta: Meta<MetricCardOptions> = {
-  title: 'Components/Text Metric Card',
+  title: 'Charts/Text Metric Card',
   tags: ['autodocs'],
   parameters: {
     docs: {

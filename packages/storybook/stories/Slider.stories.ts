@@ -7,7 +7,7 @@ const meta: Meta<SliderOptions & {
   marksString?: string;
   valuesString?: string;
 }> = {
-  title: 'Components/Slider',
+  title: 'Formularios/Slider',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',

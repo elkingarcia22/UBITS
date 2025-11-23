@@ -4,7 +4,7 @@ import type { StatusTagOptions } from '../../addons/status-tag/src/types/StatusT
 import '../../addons/status-tag/src/styles/status-tag.css';
 
 const meta: Meta<StatusTagOptions> = {
-  title: 'Components/Status Tag',
+  title: 'Básicos/Status Tag',
   tags: ['autodocs'],
   parameters: {
     docs: {

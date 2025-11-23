@@ -6,7 +6,7 @@ import type { ButtonOptions } from '../../components/button/src/types/ButtonOpti
 import '../../components/button/src/styles/button.css';
 
 const meta: Meta<ToastOptions> = {
-  title: 'Components/Toast',
+  title: 'Feedback/Toast',
   tags: ['autodocs'],
   parameters: {
     docs: {

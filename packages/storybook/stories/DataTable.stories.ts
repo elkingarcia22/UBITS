@@ -4,7 +4,7 @@ import type { DataTableOptions, TableColumn, TableRow } from '../../addons/data-
 import { renderButton } from '../../addons/button/src/ButtonProvider';
 
 const meta: Meta<DataTableOptions & { columnsCount?: number }> = {
-  title: 'Components/Data Table',
+  title: 'Data/Data Table',
   tags: ['autodocs'],
   parameters: {
     docs: {

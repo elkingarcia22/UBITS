@@ -5,7 +5,7 @@ import '../../addons/selection-card/src/styles/selection-card.css';
 import '../../addons/radio-button/src/styles/radio-button.css';
 
 const meta: Meta<SelectionCardData & { showDescription?: boolean; showIcon?: boolean }> = {
-  title: 'Components/Selection Card',
+  title: 'Layout/Selection Card',
   tags: ['autodocs'],
   parameters: {
     docs: {

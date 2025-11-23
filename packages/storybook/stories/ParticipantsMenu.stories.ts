@@ -9,7 +9,7 @@ import '../../addons/badge/src/styles/badge.css';
 import '../../addons/empty-state/src/styles/empty-state.css';
 
 const meta: Meta<ParticipantsMenuOptions> = {
-  title: 'Components/Menu de Participantes',
+  title: 'Navegación/Menu de Participantes',
   tags: ['autodocs'],
   parameters: {
     docs: {

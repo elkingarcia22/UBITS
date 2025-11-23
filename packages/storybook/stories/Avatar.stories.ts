@@ -5,7 +5,7 @@ import '../../addons/avatar/src/styles/avatar.css';
 import '../../addons/badge/src/styles/badge.css';
 
 const meta: Meta<AvatarOptions> = {
-  title: 'Components/Avatar',
+  title: 'Básicos/Avatar',
   tags: ['autodocs'],
   parameters: {
     docs: {

@@ -7,7 +7,7 @@ import '../../addons/button/src/styles/button.css';
 import '../../addons/search-button/src/styles/search-button.css';
 
 const meta: Meta<SearchButtonOptions> = {
-  title: 'Components/Search Button',
+  title: 'Formularios/Search Button',
   tags: ['autodocs'],
   parameters: {
     docs: {

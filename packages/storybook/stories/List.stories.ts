@@ -10,7 +10,7 @@ const meta: Meta<{
   item4State?: ListItemState;
   showScrollbar?: boolean;
 }> = {
-  title: 'Components/List',
+  title: 'Data/List',
   tags: ['autodocs'],
   parameters: {
     docs: {

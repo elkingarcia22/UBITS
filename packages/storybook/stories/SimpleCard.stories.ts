@@ -59,7 +59,7 @@ const meta: Meta<SimpleCardOptions & {
   button2Variant?: 'primary' | 'secondary' | 'tertiary';
   button2Size?: 'xs' | 'sm' | 'md' | 'lg';
 }> = {
-  title: 'Components/Simple Card',
+  title: 'Layout/Simple Card',
   tags: ['autodocs'],
   parameters: {
     docs: {

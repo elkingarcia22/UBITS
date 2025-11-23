@@ -7,7 +7,7 @@ interface ContenedorOptions {
 }
 
 const meta: Meta<ContenedorOptions> = {
-  title: 'Components/Contenedor',
+  title: 'Layout/Contenedor',
   tags: ['autodocs'],
   parameters: {
     docs: {

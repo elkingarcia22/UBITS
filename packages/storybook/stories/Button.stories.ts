@@ -6,7 +6,7 @@ import '../../addons/button/src/styles/button.css';
 import '../../addons/tooltip/src/styles/tooltip.css';
 
 const meta: Meta<ButtonOptions> = {
-  title: 'Components/Button',
+  title: 'Básicos/Button',
   tags: ['autodocs'],
   parameters: {
     docs: {

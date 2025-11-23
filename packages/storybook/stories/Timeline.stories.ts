@@ -23,7 +23,7 @@ const meta: Meta<{
   alignment?: 'left' | 'center';
   filledItems?: number;
 }> = {
-  title: 'Components/Timeline',
+  title: 'Layout/Timeline',
   tags: ['autodocs'],
   parameters: {
     docs: {

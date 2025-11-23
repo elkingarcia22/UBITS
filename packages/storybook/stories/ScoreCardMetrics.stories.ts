@@ -5,7 +5,7 @@ import '../../addons/score-card-metrics/src/styles/score-card-metrics.css';
 import '../../addons/button/src/styles/button.css';
 
 const meta: Meta<ScoreCardMetricsOptions> = {
-  title: 'Components/Score Card Metrics',
+  title: 'Charts/Score Card Metrics',
   tags: ['autodocs'],
   parameters: {
     docs: {

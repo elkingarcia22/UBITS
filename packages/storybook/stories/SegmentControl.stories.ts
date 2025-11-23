@@ -12,7 +12,7 @@ import '../../addons/segment-control/src/styles/segment-control.css';
  * Los segmentos inactivos muestran icono regular y texto en gris claro sin fondo.
  */
 const meta = {
-  title: 'Components/Segment Control',
+  title: 'Navegación/Segment Control',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',

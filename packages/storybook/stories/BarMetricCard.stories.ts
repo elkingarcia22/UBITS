@@ -16,7 +16,7 @@ const meta: Meta<BarMetricCardOptions & {
   category3Current?: number;
   category3Total?: number;
 }> = {
-  title: 'Components/Bar Metric Card',
+  title: 'Charts/Bar Metric Card',
   tags: ['autodocs'],
   parameters: {
     docs: {

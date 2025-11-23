@@ -6,7 +6,7 @@ import '../../addons/drawer/src/styles/drawer.css';
 import '../../addons/button/src/styles/button.css';
 
 const meta: Meta<DrawerOptions> = {
-  title: 'Components/Drawer Navigation',
+  title: 'Feedback/Drawer Navigation',
   tags: ['autodocs'],
   parameters: {
     docs: {

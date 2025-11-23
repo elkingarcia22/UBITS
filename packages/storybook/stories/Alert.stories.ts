@@ -3,7 +3,7 @@ import { renderAlert } from '../../addons/alert/src/AlertProvider';
 import type { AlertOptions } from '../../addons/alert/src/types/AlertOptions';
 
 const meta: Meta<AlertOptions> = {
-  title: 'Components/Alert',
+  title: 'Feedback/Alert',
   tags: ['autodocs'],
   parameters: {
     docs: {

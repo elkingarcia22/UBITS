@@ -3,7 +3,7 @@ import { renderEmptyState } from '../../components/empty-state/src/EmptyStatePro
 import type { EmptyStateOptions } from '../../components/empty-state/src/types/EmptyStateOptions';
 
 const meta: Meta<EmptyStateOptions> = {
-  title: 'Components/Empty State',
+  title: 'Feedback/Empty State',
   tags: ['autodocs'],
   parameters: {
     docs: {

@@ -11,7 +11,7 @@ import type { SubNavOptions, SubNavVariant } from '../../addons/subnav/src/types
  * y navegación por URL o callbacks.
  */
 const meta = {
-  title: 'Components/SubNav',
+  title: 'Navegación/SubNav',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',

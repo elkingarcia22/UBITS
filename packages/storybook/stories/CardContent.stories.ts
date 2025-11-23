@@ -4,7 +4,7 @@ import type { CardData } from '../../addons/card/src/types/CardContentOptions';
 import { CONTENT_TYPES, COMPETENCIES, LANGUAGES, LEVELS, PROVIDERS } from '../../addons/card/src/configs/cardConfigs';
 
 const meta: Meta<CardData> = {
-  title: 'Components/Card Content',
+  title: 'Layout/Card Content',
   tags: ['autodocs'],
   parameters: {
     docs: {

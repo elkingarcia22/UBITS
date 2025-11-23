@@ -5,7 +5,7 @@ import '../../addons/modal/src/styles/modal.css';
 import '../../addons/button/src/styles/button.css';
 
 const meta: Meta<ModalOptions> = {
-  title: 'Components/Modal',
+  title: 'Feedback/Modal',
   tags: ['autodocs'],
   parameters: {
     docs: {

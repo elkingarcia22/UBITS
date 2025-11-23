@@ -10,7 +10,7 @@ import '../../addons/breadcrumb/src/styles/breadcrumb.css';
  * El último item está en estado activo (bold) y los demás en estado default (regular).
  */
 const meta = {
-  title: 'Components/Breadcrumb',
+  title: 'Navegación/Breadcrumb',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',

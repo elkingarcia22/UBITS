@@ -48,7 +48,7 @@ interface MenuStoryArgs {
 }
 
 const meta: Meta<MenuStoryArgs> = {
-  title: 'Components/Menu',
+  title: 'Navegación/Menu',
   tags: ['autodocs'],
   parameters: {
     docs: {

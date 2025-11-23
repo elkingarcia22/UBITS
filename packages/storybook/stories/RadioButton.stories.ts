@@ -4,7 +4,7 @@ import type { RadioButtonOptions } from '../../addons/radio-button/src/types/Rad
 import '../../addons/radio-button/src/styles/radio-button.css';
 
 const meta: Meta<RadioButtonOptions> = {
-  title: 'Components/Radio Button',
+  title: 'Formularios/Radio Button',
   tags: ['autodocs'],
   parameters: {
     docs: {

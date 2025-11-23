@@ -3,7 +3,7 @@ import { renderInput, createInput } from '../../addons/input/src/InputProvider';
 import type { InputOptions, InputType, InputSize, InputState, MandatoryType, SelectOption, AutocompleteOption } from '../../addons/input/src/types/InputOptions';
 
 const meta: Meta<InputOptions> = {
-  title: 'Components/Input',
+  title: 'Formularios/Input',
   tags: ['autodocs'],
   parameters: {
     docs: {

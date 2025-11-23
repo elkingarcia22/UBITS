@@ -3,7 +3,7 @@ import { createPagination } from '../../addons/pagination/src/PaginationProvider
 import type { PaginationOptions } from '../../addons/pagination/src/types/PaginationOptions';
 
 const meta: Meta<PaginationOptions> = {
-  title: 'Components/Pagination',
+  title: 'Data/Pagination',
   tags: ['autodocs'],
   parameters: {
     docs: {

@@ -18,7 +18,7 @@ interface ExtendedProgressOptions extends ProgressOptions {
 }
 
 const meta: Meta<ExtendedProgressOptions> = {
-  title: 'Components/Progress Bar',
+  title: 'Charts/Progress Bar',
   tags: ['autodocs'],
   parameters: {
     docs: {

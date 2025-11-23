@@ -190,7 +190,7 @@ const sampleItems: CarouselItem[] = [
 ];
 
 const meta: Meta<CarouselOptions> = {
-  title: 'Components/Carousel',
+  title: 'Layout/Carousel',
   tags: ['autodocs'],
   parameters: {
     docs: {

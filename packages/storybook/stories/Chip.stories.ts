@@ -4,7 +4,7 @@ import type { ChipOptions } from '../../addons/chip/src/types/ChipOptions';
 import '../../addons/chip/src/styles/chip.css';
 
 const meta: Meta<ChipOptions> = {
-  title: 'Components/Chip',
+  title: 'Básicos/Chip',
   tags: ['autodocs'],
   parameters: {
     docs: {

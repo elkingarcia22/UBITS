@@ -3,7 +3,7 @@ import { renderBadge } from '../../addons/badge/src/BadgeProvider';
 import type { BadgeOptions } from '../../addons/badge/src/types/BadgeOptions';
 
 const meta: Meta<BadgeOptions> = {
-  title: 'Components/Badge',
+  title: 'Básicos/Badge',
   tags: ['autodocs'],
   parameters: {
     docs: {

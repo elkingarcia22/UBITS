@@ -13,7 +13,7 @@ import '../../components/breadcrumb/src/styles/breadcrumb.css';
  * y acciones (botones md). Todo es apagable/prendible con controladores.
  */
 const meta = {
-  title: 'Components/HeaderSection',
+  title: 'Layout/HeaderSection',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',

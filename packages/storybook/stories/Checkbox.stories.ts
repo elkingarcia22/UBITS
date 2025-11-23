@@ -4,7 +4,7 @@ import type { CheckboxOptions } from '../../addons/checkbox/src/types/CheckboxOp
 import '../../addons/checkbox/src/styles/checkbox.css';
 
 const meta: Meta<CheckboxOptions> = {
-  title: 'Components/Checkbox',
+  title: 'Formularios/Checkbox',
   tags: ['autodocs'],
   parameters: {
     docs: {

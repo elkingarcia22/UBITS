@@ -4,7 +4,7 @@ import type { SpinnerOptions } from '../../addons/spinner/src/types/SpinnerOptio
 import '../../addons/spinner/src/styles/spinner.css';
 
 const meta: Meta<SpinnerOptions> = {
-  title: 'Components/Spinner',
+  title: 'Básicos/Spinner',
   tags: ['autodocs'],
   parameters: {
     docs: {

@@ -4,7 +4,7 @@ import type { ButtonAIOptions } from '../../components/button-ai/src/types/Butto
 import '../../components/button-ai/src/styles/button-ai.css';
 
 const meta: Meta<ButtonAIOptions> = {
-  title: 'Components/ButtonAI',
+  title: 'Básicos/ButtonAI',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',

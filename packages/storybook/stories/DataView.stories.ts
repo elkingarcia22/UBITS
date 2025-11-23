@@ -11,7 +11,7 @@ const meta: Meta<DataViewOptions & {
   defaultRating?: number;
   defaultPrice?: number;
 }> = {
-  title: 'Components/DataView',
+  title: 'Data/DataView',
   tags: ['autodocs'],
   parameters: {
     docs: {

@@ -9,7 +9,7 @@ const meta: Meta<PopoverOptions & {
   'footerButtons.secondary.enabled'?: boolean;
   'footerButtons.primary.enabled'?: boolean;
 }> = {
-  title: 'Components/Popover',
+  title: 'Feedback/Popover',
   tags: ['autodocs'],
   parameters: {
     docs: {

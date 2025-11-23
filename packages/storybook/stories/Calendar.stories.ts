@@ -11,7 +11,7 @@ import { createCalendar } from '../../addons/calendar/src/index';
 import type { CalendarOptions } from '../../addons/calendar/src/index';
 
 const meta: Meta<CalendarOptions> = {
-  title: 'Components/Calendar',
+  title: 'Formularios/Calendar',
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',

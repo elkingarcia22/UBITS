@@ -18,7 +18,7 @@ const meta: Meta<NPSCardOptions & {
   category3Total?: number;
   category3Color?: string;
 }> = {
-  title: 'Components/NPS Card',
+  title: 'Charts/NPS Card',
   tags: ['autodocs'],
   parameters: {
     docs: {

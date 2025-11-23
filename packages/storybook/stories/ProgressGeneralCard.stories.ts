@@ -15,7 +15,7 @@ const meta: Meta<ProgressGeneralCardOptions & {
   category3Current?: number;
   category3Total?: number;
 }> = {
-  title: 'Components/Circle Metric Card',
+  title: 'Charts/Circle Metric Card',
   tags: ['autodocs'],
   parameters: {
     docs: {

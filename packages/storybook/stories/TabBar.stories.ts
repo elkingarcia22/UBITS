@@ -200,7 +200,7 @@ const adminProfileMenuItems: ProfileMenuItem[] = [
  * y Profile Menu (dropdown).
  */
 const meta = {
-  title: 'Components/TabBar',
+  title: 'Navegación/TabBar',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',

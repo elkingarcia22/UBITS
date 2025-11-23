@@ -7,7 +7,7 @@ const meta: Meta<SidebarOptions & {
   variant?: SidebarVariant;
   activeButton?: string;
 }> = {
-  title: 'Components/Sidebar',
+  title: 'Navegación/Sidebar',
   tags: ['autodocs'],
   parameters: {
     docs: {

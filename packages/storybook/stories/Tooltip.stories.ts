@@ -5,7 +5,7 @@ import '../../addons/tooltip/src/styles/tooltip.css';
 import '../../addons/button/src/styles/button.css';
 
 const meta: Meta<TooltipOptions> = {
-  title: 'Components/Tooltip',
+  title: 'Feedback/Tooltip',
   tags: ['autodocs'],
   parameters: {
     docs: {

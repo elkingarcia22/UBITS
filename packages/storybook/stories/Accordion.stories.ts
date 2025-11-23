@@ -4,7 +4,7 @@ import type { AccordionOptions, AccordionItem } from '../../addons/accordion/src
 import '../../addons/accordion/src/styles/accordion.css';
 
 const meta: Meta<AccordionOptions> = {
-  title: 'Components/Accordion',
+  title: 'Layout/Accordion',
   tags: ['autodocs'],
   parameters: {
     docs: {

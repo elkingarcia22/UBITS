@@ -81,7 +81,7 @@ const sampleItems: GalleryItem[] = [
 ];
 
 const meta: Meta<GalleryOptions> = {
-  title: 'Components/Gallery',
+  title: 'Layout/Gallery',
   tags: ['autodocs'],
   parameters: {
     docs: {

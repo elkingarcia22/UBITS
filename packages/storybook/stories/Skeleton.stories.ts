@@ -4,7 +4,7 @@ import type { SkeletonOptions } from '../../addons/skeleton/src/types/SkeletonOp
 import '../../addons/skeleton/src/styles/skeleton.css';
 
 const meta: Meta<SkeletonOptions> = {
-  title: 'Components/Skeleton',
+  title: 'Básicos/Skeleton',
   tags: ['autodocs'],
   parameters: {
     docs: {

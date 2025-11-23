@@ -4,7 +4,7 @@ import type { ScrollOptions } from '../../addons/scroll/src/types/ScrollOptions'
 import '../../addons/scroll/src/styles/scroll.css';
 
 const meta: Meta<ScrollOptions> = {
-  title: 'Components/Scrollbar',
+  title: 'Básicos/Scrollbar',
   tags: ['autodocs'],
   parameters: {
     docs: {

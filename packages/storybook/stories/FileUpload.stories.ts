@@ -6,7 +6,7 @@ import '../../addons/button/src/styles/button.css';
 import '../../addons/progress/src/styles/progress.css';
 
 const meta: Meta<FileUploadOptions> = {
-  title: 'Components/File Upload',
+  title: 'Formularios/File Upload',
   tags: ['autodocs'],
   parameters: {
     docs: {

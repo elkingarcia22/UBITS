@@ -25,7 +25,7 @@ interface ExtendedStepperOptions extends StepperOptions {
 }
 
 const meta: Meta<ExtendedStepperOptions> = {
-  title: 'Components/Stepper',
+  title: 'Layout/Stepper',
   tags: ['autodocs'],
   parameters: {
     docs: {

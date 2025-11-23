@@ -4,7 +4,7 @@ import type { ToggleOptions } from '../../addons/toggle/src/types/ToggleOptions'
 import '../../addons/toggle/src/styles/toggle.css';
 
 const meta: Meta<ToggleOptions> = {
-  title: 'Components/Toggle',
+  title: 'Formularios/Toggle',
   tags: ['autodocs'],
   parameters: {
     docs: {
