@@ -88,24 +88,46 @@ const preview: Preview = {
       const theme = ctx.globals.theme || 'light'
       document.body.setAttribute('data-theme', theme)
       document.documentElement.setAttribute('data-theme', theme)
-      // Asegurar que el fondo del body sea diferente al sidebar
-      document.body.style.backgroundColor = 'var(--modifiers-normal-color-light-bg-2)'
       
-      // Agregar CSS para hacer transparente el contenedor de Storybook
-      const style = document.createElement('style')
+      // Determinar el color de fondo según el tema
+      const bgColor = theme === 'dark' 
+        ? 'var(--modifiers-normal-color-dark-bg-2)' 
+        : 'var(--modifiers-normal-color-light-bg-2)'
+      
+      // Asegurar que el fondo del body sea diferente al sidebar
+      document.body.style.backgroundColor = bgColor
+      
+      // Agregar CSS para el preview de Storybook con fondo según el tema
+      const styleId = 'storybook-preview-theme-style'
+      let style = document.getElementById(styleId) as HTMLStyleElement
+      if (!style) {
+        style = document.createElement('style')
+        style.id = styleId
+        document.head.appendChild(style)
+      }
+      
       style.textContent = `
         .sb-previewBlock {
-          background: transparent !important;
+          background: ${theme === 'dark' ? 'var(--modifiers-normal-color-dark-bg-2)' : 'transparent'} !important;
           border: none !important;
         }
         .sb-wrapper {
-          background: transparent !important;
+          background: ${theme === 'dark' ? 'var(--modifiers-normal-color-dark-bg-2)' : 'transparent'} !important;
         }
         #storybook-root {
-          background: transparent !important;
+          background: ${theme === 'dark' ? 'var(--modifiers-normal-color-dark-bg-2)' : 'transparent'} !important;
+        }
+        /* Fondo para el preview en la documentación */
+        .docs-story {
+          background: ${theme === 'dark' ? 'var(--modifiers-normal-color-dark-bg-2)' : 'var(--modifiers-normal-color-light-bg-2)'} !important;
+        }
+        .sbdocs-preview {
+          background: ${theme === 'dark' ? 'var(--modifiers-normal-color-dark-bg-2)' : 'var(--modifiers-normal-color-light-bg-2)'} !important;
+        }
+        .os-host {
+          background: ${theme === 'dark' ? 'var(--modifiers-normal-color-dark-bg-2)' : 'var(--modifiers-normal-color-light-bg-2)'} !important;
         }
       `
-      document.head.appendChild(style)
       
       // 🔍 DEBUGGING: Verificar tokens después de cargar
       // Esperar más tiempo para asegurar que todos los estilos se hayan cargado
