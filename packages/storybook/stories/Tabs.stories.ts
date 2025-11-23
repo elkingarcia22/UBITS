@@ -101,7 +101,7 @@ export const Default: Story = {
       max-width: 1200px;
       padding: 24px;
       background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 12px);
+      border-radius: 12px;
       border: 1px solid var(--modifiers-normal-color-light-border-1);
     `;
 
@@ -120,11 +120,12 @@ export const Default: Story = {
     infoPanel.id = 'tabs-info-panel';
     infoPanel.style.cssText = `
       margin-top: 20px;
-      padding: var(--p-spacing-mode-1-lg, 16px);
+      padding: 16px;
       background: var(--modifiers-normal-color-light-bg-2);
-      border-radius: 8px); /* Token UBITS específico - mantener */
-      font-family: var(--font-family-noto-sans-font-family);
-      font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+      border-radius: 8px;
+      font-family: var(--font-family-noto-sans-font-family, 'Noto Sans', sans-serif);
+      font-size: 14px;
+      color: var(--modifiers-normal-color-light-fg-1-medium);
     `;
 
     const activeTab = tabs.find(tab => tab.id === activeId);
@@ -132,12 +133,12 @@ export const Default: Story = {
     const updateInfoPanel = (currentActiveId: string) => {
       const currentTab = tabs.find(tab => tab.id === currentActiveId);
       infoPanel.innerHTML = `
-        <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: var(--modifiers-normal-body-sm-semibold-fontweight, 600); color: var(--modifiers-normal-color-light-fg-1-high);">Información del Tabs</h3>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--p-spacing-mode-1-sm, 8px); font-size: var(--modifiers-normal-body-sm-regular-fontsize);">
-          <div><strong>Tab Activo:</strong> ${currentTab ? currentTab.label : currentActiveId}</div>
-          <div><strong>Tabs totales:</strong> ${tabs.length}</div>
-          <div><strong>Con iconos:</strong> ${shouldShowIcons ? 'Sí' : 'No'}</div>
-          <div><strong>IDs:</strong> ${tabs.map(t => t.id).join(', ')}</div>
+        <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: var(--weight-semibold, 600); color: var(--modifiers-normal-color-light-fg-1-high);">Información del Tabs</h3>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 13px; color: var(--modifiers-normal-color-light-fg-1-medium);">
+          <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Tab Activo:</strong> ${currentTab ? currentTab.label : currentActiveId}</div>
+          <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Tabs totales:</strong> ${tabs.length}</div>
+          <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Con iconos:</strong> ${shouldShowIcons ? 'Sí' : 'No'}</div>
+          <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">IDs:</strong> ${tabs.map(t => t.id).join(', ')}</div>
         </div>
       `;
     };

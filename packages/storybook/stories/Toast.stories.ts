@@ -137,7 +137,7 @@ export const Default: Story = {
     const container = document.createElement('div');
     container.style.padding = '20px';
     container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
-    container.style.borderRadius = '8px)';
+    container.style.borderRadius = '8px';
     container.style.width = '100%';
     container.style.maxWidth = '800px';
     
@@ -286,22 +286,25 @@ export const Default: Story = {
     
     // Agregar información adicional sobre el toast
     const info = document.createElement('div');
-    info.style.padding = 'var(--p-spacing-mode-1-lg, 16px)';
+    info.style.padding = '16px';
     info.style.background = 'var(--modifiers-normal-color-light-bg-2)';
-    info.style.borderRadius = '8px)';
-    info.style.fontSize = 'var(--modifiers-normal-body-sm-regular-fontsize)';
+    info.style.borderRadius = '8px';
+    info.style.fontSize = '14px';
     info.style.color = 'var(--modifiers-normal-color-light-fg-1-medium)';
     info.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
     info.style.lineHeight = '1.6';
+    info.style.fontFamily = 'var(--font-family-noto-sans-font-family, "Noto Sans", sans-serif)';
     info.innerHTML = `
-      <strong>Tipo:</strong> ${args.type}<br>
-      <strong>Título:</strong> ${args.title || '(sin título)'}<br>
-      <strong>Cierre:</strong> ${args.noClose ? 'Sin botón' : 'Con botón'}<br>
-      <strong>Duración:</strong> ${args.duration && args.duration > 0 ? `${args.duration}ms` : 'Persistente'}<br>
-      <strong>Pausa en hover:</strong> ${args.pauseOnHover ? 'Sí' : 'No'}<br>
-      <strong>Botón de acción:</strong> ${(args as any).action ? 'Sí' : 'No'}<br>
-      <br>
-      <em>Haz clic en "Mostrar Toast" para ver el toast funcional en la parte superior central de la pantalla.</em>
+      <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: var(--weight-semibold, 600); color: var(--modifiers-normal-color-light-fg-1-high);">Información del Toast</h3>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 13px; color: var(--modifiers-normal-color-light-fg-1-medium);">
+        <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Tipo:</strong> ${args.type}</div>
+        <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Título:</strong> ${args.title || '(sin título)'}</div>
+        <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Cierre:</strong> ${args.noClose ? 'Sin botón' : 'Con botón'}</div>
+        <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Duración:</strong> ${args.duration && args.duration > 0 ? `${args.duration}ms` : 'Persistente'}</div>
+        <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Pausa en hover:</strong> ${args.pauseOnHover ? 'Sí' : 'No'}</div>
+        <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Botón de acción:</strong> ${(args as any).action ? 'Sí' : 'No'}</div>
+      </div>
+      <p style="margin-top: 12px; margin-bottom: 0; font-size: 13px; font-style: italic; color: var(--modifiers-normal-color-light-fg-1-medium);">Haz clic en "Mostrar Toast" para ver el toast funcional en la parte superior central de la pantalla.</p>
     `;
     container.appendChild(info);
     
