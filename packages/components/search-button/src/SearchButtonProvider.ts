@@ -65,23 +65,39 @@ export function renderSearchButton(options: SearchButtonOptions): string {
     // Si se especifica width, usarlo; si no, usar auto para que se ajuste al contenido
     const widthStyle = width ? `width: ${width}px;` : '';
 
+    // Generar el input usando renderInput pero sin atributos para evitar wrapper extra
+    // Luego agregamos el aria-label directamente al input
+    const inputHTML = renderInput({
+      type: 'text',
+      size: size,
+      placeholder: placeholder,
+      value: value,
+      showLabel: false,
+      showHelper: false,
+      leftIcon: 'magnifying-glass',
+      className: 'ubits-search-button__input',
+      state: isDisabled ? 'disabled' : 'default'
+    });
+    
+    // renderInput genera: <div style="position: relative; display: inline-block; width: 100%;">...</div>
+    // Necesitamos extraer solo el contenido interno (input + iconos) sin el wrapper div
+    let inputContent = inputHTML;
+    // Remover el wrapper div externo si existe (el que tiene position: relative)
+    const wrapperMatch = inputHTML.match(/^<div[^>]*style="[^"]*position:\s*relative[^"]*"[^>]*>(.*?)<\/div>$/s);
+    if (wrapperMatch && wrapperMatch[1]) {
+      inputContent = wrapperMatch[1].trim();
+    }
+    
+    // Agregar aria-label directamente al input dentro del contenido
+    inputContent = inputContent.replace(
+      /(<input[^>]*class="[^"]*ubits-search-button__input[^"]*"[^>]*)(>)/,
+      '$1 aria-label="Buscar"$2'
+    );
+    
     return `
       <div class="${inputWrapperClasses}" style="${widthStyle}">
         <div class="ubits-search-button__input-wrapper">
-          ${renderInput({
-            type: 'text',
-            size: size,
-            placeholder: placeholder,
-            value: value,
-            showLabel: false,
-            showHelper: false,
-            leftIcon: 'magnifying-glass',
-            className: 'ubits-search-button__input',
-            state: isDisabled ? 'disabled' : 'default',
-            attributes: {
-              'aria-label': 'Buscar'
-            }
-          })}
+          ${inputContent}
           ${clearButtonHTML}
         </div>
       </div>
