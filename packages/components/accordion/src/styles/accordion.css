@@ -251,72 +251,11 @@
    DARK MODE
    ======================================== */
 
-[data-theme="dark"] .ubits-accordion--list .ubits-accordion-item {
-  border-bottom-color: var(--modifiers-normal-color-dark-border-1) !important;
-}
-
-[data-theme="dark"] .ubits-accordion--list .ubits-accordion-title {
-  color: var(--modifiers-normal-color-dark-fg-1-high) !important;
-}
-
-[data-theme="dark"] .ubits-accordion--list .ubits-accordion-subheader {
-  color: var(--modifiers-normal-color-dark-fg-1-medium) !important;
-}
-
-[data-theme="dark"] .ubits-accordion--list .ubits-accordion-icon {
-  color: var(--modifiers-normal-color-dark-fg-1-medium) !important;
-}
-
-[data-theme="dark"] .ubits-accordion--list .ubits-accordion-chevron {
-  color: var(--modifiers-normal-color-dark-fg-1-medium) !important;
-}
-
-[data-theme="dark"] .ubits-accordion--list .ubits-accordion-body-content {
-  color: var(--modifiers-normal-color-dark-fg-1-medium) !important;
-}
-
-[data-theme="dark"] .ubits-accordion--boxed .ubits-accordion-item {
-  background: var(--modifiers-normal-color-dark-bg-1) !important;
-  border-color: var(--modifiers-normal-color-dark-border-1) !important;
-}
-
-[data-theme="dark"] .ubits-accordion--boxed .ubits-accordion-item:hover {
-  border-color: var(--modifiers-normal-color-dark-fg-1-medium) !important;
-  background: var(--modifiers-normal-color-dark-bg-2) !important;
-}
-
-[data-theme="dark"] .ubits-accordion--boxed .ubits-accordion-item:hover .ubits-accordion-header {
-  background: var(--modifiers-normal-color-dark-bg-2) !important;
-}
-
-[data-theme="dark"] .ubits-accordion--boxed .ubits-accordion-header {
-  background: var(--modifiers-normal-color-dark-bg-1) !important;
-}
-
-[data-theme="dark"] .ubits-accordion--boxed .ubits-accordion-header--open {
-  background: var(--modifiers-normal-color-dark-bg-2) !important;
-}
-
-[data-theme="dark"] .ubits-accordion--boxed .ubits-accordion-title {
-  color: var(--modifiers-normal-color-dark-fg-1-high) !important;
-}
-
-[data-theme="dark"] .ubits-accordion--boxed .ubits-accordion-subheader {
-  color: var(--modifiers-normal-color-dark-fg-1-medium) !important;
-}
-
-[data-theme="dark"] .ubits-accordion--boxed .ubits-accordion-icon {
-  color: var(--modifiers-normal-color-dark-fg-1-medium) !important;
-}
-
-[data-theme="dark"] .ubits-accordion--boxed .ubits-accordion-chevron {
-  color: var(--modifiers-normal-color-dark-fg-1-medium) !important;
-}
-
-[data-theme="dark"] .ubits-accordion--boxed .ubits-accordion-body {
-  background: var(--modifiers-normal-color-dark-bg-1) !important;
-}
-
-[data-theme="dark"] .ubits-accordion--boxed .ubits-accordion-body-content {
-  color: var(--modifiers-normal-color-dark-fg-1-medium) !important;
+[data-theme="dark"] {
+  /* Redefinir variables light para que apunten a dark */
+  --modifiers-normal-color-light-border-1: var(--modifiers-normal-color-dark-border-1);
+  --modifiers-normal-color-light-fg-1-high: var(--modifiers-normal-color-dark-fg-1-high);
+  --modifiers-normal-color-light-fg-1-medium: var(--modifiers-normal-color-dark-fg-1-medium);
+  --modifiers-normal-color-light-bg-1: var(--modifiers-normal-color-dark-bg-1);
+  --modifiers-normal-color-light-bg-2: var(--modifiers-normal-color-dark-bg-2);
 }
