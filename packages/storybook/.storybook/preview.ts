@@ -49,6 +49,24 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    options: {
+      storySort: {
+        order: [
+          'Tokens UBITS',
+          [
+            'Tokens UBITS',
+            '01. Modificadores (.modifiers)',
+            '02. Semánticos',
+            '03. Componentes',
+            '04. Effects',
+            '05. Tipografía',
+            '06. Spacing',
+            '07. Text Styles',
+            '08. Border Radius',
+          ],
+        ],
+      },
+    },
   },
   globalTypes: {
     theme: {

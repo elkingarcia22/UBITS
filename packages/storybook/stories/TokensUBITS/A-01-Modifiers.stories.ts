@@ -18,7 +18,7 @@ import { createColorSwatch, createLightDarkComparison } from './utils';
 import { extractColorTokens, organizeTokensByCategory, organizeTokensByCategoryAndState } from './token-extractor';
 
 const meta: Meta = {
-  title: 'Tokens UBITS/01. Modificadores (.modifiers)',
+  title: 'Tokens UBITS/1. Modificadores (.modifiers)',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',

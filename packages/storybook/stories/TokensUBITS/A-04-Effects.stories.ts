@@ -13,7 +13,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { createColorSwatch } from './utils';
 
 const meta: Meta = {
-  title: 'Tokens UBITS/04. Effects',
+  title: 'Tokens UBITS/4. Effects',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',

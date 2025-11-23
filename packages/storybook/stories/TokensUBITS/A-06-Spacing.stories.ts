@@ -9,7 +9,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 
 const meta: Meta = {
-  title: 'Tokens UBITS/06. Spacing',
+  title: 'Tokens UBITS/6. Spacing',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
