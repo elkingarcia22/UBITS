@@ -100,18 +100,12 @@ export function renderSearchButton(options: SearchButtonOptions): string {
       inputContent = wrapperMatch[1].trim();
       console.log('🔍 [SearchButton] inputContent después de extraer wrapper:', inputContent);
       
-      // El icono tiene position: absolute y el ubits-search-button__input-wrapper tiene position: relative
-      // El input tiene padding-left: 40px para el icono, pero el wrapper ya tiene padding-left
-      // Necesitamos ajustar el padding-left del input para que sea solo el espacio del icono (sin el padding del wrapper)
-      // El icono está a left: var(--ubits-spacing-md, 12px) desde el wrapper
-      // El icono tiene aproximadamente 16px de ancho, así que necesitamos padding-left: ~28px (12px + 16px)
-      // Pero mejor usar el padding que ya tiene el input y ajustarlo solo si es necesario
-      // El CSS del SearchButton ya tiene padding: var(--ubits-spacing-none) para el input
-      // así que el padding-left: 40px del renderInput será sobrescrito por el CSS
-      // Pero para estar seguros, ajustamos el padding-left del input
+      // Sin icono, el input solo necesita el padding estándar
+      // El wrapper ya tiene padding-left: var(--ubits-spacing-md), así que el input no necesita padding-left adicional
+      // Remover cualquier padding-left que renderInput haya agregado
       inputContent = inputContent.replace(
-        /padding-left:\s*40px;/g,
-        'padding-left: 28px;'
+        /padding-left:\s*\d+px;/g,
+        'padding-left: 0;'
       );
       console.log('🔍 [SearchButton] inputContent después de ajustar padding:', inputContent);
     } else {
