@@ -127,7 +127,7 @@ export function renderSearchButton(options: SearchButtonOptions): string {
     console.log('🔍 [SearchButton] inputContent antes de agregar aria-label:', beforeReplace);
     console.log('🔍 [SearchButton] inputContent después de agregar aria-label:', inputContent);
     
-    return `
+    const finalHTML = `
       <div class="${inputWrapperClasses}" style="${widthStyle}">
         <div class="ubits-search-button__input-wrapper">
           ${inputContent}
@@ -135,6 +135,11 @@ export function renderSearchButton(options: SearchButtonOptions): string {
         </div>
       </div>
     `.trim();
+    
+    console.log('🔍 [SearchButton] HTML final completo:', finalHTML);
+    console.log('🔍 [SearchButton] Número de inputs en el HTML final:', (finalHTML.match(/<input/g) || []).length);
+    
+    return finalHTML;
   }
 
   // Si no está activo, usar el botón UBITS estándar (secondary, icon-only)
