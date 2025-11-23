@@ -207,16 +207,6 @@ export const Default: Story = {
       }
     };
     
-    const showButton = createButton(showButtonOptions);
-    // createButton retorna el botón, que puede estar dentro de un div wrapper temporal
-    // Si tiene parentElement, usar ese contenedor; si no, usar el botón directamente
-    const showButtonContainer = showButton.parentElement;
-    if (showButtonContainer && showButtonContainer !== document.body) {
-      controls.appendChild(showButtonContainer);
-    } else {
-      controls.appendChild(showButton);
-    }
-    
     // Crear botón "Limpiar Toasts" usando componente UBITS
     const clearButtonOptions: ButtonOptions = {
       variant: 'secondary',
@@ -227,15 +217,40 @@ export const Default: Story = {
       }
     };
     
-    const clearButton = createButton(clearButtonOptions);
-    // createButton retorna el botón, que puede estar dentro de un div wrapper temporal
-    // Si tiene parentElement, usar ese contenedor; si no, usar el botón directamente
-    const clearButtonContainer = clearButton.parentElement;
-    if (clearButtonContainer && clearButtonContainer !== document.body) {
-      controls.appendChild(clearButtonContainer);
-    } else {
-      controls.appendChild(clearButton);
-    }
+    // Usar requestAnimationFrame para crear los botones de forma asíncrona
+    requestAnimationFrame(() => {
+      try {
+        const showButton = createButton(showButtonOptions);
+        const showButtonParent = showButton.parentElement;
+        if (showButtonParent && showButtonParent !== document.body) {
+          controls.appendChild(showButtonParent);
+        } else {
+          controls.appendChild(showButton);
+        }
+        
+        const clearButton = createButton(clearButtonOptions);
+        const clearButtonParent = clearButton.parentElement;
+        if (clearButtonParent && clearButtonParent !== document.body) {
+          controls.appendChild(clearButtonParent);
+        } else {
+          controls.appendChild(clearButton);
+        }
+      } catch (error) {
+        console.error('❌ Error creando botones:', error);
+        // Fallback: crear botones HTML simples si createButton falla
+        const showButtonFallback = document.createElement('button');
+        showButtonFallback.className = 'ubits-button ubits-button--primary ubits-button--md';
+        showButtonFallback.textContent = 'Mostrar Toast';
+        showButtonFallback.addEventListener('click', showButtonOptions.onClick as EventListener);
+        controls.appendChild(showButtonFallback);
+        
+        const clearButtonFallback = document.createElement('button');
+        clearButtonFallback.className = 'ubits-button ubits-button--secondary ubits-button--md';
+        clearButtonFallback.textContent = 'Limpiar Toasts';
+        clearButtonFallback.addEventListener('click', clearButtonOptions.onClick as EventListener);
+        controls.appendChild(clearButtonFallback);
+      }
+    });
     container.appendChild(controls);
     
     // Preview estático del toast (solo para visualización, no funcional)
