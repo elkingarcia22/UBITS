@@ -83,9 +83,9 @@ export const Default: Story = {
       width: 100%;
       max-width: 1200px;
       padding: 24px;
-      background: var(--modifiers-normal-color-light-bg-1, #ffffff);
+      background: var(--modifiers-normal-color-light-bg-1);
       border-radius: 12px;
-      border: 1px solid var(--modifiers-normal-color-light-border-1, #d0d2d5);
+      border: 1px solid var(--modifiers-normal-color-light-border-1);
     `;
 
     // Contenedor para el Breadcrumb
@@ -104,22 +104,23 @@ export const Default: Story = {
     infoPanel.style.cssText = `
       margin-top: 20px;
       padding: 16px;
-      background: var(--modifiers-normal-color-light-bg-2, #F3F3F4);
+      background: var(--modifiers-normal-color-light-bg-2);
       border-radius: 8px;
-      font-family: var(--font-sans);
+      font-family: var(--font-family-noto-sans-font-family, 'Noto Sans', sans-serif);
       font-size: 14px;
+      color: var(--modifiers-normal-color-light-fg-1-medium);
     `;
 
     const activeItem = items[items.length - 1];
 
     const updateInfoPanel = () => {
       infoPanel.innerHTML = `
-        <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: var(--weight-semibold, 600); color: var(--modifiers-normal-color-light-fg-1-high, #303a47);">Información del Breadcrumb</h3>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 13px;">
-          <div><strong>Item Activo:</strong> ${activeItem ? activeItem.label : 'N/A'}</div>
-          <div><strong>Items totales:</strong> ${items.length}</div>
-          <div><strong>Separador:</strong> "${args.separator || '>'}"</div>
-          <div><strong>IDs:</strong> ${items.map(i => i.id).join(', ')}</div>
+        <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: var(--weight-semibold, 600); color: var(--modifiers-normal-color-light-fg-1-high);">Información del Breadcrumb</h3>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 13px; color: var(--modifiers-normal-color-light-fg-1-medium);">
+          <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Item Activo:</strong> ${activeItem ? activeItem.label : 'N/A'}</div>
+          <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Items totales:</strong> ${items.length}</div>
+          <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Separador:</strong> "${args.separator || '>'}"</div>
+          <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">IDs:</strong> ${items.map(i => i.id).join(', ')}</div>
         </div>
       `;
     };
