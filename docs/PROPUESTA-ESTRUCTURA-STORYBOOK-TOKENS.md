@@ -194,6 +194,7 @@ Tokens/
         │   ├── feedback (estáticos e invertidos)
         │   ├── chart (estáticos e invertidos)
         │   └── button (estáticos e invertidos)
+
         └── 8.4.2 Dark Mode (misma estructura)
 ```
 

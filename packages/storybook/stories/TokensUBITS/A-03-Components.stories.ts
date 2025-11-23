@@ -12,7 +12,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { createLightDarkComparison, createColorSwatch } from './utils';
 
 const meta: Meta = {
-  title: 'Tokens UBITS/04. Componentes',
+  title: 'Tokens UBITS/03. Componentes',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',

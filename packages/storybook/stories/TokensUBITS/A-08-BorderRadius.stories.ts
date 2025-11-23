@@ -7,7 +7,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 
 const meta: Meta = {
-  title: 'Tokens UBITS/09. Border Radius',
+  title: 'Tokens UBITS/08. Border Radius',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
