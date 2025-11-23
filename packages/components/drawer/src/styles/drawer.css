@@ -238,7 +238,7 @@
     display: flex;
     flex: 1 1 0;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     min-width: 0;
 }
 
@@ -246,6 +246,7 @@
     display: flex;
     gap: var(--ubits-spacing-md);
     align-items: center;
+    margin-right: auto;
 }
 
 .ubits-drawer__footer-right {
@@ -253,6 +254,7 @@
     gap: var(--ubits-spacing-md);
     align-items: center;
     justify-content: flex-end;
+    margin-left: auto;
 }
 
 .ubits-drawer__footer-button {
