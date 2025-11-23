@@ -241,22 +241,78 @@ export function createSearchButton(options: SearchButtonOptions): {
 
   const update = (newOptions: Partial<SearchButtonOptions>) => {
     const updatedOptions = { ...options, ...newOptions };
+    const isSearchActive = updatedOptions.active || updatedOptions.state === 'active';
+    const wasSearchActive = options.active || options.state === 'active';
+    
+    // Si el input está activo y solo cambió el valor, actualizar directamente sin regenerar
+    if (isSearchActive && wasSearchActive) {
+      const currentInput = element.querySelector('.ubits-search-button__input') as HTMLInputElement;
+      const currentClearButton = element.querySelector('.ubits-search-button__clear') as HTMLButtonElement;
+      
+      // Si solo cambió el valor y el input existe, actualizar directamente
+      if (currentInput && newOptions.value !== undefined && newOptions.value !== currentInput.value) {
+        // Preservar posición del cursor
+        const cursorPosition = currentInput.selectionStart || 0;
+        currentInput.value = newOptions.value || '';
+        // Restaurar posición del cursor
+        currentInput.setSelectionRange(cursorPosition, cursorPosition);
+        return; // No regenerar el HTML
+      }
+      
+      // Si cambió el placeholder, actualizar directamente
+      if (currentInput && newOptions.placeholder !== undefined) {
+        currentInput.placeholder = newOptions.placeholder || '';
+      }
+      
+      // Si cambió el estado disabled, actualizar directamente
+      if (currentInput && newOptions.disabled !== undefined) {
+        currentInput.disabled = newOptions.disabled || false;
+      }
+      
+      // Si solo cambió el valor o propiedades simples, no regenerar
+      const significantChanges = ['active', 'state', 'size', 'width', 'className'];
+      const hasSignificantChange = significantChanges.some(key => 
+        newOptions[key as keyof SearchButtonOptions] !== undefined && 
+        newOptions[key as keyof SearchButtonOptions] !== options[key as keyof SearchButtonOptions]
+      );
+      
+      if (!hasSignificantChange) {
+        return; // No regenerar el HTML
+      }
+    }
+    
+    // Para otros cambios, regenerar el HTML completo
     const newHTML = renderSearchButton(updatedOptions);
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = newHTML.trim();
     const newElement = tempDiv.firstElementChild as HTMLButtonElement | HTMLDivElement;
     
     if (newElement && element.parentNode) {
+      // Preservar foco y posición del cursor si el input existía
+      let shouldRestoreFocus = false;
+      let cursorPosition = 0;
+      if (isSearchActive && wasSearchActive) {
+        const oldInput = element.querySelector('.ubits-search-button__input') as HTMLInputElement;
+        if (oldInput && oldInput === document.activeElement) {
+          shouldRestoreFocus = true;
+          cursorPosition = oldInput.selectionStart || 0;
+        }
+      }
+      
       element.parentNode.replaceChild(newElement, element);
       
       // Actualizar referencias y event listeners
-      const isSearchActive = updatedOptions.active || updatedOptions.state === 'active';
-      
       if (isSearchActive) {
         const inputElement = newElement.querySelector('.ubits-search-button__input') as HTMLInputElement;
         const clearButton = newElement.querySelector('.ubits-search-button__clear') as HTMLButtonElement;
         
         if (inputElement) {
+          // Restaurar foco y posición del cursor
+          if (shouldRestoreFocus) {
+            inputElement.focus();
+            inputElement.setSelectionRange(cursorPosition, cursorPosition);
+          }
+          
           if (updatedOptions.onChange) {
             inputElement.addEventListener('input', updatedOptions.onChange);
             inputElement.addEventListener('change', updatedOptions.onChange);
