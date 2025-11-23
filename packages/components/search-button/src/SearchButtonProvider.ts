@@ -83,17 +83,37 @@ export function renderSearchButton(options: SearchButtonOptions): string {
     console.log('🔍 [SearchButton] inputHTML length:', inputHTML.length);
     
     // renderInput genera: <div style="position: relative; display: inline-block; width: 100%;">...</div>
-    // Necesitamos extraer solo el contenido interno (input + iconos) sin el wrapper div
+    // El wrapper del SearchButton ya tiene position: relative, así que podemos extraer el contenido
+    // pero necesitamos mantener el wrapper interno para que el icono absolute funcione
+    // O mejor aún, extraer solo el input y el icono, y el wrapper del SearchButton será el contenedor relative
+    
     let inputContent = inputHTML;
+    console.log('🔍 [SearchButton] inputHTML completo:', inputHTML);
     console.log('🔍 [SearchButton] inputContent inicial:', inputContent);
     
     // Remover el wrapper div externo si existe (el que tiene position: relative)
+    // Pero mantener el input y el icono
     const wrapperMatch = inputHTML.match(/^<div[^>]*style="[^"]*position:\s*relative[^"]*"[^>]*>(.*?)<\/div>$/s);
     console.log('🔍 [SearchButton] wrapperMatch:', wrapperMatch);
     
     if (wrapperMatch && wrapperMatch[1]) {
       inputContent = wrapperMatch[1].trim();
       console.log('🔍 [SearchButton] inputContent después de extraer wrapper:', inputContent);
+      
+      // El icono tiene position: absolute y el ubits-search-button__input-wrapper tiene position: relative
+      // El input tiene padding-left: 40px para el icono, pero el wrapper ya tiene padding-left
+      // Necesitamos ajustar el padding-left del input para que sea solo el espacio del icono (sin el padding del wrapper)
+      // El icono está a left: var(--ubits-spacing-md, 12px) desde el wrapper
+      // El icono tiene aproximadamente 16px de ancho, así que necesitamos padding-left: ~28px (12px + 16px)
+      // Pero mejor usar el padding que ya tiene el input y ajustarlo solo si es necesario
+      // El CSS del SearchButton ya tiene padding: var(--ubits-spacing-none) para el input
+      // así que el padding-left: 40px del renderInput será sobrescrito por el CSS
+      // Pero para estar seguros, ajustamos el padding-left del input
+      inputContent = inputContent.replace(
+        /padding-left:\s*40px;/g,
+        'padding-left: 28px;'
+      );
+      console.log('🔍 [SearchButton] inputContent después de ajustar padding:', inputContent);
     } else {
       console.log('⚠️ [SearchButton] No se encontró wrapper, usando inputHTML completo');
     }
