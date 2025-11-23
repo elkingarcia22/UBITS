@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { renderToast, showToast } from '../../addons/toast/src/ToastProvider';
 import type { ToastOptions } from '../../addons/toast/src/types/ToastOptions';
+import { createButton } from '../../components/button/src/ButtonProvider';
+import type { ButtonOptions } from '../../components/button/src/types/ButtonOptions';
+import '../../components/button/src/styles/button.css';
 
 const meta: Meta<ToastOptions> = {
   title: 'Components/Toast',
@@ -148,90 +151,91 @@ export const Default: Story = {
     controls.style.flexWrap = 'wrap';
     controls.style.marginBottom = '24px';
     
-    const showButton = document.createElement('button');
-    showButton.textContent = 'Mostrar Toast';
-    showButton.style.cssText = `
-      padding: 10px 20px;
-      background: var(--modifiers-normal-color-light-button-bg-primary);
-      color: var(--modifiers-normal-color-light-button-fg-primary);
-      border: 1px solid var(--modifiers-normal-color-light-button-border-primary);
-      border-radius: 6px;
-      cursor: pointer;
-      font-family: var(--font-family-noto-sans-font-family);
-      font-size: var(--modifiers-normal-body-sm-regular-fontsize);
-      font-weight: var(--weight-semibold, 600);
-    `;
-    
-    const clearButton = document.createElement('button');
-    clearButton.textContent = 'Limpiar Toasts';
-    clearButton.style.cssText = `
-      padding: 10px 20px;
-      background: var(--modifiers-normal-color-light-button-bg-secondary);
-      color: var(--modifiers-normal-color-light-button-fg-secondary);
-      border: 1px solid var(--modifiers-normal-color-light-button-border-secondary);
-      border-radius: 6px;
-      cursor: pointer;
-      font-family: var(--font-family-noto-sans-font-family);
-      font-size: var(--modifiers-normal-body-sm-regular-fontsize);
-      font-weight: var(--weight-semibold, 600);
-    `;
-    
-    showButton.addEventListener('click', () => {
-      console.log('🔔 Botón Mostrar Toast clickeado');
-      clearToasts(); // Limpiar toasts anteriores
-      setTimeout(() => {
-        try {
-          // Asegurar que el contenedor existe antes de mostrar el toast
-          const container = ensureToastContainer();
-          console.log('✅ Contenedor de toast:', container);
-          
-          const toastOptions: Omit<ToastOptions, 'type' | 'message'> = {
-            title: args.title,
-            duration: args.duration,
-            noClose: args.noClose,
-            pauseOnHover: args.pauseOnHover,
-          };
-          
-          // Agregar botón de acción si está activado
-          if ((args as any).action) {
-            toastOptions.action = {
-              label: 'Action',
-              onClick: () => {
-                alert('Acción ejecutada desde Storybook');
-              }
+    // Crear botón "Mostrar Toast" usando componente UBITS
+    const showButtonOptions: ButtonOptions = {
+      variant: 'primary',
+      size: 'md',
+      text: 'Mostrar Toast',
+      onClick: () => {
+        console.log('🔔 Botón Mostrar Toast clickeado');
+        clearToasts(); // Limpiar toasts anteriores
+        setTimeout(() => {
+          try {
+            // Asegurar que el contenedor existe antes de mostrar el toast
+            const container = ensureToastContainer();
+            console.log('✅ Contenedor de toast:', container);
+            
+            const toastOptions: Omit<ToastOptions, 'type' | 'message'> = {
+              title: args.title,
+              duration: args.duration,
+              noClose: args.noClose,
+              pauseOnHover: args.pauseOnHover,
             };
-          }
-          
-          console.log('📝 Opciones del toast:', toastOptions);
-          console.log('📝 Tipo:', args.type);
-          console.log('📝 Mensaje:', args.message);
-          
-          const toastType = args.type || 'info';
-          const toastElement = showToast(toastType, args.message || '', toastOptions);
-          console.log('✅ Toast creado:', toastElement);
-          
-          // Verificar que el toast se agregó al DOM
-          setTimeout(() => {
-            const toastsInContainer = container.querySelectorAll('.ubits-toast');
-            console.log('📊 Toasts en contenedor:', toastsInContainer.length);
-            if (toastsInContainer.length === 0) {
-              console.error('❌ El toast no se agregó al contenedor');
-              alert('Error: El toast no se mostró. Revisa la consola para más detalles.');
+            
+            // Agregar botón de acción si está activado
+            if ((args as any).action) {
+              toastOptions.action = {
+                label: 'Action',
+                onClick: () => {
+                  alert('Acción ejecutada desde Storybook');
+                }
+              };
             }
-          }, 100);
-        } catch (error) {
-          console.error('❌ Error al mostrar toast:', error);
-          alert(`Error: ${error instanceof Error ? error.message : 'Error desconocido'}`);
-        }
-      }, 200);
-    });
+            
+            console.log('📝 Opciones del toast:', toastOptions);
+            console.log('📝 Tipo:', args.type);
+            console.log('📝 Mensaje:', args.message);
+            
+            const toastType = args.type || 'info';
+            const toastElement = showToast(toastType, args.message || '', toastOptions);
+            console.log('✅ Toast creado:', toastElement);
+            
+            // Verificar que el toast se agregó al DOM
+            setTimeout(() => {
+              const toastsInContainer = container.querySelectorAll('.ubits-toast');
+              console.log('📊 Toasts en contenedor:', toastsInContainer.length);
+              if (toastsInContainer.length === 0) {
+                console.error('❌ El toast no se agregó al contenedor');
+                alert('Error: El toast no se mostró. Revisa la consola para más detalles.');
+              }
+            }, 100);
+          } catch (error) {
+            console.error('❌ Error al mostrar toast:', error);
+            alert(`Error: ${error instanceof Error ? error.message : 'Error desconocido'}`);
+          }
+        }, 200);
+      }
+    };
     
-    clearButton.addEventListener('click', () => {
-      clearToasts();
-    });
+    const showButton = createButton(showButtonOptions);
+    // createButton retorna el botón, pero está dentro de un div wrapper
+    const showButtonContainer = showButton.parentElement;
+    if (showButtonContainer) {
+      controls.appendChild(showButtonContainer);
+    } else {
+      // Fallback si no hay parent (no debería pasar)
+      controls.appendChild(showButton);
+    }
     
-    controls.appendChild(showButton);
-    controls.appendChild(clearButton);
+    // Crear botón "Limpiar Toasts" usando componente UBITS
+    const clearButtonOptions: ButtonOptions = {
+      variant: 'secondary',
+      size: 'md',
+      text: 'Limpiar Toasts',
+      onClick: () => {
+        clearToasts();
+      }
+    };
+    
+    const clearButton = createButton(clearButtonOptions);
+    // createButton retorna el botón, pero está dentro de un div wrapper
+    const clearButtonContainer = clearButton.parentElement;
+    if (clearButtonContainer) {
+      controls.appendChild(clearButtonContainer);
+    } else {
+      // Fallback si no hay parent (no debería pasar)
+      controls.appendChild(clearButton);
+    }
     container.appendChild(controls);
     
     // Preview estático del toast (solo para visualización, no funcional)
