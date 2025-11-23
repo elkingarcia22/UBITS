@@ -67,6 +67,7 @@ export function renderSearchButton(options: SearchButtonOptions): string {
 
     // Generar el input usando renderInput pero sin atributos para evitar wrapper extra
     // Luego agregamos el aria-label directamente al input
+    // NO agregamos leftIcon porque el SearchButton tiene su propio diseño sin icono en el input
     const inputHTML = renderInput({
       type: 'text',
       size: size,
@@ -74,7 +75,6 @@ export function renderSearchButton(options: SearchButtonOptions): string {
       value: value,
       showLabel: false,
       showHelper: false,
-      leftIcon: 'magnifying-glass',
       className: 'ubits-search-button__input',
       state: isDisabled ? 'disabled' : 'default'
     });
