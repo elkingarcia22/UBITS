@@ -244,22 +244,23 @@ export const Default: Story = {
         padding: 16px;
         background: var(--modifiers-normal-color-light-bg-2);
         border-radius: 8px;
-        font-family: var(--font-sans);
+        font-family: var(--font-family-noto-sans-font-family, 'Noto Sans', sans-serif);
         font-size: 14px;
+        color: var(--modifiers-normal-color-light-fg-1-medium);
       `;
       
       infoPanel.innerHTML = `
-        <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: var(--weight-semibold); color: var(--modifiers-normal-color-light-fg-1-high);">Información del Input</h3>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 13px;">
-          <div><strong>Tipo:</strong> ${args.type}</div>
-          <div><strong>Tamaño:</strong> ${args.size}</div>
-          <div><strong>Estado:</strong> ${args.state}</div>
-          <div><strong>Label:</strong> ${args.showLabel ? 'Visible' : 'Oculto'}</div>
-          <div><strong>Helper:</strong> ${args.showHelper ? 'Visible' : 'Oculto'}</div>
-          <div><strong>Counter:</strong> ${args.showCounter ? 'Visible' : 'Oculto'}</div>
-          <div><strong>Mandatory:</strong> ${args.mandatory ? args.mandatoryType : 'No'}</div>
-          <div><strong>Iconos:</strong> ${finalLeftIcon ? `Izq: ${finalLeftIcon}` : ''} ${finalRightIcon ? `Der: ${finalRightIcon}` : 'Ninguno'}</div>
-          ${args.type === 'textarea' ? `<div><strong>Barra de herramientas:</strong> ${args.showRichTextToolbar ? 'Visible' : 'Oculta'}</div>` : ''}
+        <h3 style="margin: 0 0 12px 0; font-size: 16px; font-weight: var(--weight-semibold, 600); color: var(--modifiers-normal-color-light-fg-1-high);">Información del Input</h3>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 13px; color: var(--modifiers-normal-color-light-fg-1-medium);">
+          <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Tipo:</strong> ${args.type}</div>
+          <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Tamaño:</strong> ${args.size}</div>
+          <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Estado:</strong> ${args.state}</div>
+          <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Label:</strong> ${args.showLabel ? 'Visible' : 'Oculto'}</div>
+          <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Helper:</strong> ${args.showHelper ? 'Visible' : 'Oculto'}</div>
+          <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Counter:</strong> ${args.showCounter ? 'Visible' : 'Oculto'}</div>
+          <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Mandatory:</strong> ${args.mandatory ? args.mandatoryType : 'No'}</div>
+          <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Iconos:</strong> ${finalLeftIcon ? `Izq: ${finalLeftIcon}` : ''} ${finalRightIcon ? `Der: ${finalRightIcon}` : 'Ninguno'}</div>
+          ${args.type === 'textarea' ? `<div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Barra de herramientas:</strong> ${args.showRichTextToolbar ? 'Visible' : 'Oculta'}</div>` : ''}
         </div>
       `;
       
