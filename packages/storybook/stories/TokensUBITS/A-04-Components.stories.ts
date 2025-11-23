@@ -1,7 +1,7 @@
 /**
  * Tokens UBITS - Componentes
  * 
- * Tokens específicos de componentes:
+ * Tokens especificos de componentes:
  * - Button Tone (brand, success, error, warning, info) - Usa modificadores con valores correctos
  * - AI Button - Tokens para botones de IA con gradientes
  * - Scroll Bar
@@ -27,7 +27,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-// Tokens de componentes organizados por categoría
+// Tokens de componentes organizados por categoria
 // NOTA: Los tokens de button-tone usan los modificadores porque los tokens base tienen valores casi negros
 const COMPONENT_TOKENS = {
   'button-tone': {

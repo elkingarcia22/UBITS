@@ -1,7 +1,7 @@
 /**
  * Tokens UBITS - Text Styles (Estilos de Texto Completos)
  * 
- * Estilos completos de texto que incluyen todas las propiedades tipográficas:
+ * Estilos completos de texto que incluyen todas las propiedades tipograficas:
  * - Display (D1, D2, D3, D4) con regular, semibold, bold
  * - Heading (H1, H2) con regular, semibold, bold
  * - Body (lg, md, sm, xs) con regular, semibold, bold
@@ -18,7 +18,7 @@ const meta: Meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Estilos completos de texto del sistema UBITS. Cada estilo incluye todas las propiedades tipográficas: font-family, font-weight, letter-spacing, paragraph-indent, text-case y text-decoration. Incluye Display (D1-D4), Heading (H1-H2) y Body (lg, md, sm, xs).',
+        component: 'Estilos completos de texto del sistema UBITS. Cada estilo incluye todas las propiedades tipograficas: font-family, font-weight, letter-spacing, paragraph-indent, text-case y text-decoration. Incluye Display (D1-D4), Heading (H1-H2) y Body (lg, md, sm, xs).',
       },
     },
   },
@@ -219,7 +219,7 @@ export const TodosLosTextStyles: Story = {
     container.appendChild(title);
     
     const description = document.createElement('p');
-    description.textContent = 'Estilos completos de texto que incluyen todas las propiedades tipográficas: font-family, font-weight, letter-spacing, paragraph-indent, text-case y text-decoration.';
+    description.textContent = 'Estilos completos de texto que incluyen todas las propiedades tipograficas: font-family, font-weight, letter-spacing, paragraph-indent, text-case y text-decoration.';
     description.style.fontSize = '16px';
     description.style.color = '#5c646f';
     description.style.marginBottom = '32px';

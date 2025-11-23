@@ -1,12 +1,12 @@
 /**
  * Tokens UBITS - Effects (Elevation, Focus y Floating)
  * 
- * Tokens para efectos visuales como sombras (elevation), focus rings y elevación flotante.
+ * Tokens para efectos visuales como sombras (elevation), focus rings y elevacion flotante.
  * 
  * Estructura:
  * - Elevation: Sombras con estados Default y Hover
  * - Focus: Anillos de enfoque con propiedades configurables
- * - Floating: Elevación flotante construida con tokens de Figma (elevation-floating-0 y -1)
+ * - Floating: Elevacion flotante construida con tokens de Figma (elevation-floating-0 y -1)
  */
 
 import type { Meta, StoryObj } from '@storybook/html';
@@ -19,7 +19,7 @@ const meta: Meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Tokens para efectos visuales: elevation (sombras), focus (anillos de enfoque) y floating (elevación flotante). Los efectos de elevation tienen estados Default y Hover, focus tiene propiedades configurables (position, blur, spread, color), y floating usa tokens de Figma con dos sombras combinadas.',
+        component: 'Tokens para efectos visuales: elevation (sombras), focus (anillos de enfoque) y floating (elevacion flotante). Los efectos de elevation tienen estados Default y Hover, focus tiene propiedades configurables (position, blur, spread, color), y floating usa tokens de Figma con dos sombras combinadas.',
       },
     },
   },
@@ -565,14 +565,14 @@ export const Floating: Story = {
     container.style.maxWidth = '1400px';
 
     const title = document.createElement('h2');
-    title.textContent = 'Floating - Elevación Flotante';
+    title.textContent = 'Floating - Elevacion Flotante';
     title.style.fontSize = '24px';
     title.style.fontWeight = '700';
     title.style.marginBottom = '24px';
     container.appendChild(title);
 
     const description = document.createElement('p');
-    description.textContent = 'Elevación flotante construida con tokens de Figma. Usa dos sombras combinadas (floating-0 y floating-1) para crear un efecto de profundidad.';
+    description.textContent = 'Elevacion flotante construida con tokens de Figma. Usa dos sombras combinadas (floating-0 y floating-1) para crear un efecto de profundidad.';
     description.style.fontSize = '16px';
     description.style.color = '#5c646f';
     description.style.marginBottom = '32px';
