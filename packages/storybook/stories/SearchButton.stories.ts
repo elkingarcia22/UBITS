@@ -199,8 +199,52 @@ export const Default: Story = {
             if (args.onChange) {
               args.onChange(e);
             }
-            // Re-renderizar para mostrar/ocultar el botón X
-            renderSearchComponent();
+            // Solo actualizar el botón de limpiar sin regenerar todo el HTML
+            const clearButton = container.querySelector('.ubits-search-button__clear') as HTMLButtonElement;
+            if (currentValue && currentValue.trim().length > 0) {
+              // Mostrar botón de limpiar si no existe
+              if (!clearButton) {
+                const clearButtonHTML = `
+                  <button
+                    type="button"
+                    class="ubits-search-button__clear"
+                    aria-label="Limpiar búsqueda"
+                    tabindex="0"
+                  >
+                    <i class="far fa-times ubits-search-button__clear-icon" aria-hidden="true"></i>
+                  </button>
+                `;
+                const inputWrapper = container.querySelector('.ubits-search-button__input-wrapper');
+                if (inputWrapper) {
+                  inputWrapper.insertAdjacentHTML('beforeend', clearButtonHTML);
+                  const newClearButton = container.querySelector('.ubits-search-button__clear') as HTMLButtonElement;
+                  if (newClearButton) {
+                    newClearButton.addEventListener('click', (e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      currentValue = '';
+                      if (inputElement) {
+                        inputElement.value = '';
+                        inputElement.focus();
+                        if (args.onChange) {
+                          const event = new Event('input', { bubbles: true });
+                          inputElement.dispatchEvent(event);
+                        }
+                      }
+                      // Ocultar botón de limpiar
+                      if (newClearButton) {
+                        newClearButton.remove();
+                      }
+                    });
+                  }
+                }
+              }
+            } else {
+              // Ocultar botón de limpiar si existe
+              if (clearButton) {
+                clearButton.remove();
+              }
+            }
           });
           
           inputElement.addEventListener('change', (e) => {
