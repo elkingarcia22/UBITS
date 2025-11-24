@@ -1,0 +1,14 @@
+{
+  "buildCommand": "npm run build:tokens && cd packages/storybook && npm run build-storybook",
+  "outputDirectory": "packages/storybook/storybook-static",
+  "framework": null,
+  "installCommand": "npm install",
+  "devCommand": "cd packages/storybook && npm run storybook",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+

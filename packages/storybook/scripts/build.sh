@@ -20,7 +20,7 @@ echo "🔨 Construyendo tokens..."
 npm run build:tokens
 
 # Construir Storybook
-cd packages/docs-site
+cd packages/storybook
 echo "📚 Construyendo Storybook..."
 npm run build-storybook
 
