@@ -139,7 +139,7 @@ export const Default: Story = {
           items: items,
           separator: args.separator || '>',
           onItemClick: (itemId, itemElement) => {
-            console.log('Item clickeado:', itemId, itemElement);
+            // Item clickeado
             // Actualizar panel de información si es necesario
             updateInfoPanel();
           }

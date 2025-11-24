@@ -155,7 +155,7 @@ export const Default: Story = {
           activeTabId: activeTabId,
           showIcons: args.showIcons ?? false,
           onTabChange: (tabId, tabElement) => {
-            console.log('Tab cambiado:', tabId, tabElement);
+            // Tab cambiado
             // Actualizar info
             const config = getSubNavConfig(variant);
             const tab = config.tabs.find(t => t.id === tabId);

@@ -151,18 +151,7 @@ export const Default: Story = {
     
     const handleOpenModal = () => {
       if (!modalInstance) {
-        console.log('🔍 [Modal Storybook] handleOpenModal - INICIO');
-        console.log('🔍 [Modal Storybook] args recibidos:', {
-          title: args.title,
-          size: args.size,
-          fullScreen: args.fullScreen,
-          bodyContent: args.bodyContent,
-          bodyContentType: typeof args.bodyContent,
-          bodyContentLength: typeof args.bodyContent === 'string' ? args.bodyContent.length : 'N/A',
-          'footerButtons.tertiary.enabled': args['footerButtons.tertiary.enabled'],
-          'footerButtons.secondary.enabled': args['footerButtons.secondary.enabled'],
-          'footerButtons.primary.enabled': args['footerButtons.primary.enabled']
-        });
+        // handleOpenModal
         
         // Construir footerButtons desde los args individuales
         const footerButtons: any = {};
@@ -171,7 +160,7 @@ export const Default: Story = {
           footerButtons['tertiary'] = {
             label: args['footerButtons.tertiary.label'] || 'Cancelar',
             onClick: () => {
-              console.log('Botón Tertiary clickeado');
+              // Botón Tertiary clickeado
             }
 };
         }
@@ -180,7 +169,7 @@ export const Default: Story = {
           footerButtons['secondary'] = {
             label: args['footerButtons.secondary.label'] || 'Guardar',
             onClick: () => {
-              console.log('Botón Secondary clickeado');
+              // Botón Secondary clickeado
             }
 };
         }
@@ -189,13 +178,12 @@ export const Default: Story = {
           footerButtons['primary'] = {
             label: args['footerButtons.primary.label'] || 'Aplicar',
             onClick: () => {
-              console.log('Botón Primary clickeado');
+              // Botón Primary clickeado
             }
 };
         }
         
-        console.log('🔍 [Modal Storybook] footerButtons construido:', footerButtons);
-        console.log('🔍 [Modal Storybook] bodyContent antes de pasar a createModal:', args.bodyContent);
+        // footerButtons construido
         
         modalInstance = createModal({
           title: args.title,
@@ -221,27 +209,11 @@ export const Default: Story = {
           open: true
 });
         
-        console.log('🔍 [Modal Storybook] Modal creado:', {
-          hasElement: !!modalInstance.element,
-          elementClassName: modalInstance.element?.className
-        });
-        
-        // Verificar el contenido después de crear el modal
-        setTimeout(() => {
-          const bodyContentEl = modalInstance?.element?.querySelector('.ubits-modal__body-content');
-          console.log('🔍 [Modal Storybook] Verificación después de crear:', {
-            hasBodyContent: !!bodyContentEl,
-            bodyContentInnerHTML: bodyContentEl?.innerHTML?.substring(0, 200),
-            bodyContentTextContent: bodyContentEl?.textContent?.substring(0, 200),
-            bodyContentChildrenCount: bodyContentEl?.children.length || 0
-          });
-        }, 100);
+        // Modal creado
         
         // Ocultar el botón
         openButton.style.display = 'none';
         openButton.style.visibility = 'hidden';
-        
-        console.log('🔍 [Modal Storybook] handleOpenModal - FIN');
       }
     };
     

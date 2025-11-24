@@ -71,7 +71,7 @@ function extractTextStyleTokens(): {
       });
     }
   } catch (e) {
-    console.warn('No se pudo leer tokens del CSS directamente');
+    // No se pudo leer tokens del CSS directamente
   }
   
   // Si no se pueden leer, usar lista predefinida basada en la estructura conocida

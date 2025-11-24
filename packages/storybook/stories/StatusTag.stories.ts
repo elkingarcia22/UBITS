@@ -145,7 +145,7 @@ export const Default: Story = {
           if (args.onClick) {
             args.onClick(e as any);
           } else {
-            console.log('Status Tag clicked!');
+            // Status Tag clicked
           }
         });
         tag.addEventListener('keydown', (e) => {
@@ -154,7 +154,7 @@ export const Default: Story = {
             if (args.onClick) {
               args.onClick(e as any);
             } else {
-              console.log('Status Tag clicked!');
+              // Status Tag clicked
             }
           }
         });

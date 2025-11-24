@@ -118,13 +118,13 @@ export const Default: Story = {
       ...args,
       containerId,
       onPageChange: (page) => {
-        console.log('Página cambiada a:', page);
+        // Página cambiada
         // Actualizar el componente
         const newOptions = { ...args, currentPage: page, containerId };
         createPagination(newOptions);
       },
       onItemsPerPageChange: (itemsPerPage) => {
-        console.log('Items por página cambiados a:', itemsPerPage);
+        // Items por página cambiados
         const newOptions = { ...args, itemsPerPage, currentPage: 1, containerId };
         createPagination(newOptions);
       }

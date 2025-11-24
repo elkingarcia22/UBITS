@@ -239,21 +239,21 @@ export const Default: Story = {
         label: 'Opción 1',
         value: 'option-1',
         onClick: (e, data) => {
-          console.log('Opción 1 seleccionada', data);
+          // Opción 1 seleccionada
         }
       },
       {
         label: 'Opción 2',
         value: 'option-2',
         onClick: (e, data) => {
-          console.log('Opción 2 seleccionada', data);
+          // Opción 2 seleccionada
         }
       },
       {
         label: 'Opción 3',
         value: 'option-3',
         onClick: (e, data) => {
-          console.log('Opción 3 seleccionada', data);
+          // Opción 3 seleccionada
         }
       }
     ],
@@ -264,7 +264,7 @@ export const Default: Story = {
         label: 'Home',
         url: '#',
         onClick: (e) => {
-          console.log('Home clicked', e);
+          // Home clicked
         }
       },
       {
@@ -272,7 +272,7 @@ export const Default: Story = {
         label: 'Products',
         url: '#',
         onClick: (e) => {
-          console.log('Products clicked', e);
+          // Products clicked
         }
       },
       {
@@ -359,7 +359,7 @@ export const Default: Story = {
             icon: 'sparkles',
             iconStyle: 'regular',
             onClick: (e) => {
-              console.log('AI button clicked', e);
+              // AI button clicked
             }
           });
         }
@@ -372,7 +372,7 @@ export const Default: Story = {
             icon: 'grid',
             iconStyle: 'regular',
             onClick: (e) => {
-              console.log('Action 1 clicked', e);
+              // Action 1 clicked
             }
           });
         }
@@ -385,7 +385,7 @@ export const Default: Story = {
             icon: 'grid',
             iconStyle: 'regular',
             onClick: (e) => {
-              console.log('Action 2 clicked', e);
+              // Action 2 clicked
             }
           });
         }
@@ -398,7 +398,7 @@ export const Default: Story = {
             icon: 'grid',
             iconStyle: 'regular',
             onClick: (e) => {
-              console.log('Action 3 clicked', e);
+              // Action 3 clicked
             }
           });
         }
@@ -411,7 +411,7 @@ export const Default: Story = {
             icon: 'grid',
             iconStyle: 'regular',
             onClick: (e) => {
-              console.log('Primary action clicked', e);
+              // Primary action clicked
             }
           });
         }
@@ -430,16 +430,16 @@ export const Default: Story = {
           statusTag: statusTagOptions,
           breadcrumb: breadcrumbOptions,
           onBackClick: (e) => {
-            console.log('Back button clicked', e);
+            // Back button clicked
           },
           onInfoClick: (e) => {
-            console.log('Info button clicked', e);
+            // Info button clicked
           },
           onSecondaryButtonClick: (e) => {
-            console.log('Secondary button clicked', e);
+            // Secondary button clicked
           },
           onOptionsClick: (e) => {
-            console.log('Options button clicked', e);
+            // Options button clicked
           }
         });
       } catch (error) {

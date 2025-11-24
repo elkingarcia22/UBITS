@@ -34,9 +34,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--ubits-spacing-sm);
-    padding-bottom: var(--ubits-spacing-md);
+    gap: var(--ubits-spacing-md);
+    padding: var(--ubits-spacing-lg);
     border-bottom: 1px solid var(--modifiers-normal-color-light-border-1);
+    flex-shrink: 0;
+    margin-left: calc(-1 * var(--ubits-spacing-lg));
+    margin-right: calc(-1 * var(--ubits-spacing-lg));
+    margin-top: calc(-1 * var(--ubits-spacing-lg));
     margin-bottom: var(--ubits-spacing-lg);
 }
 
@@ -106,6 +110,22 @@
 
 /* Ocultar completamente el header del modal (usamos nuestro propio header) */
 .ubits-button-feedback-modal .ubits-modal__header {
+    display: none !important;
+}
+
+/* Ocultar scrollbar cuando no es necesario */
+.ubits-button-feedback-modal .ubits-modal__body-content {
+    overflow-y: auto;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.ubits-button-feedback-modal .ubits-modal__body-content::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari, Opera */
+}
+
+/* Ocultar el scrollbar custom del modal */
+.ubits-button-feedback-modal .ubits-modal__scrollbar {
     display: none !important;
 }
 

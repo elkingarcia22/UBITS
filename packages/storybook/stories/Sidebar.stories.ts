@@ -141,14 +141,14 @@ export const Default: Story = {
       darkModeEnabled: args.darkModeEnabled !== false,
       height: 650,
       onActiveButtonChange: (section) => {
-        console.log('Active button changed:', section);
+        // Active button changed
       },
       onDarkModeToggle: (isDark) => {
-        console.log('Dark mode toggled:', isDark);
+        // Dark mode toggled
         // NO actualizar el body/document, solo el contenedor (ya se hace en initDarkModeToggle)
       },
       onAvatarClick: () => {
-        console.log('Avatar clicked');
+        // Avatar clicked
       }
     };
 

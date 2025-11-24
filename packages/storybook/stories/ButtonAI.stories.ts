@@ -128,7 +128,7 @@ export const Default: Story = {
         const button = createButtonAI({
           ...args,
           onClick: (e) => {
-            console.log('Button AI clicked', e);
+            // Button AI clicked
           },
         });
 

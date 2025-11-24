@@ -180,10 +180,10 @@ export const Default: Story = {
         feedbackButtonInstance = createButtonFeedback({
           ...args,
           onFeedbackSent: (data) => {
-            console.log('Feedback enviado:', data);
+            // Feedback enviado
           },
           onCancel: () => {
-            console.log('Feedback cancelado');
+            // Feedback cancelado
           },
           onClose: () => {
             // Modal cerrado

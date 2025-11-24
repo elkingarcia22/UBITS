@@ -154,7 +154,7 @@ export const Default: Story = {
           segments: segments,
           activeSegmentId: activeId,
           onSegmentChange: (segmentId, segmentElement) => {
-            console.log('Segmento cambiado:', segmentId, segmentElement);
+            // Segmento cambiado
             // Actualizar panel de información
             updateInfoPanel(segmentId);
           }

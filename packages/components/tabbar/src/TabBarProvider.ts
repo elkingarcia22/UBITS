@@ -372,58 +372,6 @@ function initTabBarListeners(
     const floatingMenuHTML = renderFloatingMenu(floatingMenuSections, treeMenuSize);
     floatingMenuContainer.innerHTML = floatingMenuHTML;
     initFloatingMenuListeners(floatingMenuContainer, onFloatingMenuItemClick);
-    
-    // Logs de diagnóstico detallados para el Floating Menu
-    setTimeout(() => {
-      const floatingMenu = floatingMenuContainer.querySelector('.ubits-floating-menu') as HTMLElement;
-      const activeItems = floatingMenuContainer.querySelectorAll('.ubits-tree-menu-header--active, .ubits-tree-menu-link--active');
-      const firstActiveItem = activeItems && activeItems.length > 0 ? activeItems[0] as HTMLElement : null;
-      const root = document.documentElement;
-      const computedStyle = root ? window.getComputedStyle(root) : null;
-      
-      // Obtener valores de tokens desde el root
-      const accentBrandValue = computedStyle ? computedStyle.getPropertyValue('--ubits-accent-brand').trim() : null;
-      const accentBrandInvertedValue = computedStyle ? computedStyle.getPropertyValue('--ubits-accent-brand-inverted').trim() : null;
-      const accentBrandStaticInvertedValue = computedStyle ? computedStyle.getPropertyValue('--ubits-accent-brand-static-inverted').trim() : null;
-      
-      // Logs expandidos para ver todos los valores
-      console.log('[TabBar] Floating Menu - Theme:', document.documentElement.getAttribute('data-theme'));
-      console.log('[TabBar] Floating Menu - Token --ubits-accent-brand:', accentBrandValue);
-      console.log('[TabBar] Floating Menu - Token --ubits-accent-brand-inverted:', accentBrandInvertedValue);
-      console.log('[TabBar] Floating Menu - Token --ubits-accent-brand-static-inverted:', accentBrandStaticInvertedValue);
-      console.log('[TabBar] Floating Menu - Active items count:', activeItems.length);
-      
-      if (firstActiveItem) {
-        const activeComputedColor = window.getComputedStyle(firstActiveItem).color;
-        console.log('[TabBar] Floating Menu - First active item color aplicado:', activeComputedColor);
-        console.log('[TabBar] Floating Menu - First active item color esperado (inverted):', accentBrandInvertedValue);
-        console.log('[TabBar] Floating Menu - First active item className:', firstActiveItem.className);
-        console.log('[TabBar] Floating Menu - First active item tagName:', firstActiveItem.tagName);
-      } else {
-        console.log('[TabBar] Floating Menu - No hay items activos encontrados');
-      }
-      
-      // Verificar todos los items del tree menu para ver si alguno tiene clase active
-      const allTreeItems = floatingMenuContainer.querySelectorAll('.ubits-tree-menu-header, .ubits-tree-menu-link');
-      console.log('[TabBar] Floating Menu - Total tree items:', allTreeItems.length);
-      Array.from(allTreeItems).forEach((item, index) => {
-        if (item instanceof HTMLElement) {
-          const hasActive = item.classList.contains('ubits-tree-menu-header--active') || item.classList.contains('ubits-tree-menu-link--active');
-          const computedColor = window.getComputedStyle(item).color;
-          console.log(`[TabBar] Floating Menu - Tree item ${index}:`);
-          console.log(`  className:`, item.className);
-          console.log(`  hasActive:`, hasActive);
-          console.log(`  computedColor:`, computedColor);
-            if (hasActive) {
-              console.log(`  ⚠️ ITEM ACTIVO ENCONTRADO - Color aplicado:`, computedColor);
-              console.log(`  Color esperado (--ubits-accent-brand-static-inverted):`, accentBrandStaticInvertedValue);
-              console.log(`  Color alternativo (--ubits-accent-brand-inverted):`, accentBrandInvertedValue);
-              const expectedRgb = accentBrandStaticInvertedValue ? `rgb(${hexToRgb(accentBrandStaticInvertedValue)})` : null;
-              console.log(`  ¿Coincide con static-inverted?:`, expectedRgb ? computedColor === expectedRgb : false);
-            }
-        }
-      });
-    }, 100);
   }
 
   if (profileMenuItems && profileMenuItems.length > 0) {
@@ -456,64 +404,6 @@ function initTabBarListeners(
       }
     }
     initProfileMenuListeners(profileMenuContainer, profileMenuItems, onProfileMenuItemClick);
-    
-    // Logs de diagnóstico detallados para el Profile Menu
-    setTimeout(() => {
-      const profileMenu = profileMenuContainer.querySelector('.ubits-profile-menu') as HTMLElement;
-      const profileTreeLinks = profileMenu?.querySelectorAll('.ubits-profile-tree-link');
-      const profileTreeHeaders = profileMenu?.querySelectorAll('.ubits-profile-tree-header');
-      const activeItems = profileMenu?.querySelectorAll('.ubits-profile-tree-link--active, .ubits-profile-tree-header--active');
-      const firstActiveItem = activeItems && activeItems.length > 0 ? activeItems[0] as HTMLElement : null;
-      const root = document.documentElement;
-      const computedStyle = root ? window.getComputedStyle(root) : null;
-      
-      // Obtener valores de tokens desde el root
-      const accentBrandValue = computedStyle ? computedStyle.getPropertyValue('--ubits-accent-brand').trim() : null;
-      const accentBrandInvertedValue = computedStyle ? computedStyle.getPropertyValue('--ubits-accent-brand-inverted').trim() : null;
-      const accentBrandStaticInvertedValue = computedStyle ? computedStyle.getPropertyValue('--ubits-accent-brand-static-inverted').trim() : null;
-      
-      // Logs expandidos para ver todos los valores
-      console.log('[TabBar] Profile Menu - Theme:', document.documentElement.getAttribute('data-theme'));
-      console.log('[TabBar] Profile Menu - Token --ubits-accent-brand:', accentBrandValue);
-      console.log('[TabBar] Profile Menu - Token --ubits-accent-brand-inverted:', accentBrandInvertedValue);
-      console.log('[TabBar] Profile Menu - Token --ubits-accent-brand-static-inverted:', accentBrandStaticInvertedValue);
-      console.log('[TabBar] Profile Menu - Active items count:', activeItems?.length || 0);
-      console.log('[TabBar] Profile Menu - Profile tree links count:', profileTreeLinks?.length || 0);
-      console.log('[TabBar] Profile Menu - Profile tree headers count:', profileTreeHeaders?.length || 0);
-      
-      if (firstActiveItem) {
-        const activeComputedColor = window.getComputedStyle(firstActiveItem).color;
-        console.log('[TabBar] Profile Menu - First active item color aplicado:', activeComputedColor);
-        console.log('[TabBar] Profile Menu - First active item color esperado (inverted):', accentBrandInvertedValue);
-        console.log('[TabBar] Profile Menu - First active item className:', firstActiveItem.className);
-        console.log('[TabBar] Profile Menu - First active item tagName:', firstActiveItem.tagName);
-      } else {
-        console.log('[TabBar] Profile Menu - No hay items activos encontrados');
-      }
-      
-      // Verificar todos los items del profile tree menu para ver si alguno tiene clase active
-      const allProfileTreeItems = profileMenu?.querySelectorAll('.ubits-profile-tree-link, .ubits-profile-tree-header');
-      console.log('[TabBar] Profile Menu - Total profile tree items:', allProfileTreeItems?.length || 0);
-      if (allProfileTreeItems) {
-        Array.from(allProfileTreeItems).forEach((item, index) => {
-          if (item instanceof HTMLElement) {
-            const hasActive = item.classList.contains('ubits-profile-tree-header--active') || item.classList.contains('ubits-profile-tree-link--active');
-            const computedColor = window.getComputedStyle(item).color;
-            console.log(`[TabBar] Profile Menu - Profile tree item ${index}:`);
-            console.log(`  className:`, item.className);
-            console.log(`  hasActive:`, hasActive);
-            console.log(`  computedColor:`, computedColor);
-            if (hasActive) {
-              console.log(`  ⚠️ ITEM ACTIVO ENCONTRADO - Color aplicado:`, computedColor);
-              console.log(`  Color esperado (--ubits-accent-brand-static-inverted):`, accentBrandStaticInvertedValue);
-              console.log(`  Color alternativo (--ubits-accent-brand-inverted):`, accentBrandInvertedValue);
-              const expectedRgb = accentBrandStaticInvertedValue ? `rgb(${hexToRgb(accentBrandStaticInvertedValue)})` : null;
-              console.log(`  ¿Coincide con static-inverted?:`, expectedRgb ? computedColor === expectedRgb : false);
-            }
-          }
-        });
-      }
-    }, 100);
   }
 
   tabItems.forEach((tabItemElement) => {
@@ -813,12 +703,6 @@ function initProfileMenuListeners(
       e.stopPropagation();
       const itemId = link.closest('[data-profile-item-id]')?.getAttribute('data-profile-item-id');
       
-      console.log('[TabBar] Profile Menu - Link clickeado INMEDIATAMENTE:', {
-        itemId,
-        className: (link as HTMLElement).className,
-        hasActiveBefore: (link as HTMLElement).classList.contains('ubits-profile-tree-link--active')
-      });
-      
       // Remover active de todos los links del profile menu
       profileMenu.querySelectorAll('.ubits-profile-tree-link').forEach(l => {
         (l as HTMLElement).classList.remove('ubits-profile-tree-link--active');
@@ -826,29 +710,6 @@ function initProfileMenuListeners(
       
       // Agregar active al link clickeado
       (link as HTMLElement).classList.add('ubits-profile-tree-link--active');
-      
-      // Logs detallados cuando se hace clic en un link del profile menu
-      setTimeout(() => {
-        const root = document.documentElement;
-        const computedStyle = root ? window.getComputedStyle(root) : null;
-        const accentBrandStaticInvertedValue = computedStyle ? computedStyle.getPropertyValue('--ubits-accent-brand-static-inverted').trim() : null;
-        const accentBrandInvertedValue = computedStyle ? computedStyle.getPropertyValue('--ubits-accent-brand-inverted').trim() : null;
-        const linkComputedColor = window.getComputedStyle(link as HTMLElement).color;
-        const hasActive = (link as HTMLElement).classList.contains('ubits-profile-tree-link--active');
-        
-        console.log('[TabBar] Profile Menu - Link clickeado (después de timeout):', {
-          itemId,
-          className: (link as HTMLElement).className,
-          hasActive,
-          computedColor: linkComputedColor,
-          expectedColorStaticInverted: accentBrandStaticInvertedValue,
-          expectedColorInverted: accentBrandInvertedValue,
-          expectedRgbStaticInverted: accentBrandStaticInvertedValue ? `rgb(${hexToRgb(accentBrandStaticInvertedValue)})` : null,
-          expectedRgbInverted: accentBrandInvertedValue ? `rgb(${hexToRgb(accentBrandInvertedValue)})` : null,
-          coincideConStaticInverted: accentBrandStaticInvertedValue ? linkComputedColor === `rgb(${hexToRgb(accentBrandStaticInvertedValue)})` : false,
-          coincideConInverted: accentBrandInvertedValue ? linkComputedColor === `rgb(${hexToRgb(accentBrandInvertedValue)})` : false
-        });
-      }, 100);
       
       if (itemId) {
         const item = items.find(i => i.id === itemId);

@@ -113,58 +113,26 @@ function createListDropdown(items, onSelect) {
     // Esto evita errores 404 y loops
     // Inicializar scrollbar de forma simple y directa
     const initScrollbar = async () => {
-        console.log('📜 [SCROLLBAR] ========== INICIO initScrollbar ==========');
-        console.log('📜 [SCROLLBAR] listId:', listId);
-        console.log('📜 [SCROLLBAR] scrollbarContainerId:', scrollbarContainerId);
         const listElement = document.getElementById(listId);
         const scrollbarContainer = document.getElementById(scrollbarContainerId);
         if (!listElement || !scrollbarContainer) {
-            console.log('📜 [SCROLLBAR] ❌ Elementos no encontrados:', {
-                listElement: !!listElement,
-                scrollbarContainer: !!scrollbarContainer
-            });
             return;
         }
-        console.log('📜 [SCROLLBAR] Elementos encontrados:', {
-            listElement: {
-                scrollHeight: listElement.scrollHeight,
-                clientHeight: listElement.clientHeight,
-                offsetHeight: listElement.offsetHeight,
-                maxHeight: listElement.style.maxHeight,
-                computedMaxHeight: window.getComputedStyle(listElement).maxHeight
-            },
-            scrollbarContainer: {
-                offsetHeight: scrollbarContainer.offsetHeight,
-                offsetWidth: scrollbarContainer.offsetWidth,
-                styleHeight: scrollbarContainer.style.height,
-                styleMaxHeight: scrollbarContainer.style.maxHeight,
-                computedHeight: window.getComputedStyle(scrollbarContainer).height,
-                computedMaxHeight: window.getComputedStyle(scrollbarContainer).maxHeight
-            }
-        });
         // Verificar si necesita scroll
         if (listElement.scrollHeight <= listElement.clientHeight) {
-            console.log('📜 [SCROLLBAR] ⚠️ No necesita scroll:', {
-                scrollHeight: listElement.scrollHeight,
-                clientHeight: listElement.clientHeight
-            });
             return;
         }
-        console.log('📜 [SCROLLBAR] ✅ Necesita scroll, inicializando...');
         try {
             // Intentar primero con createScrollbarLocal si está disponible (contexto UMD)
             const createScrollbarLocal = window.createScrollbarLocal;
             if (typeof createScrollbarLocal === 'function') {
-                console.log('📜 [SCROLLBAR] Usando createScrollbarLocal');
                 const scrollbarInstance = createScrollbarLocal(listElement, scrollbarContainer, 'vertical');
                 if (scrollbarInstance) {
                     container._scrollbarInstance = scrollbarInstance;
-                    console.log('📜 [SCROLLBAR] ✅ Scrollbar creado con createScrollbarLocal');
                     return;
                 }
             }
             // Fallback: Importar ScrollProvider dinámicamente
-            console.log('📜 [SCROLLBAR] Importando ScrollProvider...');
             const { createScrollbar } = await import('../../scroll/src/ScrollProvider');
             const scrollbarInstance = createScrollbar({
                 orientation: 'vertical',
@@ -173,39 +141,29 @@ function createListDropdown(items, onSelect) {
             });
             if (scrollbarInstance) {
                 container._scrollbarInstance = scrollbarInstance;
-                console.log('📜 [SCROLLBAR] ✅ Scrollbar creado con ScrollProvider');
-            }
-            else {
-                console.log('📜 [SCROLLBAR] ⚠️ Scrollbar no se creó');
             }
         }
         catch (error) {
             console.error('📜 [SCROLLBAR] ❌ Error inicializando scrollbar:', error);
         }
-        console.log('📜 [SCROLLBAR] ========== FIN initScrollbar ==========');
     };
     // Inicializar scrollbar cuando el contenedor esté en el DOM
     const setupScrollbar = () => {
-        console.log('📜 [SCROLLBAR] setupScrollbar llamado, isConnected:', container.isConnected);
         if (container.isConnected) {
             // Esperar un frame para que el DOM esté listo
             requestAnimationFrame(() => {
-                console.log('📜 [SCROLLBAR] requestAnimationFrame ejecutado, llamando initScrollbar');
                 initScrollbar();
             });
         }
     };
     // Si ya está en el DOM, inicializar inmediatamente
     if (container.parentElement) {
-        console.log('📜 [SCROLLBAR] Contenedor ya en DOM, inicializando inmediatamente');
         setupScrollbar();
     }
     else {
-        console.log('📜 [SCROLLBAR] Contenedor no en DOM, configurando observer');
         // Si no está en el DOM, esperar a que se agregue
         const observer = new MutationObserver(() => {
             if (container.isConnected) {
-                console.log('📜 [SCROLLBAR] Contenedor conectado al DOM, inicializando');
                 observer.disconnect();
                 setupScrollbar();
             }
@@ -214,7 +172,6 @@ function createListDropdown(items, onSelect) {
         // Timeout de seguridad
         setTimeout(() => {
             if (container.isConnected) {
-                console.log('📜 [SCROLLBAR] Timeout alcanzado, inicializando');
                 observer.disconnect();
                 setupScrollbar();
             }

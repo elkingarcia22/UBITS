@@ -157,7 +157,7 @@ export const Default: Story = {
           tabs: tabs,
           activeTabId: activeId,
           onTabChange: (tabId, tabElement) => {
-            console.log('Tab cambiado:', tabId, tabElement);
+            // Tab cambiado
             // Actualizar panel de información
             updateInfoPanel(tabId);
           }

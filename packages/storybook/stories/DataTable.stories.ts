@@ -1284,7 +1284,7 @@ export const Default: Story = {
         if (container) {
           renderActionBar(container);
         } else {
-          console.warn('🎯 [ROW SELECT] ⚠️ Container no encontrado:', tableContainerId);
+          // Container no encontrado
         }
       },
       onSelectAll: (selected) => {
@@ -1307,11 +1307,11 @@ export const Default: Story = {
               }
             });
           } else {
-            console.warn('🎯 [SELECT ALL] ⚠️ Tabla no encontrada');
+            // Tabla no encontrada
           }
           renderActionBar(container);
         } else {
-          console.warn('🎯 [SELECT ALL] ⚠️ Container no encontrado:', tableContainerId);
+          // Container no encontrado
         }
       }
 };

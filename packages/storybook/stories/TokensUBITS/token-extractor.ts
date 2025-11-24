@@ -36,7 +36,7 @@ export function extractColorTokens(colorName: string): string[] {
       }
     });
   } catch (e) {
-    console.warn('Error extrayendo tokens del CSS:', e);
+    // Error extrayendo tokens del CSS
   }
 
   return tokens.sort();

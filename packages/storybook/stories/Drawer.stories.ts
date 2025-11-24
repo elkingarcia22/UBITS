@@ -195,7 +195,7 @@ export const Default: Story = {
           footerButtons['tertiary'] = {
             label: args['footerButtons.tertiary.label'] || 'Cancelar',
             onClick: () => {
-              console.log('Botón Tertiary clickeado');
+              // Botón Tertiary clickeado
             },
           };
         }
@@ -204,7 +204,7 @@ export const Default: Story = {
           footerButtons['secondary'] = {
             label: args['footerButtons.secondary.label'] || 'Guardar',
             onClick: () => {
-              console.log('Botón Secondary clickeado');
+              // Botón Secondary clickeado
             },
           };
         }
@@ -213,7 +213,7 @@ export const Default: Story = {
           footerButtons['primary'] = {
             label: args['footerButtons.primary.label'] || 'Crear',
             onClick: () => {
-              console.log('Botón Primary clickeado');
+              // Botón Primary clickeado
             },
           };
         }

@@ -291,7 +291,7 @@ const defaultItems: TabBarItem[] = [
     label: 'Módulos',
     icon: 'th-large',
     onClick: (item, event) => {
-      console.log('Módulos clicked:', item);
+      // Módulos clicked
     }
   },
   {
@@ -300,7 +300,7 @@ const defaultItems: TabBarItem[] = [
     avatar: '/images/Profile-image.jpg',
     avatarAlt: 'Mi perfil',
     onClick: (item, event) => {
-      console.log('Perfil clicked:', item);
+      // Perfil clicked
     }
   },
   {
@@ -308,7 +308,7 @@ const defaultItems: TabBarItem[] = [
     label: 'Modo oscuro',
     icon: 'moon',
     onClick: (item, event) => {
-      console.log('Dark mode clicked:', item);
+      // Dark mode clicked
     }
   }
 ];
@@ -327,16 +327,16 @@ export const Default: Story = {
     // No incluir floatingMenuSections y profileMenuItems en args iniciales
     // para que se calculen dinámicamente según el variant
     onTabChange: (tabId, item, element) => {
-      console.log('Tab changed:', tabId, item);
+      // Tab changed
     },
     onDarkModeToggle: (isDark) => {
-      console.log('Dark mode toggled:', isDark);
+      // Dark mode toggled
     },
     onFloatingMenuItemClick: (sectionId, subitemId, url) => {
-      console.log('Floating menu item clicked:', { sectionId, subitemId, url });
+      // Floating menu item clicked
     },
     onProfileMenuItemClick: (itemId, item) => {
-      console.log('Profile menu item clicked:', { itemId, item });
+      // Profile menu item clicked
     }
   } as TabBarOptions & { variant?: 'colaborador' | 'admin'; activeTabId?: string; darkModeEnabled?: boolean; visible?: boolean },
   render: (args) => {
@@ -511,7 +511,7 @@ export const Default: Story = {
             });
 
             if (!tabBarElement) {
-              console.error('Error: createTabBar retornó null');
+              // Error: createTabBar retornó null
               container.innerHTML = `<p style="color: var(--modifiers-normal-color-light-feedback-border-error); padding: 16px; font-size: 12px;">Error: No se pudo crear el TabBar</p>`;
             }
             
@@ -530,7 +530,7 @@ export const Default: Story = {
               }
             }, 2000);
           } catch (error) {
-            console.error('Error creando TabBar:', error);
+            // Error creando TabBar
             container.innerHTML = `<p style="color: var(--modifiers-normal-color-light-feedback-border-error); padding: 16px; font-size: 12px;">Error: ${error}</p>`;
           }
         }, 500);

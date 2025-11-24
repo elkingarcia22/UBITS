@@ -49,7 +49,7 @@ export function getTokenValue(token: string, theme: 'light' | 'dark' = 'light'):
   try {
     value = getComputedStyle(root).getPropertyValue(token).trim();
   } catch (e) {
-    console.warn(`Error getting value for token ${token} in theme ${targetTheme}:`, e);
+    // Error getting value for token
   }
   
   if (originalTheme) {

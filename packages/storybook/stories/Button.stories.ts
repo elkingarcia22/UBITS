@@ -221,16 +221,16 @@ export const Default: Story = {
               const backgroundValue = `${bgActiveButton}, ${bg1}`;
               btn.style.setProperty('background', backgroundValue, 'important');
               btn.style.setProperty('border', 'none', 'important');
-              btn.style.setProperty('color', 'var(--modifiers-normal-color-light-accent-brand))', 'important');
+              btn.style.setProperty('color', 'var(--modifiers-normal-color-light-accent-brand)', 'important');
               
               const spans = btn.querySelectorAll('span');
               spans.forEach((span) => {
-                span.style.color = 'var(--modifiers-normal-color-light-accent-brand))';
+                span.style.color = 'var(--modifiers-normal-color-light-accent-brand)';
               });
               
               const icons = btn.querySelectorAll('i');
               icons.forEach((icon) => {
-                icon.style.color = 'var(--modifiers-normal-color-light-accent-brand))';
+                icon.style.color = 'var(--modifiers-normal-color-light-accent-brand)';
               });
             }
           };
@@ -271,15 +271,15 @@ export const Default: Story = {
               const bg1 = getComputedStyle(root).getPropertyValue('--modifiers-normal-color-light-bg-1').trim() || '#ffffff';
               const backgroundValue = `${bgActiveButton}, ${bg1}`;
               button.style.setProperty('background', backgroundValue, 'important');
-              button.style.setProperty('color', 'var(--modifiers-normal-color-light-accent-brand))', 'important');
+              button.style.setProperty('color', 'var(--modifiers-normal-color-light-accent-brand)', 'important');
               button.style.setProperty('border', 'none', 'important');
               const spans = button.querySelectorAll('span');
               spans.forEach(span => {
-                span.style.color = 'var(--modifiers-normal-color-light-accent-brand))';
+                span.style.color = 'var(--modifiers-normal-color-light-accent-brand)';
               });
               const icons = button.querySelectorAll('i');
               icons.forEach(icon => {
-                icon.style.color = 'var(--modifiers-normal-color-light-accent-brand))';
+                icon.style.color = 'var(--modifiers-normal-color-light-accent-brand)';
               });
             }
             if (buttonArgs.iconOnly && buttonArgs.showTooltip && buttonArgs.tooltipText) {
@@ -329,16 +329,16 @@ export const Default: Story = {
             // Usar setProperty con !important para asegurar que se aplique
             button.style.setProperty('background', backgroundValue, 'important');
             button.style.setProperty('border', 'none', 'important');
-            button.style.setProperty('color', 'var(--modifiers-normal-color-light-accent-brand))', 'important');
+            button.style.setProperty('color', 'var(--modifiers-normal-color-light-accent-brand)', 'important');
             
             const spans = button.querySelectorAll('span');
             spans.forEach((span) => {
-              span.style.color = 'var(--modifiers-normal-color-light-accent-brand))';
+              span.style.color = 'var(--modifiers-normal-color-light-accent-brand)';
             });
             
             const icons = button.querySelectorAll('i');
             icons.forEach((icon) => {
-              icon.style.color = 'var(--modifiers-normal-color-light-accent-brand))';
+              icon.style.color = 'var(--modifiers-normal-color-light-accent-brand)';
             });
           }
           
@@ -586,8 +586,8 @@ export const ActiveState: Story = {
     info.innerHTML = `
       <p style="margin: 0 0 8px 0; color: var(--modifiers-normal-color-light-fg-1-high, #303a47); font-weight: 600;">Estilo Active:</p>
       <ul style="margin: 0; padding-left: 20px; color: var(--modifiers-normal-color-light-fg-1-medium, #5c646f);">
-        <li>Fondo: <code style="background: var(--modifiers-normal-color-light-bg-2)); padding: 2px 6px; border-radius: 4px;">var(--modifiers-normal-color-light-bg-active-button)</code> sobre <code style="background: var(--modifiers-normal-color-light-bg-2)); padding: 2px 6px; border-radius: 4px;">var(--modifiers-normal-color-light-bg-1)</code></li>
-        <li>Texto: <code style="background: var(--modifiers-normal-color-light-bg-2)); padding: 2px 6px; border-radius: 4px;">var(--modifiers-normal-color-light-accent-brand))</code> (usa token accent-brand según tema)</li>
+        <li>Fondo: <code style="background: var(--modifiers-normal-color-light-bg-2); padding: 2px 6px; border-radius: 4px;">var(--modifiers-normal-color-light-bg-active-button)</code> sobre <code style="background: var(--modifiers-normal-color-light-bg-2); padding: 2px 6px; border-radius: 4px;">var(--modifiers-normal-color-light-bg-1)</code></li>
+        <li>Texto: <code style="background: var(--modifiers-normal-color-light-bg-2); padding: 2px 6px; border-radius: 4px;">var(--modifiers-normal-color-light-accent-brand)</code> (usa token accent-brand según tema)</li>
         <li>Sin borde</li>
       </ul>
     `;
