@@ -161,7 +161,41 @@ export const WelcomePage: Story = {
         iframe.src = templatePath;
       }
 
+      // Función para sincronizar el tema del iframe con Storybook
+      const syncThemeToIframe = () => {
+        try {
+          const iframeWindow = iframe.contentWindow as any;
+          const iframeDoc = iframeWindow?.document;
+          if (iframeDoc) {
+            const currentTheme = document.body.getAttribute('data-theme') || 'light';
+            iframeDoc.body.setAttribute('data-theme', currentTheme);
+            iframeDoc.documentElement.setAttribute('data-theme', currentTheme);
+          }
+        } catch (e) {
+          // Ignorar errores de CORS
+        }
+      };
+
+      // Observar cambios de tema en Storybook y propagarlos al iframe
+      const themeObserver = new MutationObserver(() => {
+        syncThemeToIframe();
+      });
+
+      themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['data-theme']
+      });
+
+      // También observar el documentElement
+      themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme']
+      });
+
       iframe.onload = () => {
+        // Sincronizar tema inmediatamente al cargar
+        syncThemeToIframe();
+        
         // Configurar el template cuando se carga
         setTimeout(() => {
           try {
@@ -265,6 +299,7 @@ export const WelcomePage: Story = {
 
     const originalRemove = container.remove;
     container.remove = function() {
+      themeObserver.disconnect();
       welcomeInstances.delete(instanceId);
       originalRemove.call(this);
     };
