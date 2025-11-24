@@ -14,7 +14,7 @@
     "validate:all": "node scripts/validate-ubits.cjs",
     "validate:all:fix": "node scripts/validate-ubits.cjs --fix",
     "precommit": "npm run validate:fix",
-    "prepare": "husky",
+    "prepare": "husky || true",
     "init": "node scripts/init-project.cjs",
     "integrate:addons": "node scripts/integrate-addons.cjs",
     "deploy": "node scripts/deploy.cjs",
