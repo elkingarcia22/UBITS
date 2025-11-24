@@ -626,6 +626,10 @@
                 // Cargar tema guardado
                 window.UBITS_ThemeManager.init();
                 
+                // Sincronizar tema desde Storybook si estamos en un iframe
+                syncThemeFromParent();
+                observeParentTheme();
+                
                 // ⚠️ IMPORTANTE: Cargar componentes PRIMERO
                 // Luego inicializar responsive para que adapte los componentes ya creados
                 window.UBITS_TemplateLoader.loadProduct(productConfig, {
