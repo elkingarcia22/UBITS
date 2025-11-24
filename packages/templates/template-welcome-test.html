@@ -893,48 +893,49 @@
         }
 
         // ========================================
-        // DARK MODE TOGGLE
+        // DARK MODE SYNC (para Storybook)
         // ========================================
         
-        function initDarkModeToggle() {
-            const toggleButton = document.getElementById('dark-mode-toggle');
-            const icon = document.getElementById('dark-mode-icon');
-            
-            if (!toggleButton || !icon) return;
-
-            function updateIcon(theme) {
-                icon.classList.remove('fa-moon', 'fa-sun', 'fa-sun-bright', 'fa-solid', 'fa-regular', 'far');
-                if (theme === 'dark') {
-                    icon.classList.add('fa-solid', 'fa-sun-bright');
-                } else {
-                    icon.classList.add('far', 'fa-moon');
+        function syncThemeFromParent() {
+            // Si estamos en un iframe, intentar obtener el tema del parent (Storybook)
+            if (window.parent && window.parent !== window) {
+                try {
+                    const parentBody = window.parent.document.body;
+                    const parentTheme = parentBody.getAttribute('data-theme') || 'light';
+                    document.body.setAttribute('data-theme', parentTheme);
+                    document.documentElement.setAttribute('data-theme', parentTheme);
+                } catch (e) {
+                    // Si hay error de CORS, usar el tema por defecto
+                    console.log('⚠️ No se puede acceder al parent (CORS), usando tema light');
                 }
             }
-
-            // Inicializar icono según tema actual
-            const currentTheme = document.body.getAttribute('data-theme') || 'light';
-            updateIcon(currentTheme);
-
-            // Escuchar cambios de tema
-            document.addEventListener('ubits-theme-change', (event) => {
-                updateIcon(event.detail.theme);
-            });
-
-            // Manejar click
-            toggleButton.addEventListener('click', () => {
-                if (window.UBITS_ThemeManager) {
-                    const newTheme = window.UBITS_ThemeManager.toggleTheme();
-                    updateIcon(newTheme);
-                } else {
-                    // Fallback si ThemeManager no está disponible
-                    const body = document.body;
-                    const currentTheme = body.getAttribute('data-theme') || 'light';
-                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                    body.setAttribute('data-theme', newTheme);
-                    localStorage.setItem('ubits-theme', newTheme);
-                    updateIcon(newTheme);
+        }
+        
+        // Observar cambios en el tema del parent (Storybook)
+        function observeParentTheme() {
+            if (window.parent && window.parent !== window) {
+                try {
+                    // Observar cambios en el atributo data-theme del body del parent
+                    const observer = new MutationObserver((mutations) => {
+                        mutations.forEach((mutation) => {
+                            if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+                                const parentTheme = window.parent.document.body.getAttribute('data-theme') || 'light';
+                                document.body.setAttribute('data-theme', parentTheme);
+                                document.documentElement.setAttribute('data-theme', parentTheme);
+                            }
+                        });
+                    });
+                    
+                    observer.observe(window.parent.document.body, {
+                        attributes: true,
+                        attributeFilter: ['data-theme']
+                    });
+                } catch (e) {
+                    // Si hay error de CORS, usar polling como fallback
+                    console.log('⚠️ MutationObserver no disponible (CORS), usando polling');
+                    setInterval(syncThemeFromParent, 500);
                 }
-            });
+            }
         }
 
         // ========================================
