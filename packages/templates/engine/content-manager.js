@@ -51,16 +51,19 @@ class ContentManager {
     
     console.log('🔍 [ContentManager] isAdminMode:', this.isAdminMode);
     
+    // Normalizar el nombre de la sección (manejar variaciones con/sin tilde)
+    const normalizedSection = section === 'diagnostico' ? 'diagnóstico' : section;
+    
     // ⚠️ IMPORTANTE: Secciones sin SubNav
     // En modo admin: inicio y diagnóstico no tienen SubNav
-    if (this.isAdminMode && (section === 'inicio' || section === 'diagnóstico')) {
-      console.log('⚠️ [ContentManager] Sección sin SubNav (modo admin):', section);
+    if (this.isAdminMode && (normalizedSection === 'inicio' || normalizedSection === 'diagnóstico')) {
+      console.log('⚠️ [ContentManager] Sección sin SubNav (modo admin):', normalizedSection);
       return null;
     }
     
     // En modo colaborador: diagnóstico no tiene SubNav
-    if (!this.isAdminMode && section === 'diagnóstico') {
-      console.log('⚠️ [ContentManager] Sección sin SubNav (modo colaborador):', section);
+    if (!this.isAdminMode && normalizedSection === 'diagnóstico') {
+      console.log('⚠️ [ContentManager] Sección sin SubNav (modo colaborador):', normalizedSection);
       return null;
     }
     
