@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
+import { WELCOME_IMAGES, getImageById, getImageOptions, getImageLabels } from './welcomeImages';
 
 const meta: Meta<{
   layout: 'image-right' | 'image-left' | 'no-image';
@@ -8,6 +9,7 @@ const meta: Meta<{
   showInfoBox: boolean;
   imageSize: 'small' | 'medium' | 'large';
   containerStyle: 'default' | 'compact' | 'wide' | 'minimal';
+  selectedImage: string;
 }> = {
   title: 'Templates/Welcome Test',
   tags: ['autodocs'],
@@ -78,6 +80,19 @@ const meta: Meta<{
         defaultValue: { summary: 'default' },
         type: { summary: 'default | compact | wide | minimal' }
       }
+    },
+    selectedImage: {
+      control: { 
+        type: 'select',
+        labels: getImageLabels()
+      },
+      options: getImageOptions(),
+      description: 'Seleccionar imagen de la galería (50 imágenes disponibles)',
+      table: {
+        defaultValue: { summary: '1' },
+        type: { summary: 'string' },
+        category: 'Imagen'
+      }
     }
   }
 };
@@ -104,7 +119,8 @@ export const WelcomePage: Story = {
     showBanner: true,
     showInfoBox: true,
     imageSize: 'medium',
-    containerStyle: 'default'
+    containerStyle: 'default',
+    selectedImage: '1'
   },
   render: (args) => {
     const instanceId = `welcome-instance-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -158,15 +174,21 @@ export const WelcomePage: Story = {
               config.infoBox.show = args.showInfoBox;
               config.image.size = args.imageSize;
               
-              // Layout
+              // Layout e Imagen
+              const selectedImageData = getImageById(args.selectedImage || '1');
+              const imageUrl = selectedImageData?.url || 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=1200&fit=crop&auto=format';
+              const imageAlt = selectedImageData?.name || 'Prototipo UBITS';
+              
               if (args.layout === 'image-right') {
                 config.layout.imagePosition = 'right';
                 config.image.show = true;
-                config.image.src = 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=1200&fit=crop&auto=format';
+                config.image.src = imageUrl;
+                config.image.alt = imageAlt;
               } else if (args.layout === 'image-left') {
                 config.layout.imagePosition = 'left';
                 config.image.show = true;
-                config.image.src = 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=1200&fit=crop&auto=format';
+                config.image.src = imageUrl;
+                config.image.alt = imageAlt;
               } else {
                 config.layout.imagePosition = 'none';
                 config.image.show = false;
