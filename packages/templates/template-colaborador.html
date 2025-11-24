@@ -72,7 +72,7 @@
 
         /* Scrollbar personalizado */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: var(--ubits-spacing-sm, 8px);
         }
 
         ::-webkit-scrollbar-track {
@@ -81,7 +81,7 @@
 
         ::-webkit-scrollbar-thumb {
             background: var(--ubits-fg-2-medium-static);
-            border-radius: 6px;
+            border-radius: var(--ubits-border-radius-xs, 4px);
         }
 
         ::-webkit-scrollbar-thumb:hover {
@@ -105,32 +105,8 @@
            TOOLTIP
            ======================================== */
         
-        .tooltip {
-            position: fixed;
-            background: var(--ubits-sidebar-bg);
-            color: var(--ubits-fg-1-high-static-inverted);
-            padding: 8px 12px;
-            border-radius: 6px;
-            white-space: nowrap;
-            z-index: 10000;
-            box-shadow: 0px 2px 8px rgba(0,0,0,0.15);
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            font-family: var(--font-sans, 'Noto Sans', sans-serif);
-            font-size: 14px;
-            font-weight: 400;
-        }
-
-        .tooltip::before {
-            content: '';
-            position: absolute;
-            left: -6px;
-            top: 50%;
-            transform: translateY(-50%);
-            border: 6px solid transparent;
-            border-right-color: var(--ubits-sidebar-bg);
-        }
+        /* ⚠️ NOTA: Los estilos del tooltip del sidebar están en el componente sidebar.css */
+        /* No sobrescribir aquí, usar los estilos del componente oficial */
 
         /* ========================================
            MAIN CONTENT
@@ -139,13 +115,13 @@
         .main-content {
             position: relative;
             flex: 1;
-            margin: 16px 24px 0 143px;
-            width: calc(100% - 143px - 24px);
+            margin: var(--ubits-spacing-lg, 16px) var(--ubits-spacing-2xl, 24px) 0 calc(var(--ubits-spacing-2xl, 24px) + 96px + 23px);
+            width: calc(100% - calc(var(--ubits-spacing-2xl, 24px) + 96px + 23px) - var(--ubits-spacing-2xl, 24px));
             overflow: visible;
             max-height: none;
             display: flex;
             flex-direction: column;
-            gap: 20px; /* Gap entre SubNav y Content Area */
+            gap: var(--ubits-spacing-xl, 20px); /* Gap entre SubNav y Content Area */
             z-index: 5;
             box-sizing: border-box;
         }
@@ -154,9 +130,9 @@
         /* El proyecto UBITS original usa margin: auto sin cambiar flex */
         @media (min-width: 1440px) {
             .main-content {
-                margin: 16px auto 0 auto; /* ⚠️ margin auto centra el elemento */
-                padding-left: 143px; /* Espacio para sidebar (24px + 96px + 23px gap) */
-                padding-right: 24px;
+                margin: var(--ubits-spacing-lg, 16px) auto 0 auto; /* ⚠️ margin auto centra el elemento */
+                padding-left: calc(var(--ubits-spacing-2xl, 24px) + 96px + 23px); /* Espacio para sidebar (24px + 96px + 23px gap) */
+                padding-right: var(--ubits-spacing-2xl, 24px);
                 width: 1607px;
                 max-width: 1607px;
                 box-sizing: border-box;
@@ -173,17 +149,17 @@
             }
             
             .main-content {
-                gap: 20px;
-                margin: 16px 12px 0 12px !important;
-                width: calc(100% - 24px);
+                gap: var(--ubits-spacing-xl, 20px);
+                margin: var(--ubits-spacing-lg, 16px) var(--ubits-spacing-md, 12px) 0 var(--ubits-spacing-md, 12px) !important;
+                width: calc(100% - var(--ubits-spacing-2xl, 24px));
                 padding-left: 0;
                 padding-right: 0;
                 max-width: 100%;
-                padding-bottom: 60px; /* Espacio para el TabBar, igual que el proyecto UBITS original */
+                padding-bottom: var(--ubits-spacing-6xl, 40px); /* Espacio para el TabBar, igual que el proyecto UBITS original */
             }
             
             .content-area {
-                padding-bottom: 60px; /* Espacio para el TabBar, igual que el proyecto UBITS original */
+                padding-bottom: var(--ubits-spacing-6xl, 40px); /* Espacio para el TabBar, igual que el proyecto UBITS original */
             }
             
             .main-content > *:first-child {
@@ -191,35 +167,6 @@
             }
         }
 
-        /* ========================================
-           TOP NAV CONTAINER (SubNav)
-           ======================================== */
-        
-        #top-nav-container {
-            width: 100%;
-            max-width: 100%;
-            box-sizing: border-box;
-        }
-
-        /* El SubNav debe tener el mismo ancho que el contenido */
-        .ubits-sub-nav {
-            width: 100% !important;
-            max-width: 100% !important;
-            box-sizing: border-box;
-        }
-
-        /* En pantallas grandes, el SubNav también debe estar centrado */
-        @media (min-width: 1440px) {
-            #top-nav-container {
-                width: 100%;
-                max-width: 100%;
-            }
-            
-            .ubits-sub-nav {
-                width: 100% !important;
-                max-width: 100% !important;
-            }
-        }
 
         /* ========================================
            CONTENT AREA
@@ -227,7 +174,7 @@
         
         .content-area {
             background-color: transparent !important;
-            border-radius: 10px;
+            border-radius: var(--ubits-border-radius-md, 12px);
             border: none !important;
             flex: 1;
             min-height: 0;
@@ -285,7 +232,7 @@
         .content-sections {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: var(--ubits-spacing-lg, 16px);
             flex: 1;
             min-width: 0;
             width: 100%; /* Ocupar el 100% del ancho del content-area */
@@ -296,7 +243,7 @@
         }
 
         .content-sections > *:not(:last-child):not(.section-dual):not(.section-single):not(.section-triple):not(.section-quad) {
-            margin-bottom: 16px;
+            margin-bottom: var(--ubits-spacing-lg, 16px);
         }
 
         .content-sections::after {
@@ -322,21 +269,21 @@
 
         .section-dual {
             display: flex;
-            gap: 20px;
+            gap: var(--ubits-spacing-xl, 20px);
             width: 100%;
             box-sizing: border-box;
         }
 
         .section-triple {
             display: flex;
-            gap: 20px;
+            gap: var(--ubits-spacing-xl, 20px);
             width: 100%;
             box-sizing: border-box;
         }
 
         .section-quad {
             display: flex;
-            gap: 20px;
+            gap: var(--ubits-spacing-xl, 20px);
             width: 100%;
             box-sizing: border-box;
         }
@@ -352,8 +299,8 @@
         .section-quad > div {
             background-color: var(--ubits-bg-1);
             border: none;
-            border-radius: 8px;
-            padding: 16px !important; /* !important para sobrescribir el reset */
+            border-radius: var(--ubits-border-radius-sm, 8px);
+            padding: var(--ubits-spacing-lg, 16px) !important; /* !important para sobrescribir el reset */
             width: 100%; /* Ocupar el 100% del ancho de la sección */
             box-sizing: border-box;
             display: flex;
@@ -391,7 +338,7 @@
             .section-triple,
             .section-quad {
                 flex-direction: column;
-                gap: 16px;
+                gap: var(--ubits-spacing-lg, 16px);
             }
         }
 
@@ -400,7 +347,7 @@
             .section-dual > div,
             .section-triple > div,
             .section-quad > div {
-                padding: 12px !important;
+                padding: var(--ubits-spacing-md, 12px) !important;
             }
         }
 
@@ -458,6 +405,7 @@
         <!-- Main Content -->
         <main class="main-content">
             <!-- Top Navigation -->
+            <!-- SubNav Container -->
             <div id="top-nav-container"></div>
             
             <!-- Content Area -->
@@ -492,6 +440,129 @@
     
     <script>
         // ========================================
+        // DIAGNÓSTICO: Verificar carga de CSS
+        // ========================================
+        console.log('🔍 [Template] Iniciando diagnóstico de estilos...');
+        
+        // Verificar que los CSS se hayan cargado
+        function checkLoadedStylesheets() {
+            console.log('🔍 [CSS Check] Verificando hojas de estilo cargadas...');
+            const stylesheets = Array.from(document.styleSheets);
+            console.log(`📊 [CSS Check] Total de hojas de estilo encontradas: ${stylesheets.length}`);
+            
+            const expectedCSS = [
+                'tokens.css',
+                'fonts.css',
+                'tokens-typography.css',
+                'sidebar.css',
+                'subnav.css',
+                'tabbar.css',
+                'button.css'
+            ];
+            
+            expectedCSS.forEach(cssName => {
+                const found = stylesheets.some(sheet => {
+                    try {
+                        return sheet.href && sheet.href.includes(cssName);
+                    } catch (e) {
+                        return false;
+                    }
+                });
+                console.log(found ? `✅ [CSS Check] ${cssName} encontrado` : `❌ [CSS Check] ${cssName} NO encontrado`);
+            });
+            
+            // Verificar tokens CSS específicamente
+            const tokensSheet = stylesheets.find(sheet => {
+                try {
+                    return sheet.href && sheet.href.includes('tokens.css');
+                } catch (e) {
+                    return false;
+                }
+            });
+            
+            if (tokensSheet) {
+                console.log('✅ [CSS Check] tokens.css encontrado:', tokensSheet.href);
+                try {
+                    const rules = Array.from(tokensSheet.cssRules || []);
+                    console.log(`📊 [CSS Check] Reglas en tokens.css: ${rules.length}`);
+                    if (rules.length > 0) {
+                        const firstRule = rules[0];
+                        console.log('📋 [CSS Check] Primera regla:', firstRule.cssText.substring(0, 100));
+                    }
+                } catch (e) {
+                    console.error('❌ [CSS Check] Error al leer reglas de tokens.css:', e.message);
+                }
+            } else {
+                console.error('❌ [CSS Check] tokens.css NO encontrado en document.styleSheets');
+            }
+        }
+        
+        // Verificar que los componentes existan en window
+        function checkComponentsAvailable() {
+            console.log('🔍 [Template] Verificando componentes disponibles...');
+            console.log('📦 [Template] window.createSidebar:', typeof window.createSidebar);
+            console.log('📦 [Template] window.createSubNav:', typeof window.createSubNav);
+            console.log('📦 [Template] window.createTabBar:', typeof window.createTabBar);
+            console.log('📦 [Template] window.UBITS_ThemeManager:', typeof window.UBITS_ThemeManager);
+            console.log('📦 [Template] window.UBITS_ResponsiveManager:', typeof window.UBITS_ResponsiveManager);
+            console.log('📦 [Template] window.UBITS_TemplateLoader:', typeof window.UBITS_TemplateLoader);
+        }
+        
+        // Verificar elementos renderizados y sus clases CSS
+        function checkRenderedComponents() {
+            setTimeout(() => {
+                console.log('🔍 [Template] Verificando componentes renderizados...');
+                
+                const sidebar = document.querySelector('.ubits-sidebar');
+                if (sidebar) {
+                    const computedStyle = window.getComputedStyle(sidebar);
+                    console.log('✅ [Template] Sidebar encontrado');
+                    console.log('   - Clases:', sidebar.className);
+                    console.log('   - Background:', computedStyle.backgroundColor);
+                    console.log('   - Width:', computedStyle.width);
+                    console.log('   - Height:', computedStyle.height);
+                    console.log('   - Position:', computedStyle.position);
+                } else {
+                    console.log('❌ [Template] Sidebar NO encontrado');
+                }
+                
+                const subnav = document.querySelector('.ubits-sub-nav');
+                if (subnav) {
+                    const computedStyle = window.getComputedStyle(subnav);
+                    console.log('✅ [Template] SubNav encontrado');
+                    console.log('   - Clases:', subnav.className);
+                    console.log('   - Background:', computedStyle.backgroundColor);
+                    console.log('   - Height:', computedStyle.height);
+                } else {
+                    console.log('❌ [Template] SubNav NO encontrado');
+                }
+                
+                const tabbar = document.querySelector('.ubits-tabbar');
+                if (tabbar) {
+                    const computedStyle = window.getComputedStyle(tabbar);
+                    console.log('✅ [Template] TabBar encontrado');
+                    console.log('   - Clases:', tabbar.className);
+                    console.log('   - Display:', computedStyle.display);
+                    console.log('   - Background:', computedStyle.backgroundColor);
+                } else {
+                    console.log('❌ [Template] TabBar NO encontrado');
+                }
+                
+                const buttons = document.querySelectorAll('.ubits-sidebar-nav-button');
+                console.log(`📊 [Template] Botones del sidebar encontrados: ${buttons.length}`);
+                if (buttons.length > 0) {
+                    const firstButton = buttons[0];
+                    const computedStyle = window.getComputedStyle(firstButton);
+                    console.log('   - Clases del primer botón:', firstButton.className);
+                    console.log('   - Width:', computedStyle.width);
+                    console.log('   - Height:', computedStyle.height);
+                    console.log('   - Background:', computedStyle.backgroundColor);
+                    console.log('   - Color:', computedStyle.color);
+                }
+            }, 1000);
+        }
+        
+        // ========================================
         // INITIALIZATION
         // Usando los componentes reales desde components-loader.js
         // ========================================
@@ -513,11 +584,28 @@
             }
         }
 
-        // ========================================
-        // INITIALIZATION
-        // ========================================
-        
         document.addEventListener('DOMContentLoaded', function() {
+            // Verificar CSS inmediatamente
+            setTimeout(checkLoadedStylesheets, 100);
+            console.log('🚀 [Template] DOMContentLoaded ejecutado');
+            
+            // Verificar CSS inmediatamente
+            setTimeout(() => {
+                console.log('🔍 [Template] ════════════════════════════════════════');
+                console.log('🔍 [Template] VERIFICACIÓN DE CSS CARGADOS');
+                console.log('🔍 [Template] ════════════════════════════════════════');
+                checkLoadedStylesheets();
+                console.log('🔍 [Template] ════════════════════════════════════════');
+            }, 50);
+            
+            // Verificar componentes disponibles
+            setTimeout(() => {
+                console.log('🔍 [Template] ════════════════════════════════════════');
+                console.log('🔍 [Template] VERIFICACIÓN DE COMPONENTES DISPONIBLES');
+                console.log('🔍 [Template] ════════════════════════════════════════');
+                checkComponentsAvailable();
+                console.log('🔍 [Template] ════════════════════════════════════════');
+            }, 100);
             
             // Esperar a que todos los sistemas estén listos
             setTimeout(() => {
@@ -528,31 +616,72 @@
                 
                 // Detectar producto actual
                 const productId = window.detectCurrentProduct();
-                console.log('[Init] ProductId detectado:', productId);
+                console.log('🔍 [Init] ProductId detectado:', productId);
                 
                 // Obtener configuración del producto
                 const productConfig = window.getProductConfig(productId);
-                console.log('[Init] ProductConfig obtenido:', productConfig);
-                console.log('[Init] ¿Tiene sidebar?', !!productConfig.sidebar);
-                console.log('[Init] ¿Tiene tabbar?', !!productConfig.tabbar);
+                console.log('🔍 [Init] ProductConfig obtenido:', productConfig);
+                console.log('🔍 [Init] ¿Tiene sidebar?', !!productConfig.sidebar);
+                console.log('🔍 [Init] ¿Tiene tabbar?', !!productConfig.tabbar);
                 
                 // Cargar tema guardado
+                console.log('🔍 [Init] Inicializando ThemeManager...');
                 window.UBITS_ThemeManager.init();
                 
                 // ⚠️ IMPORTANTE: Cargar componentes PRIMERO
                 // Luego inicializar responsive para que adapte los componentes ya creados
+                console.log('🔍 [Init] Cargando componentes con TemplateLoader...');
+                console.log('🔍 [Init] Contenedores:', {
+                    sidebar: 'sidebar-container',
+                    subnav: 'top-nav-container',
+                    tabbar: 'tab-bar-container'
+                });
+                
                 window.UBITS_TemplateLoader.loadProduct(productConfig, {
                     sidebar: 'sidebar-container',
                     subnav: 'top-nav-container',
                     tabbar: 'tab-bar-container'
                 });
                 
+                console.log('✅ [Init] TemplateLoader.loadProduct ejecutado');
+                
+                // Verificar que los componentes se hayan creado
+                setTimeout(() => {
+                    const sidebarContainer = document.getElementById('sidebar-container');
+                    const subnavContainer = document.getElementById('top-nav-container');
+                    const tabbarContainer = document.getElementById('tab-bar-container');
+                    
+                    console.log('🔍 [Init] Verificando contenedores después de loadProduct...');
+                    console.log('   - sidebar-container:', sidebarContainer ? '✅ Encontrado' : '❌ NO encontrado');
+                    if (sidebarContainer) {
+                        console.log('   - sidebar-container.innerHTML length:', sidebarContainer.innerHTML.length);
+                        console.log('   - sidebar-container tiene .ubits-sidebar:', !!sidebarContainer.querySelector('.ubits-sidebar'));
+                    }
+                    
+                    console.log('   - top-nav-container:', subnavContainer ? '✅ Encontrado' : '❌ NO encontrado');
+                    if (subnavContainer) {
+                        console.log('   - top-nav-container.innerHTML length:', subnavContainer.innerHTML.length);
+                        console.log('   - top-nav-container tiene .ubits-sub-nav:', !!subnavContainer.querySelector('.ubits-sub-nav'));
+                    }
+                    
+                    console.log('   - tab-bar-container:', tabbarContainer ? '✅ Encontrado' : '❌ NO encontrado');
+                    if (tabbarContainer) {
+                        console.log('   - tab-bar-container.innerHTML length:', tabbarContainer.innerHTML.length);
+                        console.log('   - tab-bar-container tiene .ubits-tabbar:', !!tabbarContainer.querySelector('.ubits-tabbar'));
+                    }
+                }, 200);
+                
                 // Inicializar responsive DESPUÉS de que los componentes se hayan cargado
                 // Esto asegura que adaptComponents() encuentre los componentes
                 setTimeout(() => {
+                    console.log('🔍 [Init] Inicializando ResponsiveManager...');
                     window.UBITS_ResponsiveManager.init();
                     // Ejecutar adaptComponents manualmente después de que los componentes estén listos
                     window.UBITS_ResponsiveManager.adaptComponents();
+                    console.log('✅ [Init] ResponsiveManager inicializado');
+                    
+                    // Verificar componentes renderizados después de responsive
+                    checkRenderedComponents();
                 }, 100);
                 
         // Cargar sección inicial después de que todo esté listo
@@ -565,11 +694,46 @@
                 setTimeout(() => {
                     // ⚠️ IMPORTANTE: Para sidebar "colaborador", la sección inicial es "aprendizaje"
                     const initialSection = productConfig.sidebar.initialActiveSection || 'aprendizaje';
+                    console.log('🔍 [Template Colaborador] Sección inicial:', initialSection);
+                    console.log('🔍 [Template Colaborador] ContentManager disponible:', !!window.UBITS_ContentManager);
                     
+                    // Verificar estado del contenedor antes de cambiar sección
+                    const topNavContainerBefore = document.getElementById('top-nav-container');
+                    if (topNavContainerBefore) {
+                        console.log('🔍 [Template Colaborador] top-nav-container ANTES de handleSectionChange:');
+                        console.log('   - Display:', window.getComputedStyle(topNavContainerBefore).display);
+                        console.log('   - InnerHTML length:', topNavContainerBefore.innerHTML.length);
+                        console.log('   - Tiene .ubits-sub-nav:', !!topNavContainerBefore.querySelector('.ubits-sub-nav'));
+                    }
                     
                     // El ContentManager actualizará el SubNav y el contenido automáticamente
                     // El botón ya está activo gracias a initialActiveSection, no necesitamos activarlo de nuevo
                     window.UBITS_ContentManager.handleSectionChange(initialSection);
+                    
+                    // Verificar estado del contenedor DESPUÉS de cambiar sección
+                    setTimeout(() => {
+                        const topNavContainerAfter = document.getElementById('top-nav-container');
+                        if (topNavContainerAfter) {
+                            console.log('🔍 [Template Colaborador] top-nav-container DESPUÉS de handleSectionChange:');
+                            console.log('   - Display:', window.getComputedStyle(topNavContainerAfter).display);
+                            console.log('   - InnerHTML length:', topNavContainerAfter.innerHTML.length);
+                            console.log('   - Tiene .ubits-sub-nav:', !!topNavContainerAfter.querySelector('.ubits-sub-nav'));
+                            
+                            const subNavElement = topNavContainerAfter.querySelector('.ubits-sub-nav');
+                            if (subNavElement) {
+                                const computedStyle = window.getComputedStyle(subNavElement);
+                                console.log('🔍 [Template Colaborador] Estilos del SubNav:');
+                                console.log('   - Background:', computedStyle.backgroundColor);
+                                console.log('   - Height:', computedStyle.height);
+                                console.log('   - Width:', computedStyle.width);
+                                console.log('   - Display:', computedStyle.display);
+                                console.log('   - BorderRadius:', computedStyle.borderRadius);
+                                console.log('   - BoxShadow:', computedStyle.boxShadow);
+                            } else {
+                                console.error('❌ [Template Colaborador] .ubits-sub-nav NO encontrado después de handleSectionChange');
+                            }
+                        }
+                    }, 200);
                     
                     // Asegurar que el tooltip esté oculto y que ningún botón tenga focus
                     const tooltipElement = document.getElementById('ubits-sidebar-tooltip');

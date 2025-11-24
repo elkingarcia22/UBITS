@@ -13,9 +13,20 @@ import './styles/mask.css';
 function updateMaskLayers(
   overlay: HTMLElement,
   targetElement: HTMLElement,
-  padding: number
+  padding: number,
+  savedRect?: DOMRect | null
 ): { top: number; left: number; width: number; height: number } {
-  const rect = targetElement.getBoundingClientRect();
+  // Usar la posición guardada si está disponible (para evitar que el elemento se mueva)
+  // Si no hay posición guardada, calcularla normalmente
+  const rect = savedRect || targetElement.getBoundingClientRect();
+  
+  console.log('🎯 [Mask] updateMaskLayers llamado:');
+  console.log('   usandoPosicionGuardada:', !!savedRect);
+  console.log('   rect.top:', rect.top);
+  console.log('   rect.left:', rect.left);
+  console.log('   rect.width:', rect.width);
+  console.log('   rect.height:', rect.height);
+  console.log('   padding:', padding);
   
   // Cuando el body está fixed, usamos las coordenadas del viewport directamente
   // sin agregar scroll porque el body ya está posicionado
@@ -28,6 +39,15 @@ function updateMaskLayers(
   const left = rect.left - padding;
   const width = rect.width + (padding * 2);
   const height = rect.height + (padding * 2);
+  
+  console.log('📐 [Mask] Posición calculada para highlight:');
+  console.log('   top:', top);
+  console.log('   left:', left);
+  console.log('   width:', width);
+  console.log('   height:', height);
+  console.log('   isBodyFixed:', isBodyFixed);
+  console.log('   scrollTop:', scrollTop);
+  console.log('   scrollLeft:', scrollLeft);
 
   // Obtener dimensiones de la ventana
   const windowWidth = window.innerWidth;
@@ -231,12 +251,25 @@ export function createMask(options: MaskOptions): {
   // Guardar el scroll actual para restaurarlo al cerrar
   let savedScrollY = 0;
   let savedScrollX = 0;
+  
+  // Guardar la posición del elemento objetivo antes de aplicar position: fixed
+  let savedTargetRect: DOMRect | null = null;
 
   // Función para actualizar la posición de la máscara
   const updateMaskPosition = () => {
     if (!targetElement) return;
 
-    const targetRect = updateMaskLayers(overlay, targetElement, padding);
+    // En resize, recalcular la posición en lugar de usar la guardada
+    // Para que la máscara siga al elemento si se mueve
+    const shouldRecalculate = !savedTargetRect;
+    const rectToUse = shouldRecalculate ? targetElement.getBoundingClientRect() : savedTargetRect;
+    
+    console.log('🔄 [Mask] updateMaskPosition:', {
+      shouldRecalculate,
+      usandoPosicionGuardada: !shouldRecalculate
+    });
+    
+    const targetRect = updateMaskLayers(overlay, targetElement, padding, rectToUse);
 
     // Actualizar posición del popover si existe
     if (popoverInstance && popoverContainer) {
@@ -322,42 +355,118 @@ export function createMask(options: MaskOptions): {
       return;
     }
 
+    console.log('🔍 [Mask] ========== INICIO openMask ==========');
+    
     // Guardar el scroll actual antes de ocultar el overflow
     savedScrollY = window.scrollY || window.pageYOffset || 0;
     savedScrollX = window.scrollX || window.pageXOffset || 0;
+    console.log('📜 [Mask] Scroll guardado:', `Y=${savedScrollY}, X=${savedScrollX}`);
 
-    // Calcular el ancho del scrollbar antes de ocultarlo
+    // Calcular el ancho del scrollbar ANTES de ocultarlo
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    console.log('📏 [Mask] Scrollbar width:', scrollbarWidth);
 
+    // IMPORTANTE: Guardar la posición del elemento objetivo ANTES de aplicar cualquier cambio al body
+    const rectBefore = targetElement.getBoundingClientRect();
+    console.log('📍 [Mask] Posición ANTES de cambios al body:');
+    console.log('   top:', rectBefore.top);
+    console.log('   left:', rectBefore.left);
+    console.log('   width:', rectBefore.width);
+    console.log('   height:', rectBefore.height);
+    console.log('   right:', rectBefore.right);
+    console.log('   bottom:', rectBefore.bottom);
+    
     overlay.classList.add('ubits-mask-overlay--open');
     
     // Ocultar overflow pero compensar el desplazamiento para evitar que el elemento se mueva
+    console.log('🎨 [Mask] Aplicando estilos al body...');
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'fixed';
     document.body.style.top = `-${savedScrollY}px`;
     document.body.style.left = `-${savedScrollX}px`;
     document.body.style.width = '100%';
     
-    // Compensar el ancho del scrollbar si existe
+    // Compensar el scrollbar width aplicando paddingRight al body
+    // Esto previene el desplazamiento causado por la desaparición del scrollbar
     if (scrollbarWidth > 0) {
       document.body.style.paddingRight = `${scrollbarWidth}px`;
     }
 
-    // Crear y posicionar el popover
-    createPopoverInstance();
-
-    // Actualizar posición inicial
+    // Esperar a que el reflow se complete y luego guardar la posición real
     requestAnimationFrame(() => {
-      updateMaskPosition();
+      requestAnimationFrame(() => {
+        const rectAfter = targetElement!.getBoundingClientRect();
+        console.log('📍 [Mask] Posición DESPUÉS de cambios al body:');
+        console.log('   top:', rectAfter.top);
+        console.log('   left:', rectAfter.left);
+        console.log('   width:', rectAfter.width);
+        console.log('   height:', rectAfter.height);
+        console.log('   right:', rectAfter.right);
+        console.log('   bottom:', rectAfter.bottom);
+        
+        const topDiff = rectAfter.top - rectBefore.top;
+        const leftDiff = rectAfter.left - rectBefore.left;
+        const rightDiff = rectAfter.right - rectBefore.right;
+        console.log('📊 [Mask] Diferencia de posición:');
+        console.log('   topDiff:', topDiff, topDiff !== 0 ? '⚠️ SE MOVIÓ' : '✅ OK');
+        console.log('   leftDiff:', leftDiff, leftDiff !== 0 ? '⚠️ SE MOVIÓ' : '✅ OK');
+        console.log('   rightDiff:', rightDiff, rightDiff !== 0 ? '⚠️ SE MOVIÓ' : '✅ OK');
+        
+        // Si el elemento se movió, usar la posición DESPUÉS (que es la posición visual real)
+        // Si no se movió, usar la posición ANTES
+        if (Math.abs(leftDiff) > 0.1 || Math.abs(topDiff) > 0.1) {
+          console.log('⚠️ [Mask] Elemento se movió, usando posición DESPUÉS');
+          savedTargetRect = rectAfter;
+        } else {
+          console.log('✅ [Mask] Elemento no se movió, usando posición ANTES');
+          savedTargetRect = rectBefore;
+        }
+        
+        console.log('💾 [Mask] Posición guardada que se usará:');
+        console.log('   top:', savedTargetRect.top);
+        console.log('   left:', savedTargetRect.left);
+        console.log('   width:', savedTargetRect.width);
+        console.log('   height:', savedTargetRect.height);
+        
+        // Actualizar la posición de la máscara con la posición correcta
+        updateMaskPosition();
+        
+        // Crear y posicionar el popover después de que la posición esté guardada
+        createPopoverInstance();
+        
+        // Escuchar cambios de scroll y resize
+        // En resize, limpiar savedTargetRect para recalcular
+        const handleResize = () => {
+          console.log('📐 [Mask] Resize detectado, recalculando posición...');
+          savedTargetRect = null; // Limpiar para forzar recálculo
+          updateMaskPosition();
+        };
+        
+        window.addEventListener('scroll', updateMaskPosition, true);
+        window.addEventListener('resize', handleResize);
+        
+        // Guardar referencias para poder limpiarlas después
+        (overlay as any).__handleResize = handleResize;
+        (overlay as any).__handleScroll = updateMaskPosition;
+      });
     });
-
-    // Escuchar cambios de scroll y resize
-    window.addEventListener('scroll', updateMaskPosition, true);
-    window.addEventListener('resize', updateMaskPosition);
   };
 
   const closeMask = () => {
     overlay.classList.remove('ubits-mask-overlay--open');
+    
+    // Limpiar la posición guardada
+    savedTargetRect = null;
+    
+    // Remover event listeners
+    const handleResize = (overlay as any).__handleResize;
+    const handleScroll = (overlay as any).__handleScroll;
+    if (handleResize) {
+      window.removeEventListener('resize', handleResize);
+    }
+    if (handleScroll) {
+      window.removeEventListener('scroll', handleScroll, true);
+    }
     
     // Restaurar el scroll y el overflow del body
     document.body.style.overflow = '';

@@ -15,6 +15,13 @@ function renderIconHelper(iconName: string, iconStyle: 'regular' | 'solid' = 're
   return `<i class="${iconClass} ${name}"></i>`;
 }
 
+// Helper para convertir hex a rgb para comparación
+function hexToRgb(hex: string): string | null {
+  if (!hex) return null;
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : null;
+}
+
 /**
  * Renderiza el HTML del TabBar
  */
@@ -140,38 +147,66 @@ export function createTabBar(options: TabBarOptions): HTMLElement | null {
 }
 
 /**
- * Renderiza un item del tree menu recursivamente
+ * Renderiza un nodo del TreeMenu usando la estructura del componente TreeMenu de Storybook
  */
-function renderTreeMenuItem(item: FloatingMenuSection | TreeMenuItem, level: number = 0, size: 'xs' | 'sm' | 'md' | 'lg' = 'md'): string {
+function renderTreeNode(
+  item: FloatingMenuSection | TreeMenuItem,
+  level: number = 0,
+  size: 'xs' | 'sm' | 'md' | 'lg' = 'md',
+  uniqueId: string = 'floating-menu'
+): string {
   // Soportar tanto children (tree menu) como subitems (legacy)
   const hasChildren = (item.children && item.children.length > 0) || (item as FloatingMenuSection).subitems?.length > 0;
   const isLink = (item as FloatingMenuSection).isLink || (!hasChildren && item.url);
   
-  const sizeClass = `ubits-tree-menu-${isLink ? 'link' : 'header'}--${size}`;
+  const nodeId = `${uniqueId}-node-${level}-${item.id}`;
+  const cascade = false; // Modo vertical sin indentación
+  
+  // Calcular valores según tamaño (matching TreeMenu Storybook)
+  const padding = size === 'xs' ? '8px 12px' : size === 'sm' ? '10px 14px' : size === 'lg' ? '16px 20px' : '12px 16px';
+  const minHeight = size === 'xs' ? '28px' : size === 'sm' ? '32px' : size === 'lg' ? '48px' : '40px';
+  const fontSize = size === 'xs' ? 'var(--font-body-xs-size, 11px)' : size === 'sm' ? 'var(--font-body-sm-size, 13px)' : size === 'lg' ? 'var(--font-body-lg-size, 20px)' : 'var(--font-body-md-size, 16px)';
+  const lineHeight = size === 'xs' ? 'var(--font-body-xs-line, 16.5px)' : size === 'sm' ? 'var(--font-body-sm-line, 19.5px)' : size === 'lg' ? 'var(--font-body-lg-line, 30px)' : 'var(--font-body-md-line, 24px)';
+  const iconSize = size === 'xs' ? '12px' : size === 'sm' ? '14px' : size === 'lg' ? '18px' : '16px';
+  const chevronSize = size === 'xs' ? '10px' : size === 'sm' ? '12px' : size === 'lg' ? '16px' : '14px';
+  
+  // Clases de tipografía según tamaño
+  const typographyClass = size === 'xs'
+    ? 'ubits-body-xs-regular'
+    : size === 'sm' 
+    ? 'ubits-body-sm-regular' 
+    : size === 'lg' 
+    ? 'ubits-body-lg-regular' 
+    : 'ubits-body-md-regular';
   
   // Si es un enlace directo (sin hijos)
   if (isLink) {
-    // Solo mostrar icono en level 0 (items principales), no en sub-items
-    const iconHTML = level === 0 ? `
-          <div class="ubits-tree-menu-icon" data-circle-id="${item.id}">
-            ${renderIconHelper(item.icon)}
-          </div>
+    const iconHTML = level === 0 && item.icon ? `
+      <span class="ubits-tree-node__icon" style="font-size: ${iconSize};">
+        ${renderIconHelper(item.icon)}
+      </span>
     ` : '';
-      return `
-      <div class="ubits-tree-menu-item" data-tree-item-id="${item.id}" data-tree-level="${level}">
-        <a href="${item.url || '#'}" class="ubits-tree-menu-link ${sizeClass}" data-section-id="${item.id}">
+    
+    return `
+      <div class="ubits-tree-node ubits-tree-node--vertical" data-level="${level}">
+        <a 
+          href="${item.url || '#'}" 
+          class="ubits-tree-node__content" 
+          data-section-id="${item.id}"
+          data-size="${size}"
+          style="min-height: ${minHeight} !important; padding: ${padding} !important; font-size: ${fontSize} !important; line-height: ${lineHeight} !important; margin: 0 !important; border: none !important; text-decoration: none; display: flex; align-items: center; gap: var(--ubits-spacing-sm, 8px);"
+          role="treeitem"
+          aria-label="${item.title}"
+        >
+          <span class="ubits-tree-node__chevron" style="width: 0; height: 0; display: none;"></span>
           ${iconHTML}
-          <span class="ubits-tree-menu-text">${item.title}</span>
-          <span class="ubits-tree-menu-chevron">
-            <i class="far fa-chevron-right" data-chevron-id="${item.id}"></i>
-          </span>
+          <span class="ubits-tree-node__label ${typographyClass}" style="line-height: ${lineHeight};">${item.title}</span>
         </a>
       </div>
     `;
   }
   
   // Si tiene hijos, renderizar como nodo expandible
-  // Priorizar children (tree menu) sobre subitems (legacy)
   const children: Array<{ id: string; title: string; icon: string; url?: string; children?: TreeMenuItem[] }> = 
     item.children || 
     (item as FloatingMenuSection).subitems?.map(sub => ({
@@ -182,39 +217,45 @@ function renderTreeMenuItem(item: FloatingMenuSection | TreeMenuItem, level: num
       children: undefined
     })) || [];
   
-  const childrenHTML = children.map(child => renderTreeMenuItem(child, level + 1, size)).join('');
-
-  // Solo mostrar icono en level 0 (items principales), no en sub-items
-  const iconHTML = level === 0 ? `
-          <div class="ubits-tree-menu-icon" data-circle-id="${item.id}">
-            ${renderIconHelper(item.icon)}
-          </div>
+  const childrenHTML = children.map(child => renderTreeNode(child, level + 1, size, uniqueId)).join('');
+  const iconHTML = level === 0 && item.icon ? `
+    <span class="ubits-tree-node__icon" style="font-size: ${iconSize};">
+      ${renderIconHelper(item.icon)}
+    </span>
   ` : '';
   
-  const html = `
-    <div class="ubits-tree-menu-item" data-tree-item-id="${item.id}" data-tree-level="${level}">
-      <div class="ubits-tree-menu-node" data-tree-node-id="${item.id}">
-        <div class="ubits-tree-menu-header ${sizeClass}">
-          ${iconHTML}
-          <span class="ubits-tree-menu-text">${item.title}</span>
-          <span class="ubits-tree-menu-chevron">
-            <i class="far fa-chevron-down" data-chevron-id="${item.id}"></i>
-          </span>
-        </div>
-        <div class="ubits-tree-menu-children" data-tree-children-id="${item.id}" style="display: none;">
-          ${childrenHTML}
-        </div>
-        </div>
+  return `
+    <div class="ubits-tree-node ubits-tree-node--vertical" data-level="${level}">
+      <div 
+        class="ubits-tree-node__content ubits-tree-node__content--expandable" 
+        data-node-id="${nodeId}"
+        data-size="${size}"
+        data-expanded="false"
+        style="min-height: ${minHeight} !important; padding: ${padding} !important; font-size: ${fontSize} !important; line-height: ${lineHeight} !important; margin: 0 !important; border: none !important; cursor: pointer; display: flex; align-items: center; gap: var(--ubits-spacing-sm, 8px);"
+        role="button"
+        tabindex="0"
+        aria-expanded="false"
+        aria-label="${item.title}"
+      >
+        <span class="ubits-tree-node__chevron" style="width: ${chevronSize}; height: ${chevronSize};">
+          <i class="far fa-chevron-right" style="font-size: ${chevronSize};"></i>
+        </span>
+        ${iconHTML}
+        <span class="ubits-tree-node__label ${typographyClass}" style="line-height: ${lineHeight};">${item.title}</span>
       </div>
-    `;
-  return html;
+      <div class="ubits-tree-node__children ubits-tree-node__children--vertical" data-children-id="${nodeId}" style="display: none;">
+        ${childrenHTML}
+      </div>
+    </div>
+  `;
 }
 
 /**
- * Renderiza el Floating Menu como Tree Menu
+ * Renderiza el Floating Menu usando el componente TreeMenu de Storybook
  */
 function renderFloatingMenu(sections: FloatingMenuSection[], size: 'xs' | 'sm' | 'md' | 'lg' = 'md'): string {
-  const sectionsHTML = sections.map(section => renderTreeMenuItem(section, 0, size)).join('');
+  const uniqueId = `floating-menu-${Date.now()}`;
+  const treeHTML = sections.map(section => renderTreeNode(section, 0, size, uniqueId)).join('');
 
   return `
     <div class="ubits-floating-menu" id="ubits-floating-menu">
@@ -225,7 +266,9 @@ function renderFloatingMenu(sections: FloatingMenuSection[], size: 'xs' | 'sm' |
         </button>
       </div>
       <div class="ubits-floating-menu-content">
-        ${sectionsHTML}
+        <div class="ubits-tree-menu ubits-tree-menu--vertical" role="tree">
+          ${treeHTML}
+        </div>
       </div>
     </div>
   `;
@@ -329,6 +372,58 @@ function initTabBarListeners(
     const floatingMenuHTML = renderFloatingMenu(floatingMenuSections, treeMenuSize);
     floatingMenuContainer.innerHTML = floatingMenuHTML;
     initFloatingMenuListeners(floatingMenuContainer, onFloatingMenuItemClick);
+    
+    // Logs de diagnóstico detallados para el Floating Menu
+    setTimeout(() => {
+      const floatingMenu = floatingMenuContainer.querySelector('.ubits-floating-menu') as HTMLElement;
+      const activeItems = floatingMenuContainer.querySelectorAll('.ubits-tree-menu-header--active, .ubits-tree-menu-link--active');
+      const firstActiveItem = activeItems && activeItems.length > 0 ? activeItems[0] as HTMLElement : null;
+      const root = document.documentElement;
+      const computedStyle = root ? window.getComputedStyle(root) : null;
+      
+      // Obtener valores de tokens desde el root
+      const accentBrandValue = computedStyle ? computedStyle.getPropertyValue('--ubits-accent-brand').trim() : null;
+      const accentBrandInvertedValue = computedStyle ? computedStyle.getPropertyValue('--ubits-accent-brand-inverted').trim() : null;
+      const accentBrandStaticInvertedValue = computedStyle ? computedStyle.getPropertyValue('--ubits-accent-brand-static-inverted').trim() : null;
+      
+      // Logs expandidos para ver todos los valores
+      console.log('[TabBar] Floating Menu - Theme:', document.documentElement.getAttribute('data-theme'));
+      console.log('[TabBar] Floating Menu - Token --ubits-accent-brand:', accentBrandValue);
+      console.log('[TabBar] Floating Menu - Token --ubits-accent-brand-inverted:', accentBrandInvertedValue);
+      console.log('[TabBar] Floating Menu - Token --ubits-accent-brand-static-inverted:', accentBrandStaticInvertedValue);
+      console.log('[TabBar] Floating Menu - Active items count:', activeItems.length);
+      
+      if (firstActiveItem) {
+        const activeComputedColor = window.getComputedStyle(firstActiveItem).color;
+        console.log('[TabBar] Floating Menu - First active item color aplicado:', activeComputedColor);
+        console.log('[TabBar] Floating Menu - First active item color esperado (inverted):', accentBrandInvertedValue);
+        console.log('[TabBar] Floating Menu - First active item className:', firstActiveItem.className);
+        console.log('[TabBar] Floating Menu - First active item tagName:', firstActiveItem.tagName);
+      } else {
+        console.log('[TabBar] Floating Menu - No hay items activos encontrados');
+      }
+      
+      // Verificar todos los items del tree menu para ver si alguno tiene clase active
+      const allTreeItems = floatingMenuContainer.querySelectorAll('.ubits-tree-menu-header, .ubits-tree-menu-link');
+      console.log('[TabBar] Floating Menu - Total tree items:', allTreeItems.length);
+      Array.from(allTreeItems).forEach((item, index) => {
+        if (item instanceof HTMLElement) {
+          const hasActive = item.classList.contains('ubits-tree-menu-header--active') || item.classList.contains('ubits-tree-menu-link--active');
+          const computedColor = window.getComputedStyle(item).color;
+          console.log(`[TabBar] Floating Menu - Tree item ${index}:`);
+          console.log(`  className:`, item.className);
+          console.log(`  hasActive:`, hasActive);
+          console.log(`  computedColor:`, computedColor);
+            if (hasActive) {
+              console.log(`  ⚠️ ITEM ACTIVO ENCONTRADO - Color aplicado:`, computedColor);
+              console.log(`  Color esperado (--ubits-accent-brand-static-inverted):`, accentBrandStaticInvertedValue);
+              console.log(`  Color alternativo (--ubits-accent-brand-inverted):`, accentBrandInvertedValue);
+              const expectedRgb = accentBrandStaticInvertedValue ? `rgb(${hexToRgb(accentBrandStaticInvertedValue)})` : null;
+              console.log(`  ¿Coincide con static-inverted?:`, expectedRgb ? computedColor === expectedRgb : false);
+            }
+        }
+      });
+    }, 100);
   }
 
   if (profileMenuItems && profileMenuItems.length > 0) {
@@ -361,6 +456,64 @@ function initTabBarListeners(
       }
     }
     initProfileMenuListeners(profileMenuContainer, profileMenuItems, onProfileMenuItemClick);
+    
+    // Logs de diagnóstico detallados para el Profile Menu
+    setTimeout(() => {
+      const profileMenu = profileMenuContainer.querySelector('.ubits-profile-menu') as HTMLElement;
+      const profileTreeLinks = profileMenu?.querySelectorAll('.ubits-profile-tree-link');
+      const profileTreeHeaders = profileMenu?.querySelectorAll('.ubits-profile-tree-header');
+      const activeItems = profileMenu?.querySelectorAll('.ubits-profile-tree-link--active, .ubits-profile-tree-header--active');
+      const firstActiveItem = activeItems && activeItems.length > 0 ? activeItems[0] as HTMLElement : null;
+      const root = document.documentElement;
+      const computedStyle = root ? window.getComputedStyle(root) : null;
+      
+      // Obtener valores de tokens desde el root
+      const accentBrandValue = computedStyle ? computedStyle.getPropertyValue('--ubits-accent-brand').trim() : null;
+      const accentBrandInvertedValue = computedStyle ? computedStyle.getPropertyValue('--ubits-accent-brand-inverted').trim() : null;
+      const accentBrandStaticInvertedValue = computedStyle ? computedStyle.getPropertyValue('--ubits-accent-brand-static-inverted').trim() : null;
+      
+      // Logs expandidos para ver todos los valores
+      console.log('[TabBar] Profile Menu - Theme:', document.documentElement.getAttribute('data-theme'));
+      console.log('[TabBar] Profile Menu - Token --ubits-accent-brand:', accentBrandValue);
+      console.log('[TabBar] Profile Menu - Token --ubits-accent-brand-inverted:', accentBrandInvertedValue);
+      console.log('[TabBar] Profile Menu - Token --ubits-accent-brand-static-inverted:', accentBrandStaticInvertedValue);
+      console.log('[TabBar] Profile Menu - Active items count:', activeItems?.length || 0);
+      console.log('[TabBar] Profile Menu - Profile tree links count:', profileTreeLinks?.length || 0);
+      console.log('[TabBar] Profile Menu - Profile tree headers count:', profileTreeHeaders?.length || 0);
+      
+      if (firstActiveItem) {
+        const activeComputedColor = window.getComputedStyle(firstActiveItem).color;
+        console.log('[TabBar] Profile Menu - First active item color aplicado:', activeComputedColor);
+        console.log('[TabBar] Profile Menu - First active item color esperado (inverted):', accentBrandInvertedValue);
+        console.log('[TabBar] Profile Menu - First active item className:', firstActiveItem.className);
+        console.log('[TabBar] Profile Menu - First active item tagName:', firstActiveItem.tagName);
+      } else {
+        console.log('[TabBar] Profile Menu - No hay items activos encontrados');
+      }
+      
+      // Verificar todos los items del profile tree menu para ver si alguno tiene clase active
+      const allProfileTreeItems = profileMenu?.querySelectorAll('.ubits-profile-tree-link, .ubits-profile-tree-header');
+      console.log('[TabBar] Profile Menu - Total profile tree items:', allProfileTreeItems?.length || 0);
+      if (allProfileTreeItems) {
+        Array.from(allProfileTreeItems).forEach((item, index) => {
+          if (item instanceof HTMLElement) {
+            const hasActive = item.classList.contains('ubits-profile-tree-header--active') || item.classList.contains('ubits-profile-tree-link--active');
+            const computedColor = window.getComputedStyle(item).color;
+            console.log(`[TabBar] Profile Menu - Profile tree item ${index}:`);
+            console.log(`  className:`, item.className);
+            console.log(`  hasActive:`, hasActive);
+            console.log(`  computedColor:`, computedColor);
+            if (hasActive) {
+              console.log(`  ⚠️ ITEM ACTIVO ENCONTRADO - Color aplicado:`, computedColor);
+              console.log(`  Color esperado (--ubits-accent-brand-static-inverted):`, accentBrandStaticInvertedValue);
+              console.log(`  Color alternativo (--ubits-accent-brand-inverted):`, accentBrandInvertedValue);
+              const expectedRgb = accentBrandStaticInvertedValue ? `rgb(${hexToRgb(accentBrandStaticInvertedValue)})` : null;
+              console.log(`  ¿Coincide con static-inverted?:`, expectedRgb ? computedColor === expectedRgb : false);
+            }
+          }
+        });
+      }
+    }, 100);
   }
 
   tabItems.forEach((tabItemElement) => {
@@ -531,36 +684,77 @@ function initFloatingMenuListeners(
     });
   }
 
-  // Tree menu nodes (expandible/collapsible)
-  const treeNodes = floatingMenu.querySelectorAll('.ubits-tree-menu-node');
-  treeNodes.forEach((node, index) => {
-    const nodeId = node.getAttribute('data-tree-node-id');
-    const header = node.querySelector('.ubits-tree-menu-header') as HTMLElement;
-    if (header) {
-      header.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (nodeId) {
-          toggleTreeMenuNode(floatingMenu, nodeId);
+  // Un solo event listener para todo el tree menu (como en Storybook)
+  const treeElement = floatingMenu.querySelector('.ubits-tree-menu');
+  if (treeElement) {
+    treeElement.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const content = target.closest('.ubits-tree-node__content') as HTMLElement;
+      
+      if (!content) return;
+      
+      // Manejar expandir/colapsar para nodos con hijos
+      if (content.classList.contains('ubits-tree-node__content--expandable')) {
+        const nodeId = content.getAttribute('data-node-id');
+        const children = treeElement.querySelector(`[data-children-id="${nodeId}"]`) as HTMLElement;
+        const chevron = content.querySelector('.ubits-tree-node__chevron i') as HTMLElement;
+        const isExpanded = content.getAttribute('data-expanded') === 'true';
+        
+        if (children) {
+          if (isExpanded) {
+            children.style.display = 'none';
+            content.setAttribute('data-expanded', 'false');
+            content.setAttribute('aria-expanded', 'false');
+            if (chevron) {
+              chevron.className = 'far fa-chevron-right';
+            }
+          } else {
+            children.style.display = 'block';
+            content.setAttribute('data-expanded', 'true');
+            content.setAttribute('aria-expanded', 'true');
+            if (chevron) {
+              chevron.className = 'far fa-chevron-down';
+            }
+          }
         }
+      }
+      
+      // Manejar selección (active state) para TODOS los nodos (expandibles y links)
+      // Remover active de todos los nodos
+      const allContents = treeElement.querySelectorAll('.ubits-tree-node__content');
+      allContents.forEach((node) => {
+        (node as HTMLElement).classList.remove('ubits-tree-node__content--active');
+        (node as HTMLElement).removeAttribute('aria-selected');
       });
-    }
-  });
-
-  // Tree menu links (enlaces directos)
-  const links = floatingMenu.querySelectorAll('.ubits-tree-menu-link');
-  links.forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const sectionId = link.getAttribute('data-section-id');
-      const url = (link as HTMLElement).getAttribute('href');
-
-      if (onFloatingMenuItemClick) {
-        onFloatingMenuItemClick(sectionId || '', undefined, url || undefined);
+      
+      // Agregar active al nodo clickeado
+      content.classList.add('ubits-tree-node__content--active');
+      content.setAttribute('aria-selected', 'true');
+      
+      // Si es un link directo (no expandible), ejecutar callback
+      if (!content.classList.contains('ubits-tree-node__content--expandable')) {
+        const sectionId = content.getAttribute('data-section-id');
+        const url = content.getAttribute('href');
+        
+        if (onFloatingMenuItemClick && sectionId) {
+          onFloatingMenuItemClick(sectionId, undefined, url || undefined);
+        }
       }
     });
-  });
+    
+    // Soporte para teclado
+    treeElement.addEventListener('keydown', (e) => {
+      const target = e.target as HTMLElement;
+      const content = target.closest('.ubits-tree-node__content') as HTMLElement;
+      
+      if (!content) return;
+      
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        content.click();
+      }
+    });
+  }
 
   // Cerrar con ESC
   const escHandler = (e: KeyboardEvent) => {
@@ -618,6 +812,44 @@ function initProfileMenuListeners(
       e.preventDefault();
       e.stopPropagation();
       const itemId = link.closest('[data-profile-item-id]')?.getAttribute('data-profile-item-id');
+      
+      console.log('[TabBar] Profile Menu - Link clickeado INMEDIATAMENTE:', {
+        itemId,
+        className: (link as HTMLElement).className,
+        hasActiveBefore: (link as HTMLElement).classList.contains('ubits-profile-tree-link--active')
+      });
+      
+      // Remover active de todos los links del profile menu
+      profileMenu.querySelectorAll('.ubits-profile-tree-link').forEach(l => {
+        (l as HTMLElement).classList.remove('ubits-profile-tree-link--active');
+      });
+      
+      // Agregar active al link clickeado
+      (link as HTMLElement).classList.add('ubits-profile-tree-link--active');
+      
+      // Logs detallados cuando se hace clic en un link del profile menu
+      setTimeout(() => {
+        const root = document.documentElement;
+        const computedStyle = root ? window.getComputedStyle(root) : null;
+        const accentBrandStaticInvertedValue = computedStyle ? computedStyle.getPropertyValue('--ubits-accent-brand-static-inverted').trim() : null;
+        const accentBrandInvertedValue = computedStyle ? computedStyle.getPropertyValue('--ubits-accent-brand-inverted').trim() : null;
+        const linkComputedColor = window.getComputedStyle(link as HTMLElement).color;
+        const hasActive = (link as HTMLElement).classList.contains('ubits-profile-tree-link--active');
+        
+        console.log('[TabBar] Profile Menu - Link clickeado (después de timeout):', {
+          itemId,
+          className: (link as HTMLElement).className,
+          hasActive,
+          computedColor: linkComputedColor,
+          expectedColorStaticInverted: accentBrandStaticInvertedValue,
+          expectedColorInverted: accentBrandInvertedValue,
+          expectedRgbStaticInverted: accentBrandStaticInvertedValue ? `rgb(${hexToRgb(accentBrandStaticInvertedValue)})` : null,
+          expectedRgbInverted: accentBrandInvertedValue ? `rgb(${hexToRgb(accentBrandInvertedValue)})` : null,
+          coincideConStaticInverted: accentBrandStaticInvertedValue ? linkComputedColor === `rgb(${hexToRgb(accentBrandStaticInvertedValue)})` : false,
+          coincideConInverted: accentBrandInvertedValue ? linkComputedColor === `rgb(${hexToRgb(accentBrandInvertedValue)})` : false
+        });
+      }, 100);
+      
       if (itemId) {
         const item = items.find(i => i.id === itemId);
         if (item) {
@@ -730,14 +962,14 @@ function hideProfileMenu(): void {
 }
 
 /**
- * Toggle de tree menu node (expandir/colapsar)
+ * Toggle de tree menu node (expandir/colapsar) usando la estructura del TreeMenu de Storybook
  */
 function toggleTreeMenuNode(container: HTMLElement, nodeId: string): void {
-  const children = container.querySelector(`[data-tree-children-id="${nodeId}"]`) as HTMLElement;
-  const chevronIcon = container.querySelector(`[data-chevron-id="${nodeId}"]`) as HTMLElement;
-  const header = container.querySelector(`[data-tree-node-id="${nodeId}"] .ubits-tree-menu-header`) as HTMLElement;
+  const content = container.querySelector(`[data-node-id="${nodeId}"]`) as HTMLElement;
+  const children = container.querySelector(`[data-children-id="${nodeId}"]`) as HTMLElement;
+  const chevronIcon = content?.querySelector('.ubits-tree-node__chevron i') as HTMLElement;
 
-  if (!children || !chevronIcon) {
+  if (!children || !content) {
     console.warn(`[toggleTreeMenuNode] Tree menu node not found: ${nodeId}`, { 
       children: !!children, 
       chevronIcon: !!chevronIcon
@@ -752,15 +984,21 @@ function toggleTreeMenuNode(container: HTMLElement, nodeId: string): void {
   if (isCurrentlyOpen) {
     // Cerrar
     children.style.display = 'none';
-    chevronIcon.classList.remove('fa-chevron-down');
-    chevronIcon.classList.add('fa-chevron-right');
-    if (header) header.classList.remove('ubits-tree-menu-header--active');
+    content.setAttribute('data-expanded', 'false');
+    content.setAttribute('aria-expanded', 'false');
+    if (chevronIcon) {
+      chevronIcon.classList.remove('fa-chevron-down');
+      chevronIcon.classList.add('fa-chevron-right');
+    }
   } else {
     // Abrir
     children.style.display = 'block';
-    chevronIcon.classList.remove('fa-chevron-right');
-    chevronIcon.classList.add('fa-chevron-down');
-    if (header) header.classList.add('ubits-tree-menu-header--active');
+    content.setAttribute('data-expanded', 'true');
+    content.setAttribute('aria-expanded', 'true');
+    if (chevronIcon) {
+      chevronIcon.classList.remove('fa-chevron-right');
+      chevronIcon.classList.add('fa-chevron-down');
+    }
   }
 }
 

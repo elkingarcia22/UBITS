@@ -10,11 +10,11 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 60px;
-    background: var(--modifiers-static-inverted-color-light-bg-1);
-    border-top: 1px solid var(--modifiers-static-inverted-color-light-fg-1-medium);
+    height: 60px; /* Altura fija del tabbar - mantener medida original */
+    background: #202837; /* Dark mode bg-1 - siempre usar dark */
+    border-top: 1px solid #11183e; /* Dark mode border-1 - siempre usar dark */
     z-index: 1000;
-    padding: 8px 0;
+    padding: var(--ubits-spacing-sm, 8px) 0;
     box-sizing: border-box;
 }
 
@@ -51,8 +51,8 @@
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
-    padding: 4px 8px;
-    border-radius: 8px;
+    padding: var(--ubits-spacing-xs, 4px) var(--ubits-spacing-sm, 8px);
+    border-radius: var(--ubits-border-radius-sm, 8px);
     min-width: 60px;
     flex: 1;
     max-width: 120px;
@@ -60,7 +60,7 @@
 }
 
 .ubits-tabbar-item:hover {
-    background: var(--modifiers-static-inverted-color-light-bg-gray-subtle-default);
+    background: #0E1825; /* Dark mode bg-2 - siempre usar dark */
 }
 
 .ubits-tabbar-item.ubits-tabbar-item--active {
@@ -68,13 +68,13 @@
 }
 
 .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabbar-text {
-    color: var(--modifiers-static-inverted-color-light-fg-2-high) !important;
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
     font-weight: var(--weight-bold, 700) !important;
 }
 
 .ubits-tabbar-icon {
-    font-size: 20px;
-    color: var(--modifiers-static-inverted-color-light-fg-1-medium);
+    font-size: var(--font-body-lg-size, 20px);
+    color: #d0d2d5; /* Dark mode fg-1-medium - siempre usar dark */
     margin-bottom: 2px;
     transition: color 0.2s ease;
     width: 24px;
@@ -86,11 +86,11 @@
 }
 
 .ubits-tabbar-item:hover .ubits-tabbar-icon {
-    color: var(--modifiers-static-inverted-color-light-fg-1-high);
+    color: #edeeef; /* Dark mode fg-1-high - siempre usar dark */
 }
 
 .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabbar-icon {
-    color: var(--modifiers-static-inverted-color-light-fg-2-high) !important;
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
 }
 
 .ubits-tabbar-avatar {
@@ -104,33 +104,33 @@
 }
 
 .ubits-tabbar-item:hover .ubits-tabbar-avatar {
-    border-color: var(--modifiers-static-inverted-color-light-fg-1-high);
+    border-color: #edeeef; /* Dark mode fg-1-high - siempre usar dark */
 }
 
 .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabbar-avatar {
-    border-color: var(--modifiers-static-inverted-color-light-fg-2-high);
+    border-color: #edeeef; /* Dark mode fg-1-high - siempre usar dark */
 }
 
 .ubits-tabbar-text {
-    color: var(--modifiers-static-inverted-color-light-fg-1-medium);
+    color: #d0d2d5; /* Dark mode fg-1-medium - siempre usar dark */
     text-align: center;
     line-height: 1.2;
     transition: color 0.2s ease;
     font-family: var(--font-family-noto-sans-font-family);
-    font-size: 12px; /* MANTENER MEDIDA ORIGINAL */
+    font-size: var(--font-body-xs-size, 11px); /* Ajustado al token más cercano */
     font-weight: var(--weight-regular, 400);
 }
 
 .ubits-tabbar-item:hover .ubits-tabbar-text {
-    color: var(--modifiers-static-inverted-color-light-fg-1-high);
+    color: #edeeef; /* Dark mode fg-1-high - siempre usar dark */
 }
 
 .ubits-tabbar-item.ubits-tabbar-item--active:hover .ubits-tabbar-text {
-    color: var(--modifiers-static-inverted-color-light-fg-2-high) !important;
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
 }
 
 .ubits-tabbar-item.ubits-tabbar-item--active:hover .ubits-tabbar-icon {
-    color: var(--modifiers-static-inverted-color-light-fg-2-high) !important;
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
 }
 
 /* Modo visible (para preview y móvil) */
@@ -154,8 +154,53 @@
    DARK MODE
    ======================================== */
 
-/* TabBar usa static-inverted para verse igual en light y dark */
-/* No necesita reglas específicas de dark mode porque static-inverted mantiene el mismo color */
+/* TabBar siempre usa dark mode - forzar estilos dark incluso en light mode */
+/* Usar valores específicos de dark mode siempre */
+[data-theme="light"] .ubits-tabbar,
+.ubits-tabbar {
+    background: #202837 !important; /* Dark mode bg-1 */
+    border-top-color: #11183e !important; /* Dark mode border-1 */
+}
+
+[data-theme="light"] .ubits-tabbar-item,
+.ubits-tabbar-item {
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium */
+}
+
+[data-theme="light"] .ubits-tabbar-item:hover,
+.ubits-tabbar-item:hover {
+    background: #0E1825 !important; /* Dark mode bg-2 */
+}
+
+[data-theme="light"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabbar-text,
+.ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabbar-text {
+    color: #edeeef !important; /* Dark mode fg-1-high */
+}
+
+[data-theme="light"] .ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabbar-icon,
+.ubits-tabbar-item.ubits-tabbar-item--active .ubits-tabbar-icon {
+    color: #edeeef !important; /* Dark mode fg-1-high */
+}
+
+[data-theme="light"] .ubits-tabbar-icon,
+.ubits-tabbar-icon {
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium */
+}
+
+[data-theme="light"] .ubits-tabbar-text,
+.ubits-tabbar-text {
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium */
+}
+
+[data-theme="light"] .ubits-tabbar-item:hover .ubits-tabbar-icon,
+.ubits-tabbar-item:hover .ubits-tabbar-icon {
+    color: #edeeef !important; /* Dark mode fg-1-high */
+}
+
+[data-theme="light"] .ubits-tabbar-item:hover .ubits-tabbar-text,
+.ubits-tabbar-item:hover .ubits-tabbar-text {
+    color: #edeeef !important; /* Dark mode fg-1-high */
+}
 
 /* Responsive - Mostrar tab-bar solo en resoluciones menores a 1024px */
 @media (min-width: 1024px) {
@@ -197,7 +242,7 @@
     left: 0;
     right: 0;
     bottom: 68px; /* 60px (altura del tab-bar) + 8px (espacio) */
-    background: var(--modifiers-static-inverted-color-light-bg-1);
+    background: #202837 !important; /* Dark mode bg-1 - siempre usar dark */
     z-index: 2000;
     overflow-y: auto;
     padding: 8px 0;
@@ -212,7 +257,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 8px 16px 12px;
-    border-bottom: 1px solid var(--modifiers-static-inverted-color-light-fg-1-medium);
+    border-bottom: 1px solid #11183e !important; /* Dark mode border-1 - siempre usar dark */
     margin-bottom: 8px;
 }
 
@@ -220,14 +265,14 @@
     font-family: var(--font-family-noto-sans-font-family);
     font-size: 18px; /* MANTENER MEDIDA ORIGINAL */
     font-weight: var(--weight-semibold, 600);
-    color: var(--modifiers-static-inverted-color-light-fg-1-medium);
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium - siempre usar dark */
     margin: 0;
 }
 
 .ubits-floating-menu-close {
     background: none;
     border: none;
-    color: var(--modifiers-static-inverted-color-light-fg-1-medium);
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium - siempre usar dark */
     font-size: 24px;
     cursor: pointer;
     padding: 4px;
@@ -241,8 +286,8 @@
 }
 
 .ubits-floating-menu-close:hover {
-    color: var(--modifiers-static-inverted-color-light-fg-1-high);
-    background: var(--modifiers-static-inverted-color-light-bg-gray-subtle-default);
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
+    background: #0E1825 !important; /* Dark mode bg-2 - siempre usar dark */
 }
 
 .ubits-floating-menu-content {
@@ -266,7 +311,7 @@
 }
 
 .ubits-accordion-header:hover {
-    background: var(--modifiers-static-inverted-color-light-bg-gray-subtle-default);
+    background: var(--ubits-bg-2);
 }
 
 .ubits-accordion-title {
@@ -275,17 +320,17 @@
     font-family: var(--font-family-noto-sans-font-family);
     font-size: 14px; /* MANTENER MEDIDA ORIGINAL */
     font-weight: var(--weight-semibold, 600);
-    color: var(--modifiers-static-inverted-color-light-fg-1-medium);
+    color: var(--ubits-fg-1-medium);
 }
 
 .ubits-accordion-title.active {
-    color: var(--modifiers-static-inverted-color-light-accent-brand);
+    color: var(--ubits-accent-brand);
     font-weight: var(--weight-bold, 700) !important;
 }
 
 .ubits-accordion-chevron {
     font-size: 12px;
-    color: var(--modifiers-static-inverted-color-light-fg-1-medium);
+    color: var(--ubits-fg-1-medium);
     transition: transform 0.2s ease;
 }
 
@@ -299,19 +344,19 @@
     align-items: center;
     padding: 8px 16px;
     text-decoration: none;
-    color: var(--modifiers-static-inverted-color-light-fg-1-medium);
+    color: var(--ubits-fg-1-medium);
     transition: all 0.2s ease;
     border-radius: 6px;
     margin-bottom: 2px;
 }
 
 .ubits-accordion-link:hover {
-    background: var(--modifiers-static-inverted-color-light-bg-gray-subtle-default);
-    color: var(--modifiers-static-inverted-color-light-fg-1-high);
+    background: var(--ubits-bg-2);
+    color: var(--ubits-fg-1-high);
 }
 
 .ubits-accordion-link.active {
-    color: var(--modifiers-static-inverted-color-light-accent-brand);
+    color: var(--ubits-accent-brand);
     font-weight: var(--weight-semibold, 600) !important;
 }
 
@@ -329,16 +374,16 @@
 
 .ubits-accordion-icon-circle i {
     font-size: 16px;
-    color: var(--modifiers-static-inverted-color-light-fg-1-medium);
+    color: var(--ubits-fg-1-medium);
     transition: color 0.2s ease;
 }
 
 .ubits-accordion-icon-circle.active {
-    background: var(--modifiers-static-inverted-color-light-accent-brand);
+    background: var(--ubits-accent-brand);
 }
 
 .ubits-accordion-icon-circle.active i {
-    color: var(--modifiers-static-inverted-color-light-fg-2-high);
+    color: var(--ubits-fg-1-high);
 }
 
 /* Enlaces directos */
@@ -363,21 +408,39 @@
 }
 
 .ubits-floating-menu::-webkit-scrollbar-thumb {
-    background: var(--modifiers-static-inverted-color-light-fg-1-medium);
+    background: var(--ubits-fg-1-medium);
     border-radius: 3px;
 }
 
 .ubits-floating-menu::-webkit-scrollbar-thumb:hover {
-    background: var(--modifiers-static-inverted-color-light-fg-1-high);
+    background: var(--ubits-fg-1-high);
 }
 
-/* Modo oscuro - Floating Menu */
-[data-theme="dark"] .ubits-floating-menu {
-    background: var(--modifiers-static-inverted-color-light-bg-1);
+/* Floating Menu siempre usa dark mode - forzar estilos dark incluso en light mode */
+[data-theme="light"] .ubits-floating-menu,
+.ubits-floating-menu {
+    background: #202837 !important; /* Dark mode bg-1 - siempre usar dark */
 }
 
-[data-theme="dark"] .ubits-floating-menu-header {
-    border-color: var(--modifiers-static-inverted-color-light-fg-1-medium);
+[data-theme="light"] .ubits-floating-menu-header,
+.ubits-floating-menu-header {
+    border-color: #11183e !important; /* Dark mode border-1 - siempre usar dark */
+}
+
+[data-theme="light"] .ubits-floating-menu-title,
+.ubits-floating-menu-title {
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium - siempre usar dark */
+}
+
+[data-theme="light"] .ubits-floating-menu-close,
+.ubits-floating-menu-close {
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium - siempre usar dark */
+}
+
+[data-theme="light"] .ubits-floating-menu-close:hover,
+.ubits-floating-menu-close:hover {
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
+    background: #0E1825 !important; /* Dark mode bg-2 - siempre usar dark */
 }
 
 /* Solo visible en móvil */
@@ -406,6 +469,7 @@
     z-index: 2000 !important;
     padding: 8px 0 !important;
     box-sizing: border-box !important; /* Asegurar que padding no afecte la altura total */
+    background: #202837 !important; /* Dark mode bg-1 - siempre usar dark */
 }
 
 /* ========================================
@@ -419,10 +483,10 @@
     left: 0;
     right: 0;
     width: 100%; /* ⚠️ IMPORTANTE: Ancho completo, igual que el playground antiguo */
-    background: var(--modifiers-static-inverted-color-light-bg-1);
+    background: #202837 !important; /* Dark mode bg-1 - siempre usar dark */
     border-radius: 0; /* Sin border-radius, igual que el playground antiguo */
-    border-top: 1px solid var(--modifiers-normal-color-light-border-1);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-top: 1px solid #11183e !important; /* Dark mode border-1 - siempre usar dark */
+    box-shadow: 0 var(--ubits-spacing-xs, 4px) var(--ubits-spacing-md, 12px) rgba(0, 0, 0, 0.15);
     padding: 8px 0;
     z-index: 2001;
     box-sizing: border-box;
@@ -446,30 +510,53 @@
     align-items: center;
     padding: 12px 16px;
     text-decoration: none;
-    color: var(--modifiers-static-inverted-color-light-fg-1-medium);
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium - siempre usar dark */
     transition: background 0.2s ease;
     cursor: pointer;
 }
 
 .ubits-profile-menu-item:hover {
-    background: var(--modifiers-static-inverted-color-light-bg-gray-subtle-default);
+    background: #0E1825 !important; /* Dark mode bg-2 - siempre usar dark */
 }
 
 .ubits-profile-menu-icon {
     margin-right: 12px;
     width: 16px;
-    color: var(--modifiers-static-inverted-color-light-fg-1-medium);
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium - siempre usar dark */
 }
 
 .ubits-profile-menu-text {
-    color: var(--modifiers-static-inverted-color-light-fg-1-medium);
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium - siempre usar dark */
     font-family: var(--font-family-noto-sans-font-family);
     font-size: 14px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 /* Modo oscuro - Profile Menu */
-[data-theme="dark"] .ubits-profile-menu {
-    background: var(--modifiers-static-inverted-color-light-bg-1);
+/* Profile Menu siempre usa dark mode - forzar estilos dark incluso en light mode */
+[data-theme="light"] .ubits-profile-menu,
+.ubits-profile-menu {
+    background: #202837 !important; /* Dark mode bg-1 - siempre usar dark */
+    border-top-color: #11183e !important; /* Dark mode border-1 - siempre usar dark */
+}
+
+[data-theme="light"] .ubits-profile-menu-item,
+.ubits-profile-menu-item {
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium - siempre usar dark */
+}
+
+[data-theme="light"] .ubits-profile-menu-item:hover,
+.ubits-profile-menu-item:hover {
+    background: #0E1825 !important; /* Dark mode bg-2 - siempre usar dark */
+}
+
+[data-theme="light"] .ubits-profile-menu-icon,
+.ubits-profile-menu-icon {
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium - siempre usar dark */
+}
+
+[data-theme="light"] .ubits-profile-menu-text,
+.ubits-profile-menu-text {
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium - siempre usar dark */
 }
 
 /* Solo visible en móvil */
@@ -498,7 +585,8 @@
     /* Sobrescribir todos los estilos base */
     top: auto !important;
     padding: 8px 0 !important;
-    background: var(--modifiers-static-inverted-color-light-bg-1) !important;
+    background: #202837 !important; /* Dark mode bg-1 - siempre usar dark */
+    border-top-color: #11183e !important; /* Dark mode border-1 - siempre usar dark */
 }
 
 /* Asegurar que el contenedor del Profile Menu tenga el ancho completo en preview - igual que Floating Menu */
@@ -561,12 +649,12 @@
 .ubits-tree-menu-header {
     display: flex;
     align-items: center;
-    gap: var(--p-spacing-mode-1-sm, 8px);
+    gap: var(--ubits-spacing-sm, 8px);
     cursor: pointer;
     transition: all 0.2s ease;
-    border-radius: var(--ubits-border-radius-sm, 6px);
+    border-radius: var(--ubits-border-radius-sm, 8px);
     margin-bottom: 0;
-    color: var(--modifiers-normal-color-light-fg-1-high);
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
     background: transparent;
     position: relative;
     min-width: 0; /* Permitir que el contenido se ajuste */
@@ -579,106 +667,106 @@
 
 /* Tamaños - Matching List component exactly */
 .ubits-tree-menu-header--xs {
-    padding: 8px 12px; /* MANTENER MEDIDAS ORIGINALES */
-    font-size: var(--modifiers-normal-body-xs-regular-fontsize);
-    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
-    line-height: var(--modifiers-normal-body-xs-regular-lineheight);
+    padding: var(--ubits-spacing-sm, 8px) var(--ubits-spacing-md, 12px);
+    font-size: var(--font-body-xs-size, 11px);
+    font-weight: var(--weight-regular, 400);
+    line-height: var(--font-body-xs-line, 16.5px);
     min-height: 28px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-tree-menu-header--sm {
-    padding: 10px 14px; /* MANTENER MEDIDAS ORIGINALES */
-    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
-    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
-    line-height: var(--modifiers-normal-body-sm-regular-lineheight);
+    padding: var(--ubits-spacing-md, 12px) var(--ubits-spacing-lg, 16px); /* Ajustado al token más cercano */
+    font-size: var(--font-body-sm-size, 13px);
+    font-weight: var(--weight-regular, 400);
+    line-height: var(--font-body-sm-line, 19.5px);
     min-height: 32px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-tree-menu-header--md {
-    padding: 12px 16px; /* MANTENER MEDIDAS ORIGINALES */
-    font-size: var(--modifiers-normal-body-md-regular-fontsize);
-    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
-    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    padding: var(--ubits-spacing-md, 12px) var(--ubits-spacing-lg, 16px);
+    font-size: var(--font-body-md-size, 16px);
+    font-weight: var(--weight-regular, 400);
+    line-height: var(--font-body-md-line, 24px);
     min-height: 40px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-tree-menu-header--lg {
-    padding: 16px 20px; /* MANTENER MEDIDAS ORIGINALES */
-    font-size: var(--modifiers-normal-body-lg-regular-fontsize);
-    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
-    line-height: var(--modifiers-normal-body-lg-regular-lineheight);
+    padding: var(--ubits-spacing-lg, 16px) var(--ubits-spacing-xl, 20px);
+    font-size: var(--font-body-lg-size, 20px);
+    font-weight: var(--weight-regular, 400);
+    line-height: var(--font-body-lg-line, 30px);
     min-height: 48px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 /* Default size (md) */
 .ubits-tree-menu-header:not(.ubits-tree-menu-header--xs):not(.ubits-tree-menu-header--sm):not(.ubits-tree-menu-header--md):not(.ubits-tree-menu-header--lg) {
-    padding: 12px 16px; /* MANTENER MEDIDAS ORIGINALES */
-    font-size: var(--modifiers-normal-body-md-regular-fontsize);
-    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
-    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    padding: var(--ubits-spacing-md, 12px) var(--ubits-spacing-lg, 16px);
+    font-size: var(--font-body-md-size, 16px);
+    font-weight: var(--weight-regular, 400);
+    line-height: var(--font-body-md-line, 24px);
     min-height: 40px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 /* Hover state - matching TreeMenu Storybook exactly */
 .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) {
-    background: var(--modifiers-normal-color-light-bg-2);
+    background: #0E1825 !important; /* Dark mode bg-2 - siempre usar dark */
 }
 
 .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-chevron i {
-    color: var(--modifiers-normal-color-light-fg-1-high);
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
 }
 
 .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-icon i {
-    color: var(--modifiers-normal-color-light-fg-1-high);
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
 }
 
 .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-text {
-    color: var(--modifiers-normal-color-light-fg-1-high);
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
 }
 
 /* Active state - matching TreeMenu Storybook exactly */
 .ubits-tree-menu-header--active {
-    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
-    background: var(--modifiers-normal-color-light-bg-active);
+    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
+    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.2)) !important;
 }
 
 .ubits-tree-menu-header--active .ubits-tree-menu-chevron i {
-    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
+    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
 }
 
 .ubits-tree-menu-header--active .ubits-tree-menu-icon i {
-    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
+    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
 }
 
 .ubits-tree-menu-header--active .ubits-tree-menu-text {
-    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
-    font-weight: var(--weight-semibold, 600) !important; /* Token UBITS existe */
+    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
+    font-weight: var(--weight-semibold, 600) !important;
 }
 
-/* Dark mode support */
+/* Dark mode support - estos estilos ya están sobrescritos por los valores hardcodeados arriba */
 [data-theme="dark"] .ubits-tree-menu-header {
-    color: var(--modifiers-normal-color-dark-fg-1-high);
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
 }
 
 [data-theme="dark"] .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) {
-    background: var(--modifiers-normal-color-dark-bg-2);
+    background: #0E1825 !important; /* Dark mode bg-2 - siempre usar dark */
 }
 
 [data-theme="dark"] .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-chevron i,
 [data-theme="dark"] .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-icon i,
 [data-theme="dark"] .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-text {
-    color: var(--modifiers-normal-color-dark-fg-1-high);
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
 }
 
 [data-theme="dark"] .ubits-tree-menu-header--active {
-    color: var(--modifiers-normal-color-dark-accent-brand);
-    background: var(--modifiers-normal-color-dark-bg-active);
+    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
+    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.2)) !important;
 }
 
 [data-theme="dark"] .ubits-tree-menu-header--active .ubits-tree-menu-chevron i,
 [data-theme="dark"] .ubits-tree-menu-header--active .ubits-tree-menu-icon i,
 [data-theme="dark"] .ubits-tree-menu-header--active .ubits-tree-menu-text {
-    color: var(--modifiers-normal-color-dark-accent-brand);
+    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
 }
 
 /* No border-left in active state - matching TreeMenu Storybook */
@@ -686,12 +774,12 @@
 .ubits-tree-menu-link {
     display: flex;
     align-items: center;
-    gap: var(--p-spacing-mode-1-sm, 8px);
+    gap: var(--ubits-spacing-sm, 8px);
     justify-content: space-between;
     text-decoration: none;
-    color: var(--modifiers-normal-color-light-fg-1-high);
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
     transition: all 0.2s ease;
-    border-radius: var(--ubits-border-radius-sm, 6px);
+    border-radius: var(--ubits-border-radius-sm, 8px);
     margin-bottom: 0;
     position: relative;
     background: transparent;
@@ -705,106 +793,107 @@
 
 /* Tamaños - Matching List component exactly */
 .ubits-tree-menu-link--xs {
-    padding: 8px 12px; /* MANTENER MEDIDAS ORIGINALES */
-    font-size: var(--modifiers-normal-body-xs-regular-fontsize);
-    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
-    line-height: var(--modifiers-normal-body-xs-regular-lineheight);
+    padding: var(--ubits-spacing-sm, 8px) var(--ubits-spacing-md, 12px);
+    font-size: var(--font-body-xs-size, 11px);
+    font-weight: var(--weight-regular, 400);
+    line-height: var(--font-body-xs-line, 16.5px);
     min-height: 28px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-tree-menu-link--sm {
-    padding: 10px 14px; /* MANTENER MEDIDAS ORIGINALES */
-    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
-    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
-    line-height: var(--modifiers-normal-body-sm-regular-lineheight);
+    padding: var(--ubits-spacing-md, 12px) var(--ubits-spacing-lg, 16px); /* Ajustado al token más cercano */
+    font-size: var(--font-body-sm-size, 13px);
+    font-weight: var(--weight-regular, 400);
+    line-height: var(--font-body-sm-line, 19.5px);
     min-height: 32px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-tree-menu-link--md {
-    padding: 12px 16px; /* MANTENER MEDIDAS ORIGINALES */
-    font-size: var(--modifiers-normal-body-md-regular-fontsize);
-    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
-    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    padding: var(--ubits-spacing-md, 12px) var(--ubits-spacing-lg, 16px);
+    font-size: var(--font-body-md-size, 16px);
+    font-weight: var(--weight-regular, 400);
+    line-height: var(--font-body-md-line, 24px);
     min-height: 40px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 .ubits-tree-menu-link--lg {
-    padding: 16px 20px; /* MANTENER MEDIDAS ORIGINALES */
-    font-size: var(--modifiers-normal-body-lg-regular-fontsize);
-    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
-    line-height: var(--modifiers-normal-body-lg-regular-lineheight);
+    padding: var(--ubits-spacing-lg, 16px) var(--ubits-spacing-xl, 20px);
+    font-size: var(--font-body-lg-size, 20px);
+    font-weight: var(--weight-regular, 400);
+    line-height: var(--font-body-lg-line, 30px);
     min-height: 48px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 /* Default size (md) */
 .ubits-tree-menu-link:not(.ubits-tree-menu-link--xs):not(.ubits-tree-menu-link--sm):not(.ubits-tree-menu-link--md):not(.ubits-tree-menu-link--lg) {
-    padding: 12px 16px; /* MANTENER MEDIDAS ORIGINALES */
-    font-size: var(--modifiers-normal-body-md-regular-fontsize);
-    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
-    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    padding: var(--ubits-spacing-md, 12px) var(--ubits-spacing-lg, 16px);
+    font-size: var(--font-body-md-size, 16px);
+    font-weight: var(--weight-regular, 400);
+    line-height: var(--font-body-md-line, 24px);
     min-height: 40px; /* MANTENER MEDIDA ORIGINAL */
 }
 
 /* Hover state - matching TreeMenu Storybook exactly */
 .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) {
-    background: var(--modifiers-normal-color-light-bg-2);
+    background: #0E1825 !important; /* Dark mode bg-2 - siempre usar dark */
 }
 
 .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-chevron i {
-    color: var(--modifiers-normal-color-light-fg-1-high);
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
 }
 
 .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-icon i {
-    color: var(--modifiers-normal-color-light-fg-1-high);
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
 }
 
 .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-text {
-    color: var(--modifiers-normal-color-light-fg-1-high);
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
 }
 
 /* Active state - matching TreeMenu Storybook exactly */
-.ubits-tree-menu-link--active {
-    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
-    background: var(--modifiers-normal-color-light-bg-active);
+.ubits-tree-menu-link--active,
+.ubits-tree-menu-link.ubits-tree-menu-link--active {
+    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
+    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.2)) !important;
 }
 
 .ubits-tree-menu-link--active .ubits-tree-menu-chevron i {
-    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
+    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
 }
 
 .ubits-tree-menu-link--active .ubits-tree-menu-icon i {
-    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
+    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
 }
 
 .ubits-tree-menu-link--active .ubits-tree-menu-text {
-    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
-    font-weight: var(--weight-semibold, 600) !important; /* Token UBITS existe */
+    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
+    font-weight: var(--weight-semibold, 600) !important;
 }
 
-/* Dark mode support */
+/* Dark mode support - estos estilos ya están sobrescritos por los valores hardcodeados arriba */
 [data-theme="dark"] .ubits-tree-menu-link {
-    color: var(--modifiers-normal-color-dark-fg-1-high);
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
 }
 
 [data-theme="dark"] .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) {
-    background: var(--modifiers-normal-color-dark-bg-2);
+    background: #0E1825 !important; /* Dark mode bg-2 - siempre usar dark */
 }
 
 [data-theme="dark"] .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-chevron i,
 [data-theme="dark"] .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-icon i,
 [data-theme="dark"] .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-text {
-    color: var(--modifiers-normal-color-dark-fg-1-high);
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
 }
 
 [data-theme="dark"] .ubits-tree-menu-link--active {
-    color: var(--modifiers-normal-color-dark-accent-brand);
-    background: var(--modifiers-normal-color-dark-bg-active);
+    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
+    background: rgba(12, 91, 239, 0.2) !important; /* Dark mode bg-active - siempre usar dark */
 }
 
 [data-theme="dark"] .ubits-tree-menu-link--active .ubits-tree-menu-chevron i,
 [data-theme="dark"] .ubits-tree-menu-link--active .ubits-tree-menu-icon i,
 [data-theme="dark"] .ubits-tree-menu-link--active .ubits-tree-menu-text {
-    color: var(--modifiers-normal-color-dark-accent-brand);
+    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
 }
 
 /* No border-left in active state - matching TreeMenu Storybook */
@@ -834,18 +923,18 @@
 }
 
 .ubits-tree-menu-icon i {
-    font-size: 16px; /* MANTENER MEDIDA ORIGINAL */
-    color: var(--modifiers-normal-color-light-fg-1-medium);
+    font-size: var(--font-body-md-size, 16px);
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium - siempre usar dark */
     transition: color 0.2s ease;
 }
 
 .ubits-tree-menu-text {
     flex: 1;
     font-family: var(--font-family-noto-sans-font-family);
-    font-size: var(--modifiers-normal-body-md-regular-fontsize);
-    font-weight: var(--weight-regular, 400); /* Token UBITS existe */
-    line-height: var(--modifiers-normal-body-md-regular-lineheight);
-    color: var(--modifiers-normal-color-light-fg-1-high);
+    font-size: var(--font-body-md-size, 16px);
+    font-weight: var(--weight-regular, 400);
+    line-height: var(--font-body-md-line, 24px);
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
     transition: color 0.2s ease, font-weight 0.2s ease;
     min-width: 0; /* Permitir que el texto se ajuste */
     margin: 0;
@@ -857,7 +946,7 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    color: var(--modifiers-normal-color-light-fg-1-medium);
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium - siempre usar dark */
     transition: color 0.2s ease;
     margin: 0;
     padding: 0;
@@ -865,25 +954,25 @@
 }
 
 .ubits-tree-menu-chevron i {
-    font-size: 14px; /* MANTENER MEDIDA ORIGINAL */
-    color: var(--modifiers-normal-color-light-fg-1-medium);
+    font-size: var(--font-body-sm-size, 13px); /* Ajustado al token más cercano */
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium - siempre usar dark */
     transition: color 0.2s ease;
     display: block;
     line-height: 1;
 }
 
-/* Dark mode support */
+/* Dark mode support - estos estilos ya están sobrescritos por los valores hardcodeados arriba */
 [data-theme="dark"] .ubits-tree-menu-icon i {
-    color: var(--modifiers-normal-color-dark-fg-1-medium);
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium - siempre usar dark */
 }
 
 [data-theme="dark"] .ubits-tree-menu-text {
-    color: var(--modifiers-normal-color-dark-fg-1-high);
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
 }
 
 [data-theme="dark"] .ubits-tree-menu-chevron,
 [data-theme="dark"] .ubits-tree-menu-chevron i {
-    color: var(--modifiers-normal-color-dark-fg-1-medium);
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium - siempre usar dark */
 }
 
 .ubits-tree-menu-children {
@@ -915,96 +1004,233 @@
     opacity: 1 !important;
 }
 
-/* Tree menu siempre usa dark mode - forzar estilos dark incluso en light mode */
-/* Sobrescribir estilos base para forzar dark mode siempre */
-.ubits-floating-menu .ubits-tree-menu-header,
-.ubits-floating-menu .ubits-tree-menu-link,
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-header,
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-link,
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header,
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link {
-    color: var(--modifiers-static-inverted-color-light-fg-1-medium) !important;
+/* ========================================
+   TREE MENU - Estilos del componente TreeMenu
+   Aplicados al Floating Menu
+   ======================================== */
+
+.ubits-tree-menu {
+    width: 100%;
+    user-select: none;
 }
 
-.ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active),
-.ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active),
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active),
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active),
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active),
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) {
-    background: var(--modifiers-static-inverted-color-light-bg-gray-subtle-default) !important;
-    color: var(--modifiers-static-inverted-color-light-fg-1-high) !important;
+.ubits-tree-node {
+    position: relative;
 }
 
-.ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-chevron i,
-.ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-chevron i,
-.ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-icon i,
-.ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-icon i,
-.ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-text,
-.ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-text,
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-chevron i,
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-chevron i,
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-icon i,
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-icon i,
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-text,
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-text,
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-chevron i,
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-chevron i,
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-icon i,
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-icon i,
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-text,
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-text {
-    color: var(--modifiers-static-inverted-color-light-fg-1-high) !important;
+.ubits-tree-node__content {
+    display: flex;
+    align-items: center;
+    gap: var(--ubits-spacing-sm, 8px);
+    border-radius: var(--ubits-border-radius-sm, 8px);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef));
+    background: transparent;
+    position: relative;
+    font-family: var(--font-family-noto-sans-font-family);
+    box-sizing: border-box;
+    margin: 0;
+    border: none;
+    overflow: visible;
+    text-decoration: none;
 }
 
-/* Tree menu usa static-inverted para verse igual en light y dark */
-.ubits-floating-menu .ubits-tree-menu-header--active,
-.ubits-floating-menu .ubits-tree-menu-link--active,
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-header--active,
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-link--active,
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header--active,
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link--active {
-    color: var(--modifiers-static-inverted-color-light-accent-brand) !important;
-    background: var(--modifiers-static-inverted-color-light-bg-active) !important;
+/* Tamaños - Matching List component EXACTLY */
+.ubits-tree-node__content[data-size="xs"] {
+    padding: 8px 12px !important;
+    font-size: var(--font-body-xs-size, 11px) !important;
+    font-weight: var(--weight-regular, 400) !important;
+    line-height: var(--font-body-xs-line, 16.5px) !important;
+    min-height: 28px !important;
+    height: auto !important;
+    margin: 0 !important;
 }
 
-.ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-chevron i,
-.ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-chevron i,
-.ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-icon i,
-.ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-icon i,
-.ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-text,
-.ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-text,
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-chevron i,
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-chevron i,
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-icon i,
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-icon i,
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-text,
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-text,
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-chevron i,
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-chevron i,
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-icon i,
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-icon i,
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-header--active .ubits-tree-menu-text,
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-link--active .ubits-tree-menu-text {
-    color: var(--modifiers-static-inverted-color-light-accent-brand) !important;
+.ubits-tree-node__content[data-size="sm"] {
+    padding: 10px 14px !important;
+    font-size: var(--font-body-sm-size, 13px) !important;
+    font-weight: var(--weight-regular, 400) !important;
+    line-height: var(--font-body-sm-line, 19.5px) !important;
+    min-height: 32px !important;
+    height: auto !important;
+    margin: 0 !important;
 }
 
-.ubits-floating-menu .ubits-tree-menu-icon i,
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-icon i,
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-icon i {
-    color: var(--modifiers-static-inverted-color-light-fg-1-medium) !important;
+.ubits-tree-node__content[data-size="md"] {
+    padding: 12px 16px !important;
+    font-size: var(--font-body-md-size, 16px) !important;
+    font-weight: var(--weight-regular, 400) !important;
+    line-height: var(--font-body-md-line, 24px) !important;
+    min-height: 40px !important;
+    height: auto !important;
+    margin: 0 !important;
 }
 
-.ubits-floating-menu .ubits-tree-menu-chevron i,
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-chevron i,
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-chevron i {
-    color: var(--modifiers-static-inverted-color-light-fg-1-medium) !important;
+.ubits-tree-node__content[data-size="lg"] {
+    padding: 16px 20px !important;
+    font-size: var(--font-body-lg-size, 20px) !important;
+    font-weight: var(--weight-regular, 400) !important;
+    line-height: var(--font-body-lg-line, 30px) !important;
+    min-height: 48px !important;
+    height: auto !important;
+    margin: 0 !important;
 }
 
-.ubits-floating-menu .ubits-tree-menu-text,
-.ubits-tabbar .ubits-floating-menu .ubits-tree-menu-text,
-[data-theme="light"] .ubits-floating-menu .ubits-tree-menu-text {
-    color: var(--modifiers-static-inverted-color-light-fg-1-medium) !important;
+/* Default size (md) */
+.ubits-tree-node__content:not([data-size]) {
+    padding: 12px 16px !important;
+    font-size: var(--font-body-md-size, 16px) !important;
+    font-weight: var(--weight-regular, 400) !important;
+    line-height: var(--font-body-md-line, 24px) !important;
+    min-height: 40px !important;
+    height: auto !important;
+    margin: 0 !important;
+}
+
+/* Hover state */
+.ubits-tree-node__content:hover:not(.ubits-tree-node__content--active) {
+    background: var(--ubits-bg-2-static-inverted, var(--ubits-bg-2-inverted, #0E1825));
+}
+
+.ubits-tree-node__content:hover:not(.ubits-tree-node__content--active) .ubits-tree-node__chevron {
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef));
+}
+
+.ubits-tree-node__content:hover:not(.ubits-tree-node__content--active) .ubits-tree-node__icon {
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef));
+}
+
+.ubits-tree-node__content:hover:not(.ubits-tree-node__content--active) .ubits-tree-node__label {
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef));
+}
+
+/* Active state */
+.ubits-tree-node__content--active,
+.ubits-tree-node__content[aria-selected="true"] {
+    color: var(--modifiers-static-inverted-color-dark-accent-blue, #8c91fa);
+    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.2));
+}
+
+.ubits-tree-node__content--active .ubits-tree-node__chevron,
+.ubits-tree-node__content[aria-selected="true"] .ubits-tree-node__chevron {
+    color: var(--modifiers-static-inverted-color-dark-accent-blue, #8c91fa);
+}
+
+.ubits-tree-node__content--active .ubits-tree-node__icon,
+.ubits-tree-node__content[aria-selected="true"] .ubits-tree-node__icon {
+    color: var(--modifiers-static-inverted-color-dark-accent-blue, #8c91fa);
+}
+
+.ubits-tree-node__content--active .ubits-tree-node__label,
+.ubits-tree-node__content[aria-selected="true"] .ubits-tree-node__label {
+    color: var(--modifiers-static-inverted-color-dark-accent-blue, #8c91fa);
+    font-weight: var(--weight-semibold, 600);
+}
+
+/* Focus state */
+.ubits-tree-node__content--expandable:focus-visible {
+    outline: 2px solid var(--modifiers-static-inverted-color-dark-accent-blue, #8c91fa);
+    outline-offset: -2px;
+    border-radius: var(--ubits-border-radius-sm, 8px);
+}
+
+.ubits-tree-node__chevron {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--ubits-fg-1-medium-static-inverted, var(--ubits-fg-1-medium-inverted, #d0d2d5));
+    transition: color 0.2s ease;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.ubits-tree-node__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--ubits-fg-1-medium-static-inverted, var(--ubits-fg-1-medium-inverted, #d0d2d5));
+    width: 20px;
+    transition: color 0.2s ease;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+}
+
+.ubits-tree-node__label {
+    flex: 1;
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef));
+    transition: color 0.2s ease, font-weight 0.2s ease;
+    margin: 0;
+    padding: 0;
+}
+
+.ubits-tree-node__children {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+/* Modo vertical - sin indentación */
+.ubits-tree-menu--vertical .ubits-tree-node {
+    padding-left: 0 !important;
+}
+
+.ubits-tree-menu--vertical .ubits-tree-node__children {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+/* Modo cascada - con indentación */
+.ubits-tree-menu--cascade .ubits-tree-node__children {
+    margin-left: 0;
+}
+
+/* Dark mode support - siempre usar dark mode en Floating Menu */
+.ubits-floating-menu .ubits-tree-node__content {
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef)) !important;
+}
+
+.ubits-floating-menu .ubits-tree-node__content:hover:not(.ubits-tree-node__content--active) {
+    background: var(--ubits-bg-2-static-inverted, var(--ubits-bg-2-inverted, #0E1825)) !important;
+}
+
+.ubits-floating-menu .ubits-tree-node__content:hover:not(.ubits-tree-node__content--active) .ubits-tree-node__chevron,
+.ubits-floating-menu .ubits-tree-node__content:hover:not(.ubits-tree-node__content--active) .ubits-tree-node__icon,
+.ubits-floating-menu .ubits-tree-node__content:hover:not(.ubits-tree-node__content--active) .ubits-tree-node__label {
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef)) !important;
+}
+
+.ubits-floating-menu .ubits-tree-node__content--active,
+.ubits-floating-menu .ubits-tree-node__content[aria-selected="true"] {
+    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.2)) !important;
+    color: var(--modifiers-static-inverted-color-dark-accent-blue, #8c91fa) !important;
+}
+
+.ubits-floating-menu .ubits-tree-node__content--active .ubits-tree-node__chevron,
+.ubits-floating-menu .ubits-tree-node__content[aria-selected="true"] .ubits-tree-node__chevron,
+.ubits-floating-menu .ubits-tree-node__content--active .ubits-tree-node__icon,
+.ubits-floating-menu .ubits-tree-node__content[aria-selected="true"] .ubits-tree-node__icon,
+.ubits-floating-menu .ubits-tree-node__content--active .ubits-tree-node__label,
+.ubits-floating-menu .ubits-tree-node__content[aria-selected="true"] .ubits-tree-node__label {
+    color: var(--modifiers-static-inverted-color-dark-accent-blue, #8c91fa) !important;
+}
+
+.ubits-floating-menu .ubits-tree-node__content--active .ubits-tree-node__label,
+.ubits-floating-menu .ubits-tree-node__content[aria-selected="true"] .ubits-tree-node__label {
+    font-weight: var(--weight-semibold, 600) !important;
+}
+
+.ubits-floating-menu .ubits-tree-node__chevron,
+.ubits-floating-menu .ubits-tree-node__icon {
+    color: var(--ubits-fg-1-medium-static-inverted, var(--ubits-fg-1-medium-inverted, #d0d2d5)) !important;
+}
+
+.ubits-floating-menu .ubits-tree-node__label {
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef)) !important;
 }
 
 /* ========================================
@@ -1040,12 +1266,12 @@
 .ubits-profile-tree-header {
     display: flex;
     align-items: center;
-    gap: var(--p-spacing-mode-1-sm, 8px);
+    gap: var(--ubits-spacing-sm, 8px);
     cursor: pointer;
     transition: all 0.2s ease;
-    border-radius: var(--ubits-border-radius-sm, 6px);
+    border-radius: var(--ubits-border-radius-sm, 8px);
     margin-bottom: 0;
-    color: var(--modifiers-normal-color-light-fg-1-high);
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef)) !important;
     background: transparent;
     position: relative;
     font-family: var(--font-family-noto-sans-font-family);
@@ -1097,50 +1323,50 @@
     min-height: 40px; /* MANTENER MEDIDA ORIGINAL */
 }
 
-/* Hover state - matching TreeMenu Storybook exactly */
+/* Hover state - matching TreeMenu Storybook exactly - siempre usar dark mode */
 .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) {
-    background: var(--modifiers-normal-color-light-bg-2);
+    background: var(--ubits-bg-2-static-inverted, var(--ubits-bg-2-inverted, #0E1825)) !important;
 }
 
 .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-chevron i {
-    color: var(--modifiers-normal-color-light-fg-1-high);
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef)) !important;
 }
 
 .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-icon i {
-    color: var(--modifiers-normal-color-light-fg-1-high);
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef)) !important;
 }
 
 .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-text {
-    color: var(--modifiers-normal-color-light-fg-1-high);
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef)) !important;
 }
 
 /* Active state - matching TreeMenu Storybook exactly */
 .ubits-profile-tree-header--active {
-    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
-    background: var(--modifiers-normal-color-light-bg-active);
+    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
+    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.2)) !important;
 }
 
 .ubits-profile-tree-header--active .ubits-profile-tree-chevron i {
-    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
+    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
 }
 
 .ubits-profile-tree-header--active .ubits-profile-tree-icon i {
-    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
+    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
 }
 
 .ubits-profile-tree-header--active .ubits-profile-tree-text {
-    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
+    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
     font-weight: var(--weight-semibold, 600) !important;
 }
 
 .ubits-profile-tree-link {
     display: flex;
     align-items: center;
-    gap: var(--p-spacing-mode-1-sm, 8px);
+    gap: var(--ubits-spacing-sm, 8px);
     text-decoration: none;
-    color: var(--modifiers-normal-color-light-fg-1-high);
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef)) !important;
     transition: all 0.2s ease;
-    border-radius: var(--ubits-border-radius-sm, 6px);
+    border-radius: var(--ubits-border-radius-sm, 8px);
     margin-bottom: 0;
     position: relative;
     background: transparent;
@@ -1193,39 +1419,39 @@
     min-height: 40px; /* MANTENER MEDIDA ORIGINAL */
 }
 
-/* Hover state - matching TreeMenu Storybook exactly */
+/* Hover state - matching TreeMenu Storybook exactly - siempre usar dark mode */
 .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) {
-    background: var(--modifiers-normal-color-light-bg-2);
+    background: var(--ubits-bg-2-static-inverted, var(--ubits-bg-2-inverted, #0E1825)) !important;
 }
 
 .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-chevron i {
-    color: var(--modifiers-normal-color-light-fg-1-high);
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef)) !important;
 }
 
 .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-icon i {
-    color: var(--modifiers-normal-color-light-fg-1-high);
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef)) !important;
 }
 
 .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-text {
-    color: var(--modifiers-normal-color-light-fg-1-high);
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef)) !important;
 }
 
 /* Active state - matching TreeMenu Storybook exactly */
 .ubits-profile-tree-link--active {
-    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
-    background: var(--modifiers-normal-color-light-bg-active);
+    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
+    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.2)) !important;
 }
 
 .ubits-profile-tree-link--active .ubits-profile-tree-chevron i {
-    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
+    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
 }
 
 .ubits-profile-tree-link--active .ubits-profile-tree-icon i {
-    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
+    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
 }
 
 .ubits-profile-tree-link--active .ubits-profile-tree-text {
-    color: var(--modifiers-normal-color-light-accent-brand); /* CORREGIDO: Azul en light mode */
+    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
     font-weight: var(--weight-semibold, 600) !important;
 }
 
@@ -1243,7 +1469,7 @@
 
 .ubits-profile-tree-icon i {
     font-size: 16px; /* MANTENER MEDIDA ORIGINAL */
-    color: var(--modifiers-normal-color-light-fg-1-medium);
+    color: var(--ubits-fg-1-medium-static-inverted, var(--ubits-fg-1-medium-inverted, #d0d2d5)) !important;
     transition: color 0.2s ease;
 }
 
@@ -1253,7 +1479,7 @@
     font-size: var(--modifiers-normal-body-md-regular-fontsize);
     font-weight: var(--weight-regular, 400);
     line-height: var(--modifiers-normal-body-md-regular-lineheight);
-    color: var(--modifiers-normal-color-light-fg-1-high);
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef)) !important;
     transition: color 0.2s ease, font-weight 0.2s ease;
     margin: 0;
     padding: 0;
@@ -1264,7 +1490,7 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    color: var(--modifiers-normal-color-light-fg-1-medium);
+    color: var(--ubits-fg-1-medium-static-inverted, var(--ubits-fg-1-medium-inverted, #d0d2d5)) !important;
     transition: color 0.2s ease;
     margin: 0;
     padding: 0;
@@ -1273,7 +1499,7 @@
 
 .ubits-profile-tree-chevron i {
     font-size: 14px; /* MANTENER MEDIDA ORIGINAL */
-    color: var(--modifiers-normal-color-light-fg-1-medium);
+    color: var(--ubits-fg-1-medium-static-inverted, var(--ubits-fg-1-medium-inverted, #d0d2d5)) !important;
     transition: color 0.2s ease;
     display: block;
     line-height: 1;
@@ -1286,7 +1512,7 @@
 .ubits-tabbar .ubits-profile-menu .ubits-profile-tree-link,
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-header,
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link {
-    color: var(--modifiers-static-inverted-color-light-fg-1-medium) !important;
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef)) !important;
 }
 
 .ubits-profile-menu .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active),
@@ -1295,8 +1521,8 @@
 .ubits-tabbar .ubits-profile-menu .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active),
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active),
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) {
-    background: var(--modifiers-static-inverted-color-light-bg-gray-subtle-default) !important;
-    color: var(--modifiers-static-inverted-color-light-fg-1-high) !important;
+    background: var(--ubits-bg-2-static-inverted, var(--ubits-bg-2-inverted, #0E1825)) !important;
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef)) !important;
 }
 
 .ubits-profile-menu .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-chevron i,
@@ -1317,18 +1543,18 @@
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-icon i,
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-header:hover:not(.ubits-profile-tree-header--active) .ubits-profile-tree-text,
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link:hover:not(.ubits-profile-tree-link--active) .ubits-profile-tree-text {
-    color: var(--modifiers-static-inverted-color-light-fg-1-high) !important;
+    color: var(--ubits-fg-1-high-static-inverted, var(--ubits-fg-1-high-inverted, #edeeef)) !important;
 }
 
-/* Profile menu usa static-inverted para verse igual en light y dark */
+/* Profile menu usa accent-brand-static-inverted para verse igual en light y dark */
 .ubits-profile-menu .ubits-profile-tree-header--active,
 .ubits-profile-menu .ubits-profile-tree-link--active,
 .ubits-tabbar .ubits-profile-menu .ubits-profile-tree-header--active,
 .ubits-tabbar .ubits-profile-menu .ubits-profile-tree-link--active,
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-header--active,
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link--active {
-    color: var(--modifiers-static-inverted-color-light-accent-brand) !important;
-    background: var(--modifiers-static-inverted-color-light-bg-active) !important;
+    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
+    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.2)) !important;
 }
 
 .ubits-profile-menu .ubits-profile-tree-header--active .ubits-profile-tree-chevron i,
@@ -1349,25 +1575,25 @@
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link--active .ubits-profile-tree-icon i,
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-header--active .ubits-profile-tree-text,
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link--active .ubits-profile-tree-text {
-    color: var(--modifiers-static-inverted-color-light-accent-brand) !important;
+    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
 }
 
 .ubits-profile-menu .ubits-profile-tree-icon i,
 .ubits-tabbar .ubits-profile-menu .ubits-profile-tree-icon i,
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-icon i {
-    color: var(--modifiers-static-inverted-color-light-fg-1-medium) !important;
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium - siempre usar dark */
 }
 
 .ubits-profile-menu .ubits-profile-tree-chevron i,
 .ubits-tabbar .ubits-profile-menu .ubits-profile-tree-chevron i,
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-chevron i {
-    color: var(--modifiers-static-inverted-color-light-fg-1-medium) !important;
+    color: #d0d2d5 !important; /* Dark mode fg-1-medium - siempre usar dark */
 }
 
 .ubits-profile-menu .ubits-profile-tree-text,
 .ubits-tabbar .ubits-profile-menu .ubits-profile-tree-text,
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-text {
-    color: var(--modifiers-static-inverted-color-light-fg-1-medium) !important;
+    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
 }
 
 .ubits-profile-tree-children {

@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { createSubNav } from '../../addons/subnav/src/SubNavProvider';
 import { getSubNavConfig } from '../../addons/subnav/src/configs/subNavVariants';
 import type { SubNavOptions, SubNavVariant } from '../../addons/subnav/src/types/SubNavOptions';
+// Importar estilos del componente
+import '../../addons/subnav/src/styles/subnav.css';
 
 /**
  * SubNav Component Stories

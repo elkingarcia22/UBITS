@@ -58,12 +58,12 @@
   left: 0;
   right: 0;
   padding: calc(var(--p-spacing-mode-1-space-0) * 1px);
-  height: calc(var(--p-spacing-mode-1-space-1) * 1px);
+  height: 4px;
 }
 
 .course-progress-overlay .progress-bar {
   width: 100%;
-  height: calc(var(--p-spacing-mode-1-space-1) * 1px);
+  height: 4px;
   background: var(--modifiers-normal-color-light-bg-4) !important;
   border-radius: 0;
   overflow: hidden;
@@ -205,25 +205,26 @@
   color: var(--modifiers-normal-color-light-fg-1-medium) !important;
 }
 
-/* Progress States */
+/* Progress States - Estas reglas son redundantes ya que usamos estilo inline */
+/* Se mantienen por compatibilidad pero el estilo inline tiene prioridad */
 .course-card[data-progress="0"] .progress-fill {
-  width: 0%;
+  width: 0% !important;
 }
 
 .course-card[data-progress="25"] .progress-fill {
-  width: 25%;
+  width: 25% !important;
 }
 
 .course-card[data-progress="50"] .progress-fill {
-  width: 50%;
+  width: 50% !important;
 }
 
 .course-card[data-progress="75"] .progress-fill {
-  width: 75%;
+  width: 75% !important;
 }
 
 .course-card[data-progress="100"] .progress-fill {
-  width: 100%;
+  width: 100% !important;
 }
 
 /* Responsive Design */

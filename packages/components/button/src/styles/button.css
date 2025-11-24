@@ -28,9 +28,9 @@
     white-space: nowrap;
     
     /* Default state (Primary) */
-    background: var(--modifiers-normal-button-color-light-brand-primary-bg-default);
-    color: var(--modifiers-normal-color-light-fg-bold);
-    border: 1px solid var(--modifiers-normal-button-color-light-brand-primary-bg-default);
+    background: var(--ubits-button-primary-bg-default, var(--modifiers-normal-button-color-light-brand-primary-bg-default, #0c5bef));
+    color: var(--ubits-btn-primary-fg, var(--modifiers-normal-color-light-fg-bold, #ffffff));
+    border: 1px solid var(--ubits-button-primary-bg-default, var(--modifiers-normal-button-color-light-brand-primary-bg-default, #0c5bef));
     
     /* Medium (default) height */
     height: 40px;
@@ -50,14 +50,14 @@
 
 /* Hover State */
 .ubits-button:hover:not(:disabled):not(.ubits-button--loading) {
-    background: var(--modifiers-normal-button-color-light-brand-primary-bg-hover) !important;
-    border-color: var(--modifiers-normal-button-color-light-brand-primary-bg-hover) !important;
+    background: var(--ubits-button-primary-hover, var(--modifiers-normal-button-color-light-brand-primary-bg-hover, #223a91)) !important;
+    border-color: var(--ubits-button-primary-hover, var(--modifiers-normal-button-color-light-brand-primary-bg-hover, #223a91)) !important;
 }
 
 /* Pressed/Active State */
 .ubits-button:active:not(:disabled):not(.ubits-button--loading) {
-    background: var(--modifiers-normal-button-color-light-brand-primary-bg-pressed) !important;
-    border-color: var(--modifiers-normal-button-color-light-brand-primary-bg-pressed) !important;
+    background: var(--ubits-button-primary-pressed, var(--modifiers-normal-button-color-light-brand-primary-bg-pressed, #1e4abf)) !important;
+    border-color: var(--ubits-button-primary-pressed, var(--modifiers-normal-button-color-light-brand-primary-bg-pressed, #1e4abf)) !important;
     transform: translateY(1px);
 }
 
@@ -196,19 +196,19 @@
 
 /* Primary Variant (default) */
 .ubits-button--primary {
-    background: var(--modifiers-normal-button-color-light-brand-primary-bg-default) !important;
-    color: var(--modifiers-normal-color-light-fg-bold) !important;
-    border: 1px solid var(--modifiers-normal-button-color-light-brand-primary-bg-default) !important;
+    background: var(--ubits-button-primary-bg-default, var(--modifiers-normal-button-color-light-brand-primary-bg-default, #0c5bef)) !important;
+    color: var(--ubits-btn-primary-fg, var(--modifiers-normal-color-light-fg-bold, #ffffff)) !important;
+    border: 1px solid var(--ubits-button-primary-bg-default, var(--modifiers-normal-button-color-light-brand-primary-bg-default, #0c5bef)) !important;
 }
 
 .ubits-button--primary:hover:not(:disabled):not(.ubits-button--loading) {
-    background: var(--modifiers-normal-button-color-light-brand-primary-bg-hover) !important;
-    border-color: var(--modifiers-normal-button-color-light-brand-primary-bg-hover) !important;
+    background: var(--ubits-button-primary-hover, var(--modifiers-normal-button-color-light-brand-primary-bg-hover, #223a91)) !important;
+    border-color: var(--ubits-button-primary-hover, var(--modifiers-normal-button-color-light-brand-primary-bg-hover, #223a91)) !important;
 }
 
 .ubits-button--primary:active:not(:disabled):not(.ubits-button--loading) {
-    background: var(--modifiers-normal-button-color-light-brand-primary-bg-pressed) !important;
-    border-color: var(--modifiers-normal-button-color-light-brand-primary-bg-pressed) !important;
+    background: var(--ubits-button-primary-pressed, var(--modifiers-normal-button-color-light-brand-primary-bg-pressed, #1e4abf)) !important;
+    border-color: var(--ubits-button-primary-pressed, var(--modifiers-normal-button-color-light-brand-primary-bg-pressed, #1e4abf)) !important;
     transform: translateY(1px);
 }
 
@@ -516,8 +516,8 @@
     position: absolute;
     top: -2px;
     right: -2px;
-    width: 8px;
-    height: 8px;
+    width: var(--ubits-spacing-sm, 8px);
+    height: var(--ubits-spacing-sm, 8px);
     background: red;
     border-radius: 50%;
     z-index: 9999;
@@ -831,8 +831,8 @@
     position: absolute;
     top: -2px;
     right: -3px;
-    width: 10px;
-    height: 10px;
+    width: var(--ubits-spacing-md, 12px); /* Ajustado al token más cercano */
+    height: var(--ubits-spacing-md, 12px); /* Ajustado al token más cercano */
     background: var(--modifiers-normal-color-light-feedback-accent-error);
     border-radius: 50%;
 }

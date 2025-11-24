@@ -46,8 +46,8 @@
 }
 
 .ubits-header-section__title-wrapper .ubits-heading-h2 {
-    margin: var(--ubits-spacing-none);
-    color: var(--modifiers-normal-color-light-fg-1-high);
+    margin: var(--ubits-spacing-none, 0);
+    color: var(--ubits-fg-1-high, var(--modifiers-normal-color-light-fg-1-high, #303a47));
     flex: 1;
     min-width: 0;
     overflow: hidden;
@@ -108,7 +108,7 @@
     background: var(--modifiers-normal-color-light-bg-1);
     border: 1px solid var(--modifiers-normal-color-light-border-1);
     border-radius: var(--ubits-border-radius-md);
-    box-shadow: 0 calc(var(--ubits-spacing-xs) * 1) calc(var(--ubits-spacing-md) * 1) rgba(0, 0, 0, 0.15);
+    box-shadow: 0 var(--ubits-spacing-xs, 4px) var(--ubits-spacing-md, 12px) rgba(0, 0, 0, 0.15);
     overflow: hidden;
 }
 
@@ -248,7 +248,7 @@
    ======================================== */
 
 [data-theme="dark"] .ubits-header-section__title-wrapper .ubits-heading-h2 {
-    color: var(--modifiers-normal-color-dark-fg-1-high);
+    color: var(--ubits-fg-1-high, var(--modifiers-normal-color-dark-fg-1-high, #edeeef));
 }
 
 [data-theme="dark"] .ubits-header-section-options-dropdown {

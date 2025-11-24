@@ -14,7 +14,7 @@
     min-width: 96px; /* MANTENER MEDIDA ORIGINAL */
     max-width: 96px; /* MANTENER MEDIDA ORIGINAL */
     height: 578px; /* MANTENER MEDIDA ORIGINAL */
-    padding: 16px 0; /* Sin padding horizontal para que items estén pegados al borde */
+    padding: var(--ubits-spacing-lg, 16px) 0; /* Sin padding horizontal para que items estén pegados al borde */
     display: flex;
     flex-direction: column;
     gap: var(--ubits-spacing-lg);
@@ -232,7 +232,7 @@
 /* Focus State (Navegación con teclado) */
 .ubits-sidebar-nav-button:focus-visible {
     background: rgba(255, 255, 255, 0);
-    box-shadow: 0px 0px 0px 4px rgba(82, 151, 244, 0.3);
+    box-shadow: 0px 0px 0px 4px var(--ubits-button-focus-ring, rgba(82, 151, 244, 0.3));
     outline: none;
 }
 
@@ -377,19 +377,21 @@
    ======================================== */
 
 .ubits-sidebar-tooltip {
-    position: fixed;
+    position: absolute;
     background: var(--ubits-sidebar-bg);
-    color: var(--modifiers-static-inverted-color-light-fg-1-high);
+    color: var(--ubits-fg-1-high-static-inverted, var(--modifiers-static-inverted-color-light-fg-1-high, #edeeef));
     padding: var(--ubits-spacing-sm) var(--ubits-spacing-md);
     border-radius: var(--ubits-border-radius-sm);
     white-space: nowrap;
     z-index: 10000;
-    box-shadow: 0px 2px 8px rgba(0,0,0,0.15);
+    box-shadow: 0px var(--ubits-spacing-xs, 4px) var(--ubits-spacing-sm, 8px) rgba(0, 0, 0, 0.15);
     pointer-events: none;
     opacity: 0;
+    visibility: hidden;
+    display: block;
     transition: opacity 0.2s ease;
-    font-family: var(--font-family-noto-sans-font-family);
-    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+    font-family: var(--font-family-noto-sans-font-family, 'Noto Sans', sans-serif);
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize, 14px);
     font-weight: var(--weight-regular, 400);
 }
 
@@ -405,6 +407,7 @@
 
 .ubits-sidebar-tooltip.show {
     opacity: 1;
+    visibility: visible;
 }
 
 /* ========================================
@@ -417,12 +420,12 @@
     left: 96px; /* MANTENER MEDIDA ORIGINAL (96px sidebar) */
     bottom: 27px; /* MANTENER MEDIDA ORIGINAL */
     width: 200px; /* MANTENER MEDIDA ORIGINAL */
-    background: var(--ubits-sidebar-bg);
-    border: 1px solid var(--modifiers-normal-color-light-border-1);
-    border-radius: var(--ubits-border-radius-md);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: var(--ubits-sidebar-bg, #202837);
+    border: none;
+    border-radius: var(--ubits-border-radius-md, 8px);
+    box-shadow: 0 var(--ubits-spacing-xs, 4px) var(--ubits-spacing-md, 12px) rgba(0, 0, 0, 0.15);
     z-index: 2000;
-    padding: var(--ubits-spacing-sm) 0;
+    padding: var(--ubits-spacing-sm, 8px) 0;
 }
 
 .ubits-sidebar-profile-menu.show {
@@ -432,8 +435,8 @@
 .ubits-sidebar-profile-menu-item {
     display: flex;
     align-items: center;
-    padding: var(--ubits-spacing-sm) var(--ubits-spacing-lg);
-    color: var(--ubits-sidebar-button-fg-default);
+    padding: var(--ubits-spacing-sm, 8px) var(--ubits-spacing-lg, 16px);
+    color: var(--ubits-sidebar-button-fg-default, #d0d2d5);
     text-decoration: none;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -441,39 +444,40 @@
 
 .ubits-sidebar-profile-menu-item span {
     color: inherit;
-    font-family: var(--font-family-noto-sans-font-family);
-    font-size: var(--modifiers-normal-body-xs-regular-fontsize);
+    font-family: var(--font-family-noto-sans-font-family, 'Noto Sans', sans-serif);
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize, var(--modifiers-normal-body-xs-regular-fontsize, 13px));
     font-weight: var(--weight-regular, 400);
-    line-height: var(--modifiers-normal-body-xs-regular-lineheight);
+    line-height: var(--modifiers-normal-body-sm-regular-lineheight, var(--modifiers-normal-body-xs-regular-lineheight, 19.5px));
 }
 
 .ubits-sidebar-profile-menu-item:hover {
-    background: var(--ubits-sidebar-button-bg-pressed);
-    color: var(--ubits-sidebar-button-fg-hover);
+    background: var(--ubits-sidebar-button-bg-pressed, #3b4350);
+    color: var(--ubits-sidebar-button-fg-hover, #edeeef);
 }
 
 .ubits-sidebar-profile-menu-item:active {
-    background: var(--ubits-sidebar-button-bg-active);
-    color: var(--ubits-sidebar-button-bg-active);
+    background: var(--ubits-sidebar-button-bg-active, #ffffff);
+    color: var(--ubits-sidebar-button-fg-active, #303a47);
 }
 
 .ubits-sidebar-profile-menu-item i {
-    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize, 13px);
     margin-right: 10px; /* MANTENER MEDIDA ORIGINAL */
-    color: var(--ubits-sidebar-button-fg-default);
+    color: var(--ubits-sidebar-button-fg-default, #d0d2d5);
     width: 16px; /* MANTENER MEDIDA ORIGINAL */
     text-align: center;
 }
 
 .ubits-sidebar-profile-menu-item:hover i {
-    color: var(--ubits-sidebar-button-fg-hover);
+    color: var(--ubits-sidebar-button-fg-hover, #edeeef);
 }
 
 /* Profile menu divider */
+/* ⚠️ IMPORTANTE: Los dividers del menú de perfil mantienen el mismo color claro/blanco en light y dark mode */
 .ubits-sidebar-profile-menu-divider {
     height: 1px;
-    background: var(--modifiers-normal-color-light-border-1);
-    margin: var(--ubits-spacing-xs) 0;
+    background: var(--ubits-sidebar-button-fg-hover, var(--ubits-fg-1-high-static-inverted, #edeeef));
+    margin: var(--ubits-spacing-xs, 4px) 0;
 }
 
 /* ========================================
@@ -525,10 +529,11 @@ html[data-theme="dark"] .ubits-sidebar-nav-button.active i {
     color: var(--ubits-sidebar-button-fg-active) !important;
 }
 
+/* ⚠️ IMPORTANTE: El menú de perfil mantiene el mismo borde claro/blanco en dark mode (igual que light) */
 body[data-theme="dark"] .ubits-sidebar-profile-menu,
 html[data-theme="dark"] .ubits-sidebar-profile-menu {
-    background: var(--ubits-sidebar-bg) !important;
-    border-color: var(--modifiers-normal-color-dark-border-1) !important;
+    background: var(--ubits-sidebar-bg, #202837) !important;
+    border-color: var(--ubits-sidebar-button-fg-hover, var(--ubits-fg-1-high-static-inverted, #edeeef)) !important;
 }
 
 /* Dark mode para tokens migrados */
@@ -549,15 +554,17 @@ html[data-theme="dark"] .ubits-sidebar-profile-menu {
 }
 
 [data-theme="dark"] .ubits-sidebar-tooltip {
-    color: var(--modifiers-static-inverted-color-dark-fg-1-high);
+    color: var(--ubits-fg-1-high-static-inverted, var(--modifiers-static-inverted-color-dark-fg-1-high, #edeeef));
 }
 
+/* ⚠️ IMPORTANTE: El menú de perfil mantiene el mismo borde claro/blanco en dark mode (igual que light) */
 [data-theme="dark"] .ubits-sidebar-profile-menu {
-    border-color: var(--modifiers-normal-color-dark-border-1);
+    border-color: var(--ubits-sidebar-button-fg-hover, var(--ubits-fg-1-high-static-inverted, #edeeef)) !important;
 }
 
+/* ⚠️ IMPORTANTE: Los dividers del menú de perfil mantienen el mismo color claro/blanco en dark mode (igual que light) */
 [data-theme="dark"] .ubits-sidebar-profile-menu-divider {
-    background: var(--modifiers-normal-color-dark-border-1);
+    background: var(--ubits-sidebar-button-fg-hover, var(--ubits-fg-1-high-static-inverted, #edeeef)) !important;
 }
 
 [data-theme="dark"] .ubits-sidebar-nav-button#ubits-darkmode-toggle[data-theme="dark"] i {

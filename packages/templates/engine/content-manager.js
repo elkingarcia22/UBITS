@@ -15,17 +15,26 @@ class ContentManager {
    * Detecta el modo (admin o colaborador) basándose en el variant del sidebar
    */
   detectMode() {
+    console.log('🔍 [ContentManager] detectMode() llamado');
     const sidebarElement = document.querySelector('.ubits-sidebar');
     if (sidebarElement) {
       // El variant se pasa en la configuración, pero podemos detectarlo por los botones
       const hasAdminButtons = sidebarElement.querySelector('[data-section="inicio"]');
       const hasColaboradorButtons = sidebarElement.querySelector('[data-section="admin"]');
       
+      console.log('🔍 [ContentManager] Detección de modo:');
+      console.log('   - hasAdminButtons (inicio):', !!hasAdminButtons);
+      console.log('   - hasColaboradorButtons (admin):', !!hasColaboradorButtons);
+      
       if (hasAdminButtons && !hasColaboradorButtons) {
         this.isAdminMode = true;
+        console.log('✅ [ContentManager] Modo detectado: ADMIN');
       } else {
         this.isAdminMode = false;
+        console.log('✅ [ContentManager] Modo detectado: COLABORADOR');
       }
+    } else {
+      console.warn('⚠️ [ContentManager] .ubits-sidebar NO encontrado para detectar modo');
     }
     return this.isAdminMode;
   }
@@ -36,22 +45,28 @@ class ContentManager {
    * pero activan SubNav diferentes. El variant del Sidebar determina qué SubNav usar.
    */
   getSubNavForSection(section) {
+    console.log('🔍 [ContentManager] getSubNavForSection() llamado para sección:', section);
     // Detectar modo antes de retornar la configuración
     this.detectMode();
+    
+    console.log('🔍 [ContentManager] isAdminMode:', this.isAdminMode);
     
     // ⚠️ IMPORTANTE: Secciones sin SubNav
     // En modo admin: inicio y diagnóstico no tienen SubNav
     if (this.isAdminMode && (section === 'inicio' || section === 'diagnóstico')) {
+      console.log('⚠️ [ContentManager] Sección sin SubNav (modo admin):', section);
       return null;
     }
     
     // En modo colaborador: diagnóstico no tiene SubNav
     if (!this.isAdminMode && section === 'diagnóstico') {
+      console.log('⚠️ [ContentManager] Sección sin SubNav (modo colaborador):', section);
       return null;
     }
     
     // Centro de ayuda nunca tiene SubNav (en cualquier modo)
     if (section === 'centro-ayuda' || section === 'centro-de-ayuda') {
+      console.log('⚠️ [ContentManager] Sección sin SubNav (centro de ayuda):', section);
       return null;
     }
     
@@ -170,8 +185,15 @@ class ContentManager {
 
     const subNavConfig = subNavMap[section];
     if (subNavConfig) {
+      console.log('✅ [ContentManager] Configuración de SubNav encontrada para:', section);
+      console.log('   - Variant:', subNavConfig.variant);
+      console.log('   - Tabs count:', subNavConfig.tabs?.length);
+      console.log('   - ActiveTabId:', subNavConfig.activeTabId);
       return subNavConfig;
     }
+
+    console.warn(`⚠️ [ContentManager] No hay configuración de SubNav para la sección: ${section}`);
+    console.log('🔍 [ContentManager] Secciones disponibles en subNavMap:', Object.keys(subNavMap));
 
     // Configuración por defecto
     return {
@@ -512,36 +534,50 @@ class ContentManager {
    * Actualiza el SubNav según la sección actual
    */
   updateSubNav(section) {
+    console.log('🔍 [ContentManager] updateSubNav llamado para sección:', section);
     const subNavConfig = this.getSubNavForSection(section);
+    console.log('🔍 [ContentManager] SubNav config obtenida:', subNavConfig);
     
     // Si la sección no tiene SubNav (ej: inicio en admin, ubits-ai, perfil), ocultarlo
     const topNavContainer = document.getElementById('top-nav-container');
     if (!topNavContainer) {
+      console.error('❌ [ContentManager] top-nav-container NO encontrado');
       return;
     }
+    console.log('✅ [ContentManager] top-nav-container encontrado');
 
     // Si getSubNavForSection retorna null, ocultar SubNav
     if (!subNavConfig) {
+      console.log('⚠️ [ContentManager] SubNav config es null, ocultando contenedor');
       topNavContainer.style.display = 'none';
       return;
     }
 
     if (!subNavConfig.variant || subNavConfig.tabs.length === 0) {
       // Ocultar SubNav si no hay variant o tabs
+      console.log('⚠️ [ContentManager] SubNav no tiene variant o tabs, ocultando contenedor');
       topNavContainer.style.display = 'none';
       return;
     }
 
     // Mostrar SubNav
+    console.log('✅ [ContentManager] Mostrando SubNav con variant:', subNavConfig.variant);
     topNavContainer.style.display = 'block';
 
     // Recargar SubNav con la nueva configuración
     if (typeof window.createSubNav === 'function') {
+      console.log('🔍 [ContentManager] Llamando createSubNav con:', {
+        containerId: 'top-nav-container',
+        variant: subNavConfig.variant,
+        tabs: subNavConfig.tabs,
+        activeTabId: subNavConfig.activeTabId
+      });
       window.createSubNav({
         containerId: 'top-nav-container',
         variant: subNavConfig.variant,
         tabs: subNavConfig.tabs,
         activeTabId: subNavConfig.activeTabId,
+        showIcons: true, // Activar iconos en el SubNav
         onTabChange: (tabId, element) => {
           // Actualizar contenido según subsección
           // IMPORTANTE: Mantener la sección actual y solo cambiar la subsección
@@ -551,6 +587,9 @@ class ContentManager {
           this.updateContent(this.currentSection || section, tabId);
         }
       });
+      console.log('✅ [ContentManager] createSubNav llamado');
+    } else {
+      console.error('❌ [ContentManager] window.createSubNav NO es una función');
     }
   }
 
@@ -576,17 +615,25 @@ class ContentManager {
     
     // NO mostrar header-section en el home del administrador (sección 'admin')
     if (section !== 'admin') {
+      console.log('🔍 [ContentManager] ════════════════════════════════════════');
+      console.log('🔍 [ContentManager] Creando HeaderSection para sección:', section);
+      console.log('🔍 [ContentManager] Título:', sectionTitle);
+      
       // Crear contenedor para header-section (al inicio del content-area, sin espacio superior)
       const headerContainer = document.createElement('div');
       headerContainer.id = 'header-section-container';
       headerContainer.style.cssText = 'margin-top: 0; margin-bottom: 0; width: 100%;';
       
       // Crear header-section con solo título y botón primario
-      // HTML directo sin dependencias de TypeScript
+      // HTML directo usando la estructura correcta del componente HeaderSection
       const headerHTML = `
         <div class="ubits-header-section">
           <div class="ubits-header-section__content">
-            <h2 class="ubits-heading-h2" style="color: var(--ubits-fg-1-high); margin: 0;">${sectionTitle}</h2>
+            <div class="ubits-header-section__title-wrapper">
+              <div class="ubits-header-section__title-group">
+                <h2 class="ubits-heading-h2">${sectionTitle}</h2>
+              </div>
+            </div>
             <div class="ubits-header-section__actions">
               <button class="ubits-button ubits-button--primary ubits-button--md">
                 <i class="far fa-plus"></i>
@@ -599,6 +646,150 @@ class ContentManager {
       
       headerContainer.innerHTML = headerHTML;
       contentArea.appendChild(headerContainer);
+      
+      // ⚠️ DIAGNÓSTICO: Verificar estilos del botón después de insertar
+      setTimeout(() => {
+        const button = headerContainer.querySelector('.ubits-button');
+        if (button) {
+          console.log('🔍 [ContentManager] Botón encontrado:', button);
+          console.log('🔍 [ContentManager] Clases del botón:', button.className);
+          
+          const computedStyle = window.getComputedStyle(button);
+          console.log('🔍 [ContentManager] Estilos computados del botón:');
+          console.log('   - background:', computedStyle.backgroundColor);
+          console.log('   - color:', computedStyle.color);
+          console.log('   - padding:', computedStyle.padding);
+          console.log('   - border-radius:', computedStyle.borderRadius);
+          console.log('   - font-family:', computedStyle.fontFamily);
+          console.log('   - font-size:', computedStyle.fontSize);
+          console.log('   - font-weight:', computedStyle.fontWeight);
+          console.log('   - border:', computedStyle.border);
+          console.log('   - display:', computedStyle.display);
+          console.log('   - width:', computedStyle.width);
+          console.log('   - height:', computedStyle.height);
+          
+          // Verificar si el CSS del botón está cargado
+          const buttonStylesheets = Array.from(document.styleSheets).filter(sheet => {
+            try {
+              return sheet.href && (sheet.href.includes('button.css') || sheet.href.includes('button'));
+            } catch (e) {
+              return false;
+            }
+          });
+          console.log('🔍 [ContentManager] CSS de botón encontrado:', buttonStylesheets.length);
+          buttonStylesheets.forEach((sheet, idx) => {
+            console.log(`   - Stylesheet ${idx + 1}:`, sheet.href);
+            try {
+              const rules = Array.from(sheet.cssRules || []);
+              const buttonRules = rules.filter(rule => 
+                rule.selectorText && rule.selectorText.includes('.ubits-button')
+              );
+              console.log(`   - Reglas para .ubits-button:`, buttonRules.length);
+              if (buttonRules.length > 0) {
+                console.log(`   - Primera regla:`, buttonRules[0].selectorText);
+                console.log(`   - CSS:`, buttonRules[0].cssText.substring(0, 200));
+              }
+            } catch (e) {
+              console.error(`   - Error al leer reglas:`, e.message);
+            }
+          });
+          
+          // Verificar tokens CSS disponibles
+          const root = document.documentElement;
+          const computedRootStyle = getComputedStyle(root);
+          const tokens = {
+            '--ubits-button-primary-bg-default': computedRootStyle.getPropertyValue('--ubits-button-primary-bg-default'),
+            '--ubits-btn-primary-fg': computedRootStyle.getPropertyValue('--ubits-btn-primary-fg'),
+            '--ubits-button-primary-hover': computedRootStyle.getPropertyValue('--ubits-button-primary-hover'),
+            '--ubits-button-primary-pressed': computedRootStyle.getPropertyValue('--ubits-button-primary-pressed'),
+            '--ubits-spacing-md': computedRootStyle.getPropertyValue('--ubits-spacing-md'),
+            '--ubits-spacing-lg': computedRootStyle.getPropertyValue('--ubits-spacing-lg'),
+            '--ubits-border-radius-md': computedRootStyle.getPropertyValue('--ubits-border-radius-md'),
+            '--ubits-border-radius-sm': computedRootStyle.getPropertyValue('--ubits-border-radius-sm'),
+            '--weight-semibold': computedRootStyle.getPropertyValue('--weight-semibold'),
+          };
+          console.log('🔍 [ContentManager] Tokens CSS disponibles:');
+          Object.entries(tokens).forEach(([key, value]) => {
+            console.log(`   - ${key}:`, value || '❌ NO DEFINIDO');
+          });
+          
+          // Verificar si el CSS del botón está aplicando los estilos correctamente
+          console.log('🔍 [ContentManager] Verificando aplicación de estilos CSS:');
+          const buttonStylesheet = Array.from(document.styleSheets).find(sheet => {
+            try {
+              return sheet.href && sheet.href.includes('button.css');
+            } catch (e) {
+              return false;
+            }
+          });
+          if (buttonStylesheet) {
+            console.log('   - Stylesheet de botón encontrado:', buttonStylesheet.href);
+            try {
+              const rules = Array.from(buttonStylesheet.cssRules || []);
+              const primaryButtonRule = rules.find(rule => 
+                rule.selectorText && rule.selectorText.includes('.ubits-button--primary') && !rule.selectorText.includes(':')
+              );
+              if (primaryButtonRule) {
+                console.log('   - Regla .ubits-button--primary encontrada');
+                console.log('   - Selector:', primaryButtonRule.selectorText);
+                console.log('   - CSS completo:', primaryButtonRule.cssText);
+              } else {
+                console.log('   - ⚠️ Regla .ubits-button--primary NO encontrada');
+              }
+            } catch (e) {
+              console.error('   - ❌ Error al leer reglas CSS:', e.message);
+            }
+          } else {
+            console.log('   - ⚠️ Stylesheet de botón NO encontrado');
+          }
+          
+          // Verificar estructura del botón
+          const icon = button.querySelector('i');
+          const span = button.querySelector('span');
+          console.log('🔍 [ContentManager] Estructura del botón:');
+          console.log('   - Icon encontrado:', !!icon, icon ? icon.className : '');
+          console.log('   - Span encontrado:', !!span, span ? span.textContent : '');
+          
+          // Verificar si hay estilos inline o conflictos
+          console.log('🔍 [ContentManager] Estilos inline del botón:', button.style.cssText || '(ninguno)');
+          
+          // Verificar si el botón tiene el estilo esperado del componente
+          const expectedBg = getComputedStyle(root).getPropertyValue('--ubits-button-primary-bg-default');
+          const actualBg = computedStyle.backgroundColor;
+          console.log('🔍 [ContentManager] Comparación de background:');
+          console.log('   - Esperado (token):', expectedBg || 'NO DEFINIDO');
+          console.log('   - Actual (computado):', actualBg);
+          console.log('   - ¿Coincide?:', expectedBg ? actualBg.includes('rgb(12, 91, 239)') || actualBg.includes('#0c5bef') : false);
+        } else {
+          console.error('❌ [ContentManager] Botón NO encontrado en el header');
+        }
+        
+        // Verificar estilos del header-section
+        const headerSection = headerContainer.querySelector('.ubits-header-section');
+        if (headerSection) {
+          const headerComputedStyle = window.getComputedStyle(headerSection);
+          console.log('🔍 [ContentManager] Estilos del header-section:');
+          console.log('   - display:', headerComputedStyle.display);
+          console.log('   - padding:', headerComputedStyle.padding);
+          console.log('   - gap:', headerComputedStyle.gap);
+          console.log('   - width:', headerComputedStyle.width);
+        }
+        
+        // Verificar si el CSS del header-section está cargado
+        const headerStylesheets = Array.from(document.styleSheets).filter(sheet => {
+          try {
+            return sheet.href && sheet.href.includes('header-section.css');
+          } catch (e) {
+            return false;
+          }
+        });
+        console.log('🔍 [ContentManager] CSS de header-section encontrado:', headerStylesheets.length);
+        headerStylesheets.forEach((sheet, idx) => {
+          console.log(`   - Stylesheet ${idx + 1}:`, sheet.href);
+        });
+        
+        console.log('🔍 [ContentManager] ════════════════════════════════════════');
+      }, 100);
     }
     
     // Crear .content-sections y agregar el contenido

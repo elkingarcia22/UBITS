@@ -72,7 +72,7 @@
 
         /* Scrollbar personalizado */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: var(--ubits-spacing-sm, 8px);
         }
 
         ::-webkit-scrollbar-track {
@@ -81,7 +81,7 @@
 
         ::-webkit-scrollbar-thumb {
             background: var(--ubits-fg-2-medium-static);
-            border-radius: 6px;
+            border-radius: var(--ubits-border-radius-xs, 4px);
         }
 
         ::-webkit-scrollbar-thumb:hover {
@@ -105,32 +105,8 @@
            TOOLTIP
            ======================================== */
         
-        .tooltip {
-            position: fixed;
-            background: var(--ubits-sidebar-bg);
-            color: var(--ubits-fg-1-high-static-inverted);
-            padding: 8px 12px;
-            border-radius: 6px;
-            white-space: nowrap;
-            z-index: 10000;
-            box-shadow: 0px 2px 8px rgba(0,0,0,0.15);
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-            font-family: var(--font-sans, 'Noto Sans', sans-serif);
-            font-size: 14px;
-            font-weight: 400;
-        }
-
-        .tooltip::before {
-            content: '';
-            position: absolute;
-            left: -6px;
-            top: 50%;
-            transform: translateY(-50%);
-            border: 6px solid transparent;
-            border-right-color: var(--ubits-sidebar-bg);
-        }
+        /* ⚠️ NOTA: Los estilos del tooltip del sidebar están en el componente sidebar.css */
+        /* No sobrescribir aquí, usar los estilos del componente oficial */
 
         /* ========================================
            MAIN CONTENT
@@ -139,13 +115,13 @@
         .main-content {
             position: relative;
             flex: 1;
-            margin: 16px 24px 0 143px;
-            width: calc(100% - 143px - 24px);
+            margin: var(--ubits-spacing-lg, 16px) var(--ubits-spacing-2xl, 24px) 0 calc(var(--ubits-spacing-2xl, 24px) + 96px + 23px);
+            width: calc(100% - calc(var(--ubits-spacing-2xl, 24px) + 96px + 23px) - var(--ubits-spacing-2xl, 24px));
             overflow: visible;
             max-height: none;
             display: flex;
             flex-direction: column;
-            gap: 20px; /* Gap entre SubNav y Content Area */
+            gap: var(--ubits-spacing-xl, 20px); /* Gap entre SubNav y Content Area */
             z-index: 5;
             box-sizing: border-box;
         }
@@ -154,9 +130,9 @@
         /* El proyecto UBITS original usa margin: auto sin cambiar flex */
         @media (min-width: 1440px) {
             .main-content {
-                margin: 16px auto 0 auto; /* ⚠️ margin auto centra el elemento */
-                padding-left: 143px; /* Espacio para sidebar (24px + 96px + 23px gap) */
-                padding-right: 24px;
+                margin: var(--ubits-spacing-lg, 16px) auto 0 auto; /* ⚠️ margin auto centra el elemento */
+                padding-left: calc(var(--ubits-spacing-2xl, 24px) + 96px + 23px); /* Espacio para sidebar (24px + 96px + 23px gap) */
+                padding-right: var(--ubits-spacing-2xl, 24px);
                 width: 1607px;
                 max-width: 1607px;
                 box-sizing: border-box;
@@ -173,17 +149,17 @@
             }
             
             .main-content {
-                gap: 20px;
-                margin: 16px 12px 0 12px !important;
-                width: calc(100% - 24px);
+                gap: var(--ubits-spacing-xl, 20px);
+                margin: var(--ubits-spacing-lg, 16px) var(--ubits-spacing-md, 12px) 0 var(--ubits-spacing-md, 12px) !important;
+                width: calc(100% - var(--ubits-spacing-2xl, 24px));
                 padding-left: 0;
                 padding-right: 0;
                 max-width: 100%;
-                padding-bottom: 60px; /* Espacio para el TabBar, igual que el proyecto UBITS original */
+                padding-bottom: var(--ubits-spacing-6xl, 40px); /* Espacio para el TabBar, igual que el proyecto UBITS original */
             }
             
             .content-area {
-                padding-bottom: 60px; /* Espacio para el TabBar, igual que el proyecto UBITS original */
+                padding-bottom: var(--ubits-spacing-6xl, 40px); /* Espacio para el TabBar, igual que el proyecto UBITS original */
             }
             
             .main-content > *:first-child {
@@ -194,31 +170,13 @@
         /* ========================================
            TOP NAV CONTAINER (SubNav)
            ======================================== */
-        
+
+        /* El SubNav debe mantener sus estilos originales del componente */
+        /* Solo establecer el contenedor para que el componente SubNav funcione correctamente */
         #top-nav-container {
             width: 100%;
             max-width: 100%;
             box-sizing: border-box;
-        }
-
-        /* El SubNav debe tener el mismo ancho que el contenido */
-        .ubits-sub-nav {
-            width: 100% !important;
-            max-width: 100% !important;
-            box-sizing: border-box;
-        }
-
-        /* En pantallas grandes, el SubNav también debe estar centrado */
-        @media (min-width: 1440px) {
-            #top-nav-container {
-                width: 100%;
-                max-width: 100%;
-            }
-            
-            .ubits-sub-nav {
-                width: 100% !important;
-                max-width: 100% !important;
-            }
         }
 
         /* ========================================
@@ -227,7 +185,7 @@
         
         .content-area {
             background-color: transparent !important;
-            border-radius: 10px;
+            border-radius: var(--ubits-border-radius-md, 12px);
             border: none !important;
             flex: 1;
             min-height: 0;
@@ -285,7 +243,7 @@
         .content-sections {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: var(--ubits-spacing-lg, 16px);
             flex: 1;
             min-width: 0;
             width: 100%; /* Ocupar el 100% del ancho del content-area */
@@ -296,7 +254,7 @@
         }
 
         .content-sections > *:not(:last-child):not(.section-dual):not(.section-single):not(.section-triple):not(.section-quad) {
-            margin-bottom: 16px;
+            margin-bottom: var(--ubits-spacing-lg, 16px);
         }
 
         .content-sections::after {
@@ -322,21 +280,21 @@
 
         .section-dual {
             display: flex;
-            gap: 20px;
+            gap: var(--ubits-spacing-xl, 20px);
             width: 100%;
             box-sizing: border-box;
         }
 
         .section-triple {
             display: flex;
-            gap: 20px;
+            gap: var(--ubits-spacing-xl, 20px);
             width: 100%;
             box-sizing: border-box;
         }
 
         .section-quad {
             display: flex;
-            gap: 20px;
+            gap: var(--ubits-spacing-xl, 20px);
             width: 100%;
             box-sizing: border-box;
         }
@@ -352,8 +310,8 @@
         .section-quad > div {
             background-color: var(--ubits-bg-1);
             border: none;
-            border-radius: 8px;
-            padding: 16px !important; /* !important para sobrescribir el reset */
+            border-radius: var(--ubits-border-radius-sm, 8px);
+            padding: var(--ubits-spacing-lg, 16px) !important; /* !important para sobrescribir el reset */
             width: 100%; /* Ocupar el 100% del ancho de la sección */
             box-sizing: border-box;
             display: flex;
@@ -391,7 +349,7 @@
             .section-triple,
             .section-quad {
                 flex-direction: column;
-                gap: 16px;
+                gap: var(--ubits-spacing-lg, 16px);
             }
         }
 
@@ -400,7 +358,7 @@
             .section-dual > div,
             .section-triple > div,
             .section-quad > div {
-                padding: 12px !important;
+                padding: var(--ubits-spacing-md, 12px) !important;
             }
         }
 
@@ -517,7 +475,60 @@
         // INITIALIZATION
         // ========================================
         
+        // Función para verificar si los CSS se están cargando
+        function checkLoadedStylesheets() {
+            console.log('🔍 [CSS Check] Verificando hojas de estilo cargadas...');
+            const stylesheets = Array.from(document.styleSheets);
+            console.log(`📊 [CSS Check] Total de hojas de estilo encontradas: ${stylesheets.length}`);
+            
+            const criticalCSS = [
+                'tokens.css',
+                'sidebar.css',
+                'subnav.css',
+                'tabbar.css',
+                'button.css'
+            ];
+            
+            criticalCSS.forEach(cssName => {
+                const found = stylesheets.some(sheet => {
+                    try {
+                        return sheet.href && sheet.href.includes(cssName);
+                    } catch (e) {
+                        return false;
+                    }
+                });
+                console.log(found ? `✅ [CSS Check] ${cssName} encontrado` : `❌ [CSS Check] ${cssName} NO encontrado`);
+            });
+            
+            // Verificar tokens CSS específicamente
+            const tokensSheet = stylesheets.find(sheet => {
+                try {
+                    return sheet.href && sheet.href.includes('tokens.css');
+                } catch (e) {
+                    return false;
+                }
+            });
+            
+            if (tokensSheet) {
+                console.log('✅ [CSS Check] tokens.css encontrado:', tokensSheet.href);
+                try {
+                    const rules = Array.from(tokensSheet.cssRules || []);
+                    console.log(`📊 [CSS Check] Reglas en tokens.css: ${rules.length}`);
+                    if (rules.length > 0) {
+                        const firstRule = rules[0];
+                        console.log('📋 [CSS Check] Primera regla:', firstRule.cssText.substring(0, 100));
+                    }
+                } catch (e) {
+                    console.error('❌ [CSS Check] Error al leer reglas de tokens.css:', e.message);
+                }
+            } else {
+                console.error('❌ [CSS Check] tokens.css NO encontrado en document.styleSheets');
+            }
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
+            // Verificar CSS inmediatamente
+            setTimeout(checkLoadedStylesheets, 100);
             
             // Esperar a que todos los sistemas estén listos
             setTimeout(() => {

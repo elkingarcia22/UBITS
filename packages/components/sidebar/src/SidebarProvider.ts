@@ -171,6 +171,10 @@ function initTooltips(sidebarElement: HTMLElement): void {
   const tooltipElement = document.getElementById('ubits-sidebar-tooltip');
   if (!tooltipElement) return;
 
+  // Encontrar el contenedor padre del sidebar (debe tener position: relative)
+  const sidebarContainer = sidebarElement.parentElement;
+  if (!sidebarContainer) return;
+  
   const buttons = sidebarElement.querySelectorAll('[data-tooltip]');
   
   buttons.forEach(button => {
@@ -185,19 +189,38 @@ function initTooltips(sidebarElement: HTMLElement): void {
         hideTimeout = null;
       }
 
-      const rect = button.getBoundingClientRect();
+      // Obtener posición del botón relativa al contenedor
+      const buttonRect = button.getBoundingClientRect();
+      const containerRect = sidebarContainer.getBoundingClientRect();
+      
       const tooltip = tooltipElement;
       
       tooltip.textContent = tooltipText;
+      tooltip.style.visibility = 'hidden'; // Ocultar temporalmente para calcular dimensiones
+      tooltip.style.display = 'block';
       tooltip.classList.add('show');
       
-      // Posicionar tooltip a la derecha del botón
-      tooltip.style.left = `${rect.right + 12}px`;
-      tooltip.style.top = `${rect.top + (rect.height / 2) - (tooltip.offsetHeight / 2)}px`;
+      // Usar doble requestAnimationFrame para asegurar que el tooltip esté completamente renderizado
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const tooltipRect = tooltip.getBoundingClientRect();
+          const tooltipHeight = tooltipRect.height;
+          
+          // Calcular posición relativa al contenedor (position: absolute)
+          const left = buttonRect.right - containerRect.left + 12;
+          const top = buttonRect.top - containerRect.top + (buttonRect.height / 2) - (tooltipHeight / 2);
+          
+          // Aplicar posición relativa al contenedor
+          tooltip.style.left = `${left}px`;
+          tooltip.style.top = `${top}px`;
+          tooltip.style.visibility = 'visible';
+        });
+      });
     });
 
     button.addEventListener('mouseleave', () => {
       tooltipElement.classList.remove('show');
+      tooltipElement.style.visibility = 'hidden';
     });
   });
 }
@@ -424,6 +447,13 @@ export function createSidebar(options: SidebarOptions): HTMLElement {
   if (menuElement && !container.contains(menuElement)) {
     container.appendChild(menuElement);
   }
+  
+  // Asegurar que el tooltip esté dentro del contenedor
+  const tooltipElement = document.getElementById('ubits-sidebar-tooltip');
+  if (tooltipElement && !container.contains(tooltipElement)) {
+    container.appendChild(tooltipElement);
+  }
+  
   if (!sidebarElement) {
     throw new Error('Failed to create sidebar element');
   }
