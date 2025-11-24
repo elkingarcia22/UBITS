@@ -7,6 +7,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "build": "storybook build",
+    "build:tokens": "cd ../.. && npm run build:tokens",
     "deploy": "npm run build-storybook && npx vercel --prod --yes",
     "deploy:preview": "npm run build-storybook && npx vercel"
   },
