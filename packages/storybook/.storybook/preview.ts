@@ -43,6 +43,28 @@ import '../docs-site/.storybook/fontawesome-icons.css'
 
 // Script para limpiar caché de Storybook y redirigir IDs antiguos
 if (typeof window !== 'undefined') {
+  // Suprimir errores de extensiones del navegador que no afectan la funcionalidad
+  window.addEventListener('error', (event) => {
+    if (
+      event.message?.includes('message channel closed') ||
+      event.message?.includes('asynchronous response')
+    ) {
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    }
+  });
+
+  // Suprimir errores de promesas rechazadas relacionadas con extensiones
+  window.addEventListener('unhandledrejection', (event) => {
+    if (
+      event.reason?.message?.includes('message channel closed') ||
+      event.reason?.message?.includes('asynchronous response')
+    ) {
+      event.preventDefault();
+      return false;
+    }
+  });
   // Limpiar localStorage y sessionStorage de Storybook que pueden tener IDs antiguos
   const clearStorybookCache = () => {
     try {
@@ -161,6 +183,12 @@ const preview: Preview = {
             '06. Spacing',
             '07. Text Styles',
             '08. Border Radius',
+          ],
+          'Templates',
+          [
+            'Templates',
+            'Templates UBITS Desktop',
+            'Welcome Test',
           ],
         ],
       },

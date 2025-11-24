@@ -46,6 +46,10 @@ const config: StorybookConfig = {
     { 
       from: resolve(dirname(fileURLToPath(import.meta.url)), '../../components'), 
       to: '/components' 
+    },
+    { 
+      from: resolve(dirname(fileURLToPath(import.meta.url)), '../../templates'), 
+      to: '/templates' 
     }
   ],
   viteFinal: async (config) => {
@@ -173,6 +177,41 @@ const config: StorybookConfig = {
             next();
           }
         });
+        
+        // Servir templates y sus recursos
+        const templatesDir = resolve(projectRoot, 'packages/templates');
+        server.middlewares.use('/templates', (req: any, res: any, next: any) => {
+          const relativePath = req.url.replace(/^\//, '');
+          const filePath = path.resolve(templatesDir, relativePath);
+          
+          if (fs.existsSync(filePath)) {
+            if (fs.statSync(filePath).isFile()) {
+              // Determinar Content-Type según extensión
+              let contentType = 'text/html';
+              if (filePath.endsWith('.css')) contentType = 'text/css';
+              else if (filePath.endsWith('.js')) contentType = 'application/javascript';
+              else if (filePath.endsWith('.json')) contentType = 'application/json';
+              else if (filePath.endsWith('.png')) contentType = 'image/png';
+              else if (filePath.endsWith('.jpg') || filePath.endsWith('.jpeg')) contentType = 'image/jpeg';
+              else if (filePath.endsWith('.svg')) contentType = 'image/svg+xml';
+              else if (filePath.endsWith('.woff2')) contentType = 'font/woff2';
+              else if (filePath.endsWith('.woff')) contentType = 'font/woff';
+              
+              res.setHeader('Content-Type', contentType);
+              res.end(fs.readFileSync(filePath));
+              return;
+            } else {
+              next();
+            }
+          } else {
+            next();
+          }
+        });
+        
+        // Servir assets de templates (FontAwesome, imágenes, etc.)
+        // Las rutas relativas desde templates como "assets/fontawesome/css/all.min.css"
+        // se resolverán desde /templates/assets/...
+        // Esto ya está cubierto por el middleware de /templates arriba
       }
     });
     
