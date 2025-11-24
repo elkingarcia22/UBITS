@@ -22,5 +22,6 @@ Thumbs.db
 # Husky
 .husky/_/
 .vercel
-migrator-ubits/
+
+# Migrador independiente
 migrator-ubits/
