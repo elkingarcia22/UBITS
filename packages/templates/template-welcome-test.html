@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="../components/card/src/styles/card.css" />
     <link rel="stylesheet" href="../components/alert/src/styles/alert.css" />
     
+    <!-- Theme Manager -->
+    <script src="config/theme-manager.js"></script>
+    
     <style>
         /* ========================================
            GLOBAL STYLES
@@ -579,13 +582,117 @@
         }
 
         body[data-theme="dark"] .welcome-info-box {
-            background: var(--ubits-bg-3-dark, var(--modifiers-normal-color-dark-bg-3));
+            background: var(--ubits-bg-active-dark, var(--modifiers-normal-color-dark-bg-active));
             border-color: var(--ubits-border-2-dark, var(--modifiers-normal-color-dark-border-2));
+        }
+
+        body[data-theme="dark"] .welcome-container {
+            background: var(--ubits-bg-2-dark, var(--modifiers-normal-color-dark-bg-2));
+        }
+
+        body[data-theme="dark"] .welcome-content--image-right .welcome-text,
+        body[data-theme="dark"] .welcome-content--image-left .welcome-text,
+        body[data-theme="dark"] .welcome-content--no-image .welcome-text {
+            background: var(--ubits-bg-1-dark, var(--modifiers-normal-color-dark-bg-1));
+        }
+
+        body[data-theme="dark"] .welcome-banner {
+            background: var(--ubits-fg-green-subtle-static-inverted);
+            color: var(--ubits-fg-green-subtle-static);
+        }
+
+        body[data-theme="dark"] .welcome-image {
+            background: var(--ubits-bg-3-dark, var(--modifiers-normal-color-dark-bg-3));
+        }
+
+        /* Transiciones suaves para dark mode */
+        body {
+            transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                        color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *[data-theme] {
+            transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                        color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                        border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                        box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .welcome-container,
+        .welcome-text,
+        .welcome-banner,
+        .welcome-info-box,
+        .welcome-title,
+        .welcome-description,
+        .welcome-features__item,
+        .welcome-features__title,
+        .welcome-info-box__title,
+        .welcome-info-box__text {
+            transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                        color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                        border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ========================================
+           DARK MODE TOGGLE BUTTON
+           ======================================== */
+        
+        .dark-mode-toggle {
+            position: fixed;
+            top: var(--ubits-spacing-lg, 20px);
+            right: var(--ubits-spacing-lg, 20px);
+            z-index: 1000;
+            background: var(--ubits-bg-1);
+            border: 1px solid var(--ubits-border-1);
+            border-radius: var(--ubits-border-radius-md);
+            padding: var(--ubits-spacing-sm, 12px);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            box-shadow: var(--ubits-effects-elevation-2, 0px 2px 4px 0px rgba(0, 0, 0, 0.12));
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode-toggle:hover {
+            background: var(--ubits-bg-2);
+            box-shadow: var(--ubits-effects-elevation-3, 0px 4px 8px 0px rgba(0, 0, 0, 0.16));
+            transform: translateY(-2px);
+        }
+
+        .dark-mode-toggle:active {
+            transform: translateY(0);
+        }
+
+        .dark-mode-toggle i {
+            font-size: var(--ubits-spacing-lg, 20px);
+            color: var(--ubits-fg-1-high);
+            transition: color 0.3s ease;
+        }
+
+        body[data-theme="dark"] .dark-mode-toggle {
+            background: var(--ubits-bg-1-dark, var(--modifiers-normal-color-dark-bg-1));
+            border-color: var(--ubits-border-1-dark, var(--modifiers-normal-color-dark-border-1));
+        }
+
+        body[data-theme="dark"] .dark-mode-toggle:hover {
+            background: var(--ubits-bg-2-dark, var(--modifiers-normal-color-dark-bg-2));
+        }
+
+        body[data-theme="dark"] .dark-mode-toggle i {
+            color: var(--ubits-fg-1-high-dark, var(--modifiers-normal-color-dark-fg-1-high));
         }
 
     </style>
 </head>
 <body data-theme="light">
+    <!-- Dark Mode Toggle Button -->
+    <button class="dark-mode-toggle" id="dark-mode-toggle" aria-label="Alternar modo oscuro" title="Alternar modo oscuro">
+        <i class="far fa-moon" id="dark-mode-icon"></i>
+    </button>
+
     <div class="welcome-container" id="welcome-container">
         <!-- Banner (solo visible en no-image) -->
         <div class="welcome-banner" id="welcome-banner">
@@ -857,11 +964,65 @@
         }
 
         // ========================================
+        // DARK MODE TOGGLE
+        // ========================================
+        
+        function initDarkModeToggle() {
+            const toggleButton = document.getElementById('dark-mode-toggle');
+            const icon = document.getElementById('dark-mode-icon');
+            
+            if (!toggleButton || !icon) return;
+
+            function updateIcon(theme) {
+                icon.classList.remove('fa-moon', 'fa-sun', 'fa-sun-bright', 'fa-solid', 'fa-regular', 'far');
+                if (theme === 'dark') {
+                    icon.classList.add('fa-solid', 'fa-sun-bright');
+                } else {
+                    icon.classList.add('far', 'fa-moon');
+                }
+            }
+
+            // Inicializar icono según tema actual
+            const currentTheme = document.body.getAttribute('data-theme') || 'light';
+            updateIcon(currentTheme);
+
+            // Escuchar cambios de tema
+            document.addEventListener('ubits-theme-change', (event) => {
+                updateIcon(event.detail.theme);
+            });
+
+            // Manejar click
+            toggleButton.addEventListener('click', () => {
+                if (window.UBITS_ThemeManager) {
+                    const newTheme = window.UBITS_ThemeManager.toggleTheme();
+                    updateIcon(newTheme);
+                } else {
+                    // Fallback si ThemeManager no está disponible
+                    const body = document.body;
+                    const currentTheme = body.getAttribute('data-theme') || 'light';
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    body.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('ubits-theme', newTheme);
+                    updateIcon(newTheme);
+                }
+            });
+        }
+
+        // ========================================
         // INITIALIZE ON LOAD
         // ========================================
         
         document.addEventListener('DOMContentLoaded', () => {
+            // Inicializar ThemeManager si está disponible
+            if (window.UBITS_ThemeManager && !window.UBITS_ThemeManager.initialized) {
+                window.UBITS_ThemeManager.init();
+            }
+            
+            // Inicializar página de bienvenida
             initializeWelcomePage(welcomeConfig);
+            
+            // Inicializar toggle de dark mode
+            initDarkModeToggle();
         });
 
         // Export config for external modification
