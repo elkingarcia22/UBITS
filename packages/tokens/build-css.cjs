@@ -3,8 +3,14 @@ const fs = require('fs');
 const path = require('path');
 const TOKENS_PATH = path.resolve(__dirname, 'tokens.json');
 const FIGMA_TOKENS_PATH = path.resolve(__dirname, 'figma-tokens.json');
-const OUT_CSS = path.resolve(__dirname, 'dist', 'tokens.css');
-const FIGMA_OUT_CSS = path.resolve(__dirname, 'dist', 'figma-tokens.css');
+const DIST_DIR = path.resolve(__dirname, 'dist');
+const OUT_CSS = path.resolve(DIST_DIR, 'tokens.css');
+const FIGMA_OUT_CSS = path.resolve(DIST_DIR, 'figma-tokens.css');
+
+// Asegurar que el directorio dist existe
+if (!fs.existsSync(DIST_DIR)) {
+  fs.mkdirSync(DIST_DIR, { recursive: true });
+}
 
 function flatten(obj, prefix = '', out = {}) {
   for (const [k, v] of Object.entries(obj || {})) {
