@@ -942,16 +942,12 @@
         // ========================================
         
         document.addEventListener('DOMContentLoaded', () => {
-            // Inicializar ThemeManager si está disponible
-            if (window.UBITS_ThemeManager && !window.UBITS_ThemeManager.initialized) {
-                window.UBITS_ThemeManager.init();
-            }
+            // Sincronizar tema desde el parent (Storybook) si estamos en un iframe
+            syncThemeFromParent();
+            observeParentTheme();
             
             // Inicializar página de bienvenida
             initializeWelcomePage(welcomeConfig);
-            
-            // Inicializar toggle de dark mode
-            initDarkModeToggle();
         });
 
         // Export config for external modification
