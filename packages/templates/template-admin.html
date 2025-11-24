@@ -163,7 +163,7 @@
             }
             
             .main-content > *:first-child {
-                margin-top: -20px;
+                margin-top: calc(-1 * var(--ubits-spacing-xl, 20px));
             }
         }
 
@@ -173,6 +173,16 @@
 
         /* El SubNav debe mantener sus estilos originales del componente */
         /* Solo establecer el contenedor para que el componente SubNav funcione correctamente */
+        #top-nav-container {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* ========================================
+           SUB NAV CONTAINER
+           ======================================== */
+        
         #top-nav-container {
             width: 100%;
             max-width: 100%;
@@ -233,7 +243,7 @@
             background-color: transparent !important;
             border: none !important;
             box-shadow: none !important;
-            padding: 0 40px !important;
+            padding: 0 var(--ubits-spacing-6xl, 40px) !important;
         }
 
         /* ========================================
@@ -408,8 +418,6 @@
 </head>
 <body data-theme="light">
     <div class="dashboard-container">
-        <div class="tooltip" id="tooltip"></div>
-        
         <!-- Sidebar Container -->
         <div id="sidebar-container"></div>
 
@@ -526,7 +534,17 @@
             }
         }
         
+        // ⚠️ PREVENIR múltiples ejecuciones del DOMContentLoaded
+        let domContentLoadedExecuted = false;
+        
         document.addEventListener('DOMContentLoaded', function() {
+            // Prevenir ejecuciones múltiples
+            if (domContentLoadedExecuted) {
+                console.warn('⚠️ [Template Admin] DOMContentLoaded ya ejecutado, ignorando...');
+                return;
+            }
+            domContentLoadedExecuted = true;
+            
             // Verificar CSS inmediatamente
             setTimeout(checkLoadedStylesheets, 100);
             
@@ -557,57 +575,63 @@
                 // Inicializar responsive DESPUÉS de que los componentes se hayan cargado
                 // Esto asegura que adaptComponents() encuentre los componentes
                 setTimeout(() => {
+                    // ⚠️ CRÍTICO: Establecer currentSection ANTES de inicializar ResponsiveManager
+                    // Esto asegura que adaptComponents() pueda acceder a currentSection cuando se ejecuta
+                    const initialSection = productConfig.sidebar.initialActiveSection || 'inicio';
+                    if (window.UBITS_ContentManager) {
+                        window.UBITS_ContentManager.currentSection = initialSection;
+                        console.log('🔍 [Template Admin] ✅ currentSection establecido ANTES de ResponsiveManager.init():', initialSection);
+                    }
+                    
                     window.UBITS_ResponsiveManager.init();
                     // Ejecutar adaptComponents manualmente después de que los componentes estén listos
                     window.UBITS_ResponsiveManager.adaptComponents();
+                    
+                    // Cargar sección inicial después de que todo esté listo
+                    // IMPORTANTE: El SubNav NO se carga aquí porque ContentManager lo maneja
+                    // ⚠️ NOTA: El botón ya se activa automáticamente con initialActiveSection en products.js
+                    // Solo necesitamos cargar el contenido inicial
+                    if (window.UBITS_ContentManager) {
+                        // Usar requestAnimationFrame para asegurar que el DOM esté listo
+                        requestAnimationFrame(() => {
+                            setTimeout(() => {
+                                // El ContentManager actualizará el SubNav y el contenido automáticamente
+                                // El botón ya está activo gracias a initialActiveSection, no necesitamos activarlo de nuevo
+                                window.UBITS_ContentManager.handleSectionChange(initialSection);
+                                
+                                // Asegurar que el tooltip esté oculto y que ningún botón tenga focus
+                                const tooltipElement = document.getElementById('ubits-sidebar-tooltip');
+                                if (tooltipElement) {
+                                    tooltipElement.classList.remove('show');
+                                }
+                                
+                                // Asegurar que ningún botón tenga focus (para evitar borde azul)
+                                const sidebarElement = document.querySelector('.ubits-sidebar');
+                                if (sidebarElement) {
+                                    const activeButton = sidebarElement.querySelector('.ubits-sidebar-nav-button.active');
+                                    if (activeButton) {
+                                        activeButton.blur(); // Remover focus si lo tiene
+                                    }
+                                }
+                                
+                                
+                                // ⚠️ LOGS ESPECÍFICOS PARA DEBUG DEL LAYOUT
+                                debugLayout();
+                                
+                                // Escuchar cambios de tamaño de ventana para logs continuos
+                                let resizeTimeout;
+                                window.addEventListener('resize', () => {
+                                    clearTimeout(resizeTimeout);
+                                    resizeTimeout = setTimeout(() => {
+                                        debugLayout();
+                                    }, 300);
+                                });
+                            }, 200); // Delay mínimo solo para asegurar que el DOM esté listo
+                        });
+                    }
                 }, 100);
-                
-        // Cargar sección inicial después de que todo esté listo
-        // IMPORTANTE: El SubNav NO se carga aquí porque ContentManager lo maneja
-        // ⚠️ NOTA: El botón ya se activa automáticamente con initialActiveSection en products.js
-        // Solo necesitamos cargar el contenido inicial
-        if (window.UBITS_ContentManager) {
-            // Usar requestAnimationFrame para asegurar que el DOM esté listo
-            requestAnimationFrame(() => {
-                setTimeout(() => {
-                    // ⚠️ IMPORTANTE: Para sidebar "admin", la sección inicial es "inicio"
-                    const initialSection = productConfig.sidebar.initialActiveSection || 'inicio';
-                    
-                    
-                    // El ContentManager actualizará el SubNav y el contenido automáticamente
-                    // El botón ya está activo gracias a initialActiveSection, no necesitamos activarlo de nuevo
-                    window.UBITS_ContentManager.handleSectionChange(initialSection);
-                    
-                    // Asegurar que el tooltip esté oculto y que ningún botón tenga focus
-                    const tooltipElement = document.getElementById('ubits-sidebar-tooltip');
-                    if (tooltipElement) {
-                        tooltipElement.classList.remove('show');
-                    }
-                    
-                    // Asegurar que ningún botón tenga focus (para evitar borde azul)
-                    const sidebarElement = document.querySelector('.ubits-sidebar');
-                    if (sidebarElement) {
-                        const activeButton = sidebarElement.querySelector('.ubits-sidebar-nav-button.active');
-                        if (activeButton) {
-                            activeButton.blur(); // Remover focus si lo tiene
-                        }
-                    }
-                    
-                    
-                    // ⚠️ LOGS ESPECÍFICOS PARA DEBUG DEL LAYOUT
-                    debugLayout();
-                    
-                    // Escuchar cambios de tamaño de ventana para logs continuos
-                    let resizeTimeout;
-                    window.addEventListener('resize', () => {
-                        clearTimeout(resizeTimeout);
-                        resizeTimeout = setTimeout(() => {
-                            debugLayout();
-                        }, 300);
-                    });
-                }, 200); // Delay mínimo solo para asegurar que el DOM esté listo
             });
-        }
+        });
         
         // ⚠️ FUNCIÓN DE DEBUG ESPECÍFICA PARA EL LAYOUT
         function debugLayout() {
@@ -648,81 +672,6 @@
             
             // Mostrar espacios laterales
             
-            
-        }
-                
-                
-                // ⚠️ DEBUG: Verificar posiciones y anchos después de cargar todo
-                setTimeout(() => {
-                    debugLayout();
-                }, 1000);
-            }, 200);
-        });
-        
-        // Función de debug para verificar layout
-        function debugLayout() {
-            
-            const sidebar = document.querySelector('.ubits-sidebar');
-            const sidebarContainer = document.getElementById('sidebar-container');
-            const mainContent = document.querySelector('.main-content');
-            const topNavContainer = document.getElementById('top-nav-container');
-            const contentArea = document.querySelector('.content-area');
-            const contentSections = document.querySelector('.content-sections');
-            
-            if (sidebar) {
-                const sidebarRect = sidebar.getBoundingClientRect();
-                const sidebarStyles = window.getComputedStyle(sidebar);
-            }
-            
-            if (sidebarContainer) {
-                const containerRect = sidebarContainer.getBoundingClientRect();
-                const containerStyles = window.getComputedStyle(sidebarContainer);
-            }
-            
-            if (mainContent) {
-                const mainRect = mainContent.getBoundingClientRect();
-                const mainStyles = window.getComputedStyle(mainContent);
-            }
-            
-            if (topNavContainer) {
-                const navRect = topNavContainer.getBoundingClientRect();
-                const navStyles = window.getComputedStyle(topNavContainer);
-            }
-            
-            if (contentArea) {
-                const areaRect = contentArea.getBoundingClientRect();
-                const areaStyles = window.getComputedStyle(contentArea);
-            }
-            
-            if (contentSections) {
-                const sectionsRect = contentSections.getBoundingClientRect();
-                const sectionsStyles = window.getComputedStyle(contentSections);
-            }
-            
-            // Calcular gaps
-            if (sidebar && mainContent) {
-                const sidebarRight = sidebar.getBoundingClientRect().right;
-                const mainLeft = mainContent.getBoundingClientRect().left;
-                const gap = mainLeft - sidebarRight;
-            }
-            
-            // Calcular espacios laterales
-            if (mainContent) {
-                const windowWidth = window.innerWidth;
-                const mainRight = mainContent.getBoundingClientRect().right;
-                const mainLeft = mainContent.getBoundingClientRect().left;
-                const leftSpace = mainLeft;
-                const rightSpace = windowWidth - mainRight;
-                const diferencia = Math.abs(leftSpace - rightSpace);
-                const balanceado = diferencia < 10;
-                
-                
-                if (!balanceado) {
-                    if (leftSpace > rightSpace) {
-                    } else {
-                    }
-                }
-            }
             
         }
     </script>

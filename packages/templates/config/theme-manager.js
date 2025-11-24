@@ -170,22 +170,33 @@ class ThemeManager {
   }
 }
 
-// Crear instancia global
-window.UBITS_ThemeManager = new ThemeManager();
+// Crear instancia global solo si no existe
+if (!window.UBITS_ThemeManager) {
+  window.UBITS_ThemeManager = new ThemeManager();
 
-// Inicializar automáticamente cuando el DOM esté listo
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
+  // Inicializar automáticamente cuando el DOM esté listo
+  // ⚠️ PREVENIR múltiples inicializaciones
+  let themeManagerInitialized = false;
+  const initThemeManager = () => {
+    if (themeManagerInitialized) {
+      console.warn('⚠️ [ThemeManager] Ya inicializado, ignorando...');
+      return;
+    }
+    themeManagerInitialized = true;
     window.UBITS_ThemeManager.init();
-  });
-} else {
-  window.UBITS_ThemeManager.init();
-}
+  };
 
-// Escuchar eventos de cambio de tema para actualizar iconos
-document.addEventListener('ubits-theme-change', (event) => {
-  window.UBITS_ThemeManager.updateDarkModeIcons();
-});
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initThemeManager);
+  } else {
+    initThemeManager();
+  }
+
+  // Escuchar eventos de cambio de tema para actualizar iconos
+  document.addEventListener('ubits-theme-change', (event) => {
+    window.UBITS_ThemeManager.updateDarkModeIcons();
+  });
+}
 
 console.log('✅ Theme Manager cargado');
 

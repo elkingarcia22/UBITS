@@ -36,8 +36,16 @@ const config: StorybookConfig = {
       to: '/webfonts' 
     },
     { 
-      from: resolve(dirname(fileURLToPath(import.meta.url)), '../../templates'), 
-      to: '/templates' 
+      from: resolve(dirname(fileURLToPath(import.meta.url)), '../../tokens/dist'), 
+      to: '/tokens/dist' 
+    },
+    { 
+      from: resolve(dirname(fileURLToPath(import.meta.url)), '../../typography'), 
+      to: '/typography' 
+    },
+    { 
+      from: resolve(dirname(fileURLToPath(import.meta.url)), '../../components'), 
+      to: '/components' 
     }
   ],
   viteFinal: async (config) => {
@@ -50,7 +58,6 @@ const config: StorybookConfig = {
     const tokensDir = resolve(projectRoot, 'packages/tokens/dist');
     const typographyDir = resolve(projectRoot, 'packages/typography');
     const componentsDir = resolve(projectRoot, 'packages/components');
-    const templatesDir = resolve(projectRoot, 'packages/templates');
     
     // Agregar a staticDirs dinámicamente (no se puede hacer en la configuración inicial)
     // En su lugar, usaremos middleware de Vite
@@ -83,7 +90,6 @@ const config: StorybookConfig = {
     config.server.fs.allow.push(tokensDir);
     config.server.fs.allow.push(typographyDir);
     config.server.fs.allow.push(componentsDir);
-    config.server.fs.allow.push(templatesDir);
     
     // Agregar middleware para servir recursos y modificar las rutas de los templates
     config.plugins.push({
@@ -93,20 +99,55 @@ const config: StorybookConfig = {
         const path = require('path');
         
         
-        // Servir tokens
+        // Servir tokens - IMPORTANTE: manejar /tokens/dist/ primero (más específico)
+        // Las URLs vienen como /tokens/dist/tokens.css
+        // Usar un middleware que se ejecute ANTES que otros middlewares
+        server.middlewares.use((req: any, res: any, next: any) => {
+          // Interceptar solo rutas que empiecen con /tokens/dist
+          if (req.url && req.url.startsWith('/tokens/dist')) {
+            // req.url viene como "/tokens/dist/tokens.css" completo
+            const relativePath = req.url.replace('/tokens/dist/', '');
+            const filePath = path.resolve(tokensDir, relativePath);
+            
+            console.log(`🔍 [Middleware Tokens/dist] URL original: ${req.url}`);
+            console.log(`🔍 [Middleware Tokens/dist] relativePath: ${relativePath}`);
+            console.log(`🔍 [Middleware Tokens/dist] tokensDir: ${tokensDir}`);
+            console.log(`🔍 [Middleware Tokens/dist] filePath completo: ${filePath}`);
+            console.log(`🔍 [Middleware Tokens/dist] File exists: ${fs.existsSync(filePath)}`);
+            
+            if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+              res.setHeader('Content-Type', filePath.endsWith('.css') ? 'text/css' : 'text/plain');
+              res.end(fs.readFileSync(filePath));
+              console.log(`✅ [Middleware Tokens/dist] Token servido: ${req.url}`);
+              return;
+            } else {
+              console.error(`❌ [Middleware Tokens/dist] Token NO encontrado: ${req.url} -> ${filePath}`);
+            }
+          }
+          next();
+        });
+        
+        // Servir tokens sin /dist/ (fallback)
         // IMPORTANTE: tokensDir ya apunta a packages/tokens/dist
-        // Las URLs vienen como /tokens/tokens.css (sin /dist/)
         server.middlewares.use('/tokens', (req: any, res: any, next: any) => {
-          // req.url viene como "/tokens.css" o "/tokens.css" después del middleware
+          // req.url viene como "/tokens.css" después del middleware
           const relativePath = req.url.replace(/^\//, '');
           const filePath = path.resolve(tokensDir, relativePath);
-          console.log(`🔍 [Middleware] Serviendo token: ${req.url} -> ${filePath}`);
+          
+          console.log(`🔍 [Middleware Tokens] URL original: ${req.originalUrl || req.url}`);
+          console.log(`🔍 [Middleware Tokens] req.url después de Express: ${req.url}`);
+          console.log(`🔍 [Middleware Tokens] relativePath: ${relativePath}`);
+          console.log(`🔍 [Middleware Tokens] tokensDir: ${tokensDir}`);
+          console.log(`🔍 [Middleware Tokens] filePath completo: ${filePath}`);
+          console.log(`🔍 [Middleware Tokens] File exists: ${fs.existsSync(filePath)}`);
+          
           if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
             res.setHeader('Content-Type', filePath.endsWith('.css') ? 'text/css' : 'text/plain');
             res.end(fs.readFileSync(filePath));
-            console.log(`✅ [Middleware] Token servido: ${req.url}`);
+            console.log(`✅ [Middleware Tokens] Token servido: ${req.url}`);
+            return;
           } else {
-            console.error(`❌ [Middleware] Token NO encontrado: ${req.url} -> ${filePath}`);
+            console.error(`❌ [Middleware Tokens] Token NO encontrado: ${req.url} -> ${filePath}`);
             next();
           }
         });
@@ -131,40 +172,6 @@ const config: StorybookConfig = {
           } else {
             next();
           }
-        });
-        
-        // Servir y modificar templates HTML
-        server.middlewares.use('/templates', (req: any, res: any, next: any) => {
-          const url = req.url || '';
-          if (url.endsWith('.html')) {
-            const filePath = path.resolve(templatesDir, url.replace(/^\//, ''));
-            
-            if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
-              let html = fs.readFileSync(filePath, 'utf-8');
-              
-              // Reemplazar rutas relativas por rutas absolutas desde Storybook
-              // IMPORTANTE: Reemplazar primero las rutas más específicas (con /dist/)
-              // Los tokens están en /tokens/dist/ pero el middleware los sirve desde /tokens/
-              html = html.replace(/href="\.\.\/tokens\/dist\//g, 'href="/tokens/');
-              html = html.replace(/href="\.\.\/tokens\//g, 'href="/tokens/');
-              html = html.replace(/href="\.\.\/typography\//g, 'href="/typography/');
-              html = html.replace(/href="\.\.\/components\//g, 'href="/components/');
-              html = html.replace(/src="\.\.\/tokens\/dist\//g, 'src="/tokens/');
-              html = html.replace(/src="\.\.\/tokens\//g, 'src="/tokens/');
-              html = html.replace(/src="\.\.\/typography\//g, 'src="/typography/');
-              html = html.replace(/src="\.\.\/components\//g, 'src="/components/');
-              html = html.replace(/href="assets\//g, 'href="/templates/assets/');
-              html = html.replace(/src="assets\//g, 'src="/templates/assets/');
-              html = html.replace(/src="components-loader\.js/g, 'src="/templates/components-loader.js');
-              html = html.replace(/src="config\//g, 'src="/templates/config/');
-              html = html.replace(/src="engine\//g, 'src="/templates/engine/');
-              
-              res.setHeader('Content-Type', 'text/html; charset=utf-8');
-              res.end(html);
-              return;
-            }
-          }
-          next();
         });
       }
     });

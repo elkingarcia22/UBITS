@@ -4,8 +4,6 @@
  * Para usar sin servidor HTTP (file:// protocol)
  */
 
-console.log('📦 components-loader.js cargándose...');
-
 // Helper para renderizar iconos
 function renderIconHelper(iconName, iconStyle = 'regular') {
   const iconClass = iconStyle === 'regular' ? 'far' : 'fas';
@@ -13,8 +11,6 @@ function renderIconHelper(iconName, iconStyle = 'regular') {
   
   return `<i class="${iconClass} ${name}"></i>`;
 }
-
-console.log('✅ renderIconHelper definida');
 
 // ========================================
 // SIDEBAR COMPONENT
@@ -161,28 +157,13 @@ function renderSidebar(options) {
 
 // Inicializa tooltips para el sidebar
 function initTooltips(sidebarElement) {
-  console.log('🔍 [initTooltips] ════════════════════════════════════════');
-  console.log('🔍 [initTooltips] INICIANDO initTooltips');
-  console.log('🔍 [initTooltips] ════════════════════════════════════════');
-  
   const tooltipElement = document.getElementById('ubits-sidebar-tooltip');
   if (!tooltipElement) {
-    console.error('❌ [initTooltips] tooltipElement NO encontrado');
     return;
   }
-  console.log('✅ [initTooltips] tooltipElement encontrado:', tooltipElement);
 
   // Verificar estilos CSS del tooltip
   const computedStyle = window.getComputedStyle(tooltipElement);
-  console.log('🔍 [initTooltips] Estilos computados del tooltip:');
-  console.log('   - color:', computedStyle.color);
-  console.log('   - font-family:', computedStyle.fontFamily);
-  console.log('   - font-size:', computedStyle.fontSize);
-  console.log('   - font-weight:', computedStyle.fontWeight);
-  console.log('   - background:', computedStyle.backgroundColor);
-  console.log('   - opacity:', computedStyle.opacity);
-  console.log('   - visibility:', computedStyle.visibility);
-  console.log('   - display:', computedStyle.display);
 
   // Verificar si el CSS del sidebar está cargado
   const sidebarStylesheet = Array.from(document.styleSheets).find(sheet => {
@@ -192,70 +173,32 @@ function initTooltips(sidebarElement) {
       return false;
     }
   });
-  console.log('🔍 [initTooltips] CSS sidebar.css encontrado:', !!sidebarStylesheet);
-  if (sidebarStylesheet) {
-    console.log('   - href:', sidebarStylesheet.href);
-    try {
-      const rules = Array.from(sidebarStylesheet.cssRules || []);
-      const tooltipRules = rules.filter(rule => 
-        rule.selectorText && rule.selectorText.includes('.ubits-sidebar-tooltip')
-      );
-      console.log('   - Reglas para .ubits-sidebar-tooltip:', tooltipRules.length);
-      tooltipRules.forEach((rule, idx) => {
-        console.log(`   - Regla ${idx + 1}:`, rule.selectorText);
-        console.log(`     CSS:`, rule.cssText.substring(0, 200));
-      });
-    } catch (e) {
-      console.error('   - Error al leer reglas:', e.message);
-    }
-  }
 
   // ⚠️ CRÍTICO: Función global para ocultar tooltip (compartida por todos los botones)
   const hideTooltipGlobal = () => {
-    console.log('🔍 [hideTooltipGlobal] Ocultando tooltip globalmente');
     if (tooltipElement) {
-      const beforeOpacity = tooltipElement.style.opacity;
-      const beforeVisibility = tooltipElement.style.visibility;
-      const beforeShow = tooltipElement.classList.contains('show');
-      
       tooltipElement.classList.remove('show');
       tooltipElement.style.opacity = '0';
       tooltipElement.style.visibility = 'hidden';
-      
-      console.log('🔍 [hideTooltipGlobal] Cambios aplicados:');
-      console.log('   - show class: antes=', beforeShow, 'después=', tooltipElement.classList.contains('show'));
-      console.log('   - opacity: antes=', beforeOpacity, 'después=', tooltipElement.style.opacity);
-      console.log('   - visibility: antes=', beforeVisibility, 'después=', tooltipElement.style.visibility);
     }
   };
 
   const buttons = sidebarElement.querySelectorAll('[data-tooltip]');
-  console.log('🔍 [initTooltips] Botones con tooltip encontrados:', buttons.length);
   
   // ⚠️ CRÍTICO: Observar TODOS los botones para detectar cuando CUALQUIERA se vuelve activo
   // Solo ocultar el tooltip si el tooltip visible pertenece al botón que se volvió activo
   const allButtons = sidebarElement.querySelectorAll('.ubits-sidebar-nav-button');
-  console.log('🔍 [initTooltips] Total de botones del sidebar:', allButtons.length);
   
   allButtons.forEach((btn, idx) => {
     const globalObserver = new MutationObserver(() => {
       if (btn.classList.contains('active')) {
-        console.log(`🔍 [GlobalObserver ${idx}] Botón se volvió activo:`, btn.getAttribute('data-section'));
         // Verificar si el tooltip está mostrando el texto de este botón específico
         const btnTooltipText = btn.getAttribute('data-tooltip');
         const tooltipText = tooltipElement.textContent;
         const isTooltipVisible = tooltipElement.classList.contains('show');
         
-        console.log(`🔍 [GlobalObserver ${idx}] Verificando tooltip:`, {
-          btnTooltipText,
-          tooltipText,
-          isTooltipVisible,
-          match: btnTooltipText && tooltipText === btnTooltipText && isTooltipVisible
-        });
-        
         if (btnTooltipText && tooltipText === btnTooltipText && isTooltipVisible) {
           // Solo ocultar si el tooltip visible pertenece al botón que se volvió activo
-          console.log(`🔍 [GlobalObserver ${idx}] Ocultando tooltip porque coincide con botón activo`);
           hideTooltipGlobal();
         }
       }
@@ -270,51 +213,29 @@ function initTooltips(sidebarElement) {
   buttons.forEach((button, buttonIdx) => {
     const tooltipText = button.getAttribute('data-tooltip');
     if (!tooltipText) {
-      console.log(`⚠️ [initTooltips] Botón ${buttonIdx} no tiene tooltip text`);
       return;
     }
-
-    console.log(`🔍 [initTooltips] Configurando tooltip para botón ${buttonIdx}:`, {
-      section: button.getAttribute('data-section'),
-      tooltipText: tooltipText,
-      isActive: button.classList.contains('active')
-    });
 
     let hideTimeout = null;
     let isTooltipVisible = false;
 
     const showTooltip = () => {
-      console.log(`🔍 [showTooltip ${buttonIdx}] ════════════════════════════════════════`);
-      console.log(`🔍 [showTooltip ${buttonIdx}] Intentando mostrar tooltip`);
-      
       // ⚠️ CRÍTICO: Solo verificar si ESTE botón específico está activo
       // NO bloquear si otros botones están activos, solo si este botón está activo
       const isThisButtonActive = button.classList.contains('active');
-      console.log(`🔍 [showTooltip ${buttonIdx}] Botón activo:`, isThisButtonActive);
       
       if (isThisButtonActive) {
-        console.log(`⚠️ [showTooltip ${buttonIdx}] Botón está activo, NO mostrar tooltip`);
         hideTooltipGlobal();
         return; // NO mostrar tooltip si este botón está activo
       }
 
       if (hideTimeout) {
-        console.log(`🔍 [showTooltip ${buttonIdx}] Limpiando timeout anterior`);
         clearTimeout(hideTimeout);
         hideTimeout = null;
       }
 
       const rect = button.getBoundingClientRect();
       const tooltip = tooltipElement;
-      
-      console.log(`🔍 [showTooltip ${buttonIdx}] Configurando tooltip:`, {
-        text: tooltipText,
-        buttonRect: {
-          right: rect.right,
-          top: rect.top,
-          height: rect.height
-        }
-      });
       
       tooltip.textContent = tooltipText;
       tooltip.style.opacity = '1';
@@ -327,43 +248,9 @@ function initTooltips(sidebarElement) {
       const topPos = `${rect.top + (rect.height / 2) - (tooltip.offsetHeight / 2)}px`;
       tooltip.style.left = leftPos;
       tooltip.style.top = topPos;
-      
-      console.log(`🔍 [showTooltip ${buttonIdx}] Tooltip configurado:`, {
-        text: tooltip.textContent,
-        left: tooltip.style.left,
-        top: tooltip.style.top,
-        opacity: tooltip.style.opacity,
-        visibility: tooltip.style.visibility,
-        hasShowClass: tooltip.classList.contains('show'),
-        computedOpacity: window.getComputedStyle(tooltip).opacity,
-        computedVisibility: window.getComputedStyle(tooltip).visibility,
-        computedDisplay: window.getComputedStyle(tooltip).display,
-        computedColor: window.getComputedStyle(tooltip).color,
-        computedFontSize: window.getComputedStyle(tooltip).fontSize,
-        computedFontFamily: window.getComputedStyle(tooltip).fontFamily
-      });
-      
-      // Verificar después de un momento si el tooltip es visible
-      setTimeout(() => {
-        const finalComputedStyle = window.getComputedStyle(tooltip);
-        console.log(`🔍 [showTooltip ${buttonIdx}] Estado final después de 100ms:`, {
-          opacity: finalComputedStyle.opacity,
-          visibility: finalComputedStyle.visibility,
-          display: finalComputedStyle.display,
-          color: finalComputedStyle.color,
-          fontSize: finalComputedStyle.fontSize,
-          fontFamily: finalComputedStyle.fontFamily,
-          hasShowClass: tooltip.classList.contains('show'),
-          boundingRect: tooltip.getBoundingClientRect()
-        });
-      }, 100);
-      
-      console.log(`✅ [showTooltip ${buttonIdx}] Tooltip mostrado`);
-      console.log(`🔍 [showTooltip ${buttonIdx}] ════════════════════════════════════════`);
     };
 
     const hideTooltip = () => {
-      console.log(`🔍 [hideTooltip ${buttonIdx}] Ocultando tooltip`);
       hideTooltipGlobal(); // Usar función global para asegurar que se oculte
       isTooltipVisible = false;
       if (hideTimeout) {
@@ -373,47 +260,34 @@ function initTooltips(sidebarElement) {
     };
 
     button.addEventListener('mouseenter', () => {
-      console.log(`🔍 [mouseenter ${buttonIdx}] Mouse entró al botón:`, {
-        section: button.getAttribute('data-section'),
-        tooltipText: tooltipText,
-        isActive: button.classList.contains('active')
-      });
-      
       // Solo mostrar tooltip si este botón NO está activo
       if (!button.classList.contains('active')) {
-        console.log(`✅ [mouseenter ${buttonIdx}] Botón NO está activo, mostrar tooltip`);
         showTooltip();
       } else {
-        console.log(`⚠️ [mouseenter ${buttonIdx}] Botón está activo, NO mostrar tooltip`);
         hideTooltip();
       }
     });
 
     button.addEventListener('mouseleave', () => {
-      console.log(`🔍 [mouseleave ${buttonIdx}] Mouse salió del botón`);
       hideTooltip();
     });
 
     // ⚠️ IMPORTANTE: Ocultar tooltip al hacer clic en el botón
     button.addEventListener('click', () => {
-      console.log(`🔍 [click ${buttonIdx}] Click en botón`);
       hideTooltip();
     });
 
     // También ocultar tooltip cuando el botón pierde el foco
     button.addEventListener('blur', () => {
-      console.log(`🔍 [blur ${buttonIdx}] Botón perdió foco`);
       hideTooltip();
   });
     
     // ⚠️ IMPORTANTE: Observar cambios en la clase 'active' de ESTE botón específico
     const observer = new MutationObserver(() => {
       const isActive = button.classList.contains('active');
-      console.log(`🔍 [Observer ${buttonIdx}] Cambio detectado en clase active:`, isActive);
       
       // Si este botón específico se vuelve activo, ocultar tooltip inmediatamente
       if (isActive) {
-        console.log(`🔍 [Observer ${buttonIdx}] Botón se volvió activo, ocultar tooltip`);
         hideTooltipGlobal();
       }
     });
@@ -422,12 +296,7 @@ function initTooltips(sidebarElement) {
       attributes: true,
       attributeFilter: ['class']
     });
-    
-    console.log(`✅ [initTooltips] Botón ${buttonIdx} configurado correctamente`);
   });
-  
-  console.log('✅ [initTooltips] initTooltips completado');
-  console.log('🔍 [initTooltips] ════════════════════════════════════════');
 }
 
 // Inicializa el menú de perfil
@@ -910,99 +779,28 @@ function initDarkModeToggle(sidebarElement, options) {
 }
 
 // Crea un sidebar interactivo en el DOM
-console.log('📝 Definiendo window.createSidebar...');
 window.createSidebar = function(options) {
-  console.log('🔍 [createSidebar] 🚀 INICIANDO createSidebar');
-  console.log('🔍 [createSidebar] Opciones recibidas:', JSON.stringify(options, null, 2));
   try {
     const containerId = options.containerId;
     const bodyButtons = options.bodyButtons;
     const height = options.height;
     const variant = options.variant || 'colaborador'; // Guardar variant para uso posterior
 
-    console.log('🔍 [createSidebar] Buscando contenedor:', containerId);
     const container = document.getElementById(containerId);
     if (!container) {
-      console.error('❌ [createSidebar] Contenedor no encontrado:', containerId);
       throw new Error(`Container with id "${containerId}" not found`);
     }
-    console.log('✅ [createSidebar] Contenedor encontrado');
 
   const containerStyle = window.getComputedStyle(container);
   if (containerStyle.position === 'static') {
     container.style.position = 'relative';
   }
 
-    console.log('🔍 [createSidebar] Llamando renderSidebar...');
     const sidebarHTML = renderSidebar(options);
-    console.log('🔍 [createSidebar] HTML generado, longitud:', sidebarHTML.length);
-    console.log('🔍 [createSidebar] HTML preview (primeros 500 chars):', sidebarHTML.substring(0, 500));
     
     container.innerHTML = sidebarHTML;
-    console.log('✅ [createSidebar] HTML insertado en contenedor');
 
-    console.log('🔍 [createSidebar] Buscando elemento .ubits-sidebar...');
     const sidebarElement = container.querySelector('.ubits-sidebar');
-    console.log('🔍 [createSidebar] Elemento encontrado:', !!sidebarElement);
-    
-    if (sidebarElement) {
-      // Verificar inmediatamente
-      const computedStyle = window.getComputedStyle(sidebarElement);
-      console.log('🔍 [createSidebar] ════════════════════════════════════════');
-      console.log('🔍 [createSidebar] VERIFICACIÓN DE ESTILOS CSS:');
-      console.log('🔍 [createSidebar] ════════════════════════════════════════');
-      console.log('   📐 Background:', computedStyle.backgroundColor);
-      console.log('   📐 Width:', computedStyle.width);
-      console.log('   📐 Height:', computedStyle.height);
-      console.log('   📐 Position:', computedStyle.position);
-      console.log('   📐 Display:', computedStyle.display);
-      console.log('   📐 Left:', computedStyle.left);
-      console.log('   📐 Top:', computedStyle.top);
-      console.log('   📐 Clases:', sidebarElement.className);
-      
-      // Verificar si los estilos están aplicados
-      const hasBackground = computedStyle.backgroundColor && computedStyle.backgroundColor !== 'rgba(0, 0, 0, 0)' && computedStyle.backgroundColor !== 'transparent';
-      const hasWidth = computedStyle.width && computedStyle.width !== 'auto' && computedStyle.width !== '0px';
-      const expectedWidth = '96px';
-      const widthMatches = computedStyle.width === expectedWidth;
-      
-      console.log('   ────────────────────────────────────────────────');
-      console.log(hasBackground ? '   ✅ Background aplicado' : '   ❌ Background NO aplicado (transparent o rgba(0,0,0,0))');
-      console.log(hasWidth ? '   ✅ Width aplicado' : '   ❌ Width NO aplicado (auto o 0px)');
-      console.log(widthMatches ? `   ✅ Width correcto: ${expectedWidth}` : `   ❌ Width incorrecto: esperado ${expectedWidth}, obtenido ${computedStyle.width}`);
-      console.log('🔍 [createSidebar] ════════════════════════════════════════');
-      
-      // Verificar si el CSS está cargado
-      const sidebarStylesheet = Array.from(document.styleSheets).find(sheet => {
-        try {
-          return sheet.href && sheet.href.includes('sidebar.css');
-        } catch (e) {
-          return false;
-        }
-      });
-      console.log(sidebarStylesheet ? '✅ [createSidebar] CSS de sidebar.css encontrado en document.styleSheets' : '❌ [createSidebar] CSS de sidebar.css NO encontrado en document.styleSheets');
-      
-      // Verificar reglas CSS aplicadas
-      try {
-        const rules = Array.from(document.styleSheets).flatMap(sheet => {
-          try {
-            return Array.from(sheet.cssRules || []);
-          } catch (e) {
-            return [];
-          }
-        });
-        const sidebarRules = rules.filter(rule => rule.selectorText && rule.selectorText.includes('.ubits-sidebar'));
-        console.log(`📊 [createSidebar] Reglas CSS encontradas para .ubits-sidebar: ${sidebarRules.length}`);
-        if (sidebarRules.length > 0) {
-          console.log('   - Primera regla:', sidebarRules[0].selectorText);
-          console.log('   - Estilos de primera regla:', sidebarRules[0].style.cssText.substring(0, 200));
-        } else {
-          console.log('   ⚠️ NO se encontraron reglas CSS para .ubits-sidebar');
-        }
-      } catch (e) {
-        console.log('⚠️ [createSidebar] Error al verificar reglas CSS:', e.message);
-      }
-    }
   
   const menuElement = document.getElementById('ubits-sidebar-profile-menu');
   if (menuElement && !container.contains(menuElement)) {
@@ -1189,31 +987,11 @@ window.createSidebar = function(options) {
 
     // Verificación final de estilos antes de retornar
     if (sidebarElement) {
-      console.log('🔍 [createSidebar] ════════════════════════════════════════');
-      console.log('🔍 [createSidebar] VERIFICACIÓN FINAL DE ESTILOS:');
-      console.log('🔍 [createSidebar] ════════════════════════════════════════');
       const finalStyle = window.getComputedStyle(sidebarElement);
-      console.log('   📐 Background:', finalStyle.backgroundColor);
-      console.log('   📐 Width:', finalStyle.width, '(esperado: 96px)');
-      console.log('   📐 Height:', finalStyle.height);
-      console.log('   📐 Position:', finalStyle.position, '(esperado: fixed)');
-      console.log('   📐 Display:', finalStyle.display);
-      console.log('   📐 Clases aplicadas:', sidebarElement.className);
-      
-      if (finalStyle.width !== '96px') {
-        console.error('   ❌ PROBLEMA: Width no es 96px, es:', finalStyle.width);
-      }
-      if (finalStyle.backgroundColor === 'rgba(0, 0, 0, 0)' || finalStyle.backgroundColor === 'transparent') {
-        console.error('   ❌ PROBLEMA: Background es transparente');
-      }
-      console.log('🔍 [createSidebar] ════════════════════════════════════════');
     }
     
-    console.log('[createSidebar] ✅ COMPLETADO, retornando elemento');
     return sidebarElement;
   } catch (error) {
-    console.error('[createSidebar] ❌ ERROR:', error);
-    console.error('[createSidebar] Stack:', error.stack);
     throw error;
   }
 };
@@ -1301,32 +1079,21 @@ function getSubNavConfig(variant) {
 
 // Renderiza el HTML del SubNav (CÓDIGO EXACTO DEL PROVIDER OFICIAL)
 function renderSubNav(options) {
-  console.log('🔍 [renderSubNav] INICIANDO renderSubNav');
-  console.log('🔍 [renderSubNav] Opciones recibidas:', JSON.stringify(options, null, 2));
   
   const variant = options.variant || 'template';
   const customTabs = options.tabs;
   const activeTabId = options.activeTabId;
   const showIcons = options.showIcons || false;
 
-  console.log('🔍 [renderSubNav] Variant:', variant);
-  console.log('🔍 [renderSubNav] CustomTabs:', customTabs);
-  console.log('🔍 [renderSubNav] ActiveTabId:', activeTabId);
-
   // Obtener configuración de la variante o usar tabs personalizados
   const config = getSubNavConfig(variant);
-  console.log('🔍 [renderSubNav] Config obtenida:', config);
   
   const tabs = (variant === 'template' && customTabs && customTabs.length > 0) 
     ? customTabs 
     : config.tabs;
-  
-  console.log('🔍 [renderSubNav] Tabs finales a renderizar:', tabs);
-  console.log('🔍 [renderSubNav] Cantidad de tabs:', tabs.length);
 
   // Determinar tab activo
   const activeId = activeTabId || (tabs.length > 0 ? tabs[0].id : '');
-  console.log('🔍 [renderSubNav] ActiveId:', activeId);
 
   // Renderizar tabs normales
   const tabsHTML = tabs.map(tab => {
@@ -1357,27 +1124,26 @@ function renderSubNav(options) {
     </nav>
   `.trim();
   
-  console.log('🔍 [renderSubNav] HTML generado, longitud:', html.length);
-  console.log('🔍 [renderSubNav] HTML preview:', html.substring(0, 300));
-  
   return html;
 }
 
 // Inicializa los event listeners de los tabs (CÓDIGO EXACTO DEL PROVIDER OFICIAL)
 function initTabListeners(subNavElement, options) {
-  console.log('🔍 [initTabListeners] INICIANDO initTabListeners');
+  // ⚠️ IMPORTANTE: Remover listeners anteriores antes de agregar nuevos
+  // Esto previene que se agreguen múltiples listeners cuando updateSubNav se llama varias veces
+  const existingTabs = subNavElement.querySelectorAll('.ubits-sub-nav-tab');
+  existingTabs.forEach((tab) => {
+    // Remover todos los event listeners clonando el elemento
+    const newTab = tab.cloneNode(true);
+    tab.parentNode?.replaceChild(newTab, tab);
+  });
   
+  // Obtener los tabs actualizados después del clonado
   const tabs = subNavElement.querySelectorAll('.ubits-sub-nav-tab');
-  console.log('🔍 [initTabListeners] Tabs encontrados:', tabs.length);
   
   const handleTabClick = (tabElement) => {
-    console.log('🔍 [initTabListeners] Tab clickeado:', tabElement);
-    
     const tabId = tabElement.getAttribute('data-tab');
     const url = tabElement.getAttribute('data-url');
-    
-    console.log('🔍 [initTabListeners] TabId:', tabId);
-    console.log('🔍 [initTabListeners] URL:', url);
     
     // Remover active de todos los tabs
     tabs.forEach(t => t.classList.remove('ubits-sub-nav-tab--active'));
@@ -1388,20 +1154,17 @@ function initTabListeners(subNavElement, options) {
     // ⚠️ IMPORTANTE: Si hay un callback onTabChange, usarlo en lugar de navegar directamente
     // Esto permite que el ContentManager maneje el cambio de contenido dinámicamente
     if (options.onTabChange) {
-      console.log('🔍 [initTabListeners] Ejecutando onTabChange (prioridad sobre URL)');
       options.onTabChange(tabId || '', tabElement);
       // Disparar evento personalizado
       const event = new CustomEvent('subNavTabClick', {
         detail: { tabId: tabId, tabElement: tabElement }
       });
       document.dispatchEvent(event);
-      console.log('🔍 [initTabListeners] Evento subNavTabClick disparado');
       return;
     }
     
     // Solo navegar a URL si NO hay callback onTabChange
     if (url) {
-      console.log('🔍 [initTabListeners] Navegando a URL (sin callback onTabChange):', url);
       window.location.href = url;
       return;
     }
@@ -1413,10 +1176,7 @@ function initTabListeners(subNavElement, options) {
       : config.tabs;
     const tabConfig = allTabs.find(t => t.id === tabId);
     
-    console.log('🔍 [initTabListeners] TabConfig encontrado:', tabConfig);
-    
     if (tabConfig && tabConfig.onClick) {
-      console.log('🔍 [initTabListeners] Ejecutando onClick del tab');
       tabConfig.onClick(new MouseEvent('click'));
     }
     
@@ -1425,301 +1185,37 @@ function initTabListeners(subNavElement, options) {
       detail: { tabId: tabId, tabElement: tabElement }
     });
     document.dispatchEvent(event);
-    console.log('🔍 [initTabListeners] Evento subNavTabClick disparado');
   };
 
   // Event listeners para tabs
   tabs.forEach((tab, index) => {
-    console.log(`🔍 [initTabListeners] Agregando listener al tab ${index + 1}:`, tab.getAttribute('data-tab'));
     tab.addEventListener('click', (e) => {
       e.preventDefault();
+      e.stopPropagation();
       handleTabClick(tab);
     });
   });
-  
-  console.log('✅ [initTabListeners] Listeners agregados a', tabs.length, 'tabs');
 }
 
 // Crea un SubNav interactivo en el DOM (CÓDIGO EXACTO DEL PROVIDER OFICIAL)
 window.createSubNav = function(options) {
-  console.log('🔍 [createSubNav] ════════════════════════════════════════');
-  console.log('🔍 [createSubNav] 🚀 INICIANDO createSubNav');
-  console.log('🔍 [createSubNav] ════════════════════════════════════════');
-  console.log('🔍 [createSubNav] Opciones recibidas:', JSON.stringify(options, null, 2));
-  
   const containerId = options.containerId;
-  console.log('🔍 [createSubNav] Buscando contenedor:', containerId);
 
   const container = document.getElementById(containerId);
   if (!container) {
-    console.error('❌ [createSubNav] Contenedor no encontrado:', containerId);
     throw new Error(`Container with id "${containerId}" not found`);
   }
-  console.log('✅ [createSubNav] Contenedor encontrado:', container);
 
-  console.log('🔍 [createSubNav] Llamando renderSubNav...');
   const subNavHTML = renderSubNav(options);
-  console.log('🔍 [createSubNav] HTML generado, longitud:', subNavHTML.length);
-  console.log('🔍 [createSubNav] HTML completo:', subNavHTML);
   
   container.innerHTML = subNavHTML;
-  console.log('✅ [createSubNav] HTML insertado en contenedor');
 
   const subNavElement = container.querySelector('.ubits-sub-nav');
   if (!subNavElement) {
-    console.error('❌ [createSubNav] Elemento .ubits-sub-nav NO encontrado después de insertar HTML');
-    console.error('❌ [createSubNav] Contenedor HTML:', container.innerHTML.substring(0, 500));
     throw new Error('Failed to create sub-nav element');
   }
-  console.log('✅ [createSubNav] Elemento .ubits-sub-nav encontrado:', subNavElement);
   
-  // Esperar un momento para que los estilos se apliquen
-  setTimeout(() => {
-    console.log('🔍 [createSubNav] ════════════════════════════════════════');
-    console.log('🔍 [createSubNav] DIAGNÓSTICO COMPLETO DE ESTILOS Y TAMAÑOS');
-    console.log('🔍 [createSubNav] ════════════════════════════════════════');
-    
-    // ========================================
-    // ESTILOS DEL CONTENEDOR PRINCIPAL (.ubits-sub-nav)
-    // ========================================
-    const computedStyle = window.getComputedStyle(subNavElement);
-    console.log('📦 [SubNav Container] Estilos computados:');
-    console.log('   - Background:', computedStyle.backgroundColor, '(esperado: var(--ubits-bg-1))');
-    console.log('   - Height:', computedStyle.height, '(esperado: 40px)');
-    console.log('   - Width:', computedStyle.width);
-    console.log('   - MaxWidth:', computedStyle.maxWidth);
-    console.log('   - Display:', computedStyle.display, '(esperado: flex)');
-    console.log('   - Position:', computedStyle.position);
-    console.log('   - Padding:', computedStyle.padding, '(esperado: 0 12px)');
-    console.log('   - PaddingTop:', computedStyle.paddingTop);
-    console.log('   - PaddingRight:', computedStyle.paddingRight);
-    console.log('   - PaddingBottom:', computedStyle.paddingBottom);
-    console.log('   - PaddingLeft:', computedStyle.paddingLeft);
-    console.log('   - BorderRadius:', computedStyle.borderRadius, '(esperado: 8px)');
-    console.log('   - BoxShadow:', computedStyle.boxShadow);
-    console.log('   - AlignItems:', computedStyle.alignItems);
-    console.log('   - JustifyContent:', computedStyle.justifyContent);
-    console.log('   - Gap:', computedStyle.gap);
-    console.log('   - Clases:', subNavElement.className);
-    console.log('   - getBoundingClientRect():', JSON.stringify({
-      width: subNavElement.getBoundingClientRect().width,
-      height: subNavElement.getBoundingClientRect().height,
-      top: subNavElement.getBoundingClientRect().top,
-      left: subNavElement.getBoundingClientRect().left
-    }));
-    
-    // ========================================
-    // ESTILOS DE LOS TABS
-    // ========================================
-    const tabs = subNavElement.querySelectorAll('.ubits-sub-nav-tab');
-    console.log('📋 [Tabs] Cantidad de tabs encontrados:', tabs.length);
-    
-    tabs.forEach((tab, index) => {
-      const tabStyle = window.getComputedStyle(tab);
-      const isActive = tab.classList.contains('ubits-sub-nav-tab--active');
-      console.log(`   ── Tab ${index + 1} (${tab.getAttribute('data-tab')}) ${isActive ? '⭐ ACTIVO' : ''} ──`);
-      console.log('      - Background:', tabStyle.backgroundColor);
-      console.log('      - Height:', tabStyle.height, '(esperado: 100% o 40px)');
-      console.log('      - Width:', tabStyle.width);
-      console.log('      - Padding:', tabStyle.padding);
-      console.log('      - PaddingTop:', tabStyle.paddingTop, '(esperado: 8px)');
-      console.log('      - PaddingRight:', tabStyle.paddingRight, '(esperado: 8px)');
-      console.log('      - PaddingBottom:', tabStyle.paddingBottom, '(esperado: 0px)');
-      console.log('      - PaddingLeft:', tabStyle.paddingLeft, '(esperado: 8px)');
-      console.log('      - Display:', tabStyle.display, '(esperado: flex)');
-      console.log('      - FlexDirection:', tabStyle.flexDirection);
-      console.log('      - Gap:', tabStyle.gap, '(esperado: 0px sin iconos)');
-      console.log('      - AlignItems:', tabStyle.alignItems);
-      console.log('      - Position:', tabStyle.position, '(esperado: relative)');
-      console.log('      - Overflow:', tabStyle.overflow, '(esperado: visible)');
-      console.log('      - BorderRadius:', tabStyle.borderRadius);
-      console.log('      - Clases:', tab.className);
-      console.log('      - getBoundingClientRect():', JSON.stringify({
-        width: tab.getBoundingClientRect().width,
-        height: tab.getBoundingClientRect().height,
-        top: tab.getBoundingClientRect().top,
-        bottom: tab.getBoundingClientRect().bottom,
-        left: tab.getBoundingClientRect().left,
-        right: tab.getBoundingClientRect().right
-      }));
-      
-      // Verificar el texto del tab
-      const span = tab.querySelector('span');
-      if (span) {
-        const spanStyle = window.getComputedStyle(span);
-        console.log('      └─ Span Text:');
-        console.log('         - Text:', span.textContent);
-        console.log('         - Color:', spanStyle.color);
-        console.log('         - FontSize:', spanStyle.fontSize);
-        console.log('         - FontWeight:', spanStyle.fontWeight, isActive ? '(esperado: 600)' : '(esperado: 400)');
-        console.log('         - LineHeight:', spanStyle.lineHeight);
-      }
-      
-      // Verificar el icono
-      const icon = tab.querySelector('i');
-      if (icon) {
-        const iconStyle = window.getComputedStyle(icon);
-        console.log('      └─ Icon:');
-        console.log('         - Display:', iconStyle.display, '(esperado: none)');
-        console.log('         - Visibility:', iconStyle.visibility);
-      } else {
-        console.log('      └─ Icon: NO encontrado (correcto, no debería haber iconos)');
-      }
-      
-      // ========================================
-      // ESTILOS DEL INDICADOR ACTIVO (::after)
-      // ========================================
-      if (isActive) {
-        console.log('      └─ Indicador Activo (::after):');
-        // Crear un pseudo-elemento temporal para medir
-        const testElement = document.createElement('div');
-        testElement.className = 'ubits-sub-nav-tab ubits-sub-nav-tab--active';
-        testElement.style.cssText = window.getComputedStyle(tab).cssText;
-        document.body.appendChild(testElement);
-        
-        // Obtener estilos del ::after usando getComputedStyle después de aplicar la clase
-        const afterStyle = window.getComputedStyle(testElement, '::after');
-        console.log('         - Content:', afterStyle.content);
-        console.log('         - Position:', afterStyle.position, '(esperado: absolute)');
-        console.log('         - Bottom:', afterStyle.bottom, '(esperado: 0px)');
-        console.log('         - Left:', afterStyle.left, '(esperado: 0px)');
-        console.log('         - Right:', afterStyle.right, '(esperado: 0px)');
-        console.log('         - Height:', afterStyle.height, '(esperado: 3px)');
-        console.log('         - Width:', afterStyle.width);
-        console.log('         - BackgroundColor:', afterStyle.backgroundColor, '(esperado: var(--modifiers-normal-color-light-accent-blue) o equivalente)');
-        console.log('         - BorderRadius:', afterStyle.borderRadius, '(esperado: 0px)');
-        console.log('         - ZIndex:', afterStyle.zIndex, '(esperado: 1)');
-        console.log('         - Display:', afterStyle.display);
-        console.log('         - Visibility:', afterStyle.visibility);
-        console.log('         - Opacity:', afterStyle.opacity);
-        
-        // Verificar posición relativa al tab
-        const tabRect = tab.getBoundingClientRect();
-        console.log('         - Tab Bottom:', tabRect.bottom);
-        console.log('         - Tab Height:', tabRect.height);
-        console.log('         - Indicador debería estar en:', tabRect.bottom, '(bottom del tab)');
-        
-        document.body.removeChild(testElement);
-      }
-    });
-    
-    // ========================================
-    // VERIFICACIÓN DE TOKENS CSS
-    // ========================================
-    console.log('🎨 [Tokens] Verificación de tokens CSS:');
-    const rootStyle = window.getComputedStyle(document.documentElement);
-    const tokensToCheck = [
-      '--ubits-bg-1',
-      '--ubits-fg-1-medium',
-      '--ubits-fg-1-high',
-      '--ubits-bg-2',
-      '--modifiers-normal-color-light-accent-blue',
-      '--modifiers-normal-color-dark-accent-blue',
-      '--p-spacing-mode-1-sm',
-      '--p-spacing-mode-1-md',
-      '--ubits-border-radius-sm',
-      '--modifiers-normal-body-md-regular-fontsize',
-      '--modifiers-normal-body-md-regular-lineheight',
-      '--modifiers-normal-body-sm-regular-fontsize',
-      '--modifiers-normal-body-sm-regular-lineheight',
-      '--weight-regular',
-      '--weight-semibold',
-      '--modifiers-normal-body-md-semibold-fontweight',
-      '--modifiers-normal-body-sm-semibold-fontweight',
-      '--font-family-noto-sans-font-family'
-    ];
-    
-    tokensToCheck.forEach(token => {
-      const value = rootStyle.getPropertyValue(token);
-      console.log(`   - ${token}:`, value || '❌ NO DEFINIDO');
-    });
-    
-    // Verificar valores computados del texto del tab activo
-    if (tabs.length > 0) {
-      const activeTab = Array.from(tabs).find(t => t.classList.contains('ubits-sub-nav-tab--active'));
-      if (activeTab) {
-        const span = activeTab.querySelector('span');
-        if (span) {
-          const spanStyle = window.getComputedStyle(span);
-          console.log('📝 [Tipografía Tab Activo] Valores computados:');
-          console.log('   - FontSize computado:', spanStyle.fontSize, '(esperado: 16px para body-md o 13px para body-sm)');
-          console.log('   - LineHeight computado:', spanStyle.lineHeight, '(esperado: 28.8px para body-md o 23.4px para body-sm)');
-          console.log('   - FontWeight computado:', spanStyle.fontWeight, '(esperado: 600 para semibold)');
-          console.log('   - FontFamily computado:', spanStyle.fontFamily);
-          
-          // Comparar con tokens esperados
-          const expectedFontSize = rootStyle.getPropertyValue('--modifiers-normal-body-md-regular-fontsize').trim();
-          const expectedLineHeight = rootStyle.getPropertyValue('--modifiers-normal-body-md-regular-lineheight').trim();
-          const expectedFontWeight = rootStyle.getPropertyValue('--weight-semibold').trim() || rootStyle.getPropertyValue('--modifiers-normal-body-md-semibold-fontweight').trim();
-          
-          console.log('📊 [Comparación] Tokens esperados vs Computados:');
-          console.log('   - FontSize:', {
-            token: expectedFontSize || 'NO DEFINIDO',
-            computado: spanStyle.fontSize,
-            coincide: expectedFontSize && spanStyle.fontSize === expectedFontSize
-          });
-          console.log('   - LineHeight:', {
-            token: expectedLineHeight || 'NO DEFINIDO',
-            computado: spanStyle.lineHeight,
-            coincide: expectedLineHeight && spanStyle.lineHeight === expectedLineHeight
-          });
-          console.log('   - FontWeight:', {
-            token: expectedFontWeight || 'NO DEFINIDO',
-            computado: spanStyle.fontWeight,
-            esperado: '600'
-          });
-        }
-      }
-    }
-    
-    // ========================================
-    // VERIFICACIÓN DE CSS CARGADO
-    // ========================================
-    console.log('📄 [CSS] Verificación de CSS cargado:');
-    const subnavStylesheet = Array.from(document.styleSheets).find(sheet => {
-      try {
-        return sheet.href && sheet.href.includes('subnav.css');
-      } catch (e) {
-        return false;
-      }
-    });
-    console.log(subnavStylesheet ? `   ✅ CSS de subnav.css encontrado: ${subnavStylesheet.href}` : '   ❌ CSS de subnav.css NO encontrado');
-    
-    // Verificar reglas CSS aplicadas
-    try {
-      const rules = Array.from(document.styleSheets).flatMap(sheet => {
-        try {
-          return Array.from(sheet.cssRules || []);
-        } catch (e) {
-          return [];
-        }
-      });
-      const subnavRules = rules.filter(rule => rule.selectorText && (
-        rule.selectorText.includes('.ubits-sub-nav') ||
-        rule.selectorText.includes('.ubits-sub-nav-tab')
-      ));
-      console.log(`   📊 Reglas CSS encontradas para SubNav: ${subnavRules.length}`);
-      if (subnavRules.length > 0) {
-        console.log('   - Primeras 5 reglas:');
-        subnavRules.slice(0, 5).forEach((rule, idx) => {
-          console.log(`      ${idx + 1}. ${rule.selectorText}`);
-          console.log(`         Estilos: ${rule.style.cssText.substring(0, 150)}`);
-        });
-      } else {
-        console.log('   ⚠️ NO se encontraron reglas CSS para SubNav');
-      }
-    } catch (e) {
-      console.log('   ⚠️ Error al verificar reglas CSS:', e.message);
-    }
-    
-    console.log('🔍 [createSubNav] ════════════════════════════════════════');
-  }, 200);
-
   initTabListeners(subNavElement, options);
-  console.log('✅ [createSubNav] Tab listeners inicializados');
-  console.log('🔍 [createSubNav] ════════════════════════════════════════');
-  console.log('✅ [createSubNav] COMPLETADO, retornando elemento');
-  console.log('🔍 [createSubNav] ════════════════════════════════════════');
 
   return subNavElement;
 };
@@ -1782,7 +1278,7 @@ function renderTabBar(options) {
 }
 
 // Renderiza un item del tree menu recursivamente usando la estructura del componente TreeMenu de Storybook
-function renderTreeMenuItem(item, level = 0, size = 'md') {
+function renderTreeMenuItem(item, level = 0, size = 'md', parentSectionId = null) {
   // Verificar si tiene hijos (children o subitems)
   const hasChildren = (item.children && item.children.length > 0) || (item.subitems && item.subitems.length > 0);
   
@@ -1792,6 +1288,11 @@ function renderTreeMenuItem(item, level = 0, size = 'md') {
   const isLink = !hasChildren;
   
   const nodeId = `floating-menu-node-${level}-${item.id}`;
+  
+  // Si es nivel 0, este item es la sección principal
+  const sectionId = level === 0 ? item.id : (parentSectionId || item.id);
+  // Si es nivel > 0, es un subitem
+  const subitemId = level > 0 ? item.id : null;
   
   // Calcular valores según tamaño (matching TreeMenu Storybook)
   const padding = size === 'xs' ? '8px 12px' : size === 'sm' ? '10px 14px' : size === 'lg' ? '16px 20px' : '12px 16px';
@@ -1818,12 +1319,17 @@ function renderTreeMenuItem(item, level = 0, size = 'md') {
       </span>
     ` : '';
     
+    // Para subitems, usar data-section-id de la sección principal y data-subitem-id del subitem
+    const dataAttributes = level > 0 && parentSectionId
+      ? `data-section-id="${parentSectionId}" data-subitem-id="${item.id}"`
+      : `data-section-id="${item.id}"`;
+    
     return `
       <div class="ubits-tree-node ubits-tree-node--vertical" data-level="${level}">
         <a 
           href="${item.url || '#'}" 
           class="ubits-tree-node__content" 
-          data-section-id="${item.id}"
+          ${dataAttributes}
           data-size="${size}"
           style="min-height: ${minHeight} !important; padding: ${padding} !important; font-size: ${fontSize} !important; line-height: ${lineHeight} !important; margin: 0 !important; border: none !important; text-decoration: none; display: flex; align-items: center; gap: var(--ubits-spacing-sm, 8px);"
           role="treeitem"
@@ -1846,7 +1352,7 @@ function renderTreeMenuItem(item, level = 0, size = 'md') {
     children: undefined
   })) || [];
   
-  const childrenHTML = children.map(child => renderTreeMenuItem(child, level + 1, size)).join('');
+  const childrenHTML = children.map(child => renderTreeMenuItem(child, level + 1, size, sectionId)).join('');
   const iconHTML = level === 0 && item.icon ? `
     <span class="ubits-tree-node__icon" style="font-size: ${iconSize};">
       ${renderIconHelper(item.icon)}
@@ -1881,9 +1387,7 @@ function renderTreeMenuItem(item, level = 0, size = 'md') {
 
 // Renderiza el Floating Menu como Tree Menu usando la estructura del componente TreeMenu de Storybook
 function renderFloatingMenu(sections, size = 'md') {
-  console.log('[renderFloatingMenu] Starting render with', sections.length, 'sections');
   const treeHTML = sections.map(section => renderTreeMenuItem(section, 0, size)).join('');
-  console.log('[renderFloatingMenu] Generated HTML length:', treeHTML.length);
 
   return `
     <div class="ubits-floating-menu" id="ubits-floating-menu">
@@ -2001,13 +1505,11 @@ function toggleTreeMenuNode(container, nodeId) {
   const children = container.querySelector(`[data-children-id="${nodeId}"]`);
   
   if (!content || !children) {
-    console.warn('Tree menu node not found:', nodeId, { content: !!content, children: !!children });
     return;
   }
 
   const chevron = content.querySelector('.ubits-tree-node__chevron i');
   if (!chevron) {
-    console.warn('Chevron not found for node:', nodeId);
     return;
   }
 
@@ -2037,7 +1539,6 @@ function toggleProfileTreeMenuNode(container, nodeId) {
   const chevron = container.querySelector(`[data-chevron-id="${nodeId}"]`);
 
   if (!children || !chevron) {
-    console.warn('Profile tree menu node not found:', nodeId, { children: !!children, chevron: !!chevron });
     return;
   }
 
@@ -2084,6 +1585,7 @@ function initFloatingMenuListeners(container, onFloatingMenuItemClick) {
       const isExpandable = target.classList.contains('ubits-tree-node__content--expandable');
       const nodeId = target.getAttribute('data-node-id');
       const sectionId = target.getAttribute('data-section-id');
+      const subitemId = target.getAttribute('data-subitem-id'); // Para subitems
       const url = target.getAttribute('href');
 
       // Manejar expandir/colapsar para nodos con hijos (matching TabBarProvider.ts)
@@ -2128,7 +1630,9 @@ function initFloatingMenuListeners(container, onFloatingMenuItemClick) {
       // Si es un link directo (no expandible), ejecutar callback y cerrar menú
       if (!isExpandable && (sectionId || url)) {
         if (onFloatingMenuItemClick) {
-          onFloatingMenuItemClick(sectionId || '', undefined, url || undefined);
+          // Si hay subitemId, pasar la sección principal y el subitemId
+          // Si no hay subitemId, pasar solo la sección (es un link directo de nivel 0)
+          onFloatingMenuItemClick(sectionId || '', subitemId || undefined, url || undefined);
         }
         
         // Cerrar el menú inmediatamente después del click
@@ -2324,9 +1828,7 @@ function initTabBarListeners(
     }
     
     const floatingMenuHTML = renderFloatingMenu(floatingMenuSections, 'md');
-    console.log('[initTabBarListeners] Setting floating menu HTML, length:', floatingMenuHTML.length);
     floatingMenuContainer.innerHTML = floatingMenuHTML;
-    console.log('[initTabBarListeners] Floating menu container innerHTML length:', floatingMenuContainer.innerHTML.length);
     initFloatingMenuListeners(floatingMenuContainer, onFloatingMenuItemClick);
   }
 
@@ -2445,8 +1947,6 @@ function initTabBarListeners(
 
 // Crea e inicializa el componente TabBar en el DOM
 window.createTabBar = function(options) {
-  console.log('🔍 [createTabBar] 🚀 INICIANDO createTabBar');
-  console.log('🔍 [createTabBar] Opciones recibidas:', JSON.stringify(options, null, 2));
   try {
     const containerId = options.containerId;
     const container = options.container;
@@ -2457,71 +1957,40 @@ window.createTabBar = function(options) {
     const darkModeEnabled = options.darkModeEnabled || false;
     const onDarkModeToggle = options.onDarkModeToggle;
 
-    console.log('🔍 [createTabBar] Buscando contenedor...');
     let targetContainer = null;
     if (container) {
       targetContainer = container;
-      console.log('✅ [createTabBar] Usando contenedor pasado como parámetro');
     } else if (containerId) {
       targetContainer = document.getElementById(containerId);
-      console.log('🔍 [createTabBar] Buscando por ID:', containerId, 'Encontrado:', !!targetContainer);
     }
 
     if (!targetContainer) {
-      console.error('[createTabBar] ❌ Contenedor no encontrado');
       return null;
     }
-    console.log('[createTabBar] ✅ Contenedor encontrado');
 
-    console.log('🔍 [createTabBar] Llamando renderTabBar...');
     const html = renderTabBar({
       items,
       activeTabId,
       visible,
     });
-    console.log('🔍 [createTabBar] HTML generado, longitud:', html.length);
-    console.log('🔍 [createTabBar] HTML preview (primeros 500 chars):', html.substring(0, 500));
     
     targetContainer.innerHTML = html;
-    console.log('✅ [createTabBar] HTML insertado en contenedor');
 
-    console.log('🔍 [createTabBar] Buscando elemento .ubits-tabbar...');
     const tabBarElement = targetContainer.querySelector('.ubits-tabbar');
     if (!tabBarElement) {
-      console.error('❌ [createTabBar] Elemento .ubits-tabbar no encontrado después de renderizar');
       return null;
     }
-    console.log('✅ [createTabBar] Elemento encontrado');
     
     // Verificar estilos aplicados
     const computedStyle = window.getComputedStyle(tabBarElement);
-    console.log('🔍 [createTabBar] Estilos computados del TabBar:');
-    console.log('   - Background:', computedStyle.backgroundColor);
-    console.log('   - Display:', computedStyle.display);
-    console.log('   - Position:', computedStyle.position);
-    console.log('   - Bottom:', computedStyle.bottom);
-    console.log('   - Width:', computedStyle.width);
-    console.log('   - Clases:', tabBarElement.className);
     
     // Verificar si los estilos están aplicados
     const hasBackground = computedStyle.backgroundColor && computedStyle.backgroundColor !== 'rgba(0, 0, 0, 0)' && computedStyle.backgroundColor !== 'transparent';
     const hasDisplay = computedStyle.display && computedStyle.display !== 'none';
-    console.log(hasBackground ? '✅ [createTabBar] Background aplicado' : '❌ [createTabBar] Background NO aplicado');
-    console.log(hasDisplay ? '✅ [createTabBar] Display aplicado' : '❌ [createTabBar] Display NO aplicado');
     
     // Verificar items del tabbar
     const tabBarItems = tabBarElement.querySelectorAll('.ubits-tabbar-item');
-    console.log(`📊 [createTabBar] Items encontrados: ${tabBarItems.length}`);
-    if (tabBarItems.length > 0) {
-      const firstItem = tabBarItems[0];
-      const itemStyle = window.getComputedStyle(firstItem);
-      console.log('🔍 [createTabBar] Estilos del primer item:');
-      console.log('   - Background:', itemStyle.backgroundColor);
-      console.log('   - Color:', itemStyle.color);
-      console.log('   - Clases:', firstItem.className);
-    }
 
-    console.log('🔍 [createTabBar] Inicializando listeners...');
     initTabBarListeners(
       tabBarElement,
       items,
@@ -2534,19 +2003,12 @@ window.createTabBar = function(options) {
       options.onProfileMenuItemClick,
       targetContainer
     );
-    console.log('[createTabBar] ✅ Listeners inicializados');
 
-    console.log('[createTabBar] ✅ COMPLETADO, retornando elemento');
     return tabBarElement;
   } catch (error) {
-    console.error('[createTabBar] ❌ ERROR:', error);
-    console.error('[createTabBar] Stack:', error.stack);
     throw error;
   }
 };
 
 
 
-console.log('✅ window.createSidebar definido:', typeof window.createSidebar);
-console.log('✅ window.createTabBar definido:', typeof window.createTabBar);
-console.log('✅ window.createSubNav definido:', typeof window.createSubNav);

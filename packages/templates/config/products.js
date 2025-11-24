@@ -206,72 +206,35 @@ window.UBITS_PRODUCTS = {
           
           const mappedSubitemId = subitemMap[subitemId] || subitemId;
           
-          // Primero asegurarse de que la sección principal esté activa
-          if (window.UBITS_ContentManager.currentSection !== sectionId) {
-            window.UBITS_ContentManager.handleSectionChange(sectionId);
-            
-            // Actualizar Sidebar también
-            const sidebarElement = document.querySelector('.ubits-sidebar');
-            if (sidebarElement) {
-              sidebarElement.querySelectorAll('.ubits-sidebar-nav-button').forEach(btn => {
-                btn.classList.remove('active');
-                btn.blur();
-              });
-              const targetButton = sidebarElement.querySelector(`[data-section="${sectionId}"]`);
-              if (targetButton) {
-                targetButton.classList.add('active');
-                targetButton.blur();
-              }
-            }
-            
-            // Esperar un momento para que el SubNav se actualice antes de cambiar la subsección
-            setTimeout(() => {
-              window.UBITS_ContentManager.updateContent(sectionId, mappedSubitemId);
-              
-              // Actualizar el SubNav para que muestre el tab activo
-              const subNavElement = document.querySelector('.ubits-sub-nav');
-              if (subNavElement) {
-                // ⚠️ IMPORTANTE: El SubNav usa data-tab, NO data-tab-id
-                const targetTab = subNavElement.querySelector(`[data-tab="${mappedSubitemId}"]`);
-                if (targetTab) {
-                  // Remover active de todos los tabs
-                  subNavElement.querySelectorAll('.ubits-sub-nav-tab').forEach(tab => {
-                    tab.classList.remove('ubits-sub-nav-tab--active');
-                  });
-                  // Activar el tab correspondiente
-                  targetTab.classList.add('ubits-sub-nav-tab--active');
-                } else {
-                  // Debug: mostrar todos los tabs disponibles
-                  const allTabs = subNavElement.querySelectorAll('.ubits-sub-nav-tab');
-                  const availableTabIds = Array.from(allTabs).map(t => t.getAttribute('data-tab')).filter(Boolean);
-                }
-              }
-            }, 100);
-          } else {
-            // La sección principal ya está activa, solo cambiar la subsección
-            window.UBITS_ContentManager.updateContent(sectionId, mappedSubitemId);
-            
-            // Actualizar el SubNav para que muestre el tab activo
-            const subNavElement = document.querySelector('.ubits-sub-nav');
-            if (subNavElement) {
-              // ⚠️ IMPORTANTE: El SubNav usa data-tab, NO data-tab-id
-              const targetTab = subNavElement.querySelector(`[data-tab="${mappedSubitemId}"]`);
-              if (targetTab) {
-                // Remover active de todos los tabs
-                subNavElement.querySelectorAll('.ubits-sub-nav-tab').forEach(tab => {
-                  tab.classList.remove('ubits-sub-nav-tab--active');
-                });
-                // Activar el tab correspondiente
-                targetTab.classList.add('ubits-sub-nav-tab--active');
-              } else {
-                // Debug: mostrar todos los tabs disponibles
-                const allTabs = subNavElement.querySelectorAll('.ubits-sub-nav-tab');
-                const availableTabIds = Array.from(allTabs).map(t => t.getAttribute('data-tab')).filter(Boolean);
-              }
+          // ⚠️ CRÍTICO: Establecer currentSection inmediatamente ANTES de cualquier otra operación
+          // Esto asegura que ResponsiveManager pueda acceder a currentSection cuando cambia el tamaño
+          window.UBITS_ContentManager.currentSection = sectionId;
+          console.log('🔍 [Template Colaborador TabBar] ✅ currentSection establecido a:', sectionId);
+          
+          // ⚠️ IMPORTANTE: Pasar mappedSubitemId directamente a handleSectionChange
+          // Esto asegura que el SubNav se cree con el tab correcto activo desde el inicio
+          window.UBITS_ContentManager.handleSectionChange(sectionId, mappedSubitemId);
+          
+          // Actualizar Sidebar también
+          const sidebarElement = document.querySelector('.ubits-sidebar');
+          if (sidebarElement) {
+            sidebarElement.querySelectorAll('.ubits-sidebar-nav-button').forEach(btn => {
+              btn.classList.remove('active');
+              btn.blur();
+            });
+            const targetButton = sidebarElement.querySelector(`[data-section="${sectionId}"]`);
+            if (targetButton) {
+              targetButton.classList.add('active');
+              targetButton.blur();
             }
           }
         } else if (sectionId) {
           // Es una sección principal: cambiar de sección completa
+          // ⚠️ CRÍTICO: Establecer currentSection inmediatamente
+          window.UBITS_ContentManager.currentSection = sectionId;
+          console.log('🔍 [Template Colaborador TabBar] ✅ currentSection establecido a:', sectionId);
+          
+          // Luego llamar handleSectionChange
           window.UBITS_ContentManager.handleSectionChange(sectionId);
           
           // También actualizar el Sidebar para que muestre el botón activo correspondiente
@@ -378,8 +341,135 @@ window.UBITS_PRODUCTS = {
     onTabChange: (tabId, item, element) => {
     },
     onFloatingMenuItemClick: (sectionId, subitemId, url) => {
-      if (url) {
-        window.location.href = url;
+      console.log('🔍 [Colaborador TabBar.onFloatingMenuItemClick] ════════════════════════════════════════');
+      console.log('🔍 [Colaborador TabBar.onFloatingMenuItemClick] sectionId:', sectionId);
+      console.log('🔍 [Colaborador TabBar.onFloatingMenuItemClick] subitemId:', subitemId);
+      console.log('🔍 [Colaborador TabBar.onFloatingMenuItemClick] url:', url);
+      console.log('🔍 [Colaborador TabBar.onFloatingMenuItemClick] ContentManager existe:', !!window.UBITS_ContentManager);
+      console.log('🔍 [Colaborador TabBar.onFloatingMenuItemClick] currentSection actual:', window.UBITS_ContentManager?.currentSection);
+      
+      // ⚠️ IMPORTANTE: Usar ContentManager en lugar de redirecciones
+      if (window.UBITS_ContentManager && sectionId) {
+        console.log('🔍 [Colaborador TabBar.onFloatingMenuItemClick] ✅ Navegando a sección:', sectionId, 'subitem:', subitemId);
+        
+        // Mapeo de subitems a IDs de tabs del SubNav
+        // ⚠️ IMPORTANTE: Los IDs del TabBar pueden diferir de los IDs del ContentManager
+        const subitemMap = {
+          'inicio': 'home',
+          'catalogo': 'catalog',
+          'corporativa': 'corporate',
+          'zona-estudio': 'study-zone',
+          'evaluaciones-360': 'evaluations',
+          'objetivos': 'objectives',
+          'metricas': 'metrics',
+          'reportes': 'reports',
+          'planes': 'planes',
+          'tareas': 'tasks',
+          // También incluir los IDs directos por si acaso
+          'home': 'home',
+          'catalog': 'catalog',
+          'corporate': 'corporate',
+          'study-zone': 'study-zone'
+        };
+        
+        if (subitemId) {
+          // Es una subsección: cambiar contenido dentro de la sección principal
+          const mappedSubitemId = subitemMap[subitemId] || subitemId;
+          
+          // ⚠️ CRÍTICO: Siempre establecer currentSection ANTES de cualquier otra operación
+          // Esto asegura que ResponsiveManager pueda acceder a currentSection cuando cambia el tamaño
+          if (window.UBITS_ContentManager.currentSection !== sectionId) {
+            // Establecer currentSection inmediatamente
+            window.UBITS_ContentManager.currentSection = sectionId;
+            console.log('🔍 [Colaborador TabBar] ✅ currentSection establecido a:', sectionId);
+            
+            // Luego llamar handleSectionChange para actualizar SubNav y contenido
+            window.UBITS_ContentManager.handleSectionChange(sectionId);
+            
+            // Actualizar Sidebar también
+            const sidebarElement = document.querySelector('.ubits-sidebar');
+            if (sidebarElement) {
+              sidebarElement.querySelectorAll('.ubits-sidebar-nav-button').forEach(btn => {
+                btn.classList.remove('active');
+                btn.blur();
+              });
+              const targetButton = sidebarElement.querySelector(`[data-section="${sectionId}"]`);
+              if (targetButton) {
+                targetButton.classList.add('active');
+                targetButton.blur();
+              }
+            }
+            
+            // Esperar un momento para que el SubNav se actualice antes de cambiar la subsección
+            setTimeout(() => {
+              window.UBITS_ContentManager.updateContent(sectionId, mappedSubitemId);
+              
+              // Actualizar el SubNav para que muestre el tab activo
+              const subNavElement = document.querySelector('.ubits-sub-nav');
+              if (subNavElement) {
+                const targetTab = subNavElement.querySelector(`[data-tab="${mappedSubitemId}"]`);
+                if (targetTab) {
+                  // Remover active de todos los tabs
+                  subNavElement.querySelectorAll('.ubits-sub-nav-tab').forEach(tab => {
+                    tab.classList.remove('ubits-sub-nav-tab--active');
+                  });
+                  // Activar el tab correspondiente
+                  targetTab.classList.add('ubits-sub-nav-tab--active');
+                }
+              }
+            }, 100);
+          } else {
+            // La sección principal ya está activa, solo cambiar la subsección
+            // ⚠️ CRÍTICO: Asegurar que currentSection esté establecido (por si acaso es null)
+            if (!window.UBITS_ContentManager.currentSection) {
+              window.UBITS_ContentManager.currentSection = sectionId;
+              console.log('🔍 [Template Colaborador TabBar] ✅ currentSection establecido a (else):', sectionId);
+            }
+            window.UBITS_ContentManager.updateContent(sectionId, mappedSubitemId);
+            
+            // Actualizar el SubNav para que muestre el tab activo
+            const subNavElement = document.querySelector('.ubits-sub-nav');
+            if (subNavElement) {
+              const targetTab = subNavElement.querySelector(`[data-tab="${mappedSubitemId}"]`);
+              if (targetTab) {
+                // Remover active de todos los tabs
+                subNavElement.querySelectorAll('.ubits-sub-nav-tab').forEach(tab => {
+                  tab.classList.remove('ubits-sub-nav-tab--active');
+                });
+                // Activar el tab correspondiente
+                targetTab.classList.add('ubits-sub-nav-tab--active');
+              }
+            }
+          }
+        } else if (sectionId) {
+          // Es una sección principal: cambiar de sección completa
+          // ⚠️ CRÍTICO: Establecer currentSection inmediatamente
+          window.UBITS_ContentManager.currentSection = sectionId;
+          console.log('🔍 [TabBar] ✅ currentSection establecido a:', sectionId);
+          
+          // Luego llamar handleSectionChange
+          window.UBITS_ContentManager.handleSectionChange(sectionId);
+          
+          // También actualizar el Sidebar para que muestre el botón activo correspondiente
+          const sidebarElement = document.querySelector('.ubits-sidebar');
+          if (sidebarElement) {
+            // Remover active de todos los botones
+            sidebarElement.querySelectorAll('.ubits-sidebar-nav-button').forEach(btn => {
+              btn.classList.remove('active');
+              btn.blur();
+            });
+            // Activar el botón correspondiente
+            const targetButton = sidebarElement.querySelector(`[data-section="${sectionId}"]`);
+            if (targetButton) {
+              targetButton.classList.add('active');
+              targetButton.blur(); // No dar focus para evitar borde azul
+            }
+          }
+        }
+      } else {
+        if (url) {
+          window.location.href = url;
+        }
       }
     },
     onProfileMenuItemClick: (itemId, item) => {
@@ -669,8 +759,14 @@ window.UBITS_PRODUCTS = {
           
           const mappedSubitemId = subitemMap[subitemId] || subitemId;
           
-          // Primero asegurarse de que la sección principal esté activa
+          // ⚠️ CRÍTICO: Establecer currentSection inmediatamente ANTES de cualquier otra operación
+          // Esto asegura que ResponsiveManager pueda acceder a currentSection cuando cambia el tamaño
           if (window.UBITS_ContentManager.currentSection !== sectionId) {
+            // Establecer currentSection inmediatamente
+            window.UBITS_ContentManager.currentSection = sectionId;
+            console.log('🔍 [Template Colaborador TabBar] ✅ currentSection establecido a:', sectionId);
+            
+            // Luego llamar handleSectionChange para actualizar SubNav y contenido
             window.UBITS_ContentManager.handleSectionChange(sectionId);
             
             // Actualizar Sidebar también
@@ -708,6 +804,11 @@ window.UBITS_PRODUCTS = {
             }, 100);
           } else {
             // La sección principal ya está activa, solo cambiar la subsección
+            // ⚠️ CRÍTICO: Asegurar que currentSection esté establecido (por si acaso es null)
+            if (!window.UBITS_ContentManager.currentSection) {
+              window.UBITS_ContentManager.currentSection = sectionId;
+              console.log('🔍 [Template Colaborador TabBar] ✅ currentSection establecido a (else):', sectionId);
+            }
             window.UBITS_ContentManager.updateContent(sectionId, mappedSubitemId);
             
             // Actualizar el SubNav para que muestre el tab activo
@@ -726,6 +827,11 @@ window.UBITS_PRODUCTS = {
           }
         } else if (sectionId) {
           // Es una sección principal: cambiar de sección completa
+          // ⚠️ CRÍTICO: Establecer currentSection inmediatamente
+          window.UBITS_ContentManager.currentSection = sectionId;
+          console.log('🔍 [TabBar] ✅ currentSection establecido a:', sectionId);
+          
+          // Luego llamar handleSectionChange
           window.UBITS_ContentManager.handleSectionChange(sectionId);
           
           // También actualizar el Sidebar para que muestre el botón activo correspondiente

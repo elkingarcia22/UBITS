@@ -12,8 +12,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: calc(100% - 24px); /* MANTENER MEDIDA ORIGINAL */
-    max-width: calc(100% - 24px); /* MANTENER MEDIDA ORIGINAL */
+    width: 100%; /* Ocupar el 100% del contenedor padre */
+    max-width: 100%; /* No exceder el ancho del contenedor padre */
     box-shadow: 0 1px var(--ubits-spacing-xs, 4px) rgba(0, 0, 0, 0.1);
     position: relative;
 }

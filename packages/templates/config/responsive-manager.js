@@ -73,6 +73,9 @@ class ResponsiveManager {
     
     if (newBreakpoint !== this.currentBreakpoint) {
       const previousBreakpoint = this.currentBreakpoint;
+      const wasMobile = ['mobile', 'tablet'].includes(previousBreakpoint);
+      const isNowDesktop = ['desktop', 'wide'].includes(newBreakpoint);
+      
       this.currentBreakpoint = newBreakpoint;
 
       // Disparar evento personalizado
@@ -89,7 +92,55 @@ class ResponsiveManager {
       // Notificar listeners
       this.notifyListeners(newBreakpoint, previousBreakpoint);
 
-      console.log(`📱 Breakpoint cambiado: ${previousBreakpoint} → ${newBreakpoint}`);
+      console.log(`📱 [ResponsiveManager.updateBreakpoint] ════════════════════════════════════════`);
+      console.log(`📱 [ResponsiveManager.updateBreakpoint] Breakpoint cambiado: ${previousBreakpoint} → ${newBreakpoint}`);
+      console.log(`📱 [ResponsiveManager.updateBreakpoint] wasMobile: ${wasMobile}, isNowDesktop: ${isNowDesktop}`);
+      console.log(`📱 [ResponsiveManager.updateBreakpoint] window.UBITS_ContentManager existe: ${!!window.UBITS_ContentManager}`);
+      console.log(`📱 [ResponsiveManager.updateBreakpoint] currentSection: ${window.UBITS_ContentManager?.currentSection || 'null/undefined'}`);
+      
+      // ⚠️ CRÍTICO: Si cambiamos de móvil a desktop, actualizar SubNav
+      if (wasMobile && isNowDesktop) {
+        console.log('📱 [ResponsiveManager.updateBreakpoint] ════════════════════════════════════════');
+        console.log('📱 [ResponsiveManager.updateBreakpoint] 🔍 DETECTADO: Cambio de móvil a desktop');
+        console.log('📱 [ResponsiveManager.updateBreakpoint] ContentManager existe:', !!window.UBITS_ContentManager);
+        console.log('📱 [ResponsiveManager.updateBreakpoint] currentSection:', window.UBITS_ContentManager?.currentSection);
+        
+        if (window.UBITS_ContentManager && window.UBITS_ContentManager.currentSection) {
+          const sectionToUpdate = window.UBITS_ContentManager.currentSection;
+          console.log('   📱 [ResponsiveManager.updateBreakpoint] ✅ Condiciones cumplidas, programando actualización del SubNav');
+          console.log('   📱 [ResponsiveManager.updateBreakpoint] Sección a actualizar:', sectionToUpdate);
+          
+          // Delay más largo para asegurar que el DOM esté completamente listo después del cambio de breakpoint
+          // y que adaptComponents() haya terminado de ejecutarse
+          setTimeout(() => {
+            console.log('   📱 [ResponsiveManager.updateBreakpoint] ════════════════════════════════════════');
+            console.log('   📱 [ResponsiveManager.updateBreakpoint] ⏰ TIMEOUT EJECUTADO (300ms después)');
+            console.log('   📱 [ResponsiveManager.updateBreakpoint] ContentManager existe:', !!window.UBITS_ContentManager);
+            console.log('   📱 [ResponsiveManager.updateBreakpoint] currentSection:', window.UBITS_ContentManager?.currentSection);
+            
+            if (window.UBITS_ContentManager && window.UBITS_ContentManager.currentSection) {
+              const section = window.UBITS_ContentManager.currentSection;
+              console.log('   📱 [ResponsiveManager.updateBreakpoint] ✅ Ejecutando updateSubNav para sección:', section);
+              console.log('   📱 [ResponsiveManager.updateBreakpoint] Tipo de updateSubNav:', typeof window.UBITS_ContentManager.updateSubNav);
+              
+              try {
+                window.UBITS_ContentManager.updateSubNav(section);
+                console.log('   📱 [ResponsiveManager.updateBreakpoint] ✅ updateSubNav ejecutado correctamente');
+              } catch (error) {
+                console.error('   📱 [ResponsiveManager.updateBreakpoint] ❌ ERROR al ejecutar updateSubNav:', error);
+              }
+            } else {
+              console.warn('   📱 [ResponsiveManager.updateBreakpoint] ⚠️ ContentManager o currentSection no disponible después del timeout');
+            }
+            console.log('   📱 [ResponsiveManager.updateBreakpoint] ════════════════════════════════════════');
+          }, 300);
+        } else {
+          console.warn('   📱 [ResponsiveManager.updateBreakpoint] ⚠️ NO se actualizará SubNav porque:');
+          console.warn('      - ContentManager existe:', !!window.UBITS_ContentManager);
+          console.warn('      - currentSection existe:', !!window.UBITS_ContentManager?.currentSection);
+        }
+        console.log('📱 [ResponsiveManager.updateBreakpoint] ════════════════════════════════════════');
+      }
     }
   }
 
@@ -238,6 +289,51 @@ class ResponsiveManager {
       mainContent.style.paddingRight = '';
       mainContent.style.flex = '';
     });
+
+    // ⚠️ CRÍTICO: Actualizar SubNav cuando cambia de móvil a desktop
+    // Si cambiamos a desktop y hay una sección activa, actualizar el SubNav
+    // Esto asegura que el SubNav muestre las secciones correctas y no "section 1", "section 2", etc.
+    // NOTA: Esta lógica también está en updateBreakpoint(), pero la mantenemos aquí como respaldo
+    console.log('📱 [ResponsiveManager.adaptComponents] ════════════════════════════════════════');
+    console.log('📱 [ResponsiveManager.adaptComponents] isDesktopOrMore:', isDesktopOrMore);
+    console.log('📱 [ResponsiveManager.adaptComponents] ContentManager existe:', !!window.UBITS_ContentManager);
+    console.log('📱 [ResponsiveManager.adaptComponents] currentSection:', window.UBITS_ContentManager?.currentSection || 'null/undefined');
+    
+    if (isDesktopOrMore && window.UBITS_ContentManager && window.UBITS_ContentManager.currentSection) {
+      const section = window.UBITS_ContentManager.currentSection;
+      console.log('📱 [ResponsiveManager.adaptComponents] ✅ Condiciones cumplidas, programando actualización del SubNav');
+      console.log('📱 [ResponsiveManager.adaptComponents] Sección a actualizar:', section);
+      
+      // Delay para asegurar que el DOM esté listo después de adaptComponents
+      setTimeout(() => {
+        console.log('📱 [ResponsiveManager.adaptComponents] ════════════════════════════════════════');
+        console.log('📱 [ResponsiveManager.adaptComponents] ⏰ TIMEOUT EJECUTADO (250ms después)');
+        console.log('📱 [ResponsiveManager.adaptComponents] ContentManager existe:', !!window.UBITS_ContentManager);
+        console.log('📱 [ResponsiveManager.adaptComponents] currentSection:', window.UBITS_ContentManager?.currentSection);
+        
+        if (window.UBITS_ContentManager && window.UBITS_ContentManager.currentSection) {
+          const sectionToUpdate = window.UBITS_ContentManager.currentSection;
+          console.log('📱 [ResponsiveManager.adaptComponents] ✅ Ejecutando updateSubNav para sección:', sectionToUpdate);
+          console.log('📱 [ResponsiveManager.adaptComponents] Tipo de updateSubNav:', typeof window.UBITS_ContentManager.updateSubNav);
+          
+          try {
+            window.UBITS_ContentManager.updateSubNav(sectionToUpdate);
+            console.log('📱 [ResponsiveManager.adaptComponents] ✅ updateSubNav ejecutado correctamente');
+          } catch (error) {
+            console.error('📱 [ResponsiveManager.adaptComponents] ❌ ERROR al ejecutar updateSubNav:', error);
+          }
+        } else {
+          console.warn('📱 [ResponsiveManager.adaptComponents] ⚠️ ContentManager o currentSection no disponible después del timeout');
+        }
+        console.log('📱 [ResponsiveManager.adaptComponents] ════════════════════════════════════════');
+      }, 250);
+    } else {
+      console.log('📱 [ResponsiveManager.adaptComponents] ⚠️ NO se actualizará SubNav porque:');
+      console.log('   - isDesktopOrMore:', isDesktopOrMore);
+      console.log('   - ContentManager existe:', !!window.UBITS_ContentManager);
+      console.log('   - currentSection existe:', !!window.UBITS_ContentManager?.currentSection);
+    }
+    console.log('📱 [ResponsiveManager.adaptComponents] ════════════════════════════════════════');
 
     // Logs específicos para debug
     console.log(`📱 [ResponsiveManager] Width: ${width}px | Breakpoint: ${this.currentBreakpoint}`);

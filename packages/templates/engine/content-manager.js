@@ -533,18 +533,48 @@ class ContentManager {
   /**
    * Actualiza el SubNav según la sección actual
    */
-  updateSubNav(section) {
-    console.log('🔍 [ContentManager] updateSubNav llamado para sección:', section);
+  updateSubNav(section, activeTabId = null) {
+    console.log('🔍 [ContentManager.updateSubNav] ════════════════════════════════════════');
+    console.log('🔍 [ContentManager.updateSubNav] updateSubNav llamado para sección:', section);
+    console.log('🔍 [ContentManager.updateSubNav] activeTabId proporcionado:', activeTabId);
+    console.log('🔍 [ContentManager.updateSubNav] currentSection actual:', this.currentSection);
     const subNavConfig = this.getSubNavForSection(section);
-    console.log('🔍 [ContentManager] SubNav config obtenida:', subNavConfig);
+    console.log('🔍 [ContentManager.updateSubNav] SubNav config obtenida:', subNavConfig);
+    console.log('🔍 [ContentManager.updateSubNav] SubNav config variant:', subNavConfig?.variant);
+    console.log('🔍 [ContentManager.updateSubNav] SubNav config tabs count:', subNavConfig?.tabs?.length);
+    
+    // Si se proporciona activeTabId, usarlo en lugar del de la configuración
+    const finalActiveTabId = activeTabId || (subNavConfig && subNavConfig.activeTabId);
+    console.log('🔍 [ContentManager.updateSubNav] Tab activo final:', finalActiveTabId);
     
     // Si la sección no tiene SubNav (ej: inicio en admin, ubits-ai, perfil), ocultarlo
     const topNavContainer = document.getElementById('top-nav-container');
     if (!topNavContainer) {
-      console.error('❌ [ContentManager] top-nav-container NO encontrado');
+      console.error('❌ [ContentManager.updateSubNav] top-nav-container NO encontrado');
       return;
     }
-    console.log('✅ [ContentManager] top-nav-container encontrado');
+    console.log('✅ [ContentManager.updateSubNav] top-nav-container encontrado');
+    
+    // ⚠️ PREVENIR actualizaciones múltiples si el SubNav ya está actualizado con la misma configuración
+    // Esto evita el "titilante" cuando updateSubNav se llama varias veces desde ResponsiveManager
+    const existingSubNav = topNavContainer.querySelector('.ubits-sub-nav');
+    if (existingSubNav && subNavConfig) {
+      const existingVariant = existingSubNav.getAttribute('data-variant');
+      const existingTabs = existingSubNav.querySelectorAll('.ubits-sub-nav-tab');
+      const existingTabIds = Array.from(existingTabs).map(t => t.getAttribute('data-tab')).filter(Boolean);
+      const expectedTabIds = subNavConfig.tabs?.map(t => t.id).filter(Boolean) || [];
+      
+      if (existingVariant === subNavConfig.variant && 
+          existingTabIds.length === expectedTabIds.length &&
+          existingTabIds.every((id, idx) => id === expectedTabIds[idx])) {
+        console.log('🔍 [ContentManager.updateSubNav] ⚠️ SubNav ya está actualizado con la misma configuración, evitando recarga');
+        console.log('   - Variant existente:', existingVariant);
+        console.log('   - Variant esperado:', subNavConfig.variant);
+        console.log('   - Tabs existentes:', existingTabIds);
+        console.log('   - Tabs esperados:', expectedTabIds);
+        return;
+      }
+    }
 
     // Si getSubNavForSection retorna null, ocultar SubNav
     if (!subNavConfig) {
@@ -576,7 +606,7 @@ class ContentManager {
         containerId: 'top-nav-container',
         variant: subNavConfig.variant,
         tabs: subNavConfig.tabs,
-        activeTabId: subNavConfig.activeTabId,
+        activeTabId: finalActiveTabId, // Usar el tab activo final (proporcionado o de la config)
         showIcons: true, // Activar iconos en el SubNav
         onTabChange: (tabId, element) => {
           // Actualizar contenido según subsección
@@ -587,16 +617,34 @@ class ContentManager {
           this.updateContent(this.currentSection || section, tabId);
         }
       });
-      console.log('✅ [ContentManager] createSubNav llamado');
+      console.log('✅ [ContentManager.updateSubNav] createSubNav llamado correctamente');
+      
+      // Verificar que el SubNav se haya creado
+      setTimeout(() => {
+        const subNavElement = document.querySelector('.ubits-sub-nav');
+        const tabs = subNavElement?.querySelectorAll('.ubits-sub-nav-tab');
+        console.log('🔍 [ContentManager.updateSubNav] Verificación después de createSubNav:');
+        console.log('   - SubNav existe:', !!subNavElement);
+        console.log('   - Tabs encontrados:', tabs?.length || 0);
+        if (tabs && tabs.length > 0) {
+          console.log('   - Labels de tabs:', Array.from(tabs).map(t => t.textContent?.trim()));
+        }
+      }, 100);
     } else {
-      console.error('❌ [ContentManager] window.createSubNav NO es una función');
+      console.error('❌ [ContentManager.updateSubNav] window.createSubNav NO es una función');
+      console.error('   - Tipo de window.createSubNav:', typeof window.createSubNav);
     }
+    console.log('🔍 [ContentManager.updateSubNav] ════════════════════════════════════════');
   }
 
   /**
    * Actualiza el contenido del área principal
    */
   updateContent(section, subSection = null) {
+    console.log('🔍 [ContentManager.updateContent] ════════════════════════════════════════');
+    console.log('🔍 [ContentManager.updateContent] updateContent llamado para sección:', section, 'subSection:', subSection);
+    console.log('🔍 [ContentManager.updateContent] currentSection actual:', this.currentSection);
+    
     // Buscar el content-area (puede estar en .content-area o dentro de .content-sections)
     let contentArea = document.querySelector('.content-area');
     if (!contentArea) {
@@ -604,10 +652,27 @@ class ContentManager {
       contentArea = document.querySelector('.content-sections')?.parentElement;
     }
     if (!contentArea) {
+      console.warn('⚠️ [ContentManager.updateContent] content-area no encontrado');
       return;
     }
+    
+    // ⚠️ PREVENIR actualizaciones múltiples si ya estamos en la misma sección y subsección
+    // Esto evita el "titilante" cuando updateSubNav se llama varias veces
+    const expectedTitle = this.getSectionTitle(section, subSection);
+    const existingHeader = contentArea.querySelector('#header-section-container');
+    const existingContent = contentArea.querySelector('.content-sections');
+    
+    if (existingHeader && existingContent) {
+      const existingTitle = existingHeader.querySelector('.ubits-heading-h2')?.textContent?.trim();
+      if (existingTitle === expectedTitle) {
+        console.log('🔍 [ContentManager.updateContent] ⚠️ Contenido ya está actualizado, evitando recarga');
+        console.log('   - Título existente:', existingTitle);
+        console.log('   - Título esperado:', expectedTitle);
+        return;
+      }
+    }
 
-    // Limpiar contentArea
+    // Limpiar contentArea solo si es necesario
     contentArea.innerHTML = '';
     
     // Obtener título de la sección
@@ -799,13 +864,22 @@ class ContentManager {
     contentSections.innerHTML = content;
     contentArea.appendChild(contentSections);
     
-    this.currentSection = section;
+    // NO actualizar currentSection aquí - ya se actualiza en handleSectionChange
+    // this.currentSection = section;
+    
+    console.log('🔍 [ContentManager.updateContent] ✅ Contenido actualizado para sección:', section, 'subSection:', subSection);
   }
 
   /**
    * Maneja el cambio de sección del Sidebar
+   * @param {string} section - ID de la sección
+   * @param {string|null} activeTabId - ID del tab activo (opcional, sobrescribe el de la configuración)
    */
-  handleSectionChange(section) {
+  handleSectionChange(section, activeTabId = null) {
+    console.log('🔍 [ContentManager.handleSectionChange] ════════════════════════════════════════');
+    console.log('🔍 [ContentManager.handleSectionChange] Nueva sección:', section);
+    console.log('🔍 [ContentManager.handleSectionChange] activeTabId proporcionado:', activeTabId);
+    console.log('🔍 [ContentManager.handleSectionChange] Sección anterior:', this.currentSection);
     
     // Si es "perfil", desactivar todos los botones del sidebar
     if (section === 'perfil') {
@@ -821,19 +895,24 @@ class ContentManager {
     // Establecer sección actual ANTES de actualizar SubNav
     // Esto asegura que el callback onTabChange tenga acceso a this.currentSection
     this.currentSection = section;
+    console.log('🔍 [ContentManager.handleSectionChange] ✅ currentSection actualizado a:', this.currentSection);
     
     // Actualizar SubNav primero (esto creará el SubNav con el callback correcto)
-    this.updateSubNav(section);
+    // Si se proporciona activeTabId, pasarlo para que el SubNav se cree con el tab correcto activo
+    console.log('🔍 [ContentManager.handleSectionChange] Llamando updateSubNav...');
+    this.updateSubNav(section, activeTabId);
+    console.log('🔍 [ContentManager.handleSectionChange] ✅ updateSubNav llamado');
     
-    // Actualizar contenido con la subsección por defecto
+    // Actualizar contenido con la subsección proporcionada o la por defecto
     const subNavConfig = this.getSubNavForSection(section);
-    // Si no hay SubNav config (null), usar null como subSection para cargar el contenido default
-    const defaultSubSection = subNavConfig && subNavConfig.activeTabId ? subNavConfig.activeTabId : null;
+    // Si se proporciona activeTabId, usarlo; si no, usar el de la configuración
+    const defaultSubSection = activeTabId || (subNavConfig && subNavConfig.activeTabId) || null;
     this.updateContent(section, defaultSubSection);
   }
 }
 
 // Crear instancia global
 window.UBITS_ContentManager = new ContentManager();
+
 
 

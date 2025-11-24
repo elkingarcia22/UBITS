@@ -225,16 +225,27 @@ class TemplateLoader {
   }
 }
 
-// Crear instancia global
-window.UBITS_TemplateLoader = new TemplateLoader();
+// Crear instancia global solo si no existe
+if (!window.UBITS_TemplateLoader) {
+  window.UBITS_TemplateLoader = new TemplateLoader();
 
-// Inicializar automáticamente cuando el DOM esté listo
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
+  // Inicializar automáticamente cuando el DOM esté listo
+  // ⚠️ PREVENIR múltiples inicializaciones
+  let templateLoaderInitialized = false;
+  const initTemplateLoader = () => {
+    if (templateLoaderInitialized) {
+      console.warn('⚠️ [TemplateLoader] Ya inicializado, ignorando...');
+      return;
+    }
+    templateLoaderInitialized = true;
     window.UBITS_TemplateLoader.init();
-  });
-} else {
-  window.UBITS_TemplateLoader.init();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTemplateLoader);
+  } else {
+    initTemplateLoader();
+  }
 }
 
 console.log('✅ Template Loader cargado');
