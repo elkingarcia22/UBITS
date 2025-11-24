@@ -190,7 +190,8 @@ export function createButton(options: ButtonOptions): HTMLButtonElement {
   const div = document.createElement('div');
   div.style.position = 'relative';
   div.style.display = 'inline-block';
-  div.innerHTML = renderButton(options);
+  const htmlString = renderButton(options);
+  div.innerHTML = htmlString;
   const button = div.querySelector('button');
   
   if (!button) {

@@ -4,7 +4,7 @@ import '../../tokens/dist/figma-tokens.css'
 import '../../typography/fonts.css'
 import '../../typography/tokens-typography.css'
 import '../../addons/status-tag/src/styles/status-tag.css'
-import '../../addons/avatar/src/styles/avatar.css'
+import '../../components/avatar/src/styles/avatar.css'
 import '../../addons/drawer/src/styles/drawer.css'
 import '../../addons/modal/src/styles/modal.css'
 import '../../addons/scroll/src/styles/scroll.css'
@@ -40,6 +40,104 @@ import '../../addons/header-section/src/styles/header-section.css'
 import '../../addons/status-tag/src/styles/status-tag.css'
 import '../../components/button-ai/src/styles/button-ai.css'
 import '../docs-site/.storybook/fontawesome-icons.css'
+
+// Script para limpiar caché de Storybook y redirigir IDs antiguos
+if (typeof window !== 'undefined') {
+  // Limpiar localStorage y sessionStorage de Storybook que pueden tener IDs antiguos
+  const clearStorybookCache = () => {
+    try {
+      const keysToRemove: string[] = []
+      
+      // Buscar todas las claves relacionadas con Storybook
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i)
+        if (key && (key.includes('storybook') || key.includes('sb-'))) {
+          keysToRemove.push(key)
+        }
+      }
+      
+      keysToRemove.forEach(key => {
+        try {
+          localStorage.removeItem(key)
+        } catch (e) {
+          // Ignorar errores
+        }
+      })
+      
+      // Limpiar sessionStorage también
+      for (let i = 0; i < sessionStorage.length; i++) {
+        const key = sessionStorage.key(i)
+        if (key && (key.includes('storybook') || key.includes('sb-'))) {
+          try {
+            sessionStorage.removeItem(key)
+          } catch (e) {
+            // Ignorar errores
+          }
+        }
+      }
+      
+      // Caché limpiado silenciosamente
+    } catch (e) {
+      // Ignorar errores de localStorage
+    }
+  }
+  
+  // Función para intentar encontrar el nuevo ID basándose en el nombre del componente
+  const findNewStoryId = (oldStoryId: string): string | null => {
+    // Extraer el nombre del componente y el variant del ID antiguo
+    // Ejemplo: "components-data-table--default" -> "data-table--default"
+    const match = oldStoryId.match(/^components-(.+)$/)
+    if (match) {
+      const componentPart = match[1] // "data-table--default"
+      
+      // Intentar encontrar el nuevo ID en las categorías posibles
+      const categories = ['formularios', 'data', 'navegacion', 'feedback', 'charts', 'layout', 'basicos']
+      
+      for (const category of categories) {
+        const newId = `${category}-${componentPart}`
+        // Verificar si existe en el índice de stories (esto se hace después de que Storybook cargue)
+        // Por ahora, solo intentamos con las categorías más probables
+        if (componentPart.startsWith('data-')) {
+          return `data-${componentPart.replace('data-', '')}`
+        }
+      }
+    }
+    
+    return null
+  }
+  
+  // Limpiar caché al cargar
+  clearStorybookCache()
+  
+  // Intentar redirigir si hay un ID antiguo en la URL
+  const checkAndRedirect = () => {
+    const currentPath = window.location.pathname + window.location.search
+    const storyMatch = currentPath.match(/\/story\/([^/?]+)/)
+    
+    if (storyMatch) {
+      const storyId = storyMatch[1]
+      
+      // Si el ID comienza con "components-", intentar encontrar el nuevo
+      if (storyId.startsWith('components-')) {
+        const newStoryId = findNewStoryId(storyId)
+        
+        if (newStoryId) {
+          const newPath = currentPath.replace(`/${storyId}`, `/${newStoryId}`)
+          window.history.replaceState({}, '', newPath)
+          // Recargar la página para que Storybook cargue el nuevo story
+          window.location.reload()
+          return
+        } else {
+          // Si no encontramos el nuevo ID, redirigir a la página principal
+          window.location.href = window.location.origin + window.location.pathname.replace(/\/story\/.*/, '')
+        }
+      }
+    }
+  }
+  
+  // Ejecutar después de un breve delay para que Storybook se inicialice
+  setTimeout(checkAndRedirect, 100)
+}
 
 const preview: Preview = {
   parameters: {
@@ -89,6 +187,162 @@ const preview: Preview = {
       document.body.setAttribute('data-theme', theme)
       document.documentElement.setAttribute('data-theme', theme)
       
+      // Limpiar componentes flotantes que no pertenecen a esta historia
+      const storyId = ctx.id || ''
+      const isTooltipStory = storyId.includes('tooltip')
+      const isPopoverStory = storyId.includes('popover')
+      const isButtonFeedbackStory = storyId.includes('button-feedback')
+      const isModalStory = storyId.includes('modal')
+      const isDrawerStory = storyId.includes('drawer')
+      const isToastStory = storyId.includes('toast')
+      const isAlertStory = storyId.includes('alert')
+      const isMaskStory = storyId.includes('mask')
+      
+      // Limpiar tooltips si no es la historia de tooltip
+      if (!isTooltipStory) {
+        const tooltips = document.querySelectorAll('.ubits-tooltip')
+        tooltips.forEach((tooltip) => {
+          try {
+            if (tooltip.parentElement) {
+              tooltip.parentElement.removeChild(tooltip)
+            }
+          } catch (e) {
+            // Ignorar errores
+          }
+        })
+      }
+      
+      // Limpiar popovers si no es la historia de popover
+      if (!isPopoverStory) {
+        const popovers = document.querySelectorAll('.ubits-popover')
+        popovers.forEach((popover) => {
+          try {
+            if (popover.parentElement) {
+              popover.parentElement.removeChild(popover)
+            }
+          } catch (e) {
+            // Ignorar errores
+          }
+        })
+      }
+      
+      // Limpiar modales si no es la historia de modal
+      if (!isModalStory) {
+        const modalOverlays = document.querySelectorAll('.ubits-modal-overlay')
+        modalOverlays.forEach((overlay) => {
+          try {
+            if (overlay.parentElement) {
+              overlay.parentElement.removeChild(overlay)
+            }
+          } catch (e) {
+            // Ignorar errores
+          }
+        })
+      }
+      
+      // Limpiar drawers si no es la historia de drawer
+      if (!isDrawerStory) {
+        const drawerOverlays = document.querySelectorAll('.ubits-drawer-overlay')
+        drawerOverlays.forEach((overlay) => {
+          try {
+            if (overlay.parentElement) {
+              overlay.parentElement.removeChild(overlay)
+            }
+          } catch (e) {
+            // Ignorar errores
+          }
+        })
+      }
+      
+      // Limpiar toasts si no es la historia de toast
+      if (!isToastStory) {
+        const toasts = document.querySelectorAll('.ubits-toast')
+        toasts.forEach((toast) => {
+          try {
+            if (toast.parentElement) {
+              toast.parentElement.removeChild(toast)
+            }
+          } catch (e) {
+            // Ignorar errores
+          }
+        })
+        // También limpiar el contenedor de toasts si existe
+        const toastContainer = document.getElementById('ubits-toast-container')
+        if (toastContainer) {
+          try {
+            toastContainer.innerHTML = ''
+          } catch (e) {
+            // Ignorar errores
+          }
+        }
+      }
+      
+      // Limpiar alerts si no es la historia de alert
+      if (!isAlertStory) {
+        const alerts = document.querySelectorAll('.ubits-alert')
+        alerts.forEach((alert) => {
+          try {
+            if (alert.parentElement) {
+              alert.parentElement.removeChild(alert)
+            }
+          } catch (e) {
+            // Ignorar errores
+          }
+        })
+      }
+      
+      // Limpiar máscaras si no es la historia de mask
+      if (!isMaskStory) {
+        const maskOverlays = document.querySelectorAll('.ubits-mask-overlay')
+        maskOverlays.forEach((overlay) => {
+          try {
+            // Cerrar la máscara antes de eliminarla para restaurar el body
+            overlay.classList.remove('ubits-mask-overlay--open')
+            document.body.style.overflow = ''
+            document.body.style.position = ''
+            document.body.style.top = ''
+            document.body.style.left = ''
+            document.body.style.width = ''
+            document.body.style.paddingRight = ''
+            
+            if (overlay.parentElement) {
+              overlay.parentElement.removeChild(overlay)
+            }
+          } catch (e) {
+            // Ignorar errores
+          }
+        })
+      }
+      
+      // Limpiar button feedback si no es la historia de button feedback
+      if (!isButtonFeedbackStory) {
+        const feedbackButtons = document.querySelectorAll(
+          '.ubits-button-feedback--bottom-right, .ubits-button-feedback--bottom-left, .ubits-button-feedback--top-right, .ubits-button-feedback--top-left'
+        )
+        feedbackButtons.forEach((button) => {
+          try {
+            if (button.parentElement) {
+              button.parentElement.removeChild(button)
+            }
+          } catch (e) {
+            // Ignorar errores
+          }
+        })
+        
+        // También limpiar modales de feedback
+        const feedbackModals = document.querySelectorAll('.ubits-button-feedback-modal')
+        feedbackModals.forEach((modal) => {
+          const overlay = modal.closest('.ubits-modal-overlay')
+          if (overlay && overlay.parentElement) {
+            try {
+              overlay.parentElement.removeChild(overlay)
+            } catch (e) {
+              // Ignorar errores
+            }
+          }
+        })
+      }
+      
       // Determinar el color de fondo según el tema
       const bgColor = theme === 'dark' 
         ? 'var(--modifiers-normal-color-dark-bg-2)' 
@@ -128,174 +382,6 @@ const preview: Preview = {
           background: ${theme === 'dark' ? 'var(--modifiers-normal-color-dark-bg-2)' : 'var(--modifiers-normal-color-light-bg-2)'} !important;
         }
       `
-      
-      // 🔍 DEBUGGING: Verificar tokens después de cargar
-      // Esperar más tiempo para asegurar que todos los estilos se hayan cargado
-      setTimeout(() => {
-        const tokens = [
-          'modifiers-normal-color-light-feedback-bg-success-subtle-default',
-          'modifiers-normal-color-light-feedback-fg-success-subtle-default',
-          'modifiers-normal-color-light-feedback-border-success',
-          'modifiers-normal-color-light-feedback-bg-info-subtle-default',
-          'modifiers-normal-color-light-feedback-fg-info-subtle-default',
-          'modifiers-normal-color-light-feedback-border-info',
-          'modifiers-normal-color-light-feedback-bg-warning-subtle-default',
-          'modifiers-normal-color-light-feedback-fg-warning-subtle-default',
-          'modifiers-normal-color-light-feedback-border-warning',
-          'modifiers-normal-color-light-feedback-bg-error-subtle-default',
-          'modifiers-normal-color-light-feedback-fg-error-subtle-default',
-          'modifiers-normal-color-light-feedback-border-error',
-          'modifiers-normal-color-light-bg-2',
-          'modifiers-normal-color-light-fg-1-medium',
-        ]
-        
-        const root = document.documentElement
-        const computedStyle = getComputedStyle(root)
-        
-        let existsCount = 0
-        let missingCount = 0
-        
-        console.log('🔍 DIAGNÓSTICO DE TOKENS EN STORYBOOK:')
-        console.log('='.repeat(70))
-        console.log(`\n📊 Verificando ${tokens.length} tokens de Alert...\n`)
-        
-        tokens.forEach(token => {
-          const tokenName = `--${token}`
-          const value = computedStyle.getPropertyValue(tokenName).trim()
-          
-          if (value) {
-            existsCount++
-            console.log(`✅ ${tokenName}: ${value}`)
-          } else {
-            missingCount++
-            console.error(`❌ ${tokenName}: NO DEFINIDO`)
-          }
-        })
-        
-        console.log('\n' + '='.repeat(70))
-        console.log(`\n📊 RESUMEN:`)
-        console.log(`   ✅ Tokens existentes: ${existsCount}/${tokens.length}`)
-        console.log(`   ❌ Tokens faltantes: ${missingCount}/${tokens.length}`)
-        
-        if (missingCount > 0) {
-          console.error(`\n⚠️  PROBLEMA: ${missingCount} tokens no están disponibles`)
-          console.log('\n🔧 POSIBLES SOLUCIONES:')
-          console.log('   1. Verificar que figma-tokens.css esté cargado')
-          console.log('   2. Verificar el orden de carga (figma-tokens.css debe ir ANTES)')
-          console.log('   3. Verificar que el archivo exista en packages/tokens/dist/')
-          console.log('   4. Limpiar caché del navegador')
-        } else {
-          console.log('\n✅ Todos los tokens están disponibles')
-        }
-        
-        // Verificar si figma-tokens.css está cargado
-        const stylesheets = Array.from(document.styleSheets)
-        let figmaLoaded = false
-        let figmaHref = null
-        
-        stylesheets.forEach(sheet => {
-          try {
-            if (sheet.href && (sheet.href.includes('figma-tokens.css') || sheet.href.includes('figma-tokens'))) {
-              figmaLoaded = true
-              figmaHref = sheet.href
-            }
-          } catch (e) {
-            // Ignorar errores de CORS
-          }
-        })
-        
-        // También verificar si los tokens existen directamente en el DOM
-        const testToken = '--modifiers-normal-color-light-feedback-bg-info-subtle-default'
-        const testValue = computedStyle.getPropertyValue(testToken).trim()
-        const tokenExists = testValue && testValue.length > 0
-        
-        console.log('\n' + '='.repeat(70))
-        console.log(`\n📄 ESTILOS CARGADOS:`)
-        console.log(`   figma-tokens.css (por href): ${figmaLoaded ? '✅ CARGADO' : '❌ NO CARGADO'}`)
-        if (figmaHref) {
-          console.log(`   Ruta: ${figmaHref}`)
-        }
-        console.log(`   Token de prueba existe: ${tokenExists ? '✅ SÍ' : '❌ NO'}`)
-        if (tokenExists) {
-          console.log(`   Valor del token: ${testValue}`)
-        }
-        
-        // Listar todos los stylesheets para debugging
-        console.log(`\n📋 TODOS LOS STYLESHEETS (${stylesheets.length}):`)
-        let figmaFoundInInline = false
-        stylesheets.forEach((sheet, idx) => {
-          try {
-            const href = sheet.href || '(inline)'
-            console.log(`   ${idx + 1}. ${href.substring(0, 100)}`)
-            
-            // Si es inline, buscar el token en el contenido
-            if (!sheet.href) {
-              try {
-                const rules = Array.from(sheet.cssRules || [])
-                const hasFigmaToken = rules.some(rule => {
-                  if (rule.style) {
-                    const cssText = rule.cssText || ''
-                    return cssText.includes('modifiers-normal-color-light-feedback-bg-info-subtle-default')
-                  }
-                  return false
-                })
-                if (hasFigmaToken) {
-                  figmaFoundInInline = true
-                  console.log(`      ⚠️  ¡Token encontrado en este stylesheet inline!`)
-                }
-              } catch (e) {
-                // Ignorar errores de CORS
-              }
-            }
-          } catch (e) {
-            console.log(`   ${idx + 1}. (error al leer)`)
-          }
-        })
-        
-        if (figmaFoundInInline) {
-          console.log(`\n✅ figma-tokens.css está cargado como inline (procesado por Vite)`)
-        }
-        
-        // Verificar directamente en el DOM si el token existe
-        console.log(`\n🔍 VERIFICACIÓN DIRECTA EN EL DOM:`)
-        const testTokenName = '--modifiers-normal-color-light-feedback-bg-info-subtle-default'
-        const directValue = window.getComputedStyle(document.documentElement).getPropertyValue(testTokenName)
-        console.log(`   Token: ${testTokenName}`)
-        console.log(`   Valor directo: ${directValue || 'NO DEFINIDO'}`)
-        
-        // Intentar leer desde el style tag si existe
-        const styleTags = document.querySelectorAll('style')
-        console.log(`   Style tags encontrados: ${styleTags.length}`)
-        let foundInStyleTag = false
-        styleTags.forEach((tag, idx) => {
-          if (tag.textContent && tag.textContent.includes(testTokenName)) {
-            foundInStyleTag = true
-            const match = tag.textContent.match(new RegExp(`${testTokenName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}:\\s*([^;]+)`))
-            if (match) {
-              console.log(`   ✅ Token encontrado en style tag #${idx + 1}: ${match[1].trim()}`)
-            }
-          }
-        })
-        
-        if (!foundInStyleTag && !directValue) {
-          console.error(`   ❌ Token NO encontrado en ningún style tag ni en el DOM`)
-        }
-        
-        // Verificar en qué bloque están los tokens (si están en :root o en [data-theme="dark"])
-        if (missingCount > 0) {
-          console.log('\n🔍 VERIFICANDO ESTRUCTURA DE TOKENS:')
-          const testToken = '--modifiers-normal-color-light-feedback-bg-info-subtle-default'
-          const testValue = computedStyle.getPropertyValue(testToken).trim()
-          
-          if (!testValue) {
-            console.log(`   Token de prueba: ${testToken}`)
-            console.log(`   Valor: ${testValue || 'NO DEFINIDO'}`)
-            console.log(`   Tema actual: ${theme}`)
-            console.log(`   data-theme en body: ${document.body.getAttribute('data-theme')}`)
-            console.log(`   data-theme en html: ${document.documentElement.getAttribute('data-theme')}`)
-          }
-        }
-      }, 500) // Esperar 500ms para que los estilos se carguen
       
       return story()
     },

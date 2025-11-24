@@ -21,9 +21,9 @@ const meta: Meta<ProgressGeneralCardOptions & {
     docs: {
       description: {
         component: 'Componente ProgressGeneralCard UBITS para mostrar progreso general con indicador circular (donut chart) y categorías de progreso. Soporta layout vertical y horizontal, múltiples tamaños y controles completos para personalización. Usa tokens UBITS para colores, tipografía y espaciado.'
-}
-}
-},
+      }
+    }
+  },
   argTypes: {
     title: {
       control: { type: 'text' },
@@ -31,8 +31,8 @@ const meta: Meta<ProgressGeneralCardOptions & {
       table: {
         defaultValue: { summary: 'Progreso general' },
         type: { summary: 'string' }
-}
-},
+      }
+    },
     mainPercentage: {
       control: { type: 'number', min: 0, max: 100, step: 1 },
       description: 'Porcentaje principal mostrado en el círculo',
@@ -47,8 +47,8 @@ const meta: Meta<ProgressGeneralCardOptions & {
       table: {
         defaultValue: { summary: 'Ciclos' },
         type: { summary: 'string' }
-}
-},
+      }
+    },
     layout: {
       control: { type: 'select' },
       options: ['vertical', 'horizontal'],
@@ -56,8 +56,8 @@ const meta: Meta<ProgressGeneralCardOptions & {
       table: {
         defaultValue: { summary: 'vertical' },
         type: { summary: 'vertical | horizontal' }
-}
-},
+      }
+    },
     size: {
       control: { type: 'select' },
       options: ['sm', 'md', 'lg'],
@@ -65,59 +65,59 @@ const meta: Meta<ProgressGeneralCardOptions & {
       table: {
         defaultValue: { summary: 'md' },
         type: { summary: 'sm | md | lg' }
-}
-},
+      }
+    },
     showTitle: {
       control: { type: 'boolean' },
       description: 'Mostrar el título',
       table: {
         defaultValue: { summary: 'true' }
-}
-},
+      }
+    },
     showCircularProgress: {
       control: { type: 'boolean' },
       description: 'Mostrar el indicador circular',
       table: {
         defaultValue: { summary: 'true' }
-}
-},
+      }
+    },
     showCategories: {
       control: { type: 'boolean' },
       description: 'Mostrar las categorías',
       table: {
         defaultValue: { summary: 'true' }
-}
-},
+      }
+    },
     showInfoIcon: {
       control: { type: 'boolean' },
       description: 'Mostrar icono de información junto al título',
       table: {
         defaultValue: { summary: 'false' }
-}
-},
+      }
+    },
     showActionButton: {
       control: { type: 'boolean' },
       description: 'Mostrar botón de acción con flecha a la derecha en la esquina superior derecha',
       table: {
         defaultValue: { summary: 'false' }
-}
-},
+      }
+    },
     progressColor: {
       control: { type: 'text' },
       description: 'Color del progreso circular (token UBITS o color hexadecimal)',
       table: {
         defaultValue: { summary: 'var(--ubits-chart-color-bg-neutral-blue-base)' },
         type: { summary: 'string' }
-}
-},
+      }
+    },
     circleBackgroundColor: {
       control: { type: 'text' },
       description: 'Color de fondo del círculo (token UBITS o color hexadecimal)',
       table: {
         defaultValue: { summary: 'var(--modifiers-normal-color-light-bg-3)' },
         type: { summary: 'string' }
-}
-},
+      }
+    },
     // Controles para categoría 1
     category1Label: {
       control: { type: 'text' },
@@ -125,24 +125,24 @@ const meta: Meta<ProgressGeneralCardOptions & {
       table: {
         defaultValue: { summary: 'Área' },
         type: { summary: 'string' }
-}
-},
+      }
+    },
     category1Current: {
       control: { type: 'number', min: 0, step: 1 },
       description: 'Valor actual de la categoría 1',
       table: {
         defaultValue: { summary: '3' },
         type: { summary: 'number' }
-}
-},
+      }
+    },
     category1Total: {
       control: { type: 'number', min: 1, step: 1 },
       description: 'Valor total de la categoría 1',
       table: {
         defaultValue: { summary: '20' },
         type: { summary: 'number' }
-}
-},
+      }
+    },
     // Controles para categoría 2
     category2Label: {
       control: { type: 'text' },
@@ -150,16 +150,16 @@ const meta: Meta<ProgressGeneralCardOptions & {
       table: {
         defaultValue: { summary: 'Equipo' },
         type: { summary: 'string' }
-}
-},
+      }
+    },
     category2Current: {
       control: { type: 'number', min: 0, step: 1 },
       description: 'Valor actual de la categoría 2',
       table: {
         defaultValue: { summary: '8' },
         type: { summary: 'number' }
-}
-},
+      }
+    },
     category2Total: {
       control: { type: 'number', min: 1, step: 1 },
       description: 'Valor total de la categoría 2',
@@ -175,25 +175,25 @@ const meta: Meta<ProgressGeneralCardOptions & {
       table: {
         defaultValue: { summary: 'Propio' },
         type: { summary: 'string' }
-}
-},
+      }
+    },
     category3Current: {
       control: { type: 'number', min: 0, step: 1 },
       description: 'Valor actual de la categoría 3',
       table: {
         defaultValue: { summary: '5' },
         type: { summary: 'number' }
-}
-},
+      }
+    },
     category3Total: {
       control: { type: 'number', min: 1, step: 1 },
       description: 'Valor total de la categoría 3',
       table: {
         defaultValue: { summary: '30' },
         type: { summary: 'number' }
-}
-}
-}
+      }
+    }
+  }
 };
 
 export default meta;
@@ -220,7 +220,7 @@ function buildCategories(args: Story['args']): ProgressCategory[] {
       label: args.category1Label || 'Área',
       current: args.category1Current ?? 3,
       total: args.category1Total ?? 20
-});
+    });
   }
   
   if (args.category2Label !== undefined) {
@@ -228,7 +228,7 @@ function buildCategories(args: Story['args']): ProgressCategory[] {
       label: args.category2Label || 'Equipo',
       current: args.category2Current ?? 8,
       total: args.category2Total ?? 50
-});
+    });
   }
   
   if (args.category3Label !== undefined) {
@@ -236,7 +236,7 @@ function buildCategories(args: Story['args']): ProgressCategory[] {
       label: args.category3Label || 'Propio',
       current: args.category3Current ?? 5,
       total: args.category3Total ?? 30
-});
+    });
   }
   
   return categories;
@@ -285,7 +285,7 @@ export const Default: Story = {
       showActionButton: args.showActionButton,
       progressColor: args.progressColor,
       circleBackgroundColor: args.circleBackgroundColor
-};
+    };
     
     // Crear contenedor
     const container = document.createElement('div');
@@ -296,9 +296,6 @@ export const Default: Story = {
     container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
     container.style.borderRadius = '8px';
     container.style.minHeight = '400px';
-    
-    console.log('🔍 [ProgressGeneralCard Story] render - DEBUG:');
-    console.log('  - options:', JSON.stringify(options, null, 2));
     
     // Crear wrapper para la card
     const wrapper = document.createElement('div');
@@ -316,37 +313,6 @@ export const Default: Story = {
     wrapper.innerHTML = cardHTML;
     container.appendChild(wrapper);
     
-    // Debug: Verificar elementos renderizados
-    setTimeout(() => {
-      const cardElement = wrapper.querySelector('.ubits-progress-general-card');
-      if (cardElement) {
-        console.log('🔍 [ProgressGeneralCard Story] Elementos renderizados - DEBUG:');
-        
-        // Verificar porcentaje del círculo
-        const circlePercentage = cardElement.querySelector('.ubits-progress-general-card__circle-percentage');
-        if (circlePercentage) {
-          const computed = window.getComputedStyle(circlePercentage);
-          console.log('  - Circle Percentage:');
-          console.log('    - classes:', circlePercentage.className);
-          console.log('    - font-weight:', computed.fontWeight);
-          console.log('    - font-size:', computed.fontSize);
-          console.log('    - textContent:', circlePercentage.textContent);
-          console.log('    - --weight-bold:', getComputedStyle(document.documentElement).getPropertyValue('--weight-bold'));
-        }
-        
-        // Verificar porcentajes de categorías
-        const categoryPercentages = cardElement.querySelectorAll('.ubits-progress-general-card__category-percentage');
-        categoryPercentages.forEach((el, index) => {
-          const computed = window.getComputedStyle(el);
-          console.log(`  - Category Percentage ${index + 1}:`);
-          console.log('    - classes:', el.className);
-          console.log('    - font-weight:', computed.fontWeight);
-          console.log('    - font-size:', computed.fontSize);
-          console.log('    - textContent:', el.textContent);
-          console.log('    - --weight-bold:', getComputedStyle(document.documentElement).getPropertyValue('--weight-bold'));
-        });
-      }
-    }, 100);
     
     return container;
   }

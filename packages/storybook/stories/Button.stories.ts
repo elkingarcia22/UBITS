@@ -199,17 +199,6 @@ export const Default: Story = {
       iconPosition: args.iconPosition === 'only' ? 'left' : args.iconPosition
     };
 
-    // Logs para debugging del botón flotante
-    if (buttonArgs.floating) {
-      console.log('🔍 [Button Story] Floating activado en args:', {
-        floating: buttonArgs.floating,
-        variant: buttonArgs.variant,
-        size: buttonArgs.size,
-        active: buttonArgs.active,
-        allArgs: buttonArgs
-      });
-    }
-    
     // Si dropdown está activo, usar createButton para inicializar la funcionalidad
     if (buttonArgs.dropdown && buttonArgs.dropdownOptions && buttonArgs.dropdownOptions.length > 0) {
       const buttonWrapper = document.createElement('div');
@@ -303,16 +292,7 @@ export const Default: Story = {
       preview.appendChild(buttonWrapper);
     } else {
       // Sin dropdown, usar renderButton normalmente
-      console.log('🔍 [Button Story] Llamando renderButton con buttonArgs:', {
-        floating: buttonArgs.floating,
-        floatingType: typeof buttonArgs.floating,
-        allButtonArgs: buttonArgs
-      });
-      
       const buttonHTML = renderButton(buttonArgs);
-      console.log('🔍 [Button Story] HTML generado:', buttonHTML);
-      console.log('🔍 [Button Story] buttonArgs.active:', buttonArgs.active);
-      console.log('🔍 [Button Story] args.active:', args.active);
       
       const buttonContainer = document.createElement('div');
       buttonContainer.innerHTML = buttonHTML;
@@ -322,123 +302,29 @@ export const Default: Story = {
       requestAnimationFrame(() => {
         const button = buttonContainer.querySelector('button') as HTMLButtonElement;
         if (button) {
-          console.log('🔍 [Button Story] Botón encontrado, clases iniciales:', button.className);
-          console.log('🔍 [Button Story] Tiene ubits-button--active?', button.classList.contains('ubits-button--active'));
-          // Logs para debugging del botón flotante
-          if (buttonArgs.floating) {
-            const root = document.documentElement;
-            const computedStyle = getComputedStyle(root);
-            
-            // Verificar tokens de Figma
-            const floating0X = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-0-x').trim();
-            const floating0Y = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-0-y').trim();
-            const floating0Blur = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-0-blur').trim();
-            const floating0Spread = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-0-spread').trim();
-            const floating0Color = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-0-color').trim();
-            
-            const floating1X = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-1-x').trim();
-            const floating1Y = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-1-y').trim();
-            const floating1Blur = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-1-blur').trim();
-            const floating1Spread = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-1-spread').trim();
-            const floating1Color = computedStyle.getPropertyValue('--modifiers-normal-elevation-floating-1-color').trim();
-            
-            const buttonStyle = getComputedStyle(button);
-            const boxShadow = buttonStyle.boxShadow;
-            
-            console.log('🔍 [Button Story] ========================================');
-            console.log('🔍 [Button Story] VERIFICACIÓN COMPLETA DE FLOATING');
-            console.log('🔍 [Button Story] ========================================');
-            console.log('   📋 Clases del botón:', button.className);
-            console.log('   ✅ Tiene clase floating:', button.classList.contains('ubits-button--floating'));
-            console.log('');
-            console.log('   🎨 TOKENS DE FIGMA:');
-            console.log('      Floating-0:', {
-              x: floating0X || '❌ NO DEFINIDO',
-              y: floating0Y || '❌ NO DEFINIDO',
-              blur: floating0Blur || '❌ NO DEFINIDO',
-              spread: floating0Spread || '❌ NO DEFINIDO',
-              color: floating0Color || '❌ NO DEFINIDO'
-            });
-            console.log('      Floating-1:', {
-              x: floating1X || '❌ NO DEFINIDO',
-              y: floating1Y || '❌ NO DEFINIDO',
-              blur: floating1Blur || '❌ NO DEFINIDO',
-              spread: floating1Spread || '❌ NO DEFINIDO',
-              color: floating1Color || '❌ NO DEFINIDO'
-            });
-            console.log('');
-            console.log('   🎯 BOX-SHADOW APLICADO AL BOTÓN:');
-            console.log('      box-shadow:', boxShadow || '❌ NO DEFINIDO');
-            console.log('🔍 [Button Story] ========================================');
-            console.log('');
-            
-            // Intentar agregar la clase manualmente si no está
-            if (!button.classList.contains('ubits-button--floating')) {
-              console.warn('⚠️ [Button Story] La clase floating no se agregó, agregándola manualmente');
-              button.classList.add('ubits-button--floating');
-              
-              // Verificar nuevamente después de agregar la clase
-              setTimeout(() => {
-                const newButtonStyle = getComputedStyle(button);
-                const newBoxShadow = newButtonStyle.boxShadow;
-                console.log('🔍 [Button Story] Después de agregar clase manualmente:');
-                console.log('   ✅ Tiene clase floating:', button.classList.contains('ubits-button--floating'));
-                console.log('   🎯 Nuevo box-shadow:', newBoxShadow || '❌ NO DEFINIDO');
-              }, 100);
-            }
+          // Intentar agregar la clase manualmente si no está (para floating)
+          if (buttonArgs.floating && !button.classList.contains('ubits-button--floating')) {
+            button.classList.add('ubits-button--floating');
           }
 
           // IMPORTANTE: Si active es true, agregar la clase ubits-button--active
-          // renderButton ya debería haber agregado la clase, pero verificamos y agregamos si falta
-          console.log('🔍 [Button Story] Verificando active:', {
-            buttonArgsActive: buttonArgs.active,
-            argsActive: args.active,
-            buttonClassesBefore: button.className,
-            hasActiveClassBefore: button.classList.contains('ubits-button--active'),
-          });
-          
-          // Verificar si renderButton agregó la clase (debería haberlo hecho si active: true)
           const hasActiveFromRender = button.classList.contains('ubits-button--active');
           
           // Si active es true pero no tiene la clase, agregarla
           if ((buttonArgs.active || args.active) && !hasActiveFromRender) {
-            console.log('🔍 [Button Story] ⚠️ Active es true pero la clase no está, agregándola');
             button.classList.add('ubits-button--active');
-          } else if (buttonArgs.active || args.active) {
-            console.log('🔍 [Button Story] ✅ Active es true y la clase ya está presente');
-          } else {
-            console.log('🔍 [Button Story] ℹ️ Active es false, no se agrega la clase');
           }
           
           // Verificar si tiene la clase active después de verificar
           const hasActiveClass = button.classList.contains('ubits-button--active');
-          console.log('🔍 [Button Story] Estado inicial:', {
-            hasActiveClass,
-            activeArg: buttonArgs.active || args.active,
-            buttonClasses: button.className,
-            computedBefore: {
-              background: getComputedStyle(button).background,
-              backgroundColor: getComputedStyle(button).backgroundColor,
-              color: getComputedStyle(button).color,
-            },
-          });
           
           // Si el botón está en estado active, asegurar color azul desde el inicio
           if (buttonArgs.active || args.active || hasActiveClass) {
-            console.log('🔍 [Button Story] Aplicando estilos active iniciales');
             // Asegurar fondo active con múltiples capas: bg-active-button sobre bg1
             const root = document.documentElement;
             const bgActiveButton = getComputedStyle(root).getPropertyValue('--modifiers-normal-color-light-bg-active-button').trim() || 'var(--modifiers-normal-color-light-bg-active-button)';
             const bg1 = getComputedStyle(root).getPropertyValue('--modifiers-normal-color-light-bg-1').trim() || 'var(--modifiers-normal-color-light-bg-1)';
             const backgroundValue = `${bgActiveButton}, ${bg1}`;
-            
-            console.log('🔍 [Button Story] Tokens encontrados:', {
-              bgActiveButton,
-              bg1,
-              backgroundValue,
-              tokenBgActive: getComputedStyle(root).getPropertyValue('--modifiers-normal-color-light-bg-active'),
-              tokenAccentBrand: getComputedStyle(root).getPropertyValue('--modifiers-normal-color-light-accent-brand'),
-            });
             
             // Usar setProperty con !important para asegurar que se aplique
             button.style.setProperty('background', backgroundValue, 'important');
@@ -454,25 +340,12 @@ export const Default: Story = {
             icons.forEach((icon) => {
               icon.style.color = 'var(--modifiers-normal-color-light-accent-brand))';
             });
-            
-            console.log('🔍 [Button Story] Después de aplicar estilos active:', {
-              inlineBackground: button.style.background,
-              inlineBackgroundColor: button.style.backgroundColor,
-              inlineColor: button.style.color,
-              computedAfter: {
-                background: getComputedStyle(button).background,
-                backgroundColor: getComputedStyle(button).backgroundColor,
-                color: getComputedStyle(button).color,
-              },
-            });
           }
           
           // Aplicar tooltip UBITS si es necesario
           if (buttonArgs.iconOnly && buttonArgs.showTooltip && buttonArgs.tooltipText) {
             applyUBITSTooltip(button, buttonArgs.tooltipText);
           }
-        } else {
-          console.error('❌ Botón no encontrado');
         }
       });
     }

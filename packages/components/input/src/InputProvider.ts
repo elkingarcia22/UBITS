@@ -462,7 +462,6 @@ export function createInput(options: InputOptions): {
           
           // Forzar que no haya borde en el toolbar
           if (toolbarBorderBottom && toolbarBorderBottom !== 'none' && toolbarBorderBottom !== '0px') {
-            console.warn(`[Rich Text] ⚠️ Línea divisoria detectada en setState("${newState}"), removiendo...`);
             toolbar.style.borderBottom = 'none';
             toolbar.style.borderTop = 'none';
           }
@@ -1332,13 +1331,6 @@ function setupRichTextToolbar(container: HTMLElement, textareaElement: HTMLTextA
     inputWrapper = containerParent?.closest('.ubits-input-wrapper') as HTMLElement;
   }
   
-  console.log('[Rich Text Placeholder] ===== DEBUG ALINEAMIENTO =====');
-  console.log('[Rich Text Placeholder] inputWrapper:', inputWrapper);
-  console.log('[Rich Text Placeholder] container:', container);
-  console.log('[Rich Text Placeholder] container.parentElement:', container.parentElement);
-  console.log('[Rich Text Placeholder] richTextWrapper:', richTextWrapper);
-  console.log('[Rich Text Placeholder] richTextWrapper.parentElement:', richTextWrapper?.parentElement);
-  
   // Buscar el icono de múltiples maneras
   let leftIconElement: HTMLElement | null = null;
   
@@ -1375,9 +1367,6 @@ function setupRichTextToolbar(container: HTMLElement, textareaElement: HTMLTextA
   
   const hasLeftIcon = leftIconElement !== null;
   
-  console.log('[Rich Text Placeholder] leftIconElement:', leftIconElement);
-  console.log('[Rich Text Placeholder] hasLeftIcon:', hasLeftIcon);
-  
   if (hasLeftIcon && leftIconElement) {
     // Obtener posición y dimensiones del icono
     const iconRect = leftIconElement.getBoundingClientRect();
@@ -1386,86 +1375,40 @@ function setupRichTextToolbar(container: HTMLElement, textareaElement: HTMLTextA
     const iconTop = iconComputedStyle.top;
     const iconTransform = iconComputedStyle.transform;
     
-    console.log('[Rich Text Placeholder] Icono encontrado:', leftIconElement);
-    console.log('[Rich Text Placeholder] Icono rect:', iconRect);
-    console.log('[Rich Text Placeholder] Icono left (computed):', iconLeft);
-    console.log('[Rich Text Placeholder] Icono top (computed):', iconTop);
-    console.log('[Rich Text Placeholder] Icono transform:', iconTransform);
-    
     // Obtener padding del textarea
     const paddingLeft = computedStyle.paddingLeft || '12px';
     const paddingTop = computedStyle.paddingTop || '12px';
     const paddingRight = computedStyle.paddingRight || '12px';
     const paddingBottom = computedStyle.paddingBottom || '12px';
     
-    console.log('[Rich Text Placeholder] Textarea padding:', {
-      left: paddingLeft,
-      top: paddingTop,
-      right: paddingRight,
-      bottom: paddingBottom
-    });
-    
     // Obtener posición del editableDiv
     const editableRect = editableDiv.getBoundingClientRect();
-    console.log('[Rich Text Placeholder] EditableDiv rect:', editableRect);
     
     // Calcular posición relativa del icono dentro del editableDiv
     const relativeIconLeft = iconRect.left - editableRect.left;
     const relativeIconTop = iconRect.top - editableRect.top;
     const relativeIconBottom = iconRect.bottom - editableRect.top;
     
-    console.log('[Rich Text Placeholder] Icono posición relativa:', {
-      left: relativeIconLeft,
-      top: relativeIconTop,
-      bottom: relativeIconBottom
-    });
-    
     // Obtener line-height del texto
     const lineHeight = computedStyle.lineHeight || '1.5';
     const fontSize = computedStyle.fontSize || '14px';
-    
-    console.log('[Rich Text Placeholder] Texto:', {
-      fontSize,
-      lineHeight
-    });
     
     editableDiv.setAttribute('data-has-left-icon', 'true');
     editableDiv.style.setProperty('--placeholder-left', paddingLeft);
     editableDiv.style.setProperty('--placeholder-top', paddingTop);
     
-    console.log('[Rich Text Placeholder] Variables CSS establecidas:', {
-      '--placeholder-left': paddingLeft,
-      '--placeholder-top': paddingTop
-    });
-    
     // Verificar después de que se renderice
     requestAnimationFrame(() => {
-      const placeholderBefore = editableDiv.querySelector('::before') || 
-        window.getComputedStyle(editableDiv, '::before');
-      const placeholderStyle = window.getComputedStyle(editableDiv, '::before');
-      
-      console.log('[Rich Text Placeholder] Después de render:', {
-        placeholderLeft: placeholderStyle.left,
-        placeholderTop: placeholderStyle.top,
-        placeholderWidth: placeholderStyle.width,
-        placeholderHeight: placeholderStyle.height
-      });
+      // Verificación silenciosa después del render
     });
   } else {
     // Si no hay icono, usar los valores por defecto
     const paddingTop = computedStyle.paddingTop || '12px';
     const paddingLeft = computedStyle.paddingLeft || '12px';
     
-    console.log('[Rich Text Placeholder] Sin icono, usando valores por defecto:', {
-      paddingTop,
-      paddingLeft
-    });
-    
     editableDiv.style.setProperty('--placeholder-top', paddingTop);
     editableDiv.style.setProperty('--placeholder-left', paddingLeft);
   }
-  
-  console.log('[Rich Text Placeholder] ===== FIN DEBUG =====');
   
   // Establecer contenido inicial
   if (textareaElement.value && textareaElement.value.trim()) {
@@ -1497,22 +1440,11 @@ function setupRichTextToolbar(container: HTMLElement, textareaElement: HTMLTextA
           const iconRect = iconAfterInsert.getBoundingClientRect();
           const editableRect = editableDiv.getBoundingClientRect();
           
-          console.log('[Rich Text Placeholder] Después de insertar en DOM:');
-          console.log('[Rich Text Placeholder] Icono rect:', iconRect);
-          console.log('[Rich Text Placeholder] EditableDiv rect:', editableRect);
-          
           // Solo calcular si el editableDiv tiene dimensiones válidas
           if (editableRect.width > 0 && editableRect.height > 0) {
             const relativeIconTop = iconRect.top - editableRect.top;
             const relativeIconBottom = iconRect.bottom - editableRect.top;
             const relativeIconLeft = iconRect.left - editableRect.left;
-            
-            console.log('[Rich Text Placeholder] Posiciones relativas:', {
-              iconTop: relativeIconTop,
-              iconBottom: relativeIconBottom,
-              iconLeft: relativeIconLeft,
-              iconCenterY: relativeIconTop + (iconRect.height / 2)
-            });
             
             // El icono está centrado verticalmente (top: 50%, transform: translateY(-50%))
             // Necesitamos alinear el placeholder con la línea base del texto
@@ -1545,16 +1477,6 @@ function setupRichTextToolbar(container: HTMLElement, textareaElement: HTMLTextA
             const offset = iconCenterY - textBaselineY;
             const adjustedTop = paddingTop + offset;
             
-            console.log('[Rich Text Placeholder] Cálculos de alineamiento:', {
-              iconCenterY,
-              fontSize,
-              lineHeight,
-              paddingTop,
-              textBaselineY,
-              offset,
-              adjustedTop
-            });
-            
             // Usar el valor calculado, asegurándonos de que sea positivo
             const finalTop = Math.max(0, adjustedTop);
             
@@ -1572,14 +1494,6 @@ function setupRichTextToolbar(container: HTMLElement, textareaElement: HTMLTextA
             // También actualizar las variables CSS para el placeholder
             editableDiv.style.setProperty('--placeholder-top', `${finalTop}px`);
             editableDiv.style.setProperty('--placeholder-left', paddingLeft);
-            
-            console.log('[Rich Text Placeholder] Variables CSS finales:', {
-              '--placeholder-top': `${finalTop}px`,
-              '--placeholder-left': paddingLeft,
-              'editableDiv padding actualizado': `${finalTop}px ${paddingRight} ${paddingBottom} ${paddingLeft}`
-            });
-          } else {
-            console.warn('[Rich Text Placeholder] EditableDiv aún no tiene dimensiones válidas');
           }
         }
       });
@@ -1623,7 +1537,6 @@ function setupRichTextToolbar(container: HTMLElement, textareaElement: HTMLTextA
       
       // Forzar que no haya borde
       if (toolbarBorderBottom && toolbarBorderBottom !== 'none' && toolbarBorderBottom !== '0px') {
-        console.warn(`[Rich Text] ⚠️ Línea divisoria detectada en focus, removiendo...`);
         toolbar.style.borderBottom = 'none';
         toolbar.style.borderTop = 'none';
       }
@@ -1636,7 +1549,6 @@ function setupRichTextToolbar(container: HTMLElement, textareaElement: HTMLTextA
     if (toolbar) {
       const toolbarBorderBottom = window.getComputedStyle(toolbar).borderBottom;
       if (toolbarBorderBottom && toolbarBorderBottom !== 'none' && toolbarBorderBottom !== '0px') {
-        console.warn(`[Rich Text] ⚠️ Línea divisoria detectada en hover, removiendo...`);
         toolbar.style.borderBottom = 'none';
         toolbar.style.borderTop = 'none';
       }

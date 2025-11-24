@@ -347,47 +347,25 @@ export function createPagination(options: PaginationOptions & { containerId?: st
   });
   
   // Agregar event listener para selector de items por página (usando List de UBITS)
-  console.log('🔍 [Pagination] Inicializando selector de items por página...');
-  console.log('🔍 [Pagination] showItemsPerPage:', paginationOptions.showItemsPerPage);
-  console.log('🔍 [Pagination] paginationElement:', paginationElement);
   
   const selectButton = paginationElement.querySelector('.ubits-pagination__select-button') as HTMLButtonElement;
   const listContainer = paginationElement.querySelector('.ubits-pagination__list-container') as HTMLElement;
   
-  console.log('🔍 [Pagination] selectButton encontrado:', !!selectButton);
-  console.log('🔍 [Pagination] listContainer encontrado:', !!listContainer);
   
   if (selectButton) {
-    console.log('🔍 [Pagination] selectButton:', {
-      id: selectButton.id,
-      className: selectButton.className,
-      textContent: selectButton.textContent,
-      dataListId: selectButton.getAttribute('data-list-id')
-    });
+    // Button found
   }
   
   if (listContainer) {
-    console.log('🔍 [Pagination] listContainer:', {
-      id: listContainer.id,
-      className: listContainer.className,
-      style: listContainer.style.cssText,
-      parentElement: listContainer.parentElement?.tagName
-    });
+    // Container found
   }
   
   if (selectButton && listContainer) {
     const listId = selectButton.getAttribute('data-list-id') || `ubits-pagination-list-${Date.now()}`;
     const currentValue = paginationOptions.itemsPerPage || paginationOptions.itemsPerPageOptions?.[0] || 10;
     
-    console.log('🔍 [Pagination] Configuración inicial:', {
-      listId,
-      currentValue,
-      itemsPerPageOptions: paginationOptions.itemsPerPageOptions
-    });
-    
     // Asegurar que el contenedor tenga el ID antes de usarlo
     listContainer.id = listId;
-    console.log('🔍 [Pagination] ID asignado al contenedor:', listContainer.id);
     
     // Convertir opciones a ListItems
     const listItems: ListItem[] = (paginationOptions.itemsPerPageOptions || [10, 20, 50, 100]).map(opt => ({
@@ -397,46 +375,24 @@ export function createPagination(options: PaginationOptions & { containerId?: st
       selected: opt === currentValue
     }));
     
-    console.log('🔍 [Pagination] ListItems creados:', listItems);
     
     let isOpen = false;
     
     const toggleDropdown = () => {
-      console.log('🔍 [Pagination] ========== toggleDropdown called ==========');
-      console.log('🔍 [Pagination] isOpen:', isOpen);
-      console.log('🔍 [Pagination] listContainer:', {
-        id: listContainer.id,
-        display: listContainer.style.display,
-        innerHTML: listContainer.innerHTML.substring(0, 100)
-      });
-      
       if (isOpen) {
-        console.log('🔍 [Pagination] Cerrando dropdown...');
         listContainer.style.display = 'none';
         selectButton.setAttribute('aria-expanded', 'false');
         isOpen = false;
-        console.log('🔍 [Pagination] Dropdown cerrado');
         return;
       }
       
-      console.log('🔍 [Pagination] Abriendo dropdown...');
       
       // Limpiar contenido previo
       listContainer.innerHTML = '';
-      console.log('🔍 [Pagination] Contenedor limpiado');
       
       // Mapear tamaño del paginador al tamaño del List
       const paginationSize = paginationOptions.size || 'md';
       const listSize: 'sm' | 'md' | 'lg' = paginationSize === 'sm' ? 'sm' : paginationSize === 'lg' ? 'lg' : 'md';
-      console.log('🔍 [Pagination] Tamaño del paginador:', paginationSize, '-> Tamaño del List:', listSize);
-      
-      console.log('🔍 [Pagination] Configuración de la lista:', {
-        containerId: listId,
-        itemsCount: listItems.length,
-        size: listSize,
-        containerExists: !!document.getElementById(listId),
-        containerElement: document.getElementById(listId)
-      });
       
       // Verificar que el contenedor existe antes de crear la lista
       const container = document.getElementById(listId);
@@ -452,17 +408,7 @@ export function createPagination(options: PaginationOptions & { containerId?: st
         return;
       }
       
-      console.log('✅ [Pagination] Container encontrado:', {
-        id: container.id,
-        tagName: container.tagName,
-        className: container.className,
-        parentElement: container.parentElement?.tagName,
-        style: container.style.cssText
-      });
-      
       try {
-        console.log('🔍 [Pagination] Llamando a createList...');
-        console.log('🔍 [Pagination] createList disponible:', typeof createList);
         
         const listElement = createList({
           containerId: listId,
@@ -470,18 +416,12 @@ export function createPagination(options: PaginationOptions & { containerId?: st
           size: listSize,
           maxHeight: 'none', // Altura dinámica según número de items
           onSelectionChange: (selectedItem, index) => {
-            console.log('🔍 [Pagination] ========== Item selected ==========');
-            console.log('🔍 [Pagination] selectedItem:', selectedItem);
-            console.log('🔍 [Pagination] index:', index);
-            console.log('🔍 [Pagination] itemsPerPageOptions:', paginationOptions.itemsPerPageOptions);
             
             if (selectedItem && paginationOptions.itemsPerPageOptions && paginationOptions.itemsPerPageOptions[index] !== undefined) {
               const value = paginationOptions.itemsPerPageOptions[index];
-              console.log('🔍 [Pagination] Valor seleccionado:', value);
               
               // Actualizar el texto del botón manteniendo el ícono
               const icon = selectButton.querySelector('i');
-              console.log('🔍 [Pagination] Icon encontrado:', !!icon);
               if (icon) {
                 selectButton.innerHTML = `${value} ${icon.outerHTML}`;
               } else {
@@ -493,7 +433,6 @@ export function createPagination(options: PaginationOptions & { containerId?: st
               isOpen = false;
               
               if (paginationOptions.onItemsPerPageChange) {
-                console.log('🔍 [Pagination] Llamando onItemsPerPageChange con:', value);
                 paginationOptions.onItemsPerPageChange(value);
               } else {
                 console.warn('⚠️ [Pagination] onItemsPerPageChange no está definido');
@@ -504,65 +443,32 @@ export function createPagination(options: PaginationOptions & { containerId?: st
           },
         });
         
-        console.log('✅ [Pagination] List created successfully');
-        console.log('🔍 [Pagination] listElement retornado:', {
-          tagName: listElement.tagName,
-          className: listElement.className,
-          id: listElement.id,
-          innerHTML: listElement.innerHTML.substring(0, 200)
-        });
-        
         // Verificar que el List se creó dentro del contenedor
         const createdList = container.querySelector('.ubits-list');
-        console.log('🔍 [Pagination] List dentro del contenedor:', {
-          found: !!createdList,
-          className: createdList?.className,
-          style: createdList ? window.getComputedStyle(createdList).display : 'N/A'
-        });
         
         listContainer.style.display = 'block';
         selectButton.setAttribute('aria-expanded', 'true');
         isOpen = true;
-        
-        console.log('✅ [Pagination] Dropdown abierto, display:', listContainer.style.display);
-        console.log('🔍 [Pagination] listContainer después de abrir:', {
-          display: window.getComputedStyle(listContainer).display,
-          visibility: window.getComputedStyle(listContainer).visibility,
-          opacity: window.getComputedStyle(listContainer).opacity,
-          height: window.getComputedStyle(listContainer).height,
-          width: window.getComputedStyle(listContainer).width
-        });
       } catch (error) {
         console.error('❌ [Pagination] Error creating items per page list:', error);
         console.error('❌ [Pagination] Error stack:', error instanceof Error ? error.stack : 'N/A');
       }
     };
     
-    console.log('🔍 [Pagination] Agregando event listener al botón...');
     selectButton.addEventListener('click', (e) => {
-      console.log('🔍 [Pagination] ========== Button clicked ==========');
-      console.log('🔍 [Pagination] Event:', {
-        type: e.type,
-        target: e.target,
-        currentTarget: e.currentTarget,
-        bubbles: e.bubbles
-      });
       e.stopPropagation();
       toggleDropdown();
     });
-    console.log('✅ [Pagination] Event listener agregado');
     
     // Cerrar al hacer clic fuera
     document.addEventListener('click', (e) => {
       if (isOpen && !listContainer.contains(e.target as Node) && !selectButton.contains(e.target as Node)) {
-        console.log('🔍 [Pagination] Clic fuera detectado, cerrando dropdown');
         listContainer.style.display = 'none';
         selectButton.setAttribute('aria-expanded', 'false');
         isOpen = false;
       }
     });
     
-    console.log('✅ [Pagination] Selector de items por página inicializado correctamente');
   } else {
     console.error('❌ [Pagination] Select button or list container not found');
     console.error('❌ [Pagination] selectButton:', selectButton);
@@ -570,7 +476,6 @@ export function createPagination(options: PaginationOptions & { containerId?: st
     console.error('❌ [Pagination] paginationElement HTML:', paginationElement.innerHTML.substring(0, 500));
   }
   
-  console.log('✅ [Pagination] Paginador creado exitosamente');
   return paginationElement;
 }
 

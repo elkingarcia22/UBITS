@@ -872,7 +872,6 @@ export const Default: Story = {
     const renderActionBar = (container: HTMLElement) => {
       const header = container.querySelector('.ubits-data-table__header');
       if (!header) {
-        console.log('🎯 [ACTION BAR] Header no encontrado');
         return;
       }
       
@@ -891,29 +890,21 @@ export const Default: Story = {
           background-color: var(--modifiers-normal-color-light-bg-1);
         `;
         header.insertAdjacentElement('afterend', actionBar);
-        console.log('🎯 [ACTION BAR] Barra creada');
       }
       
       // Contar selecciones
       const selectedCount = selectionState.selectedRowIds.size;
       const selectedIds = Array.from(selectionState.selectedRowIds);
-      console.log('🎯 [ACTION BAR] Renderizando - Selecciones:', {
-        count: selectedCount,
-        ids: selectedIds.slice(0, 10), // Mostrar solo los primeros 10
-        total: selectedIds.length
-      });
       
       // IMPORTANTE: Ocultar la barra si no hay selecciones, mostrarla si hay al menos una
       if (selectedCount === 0) {
         // Ocultar la barra cuando no hay selecciones
         actionBar.style.display = 'none';
-        console.log('🎯 [ACTION BAR] Barra ocultada - no hay selecciones');
         return; // Salir temprano si no hay selecciones
       }
       
       // Mostrar la barra cuando hay selecciones
       actionBar.style.display = 'flex';
-      console.log('🎯 [ACTION BAR] Barra mostrada - hay', selectedCount, 'selección(es)');
       
       const countText = `(${selectedCount})`;
       const isMultipleSelection = selectedCount > 1;
@@ -929,7 +920,6 @@ export const Default: Story = {
       
       if (isMultipleSelection) {
         // Si hay más de 1 selección: mostrar botones de acciones masivas (ver seleccionados, notificaciones y eliminar)
-        console.log('🎯 [ACTION BAR] Modo masivo - mostrando ver seleccionados, notificaciones y eliminar');
         
         const buttons: string[] = [];
         
@@ -970,7 +960,6 @@ export const Default: Story = {
         buttonsHTML = buttons.join('');
       } else {
         // Si hay 1 selección: mostrar todos los botones (menú individual)
-        console.log('🎯 [ACTION BAR] Modo individual - mostrando todos los botones');
         
         const buttons: string[] = [];
         
@@ -1078,7 +1067,6 @@ export const Default: Story = {
         const btn = actionBar.querySelector(`#action-btn-${action}`);
         if (btn) {
           btn.addEventListener('click', () => {
-            console.log(`Action: ${action}`, Array.from(selectionState.selectedRowIds));
           });
         }
       });
@@ -1157,7 +1145,6 @@ export const Default: Story = {
           icon: 'plus',
           iconStyle: 'regular',
           onClick: (e) => {
-            console.log('Botón primario clickeado');
             alert('Botón primario: ' + headerPrimaryButtonText);
           }
         } : undefined,
@@ -1168,7 +1155,6 @@ export const Default: Story = {
             icon: 'download',
             iconStyle: 'regular',
             onClick: (e) => {
-              console.log('Botón secundario 1 clickeado');
               alert('Exportar');
             }
           },
@@ -1177,7 +1163,6 @@ export const Default: Story = {
             icon: 'upload',
             iconStyle: 'regular',
             onClick: (e) => {
-              console.log('Botón secundario 2 clickeado');
               alert('Importar');
             }
           }
@@ -1187,19 +1172,15 @@ export const Default: Story = {
           placeholder: 'Buscar...',
           value: '',
           onChange: (value) => {
-            console.log('Búsqueda:', value);
           },
           onClick: (e) => {
-            console.log('Botón de búsqueda clickeado');
           },
           onSearch: (searchTerm, filteredRows) => {
-            console.log('Búsqueda realizada:', searchTerm, 'Filas encontradas:', filteredRows.length);
           }
         } : undefined,
         showSearchButton: showHeaderSearchButton,
         filterButton: showHeaderFilterButton ? {
           onClick: (e) => {
-            console.log('Botón de filtros clickeado');
             // Este onClick solo se ejecuta si no hay filtros configurados
           },
           // Los filtros se generan automáticamente basados en las columnas de la tabla
@@ -1213,16 +1194,13 @@ export const Default: Story = {
           //   }
           // ],
           onApplyFilters: (filters) => {
-            console.log('Filtros aplicados:', filters);
           },
           onClearFilters: () => {
-            console.log('Filtros limpiados');
           }
         } : undefined,
         showFilterButton: showHeaderFilterButton,
         columnSelectorButton: showHeaderColumnSelectorButton ? {
           onClick: (e) => {
-            console.log('Botón de seleccionar columnas clickeado');
             // El dropdown se maneja automáticamente, este onClick es opcional
           }
         } : undefined,
@@ -1237,7 +1215,6 @@ export const Default: Story = {
           actionLabel: (args as any).emptyStateNoDataActionLabel,
           showPrimaryButton: (args as any).emptyStateNoDataShowPrimaryButton || false,
           onAction: (args as any).emptyStateNoDataActionLabel ? () => {
-            console.log('Empty state - No data: acción ejecutada');
             alert('Acción ejecutada desde empty state (no hay datos)');
           } : undefined
         },
@@ -1248,7 +1225,6 @@ export const Default: Story = {
           actionLabel: (args as any).emptyStateNoSearchResultsActionLabel,
           showPrimaryButton: (args as any).emptyStateNoSearchResultsShowPrimaryButton || false,
           onAction: (args as any).emptyStateNoSearchResultsActionLabel ? () => {
-            console.log('Empty state - No search results: acción ejecutada');
             alert('Acción ejecutada desde empty state (no hay resultados de búsqueda)');
           } : undefined
         },
@@ -1259,7 +1235,6 @@ export const Default: Story = {
           actionLabel: (args as any).emptyStateNoFilterResultsActionLabel || 'Limpiar filtros',
           showPrimaryButton: (args as any).emptyStateNoFilterResultsShowPrimaryButton !== undefined ? (args as any).emptyStateNoFilterResultsShowPrimaryButton : true,
           onAction: () => {
-            console.log('Empty state - No filter results: limpiando filtros');
             // Limpiar filtros - esto se manejará automáticamente por el componente
             if (tableInstance) {
               // El componente manejará la limpieza de filtros
@@ -1269,14 +1244,12 @@ export const Default: Story = {
         }
       },
       onPageChange: (page) => {
-        console.log('Page changed to:', page);
         // En Storybook, actualizar el args para que se refleje en los controles
         if ((args as any).onPageChange) {
           (args as any).onPageChange(page);
         }
       },
       onItemsPerPageChange: (itemsPerPage) => {
-        console.log('Items per page changed to:', itemsPerPage);
         // En Storybook, actualizar el args para que se refleje en los controles
         if ((args as any).onItemsPerPageChange) {
           (args as any).onItemsPerPageChange(itemsPerPage);
@@ -1299,52 +1272,28 @@ export const Default: Story = {
         // Este callback es solo para notificar cambios externos si es necesario
       },
       onRowSelect: (rowId, selected) => {
-        console.log('🎯 [ROW SELECT] ========== INICIO ==========');
-        console.log('🎯 [ROW SELECT] rowId:', rowId, 'selected:', selected);
-        console.log('🎯 [ROW SELECT] Estado ANTES:', {
-          count: selectionState.selectedRowIds.size,
-          ids: Array.from(selectionState.selectedRowIds)
-        });
-        
         // Actualizar estado de selección
         if (selected) {
           selectionState.selectedRowIds.add(rowId);
-          console.log('🎯 [ROW SELECT] ✅ Fila agregada al estado');
         } else {
           selectionState.selectedRowIds.delete(rowId);
-          console.log('🎯 [ROW SELECT] ❌ Fila removida del estado');
         }
-        
-        console.log('🎯 [ROW SELECT] Estado DESPUÉS:', {
-          count: selectionState.selectedRowIds.size,
-          ids: Array.from(selectionState.selectedRowIds)
-        });
         
         // Actualizar barra de acciones
         const container = document.getElementById(tableContainerId);
         if (container) {
-          console.log('🎯 [ROW SELECT] Actualizando barra de acciones...');
           renderActionBar(container);
         } else {
           console.warn('🎯 [ROW SELECT] ⚠️ Container no encontrado:', tableContainerId);
         }
-        console.log('🎯 [ROW SELECT] ========== FIN ==========');
       },
       onSelectAll: (selected) => {
-        console.log('🎯 [SELECT ALL] ========== INICIO ==========');
-        console.log('🎯 [SELECT ALL] selected:', selected);
-        console.log('🎯 [SELECT ALL] Estado ANTES:', {
-          count: selectionState.selectedRowIds.size,
-          ids: Array.from(selectionState.selectedRowIds).slice(0, 10)
-        });
-        
         // Actualizar estado de selección - solo las filas visibles
         const container = document.getElementById(tableContainerId);
         if (container) {
           const table = container.querySelector('.ubits-data-table');
           if (table) {
             const checkboxes = table.querySelectorAll('input[type="checkbox"][data-column-id="checkbox-2"][data-row-id]');
-            console.log('🎯 [SELECT ALL] Checkboxes encontrados:', checkboxes.length);
             
             checkboxes.forEach((cb) => {
               const rowIdStr = cb.getAttribute('data-row-id');
@@ -1357,11 +1306,6 @@ export const Default: Story = {
                 }
               }
             });
-            
-            console.log('🎯 [SELECT ALL] Estado DESPUÉS:', {
-              count: selectionState.selectedRowIds.size,
-              ids: Array.from(selectionState.selectedRowIds).slice(0, 10)
-            });
           } else {
             console.warn('🎯 [SELECT ALL] ⚠️ Tabla no encontrada');
           }
@@ -1369,7 +1313,6 @@ export const Default: Story = {
         } else {
           console.warn('🎯 [SELECT ALL] ⚠️ Container no encontrado:', tableContainerId);
         }
-        console.log('🎯 [SELECT ALL] ========== FIN ==========');
       }
 };
 

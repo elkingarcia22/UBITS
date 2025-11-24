@@ -153,18 +153,6 @@ function renderSemicircularGauge(
   // El viewBox actual empieza en -30, así que el espacio en blanco es: topPoint.y + viewBoxPadding
   const espacioBlancoEnViewBox = topPoint.y + viewBoxPadding;
   
-  // Logs detallados sobre el espacio en blanco
-  console.log('🔍 [SVG] Análisis de espacio en blanco:', {
-    size,
-    centerY,
-    radius,
-    topPoint: { x: topPoint.x.toFixed(1), y: topPoint.y.toFixed(1) },
-    espacioBlancoSuperior: espacioBlancoSuperior.toFixed(1) + 'px',
-    viewBoxPadding,
-    viewBoxActual: `${-viewBoxPadding} ${-viewBoxPadding} ${viewBoxSize} ${viewBoxSize}`,
-    espacioBlancoEnViewBox: espacioBlancoEnViewBox.toFixed(1) + 'px',
-    recomendacion: `Ajustar viewBox para empezar en Y=${(topPoint.y - 10).toFixed(0)} en lugar de Y=${-viewBoxPadding}`
-  });
   
   // Ajustar viewBox para reducir espacio en blanco superior
   // Empezar el viewBox más abajo para recortar el espacio superior
@@ -229,16 +217,6 @@ function renderCategory(
   
   const percentageClass = 'ubits-body-md-bold';
   
-  // Logs para debugging
-  console.log('🔍 [NPSCard] renderCategory - Debug:', {
-    categoryLabel: category.label,
-    percentage,
-    size,
-    percentageClass,
-    labelClass,
-    valueClass,
-    generatedHTML: `<span class="ubits-nps-card__category-percentage ${percentageClass}">${percentage}%</span>`
-  });
   
   return `
     <div class="ubits-nps-card__category">
@@ -344,13 +322,6 @@ export function renderNPSCard(options: NPSCardOptions): string {
     `
     : '';
   
-  console.log('📏 [NPSCard] Espaciado calculado:', {
-    headerHTML: headerHTML ? 'presente' : 'ausente',
-    gaugeSize,
-    strokeWidth,
-    padding: strokeWidth / 2,
-    radius: (gaugeSize - (strokeWidth / 2) * 2) / 2
-  });
 
   // Calcular la posición del texto para alinearlo donde empieza la media luna
   // Esto debe coincidir con el cálculo en renderSemicircularGauge
@@ -365,13 +336,6 @@ export function renderNPSCard(options: NPSCardOptions): string {
   const textPositionY = textCenterY - (textRadius * 0.75); // 75% del radio desde el centro hacia arriba
   const textPositionPercent = (textPositionY / gaugeSize) * 100;
   
-  console.log('📍 [Texto] Posición calculada:', {
-    textCenterY: textCenterY.toFixed(1),
-    textRadius: textRadius.toFixed(1),
-    puntoMasAltoMediaLuna: puntoMasAltoMediaLuna.toFixed(1),
-    textPositionY: textPositionY.toFixed(1),
-    textPositionPercent: textPositionPercent.toFixed(2) + '%'
-  });
   
   // Renderizar gauge semicircular - wrapper simplificado sin espacio en blanco
   const gaugeHTML = showGauge
@@ -414,25 +378,6 @@ export function renderNPSCard(options: NPSCardOptions): string {
 
   // Logs detallados sobre el espacio en blanco entre título y gráfico
   const puntoMasAlto = textCenterY - textRadius;
-  
-  console.log('🔍 [NPSCard] Análisis de espacio en blanco:', {
-    gaugeSize,
-    strokeWidth,
-    padding: textPadding,
-    radius: textRadius,
-    centerY: textCenterY,
-    puntoMasAlto: puntoMasAlto.toFixed(1) + 'px',
-    espacioBlancoEnSVG: puntoMasAlto.toFixed(1) + 'px desde el top',
-    textPositionPercent: textPositionPercent.toFixed(2) + '%',
-    cssAplicado: {
-      cardPadding: '8px 12px 12px 12px',
-      cardGap: '0',
-      contentGap: 'var(--ubits-spacing-xs)',
-      headerMarginBottom: 'calc(var(--ubits-spacing-lg) * -1)',
-      contentMarginTop: 'calc(var(--ubits-spacing-lg) * -1)',
-      gaugeWrapper: 'display: inline-block, height: auto, margin: 0'
-    }
-  });
   
   return `
     <div class="${classes}" ${attrs}>

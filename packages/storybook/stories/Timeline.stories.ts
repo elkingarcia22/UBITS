@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { renderAvatar } from '../../addons/avatar/src/AvatarProvider';
-import type { AvatarOptions } from '../../addons/avatar/src/types/AvatarOptions';
+import { renderAvatar } from '../../components/avatar/src/AvatarProvider';
+import type { AvatarOptions } from '../../components/avatar/src/types/AvatarOptions';
 
 interface TimelineItem {
   date?: string;
@@ -867,16 +867,7 @@ export const Default: Story = {
       document.head.appendChild(style);
     }
     
-    // Cargar CSS del avatar si no está cargado
-    const avatarCSSId = 'ubits-avatar-css';
-    if (!document.getElementById(avatarCSSId)) {
-      const link = document.createElement('link');
-      link.id = avatarCSSId;
-      link.rel = 'stylesheet';
-      link.href = '../../addons/avatar/src/styles/avatar.css';
-      document.head.appendChild(link);
-    }
-    
+    // El CSS del avatar ya está cargado globalmente en preview.ts
     container.appendChild(infoPanel);
     container.appendChild(timelineContainer);
     

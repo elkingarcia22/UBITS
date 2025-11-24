@@ -62,16 +62,6 @@ export function renderBadge(options: BadgeOptions = {}): string {
     const textColor = style === 'bold' ? dotColor : 'var(--modifiers-normal-color-light-bg-1)'; // En bold, el número es del color de la variante; en light/neutral es blanco
     const dotBgColor = style === 'bold' ? 'var(--modifiers-normal-color-light-bg-1)' : dotColor; // En bold, el dot es blanco; en light/neutral es del color de la variante
     
-    // Logs de debug
-    console.log('🔍 DEBUG BadgeProvider - Generando badge:');
-    console.log('  - Variant:', variant, '-> normalized:', normalizedVariant);
-    console.log('  - Style:', style);
-    console.log('  - BadgeType:', badgeType);
-    console.log('  - BadgeContent:', badgeContent);
-    console.log('  - dotColor:', dotColor);
-    console.log('  - textColor:', textColor);
-    console.log('  - dotBgColor:', dotBgColor);
-    
     // Si es tipo number, el número debe estar DENTRO del círculo
     if (badgeType === 'number' && badgeContent) {
       // Para number, crear un círculo más grande que contenga el número
@@ -87,43 +77,11 @@ export function renderBadge(options: BadgeOptions = {}): string {
         const fontSize = size === 'xs' ? '10px' : size === 'sm' ? '11px' : size === 'md' ? '12px' : '13px';
         const dotHtml = `<span class="ubits-badge__dot ubits-badge__dot--number" style="width: ${numberDotSize}; height: ${numberDotSize}; min-width: ${numberDotSize}; background-color: var(--modifiers-normal-color-light-bg-1); border-radius: 50%; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; margin-right: 0; padding: 0; margin: 0; box-sizing: border-box; position: relative;"><span class="ubits-badge__number-inner" style="display: block !important; line-height: 1 !important; font-size: ${fontSize} !important; font-weight: 600 !important; color: ${dotColor} !important; text-align: center !important; margin: 0 !important; padding: 0 !important; position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; box-sizing: border-box !important;">${badgeContent}</span></span>`;
         badgeInnerContent = dotHtml;
-        
-        // Logs extensivos para debuggear centrado
-        console.log('🔍 DEBUG Badge Bold - Centrado del número:');
-        console.log('  - Style: bold');
-        console.log('  - Size:', size);
-        console.log('  - BadgeContent:', badgeContent);
-        console.log('  - numberDotSize:', numberDotSize);
-        console.log('  - fontSize:', fontSize);
-        console.log('  - dotColor:', dotColor);
-        console.log('  - HTML generado:', dotHtml);
-        console.log('  - Estilos inline aplicados:');
-        console.log('    - width:', numberDotSize);
-        console.log('    - height:', numberDotSize);
-        console.log('    - display: inline-flex');
-        console.log('    - align-items: center');
-        console.log('    - justify-content: center');
-        console.log('    - line-height: 1');
-        console.log('    - padding: 0');
-        console.log('    - margin: 0');
-        console.log('    - box-sizing: border-box');
-        console.log('    - text-align: center');
-        console.log('    - vertical-align: middle');
-        console.log('  - Bold dot HTML generado:');
-        console.log('    - numberDotSize:', numberDotSize);
-        console.log('    - fontSize:', fontSize);
-        console.log('    - color (dotColor):', dotColor);
-        console.log('    - background-color: var(--modifiers-normal-color-light-bg-1)');
       } else {
         // Para light/neutral, el número va dentro del dot de color
         const fontSize = size === 'xs' ? '10px' : size === 'sm' ? '11px' : size === 'md' ? '12px' : '13px';
         const dotHtml = `<span class="ubits-badge__dot ubits-badge__dot--number" style="width: ${numberDotSize}; height: ${numberDotSize}; min-width: ${numberDotSize}; background-color: ${dotBgColor}; border-radius: 50%; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; margin-right: 0; color: ${textColor}; font-size: ${fontSize}; font-weight: 600; line-height: 1; padding: 0; margin: 0;">${badgeContent}</span>`;
         badgeInnerContent = dotHtml;
-        console.log('  - Light/Neutral dot HTML generado:');
-        console.log('    - numberDotSize:', numberDotSize);
-        console.log('    - fontSize:', fontSize);
-        console.log('    - color (textColor):', textColor);
-        console.log('    - background-color (dotBgColor):', dotBgColor);
       }
     } else {
       // Si es tipo dot, mostrar el punto

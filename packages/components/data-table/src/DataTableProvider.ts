@@ -104,17 +104,6 @@ function renderCellByType(column: TableColumn, row: TableRow, columnType: Column
       const nombre = cellValue || cellData.nombre || cellData.name || '';
       const avatar = cellData.avatar || cellData.avatarUrl || null;
       
-      // Log para debugging
-      console.log('🖼️ [AVATAR] Renderizando nombre-avatar:', {
-        columnId: column.id,
-        rowId: row.id,
-        nombre: nombre,
-        avatar: avatar,
-        cellData: cellData,
-        hasAvatar: !!avatar,
-        avatarType: typeof avatar
-      });
-      
       // Obtener la variante del avatar desde la columna o usar por defecto
       const avatarVariant = column.avatarVariant || 'initials';
       
@@ -163,31 +152,26 @@ function renderCellByType(column: TableColumn, row: TableRow, columnType: Column
       } else if (avatarVariant === 'initials') {
         // Variante Initials: usar initials si están disponibles, sino generarlas del nombre (sin badge)
         if (avatar && typeof avatar === 'object' && avatar.initials) {
-          console.log('🖼️ [AVATAR] Usando initials del objeto avatar:', avatar.initials);
           avatarHTML = renderAvatar({
             initials: avatar.initials,
             size: 'sm'
           });
         } else {
           const initials = generateInitials(nombre);
-          console.log('🖼️ [AVATAR] Generando initials del nombre:', nombre, '->', initials);
           avatarHTML = renderAvatar({
             initials: initials,
             size: 'sm'
           });
         }
-        console.log('🖼️ [AVATAR] HTML generado (initials):', avatarHTML ? avatarHTML.substring(0, 100) : 'VACÍO');
       } else {
         // Variante Icon: usar icon si está disponible, sino usar 'user' por defecto (sin badge)
         const iconName = avatar && typeof avatar === 'object' && avatar.icon 
           ? avatar.icon 
           : 'user';
-        console.log('🖼️ [AVATAR] Usando icon:', iconName);
         avatarHTML = renderAvatar({
           icon: iconName,
           size: 'sm'
         });
-        console.log('🖼️ [AVATAR] HTML generado (icon):', avatarHTML ? avatarHTML.substring(0, 100) : 'VACÍO');
       }
       
       const isEditable = column.editable;
@@ -202,7 +186,6 @@ function renderCellByType(column: TableColumn, row: TableRow, columnType: Column
         </div>
       `;
       
-      console.log('🖼️ [AVATAR] HTML final:', finalHTML.substring(0, 200));
       
       return finalHTML;
     }
@@ -627,22 +610,6 @@ function renderCell(column: TableColumn, row: TableRow, pinnedLeft: number = 0):
     const cellStyle = `${controlStyles}${pinnedStyle ? ' ' + pinnedStyle : ''}`;
     const styleAttr = cellStyle ? ` style="${cellStyle}"` : '';
     
-    // Logs detallados para debugging
-    if (column.pinned) {
-      console.log('📌 [CELL TIPO] Columna fijada detectada:', {
-        columnId: column.id,
-        columnType: column.type,
-        rowId: row.id,
-        pinned: column.pinned,
-        pinnedLeft: pinnedLeft,
-        pinnedClass: pinnedClass,
-        pinnedStyle: pinnedStyle,
-        hasPinnedClass: pinnedClass.includes('pinned'),
-        hasPinnedStyle: pinnedStyle.includes('left'),
-        hasPositionStyle: pinnedStyle.includes('sticky')
-      });
-    }
-    
     // Agregar data-column-id siempre para poder diferenciar en CSS
     const dataAttrs = isEditable && (column.type === 'nombre' || column.type === 'nombre-avatar' || column.type === 'estado' || column.type === 'fecha') 
       ? `data-row-id="${row.id}" data-column-id="${column.id}" data-editable="true"${column.pinned ? ' data-pinned="true"' : ''}` 
@@ -667,20 +634,6 @@ function renderCell(column: TableColumn, row: TableRow, pinnedLeft: number = 0):
   // CRÍTICO: left: 0px es válido y necesario para la primera columna fijada
   const pinnedStyle = column.pinned ? ` style="position: sticky !important; left: ${pinnedLeft}px !important; z-index: 12 !important;"` : '';
   
-  // Logs detallados para debugging
-  if (column.pinned) {
-    console.log('📌 [CELL NORMAL] Columna fijada detectada:', {
-      columnId: column.id,
-      rowId: row.id,
-      pinned: column.pinned,
-      pinnedLeft: pinnedLeft,
-      pinnedClass: pinnedClass,
-      pinnedStyle: pinnedStyle,
-      hasPinnedClass: pinnedClass.includes('pinned'),
-      hasPinnedStyle: pinnedStyle.includes('left'),
-      hasPositionStyle: pinnedStyle.includes('sticky')
-    });
-  }
   
   return `
     <td class="ubits-data-table__cell${pinnedClass}" data-column-id="${column.id}"${column.pinned ? ' data-pinned="true"' : ''}${pinnedStyle}>
@@ -868,24 +821,11 @@ function renderColumnHeader(
   
   // Logs detallados para debugging (solo si es necesario)
   // if (column.pinned) {
-  //   console.log('📌 [HEADER] Columna fijada:', column.id, 'pinnedLeft:', pinnedLeft);
   // }
   
   // Construir el HTML del header
   // CRÍTICO: Siempre incluir el estilo si combinedStyle tiene contenido, incluso si es solo width
   const styleAttribute = combinedStyle ? `style="${combinedStyle}"` : '';
-  
-  // Log detallado antes de construir el HTML
-  if (column.pinned) {
-    console.log('📌 [HEADER PRE-HTML] Antes de construir HTML:', {
-      columnId: column.id,
-      pinned: column.pinned,
-      combinedStyle: combinedStyle,
-      combinedStyleLength: combinedStyle.length,
-      styleAttribute: styleAttribute,
-      willIncludeStyle: !!styleAttribute
-    });
-  }
   
   const headerHTML = `
     <th 
@@ -897,20 +837,6 @@ function renderColumnHeader(
       ${headerContent}
     </th>
   `;
-  
-  // Log del HTML generado para verificar que el estilo se incluyó
-  if (column.pinned) {
-    console.log('📌 [HEADER HTML] HTML generado para columna fijada:', {
-      columnId: column.id,
-      htmlLength: headerHTML.length,
-      htmlIncludesSticky: headerHTML.includes('sticky'),
-      htmlIncludesLeft: headerHTML.includes('left'),
-      htmlIncludesPosition: headerHTML.includes('position'),
-      htmlIncludesWidth: headerHTML.includes('width'),
-      styleAttributeInHTML: headerHTML.includes('style='),
-      htmlPreview: headerHTML.substring(0, 400)
-    });
-  }
   
   return headerHTML;
 }
@@ -949,7 +875,6 @@ function renderRow(row: TableRow, columns: TableColumn[], rowIndex: number, pinn
   if (isExpanded && row.renderExpandedContent) {
     const expandedContent = row.renderExpandedContent(row.data);
     const colspan = visibleColumns.length;
-    console.log('📋 [ROW RENDER] Fila expandida - rowId:', row.id, 'colspan:', colspan, 'tiene contenido:', !!expandedContent);
     rowHTML += `
       <tr class="ubits-data-table__row-expanded-row" data-expanded-for="${row.id}">
         <td class="ubits-data-table__row-expanded-content" colspan="${colspan}">
@@ -1016,14 +941,6 @@ function renderDataTableHeader(options: DataTableOptions, activeFilters: Record<
       const currentDisplayed = displayedItems !== undefined ? displayedItems : rows.length;
       const total = totalItems !== undefined ? totalItems : rows.length;
       counterText = `${currentDisplayed}/${total} resultados`;
-      console.log('🔢 [COUNTER] Calculando contador:', {
-        displayedItems,
-        totalItems,
-        rowsLength: rows.length,
-        currentDisplayed,
-        total,
-        counterText
-      });
     }
   }
   
@@ -1186,7 +1103,6 @@ export function renderDataTable(
   
   // Si showPagination está activo, desactivar lazy load automáticamente
   const isLazyLoadEnabled = showPagination ? false : (lazyLoad !== false); // Por defecto true si no hay paginación
-  console.log('🔍 [RENDER] isLazyLoadEnabled calculado:', isLazyLoadEnabled, '| showPagination:', showPagination, '| lazyLoad:', lazyLoad);
 
   // Logs de paginación - limpiados
 
@@ -1194,14 +1110,11 @@ export function renderDataTable(
   const seenIds = new Set<string>();
   const uniqueColumns = columns.filter(col => {
     if (seenIds.has(col.id)) {
-      console.log('🔍 [RENDER DATA TABLE] ⚠️ COLUMNA DUPLICADA ELIMINADA:', col.id, col.title);
       return false;
     }
     seenIds.add(col.id);
     return true;
   });
-  
-  console.log('🔍 [RENDER DATA TABLE] Columnas únicas:', uniqueColumns.length, 'de', columns.length, 'totales');
   
   // Filtrar columnas visibles
   let visibleColumns = uniqueColumns.filter(col => col.visible !== false);
@@ -1496,14 +1409,6 @@ export function renderDataTable(
   // Obtener el número de items cargados actualmente (se pasa desde createDataTable)
   const currentLoadedItems = (options as any).__lazyLoadCurrentItems || lazyLoadItemsPerBatch;
   
-  console.log('🔍 [RENDER] ========== FILAS DEBUG ==========');
-  console.log('🔍 [RENDER] orderedRows.length:', orderedRows.length);
-  console.log('🔍 [RENDER] showPagination:', showPagination);
-  console.log('🔍 [RENDER] isLazyLoadEnabled:', isLazyLoadEnabled);
-  console.log('🔍 [RENDER] lazyLoad option:', (options as any).lazyLoad);
-  console.log('🔍 [RENDER] currentLoadedItems:', currentLoadedItems);
-  console.log('🔍 [RENDER] lazyLoadItemsPerBatch:', lazyLoadItemsPerBatch);
-  
   if (showPagination) {
     // Modo paginación tradicional
     const totalRows = orderedRows.length;
@@ -1512,7 +1417,6 @@ export function renderDataTable(
     const startIndex = (validCurrentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     paginatedRows = orderedRows.slice(startIndex, endIndex);
-    console.log('🔍 [RENDER] Modo PAGINACIÓN - totalRows:', totalRows, 'paginatedRows:', paginatedRows.length);
     
     // Renderizar el paginador con configuración limpia (solo Anterior/Siguiente)
     try {
@@ -1539,13 +1443,7 @@ export function renderDataTable(
   } else if (isLazyLoadEnabled) {
     // Modo lazy load: mostrar solo los items cargados hasta ahora
     paginatedRows = orderedRows.slice(0, currentLoadedItems);
-    console.log('🔍 [RENDER] Modo LAZY LOAD - Mostrando', paginatedRows.length, 'de', orderedRows.length, 'filas');
-  } else {
-    console.log('🔍 [RENDER] Modo SIN PAGINACIÓN NI LAZY LOAD - Mostrando todas las filas:', orderedRows.length);
   }
-  
-  console.log('🔍 [RENDER] paginatedRows.length final:', paginatedRows.length);
-  console.log('🔍 [RENDER] ========== FIN FILAS DEBUG ==========');
   
   // Detectar si debemos mostrar empty state
   let emptyStateHTML = '';
@@ -1602,8 +1500,6 @@ export function renderDataTable(
     })
     .join('');
 
-  console.log('🔍 [RENDER] rowsHTML generado, número de <tr> en HTML:', (rowsHTML.match(/<tr/g) || []).length);
-  console.log('🔍 [RENDER] paginatedRows procesadas:', paginatedRows.length);
   
   // Si hay empty state, usar ese HTML en lugar de las filas
   const tbodyContent = emptyStateHTML || rowsHTML;
@@ -1663,7 +1559,6 @@ export function renderDataTable(
     // Si la altura estimada es mayor a 600px (altura típica de viewport), habilitar scroll
     if (estimatedHeight > 600) {
       finalShowVerticalScrollbar = true;
-      console.log('🔍 [RENDER] Habilitando scroll vertical automáticamente - altura estimada:', estimatedHeight, 'px');
     }
   }
   
@@ -1798,12 +1693,10 @@ export function createDataTable(options: DataTableOptions): {
         seenIds.add(col.id);
         unique.push({ ...col });
       } else {
-        console.log('🔍 [CREATE DATA TABLE] ⚠️ COLUMNA DUPLICADA ELIMINADA al inicializar:', col.id, col.title);
       }
     }
     
     if (unique.length !== cols.length) {
-      console.log('🔍 [CREATE DATA TABLE] Columnas duplicadas eliminadas:', cols.length, '->', unique.length);
     }
     
     return unique;
@@ -2003,7 +1896,6 @@ export function createDataTable(options: DataTableOptions): {
           
           if (newLoadedItems > lazyLoadCurrentItems) {
             lazyLoadCurrentItems = newLoadedItems;
-            console.log('📦 [LAZY LOAD] Cargando más items:', lazyLoadCurrentItems, 'de', totalRows);
             
             // Llamar callback si existe
             if (currentOptions.onLazyLoad) {
@@ -2029,7 +1921,6 @@ export function createDataTable(options: DataTableOptions): {
         
         if (newLoadedItems > lazyLoadCurrentItems) {
           lazyLoadCurrentItems = newLoadedItems;
-          console.log('📦 [LAZY LOAD] Cargando más items:', lazyLoadCurrentItems, 'de', totalRows);
           
           // Llamar callback si existe
           if (currentOptions.onLazyLoad) {
@@ -2051,7 +1942,6 @@ export function createDataTable(options: DataTableOptions): {
         if (retryScrollableContainer) {
           lazyLoadScrollListener = checkScroll;
           retryScrollableContainer.addEventListener('scroll', lazyLoadScrollListener, { passive: true });
-          console.log('✅ [LAZY LOAD] Contenedor scrollable encontrado después de esperar');
         } else {
           console.error('❌ [LAZY LOAD] No se pudo encontrar contenedor scrollable. El lazy load requiere scroll vertical activo.');
         }
@@ -2060,7 +1950,6 @@ export function createDataTable(options: DataTableOptions): {
       // Agregar listener al contenedor scrollable
       lazyLoadScrollListener = checkScroll;
       scrollableContainer.addEventListener('scroll', lazyLoadScrollListener, { passive: true });
-      console.log('✅ [LAZY LOAD] Listener agregado al contenedor scrollable');
     }
   };
 
@@ -2068,7 +1957,6 @@ export function createDataTable(options: DataTableOptions): {
   const initializeIconFallbacks = () => {
     const waIcons = element.querySelectorAll('wa-icon');
     
-    console.log('[DataTable] 🔍 Inicializando iconos fallback, encontrados:', waIcons.length);
     
     waIcons.forEach((waIcon, index) => {
       const faIcon = waIcon.nextElementSibling as HTMLElement;
@@ -2077,22 +1965,9 @@ export function createDataTable(options: DataTableOptions): {
       // Solo aplicar estilos especiales si está dentro de un drag handle
       const isDragHandle = parent && parent.classList.contains('ubits-data-table__column-drag-handle');
       
-      console.log(`[DataTable] Icono ${index + 1}:`, {
-        isDragHandle,
-        parentClass: parent?.className,
-        waIconDefined: !!customElements.get('wa-icon'),
-        hasFallback: faIcon && faIcon.tagName === 'I',
-        waIconTagName: (waIcon as HTMLElement).tagName,
-        parentTagName: parent?.tagName,
-        parentPosition: parent ? window.getComputedStyle(parent).position : null,
-        parentWidth: parent ? window.getComputedStyle(parent).width : null,
-        parentHeight: parent ? window.getComputedStyle(parent).height : null
-      });
-      
       if (faIcon && faIcon.tagName === 'I') {
         if (customElements.get('wa-icon')) {
           if (isDragHandle) {
-            console.log(`[DataTable] 🎯 Aplicando estilos de drag handle al wa-icon ${index + 1}`);
             // Para drag handles, usar posicionamiento absoluto para centrado perfecto
             (waIcon as HTMLElement).style.display = 'block';
             (waIcon as HTMLElement).style.width = '14px';
@@ -2105,38 +1980,13 @@ export function createDataTable(options: DataTableOptions): {
             (waIcon as HTMLElement).style.left = '50%';
             (waIcon as HTMLElement).style.transform = 'translate(-50%, -50%)';
             
-            // Log de estilos aplicados
+            // Estilos aplicados
             const appliedStyles = window.getComputedStyle(waIcon as HTMLElement);
-            console.log(`[DataTable] ✅ Estilos aplicados al wa-icon ${index + 1}:`, {
-              display: appliedStyles.display,
-              position: appliedStyles.position,
-              top: appliedStyles.top,
-              left: appliedStyles.left,
-              transform: appliedStyles.transform,
-              width: appliedStyles.width,
-              height: appliedStyles.height,
-              margin: appliedStyles.margin,
-              padding: appliedStyles.padding,
-              'getBoundingClientRect': (waIcon as HTMLElement).getBoundingClientRect()
-            });
             
             // Verificar estilos del parent
             if (parent) {
               const parentStyles = window.getComputedStyle(parent);
               const parentRect = parent.getBoundingClientRect();
-              console.log(`[DataTable] 📦 Estilos del parent (drag handle) ${index + 1}:`, {
-                display: parentStyles.display,
-                position: parentStyles.position,
-                width: parentStyles.width,
-                height: parentStyles.height,
-                padding: parentStyles.padding,
-                margin: parentStyles.margin,
-                'getBoundingClientRect': parentRect,
-                'iconOffsetFromParent': {
-                  left: (waIcon as HTMLElement).getBoundingClientRect().left - parentRect.left,
-                  top: (waIcon as HTMLElement).getBoundingClientRect().top - parentRect.top
-                }
-              });
             }
           } else {
             // Para otros iconos, mantener el comportamiento original
@@ -2150,7 +2000,6 @@ export function createDataTable(options: DataTableOptions): {
           // Si wa-icon no está definido, ocultar wa-icon y mostrar fallback
           (waIcon as HTMLElement).style.display = 'none';
           if (isDragHandle) {
-            console.log(`[DataTable] 🎯 Aplicando estilos de drag handle al fallback icon ${index + 1}`);
             faIcon.style.display = 'block';
             faIcon.style.fontSize = '14px';
             faIcon.style.width = '14px';
@@ -2166,41 +2015,14 @@ export function createDataTable(options: DataTableOptions): {
             faIcon.style.textAlign = 'center';
             faIcon.style.verticalAlign = 'middle';
             
-            // Log de estilos aplicados al fallback
+            // Estilos aplicados al fallback
             const appliedStyles = window.getComputedStyle(faIcon);
             const faIconRect = faIcon.getBoundingClientRect();
-            console.log(`[DataTable] ✅ Estilos aplicados al fallback icon ${index + 1}:`, {
-              display: appliedStyles.display,
-              position: appliedStyles.position,
-              top: appliedStyles.top,
-              left: appliedStyles.left,
-              transform: appliedStyles.transform,
-              width: appliedStyles.width,
-              height: appliedStyles.height,
-              'getBoundingClientRect': faIconRect
-            });
             
             // Verificar estilos del parent para fallback
             if (parent) {
               const parentStyles = window.getComputedStyle(parent);
               const parentRect = parent.getBoundingClientRect();
-              console.log(`[DataTable] 📦 Estilos del parent (drag handle) para fallback ${index + 1}:`, {
-                display: parentStyles.display,
-                position: parentStyles.position,
-                width: parentStyles.width,
-                height: parentStyles.height,
-                padding: parentStyles.padding,
-                margin: parentStyles.margin,
-                'getBoundingClientRect': parentRect,
-                'iconOffsetFromParent': {
-                  left: faIconRect.left - parentRect.left,
-                  top: faIconRect.top - parentRect.top,
-                  'expectedCenter': {
-                    left: parentRect.width / 2,
-                    top: parentRect.height / 2
-                  }
-                }
-              });
             }
           } else {
           faIcon.style.display = 'inline-block';
@@ -2212,32 +2034,11 @@ export function createDataTable(options: DataTableOptions): {
       }
     });
     
-    console.log('[DataTable] ✅ Finalizada inicialización de iconos fallback');
   };
 
   // Función para renderizar
   const render = (preserveScroll: boolean = false) => {
     const renderId = `render-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`;
-    const stackTrace = new Error().stack?.split('\n') || [];
-    const callerInfo = stackTrace.slice(1, 5).join('\n');
-    
-    console.log(`🔄 [RENDER] ========== INICIO RENDER [${renderId}] ==========`);
-    console.log(`🔄 [RENDER] Stack trace:`, callerInfo);
-    console.log(`🔄 [RENDER] preserveScroll:`, preserveScroll);
-    
-    // Detectar si se está llamando desde el handler de select all o checkbox
-    const isFromSelectAll = callerInfo.includes('SELECT ALL') || callerInfo.includes('selectAll');
-    const isFromCheckbox = callerInfo.includes('CHECKBOX') || callerInfo.includes('checkbox');
-    const isFromSelectAllHandler = callerInfo.includes('HTMLInputElement') && isFromCheckbox;
-    
-    if (isFromSelectAll || isFromSelectAllHandler) {
-      console.warn(`🔄 [RENDER] ⚠️ RENDER LLAMADO DESDE SELECT ALL O CHECKBOX HANDLER - Esto puede causar el salto!`, {
-        isFromSelectAll,
-        isFromCheckbox,
-        isFromSelectAllHandler,
-        callerInfo: callerInfo.split('\n').slice(0, 3)
-      });
-    }
     
     // IMPORTANTE: Siempre guardar scroll position para evitar el "salto" visual
     // Esto es crítico cuando se seleccionan todos los elementos o se hacen cambios que requieren re-render
@@ -2257,26 +2058,13 @@ export function createDataTable(options: DataTableOptions): {
       const hasScrollableContent = savedScrollHeight > savedClientHeight;
       if (hasScrollableContent && !preserveScroll) {
         shouldPreserveScroll = true;
-        console.log(`🔄 [RENDER] 📍 Contenido con scroll detectado (scrollHeight: ${savedScrollHeight}px > clientHeight: ${savedClientHeight}px), preservando automáticamente para evitar salto`);
       }
       
       // Si hay scroll activo (scrollTop > 0), también preservarlo
       if (savedScrollTop > 0 && !preserveScroll && !shouldPreserveScroll) {
         shouldPreserveScroll = true;
-        console.log(`🔄 [RENDER] 📍 Scroll activo detectado (${savedScrollTop}px), preservando automáticamente para evitar salto`);
       }
-      
-      console.log(`🔄 [RENDER] 📍 Scroll guardado:`, {
-        scrollTop: savedScrollTop,
-        scrollHeight: savedScrollHeight,
-        clientHeight: savedClientHeight,
-        maxScroll: savedScrollHeight - savedClientHeight,
-        scrollPercentage: savedScrollHeight > savedClientHeight ? (savedScrollTop / (savedScrollHeight - savedClientHeight)) * 100 : 0,
-        shouldPreserve: shouldPreserveScroll,
-        hasScrollableContent: hasScrollableContent
-      });
     } else {
-      console.log(`🔄 [RENDER] ⚠️ No se encontró scrollableContainer, no se puede preservar scroll`);
     }
     
     // Filtrar filas por filtros y búsqueda
@@ -2323,34 +2111,19 @@ export function createDataTable(options: DataTableOptions): {
     };
     
     // Eliminar columnas duplicadas por ID antes de renderizar
-    console.log('🔍 [RENDER] Eliminando columnas duplicadas antes de renderizar...');
-    console.log('🔍 [RENDER] Columnas ANTES de eliminar duplicados:', renderOptions.columns.length);
-    console.log('🔍 [RENDER] IDs de columnas:', renderOptions.columns.map(c => c.id));
     
     const seenColumnIds = new Set<string>();
     const uniqueColumns = renderOptions.columns.filter(col => {
       if (seenColumnIds.has(col.id)) {
-        console.log('🔍 [RENDER] ⚠️ COLUMNA DUPLICADA ELIMINADA:', col.id, col.title);
         return false;
       }
       seenColumnIds.add(col.id);
       return true;
     });
     
-    console.log('🔍 [RENDER] Columnas DESPUÉS de eliminar duplicados:', uniqueColumns.length);
-    console.log('🔍 [RENDER] IDs únicos:', Array.from(seenColumnIds));
     
     // Actualizar renderOptions con columnas únicas
     renderOptions.columns = uniqueColumns;
-    
-    console.log('🔍 [DATA TABLE] Renderizando:', {
-      displayedItems: renderOptions.header?.displayedItems,
-      totalItems: renderOptions.header?.totalItems,
-      filteredRows: filteredRows.length,
-      hasSearch: !!searchTerm,
-      hasFilters: Object.keys(activeFilters).length > 0,
-      uniqueColumnsCount: uniqueColumns.length
-    });
     
     const newHTML = renderDataTable(
       renderOptions as any, 
@@ -2359,19 +2132,9 @@ export function createDataTable(options: DataTableOptions): {
       activeFilters
     );
     
-    console.log(`🔄 [RENDER] HTML generado, longitud:`, newHTML.length);
-    console.log(`🔄 [RENDER] Reemplazando innerHTML del elemento (esto causa el brinco)...`);
-    console.log(`🔄 [RENDER] 📍 Estado ANTES de innerHTML:`, {
-      scrollTop: savedScrollTop,
-      scrollHeight: savedScrollHeight,
-      clientHeight: savedClientHeight,
-      shouldPreserve: shouldPreserveScroll
-    });
     const beforeReplace = performance.now();
     element.innerHTML = newHTML.trim();
     const afterReplace = performance.now();
-    console.log(`🔄 [RENDER] innerHTML reemplazado en ${(afterReplace - beforeReplace).toFixed(2)}ms`);
-    console.log(`🔄 [RENDER] 📍 innerHTML reemplazado, ahora restaurando scroll...`);
     
     // Reemplazar el SearchButton renderizado con el componente completo si existe
     if (currentOptions.header?.searchButton && currentOptions.header?.showSearchButton !== false) {
@@ -2416,11 +2179,6 @@ export function createDataTable(options: DataTableOptions): {
               render();
               if (currentOptions.header!.searchButton!.onSearch) {
                 const filteredRows = filterRowsBySearch(currentOptions.rows, value, currentOptions.columns);
-                console.log('🔍 [SEARCH] onSearch callback ejecutado desde SearchButton onChange:', { 
-                  searchTerm: value, 
-                  filteredRowsCount: filteredRows.length,
-                  componentId: currentOptions.containerId 
-                });
                 currentOptions.header!.searchButton!.onSearch(value, filteredRows);
               }
             },
@@ -2460,7 +2218,6 @@ export function createDataTable(options: DataTableOptions): {
           // Remover el width inline que viene del componente SearchButton
           // Esto permite que el componente se expanda naturalmente sin forzar un ancho fijo
           if (isSearchActive && (searchButtonElement as HTMLElement).style.width) {
-            console.log('🔍 [DATA TABLE] Removiendo width inline:', (searchButtonElement as HTMLElement).style.width);
             (searchButtonElement as HTMLElement).style.width = '';
           }
           
@@ -2503,7 +2260,6 @@ export function createDataTable(options: DataTableOptions): {
               }
             };
             
-            console.log('🔍 [DATA TABLE] Posicionamiento del SearchButton activo:', gapInfo);
             
             // Si el gap no es 8px, calcular el margin-left correcto
             if (Math.abs(gapInfo.actualGap - 8) > 1) {
@@ -2512,29 +2268,16 @@ export function createDataTable(options: DataTableOptions): {
               const currentGap = gapInfo.actualGap;
               const desiredGap = 8;
               const neededMarginLeft = -(inputWidth - buttonWidth - desiredGap);
-              
-              console.log('🔍 [DATA TABLE] Cálculo de margin-left:', {
-                buttonWidth,
-                inputWidth,
-                currentGap,
-                desiredGap,
-                neededMarginLeft,
-                currentMarginLeft: computedStyle.marginLeft
-              });
             }
           }
         }, 100);
         
-        console.log('🔍 [DATA TABLE] SearchButton componente completo integrado');
       }
     }
     
-    console.log(`🔄 [RENDER] Llamando attachEventListeners()...`);
     attachEventListeners();
-    console.log(`🔄 [RENDER] attachEventListeners() completado`);
     initializeIconFallbacks();
     
-    console.log(`🔄 [RENDER] ========== FIN RENDER [${renderId}] ==========`);
     
     // Verificar espaciado del paginador después del renderizado
     if (currentOptions.showPagination) {
@@ -2556,7 +2299,6 @@ export function createDataTable(options: DataTableOptions): {
     const shouldRestoreScroll = shouldPreserveScroll || (savedScrollHeight > 0 && savedClientHeight > 0 && savedScrollHeight > savedClientHeight);
     
     if (shouldRestoreScroll) {
-      console.log(`🔄 [RENDER] 📍 Restaurando scroll después del render...`);
       
         // Usar requestAnimationFrame para asegurar que el DOM esté completamente renderizado
         requestAnimationFrame(() => {
@@ -2566,57 +2308,20 @@ export function createDataTable(options: DataTableOptions): {
           const newClientHeight = newScrollableContainer.clientHeight;
           const newMaxScroll = newScrollHeight - newClientHeight;
           
-            // Calcular la posición relativa del scroll (0-1)
-            const oldMaxScroll = savedScrollHeight - savedClientHeight;
-            const scrollPercentage = oldMaxScroll > 0 ? savedScrollTop / oldMaxScroll : 0;
-            
-          console.log(`🔄 [RENDER] 📍 Cálculo de restauración de scroll:`, {
-            old: {
-              scrollTop: savedScrollTop,
-              scrollHeight: savedScrollHeight,
-              clientHeight: savedClientHeight,
-              maxScroll: oldMaxScroll
-            },
-            new: {
-              scrollHeight: newScrollHeight,
-              clientHeight: newClientHeight,
-              maxScroll: newMaxScroll
-            },
-            scrollPercentage: (scrollPercentage * 100).toFixed(2) + '%',
-            newScrollTop: newMaxScroll > 0 ? scrollPercentage * newMaxScroll : 0
-          });
-            
-            if (newMaxScroll > 0) {
+          // Calcular la posición relativa del scroll (0-1)
+          const oldMaxScroll = savedScrollHeight - savedClientHeight;
+          const scrollPercentage = oldMaxScroll > 0 ? savedScrollTop / oldMaxScroll : 0;
+          
+          if (newMaxScroll > 0) {
             const newScrollTop = scrollPercentage * newMaxScroll;
             newScrollableContainer.scrollTop = newScrollTop;
-            
-            console.log(`🔄 [RENDER] 📍 Scroll restaurado:`, {
-              anterior: savedScrollTop,
-              nuevo: newScrollTop,
-              diferencia: Math.abs(newScrollTop - savedScrollTop),
-              restauradoCorrectamente: Math.abs(newScrollTop - savedScrollTop) < 10 // Tolerancia de 10px
-            });
-          } else {
-            console.log(`🔄 [RENDER] ⚠️ No hay scroll disponible (maxScroll <= 0), no se puede restaurar`);
-            }
-        } else {
-          console.log(`🔄 [RENDER] ⚠️ No se encontró scrollableContainer después del render, no se puede restaurar scroll`);
           }
-        });
-    } else {
-      console.log(`🔄 [RENDER] 📍 No se restaura scroll:`, {
-        shouldPreserve: shouldPreserveScroll,
-        savedScrollHeight,
-        savedClientHeight,
-        tieneScroll: savedScrollHeight > savedClientHeight,
-        shouldRestore: shouldRestoreScroll
+        }
       });
     }
     
     // Logs para debugging del hover y visibilidad
-    console.log('🎨 [HOVER DEBUG] ========== VERIFICANDO HOVER DE FILAS ==========');
     const rows = element.querySelectorAll('.ubits-data-table__row');
-    console.log('🎨 [HOVER DEBUG] Filas encontradas:', rows.length);
     
     // Verificar alturas y visibilidad
     const table = element.querySelector('.ubits-data-table__table') as HTMLElement;
@@ -2624,92 +2329,38 @@ export function createDataTable(options: DataTableOptions): {
     const scrollableContainerForDebug = element.querySelector('.ubits-data-table__scrollable-container') as HTMLElement;
     const dataTableContainer = element.querySelector('.ubits-data-table') as HTMLElement;
     
-    console.log('📏 [HEIGHT DEBUG] ========== VERIFICANDO ALTURAS ==========');
     if (table) {
-      console.log('📏 [HEIGHT DEBUG] table.scrollHeight:', table.scrollHeight, 'table.clientHeight:', table.clientHeight, 'table.offsetHeight:', table.offsetHeight);
     }
     if (tbody) {
-      console.log('📏 [HEIGHT DEBUG] tbody.scrollHeight:', tbody.scrollHeight, 'tbody.clientHeight:', tbody.clientHeight, 'tbody.offsetHeight:', tbody.offsetHeight);
     }
     if (scrollableContainerForDebug) {
-      console.log('📏 [HEIGHT DEBUG] scrollableContainer.scrollHeight:', scrollableContainerForDebug.scrollHeight, 'scrollableContainer.clientHeight:', scrollableContainerForDebug.clientHeight, 'scrollableContainer.offsetHeight:', scrollableContainerForDebug.offsetHeight);
-      console.log('📏 [HEIGHT DEBUG] scrollableContainer max-height:', window.getComputedStyle(scrollableContainerForDebug).maxHeight);
     }
     if (dataTableContainer) {
-      console.log('📏 [HEIGHT DEBUG] dataTableContainer.scrollHeight:', dataTableContainer.scrollHeight, 'dataTableContainer.clientHeight:', dataTableContainer.clientHeight, 'dataTableContainer.offsetHeight:', dataTableContainer.offsetHeight);
-      console.log('📏 [HEIGHT DEBUG] dataTableContainer max-height:', window.getComputedStyle(dataTableContainer).maxHeight);
     }
     if (rows.length > 0) {
       const firstRow = rows[0] as HTMLElement;
       const secondRow = rows[1] as HTMLElement;
       const lastRow = rows[rows.length - 1] as HTMLElement;
       
-      console.log('📏 [HEIGHT DEBUG] ========== COMPARACIÓN DE FILAS ==========');
       const firstRect = firstRow.getBoundingClientRect();
       const secondRect = secondRow ? secondRow.getBoundingClientRect() : null;
       const lastRect = lastRow.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       const viewportTop = window.scrollY || window.pageYOffset;
       
-      console.log('📏 [HEIGHT DEBUG] Primera fila (funciona):');
-      console.log('  - offsetTop:', firstRow.offsetTop);
-      console.log('  - offsetHeight:', firstRow.offsetHeight);
-      console.log('  - getBoundingClientRect:', {
-        top: firstRect.top,
-        bottom: firstRect.bottom,
-        left: firstRect.left,
-        right: firstRect.right,
-        width: firstRect.width,
-        height: firstRect.height,
-        visibleInViewport: firstRect.top >= 0 && firstRect.bottom <= viewportHeight
-      });
-      
       if (secondRow && secondRect) {
-        console.log('📏 [HEIGHT DEBUG] Segunda fila (no funciona):');
-        console.log('  - offsetTop:', secondRow.offsetTop);
-        console.log('  - offsetHeight:', secondRow.offsetHeight);
-        console.log('  - getBoundingClientRect:', {
-          top: secondRect.top,
-          bottom: secondRect.bottom,
-          left: secondRect.left,
-          right: secondRect.right,
-          width: secondRect.width,
-          height: secondRect.height,
-          visibleInViewport: secondRect.top >= 0 && secondRect.bottom <= viewportHeight,
-          belowViewport: secondRect.top > viewportHeight,
-          aboveViewport: secondRect.bottom < 0
-        });
-        console.log('  - viewportHeight:', viewportHeight);
-        console.log('  - Diferencia con primera fila (offsetTop):', secondRow.offsetTop - firstRow.offsetTop);
-        console.log('  - Diferencia con primera fila (getBoundingClientRect.top):', secondRect.top - firstRect.top);
+        // Second row found
       }
       
-      console.log('📏 [HEIGHT DEBUG] Última fila:');
-      console.log('  - offsetTop:', lastRow.offsetTop);
-      console.log('  - offsetHeight:', lastRow.offsetHeight);
-      console.log('  - getBoundingClientRect:', lastRow.getBoundingClientRect());
-      console.log('📏 [HEIGHT DEBUG] Altura total estimada (última fila offsetTop + offsetHeight):', lastRow.offsetTop + lastRow.offsetHeight);
-      console.log('📏 [HEIGHT DEBUG] ========== FIN COMPARACIÓN ==========');
     }
-    console.log('📏 [HEIGHT DEBUG] ========== FIN ALTURAS ==========');
     
     rows.forEach((row, index) => {
       if (index === 0) { // Solo log de la primera fila para no saturar
         const cells = row.querySelectorAll('td');
-        console.log('🎨 [HOVER DEBUG] Celdas en la primera fila:', cells.length);
         cells.forEach((cell, cellIndex) => {
           const cellElement = cell as HTMLElement;
           const classes = Array.from(cellElement.classList);
           const computedBg = window.getComputedStyle(cellElement).backgroundColor;
-          console.log(`🎨 [HOVER DEBUG] Celda ${cellIndex}:`, {
-            classes: classes,
-            computedBackground: computedBg,
-            hasDragHandle: classes.includes('ubits-data-table__cell--drag-handle'),
-            hasExpand: classes.includes('ubits-data-table__cell--expand'),
-            hasCheckbox: classes.includes('ubits-data-table__cell--checkbox'),
-            hasControlsColumn: classes.includes('ubits-data-table__controls-column'),
-            hasCell: classes.includes('ubits-data-table__cell')
-          });
         });
       }
     });
@@ -2718,23 +2369,15 @@ export function createDataTable(options: DataTableOptions): {
     if (rows.length > 0) {
       const firstRow = rows[0] as HTMLElement;
       firstRow.addEventListener('mouseenter', () => {
-        console.log('🎨 [HOVER DEBUG] ========== HOVER ENTRÓ EN FILA ==========');
         const cells = firstRow.querySelectorAll('td');
         cells.forEach((cell, index) => {
           const cellElement = cell as HTMLElement;
           const classes = Array.from(cellElement.classList);
           const computedBg = window.getComputedStyle(cellElement).backgroundColor;
-          console.log(`🎨 [HOVER DEBUG] Celda ${index} en hover:`, {
-            classes: classes,
-            computedBackground: computedBg,
-            hasDragHandle: classes.includes('ubits-data-table__cell--drag-handle'),
-            hasExpand: classes.includes('ubits-data-table__cell--expand')
-          });
         });
       });
       
       firstRow.addEventListener('mouseleave', () => {
-        console.log('🎨 [HOVER DEBUG] ========== HOVER SALIÓ DE FILA ==========');
       });
     }
     
@@ -2751,89 +2394,56 @@ export function createDataTable(options: DataTableOptions): {
         
         // Aplicar indeterminate al input nativo
         headerInput.indeterminate = isIndeterminate;
-        console.log('📋 [INDETERMINATE] Header checkbox', columnId, '- indeterminate:', isIndeterminate, '(allChecked:', allChecked, 'someChecked:', someChecked, ')');
       }
     });
     
     // Logs para verificar espaciado del paginador
     const checkPaginationSpacing = () => {
       try {
-        console.log('📄 [SPACING] ========== VERIFICANDO ESPACIADO DEL PAGINADOR ==========');
         
         // Buscar el contenedor principal
         const container = element.closest('.ubits-data-table__container') || element.querySelector('.ubits-data-table__container') as HTMLElement;
-        console.log('📄 [SPACING] Container encontrado:', !!container);
         
         if (container) {
           const containerComputed = window.getComputedStyle(container);
-          console.log('📄 [SPACING] Container estilos:');
-          console.log('  - display:', containerComputed.display);
-          console.log('  - flexDirection:', containerComputed.flexDirection);
-          console.log('  - gap:', containerComputed.gap);
           
           // Buscar el contenedor de la tabla (scrollable o tabla directa)
           const tableContainer = container.querySelector('.ubits-data-table__scrollable-container') as HTMLElement || 
                                 container.querySelector('.ubits-data-table') as HTMLElement;
-          console.log('📄 [SPACING] Table container encontrado:', !!tableContainer);
           
           // Buscar la tabla real dentro del contenedor
           const actualTable = tableContainer?.querySelector('.ubits-data-table__table') as HTMLElement || tableContainer;
           
           // Buscar la última fila
           const lastRow = actualTable?.querySelector('.ubits-data-table__row:last-child') as HTMLElement;
-          console.log('📄 [SPACING] Última fila encontrada:', !!lastRow);
           
           if (tableContainer) {
             const tableComputed = window.getComputedStyle(tableContainer);
-            console.log('📄 [SPACING] Table container estilos:');
-            console.log('  - marginBottom:', tableComputed.marginBottom);
-            console.log('  - paddingBottom:', tableComputed.paddingBottom);
-            console.log('  - borderBottom:', tableComputed.borderBottom);
             
             if (lastRow) {
               const lastRowRect = lastRow.getBoundingClientRect();
-              console.log('📄 [SPACING] Última fila posición:');
-              console.log('  - bottom:', lastRowRect.bottom);
             }
           }
           
           // Buscar el paginador
           const paginationWrapper = container.querySelector('.ubits-data-table__pagination-wrapper') as HTMLElement;
-          console.log('📄 [SPACING] Pagination wrapper encontrado:', !!paginationWrapper);
           
           if (paginationWrapper) {
             const paginationComputed = window.getComputedStyle(paginationWrapper);
-            console.log('📄 [SPACING] Pagination wrapper estilos:');
-            console.log('  - marginTop:', paginationComputed.marginTop);
-            console.log('  - marginBottom:', paginationComputed.marginBottom);
-            console.log('  - paddingTop:', paginationComputed.paddingTop);
-            console.log('  - paddingBottom:', paginationComputed.paddingBottom);
-            console.log('  - borderTop:', paginationComputed.borderTop);
             
             const paginationRect = paginationWrapper.getBoundingClientRect();
-            console.log('📄 [SPACING] Pagination wrapper posición:');
-            console.log('  - top:', paginationRect.top);
             
             // Calcular distancia entre última fila y paginador
             if (lastRow) {
               const lastRowRect = lastRow.getBoundingClientRect();
               const distance = paginationRect.top - lastRowRect.bottom;
-              console.log('📄 [SPACING] DISTANCIA CALCULADA:');
-              console.log('  - Última fila bottom:', lastRowRect.bottom);
-              console.log('  - Paginador top:', paginationRect.top);
-              console.log('  - DISTANCIA:', distance, 'px');
-              console.log('  - Esperado: 16px');
             } else {
-              console.log('📄 [SPACING] ⚠️ No se pudo calcular distancia: última fila no encontrada');
             }
           } else {
-            console.log('📄 [SPACING] ⚠️ Pagination wrapper NO encontrado');
           }
         } else {
-          console.log('📄 [SPACING] ⚠️ Container NO encontrado');
         }
         
-        console.log('📄 [SPACING] ========== FIN VERIFICACIÓN ==========');
       } catch (error) {
         console.error('📄 [SPACING] ❌ Error verificando espaciado:', error);
       }
@@ -2843,7 +2453,6 @@ export function createDataTable(options: DataTableOptions): {
   
   // Función para adjuntar event listeners
   const attachEventListeners = () => {
-    console.log(`📎 [ATTACH] ========== INICIO attachEventListeners ==========`);
     // Detectar si estamos en la web (no en Storybook)
     const isWeb = typeof window !== 'undefined' && window.location && !window.location.href.includes('storybook');
     
@@ -3108,11 +2717,9 @@ export function createDataTable(options: DataTableOptions): {
     // IMPORTANTE: Primero configurar los checkboxes del header (select all) para que tengan prioridad
     // Checkboxes de header de columnas de checkbox (para seleccionar todos en esa columna)
     const columnCheckboxHeaders = element.querySelectorAll('input[data-column-checkbox-header]');
-    console.log(`☑️ [SELECT ALL] Header checkboxes encontrados: ${columnCheckboxHeaders.length}`);
     columnCheckboxHeaders.forEach((checkbox, index) => {
       const originalCheckbox = checkbox as HTMLInputElement;
       const columnId = originalCheckbox.getAttribute('data-column-checkbox-header');
-      console.log(`☑️ [SELECT ALL] Configurando header checkbox ${index}: columnId=${columnId}`);
       
       // Remover listeners anteriores si existen para evitar duplicados
       const newCheckbox = originalCheckbox.cloneNode(true) as HTMLInputElement;
@@ -3131,55 +2738,10 @@ export function createDataTable(options: DataTableOptions): {
       });
       originalCheckbox.parentNode?.replaceChild(newCheckbox, originalCheckbox);
       
-      console.log(`☑️ [SELECT ALL] Checkbox clonado y reemplazado:`, {
-        columnId: columnId,
-        hasHeaderAttr: newCheckbox.hasAttribute('data-column-checkbox-header'),
-        checked: newCheckbox.checked,
-        allAttributes: Array.from(newCheckbox.attributes).map(attr => `${attr.name}="${attr.value}"`)
-      });
-      
-      console.log(`☑️ [SELECT ALL] Listener adjuntado al header checkbox ${index}`, {
-        columnId: columnId,
-        checkbox: newCheckbox,
-        hasHeaderAttr: newCheckbox.hasAttribute('data-column-checkbox-header'),
-        hasColumnId: newCheckbox.hasAttribute('data-column-id'),
-        hasRowId: newCheckbox.hasAttribute('data-row-id'),
-        allAttributes: Array.from(newCheckbox.attributes).map(attr => `${attr.name}="${attr.value}"`)
-      });
-      
       // IMPORTANTE: Usar { capture: true } para que este listener se ejecute ANTES que otros listeners
       // Esto asegura que se ejecute en la fase de captura, antes que los listeners en la fase de burbujeo
-      console.log(`☑️ [SELECT ALL] 🔧 Agregando listener con capture:true al checkbox ${index}`);
-      console.log(`☑️ [SELECT ALL] 🔍 Estado del checkbox ANTES de agregar listener:`, {
-        element: newCheckbox,
-        isConnected: newCheckbox.isConnected,
-        hasHeaderAttr: newCheckbox.hasAttribute('data-column-checkbox-header'),
-        checked: newCheckbox.checked,
-        parentElement: newCheckbox.parentElement?.tagName,
-        allAttrs: Array.from(newCheckbox.attributes).map(a => `${a.name}="${a.value}"`)
-      });
       
       const selectAllHandler = (e: Event) => {
-        console.log(`☑️ [SELECT ALL] ========== SELECT ALL CAMBIÓ ==========`);
-        console.log(`☑️ [SELECT ALL] 🎯 HANDLER EJECUTÁNDOSE - timestamp: ${Date.now()}`);
-        console.log(`☑️ [SELECT ALL] 🔍 EVENTO RECIBIDO:`, {
-          eventPhase: e.eventPhase,
-          bubbles: e.bubbles,
-          cancelable: e.cancelable,
-          defaultPrevented: e.defaultPrevented,
-          isTrusted: e.isTrusted,
-          timeStamp: e.timeStamp,
-          target: e.target,
-          currentTarget: e.currentTarget,
-          targetType: (e.target as HTMLElement).tagName,
-          targetId: (e.target as HTMLElement).id,
-          targetClassName: (e.target as HTMLElement).className,
-          targetHasHeaderAttr: (e.target as HTMLElement).hasAttribute('data-column-checkbox-header'),
-          currentTargetHasHeaderAttr: (e.currentTarget as HTMLElement).hasAttribute('data-column-checkbox-header'),
-          targetAllAttrs: Array.from((e.target as HTMLElement).attributes).map(a => `${a.name}="${a.value}"`),
-          currentTargetAllAttrs: Array.from((e.currentTarget as HTMLElement).attributes).map(a => `${a.name}="${a.value}"`)
-        });
-        
         // IMPORTANTE: Detener la propagación INMEDIATAMENTE para evitar que otros listeners lo procesen
         // NO usar preventDefault() porque bloquea el cambio visual del checkbox
         e.stopPropagation();
@@ -3189,29 +2751,11 @@ export function createDataTable(options: DataTableOptions): {
         
         // IMPORTANTE: Verificar que el input tiene el atributo antes de continuar
         if (!input.hasAttribute('data-column-checkbox-header')) {
-          console.log(`☑️ [SELECT ALL] ⚠️ El input NO tiene data-column-checkbox-header, ignorando...`, {
-            input: input,
-            allAttributes: Array.from(input.attributes).map(attr => `${attr.name}="${attr.value}"`)
-          });
           return;
         }
         
         const currentColumnId = input.getAttribute('data-column-checkbox-header')!;
         const isChecked = input.checked;
-        
-        console.log(`☑️ [SELECT ALL] columnId: ${currentColumnId}, checked: ${isChecked}`, {
-          input: input,
-          hasHeaderAttr: input.hasAttribute('data-column-checkbox-header'),
-          hasColumnId: input.hasAttribute('data-column-id'),
-          hasRowId: input.hasAttribute('data-row-id'),
-          allAttributes: Array.from(input.attributes).map(attr => `${attr.name}="${attr.value}"`),
-          eventPhase: e.eventPhase,
-          bubbles: e.bubbles,
-          cancelable: e.cancelable,
-          defaultPrevented: e.defaultPrevented
-        });
-        
-        console.log(`☑️ [SELECT ALL] ✅ Propagación ya detenida (se detuvo al inicio del handler)`);
         
         // IMPORTANTE: Guardar el scroll ANTES de hacer cualquier cambio para poder restaurarlo después
         const scrollableContainerBefore = element.querySelector('.ubits-data-table__scrollable-container') as HTMLElement;
@@ -3222,35 +2766,25 @@ export function createDataTable(options: DataTableOptions): {
           savedScrollBeforeSelectAll = scrollableContainerBefore.scrollTop;
           savedScrollHeightBeforeSelectAll = scrollableContainerBefore.scrollHeight;
           savedClientHeightBeforeSelectAll = scrollableContainerBefore.clientHeight;
-          console.log(`☑️ [SELECT ALL] 📍 Scroll ANTES de actualizar checkboxes:`, {
-            scrollTop: savedScrollBeforeSelectAll,
-            scrollHeight: savedScrollHeightBeforeSelectAll,
-            clientHeight: savedClientHeightBeforeSelectAll,
-            maxScroll: savedScrollHeightBeforeSelectAll - savedClientHeightBeforeSelectAll
-          });
         } else {
-          console.log(`☑️ [SELECT ALL] ⚠️ No se encontró scrollableContainer antes de actualizar`);
         }
         
         // Actualizar todos los checkboxes de esa columna en todas las filas
         currentOptions.rows.forEach(row => {
           row.data[currentColumnId] = isChecked;
         });
-        console.log(`☑️ [SELECT ALL] Estado de todas las filas actualizado (${currentOptions.rows.length} filas)`);
         
         // Si es checkbox-2 (checkbox fijo), optimizar: actualizar checkboxes visibles sin re-renderizar toda la tabla
         if (currentColumnId === 'checkbox-2') {
           // Actualizar todos los checkboxes visibles en el DOM
           const visibleCheckboxes = element.querySelectorAll(`input[data-column-id="${currentColumnId}"][data-row-id]`);
-          console.log(`☑️ [SELECT ALL] Checkboxes visibles encontrados: ${visibleCheckboxes.length}`);
           
           // IMPORTANTE: Activar bandera ANTES de actualizar para prevenir que handlers individuales se ejecuten
           isSelectAllInProgress = true;
-          console.log(`☑️ [SELECT ALL] 🚩 Bandera isSelectAllInProgress activada`);
           
           // IMPORTANTE: Actualizar los checkboxes de forma SÍNCRONA para que se muestren inmediatamente
           // No usar requestAnimationFrame aquí porque retrasa el renderizado visual
-            visibleCheckboxes.forEach((cb) => {
+          visibleCheckboxes.forEach((cb) => {
               const checkbox = cb as HTMLInputElement;
               const rowIdStr = checkbox.getAttribute('data-row-id');
               if (rowIdStr) {
@@ -3452,39 +2986,26 @@ export function createDataTable(options: DataTableOptions): {
             // Forzar un solo reflow después de todas las actualizaciones
             void element.offsetHeight;
             
-            console.log(`☑️ [SELECT ALL] ✅ Checkboxes visibles actualizados - allChecked: ${allChecked}, indeterminate: ${isIndeterminate}`);
           
           // Desactivar bandera DESPUÉS de todas las actualizaciones visuales
           // Los handlers individuales ya tienen la verificación de isSelectAllInProgress
           // así que pueden ejecutarse pero se detendrán inmediatamente
           isSelectAllInProgress = false;
-          console.log(`☑️ [SELECT ALL] 🚩 Bandera isSelectAllInProgress desactivada`);
             
             // Llamar a onSelectAll callback DESPUÉS de todas las actualizaciones visuales
             // para evitar que cause re-renderizados que generen el brinco
           const optionsWithSelectAll = currentOptions as any;
           if (optionsWithSelectAll.onSelectAll) {
-            console.log(`☑️ [SELECT ALL] 📞 Llamando onSelectAll callback...`);
-            console.log(`☑️ [SELECT ALL] 📞 Stack trace antes de llamar callback:`, new Error().stack?.split('\n').slice(1, 5).join('\n'));
             
             const scrollableContainerBeforeCallback = element.querySelector('.ubits-data-table__scrollable-container') as HTMLElement;
             const scrollBeforeCallback = scrollableContainerBeforeCallback?.scrollTop || 0;
             const scrollHeightBeforeCallback = scrollableContainerBeforeCallback?.scrollHeight || 0;
             const clientHeightBeforeCallback = scrollableContainerBeforeCallback?.clientHeight || 0;
             
-            console.log(`☑️ [SELECT ALL] 📍 Scroll ANTES de onSelectAll callback:`, {
-              scrollTop: scrollBeforeCallback,
-              scrollHeight: scrollHeightBeforeCallback,
-              clientHeight: clientHeightBeforeCallback,
-              maxScroll: scrollHeightBeforeCallback - clientHeightBeforeCallback
-            });
-            
             // IMPORTANTE: Verificar si hay un render en progreso o pendiente
-            console.log(`☑️ [SELECT ALL] 🔍 Verificando si hay renders pendientes...`);
             
             try {
               optionsWithSelectAll.onSelectAll(isChecked);
-              console.log(`☑️ [SELECT ALL] ✅ onSelectAll callback completado sin errores`);
             } catch (error) {
               console.error(`☑️ [SELECT ALL] ❌ Error en onSelectAll callback:`, error);
             }
@@ -3494,13 +3015,6 @@ export function createDataTable(options: DataTableOptions): {
             const scrollAfterCallback = scrollableContainerAfterCallback?.scrollTop || 0;
             const scrollHeightAfterCallback = scrollableContainerAfterCallback?.scrollHeight || 0;
             const clientHeightAfterCallback = scrollableContainerAfterCallback?.clientHeight || 0;
-            
-            console.log(`☑️ [SELECT ALL] 📍 Scroll DESPUÉS de onSelectAll callback:`, {
-              scrollTop: scrollAfterCallback,
-              scrollHeight: scrollHeightAfterCallback,
-              clientHeight: clientHeightAfterCallback,
-              maxScroll: scrollHeightAfterCallback - clientHeightAfterCallback
-            });
             
             // Detectar si hubo cambios que indiquen un render
             const scrollChanged = Math.abs(scrollAfterCallback - scrollBeforeCallback) > 1;
@@ -3522,77 +3036,36 @@ export function createDataTable(options: DataTableOptions): {
               
               // Si el scroll cambió, intentar restaurarlo
               if (scrollChanged && savedScrollBeforeSelectAll > 0 && scrollableContainerAfterCallback) {
-                console.log(`☑️ [SELECT ALL] 🔧 Intentando restaurar scroll a posición original: ${savedScrollBeforeSelectAll}px`);
                 scrollableContainerAfterCallback.scrollTop = savedScrollBeforeSelectAll;
                 
                 // Verificar si se restauró correctamente
                 setTimeout(() => {
                   const finalScroll = scrollableContainerAfterCallback.scrollTop;
-                  console.log(`☑️ [SELECT ALL] 📍 Scroll después de restaurar:`, {
-                    original: savedScrollBeforeSelectAll,
-                    restaurado: finalScroll,
-                    diferencia: Math.abs(finalScroll - savedScrollBeforeSelectAll),
-                    restauradoCorrectamente: Math.abs(finalScroll - savedScrollBeforeSelectAll) < 5
-                  });
                 }, 50);
               }
-            } else {
-              console.log(`☑️ [SELECT ALL] ✅ El callback onSelectAll NO causó cambios visibles en el scroll`);
             }
-            }
+          }
             
             // NO llamar a render() - esto evita el brinco
-            console.log(`☑️ [SELECT ALL] ✅ Optimizado: NO se llama render() - sin brinco`);
           
           // Verificar el estado final del scroll
           const scrollableContainerFinal = element.querySelector('.ubits-data-table__scrollable-container') as HTMLElement;
           const scrollFinal = scrollableContainerFinal?.scrollTop || 0;
           const scrollHeightFinal = scrollableContainerFinal?.scrollHeight || 0;
           const clientHeightFinal = scrollableContainerFinal?.clientHeight || 0;
-          
-          console.log(`☑️ [SELECT ALL] 📍 Scroll FINAL después de todas las actualizaciones:`, {
-            scrollTop: scrollFinal,
-            scrollHeight: scrollHeightFinal,
-            clientHeight: clientHeightFinal,
-            maxScroll: scrollHeightFinal - clientHeightFinal,
-            comparaciónConInicial: {
-              scrollTopInicial: savedScrollBeforeSelectAll,
-              scrollTopFinal: scrollFinal,
-              diferencia: Math.abs(scrollFinal - savedScrollBeforeSelectAll),
-              seMantuvo: Math.abs(scrollFinal - savedScrollBeforeSelectAll) < 5
-            }
-          });
         } else {
           // Para otros checkboxes, mantener el comportamiento actual
-          console.log(`☑️ [SELECT ALL] ⚠️ Llamando render() - esto causará el brinco`);
           render();
         }
-        console.log(`☑️ [SELECT ALL] ========== FIN ==========`);
       };
       newCheckbox.addEventListener('change', selectAllHandler, { capture: true });
-      console.log(`☑️ [SELECT ALL] ✅ Listener 'change' agregado con capture:true - handler function:`, selectAllHandler);
       
       // Agregar también un listener de 'click' para debugging
       const selectAllClickHandler = (e: Event) => {
-        console.log(`☑️ [SELECT ALL] 🖱️ CLICK recibido en header checkbox ${index} - timestamp: ${Date.now()}`);
         const input = e.target as HTMLInputElement;
-        console.log(`☑️ [SELECT ALL] 🖱️ Click handler - checkbox estado:`, {
-          hasHeaderAttr: input.hasAttribute('data-column-checkbox-header'),
-          checked: input.checked,
-          allAttrs: Array.from(input.attributes).map(a => `${a.name}="${a.value}"`)
-        });
+        return;
       };
       newCheckbox.addEventListener('click', selectAllClickHandler, { capture: true });
-      console.log(`☑️ [SELECT ALL] ✅ Listener 'click' agregado con capture:true para debugging`);
-      
-      // Verificar que el listener se agregó correctamente
-      console.log(`☑️ [SELECT ALL] 🔍 Estado del checkbox DESPUÉS de agregar listeners:`, {
-        element: newCheckbox,
-        isConnected: newCheckbox.isConnected,
-        hasHeaderAttr: newCheckbox.hasAttribute('data-column-checkbox-header'),
-        checked: newCheckbox.checked,
-        parentElement: newCheckbox.parentElement?.tagName
-      });
     });
 
     // Checkboxes de columnas de datos (checkboxes normales en las celdas con data-column-id)
@@ -3612,26 +3085,12 @@ export function createDataTable(options: DataTableOptions): {
       
       // IMPORTANTE: Usar { capture: false } para que este listener se ejecute DESPUÉS del listener del "select all"
       // El listener del "select all" se ejecuta primero (se adjunta primero) y detiene la propagación
-      console.log(`☑️ [CHECKBOX] 🔧 Agregando listener con capture:false al checkbox rowId=${rowIdStr} columnId=${columnId}`);
       const checkboxIndividualHandler = (e: Event) => {
         const input = e.target as HTMLInputElement;
         
         // CRÍTICO: Verificar PRIMERO si es un checkbox del header ANTES de cualquier log
         // Esto debe ser lo primero que se verifica para evitar procesar el header checkbox
         if (input.hasAttribute('data-column-checkbox-header')) {
-          console.log(`☑️ [CHECKBOX] 🚫 BLOQUEADO: Este es un checkbox del header, NO debería ejecutarse este handler!`, {
-            hasHeaderAttr: input.hasAttribute('data-column-checkbox-header'),
-            hasColumnId: input.hasAttribute('data-column-id'),
-            hasRowId: input.hasAttribute('data-row-id'),
-            allAttributes: Array.from(input.attributes).map(attr => `${attr.name}="${attr.value}"`),
-            eventPhase: e.eventPhase,
-            bubbles: e.bubbles,
-            cancelable: e.cancelable,
-            defaultPrevented: e.defaultPrevented,
-            target: e.target,
-            currentTarget: e.currentTarget,
-            stackTrace: new Error().stack?.split('\n').slice(1, 8).join('\n')
-          });
           // IMPORTANTE: Detener la propagación aquí también por si acaso
           // NO usar preventDefault() porque bloquea el cambio visual del checkbox
           e.stopPropagation();
@@ -3639,29 +3098,9 @@ export function createDataTable(options: DataTableOptions): {
           return;
         }
         
-        console.log(`☑️ [CHECKBOX] ========== CHECKBOX INDIVIDUAL EVENTO ==========`);
-        console.log(`☑️ [CHECKBOX] 🎯 HANDLER EJECUTÁNDOSE - timestamp: ${Date.now()}`);
-        console.log(`☑️ [CHECKBOX] 🔍 EVENTO RECIBIDO EN HANDLER INDIVIDUAL:`, {
-          rowId: rowIdStr,
-          columnId: columnId,
-          hasHeaderAttr: input.hasAttribute('data-column-checkbox-header'),
-          hasRowId: input.hasAttribute('data-row-id'),
-          hasColumnId: input.hasAttribute('data-column-id'),
-          eventPhase: e.eventPhase,
-          defaultPrevented: e.defaultPrevented,
-          isTrusted: e.isTrusted,
-          timeStamp: e.timeStamp,
-          isSelectAllInProgress: isSelectAllInProgress,
-          target: e.target,
-          currentTarget: e.currentTarget,
-          targetAllAttrs: Array.from(input.attributes).map(a => `${a.name}="${a.value}"`),
-          stackTrace: new Error().stack?.split('\n').slice(1, 5).join('\n')
-        });
-        
         // IMPORTANTE: Si estamos en modo "select all", ignorar este evento
         // porque el handler de select all ya está manejando la actualización masiva
         if (isSelectAllInProgress) {
-          console.log(`☑️ [CHECKBOX] ⏭️ Ignorando evento - select all en progreso`);
           return;
         }
         
@@ -3670,63 +3109,44 @@ export function createDataTable(options: DataTableOptions): {
         
         // Validar que tiene data-row-id (los checkboxes del header no lo tienen)
         if (!currentRowIdStr || !currentColumnId) {
-          console.log(`☑️ [CHECKBOX] ⚠️ Ignorando checkbox sin data-row-id o data-column-id (probablemente header checkbox)`, {
-            hasRowId: !!currentRowIdStr,
-            hasColumnId: !!currentColumnId,
-            hasHeaderAttr: input.hasAttribute('data-column-checkbox-header'),
-            allAttributes: Array.from(input.attributes).map(attr => `${attr.name}="${attr.value}"`)
-          });
           return;
         }
         
-        console.log(`☑️ [CHECKBOX] ========== CHECKBOX CAMBIÓ ==========`);
         
         const rowId = isNaN(Number(currentRowIdStr)) ? currentRowIdStr : Number(currentRowIdStr);
         const isChecked = input.checked;
         
-        console.log(`☑️ [CHECKBOX] rowId: ${rowId}, columnId: ${currentColumnId}, checked: ${isChecked}`);
-        console.log(`☑️ [CHECKBOX] Checkbox visual checked: ${input.checked}`);
-        console.log(`☑️ [CHECKBOX] Input element:`, input);
-        console.log(`☑️ [CHECKBOX] Input parent:`, input.parentElement);
         
         const row = currentOptions.rows.find(r => r.id === rowId);
         if (row) {
           row.data[currentColumnId] = isChecked;
-          console.log(`☑️ [CHECKBOX] Estado de fila actualizado`);
           
           // Si es checkbox-2 (checkbox fijo), optimizar: solo actualizar header checkbox sin re-renderizar toda la tabla
           if (currentColumnId === 'checkbox-2') {
             // IMPORTANTE: Buscar el checkbox container usando el input que disparó el evento
             // y validar que el data-row-id coincida
             let checkboxContainer = input.closest('.ubits-checkbox') as HTMLElement;
-            console.log(`☑️ [CHECKBOX] checkboxContainer encontrado (closest):`, checkboxContainer);
             
             // Validar que el checkbox container es el correcto verificando el input dentro
             if (checkboxContainer) {
               const containerInput = checkboxContainer.querySelector(`input[data-row-id="${rowId}"][data-column-id="${currentColumnId}"]`) as HTMLInputElement;
               if (!containerInput || containerInput !== input) {
-                console.log(`☑️ [CHECKBOX] ⚠️ checkboxContainer no coincide, buscando por data-row-id...`);
                 // Buscar el checkbox correcto por data-row-id
                 const correctInput = element.querySelector(`input[data-row-id="${rowId}"][data-column-id="${currentColumnId}"]`) as HTMLInputElement;
                 if (correctInput) {
                   checkboxContainer = correctInput.closest('.ubits-checkbox') as HTMLElement;
-                  console.log(`☑️ [CHECKBOX] checkboxContainer encontrado (por data-row-id):`, checkboxContainer);
                 }
               } else {
-                console.log(`☑️ [CHECKBOX] ✅ checkboxContainer validado correctamente`);
               }
             }
             
             if (checkboxContainer) {
               const checkboxSquare = checkboxContainer.querySelector('.ubits-checkbox__square') as HTMLElement;
-              console.log(`☑️ [CHECKBOX] checkboxSquare encontrado:`, checkboxSquare);
-              console.log(`☑️ [CHECKBOX] checkboxContainer classes:`, checkboxContainer.className);
               
               if (isChecked) {
                 // IMPORTANTE: Primero asegurar que la clase esté presente
                 checkboxContainer.classList.add('ubits-checkbox--checked');
                 checkboxContainer.classList.remove('ubits-checkbox--indeterminate');
-                console.log(`☑️ [CHECKBOX] Clases agregadas: checked`);
                 
                 // Crear o asegurar que existe el elemento checkmark
                 if (checkboxSquare) {
@@ -3734,7 +3154,6 @@ export function createDataTable(options: DataTableOptions): {
                   const indeterminateEl = checkboxSquare.querySelector('.ubits-checkbox__indeterminate');
                   if (indeterminateEl) {
                     indeterminateEl.remove();
-                    console.log(`☑️ [CHECKBOX] Indeterminate removido`);
                   }
                   
                   // IMPORTANTE: Asegurar que la clase checked esté presente PRIMERO
@@ -3752,9 +3171,7 @@ export function createDataTable(options: DataTableOptions): {
                     checkmarkEl = document.createElement('span');
                   checkmarkEl.className = 'ubits-checkbox__checkmark';
                   checkboxSquare.appendChild(checkmarkEl);
-                  console.log(`☑️ [CHECKBOX] ✅ Checkmark creado y agregado al DOM`);
                   } else {
-                    console.log(`☑️ [CHECKBOX] ✅ Checkmark ya existe, reutilizando`);
                   }
                   
                   // IMPORTANTE: Remover la transición temporalmente para mostrar inmediatamente
@@ -3765,7 +3182,6 @@ export function createDataTable(options: DataTableOptions): {
                   checkmarkEl.style.setProperty('opacity', '1', 'important');
                   checkmarkEl.style.setProperty('transform', 'scale(1)', 'important');
                   checkmarkEl.style.setProperty('display', 'flex', 'important');
-                  console.log(`☑️ [CHECKBOX] Estilos forzados directamente con !important`);
                   
                   // IMPORTANTE: Forzar un reflow completo usando getComputedStyle
                   // Esto asegura que el navegador renderice el checkmark inmediatamente
@@ -3790,18 +3206,12 @@ export function createDataTable(options: DataTableOptions): {
                     if (verifyCheckmark) {
                       // Verificar estilos
                       const computedStyles = window.getComputedStyle(verifyCheckmark);
-                      console.log(`☑️ [CHECKBOX] Verificación checkmark en DOM (después de RAF):`, verifyCheckmark);
-                      console.log(`☑️ [CHECKBOX] Checkmark opacity (computed): ${computedStyles.opacity}, transform (computed): ${computedStyles.transform}`);
-                      console.log(`☑️ [CHECKBOX] Checkmark display: ${computedStyles.display}`);
-                      console.log(`☑️ [CHECKBOX] Checkmark width: ${computedStyles.width}, height: ${computedStyles.height}`);
                       
                       // Verificar que el pseudo-elemento ::after esté presente
                       const afterStyles = window.getComputedStyle(verifyCheckmark, '::after');
-                      console.log(`☑️ [CHECKBOX] Checkmark ::after content: ${afterStyles.content}, display: ${afterStyles.display}`);
                       
                       // Si el CSS no se aplicó correctamente, forzar los estilos directamente
                       if (computedStyles.opacity === '0' || computedStyles.transform.includes('scale(0)')) {
-                        console.log(`☑️ [CHECKBOX] ⚠️ CSS no aplicado correctamente después de forzar, reintentando...`);
                         verifyCheckmark.style.setProperty('opacity', '1', 'important');
                         verifyCheckmark.style.setProperty('transform', 'scale(1)', 'important');
                         verifyCheckmark.style.setProperty('display', 'flex', 'important');
@@ -3809,23 +3219,19 @@ export function createDataTable(options: DataTableOptions): {
                         void verifyCheckmark.offsetHeight;
                       }
                     } else {
-                      console.log(`☑️ [CHECKBOX] ⚠️ Checkmark no encontrado después de crearlo`);
                     }
                   });
                 } else {
-                  console.log(`☑️ [CHECKBOX] ⚠️ checkboxSquare no encontrado`);
                 }
               } else {
                 checkboxContainer.classList.remove('ubits-checkbox--checked');
                 checkboxContainer.classList.remove('ubits-checkbox--indeterminate');
-                console.log(`☑️ [CHECKBOX] Clases removidas: checked`);
                 
                 // Remover el checkmark si existe
                 if (checkboxSquare) {
                   const checkmarkEl = checkboxSquare.querySelector('.ubits-checkbox__checkmark');
                   if (checkmarkEl) {
                     checkmarkEl.remove();
-                    console.log(`☑️ [CHECKBOX] Checkmark removido`);
                   }
                   const indeterminateEl = checkboxSquare.querySelector('.ubits-checkbox__indeterminate');
                   if (indeterminateEl) {
@@ -3833,18 +3239,14 @@ export function createDataTable(options: DataTableOptions): {
                   }
                 }
               }
-              console.log(`☑️ [CHECKBOX] ✅ Clase CSS del contenedor y checkmark actualizados`);
             } else {
-              console.log(`☑️ [CHECKBOX] ⚠️ checkboxContainer no encontrado usando closest`);
               
               // Intentar buscar por data-row-id como fallback
               const allCheckboxes = element.querySelectorAll(`input[data-row-id="${rowId}"][data-column-id="${columnId}"]`);
-              console.log(`☑️ [CHECKBOX] Checkboxes encontrados por data-row-id:`, allCheckboxes.length);
               
               if (allCheckboxes.length > 0) {
                 const correctInput = Array.from(allCheckboxes).find(cb => cb === input) as HTMLInputElement || allCheckboxes[0] as HTMLInputElement;
                 const correctContainer = correctInput?.closest('.ubits-checkbox') as HTMLElement;
-                console.log(`☑️ [CHECKBOX] Checkbox correcto encontrado:`, correctContainer);
                 
                 if (correctContainer) {
                   const checkboxSquare = correctContainer.querySelector('.ubits-checkbox__square') as HTMLElement;
@@ -3863,7 +3265,6 @@ export function createDataTable(options: DataTableOptions): {
                         checkmarkEl = document.createElement('span');
                         checkmarkEl.className = 'ubits-checkbox__checkmark';
                         checkboxSquare.appendChild(checkmarkEl);
-                        console.log(`☑️ [CHECKBOX] ✅ Checkmark creado (fallback)`);
                       }
                     }
                   } else {
@@ -3948,35 +3349,22 @@ export function createDataTable(options: DataTableOptions): {
                 }
               }
               
-              console.log(`☑️ [CHECKBOX] ✅ Header checkbox actualizado - allChecked: ${allChecked}, indeterminate: ${isIndeterminate}`);
             }
             
             // Forzar limpieza del hover de la fila seleccionada usando clase CSS
             // Esto evita que la fila se quede en estado hover después de seleccionar
-            console.log(`🎨 [HOVER CLEANUP] ========== INICIO LIMPIEZA HOVER ==========`);
-            console.log(`🎨 [HOVER CLEANUP] Buscando fila para limpiar hover...`);
             const rowElement = newCheckbox.closest('.ubits-data-table__row') as HTMLElement;
-            console.log(`🎨 [HOVER CLEANUP] rowElement encontrado:`, rowElement);
             if (rowElement) {
-              console.log(`🎨 [HOVER CLEANUP] ✅ Fila encontrada, verificando estado actual...`);
               const beforeClasses = Array.from(rowElement.classList);
               const computedStyleBefore = window.getComputedStyle(rowElement);
               const bgBefore = computedStyleBefore.backgroundColor;
-              console.log(`🎨 [HOVER CLEANUP] Estado ANTES:`, {
-                classes: beforeClasses,
-                backgroundColor: bgBefore,
-                hasHoverClass: rowElement.classList.contains('ubits-data-table__row--clear-hover')
-              });
               
               // Obtener todas las celdas primero
               const cells = rowElement.querySelectorAll('.ubits-data-table__cell');
-              console.log(`🎨 [HOVER CLEANUP] Celdas encontradas:`, cells.length);
               
               // SOLUCIÓN AGRESIVA: Deshabilitar pointer-events temporalmente para forzar limpieza del hover
-              console.log(`🎨 [HOVER CLEANUP] 🔧 Aplicando solución agresiva: pointer-events: none`);
               const originalPointerEvents = rowElement.style.pointerEvents;
               rowElement.style.pointerEvents = 'none';
-              console.log(`🎨 [HOVER CLEANUP] ✅ pointer-events deshabilitado temporalmente`);
               
               // Forzar reflow para que el navegador procese el cambio
               void rowElement.offsetHeight;
@@ -3987,16 +3375,13 @@ export function createDataTable(options: DataTableOptions): {
               
               // Agregar clase para forzar limpieza del hover inmediatamente
               rowElement.classList.add('ubits-data-table__row--clear-hover');
-              console.log(`🎨 [HOVER CLEANUP] ✅ Clase agregada: ubits-data-table__row--clear-hover`);
               
               // Aplicar también inline style como respaldo para forzar el cambio
               rowElement.style.setProperty('background-color', bg1Value, 'important');
-              console.log(`🎨 [HOVER CLEANUP] ✅ Inline style aplicado a fila: background-color = ${bg1Value}`);
               
               // Aplicar también a todas las celdas
               cells.forEach((cell, index) => {
                 (cell as HTMLElement).style.setProperty('background-color', bg1Value, 'important');
-                console.log(`🎨 [HOVER CLEANUP] ✅ Celda ${index} inline style aplicado`);
               });
               
               // Forzar otro reflow después de aplicar estilos
@@ -4004,32 +3389,21 @@ export function createDataTable(options: DataTableOptions): {
               
               // Restaurar pointer-events inmediatamente
               rowElement.style.pointerEvents = originalPointerEvents || '';
-              console.log(`🎨 [HOVER CLEANUP] ✅ pointer-events restaurado: ${originalPointerEvents || 'default'}`);
               
               // Verificar estado después de todo
               const computedStyleAfter = window.getComputedStyle(rowElement);
               const bgAfter = computedStyleAfter.backgroundColor;
               const afterClasses = Array.from(rowElement.classList);
-              console.log(`🎨 [HOVER CLEANUP] Estado DESPUÉS de aplicar solución agresiva:`, {
-                classes: afterClasses,
-                backgroundColor: bgAfter,
-                bgBefore: bgBefore,
-                bgChanged: bgBefore !== bgAfter,
-                pointerEvents: rowElement.style.pointerEvents || 'default'
-              });
               
               // Verificar todas las celdas también
               cells.forEach((cell, index) => {
                 const cellStyle = window.getComputedStyle(cell as HTMLElement);
                 const cellBg = cellStyle.backgroundColor;
-                console.log(`🎨 [HOVER CLEANUP] Celda ${index} background: ${cellBg} (inline: ${(cell as HTMLElement).style.backgroundColor || 'none'})`);
               });
               
               // Remover la clase después de un pequeño delay para permitir hover normal después
               requestAnimationFrame(() => {
-                console.log(`🎨 [HOVER CLEANUP] ⏰ requestAnimationFrame ejecutado, programando timeout...`);
                 setTimeout(() => {
-                  console.log(`🎨 [HOVER CLEANUP] ⏰ Timeout ejecutado, removiendo clase e inline styles...`);
                   const beforeRemove = window.getComputedStyle(rowElement).backgroundColor;
                   
                   // Remover clase
@@ -4042,44 +3416,29 @@ export function createDataTable(options: DataTableOptions): {
                   });
                   
                   const afterRemove = window.getComputedStyle(rowElement).backgroundColor;
-                  console.log(`🎨 [HOVER CLEANUP] ✅ Clase e inline styles removidos. Background antes: ${beforeRemove}, después: ${afterRemove}`);
-                  console.log(`🎨 [HOVER CLEANUP] ========== FIN LIMPIEZA HOVER ==========`);
                 }, 150);
               });
             } else {
-              console.log(`🎨 [HOVER CLEANUP] ❌ Fila NO encontrada usando closest('.ubits-data-table__row')`);
-              console.log(`🎨 [HOVER CLEANUP] newCheckbox:`, newCheckbox);
-              console.log(`🎨 [HOVER CLEANUP] newCheckbox.parentElement:`, newCheckbox.parentElement);
-              console.log(`🎨 [HOVER CLEANUP] newCheckbox.closest('tr'):`, newCheckbox.closest('tr'));
             }
             
             // Llamar a onRowSelect callback
             if (currentOptions.onRowSelect) {
-              console.log(`☑️ [CHECKBOX] Llamando onRowSelect...`);
               currentOptions.onRowSelect(rowId, isChecked);
-              console.log(`☑️ [CHECKBOX] onRowSelect completado`);
             }
             
             // NO llamar a render() - esto evita el brinco
             // El checkbox visual ya está actualizado por el evento nativo y las clases CSS
-            console.log(`☑️ [CHECKBOX] ✅ Optimizado: NO se llama render() - sin brinco`);
           } else {
             // Para otros checkboxes, mantener el comportamiento actual
-            console.log(`☑️ [CHECKBOX] ⚠️ Llamando render() - esto causará el brinco`);
-            console.log(`☑️ [CHECKBOX] 🔍 RAZÓN: columnId="${currentColumnId}" NO es checkbox-2, llamando render() desde handler individual`);
-            console.log(`☑️ [CHECKBOX] 🔍 Stack trace antes de render():`, new Error().stack?.split('\n').slice(1, 6).join('\n'));
-        render();
+            render();
           }
         }
-        console.log(`☑️ [CHECKBOX] ========== FIN ==========`);
       };
       newCheckbox.addEventListener('change', checkboxIndividualHandler, { capture: false });
-      console.log(`☑️ [CHECKBOX] ✅ Listener agregado con capture:false - handler function:`, checkboxIndividualHandler);
     });
 
     // Botones de expandir
     const expandButtons = element.querySelectorAll('[data-expand-button="true"]');
-    console.log('🔘 [EXPAND] Botones de expandir encontrados:', expandButtons.length);
     expandButtons.forEach((button, index) => {
       // Remover listeners anteriores si existen para evitar duplicados
       const newButton = button.cloneNode(true) as HTMLElement;
@@ -4090,23 +3449,18 @@ export function createDataTable(options: DataTableOptions): {
         e.stopPropagation();
         const rowIdStr = newButton.getAttribute('data-row-id')!;
         const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
-        console.log('🔘 [EXPAND] Click en botón de expandir - rowId:', rowId);
         
         const row = currentOptions.rows.find(r => r.id === rowId);
         
         if (row) {
           const wasExpanded = row.expanded || false;
           row.expanded = !wasExpanded;
-          console.log('🔘 [EXPAND] Fila encontrada - wasExpanded:', wasExpanded, '-> expanded:', row.expanded);
-          console.log('🔘 [EXPAND] Fila tiene renderExpandedContent:', !!row.renderExpandedContent);
           
           if (currentOptions.onRowExpand) {
             currentOptions.onRowExpand(rowId, row.expanded);
           }
           
-          console.log('🔘 [EXPAND] Llamando render()...');
           render();
-          console.log('🔘 [EXPAND] Render() completado');
           
           // Si la fila se expandió, hacer scroll para mostrar el contenido expandido
           if (row.expanded) {
@@ -4115,7 +3469,6 @@ export function createDataTable(options: DataTableOptions): {
               if (rowElement) {
                 const expandedRow = rowElement.nextElementSibling as HTMLElement;
                 if (expandedRow && expandedRow.classList.contains('ubits-data-table__row-expanded-row')) {
-                  console.log('🔘 [EXPAND] Haciendo scroll para mostrar contenido expandido');
                   
                   // Buscar el contenedor scrollable
                   const scrollableContainer = element.querySelector('.ubits-data-table__scrollable-container--vertical') as HTMLElement;
@@ -4123,11 +3476,9 @@ export function createDataTable(options: DataTableOptions): {
                     // Hacer scroll para que la fila expandida sea visible
                     const rowTop = rowElement.offsetTop;
                     scrollableContainer.scrollTop = rowTop - 50; // 50px de margen superior
-                    console.log('🔘 [EXPAND] Scroll aplicado - scrollTop:', scrollableContainer.scrollTop);
                   } else {
                     // Si no hay contenedor scrollable, hacer scroll en el window
                     rowElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    console.log('🔘 [EXPAND] ScrollIntoView aplicado (sin contenedor scrollable)');
                   }
                 }
               }
@@ -4427,7 +3778,6 @@ export function createDataTable(options: DataTableOptions): {
     
     // Botones de acciones en las filas (columnas de tipo 'acciones')
     const actionButtons = element.querySelectorAll('.ubits-data-table__action-button');
-    console.log('🎯 [ACTION BUTTONS] Botones de acciones encontrados:', actionButtons.length);
     actionButtons.forEach((button) => {
       const btn = button as HTMLElement;
       
@@ -4449,7 +3799,6 @@ export function createDataTable(options: DataTableOptions): {
       newButton.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log('🎯 [ACTION BUTTONS] Click en botón de acción - rowId:', rowId, 'columnId:', columnId);
         
         const row = currentOptions.rows.find(r => r.id === rowId);
         if (row) {
@@ -4458,7 +3807,6 @@ export function createDataTable(options: DataTableOptions): {
             currentOptions.onRowAction(rowId, row);
           } else {
             // Fallback: mostrar alerta
-            console.log('🎯 [ACTION BUTTONS] Acción ejecutada para fila:', rowId);
             alert(`Acción ejecutada para fila: ${rowId}`);
           }
         } else {
@@ -4469,24 +3817,17 @@ export function createDataTable(options: DataTableOptions): {
     
     // Menú contextual (click derecho) en las filas - solo si está habilitado
     const showContextMenuValue = currentOptions.showContextMenu !== false;
-    console.log('🖱️ [CONTEXT MENU] ========== INICIO CONFIGURACIÓN MENÚ CONTEXTUAL ==========');
-    console.log('🖱️ [CONTEXT MENU] showContextMenuValue:', showContextMenuValue);
-    console.log('🖱️ [CONTEXT MENU] showContextMenu option:', currentOptions.showContextMenu);
-    console.log('🖱️ [CONTEXT MENU] Element:', element);
     
     if (showContextMenuValue) {
       // Seleccionar solo las filas de datos (excluyendo filas expandidas)
       const tableRows = element.querySelectorAll('tr.ubits-data-table__row[data-row-id]');
-      console.log('🖱️ [CONTEXT MENU] Filas encontradas con selector "tr.ubits-data-table__row[data-row-id]":', tableRows.length);
       
       if (tableRows.length === 0) {
         console.warn('🖱️ [CONTEXT MENU] ⚠️ No se encontraron filas con selector: tr.ubits-data-table__row[data-row-id]');
         // Intentar con selector alternativo
         const altRows = element.querySelectorAll('[data-row-id]');
-        console.log('🖱️ [CONTEXT MENU] Filas encontradas con selector alternativo "[data-row-id]":', altRows.length);
         
         if (altRows.length > 0) {
-          console.log('🖱️ [CONTEXT MENU] Usando selector alternativo para agregar listeners');
           // Usar el selector alternativo
           altRows.forEach((rowElement, index) => {
             const row = rowElement as HTMLElement;
@@ -4498,7 +3839,6 @@ export function createDataTable(options: DataTableOptions): {
             }
             
             const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
-            console.log('🖱️ [CONTEXT MENU] Agregando listener a fila (alternativo):', rowId);
             
             // Reutilizar la misma lógica del menú contextual
             // (El código completo está más abajo, pero necesitamos crear el contenedor primero)
@@ -4524,16 +3864,12 @@ export function createDataTable(options: DataTableOptions): {
               e.preventDefault();
               e.stopPropagation();
               
-              console.log('🖱️ [CONTEXT MENU] ========== Click derecho detectado (alternativo) ==========');
-              console.log('🖱️ [CONTEXT MENU] Fila ID:', rowId);
               alert(`Click derecho en fila ${rowId} - Menú contextual (implementación completa pendiente)`);
             });
           });
-          console.log('🖱️ [CONTEXT MENU] ✅ Listeners agregados usando selector alternativo');
           return; // Salir temprano si usamos el selector alternativo
         }
       } else {
-        console.log('🖱️ [CONTEXT MENU] ✅ Filas encontradas, procediendo a agregar listeners...');
       }
       
       // Crear contenedor para el menú contextual si no existe
@@ -4581,29 +3917,21 @@ export function createDataTable(options: DataTableOptions): {
         }
         
         const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
-        console.log('🖱️ [CONTEXT MENU] Agregando listener a fila:', rowId, 'elemento:', row);
         
         row.addEventListener('contextmenu', (e) => {
           e.preventDefault();
           e.stopPropagation();
           
-          console.log('🖱️ [CONTEXT MENU] ========== Click derecho detectado ==========');
-          console.log('🖱️ [CONTEXT MENU] Fila ID:', rowId);
-          console.log('🖱️ [CONTEXT MENU] Event:', e);
-          console.log('🖱️ [CONTEXT MENU] Coordenadas:', { x: e.clientX, y: e.clientY });
         
         const rowData = currentOptions.rows.find(r => r.id === rowId);
         if (!rowData) {
           console.warn('🖱️ [CONTEXT MENU] ⚠️ Fila no encontrada en currentOptions.rows:', rowId);
-          console.log('🖱️ [CONTEXT MENU] Total de filas disponibles:', currentOptions.rows.length);
           return;
         }
         
-        console.log('🖱️ [CONTEXT MENU] Datos de fila encontrados:', rowData);
         currentContextMenuRowId = rowId;
         
         // Cerrar menú anterior si existe
-        console.log('🖱️ [CONTEXT MENU] Cerrando menú anterior...');
         closeContextMenu();
         
         // Crear items del menú contextual (mismas opciones que barra de acciones individuales)
@@ -4621,7 +3949,6 @@ export function createDataTable(options: DataTableOptions): {
             value: 'view-selected',
             state: 'default' as const,
             onClick: () => {
-              console.log('🖱️ [CONTEXT MENU] Ver seleccionados para fila:', rowId);
               closeContextMenu();
               // Aquí puedes agregar la lógica para ver seleccionados
             }
@@ -4631,7 +3958,6 @@ export function createDataTable(options: DataTableOptions): {
             value: 'notifications',
             state: 'default' as const,
             onClick: () => {
-              console.log('🖱️ [CONTEXT MENU] Notificaciones para fila:', rowId);
               closeContextMenu();
               alert(`Notificaciones para fila: ${rowId}`);
             }
@@ -4641,7 +3967,6 @@ export function createDataTable(options: DataTableOptions): {
             value: 'copy',
             state: 'default' as const,
             onClick: () => {
-              console.log('🖱️ [CONTEXT MENU] Copiar para fila:', rowId);
               closeContextMenu();
               alert(`Copiar para fila: ${rowId}`);
             }
@@ -4651,7 +3976,6 @@ export function createDataTable(options: DataTableOptions): {
             value: 'view',
             state: 'default' as const,
             onClick: () => {
-              console.log('🖱️ [CONTEXT MENU] Ver para fila:', rowId);
               closeContextMenu();
               alert(`Ver para fila: ${rowId}`);
             }
@@ -4661,7 +3985,6 @@ export function createDataTable(options: DataTableOptions): {
             value: 'edit',
             state: 'default' as const,
             onClick: () => {
-              console.log('🖱️ [CONTEXT MENU] Editar para fila:', rowId);
               closeContextMenu();
               alert(`Editar para fila: ${rowId}`);
             }
@@ -4671,7 +3994,6 @@ export function createDataTable(options: DataTableOptions): {
             value: 'download',
             state: 'default' as const,
             onClick: () => {
-              console.log('🖱️ [CONTEXT MENU] Descargar para fila:', rowId);
               closeContextMenu();
               alert(`Descargar para fila: ${rowId}`);
             }
@@ -4681,7 +4003,6 @@ export function createDataTable(options: DataTableOptions): {
             value: 'delete',
             state: 'default' as const,
             onClick: () => {
-              console.log('🖱️ [CONTEXT MENU] Eliminar para fila:', rowId);
               closeContextMenu();
               alert(`Eliminar para fila: ${rowId}`);
             }
@@ -4690,7 +4011,6 @@ export function createDataTable(options: DataTableOptions): {
         
         // Crear el menú usando createList
         const menuId = `context-menu-list-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-        console.log('🖱️ [CONTEXT MENU] Creando menú con ID:', menuId);
         
         // Verificar que el contenedor existe
         if (!contextMenuContainer) {
@@ -4703,56 +4023,39 @@ export function createDataTable(options: DataTableOptions): {
         listContainer.id = menuId;
         contextMenuContainer.innerHTML = '';
         contextMenuContainer.appendChild(listContainer);
-        console.log('🖱️ [CONTEXT MENU] Contenedor creado y agregado al DOM');
         
         try {
-          console.log('🖱️ [CONTEXT MENU] Intentando crear lista con createList...');
-          console.log('🖱️ [CONTEXT MENU] Items del menú:', menuItems.length);
           const listElement = createList({
             containerId: menuId,
             items: menuItems,
             size: 'sm',
             maxHeight: '400px',
             onSelectionChange: (item, index) => {
-              console.log('🖱️ [CONTEXT MENU] Item seleccionado:', item?.value, 'índice:', index);
               if (item && item.onClick) {
                 item.onClick();
               }
             }
           });
-          console.log('🖱️ [CONTEXT MENU] ✅ Lista creada exitosamente');
           
           // Posicionar el menú donde se hizo click
           const x = e.clientX;
           const y = e.clientY;
-          console.log('🖱️ [CONTEXT MENU] Posicionando menú en:', { x, y });
           
           contextMenuContainer.style.left = `${x}px`;
           contextMenuContainer.style.top = `${y}px`;
           contextMenuContainer.style.display = 'block';
-          console.log('🖱️ [CONTEXT MENU] Menú visible, display:', contextMenuContainer.style.display);
           
           // Ajustar posición si el menú se sale de la pantalla
           requestAnimationFrame(() => {
             const rect = contextMenuContainer.getBoundingClientRect();
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
-            console.log('🖱️ [CONTEXT MENU] Dimensiones del menú:', { 
-              width: rect.width, 
-              height: rect.height,
-              right: rect.right,
-              bottom: rect.bottom,
-              windowWidth,
-              windowHeight
-            });
             
             if (rect.right > windowWidth) {
               contextMenuContainer.style.left = `${windowWidth - rect.width - 10}px`;
-              console.log('🖱️ [CONTEXT MENU] Ajustando posición horizontal');
             }
             if (rect.bottom > windowHeight) {
               contextMenuContainer.style.top = `${windowHeight - rect.height - 10}px`;
-              console.log('🖱️ [CONTEXT MENU] Ajustando posición vertical');
             }
           });
           
@@ -4771,7 +4074,6 @@ export function createDataTable(options: DataTableOptions): {
           console.error('🖱️ [CONTEXT MENU] ❌ Error al crear menú contextual:', error);
           console.error('🖱️ [CONTEXT MENU] Stack:', error instanceof Error ? error.stack : 'N/A');
           // Fallback: usar renderList
-          console.log('🖱️ [CONTEXT MENU] Usando fallback con renderList...');
           const listHTML = renderList({
             items: menuItems,
             size: 'sm',
@@ -4826,11 +4128,8 @@ export function createDataTable(options: DataTableOptions): {
         }
       });
         });
-      console.log('🖱️ [CONTEXT MENU] ✅ Listeners del menú contextual agregados correctamente');
     } else {
-      console.log('🖱️ [CONTEXT MENU] Menú contextual deshabilitado (showContextMenu = false)');
     }
-    console.log('🖱️ [CONTEXT MENU] ========== FIN CONFIGURACIÓN MENÚ CONTEXTUAL ==========');
     
     // Campos editables
     const editableFields = element.querySelectorAll('[data-editable-text="true"]');
@@ -5381,35 +4680,19 @@ export function createDataTable(options: DataTableOptions): {
     // El handler principal ya está configurado arriba (líneas 2863-3262) con capture:true
     // y tiene toda la lógica optimizada que NO llama a render()
     // Este segundo handler estaba causando el "salto" visual porque llamaba a render()
-    console.log(`☑️ [SELECT ALL] ⚠️ Handler alternativo DESHABILITADO - usando solo el handler optimizado`);
     
     // Verificar que no haya checkboxes del header sin handler y verificar listeners
     const headerCheckboxesWithoutHandler = element.querySelectorAll('input[data-column-checkbox-header]');
-    console.log(`☑️ [SELECT ALL] 🔍 Verificando ${headerCheckboxesWithoutHandler.length} header checkboxes después de attachEventListeners...`);
     headerCheckboxesWithoutHandler.forEach((checkbox, index) => {
       const input = checkbox as HTMLInputElement;
       const columnId = input.getAttribute('data-column-checkbox-header');
       
-      console.log(`☑️ [SELECT ALL] 🔍 Header checkbox ${index} verificado:`, {
-        columnId: columnId,
-        element: input,
-        checked: input.checked,
-        hasHeaderAttr: input.hasAttribute('data-column-checkbox-header'),
-        allAttrs: Array.from(input.attributes).map(a => `${a.name}="${a.value}"`),
-        parentElement: input.parentElement?.tagName,
-        parentClasses: input.parentElement?.className,
-        isConnected: input.isConnected,
-        ownerDocument: input.ownerDocument === document
-      });
-        
       // Agregar listeners de prueba para verificar que el elemento puede recibir eventos
       const testClickHandler = () => {
-        console.log(`☑️ [SELECT ALL] 🧪 TEST: Header checkbox ${index} recibió evento click de prueba`);
       };
       input.addEventListener('click', testClickHandler, { once: true, capture: true });
       
       const testChangeHandler = () => {
-        console.log(`☑️ [SELECT ALL] 🧪 TEST: Header checkbox ${index} recibió evento change de prueba`);
       };
       input.addEventListener('change', testChangeHandler, { once: true, capture: true });
     });
@@ -5863,12 +5146,6 @@ export function createDataTable(options: DataTableOptions): {
         
         // Botón de búsqueda
         if (currentOptions.header.searchButton && currentOptions.header.showSearchButton !== false) {
-          console.log('🔍 [DATA TABLE] Configurando SearchButton:', {
-            isSearchActive,
-            hasHeader: !!currentOptions.header,
-            hasSearchButton: !!currentOptions.header.searchButton
-          });
-          
           const searchBtn = headerElement.querySelector('.ubits-data-table__header-search-button');
           const prevButton = searchBtn?.previousElementSibling;
           const computedStyle = searchBtn ? window.getComputedStyle(searchBtn) : null;
@@ -5893,42 +5170,22 @@ export function createDataTable(options: DataTableOptions): {
             };
           }
           
-          console.log('🔍 [DATA TABLE] SearchButton encontrado:', {
-            found: !!searchBtn,
-            className: searchBtn?.className,
-            tagName: searchBtn?.tagName,
-            isActive: searchBtn?.classList.contains('ubits-search-button--active'),
-            width: computedStyle?.width,
-            prevButton: prevButton?.tagName,
-            gapInfo
-          });
-          
           if (searchBtn) {
             // Si es un botón (no está activo), agregar listener para activarlo
             const searchButtonElement = searchBtn.querySelector('button') as HTMLButtonElement;
             const isButton = searchBtn.tagName === 'BUTTON';
             const hasButtonInside = !!searchButtonElement;
             
-            console.log('🔍 [DATA TABLE] Estado del SearchButton:', {
-              isButton,
-              hasButtonInside,
-              isSearchActive,
-              shouldAddListener: (isButton || hasButtonInside) && !isSearchActive
-            });
-            
             if ((isButton || hasButtonInside) && !isSearchActive) {
               const buttonToUse = isButton ? (searchBtn as HTMLButtonElement) : searchButtonElement;
               
-              console.log('🔍 [DATA TABLE] Agregando listener al botón de búsqueda');
               
               buttonToUse.addEventListener('click', (e) => {
-                console.log('🔍 [DATA TABLE] Click en botón de búsqueda detectado!');
                 e.stopPropagation();
                 e.preventDefault();
                 
                 // Activar el SearchButton
                 isSearchActive = true;
-                console.log('🔍 [DATA TABLE] isSearchActive cambiado a:', isSearchActive);
                 
                 // Llamar onClick si existe
                 if (currentOptions.header.searchButton.onClick) {
@@ -5936,21 +5193,15 @@ export function createDataTable(options: DataTableOptions): {
                 }
                 
                 // Re-renderizar para mostrar el input
-                console.log('🔍 [DATA TABLE] Re-renderizando tabla...');
                 render();
                 
                 // Enfocar el input después de renderizar
                 setTimeout(() => {
                   const newSearchBtn = element.querySelector('.ubits-data-table__header-search-button');
-                  console.log('🔍 [DATA TABLE] Buscando input después de renderizar:', {
-                    found: !!newSearchBtn,
-                    tagName: newSearchBtn?.tagName
-                  });
                   
                   if (newSearchBtn) {
                     const input = newSearchBtn.querySelector('.ubits-search-button__input') as HTMLInputElement;
                     if (input) {
-                      console.log('🔍 [DATA TABLE] Enfocando input');
                       // Establecer el flag de focusing antes de hacer focus
                       // Esto se manejará en el listener de blur
                       input.focus();
@@ -6023,7 +5274,6 @@ export function createDataTable(options: DataTableOptions): {
               searchInput.addEventListener('focus', () => {
                 isFocusing = true;
                 focusTime = Date.now();
-                console.log('🔍 [DATA TABLE] Input recibió focus');
                 // Resetear el flag después de un breve delay
                 setTimeout(() => {
                   isFocusing = false;
@@ -6034,16 +5284,8 @@ export function createDataTable(options: DataTableOptions): {
                 const blurTime = Date.now();
                 const timeSinceFocus = blurTime - focusTime;
                 
-                console.log('🔍 [DATA TABLE] Input perdió focus:', {
-                  isFocusing,
-                  timeSinceFocus,
-                  searchTerm,
-                  activeElement: document.activeElement?.tagName
-                });
-                
                 // Si acabamos de hacer focus (menos de 200ms), ignorar el blur
                 if (isFocusing || timeSinceFocus < 200) {
-                  console.log('🔍 [DATA TABLE] Ignorando blur inmediato después de focus');
                   return;
                 }
                 
@@ -6070,18 +5312,7 @@ export function createDataTable(options: DataTableOptions): {
                                     activeElement !== clearBtn &&
                                     !searchButtonWrapper?.contains(activeElement as Node);
                   
-                  console.log('🔍 [DATA TABLE] Evaluando cierre del SearchButton:', {
-                    hasInput: !!currentInput,
-                    searchTerm,
-                    inputValue: currentInput?.value,
-                    activeElement: activeElement?.tagName,
-                    isClearBtn: activeElement === clearBtn,
-                    isInsideWrapper: searchButtonWrapper?.contains(activeElement as Node),
-                    shouldClose
-                  });
-                  
                   if (shouldClose) {
-                    console.log('🔍 [DATA TABLE] Desactivando SearchButton por blur (vacío)');
                     isSearchActive = false;
                     render();
                   }
@@ -6503,28 +5734,18 @@ export function createDataTable(options: DataTableOptions): {
               e.preventDefault();
               e.stopPropagation();
               
-              console.log('🔍 [COLUMN SELECTOR] ========== CLICK EN BOTÓN ==========');
-              console.log('🔍 [COLUMN SELECTOR] Estado actual - isOpen:', isOpen);
               
               // Si ya está abierto, cerrarlo
               if (isOpen) {
-                console.log('🔍 [COLUMN SELECTOR] Dropdown ya está abierto, cerrando...');
                 closeDropdown();
                 return;
               }
               
               // Crear dropdown si no existe
               const dropdownElement = createDropdown();
-              console.log('🔍 [COLUMN SELECTOR] Dropdown creado/obtenido:', {
-                exists: !!dropdownElement,
-                hasChildren: dropdownElement.children.length,
-                innerHTMLLength: dropdownElement.innerHTML.length
-              });
               
               // SIEMPRE limpiar completamente el contenido del dropdown antes de recrearlo
               // Esto asegura que no queden elementos residuales de aperturas anteriores
-              console.log('🔍 [COLUMN SELECTOR] Limpiando dropdown completamente...');
-              console.log('🔍 [COLUMN SELECTOR] ANTES - children:', dropdownElement.children.length, 'innerHTML:', dropdownElement.innerHTML.length, 'chars');
               
               // Remover todos los hijos primero
               while (dropdownElement.firstChild) {
@@ -6537,7 +5758,6 @@ export function createDataTable(options: DataTableOptions): {
               // Verificar que esté completamente limpio
               const afterCleanChildren = dropdownElement.children.length;
               const afterCleanInnerHTML = dropdownElement.innerHTML.length;
-              console.log('🔍 [COLUMN SELECTOR] DESPUÉS - children:', afterCleanChildren, 'innerHTML:', afterCleanInnerHTML, 'chars');
               
               if (afterCleanChildren > 0 || afterCleanInnerHTML > 0) {
                 console.error('🔍 [COLUMN SELECTOR] ❌ ERROR: Dropdown no está completamente limpio!');
@@ -6557,28 +5777,18 @@ export function createDataTable(options: DataTableOptions): {
               // Asegurarse de que no exista un contenedor con ese ID en el DOM
               const existingContainer = document.getElementById(listContainerId);
               if (existingContainer) {
-                console.log('🔍 [COLUMN SELECTOR] ⚠️ Contenedor existente encontrado, removiendo...');
                 existingContainer.remove();
               }
               
               const listContainer = document.createElement('div');
               listContainer.id = listContainerId;
               dropdownElement.appendChild(listContainer);
-              console.log('🔍 [COLUMN SELECTOR] Contenedor de lista creado:', {
-                id: listContainer.id,
-                parentExists: !!listContainer.parentElement,
-                hasChildren: listContainer.children.length,
-                innerHTML: listContainer.innerHTML.length
-              });
               
               if (listContainer) {
-                console.log('🔍 [COLUMN SELECTOR] ========== PROCESANDO COLUMNAS PARA CREAR LISTA ==========');
-                console.log('🔍 [COLUMN SELECTOR] Total columnas en currentOptions:', currentOptions.columns.length);
                 
                 // PRIMERO: Eliminar duplicados de currentOptions.columns ANTES de filtrar
                 const uniqueCurrentColumns = removeDuplicateColumns(currentOptions.columns);
                 if (uniqueCurrentColumns.length !== currentOptions.columns.length) {
-                  console.log('🔍 [COLUMN SELECTOR] ⚠️ DUPLICADOS ELIMINADOS:', currentOptions.columns.length, '->', uniqueCurrentColumns.length);
                   currentOptions.columns = uniqueCurrentColumns;
                 }
                 
@@ -6595,19 +5805,15 @@ export function createDataTable(options: DataTableOptions): {
                 const seenIds = new Set<string>();
                 const selectableColumns = allSelectableColumns.filter(col => {
                   if (seenIds.has(col.id)) {
-                    console.log('🔍 [COLUMN SELECTOR] ⚠️ DUPLICADO:', col.id);
                     return false;
                   }
                   seenIds.add(col.id);
                   return true;
                 });
                 
-                console.log('🔍 [COLUMN SELECTOR] Columnas seleccionables finales:', selectableColumns.length);
-                console.log('🔍 [COLUMN SELECTOR] IDs:', selectableColumns.map(c => `${c.id}(${c.visible !== false ? 'visible' : 'oculta'})`).join(', '));
                 
                 // Contar columnas visibles para deshabilitar la última
                 const visibleCount = selectableColumns.filter(col => col.visible !== false).length;
-                console.log('🔍 [COLUMN SELECTOR] Columnas visibles:', visibleCount);
                 
                 // Crear items con checkboxes
                 const listItems: ListItem[] = selectableColumns.map(col => {
@@ -6639,19 +5845,15 @@ export function createDataTable(options: DataTableOptions): {
                 const seenItemValues = new Set<string>();
                 const uniqueListItems = listItems.filter(item => {
                   if (seenItemValues.has(item.value)) {
-                    console.log('🔍 [COLUMN SELECTOR] ⚠️ ITEM DUPLICADO:', item.value);
                     return false;
                   }
                   seenItemValues.add(item.value);
                   return true;
                 });
                 
-                console.log('🔍 [COLUMN SELECTOR] Items únicos para lista:', uniqueListItems.length);
-                console.log('🔍 [COLUMN SELECTOR] Valores:', uniqueListItems.map(item => item.value).join(', '));
                 
                 // Crear la lista usando createList
                 try {
-                  console.log('🔍 [COLUMN SELECTOR] Llamando createList...');
                   createList({
                     containerId: listContainerId,
                     items: uniqueListItems,
@@ -6659,14 +5861,12 @@ export function createDataTable(options: DataTableOptions): {
                     maxHeight: '400px',
                     className: 'ubits-data-table__column-selector-list'
                   });
-                  console.log('🔍 [COLUMN SELECTOR] ✅ createList completado');
                   
                   // Verificar que la lista se creó correctamente
                   const createdList = document.getElementById(listContainerId);
                   if (createdList) {
                     const listElement = createdList.querySelector('.ubits-list');
                     const listItems = listElement?.querySelectorAll('.ubits-list-item') || [];
-                    console.log('🔍 [COLUMN SELECTOR] Lista creada - items en DOM:', listItems.length);
                   } else {
                     console.error('🔍 [COLUMN SELECTOR] ❌ Lista no encontrada después de createList');
                   }
@@ -6680,7 +5880,6 @@ export function createDataTable(options: DataTableOptions): {
                     maxHeight: '400px',
                     className: 'ubits-data-table__column-selector-list'
                   });
-                  console.log('🔍 [COLUMN SELECTOR] ✅ Fallback renderList usado');
                 }
               } else {
                 console.error('🔍 [COLUMN SELECTOR] ❌ listContainer no existe');
@@ -6688,37 +5887,22 @@ export function createDataTable(options: DataTableOptions): {
               
               // Función helper para actualizar el contenido del dropdown
               const updateDropdownContent = () => {
-                console.log('🔍 [COLUMN SELECTOR] ========== UPDATE DROPDOWN CONTENT ==========');
-                console.log('🔍 [COLUMN SELECTOR] Dropdown existe:', !!dropdownElement);
-                console.log('🔍 [COLUMN SELECTOR] Dropdown isOpen:', isOpen);
                 
                 const listContainerId = 'ubits-data-table-column-selector-list';
                 let listContainer = dropdownElement.querySelector(`#${listContainerId}`) as HTMLElement;
                 
-                console.log('🔍 [COLUMN SELECTOR] Buscando contenedor:', {
-                  found: !!listContainer,
-                  hasChildren: listContainer ? listContainer.children.length : 0,
-                  innerHTMLLength: listContainer ? listContainer.innerHTML.length : 0
-                });
-                
                 // Si no existe el contenedor o el dropdown está cerrado, no hacer nada
                 if (!listContainer || !isOpen) {
-                  console.log('🔍 [COLUMN SELECTOR] ⚠️ Contenedor no encontrado o dropdown cerrado, recreando...');
                   // Limpiar completamente y recrear
                   dropdownElement.innerHTML = '';
                   listContainer = document.createElement('div');
                   listContainer.id = listContainerId;
                   dropdownElement.appendChild(listContainer);
-                  console.log('🔍 [COLUMN SELECTOR] Contenedor recreado:', {
-                    id: listContainer.id,
-                    parentExists: !!listContainer.parentElement
-                  });
                 }
                 
                 // PRIMERO: Eliminar duplicados de currentOptions.columns ANTES de filtrar
                 const uniqueCurrentColumns = removeDuplicateColumns(currentOptions.columns);
                 if (uniqueCurrentColumns.length !== currentOptions.columns.length) {
-                  console.log('🔍 [COLUMN SELECTOR UPDATE] ⚠️ DUPLICADOS:', currentOptions.columns.length, '->', uniqueCurrentColumns.length);
                   currentOptions.columns = uniqueCurrentColumns;
                 }
                 
@@ -6735,7 +5919,6 @@ export function createDataTable(options: DataTableOptions): {
                 const seenIds = new Set<string>();
                 const selectableColumns = allSelectableColumns.filter(col => {
                   if (seenIds.has(col.id)) {
-                    console.log('🔍 [COLUMN SELECTOR UPDATE] ⚠️ DUPLICADO:', col.id);
                     return false;
                   }
                   seenIds.add(col.id);
@@ -6743,8 +5926,6 @@ export function createDataTable(options: DataTableOptions): {
                 });
                 
                 const visibleCount = selectableColumns.filter(col => col.visible !== false).length;
-                console.log('🔍 [COLUMN SELECTOR UPDATE] Columnas:', selectableColumns.length, '| Visibles:', visibleCount);
-                console.log('🔍 [COLUMN SELECTOR UPDATE] IDs:', selectableColumns.map(c => `${c.id}(${c.visible !== false ? 'V' : 'O'})`).join(', '));
                 
                 // Crear items con checkboxes
                 const listItems: ListItem[] = selectableColumns.map(col => {
@@ -6776,24 +5957,17 @@ export function createDataTable(options: DataTableOptions): {
                 const seenItemValues = new Set<string>();
                 const uniqueListItems = listItems.filter(item => {
                   if (seenItemValues.has(item.value)) {
-                    console.log('🔍 [COLUMN SELECTOR UPDATE] ⚠️ ITEM DUPLICADO:', item.value);
                     return false;
                   }
                   seenItemValues.add(item.value);
                   return true;
                 });
                 
-                console.log('🔍 [COLUMN SELECTOR UPDATE] Items únicos:', uniqueListItems.length);
-                console.log('🔍 [COLUMN SELECTOR UPDATE] Valores:', uniqueListItems.map(item => item.value).join(', '));
                 
                 // LIMPIAR COMPLETAMENTE antes de recrear
-                console.log('🔍 [COLUMN SELECTOR UPDATE] Limpiando contenedor...');
-                console.log('🔍 [COLUMN SELECTOR UPDATE] ANTES - children:', listContainer.children.length, 'innerHTML:', listContainer.innerHTML.length);
                 listContainer.innerHTML = '';
-                console.log('🔍 [COLUMN SELECTOR UPDATE] DESPUÉS - children:', listContainer.children.length, 'innerHTML:', listContainer.innerHTML.length);
                 
                 try {
-                  console.log('🔍 [COLUMN SELECTOR UPDATE] Llamando createList...');
                   createList({
                     containerId: listContainerId,
                     items: uniqueListItems,
@@ -6801,14 +5975,12 @@ export function createDataTable(options: DataTableOptions): {
                     maxHeight: '400px',
                     className: 'ubits-data-table__column-selector-list'
                   });
-                  console.log('🔍 [COLUMN SELECTOR UPDATE] ✅ createList completado');
                   
                   // Verificar que la lista se creó
                   const createdList = document.getElementById(listContainerId);
                   if (createdList) {
                     const listElement = createdList.querySelector('.ubits-list');
                     const items = listElement?.querySelectorAll('.ubits-list-item') || [];
-                    console.log('🔍 [COLUMN SELECTOR UPDATE] Lista creada - items en DOM:', items.length);
                   } else {
                     console.error('🔍 [COLUMN SELECTOR UPDATE] ❌ Lista no encontrada');
                   }
@@ -6821,7 +5993,6 @@ export function createDataTable(options: DataTableOptions): {
                     maxHeight: '400px',
                     className: 'ubits-data-table__column-selector-list'
                   });
-                  console.log('🔍 [COLUMN SELECTOR UPDATE] ✅ Fallback renderList usado');
                 }
                 
                 // Agregar listeners a los nuevos checkboxes
@@ -6847,7 +6018,6 @@ export function createDataTable(options: DataTableOptions): {
                     
                     // Si el checkbox está deshabilitado, no procesar el cambio
                     if (newInput.disabled) {
-                      console.log('🔍 [COLUMN SELECTOR] Checkbox deshabilitado, ignorando cambio');
                       return;
                     }
                     
@@ -6886,23 +6056,6 @@ export function createDataTable(options: DataTableOptions): {
                           return col.visible !== false;
                         });
                         
-                        console.log('🔍 [COLUMN SELECTOR] Validación de ocultar columna:', {
-                          columnId,
-                          columnTitle: column.title,
-                          selectableColumnsCount: selectableColumns.length,
-                          wouldBeVisibleCount: wouldBeVisible.length,
-                          selectableColumns: selectableColumns.map(c => ({ id: c.id, title: c.title, visible: c.visible })),
-                          wouldBeVisible: wouldBeVisible.map(c => ({ id: c.id, title: c.title }))
-                        });
-                        console.log('🔍 [COLUMN SELECTOR] Detalles completos:', JSON.stringify({
-                          columnId,
-                          columnTitle: column.title,
-                          selectableColumnsCount: selectableColumns.length,
-                          wouldBeVisibleCount: wouldBeVisible.length,
-                          selectableColumns: selectableColumns.map(c => ({ id: c.id, title: c.title, visible: c.visible })),
-                          wouldBeVisible: wouldBeVisible.map(c => ({ id: c.id, title: c.title }))
-                        }, null, 2));
-                        
                         // Si no quedaría ninguna columna visible, prevenir la acción
                         if (wouldBeVisible.length === 0) {
                           // Revertir el checkbox
@@ -6912,45 +6065,25 @@ export function createDataTable(options: DataTableOptions): {
                         }
                       }
                       
-                      console.log('🔍 [COLUMN SELECTOR] ========== ACTUALIZANDO VISIBILIDAD ==========');
-                      console.log('🔍 [COLUMN SELECTOR] Columna encontrada:', {
-                        id: column.id,
-                        title: column.title,
-                        visibleActual: column.visible,
-                        visibleNuevo: isChecked
-                      });
-                      
                       // Verificar si hay otras columnas con el mismo ID antes de actualizar
                       const columnsWithSameId = currentOptions.columns.filter(col => col.id === columnId);
-                      console.log('🔍 [COLUMN SELECTOR] Columnas con el mismo ID:', columnsWithSameId.length, columnsWithSameId.map(c => ({ id: c.id, title: c.title, visible: c.visible })));
                       
                       column.visible = isChecked;
                       
                       // Actualizar TODAS las columnas con el mismo ID
                       if (columnsWithSameId.length > 1) {
-                        console.log('🔍 [COLUMN SELECTOR] ⚠️ ACTUALIZANDO COLUMNAS DUPLICADAS:', columnsWithSameId.length);
                         columnsWithSameId.forEach((col, index) => {
                           if (col.id === columnId) {
                             col.visible = isChecked;
-                            console.log('🔍 [COLUMN SELECTOR] Columna duplicada actualizada:', index, col.id, col.title, col.visible);
                           }
                         });
                       }
                       
-                      console.log('🔍 [COLUMN SELECTOR] Estado después de actualizar:', {
-                        columnId,
-                        visible: column.visible,
-                        totalColumnsWithId: currentOptions.columns.filter(col => col.id === columnId).length
-                      });
-                      
                       // Actualizar el contenido del dropdown para reflejar el cambio
-                      console.log('🔍 [COLUMN SELECTOR] Llamando updateDropdownContent...');
                       updateDropdownContent();
                       
                       // Re-renderizar la tabla
-                      console.log('🔍 [COLUMN SELECTOR] Llamando render() para actualizar tabla...');
                       render();
-                      console.log('🔍 [COLUMN SELECTOR] Render completado');
                     }
                   });
                 });
@@ -7064,7 +6197,6 @@ export function createDataTable(options: DataTableOptions): {
       // Error en attachEventListeners
       console.error(`📎 [ATTACH] ❌ Error en attachEventListeners:`, error);
     }
-    console.log(`📎 [ATTACH] ========== FIN attachEventListeners ==========`);
   };
 
   // Llamar render inicial
@@ -7077,14 +6209,12 @@ export function createDataTable(options: DataTableOptions): {
     
     // Si se actualizaron las columnas, eliminar duplicados
     if (newOptions.columns) {
-      console.log('🔍 [UPDATE] Eliminando duplicados de columnas actualizadas...');
       currentOptions.columns = removeDuplicateColumns(newOptions.columns);
     } else if (currentOptions.columns) {
       // También verificar y limpiar duplicados en las columnas existentes
       const beforeCount = currentOptions.columns.length;
       currentOptions.columns = removeDuplicateColumns(currentOptions.columns);
       if (currentOptions.columns.length !== beforeCount) {
-        console.log('🔍 [UPDATE] Duplicados encontrados y eliminados:', beforeCount, '->', currentOptions.columns.length);
       }
     }
     

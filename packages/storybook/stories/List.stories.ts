@@ -315,7 +315,7 @@ export const Default: Story = {
       const link = document.createElement('link');
       link.id = scrollbarCSSId;
       link.rel = 'stylesheet';
-      link.href = '../../addons/scroll/src/styles/scroll.css';
+      link.href = '../../components/scroll/src/styles/scroll.css';
       document.head.appendChild(link);
     }
     

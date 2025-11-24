@@ -65,14 +65,6 @@ function renderStatusTagInline(label: string, status: 'pending' | 'completed' | 
  * Renderiza un File Upload UBITS como HTML string
  */
 export function renderFileUpload(options: FileUploadOptions = {}): string {
-  // 🔍 LOGS DE DEBUG
-  console.log('🔍 [FileUploadProvider] ========== RENDER FILE UPLOAD ==========');
-  console.log('🔍 [FileUploadProvider] options.showFileSize:', options.showFileSize, '| tipo:', typeof options.showFileSize);
-  console.log('🔍 [FileUploadProvider] options.showProgress:', options.showProgress, '| tipo:', typeof options.showProgress);
-  console.log('🔍 [FileUploadProvider] options.showIcon:', options.showIcon, '| tipo:', typeof options.showIcon);
-  console.log('🔍 [FileUploadProvider] options.state:', options.state);
-  console.log('🔍 [FileUploadProvider] options.files:', options.files, '| length:', options.files?.length);
-  
   const {
     state = 'default',
     files = [],
@@ -93,13 +85,6 @@ export function renderFileUpload(options: FileUploadOptions = {}): string {
     fileStatus = 'pending',
     className = ''
   } = options;
-  
-  console.log('🔍 [FileUploadProvider] Valores desestructurados:');
-  console.log('  - showFileSize:', showFileSize, '| tipo:', typeof showFileSize);
-  console.log('  - showProgress:', showProgress, '| tipo:', typeof showProgress);
-  console.log('  - showIcon:', showIcon, '| tipo:', typeof showIcon);
-  console.log('  - state:', state);
-  console.log('  - filesCount:', files.length);
 
   // Determinar si mostrar vista de lista o drop zone
   const hasFiles = files && files.length > 0;
@@ -110,10 +95,6 @@ export function renderFileUpload(options: FileUploadOptions = {}): string {
 
   // Vista de lista de archivos
   if (actualState === 'files-list' && hasFiles) {
-    console.log('🔍 [FileUploadProvider] Renderizando vista files-list');
-    console.log('🔍 [FileUploadProvider] showFileSize:', showFileSize, '| tipo:', typeof showFileSize, '| será usado:', showFileSize ? 'SÍ' : 'NO');
-    console.log('🔍 [FileUploadProvider] showProgress:', showProgress, '| tipo:', typeof showProgress);
-    
     const isSingleMode = maxFiles === 1;
     // En modo single, solo mostrar el primer archivo
     const filesToShow = isSingleMode ? files.slice(0, 1) : files;
@@ -123,22 +104,9 @@ export function renderFileUpload(options: FileUploadOptions = {}): string {
       const fileStatusClass = file.status || 'pending';
       const showFileProgress = showProgress && file.status === 'uploading' && fileProgress > 0;
       
-      console.log(`🔍 [FileUploadProvider] Archivo ${index}:`);
-      console.log(`  - name: ${file.name}`);
-      console.log(`  - size: ${file.size}`);
-      console.log(`  - status: ${file.status}`);
-      console.log(`  - progress: ${fileProgress}`);
-      console.log(`  - showFileSize (variable): ${showFileSize} | tipo: ${typeof showFileSize} | será renderizado: ${showFileSize ? 'SÍ' : 'NO'}`);
-      console.log(`  - showProgress (variable): ${showProgress} | tipo: ${typeof showProgress}`);
-      console.log(`  - showFileProgress (calculado): ${showFileProgress} | será renderizado: ${showFileProgress ? 'SÍ' : 'NO'}`);
-      
       // Evaluar condiciones explícitamente para asegurar que funcionen correctamente
       const shouldShowFileSize = showFileSize === true;
       const shouldShowProgress = showFileProgress === true;
-      
-      console.log(`  - shouldShowFileSize (evaluado): ${shouldShowFileSize}`);
-      console.log(`  - shouldShowProgress (evaluado): ${shouldShowProgress}`);
-
       return `
         <div class="ubits-file-upload__file-item" data-file-id="${fileId}">
           <div class="ubits-file-upload__file-icon">

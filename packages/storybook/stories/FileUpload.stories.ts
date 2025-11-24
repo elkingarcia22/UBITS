@@ -160,15 +160,6 @@ export const Default: Story = {
     const createFileUploadContent = () => {
       fileUploadContainer.innerHTML = '';
       
-      // LOGS DE DEBUG
-      console.log('[FileUpload Storybook] ========== RENDER ==========');
-      console.log('[FileUpload Storybook] args.showFileSize:', args.showFileSize, '| tipo:', typeof args.showFileSize);
-      console.log('[FileUpload Storybook] args.showProgress:', args.showProgress, '| tipo:', typeof args.showProgress);
-      console.log('[FileUpload Storybook] args.showIcon:', args.showIcon, '| tipo:', typeof args.showIcon);
-      console.log('[FileUpload Storybook] args.state:', args.state);
-      console.log('[FileUpload Storybook] args.files:', args.files, '| length:', args.files?.length);
-      console.log('[FileUpload Storybook] args completos:', JSON.stringify(args, null, 2));
-      
       // Determinar si mostrar vista de lista o drop zone
       let filesToUse = args.files || [];
       
@@ -197,7 +188,6 @@ export const Default: Story = {
             status: 'pending' as const
 }
 ];
-        console.log('[FileUpload Storybook] Archivos de ejemplo agregados para probar controles:', filesToUse);
       }
       
       const hasFiles = filesToUse && filesToUse.length > 0;
@@ -205,12 +195,6 @@ export const Default: Story = {
       
       const showFileSizeValue = args.showFileSize !== undefined ? args.showFileSize : true;
       const showProgressValue = args.showProgress !== undefined ? args.showProgress : true;
-      
-      console.log('[FileUpload Storybook] Valores calculados:');
-      console.log('  - showFileSizeValue:', showFileSizeValue, '| tipo:', typeof showFileSizeValue);
-      console.log('  - showProgressValue:', showProgressValue, '| tipo:', typeof showProgressValue);
-      console.log('  - actualState:', actualState);
-      console.log('  - hasFiles:', hasFiles);
       
       const options: FileUploadOptions = {
         state: actualState,
@@ -222,22 +206,14 @@ export const Default: Story = {
         showIcon: args.showIcon !== undefined ? args.showIcon : false,
         showFileSize: showFileSizeValue,
         showProgress: showProgressValue
-};
-      
-      console.log('[FileUpload Storybook] Options finales:');
-      console.log('  - showFileSize:', options.showFileSize, '| tipo:', typeof options.showFileSize);
-      console.log('  - showProgress:', options.showProgress, '| tipo:', typeof options.showProgress);
-      console.log('  - showIcon:', options.showIcon, '| tipo:', typeof options.showIcon);
+      };
       
       try {
         const html = renderFileUpload(options);
         fileUploadContainer.innerHTML = html;
-        console.log('[FileUpload Storybook] HTML renderizado exitosamente');
       } catch (error) {
         console.error('[FileUpload Storybook] Error rendering file upload:', error);
       }
-      
-      console.log('[FileUpload Storybook] ========== FIN RENDER ==========');
     };
 
     createFileUploadContent();
@@ -261,9 +237,6 @@ export const Default: Story = {
         JSON.stringify(currentArgsSnapshot) !== JSON.stringify(lastArgsSnapshot);
       
       if (argsChanged) {
-        console.log('[FileUpload Storybook] Args cambiaron, re-renderizando...');
-        console.log('[FileUpload Storybook] Args anteriores:', lastArgsSnapshot);
-        console.log('[FileUpload Storybook] Args nuevos:', currentArgsSnapshot);
         lastArgsSnapshot = JSON.parse(JSON.stringify(currentArgsSnapshot)); // Deep copy
         createFileUploadContent();
       }

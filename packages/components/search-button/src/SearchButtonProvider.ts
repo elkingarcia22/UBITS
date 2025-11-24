@@ -79,26 +79,19 @@ export function renderSearchButton(options: SearchButtonOptions): string {
       state: isDisabled ? 'disabled' : 'default'
     });
     
-    console.log('🔍 [SearchButton] inputHTML completo:', inputHTML);
-    console.log('🔍 [SearchButton] inputHTML length:', inputHTML.length);
-    
     // renderInput genera: <div style="position: relative; display: inline-block; width: 100%;">...</div>
     // El wrapper del SearchButton ya tiene position: relative, así que podemos extraer el contenido
     // pero necesitamos mantener el wrapper interno para que el icono absolute funcione
     // O mejor aún, extraer solo el input y el icono, y el wrapper del SearchButton será el contenedor relative
     
     let inputContent = inputHTML;
-    console.log('🔍 [SearchButton] inputHTML completo:', inputHTML);
-    console.log('🔍 [SearchButton] inputContent inicial:', inputContent);
     
     // Remover el wrapper div externo si existe (el que tiene position: relative)
     // Pero mantener el input y el icono
     const wrapperMatch = inputHTML.match(/^<div[^>]*style="[^"]*position:\s*relative[^"]*"[^>]*>(.*?)<\/div>$/s);
-    console.log('🔍 [SearchButton] wrapperMatch:', wrapperMatch);
     
     if (wrapperMatch && wrapperMatch[1]) {
       inputContent = wrapperMatch[1].trim();
-      console.log('🔍 [SearchButton] inputContent después de extraer wrapper:', inputContent);
       
       // Sin icono, el input solo necesita el padding estándar
       // El wrapper ya tiene padding-left: var(--ubits-spacing-md), así que el input no necesita padding-left adicional
@@ -107,19 +100,13 @@ export function renderSearchButton(options: SearchButtonOptions): string {
         /padding-left:\s*\d+px;/g,
         'padding-left: 0;'
       );
-      console.log('🔍 [SearchButton] inputContent después de ajustar padding:', inputContent);
-    } else {
-      console.log('⚠️ [SearchButton] No se encontró wrapper, usando inputHTML completo');
     }
     
     // Agregar aria-label directamente al input dentro del contenido
-    const beforeReplace = inputContent;
     inputContent = inputContent.replace(
       /(<input[^>]*class="[^"]*ubits-search-button__input[^"]*"[^>]*)(>)/,
       '$1 aria-label="Buscar"$2'
     );
-    console.log('🔍 [SearchButton] inputContent antes de agregar aria-label:', beforeReplace);
-    console.log('🔍 [SearchButton] inputContent después de agregar aria-label:', inputContent);
     
     const finalHTML = `
       <div class="${inputWrapperClasses}" style="${widthStyle}">
@@ -129,9 +116,6 @@ export function renderSearchButton(options: SearchButtonOptions): string {
         </div>
       </div>
     `.trim();
-    
-    console.log('🔍 [SearchButton] HTML final completo:', finalHTML);
-    console.log('🔍 [SearchButton] Número de inputs en el HTML final:', (finalHTML.match(/<input/g) || []).length);
     
     return finalHTML;
   }

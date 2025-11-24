@@ -122,7 +122,6 @@ export function createTabBar(options: TabBarOptions): HTMLElement | null {
 
   // Inicializar event listeners
   const treeMenuSize = options.treeMenuSize || 'md';
-  console.log('[createTabBar] Using treeMenuSize:', treeMenuSize);
   initTabBarListeners(
     tabBarElement as HTMLElement,
     items,
@@ -150,22 +149,8 @@ function renderTreeMenuItem(item: FloatingMenuSection | TreeMenuItem, level: num
   
   const sizeClass = `ubits-tree-menu-${isLink ? 'link' : 'header'}--${size}`;
   
-  console.log('[renderTreeMenuItem]', {
-    id: item.id,
-    title: item.title,
-    level,
-    hasChildren,
-    isLink,
-    size,
-    sizeClass,
-    childrenCount: item.children?.length || (item as FloatingMenuSection).subitems?.length || 0,
-    hasChildrenProp: !!item.children,
-    hasSubitemsProp: !!(item as FloatingMenuSection).subitems
-  });
-  
   // Si es un enlace directo (sin hijos)
   if (isLink) {
-    console.log(`[renderTreeMenuItem] Rendering as link: ${item.id} with size: ${size}, class: ${sizeClass}`);
     // Solo mostrar icono en level 0 (items principales), no en sub-items
     const iconHTML = level === 0 ? `
           <div class="ubits-tree-menu-icon" data-circle-id="${item.id}">
@@ -197,8 +182,6 @@ function renderTreeMenuItem(item: FloatingMenuSection | TreeMenuItem, level: num
       children: undefined
     })) || [];
   
-  console.log(`[renderTreeMenuItem] Rendering as node with ${children.length} children: ${item.id} with size: ${size}, class: ${sizeClass}`);
-  
   const childrenHTML = children.map(child => renderTreeMenuItem(child, level + 1, size)).join('');
 
   // Solo mostrar icono en level 0 (items principales), no en sub-items
@@ -224,7 +207,6 @@ function renderTreeMenuItem(item: FloatingMenuSection | TreeMenuItem, level: num
         </div>
       </div>
     `;
-  console.log(`[renderTreeMenuItem] Generated HTML for node ${item.id} (${children.length} children) with size: ${size}, class: ${sizeClass}:`, html.substring(0, 300));
   return html;
 }
 
@@ -232,9 +214,7 @@ function renderTreeMenuItem(item: FloatingMenuSection | TreeMenuItem, level: num
  * Renderiza el Floating Menu como Tree Menu
  */
 function renderFloatingMenu(sections: FloatingMenuSection[], size: 'xs' | 'sm' | 'md' | 'lg' = 'md'): string {
-  console.log('[renderFloatingMenu] Starting render with', sections.length, 'sections, size:', size);
   const sectionsHTML = sections.map(section => renderTreeMenuItem(section, 0, size)).join('');
-  console.log('[renderFloatingMenu] Generated HTML length:', sectionsHTML.length);
 
   return `
     <div class="ubits-floating-menu" id="ubits-floating-menu">
@@ -258,15 +238,6 @@ function renderProfileTreeMenuItem(item: ProfileMenuItem, level: number = 0, siz
   const hasChildren = item.children && item.children.length > 0;
   const indent = level * 24; // 24px de indentación por nivel
   const sizeClass = `ubits-profile-tree-${hasChildren ? 'header' : 'link'}--${size}`;
-  
-  console.log('[renderProfileTreeMenuItem]', {
-    id: item.id,
-    label: item.label,
-    level,
-    hasChildren,
-    size,
-    sizeClass
-  });
   
   // Si no tiene hijos, renderizar como enlace simple
   // Solo mostrar icono en level 0 (items principales), no en sub-items
@@ -305,7 +276,6 @@ function renderProfileTreeMenuItem(item: ProfileMenuItem, level: number = 0, siz
  * Renderiza el Profile Menu como Tree Menu
  */
 function renderProfileMenu(items: ProfileMenuItem[], size: 'xs' | 'sm' | 'md' | 'lg' = 'md'): string {
-  console.log('[renderProfileMenu] Starting render with', items.length, 'items, size:', size);
   const itemsHTML = items.map(item => renderProfileTreeMenuItem(item, 0, size)).join('');
 
   return `
@@ -331,7 +301,6 @@ function initTabBarListeners(
   container?: HTMLElement,
   treeMenuSize: 'xs' | 'sm' | 'md' | 'lg' = 'md'
 ): void {
-  console.log('[initTabBarListeners] Starting with treeMenuSize:', treeMenuSize);
   const tabItems = tabBarElement.querySelectorAll('.ubits-tabbar-item');
   const tabBarContainer = container || tabBarElement.parentElement;
   const isPreview = tabBarContainer?.classList.contains('ubits-tabbar-preview-container');
@@ -358,9 +327,7 @@ function initTabBarListeners(
     }
     
     const floatingMenuHTML = renderFloatingMenu(floatingMenuSections, treeMenuSize);
-    console.log('[initTabBarListeners] Setting floating menu HTML, length:', floatingMenuHTML.length, 'with size:', treeMenuSize);
     floatingMenuContainer.innerHTML = floatingMenuHTML;
-    console.log('[initTabBarListeners] Floating menu container innerHTML length:', floatingMenuContainer.innerHTML.length);
     initFloatingMenuListeners(floatingMenuContainer, onFloatingMenuItemClick);
   }
 
@@ -370,10 +337,8 @@ function initTabBarListeners(
     if (isPreview) {
       // Contenedor igual que Floating Menu pero solo en bottom
       profileMenuContainer.style.cssText = 'position: absolute; bottom: 68px; left: 0; right: 0; width: 100%; max-width: 100%; z-index: 2001; overflow: visible; display: none;'; // 60px (TabBar) + 8px (espacio)
-      console.log('[TabBar] Initialized profile menu container for preview with bottom: 68px');
     } else {
       profileMenuContainer.style.cssText = '';
-      console.log('[TabBar] Initialized profile menu container (not preview), using CSS styles');
     }
     
     if (!document.getElementById('ubits-profile-menu-container')) {
@@ -385,7 +350,6 @@ function initTabBarListeners(
     }
     
       const profileMenuHTML = renderProfileMenu(profileMenuItems, treeMenuSize);
-      console.log('[initTabBarListeners] Setting profile menu HTML with size:', treeMenuSize);
       profileMenuContainer.innerHTML = profileMenuHTML;
     // Asegurar que el menú tenga la clase preview si estamos en modo preview - igual que Floating Menu
     if (isPreview) {
@@ -439,15 +403,10 @@ function initTabBarListeners(
           if (floatingMenu.classList.contains('ubits-floating-menu--show')) {
             floatingMenu.classList.remove('ubits-floating-menu--show');
           } else {
-            console.log('[TabBar] ========== OPENING FLOATING MENU ==========');
-            console.log('[TabBar] isPreview:', isPreview);
-            console.log('[TabBar] floatingMenuContainer exists:', !!floatingMenuContainer);
             floatingMenu.classList.add('ubits-floating-menu--show');
             // Asegurar posicionamiento correcto en preview
             if (isPreview && floatingMenuContainer) {
-              console.log('[TabBar] --- PREVIEW MODE ---');
               floatingMenu.classList.add('ubits-floating-menu--preview');
-              console.log('[TabBar] Added preview class to floating menu');
               
               // Calcular posición relativa al contenedor padre
               const tabBarRect = tabBarElement.getBoundingClientRect();
@@ -458,20 +417,6 @@ function initTabBarListeners(
               // Calcular la posición del TabBar relativa al contenedor padre
               const tabBarTopRelative = tabBarRect.top - containerRect.top;
               const containerBottom = tabBarTopRelative - spaceBetween;
-              
-              console.log('[TabBar] --- CONTAINER CALCULATIONS ---');
-              console.log('[TabBar] Container getBoundingClientRect():', containerRect);
-              console.log('[TabBar] TabBar getBoundingClientRect():', {
-                top: tabBarRect.top,
-                bottom: tabBarRect.bottom,
-                height: tabBarRect.height,
-                left: tabBarRect.left,
-                right: tabBarRect.right
-              });
-              console.log('[TabBar] TabBar top relative to container:', tabBarTopRelative);
-              console.log('[TabBar] TabBar height (hardcoded):', tabBarHeight);
-              console.log('[TabBar] Space between:', spaceBetween);
-              console.log('[TabBar] Container bottom (calculated):', containerBottom, 'px');
               
               // Configurar contenedor
               floatingMenuContainer.style.display = 'block';
@@ -486,89 +431,10 @@ function initTabBarListeners(
               floatingMenuContainer.style.overflow = 'visible';
               floatingMenuContainer.style.boxSizing = 'border-box';
               
-              console.log('[TabBar] --- CONTAINER STYLES APPLIED ---');
-              console.log('[TabBar] Container inline styles:', {
-                display: floatingMenuContainer.style.display,
-                position: floatingMenuContainer.style.position,
-                top: floatingMenuContainer.style.top,
-                left: floatingMenuContainer.style.left,
-                right: floatingMenuContainer.style.right,
-                bottom: floatingMenuContainer.style.bottom,
-                width: floatingMenuContainer.style.width,
-                height: floatingMenuContainer.style.height,
-                zIndex: floatingMenuContainer.style.zIndex
-              });
-              
-              // Obtener estilos computados del contenedor
-              const containerComputed = window.getComputedStyle(floatingMenuContainer);
-              console.log('[TabBar] --- CONTAINER COMPUTED STYLES ---');
-              console.log('[TabBar] Container computed:', {
-                position: containerComputed.position,
-                top: containerComputed.top,
-                bottom: containerComputed.bottom,
-                height: containerComputed.height,
-                width: containerComputed.width,
-                display: containerComputed.display
-              });
-              console.log('[TabBar] Container getBoundingClientRect():', floatingMenuContainer.getBoundingClientRect());
-              
               // Asegurar estilos del menú interno - EXACTAMENTE igual que Profile Menu (sin !important en inline)
               // El menú debe respetar la altura del contenedor usando bottom: 0, no height explícito
               // El padding del menú (8px 0) no debe afectar la altura total
               floatingMenu.style.cssText = 'position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; max-width: 100%; display: block; box-sizing: border-box;';
-              console.log('[TabBar] Menu style applied with box-sizing: border-box');
-              
-              console.log('[TabBar] --- MENU STYLES APPLIED ---');
-              console.log('[TabBar] Menu inline styles:', {
-                position: floatingMenu.style.position,
-                top: floatingMenu.style.top,
-                left: floatingMenu.style.left,
-                right: floatingMenu.style.right,
-                bottom: floatingMenu.style.bottom,
-                width: floatingMenu.style.width,
-                maxWidth: floatingMenu.style.maxWidth,
-                display: floatingMenu.style.display
-              });
-              console.log('[TabBar] Menu classes:', Array.from(floatingMenu.classList));
-              
-              // Obtener estilos computados del menú
-              const menuComputed = window.getComputedStyle(floatingMenu);
-              console.log('[TabBar] --- MENU COMPUTED STYLES ---');
-              console.log('[TabBar] Menu computed:', {
-                position: menuComputed.position,
-                top: menuComputed.top,
-                bottom: menuComputed.bottom,
-                height: menuComputed.height,
-                width: menuComputed.width,
-                display: menuComputed.display
-              });
-              console.log('[TabBar] Menu getBoundingClientRect():', floatingMenu.getBoundingClientRect());
-              
-              // Verificar distancia al TabBar
-              const menuRect = floatingMenu.getBoundingClientRect();
-              const tabBarBottom = tabBarRect.bottom;
-              const menuBottom = menuRect.bottom;
-              const actualSpace = tabBarBottom - menuBottom;
-              console.log('[TabBar] --- SPACE VERIFICATION ---');
-              console.log('[TabBar] TabBar bottom:', tabBarBottom);
-              console.log('[TabBar] Menu bottom:', menuBottom);
-              console.log('[TabBar] Actual space between:', actualSpace, 'px');
-              console.log('[TabBar] Expected space:', spaceBetween, 'px');
-              console.log('[TabBar] Space difference:', actualSpace - spaceBetween, 'px');
-              
-              console.log('[TabBar] ========== END FLOATING MENU SETUP ==========');
-            } else {
-              // No preview - usar estilos CSS fixed
-              console.log('[TabBar] Not preview mode, using CSS fixed styles');
-              console.log('[TabBar] Floating menu container computed bottom:', window.getComputedStyle(floatingMenuContainer).bottom);
-              console.log('[TabBar] Floating menu computed bottom:', window.getComputedStyle(floatingMenu).bottom);
-              console.log('[TabBar] Floating menu computed position:', window.getComputedStyle(floatingMenu).position);
-              console.log('[TabBar] TabBar element:', tabBarElement);
-              if (tabBarElement) {
-                const tabBarRect = tabBarElement.getBoundingClientRect();
-                console.log('[TabBar] TabBar position:', tabBarRect.bottom, 'window height:', window.innerHeight);
-                console.log('[TabBar] Expected menu bottom:', window.innerHeight - tabBarRect.height);
-              }
             }
             // Cerrar Profile Menu si está abierto
             if (profileMenuContainer) {
@@ -591,13 +457,10 @@ function initTabBarListeners(
             profileMenu.classList.remove('ubits-profile-menu--show');
             profileMenuContainer.style.display = 'none';
           } else {
-            console.log('[TabBar] Opening profile menu, isPreview:', isPreview);
             profileMenu.classList.add('ubits-profile-menu--show');
             // Asegurar posicionamiento correcto en preview - igual que Floating Menu
             if (isPreview && profileMenuContainer) {
-              console.log('[TabBar] Setting profile menu container styles for preview');
               const tabBarRect = tabBarElement.getBoundingClientRect();
-              console.log('[TabBar] TabBar bottom position:', tabBarRect.bottom, 'window height:', window.innerHeight);
               profileMenuContainer.style.display = 'block';
               profileMenuContainer.style.position = 'absolute';
               profileMenuContainer.style.bottom = '68px'; // 60px (altura TabBar) + 8px (espacio)
@@ -607,26 +470,11 @@ function initTabBarListeners(
               profileMenuContainer.style.maxWidth = '100%';
               profileMenuContainer.style.zIndex = '2001';
               profileMenuContainer.style.overflow = 'visible';
-              console.log('[TabBar] Profile menu container bottom (inline):', profileMenuContainer.style.bottom);
               // Asegurar que el menú interno tenga el ancho completo y posición absoluta, igual que Floating Menu
               const profileMenuInner = profileMenuContainer.querySelector('.ubits-profile-menu') as HTMLElement;
               if (profileMenuInner) {
                 profileMenuInner.style.cssText = 'position: absolute; bottom: 0; left: 0; right: 0; width: 100%; max-width: 100%; display: block;';
                 profileMenuInner.classList.add('ubits-profile-menu--preview');
-              }
-              console.log('[TabBar] Profile menu container computed bottom:', window.getComputedStyle(profileMenuContainer).bottom);
-              console.log('[TabBar] Profile menu computed bottom:', window.getComputedStyle(profileMenu).bottom);
-            } else {
-              // No preview - usar estilos CSS fixed
-              console.log('[TabBar] Not preview mode, using CSS fixed styles');
-              console.log('[TabBar] Profile menu container computed bottom:', window.getComputedStyle(profileMenuContainer).bottom);
-              console.log('[TabBar] Profile menu computed bottom:', window.getComputedStyle(profileMenu).bottom);
-              console.log('[TabBar] Profile menu computed position:', window.getComputedStyle(profileMenu).position);
-              console.log('[TabBar] TabBar element:', tabBarElement);
-              if (tabBarElement) {
-                const tabBarRect = tabBarElement.getBoundingClientRect();
-                console.log('[TabBar] TabBar position:', tabBarRect.bottom, 'window height:', window.innerHeight);
-                console.log('[TabBar] Expected menu bottom:', window.innerHeight - tabBarRect.height);
               }
             }
             // Cerrar Floating Menu si está abierto
@@ -685,23 +533,17 @@ function initFloatingMenuListeners(
 
   // Tree menu nodes (expandible/collapsible)
   const treeNodes = floatingMenu.querySelectorAll('.ubits-tree-menu-node');
-  console.log('[initFloatingMenuListeners] Found', treeNodes.length, 'tree menu nodes');
   treeNodes.forEach((node, index) => {
     const nodeId = node.getAttribute('data-tree-node-id');
-    console.log(`[initFloatingMenuListeners] Node ${index}:`, nodeId);
     const header = node.querySelector('.ubits-tree-menu-header') as HTMLElement;
     if (header) {
-      console.log(`[initFloatingMenuListeners] Adding click listener to node: ${nodeId}`);
       header.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log(`[initFloatingMenuListeners] Clicked on node: ${nodeId}`);
         if (nodeId) {
           toggleTreeMenuNode(floatingMenu, nodeId);
         }
       });
-    } else {
-      console.warn(`[initFloatingMenuListeners] No header found for node: ${nodeId}`);
     }
   });
 

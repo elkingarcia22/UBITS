@@ -63,15 +63,6 @@ function renderBarChart(
   showGridLines: boolean = true,
   size: BarMetricCardOptions['size'] = 'md'
 ): string {
-  console.log('🎨 [renderBarChart] INICIO - Parámetros recibidos:', {
-    barDataLength: barData.length,
-    barColor: barColor,
-    barColorType: typeof barColor,
-    barColorLength: barColor ? barColor.length : 0,
-    width,
-    height,
-    size
-  });
   // Si showNegativeValues es false, filtrar valores negativos para el cálculo del rango
   const dataForRange = showNegativeValues ? barData : barData.filter(v => v >= 0);
   const range = maxValue !== undefined && minValue !== undefined
@@ -149,12 +140,6 @@ function renderBarChart(
   // Ancho de barra basado en el tamaño (consistente con los progress bars horizontales)
   const barWidth = BAR_WIDTHS_BY_SIZE[size] || BAR_WIDTHS_BY_SIZE.md;
   
-  console.log('📊 [BarChart] Ancho de barras según tamaño:', {
-    size,
-    barWidth,
-    progressBarHeight: BAR_WIDTHS_BY_SIZE[size] || BAR_WIDTHS_BY_SIZE.md,
-    note: 'El ancho de las barras verticales coincide con la altura de los progress bars horizontales'
-  });
   
   // Gap base entre barras
   const baseGapSize = 6; // Gap base mínimo entre barras
@@ -171,17 +156,6 @@ function renderBarChart(
   // Recalcular el área de barras con el nuevo padding ajustado
   const adjustedBarsAreaWidth = width - adjustedPaddingLeft - paddingRight;
   
-  console.log('📊 [BarChart] Cálculo de espacios:', {
-    paddingLeft: Math.round(paddingLeft * 100) / 100,
-    spaceAfterYAxis,
-    adjustedPaddingLeft: Math.round(adjustedPaddingLeft * 100) / 100,
-    paddingRight,
-    width,
-    barsAreaWidth: Math.round(barsAreaWidth * 100) / 100,
-    adjustedBarsAreaWidth: Math.round(adjustedBarsAreaWidth * 100) / 100,
-    note: 'La línea del eje Y debe estar en paddingLeft, la primera barra en adjustedPaddingLeft'
-  });
-  
   // Calcular el espacio extra disponible para distribuir (usando el área ajustada)
   const extraSpace = adjustedBarsAreaWidth - totalBaseUsedWidth;
   
@@ -195,26 +169,6 @@ function renderBarChart(
   const totalGapsWidth = totalGaps * gapSize;
   const totalUsedWidth = totalBarsWidth + totalGapsWidth;
   
-  console.log('📊 [BarChart] Distribución de barras:', {
-    svgWidth: width,
-    paddingLeft: Math.round(paddingLeft),
-    spaceAfterYAxis,
-    adjustedPaddingLeft: Math.round(adjustedPaddingLeft),
-    paddingRight,
-    barsAreaWidth: Math.round(barsAreaWidth),
-    adjustedBarsAreaWidth: Math.round(adjustedBarsAreaWidth),
-    totalBarCount: barCount,
-    renderableBarCount,
-    barWidth: Math.round(barWidth * 100) / 100,
-    baseGapSize,
-    gapSize: Math.round(gapSize * 100) / 100,
-    totalBarsWidth: Math.round(totalBarsWidth * 100) / 100,
-    totalGapsWidth: Math.round(totalGapsWidth * 100) / 100,
-    totalUsed: Math.round(totalUsedWidth * 100) / 100,
-    extraSpace: Math.round(extraSpace * 100) / 100,
-    utilization: Math.round((totalUsedWidth / adjustedBarsAreaWidth * 100) * 100) / 100 + '%',
-    note: 'Barras delgadas distribuidas uniformemente en todo el ancho con espacio después del eje Y'
-  });
   
   // Calcular posiciones de las barras que se van a renderizar
   // Distribuir uniformemente en el espacio disponible manteniendo barras delgadas
@@ -224,22 +178,7 @@ function renderBarChart(
     const x = adjustedPaddingLeft + renderIndex * (barWidth + gapSize);
     
     // Log detallado para todas las barras (especialmente la primera)
-    if (renderIndex === 0 || renderIndex === renderableBars.length - 1) {
-      const distanceFromYAxis = x - paddingLeft;
-      console.log(`📊 [BarChart] Barra ${renderIndex + 1} (original: ${barInfo.index + 1}):`, {
-        paddingLeft: Math.round(paddingLeft * 100) / 100,
-        adjustedPaddingLeft: Math.round(adjustedPaddingLeft * 100) / 100,
-        spaceAfterYAxis,
-        barX: Math.round(x * 100) / 100,
-        barWidth: Math.round(barWidth * 100) / 100,
-        barEndX: Math.round((x + barWidth) * 100) / 100,
-        distanceFromYAxis: Math.round(distanceFromYAxis * 100) / 100,
-        expectedDistance: spaceAfterYAxis,
-        isCorrect: Math.abs(distanceFromYAxis - spaceAfterYAxis) < 0.1,
-        isFirst: renderIndex === 0,
-        isLast: renderIndex === renderableBars.length - 1
-      });
-    }
+    // Logs de debugging removidos
     
     // Calcular altura y posición Y
     let barY: number;
@@ -287,49 +226,6 @@ function renderBarChart(
   const yAxisLineX = paddingLeft;
   const firstBarStartX = firstBar?.x || 0;
   const actualSpaceBetween = firstBarStartX - yAxisLineX;
-  
-  console.log('📊 [BarChart] Verificación de espacio entre línea Y y primera barra:', {
-    yAxisLineX: Math.round(yAxisLineX * 100) / 100,
-    firstBarStartX: Math.round(firstBarStartX * 100) / 100,
-    actualSpaceBetween: Math.round(actualSpaceBetween * 100) / 100,
-    expectedSpace: spaceAfterYAxis,
-    isCorrect: Math.abs(actualSpaceBetween - spaceAfterYAxis) < 0.1,
-    difference: Math.round((actualSpaceBetween - spaceAfterYAxis) * 100) / 100
-  });
-  
-  console.log('📊 [BarChart] Dimensiones finales:', {
-    svgWidth: width,
-    svgHeight: height,
-    paddingLeft: Math.round(paddingLeft),
-    adjustedPaddingLeft: Math.round(adjustedPaddingLeft),
-    spaceAfterYAxis,
-    paddingRight,
-    paddingTop,
-    paddingBottom,
-    chartWidth: width - adjustedPaddingLeft - paddingRight,
-    chartHeight: height - paddingTop - paddingBottom,
-    barCount,
-    barsRendered: bars.length,
-    barWidth: Math.round((firstBar?.width || barWidth) * 100) / 100,
-    gapSize,
-    totalBarsWidth: Math.round((bars.reduce((sum, bar) => sum + bar.width, 0)) * 100) / 100,
-    totalGapsWidth: Math.round(((bars.length - 1) * gapSize) * 100) / 100,
-    totalUsedWidth: Math.round((bars.reduce((sum, bar) => sum + bar.width, 0) + (bars.length - 1) * gapSize) * 100) / 100,
-    firstBarX: Math.round((firstBar?.x || 0) * 100) / 100,
-    lastBarX: Math.round((lastBar?.x || 0) * 100) / 100,
-    lastBarWidth: Math.round((lastBar?.width || 0) * 100) / 100,
-    lastBarEnd: Math.round(lastBarEnd * 100) / 100,
-    expectedEnd: width - paddingRight,
-    difference: Math.round((width - paddingRight - lastBarEnd) * 100) / 100,
-    reachesEdge: lastBarEnd >= (width - paddingRight - 1),
-    svgViewBox: `0 0 ${width} ${height}`,
-    svgPreserveAspectRatio: 'none',
-    svgWidthAttribute: '100%',
-    svgHeightAttribute: '100%',
-    barsAreaWidth: Math.round(barsAreaWidth),
-    utilizationPercentage: Math.round(((bars.reduce((sum, bar) => sum + bar.width, 0) + (bars.length - 1) * gapSize) / barsAreaWidth * 100) * 100) / 100 + '%',
-    unusedSpace: Math.round((barsAreaWidth - (bars.reduce((sum, bar) => sum + bar.width, 0) + (bars.length - 1) * gapSize)) * 100) / 100
-  });
   
   return `
     <svg 
@@ -430,27 +326,7 @@ function renderBarChart(
           path = `M ${x1} ${y1} L ${x2} ${y2} L ${x2} ${y3 - rx} Q ${x2} ${y3} ${x2 - rx} ${y3} L ${x1 + rx} ${y3} Q ${x1} ${y3} ${x1} ${y3 - rx} Z`;
         }
         
-        console.log(`🎨 [BarChart] Renderizando barra ${bar.index + 1}:`, {
-          isPositive: bar.isPositive,
-          value: bar.value,
-          barColor: barColor,
-          barColorType: typeof barColor,
-          barColorLength: barColor.length,
-          x: bar.x,
-          y: bar.y,
-          width: bar.width,
-          height: bar.height
-        });
-        
         const fillValue = barColor;
-        console.log(`🎨 [BarChart] Valor de fill para barra ${bar.index + 1}:`, {
-          fillValue: fillValue,
-          fillValueType: typeof fillValue,
-          fillValueLength: fillValue ? fillValue.length : 0,
-          isHex: /^#[0-9A-Fa-f]{6}$/.test(fillValue),
-          isVar: fillValue.startsWith('var('),
-          pathPreview: path.substring(0, 50) + '...'
-        });
         
         return `
         <g class="ubits-bar-metric-card__bar-group">
@@ -571,11 +447,6 @@ function renderCategoryWithProgressBar(
   );
   
   // Debug: verificar que el indicador se insertó correctamente
-  if (!progressBarWithIndicator.includes(indicatorHTML)) {
-    console.warn('⚠️ [BarMetricCard] El indicador no se insertó correctamente en el progress bar');
-    console.log('HTML original:', progressBarHTML);
-    console.log('HTML modificado:', progressBarWithIndicator);
-  }
   
   return `
     <div class="ubits-bar-metric-card__category ubits-bar-metric-card__category--with-progress">
@@ -644,13 +515,6 @@ export function renderBarMetricCard(options: BarMetricCardOptions): string {
   const chartWidth = baseCardWidth - (cardPadding * 2); // 392 - 24 = 368px
   const chartHeight = 158;
   
-  console.log('📊 [BarMetricCard] Cálculo de dimensiones:', {
-    cardPadding,
-    baseCardWidth,
-    chartWidth,
-    chartHeight,
-    note: 'Gráfico será 100% responsivo dentro de la card, viewBox usa ancho base para cálculos'
-  });
   
   // Clases de tipografía fijas
   const titleClass = 'ubits-body-md-bold';
@@ -711,32 +575,19 @@ export function renderBarMetricCard(options: BarMetricCardOptions): string {
   // Resolver el valor real del token de color antes de pasarlo al SVG
   // Los SVG no siempre resuelven correctamente las variables CSS en atributos inline
   const resolveColorToken = (token: string): string => {
-    console.log('🔍 [BarMetricCard] resolveColorToken - INICIO');
-    console.log('🔍 [BarMetricCard] Token recibido:', token);
-    console.log('🔍 [BarMetricCard] typeof window:', typeof window);
-    console.log('🔍 [BarMetricCard] window.document:', typeof window !== 'undefined' ? window.document : 'undefined');
-    console.log('🔍 [BarMetricCard] window.getComputedStyle:', typeof window !== 'undefined' ? typeof window.getComputedStyle : 'undefined');
-    
     if (typeof window !== 'undefined' && window.document && window.getComputedStyle) {
       try {
         const root = document.documentElement;
         // Extraer el nombre del token (sin var() y sin espacios)
         const tokenName = token.replace(/var\(|\)/g, '').trim();
-        console.log('🔍 [BarMetricCard] Token name extraído:', tokenName);
         
         const resolved = getComputedStyle(root).getPropertyValue(tokenName).trim();
-        console.log('🔍 [BarMetricCard] Valor resuelto de getComputedStyle:', resolved);
-        console.log('🔍 [BarMetricCard] Longitud del valor resuelto:', resolved.length);
         
         if (resolved) {
           // Limpiar cualquier paréntesis extra que pueda haber quedado
           const cleaned = resolved.replace(/\)+$/, '').trim();
-          console.log(`✅ [BarMetricCard] Token resuelto exitosamente: ${tokenName} = ${cleaned}`);
           return cleaned;
         } else {
-          console.warn(`⚠️ [BarMetricCard] Token no resuelto (valor vacío): ${tokenName}`);
-          console.warn(`⚠️ [BarMetricCard] Intentando verificar si el token existe en el DOM...`);
-          
           // Intentar leer directamente del CSS
           const allStyles = Array.from(document.styleSheets);
           let foundValue = null;
@@ -749,14 +600,13 @@ export function renderBarMetricCard(options: BarMetricCardOptions): string {
                   const value = style.getPropertyValue(tokenName);
                   if (value) {
                     foundValue = value.trim().replace(/\)+$/, '').trim(); // Limpiar paréntesis extra
-                    console.log(`✅ [BarMetricCard] Token encontrado en CSS: ${tokenName} = ${foundValue}`);
                     break;
                   }
                 }
               }
               if (foundValue) break;
             } catch (e) {
-              console.warn(`⚠️ [BarMetricCard] Error leyendo stylesheet:`, e);
+              // Silenciar errores de lectura de stylesheet
             }
           }
           
@@ -765,40 +615,29 @@ export function renderBarMetricCard(options: BarMetricCardOptions): string {
           }
         }
       } catch (e) {
-        console.error(`❌ [BarMetricCard] Error resolviendo token: ${token}`, e);
-        console.error(`❌ [BarMetricCard] Stack trace:`, e.stack);
+        // Silenciar errores de resolución de token
       }
-    } else {
-      console.warn(`⚠️ [BarMetricCard] No se puede resolver token (window/document no disponible)`);
     }
     
     // Fallback: si el token es el esperado, usar el valor directo del token
     if (token === 'var(--ubits-chart-color-bg-neutral-blue-base)') {
-      console.log(`🔄 [BarMetricCard] Usando fallback directo: #557593`);
       return '#557593'; // Valor del token según tokens.css
     }
     
     // Limpiar cualquier paréntesis extra que pueda haber quedado
     const cleaned = token.replace(/\)+$/, '').trim();
     if (cleaned !== token) {
-      console.log(`🧹 [BarMetricCard] Limpiando paréntesis extra: "${token}" -> "${cleaned}"`);
       return cleaned;
     }
     
     // Fallback al token original si no se puede resolver
-    console.warn(`⚠️ [BarMetricCard] Usando token original como fallback: ${token}`);
     return token;
   };
   
-  console.log('🔍 [BarMetricCard] barColor original:', barColor);
   let resolvedBarColor = barColor.startsWith('var(') ? resolveColorToken(barColor) : barColor;
   
   // Limpiar cualquier paréntesis extra que pueda haber quedado
   resolvedBarColor = resolvedBarColor.replace(/\)+$/, '').trim();
-  
-  console.log('🔍 [BarMetricCard] resolvedBarColor final (después de limpiar):', resolvedBarColor);
-  console.log('🔍 [BarMetricCard] Tipo de resolvedBarColor:', typeof resolvedBarColor);
-  console.log('🔍 [BarMetricCard] Es hex válido:', /^#[0-9A-Fa-f]{6}$/.test(resolvedBarColor));
 
   // Renderizar gráfico de barras
   // En layout horizontal, no mostrar el gráfico SVG (solo progress bars)
@@ -819,14 +658,6 @@ export function renderBarMetricCard(options: BarMetricCardOptions): string {
           size // Pasar el tamaño para que las barras tengan el grosor correcto
         );
         
-        console.log('📊 [BarMetricCard] Renderizado del gráfico:', {
-          chartWidth,
-          chartHeight,
-          chartHTMLLength: chartHTML.length,
-          hasSVG: chartHTML.includes('<svg'),
-          svgWidthInHTML: chartHTML.match(/width="([^"]+)"/)?.[1],
-          svgViewBox: chartHTML.match(/viewBox="([^"]+)"/)?.[1]
-        });
         
         return `
           <div class="ubits-bar-metric-card__chart-wrapper" style="background-color: ${chartBackgroundColor};">

@@ -369,118 +369,11 @@ export const Default: Story = {
     const wrapper = document.createElement('div');
     wrapper.style.cssText = 'max-width: 500px; width: 100%; margin: 0 auto; padding: 24px;';
     
-    console.log('🔍 [NPSCard Storybook] Wrapper creado:', {
-      hasWrapper: !!wrapper,
-      wrapperStyle: wrapper.style.cssText,
-      wrapperMaxWidth: wrapper.style.maxWidth,
-      wrapperWidth: wrapper.style.width,
-      wrapperMargin: wrapper.style.margin,
-      wrapperPadding: wrapper.style.padding
-    });
-    
     // Renderizar card
     const cardHTML = renderNPSCard(options);
     wrapper.innerHTML = cardHTML;
     container.appendChild(wrapper);
     
-    // Verificar estilos después de agregar al DOM
-    setTimeout(() => {
-      const computedStyle = window.getComputedStyle(wrapper);
-      console.log('🔍 [NPSCard Storybook] Estilos computados del wrapper:', {
-        maxWidth: computedStyle.maxWidth,
-        width: computedStyle.width,
-        margin: computedStyle.margin,
-        padding: computedStyle.padding,
-        display: computedStyle.display,
-        position: computedStyle.position
-      });
-      
-      const containerComputed = window.getComputedStyle(container);
-      console.log('🔍 [NPSCard Storybook] Estilos computados del container:', {
-        width: containerComputed.width,
-        maxWidth: containerComputed.maxWidth,
-        display: containerComputed.display,
-        padding: containerComputed.padding
-      });
-      
-      const cardElement = wrapper.querySelector('.ubits-nps-card');
-      if (cardElement) {
-        const cardComputed = window.getComputedStyle(cardElement);
-        console.log('🔍 [NPSCard Storybook] Estilos computados de la card:', {
-          width: cardComputed.width,
-          maxWidth: cardComputed.maxWidth,
-          display: cardComputed.display
-        });
-      }
-    }, 100);
-    
-    // Logs para debugging de porcentajes
-    setTimeout(() => {
-      const percentageElements = container.querySelectorAll('.ubits-nps-card__category-percentage');
-      console.log('🔍 [NPSCard Storybook] Debug porcentajes - Total encontrados:', percentageElements.length);
-      
-      Array.from(percentageElements).forEach((el, idx) => {
-        const computed = window.getComputedStyle(el);
-        const classes = el.className;
-        const text = el.textContent;
-        const parent = el.parentElement;
-        const parentClasses = parent?.className || '';
-        
-        console.log(`\n📊 Porcentaje #${idx + 1}:`, {
-          text,
-          classes: classes.split(' '),
-          parentClasses: parentClasses.split(' '),
-          hasBoldClass: classes.includes('ubits-body-md-bold'),
-          hasPercentageClass: classes.includes('ubits-nps-card__category-percentage'),
-          computedStyles: {
-            fontSize: computed.fontSize,
-            fontWeight: computed.fontWeight,
-            fontFamily: computed.fontFamily,
-            lineHeight: computed.lineHeight,
-            color: computed.color
-          },
-          inlineStyle: el.getAttribute('style'),
-          elementHTML: el.outerHTML
-        });
-        
-        // Verificar reglas CSS aplicadas
-        const allRules = Array.from(document.styleSheets).flatMap(sheet => {
-          try {
-            return Array.from(sheet.cssRules || []);
-          } catch (e) {
-            return [];
-          }
-        });
-        
-        const matchingRules = allRules.filter(rule => {
-          if (rule instanceof CSSStyleRule) {
-            try {
-              return el.matches(rule.selectorText);
-            } catch (e) {
-              return false;
-            }
-          }
-          return false;
-        });
-        
-        console.log(`  🎯 Reglas CSS que coinciden (${matchingRules.length}):`, 
-          matchingRules.map(r => ({
-            selector: r.selectorText,
-            fontWeight: r.style.fontWeight,
-            fontSize: r.style.fontSize,
-            cssText: r.cssText.substring(0, 200)
-          }))
-        );
-      });
-      
-      // Verificar tokens
-      const root = getComputedStyle(document.documentElement);
-      console.log('\n🔍 [NPSCard Storybook] Tokens verificados:');
-      console.log('  --weight-bold:', root.getPropertyValue('--weight-bold').trim() || '❌ NO DEFINIDO');
-      console.log('  --modifiers-normal-body-md-bold-fontsize:', root.getPropertyValue('--modifiers-normal-body-md-bold-fontsize').trim() || '❌ NO DEFINIDO');
-      console.log('  --modifiers-normal-body-md-bold-lineheight:', root.getPropertyValue('--modifiers-normal-body-md-bold-lineheight').trim() || '❌ NO DEFINIDO');
-      console.log('  --font-family-noto-sans-font-family:', root.getPropertyValue('--font-family-noto-sans-font-family').trim() || '❌ NO DEFINIDO');
-    }, 100);
     
     return container;
   }

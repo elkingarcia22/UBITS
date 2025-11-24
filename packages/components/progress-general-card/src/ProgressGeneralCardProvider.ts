@@ -21,7 +21,6 @@ function calculatePercentage(current: number, total: number): number {
  */
 function resolveColorToken(token: string): string {
   if (typeof window === 'undefined' || !window.document || !window.getComputedStyle) {
-    console.warn('⚠️ [ProgressGeneralCard] resolveColorToken: window no disponible, retornando token original');
     return token;
   }
   
@@ -35,14 +34,12 @@ function resolveColorToken(token: string): string {
     if (resolved) {
       // Limpiar cualquier carácter extra (como paréntesis)
       const cleaned = resolved.replace(/[()]/g, '').trim();
-      console.log(`✅ [ProgressGeneralCard] Color resuelto: ${token} -> ${cleaned}`);
       return cleaned;
     } else {
-      console.warn(`⚠️ [ProgressGeneralCard] Token no encontrado: ${tokenName}, usando token original`);
       return token;
     }
   } catch (error) {
-    console.error(`❌ [ProgressGeneralCard] Error resolviendo token ${token}:`, error);
+    // Error silencioso - retornar token original si falla
     return token;
   }
 }
@@ -69,13 +66,6 @@ function renderCircularProgress(
   const resolvedBackgroundColor = backgroundColor.startsWith('var(') 
     ? resolveColorToken(backgroundColor) 
     : backgroundColor;
-  
-  console.log('🔍 [ProgressGeneralCard] renderCircularProgress:', {
-    progressColor,
-    resolvedProgressColor,
-    backgroundColor,
-    resolvedBackgroundColor
-  });
   
   return `
     <svg 
@@ -139,13 +129,6 @@ function renderCategory(
     ? 'ubits-body-md-bold'
     : 'ubits-body-md-bold'; // md también usa body-md-bold
   
-  console.log('🔍 [ProgressGeneralCard] renderCategory - DEBUG:');
-  console.log('  - size:', size);
-  console.log('  - percentageClass:', percentageClass);
-  console.log('  - percentage:', percentage);
-  console.log('  - labelClass:', labelClass);
-  console.log('  - valueClass:', valueClass);
-  
   return `
     <div class="ubits-progress-general-card__category">
       <div class="ubits-progress-general-card__category-label ${labelClass}">
@@ -201,13 +184,6 @@ export function renderProgressGeneralCard(options: ProgressGeneralCardOptions): 
   const titleClass = 'ubits-body-md-bold';
   const percentageClass = 'ubits-heading-h2';
   const mainLabelClass = 'ubits-body-sm-bold';
-  
-  console.log('🔍 [ProgressGeneralCard] renderProgressGeneralCard - DEBUG:');
-  console.log('  - size:', size);
-  console.log('  - mainPercentage:', mainPercentage);
-  console.log('  - percentageClass (círculo):', percentageClass);
-  console.log('  - titleClass:', titleClass);
-  console.log('  - mainLabelClass:', mainLabelClass);
 
   // Renderizar icono de información como botón terciario si está habilitado
   const infoIconHTML = showInfoIcon
@@ -330,7 +306,6 @@ export function createProgressGeneralCard(
     cardElement.addEventListener('click', cardOptions.onClick);
   }
   
-  console.log('✅ [ProgressGeneralCard] Tarjeta creada exitosamente');
   return cardElement;
 }
 

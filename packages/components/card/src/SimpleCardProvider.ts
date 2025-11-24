@@ -37,17 +37,6 @@ export function renderSimpleCard(options: SimpleCardOptions): string {
     className = ''
   } = options;
 
-  // LOGS para debug
-  console.log('[SimpleCard] Renderizando card:', {
-    variant,
-    size,
-    borderRadius,
-    borderColor,
-    padding,
-    hasHeader: showHeader,
-    headerMargin: 'calc(var(--ubits-spacing-lg) * -1)'
-  });
-
   // Clases base
   const cardClasses = [
     'ubits-simple-card',
@@ -65,9 +54,6 @@ export function renderSimpleCard(options: SimpleCardOptions): string {
     `padding: ${padding}`,
     maxWidth ? `max-width: ${maxWidth}` : ''
   ].filter(Boolean).join('; ');
-
-  console.log('[SimpleCard] Estilos aplicados:', cardStyles);
-  console.log('[SimpleCard] borderRadius recibido en options:', options.borderRadius, '-> Forzado a: 8px');
 
   // Header con decoraciones
   // Solo aplicar estilo inline si es diferente al default
@@ -152,35 +138,6 @@ export function createSimpleCard(options: SimpleCardOptions): HTMLElement {
   if (!cardElement) {
     throw new Error('Failed to create simple card element');
   }
-
-  // LOG: Ver estilos computados después de crear el elemento
-  setTimeout(() => {
-    const computedStyle = window.getComputedStyle(cardElement);
-    console.log('[SimpleCard] Estilos computados del elemento:', {
-      border: computedStyle.border,
-      borderWidth: computedStyle.borderWidth,
-      borderRadius: computedStyle.borderRadius,
-      borderColor: computedStyle.borderColor,
-      padding: computedStyle.padding,
-      width: computedStyle.width,
-      height: computedStyle.height
-    });
-
-    // Verificar el header si existe
-    const header = cardElement.querySelector('.ubits-simple-card__header') as HTMLElement;
-    if (header) {
-      const headerStyle = window.getComputedStyle(header);
-      console.log('[SimpleCard] Estilos computados del header:', {
-        margin: headerStyle.margin,
-        marginTop: headerStyle.marginTop,
-        marginLeft: headerStyle.marginLeft,
-        marginRight: headerStyle.marginRight,
-        width: headerStyle.width,
-        borderRadius: headerStyle.borderRadius,
-        border: headerStyle.border
-      });
-    }
-  }, 0);
 
   // Agregar event listeners a los botones si se proporcionan
   if (options.buttons && options.buttons.length > 0) {

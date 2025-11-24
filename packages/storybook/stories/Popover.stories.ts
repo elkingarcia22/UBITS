@@ -183,17 +183,15 @@ export const Default: Story = {
 
     const updateButtonText = () => {
       const isOpen = popoverInstance && popoverInstance.element.classList.contains('ubits-popover--open');
-      console.log('🔵 updateButtonText - isOpen:', isOpen, 'popoverInstance:', !!popoverInstance);
       openButton.querySelector('span')!.textContent = isOpen ? 'Cerrar Popover' : 'Abrir Popover';
     };
 
     const destroyPopover = () => {
       if (popoverInstance) {
-        console.log('🔵 Destruyendo popover anterior');
         try {
           popoverInstance.destroy();
         } catch (e) {
-          console.error('❌ Error al destruir popover:', e);
+          // Error silencioso al destruir
         }
         popoverInstance = null;
       }
@@ -201,14 +199,12 @@ export const Default: Story = {
       const existingPopovers = document.querySelectorAll('.ubits-popover');
       existingPopovers.forEach((popover) => {
         if (popover.parentElement) {
-          console.log('🔵 Eliminando popover huérfano del DOM');
           popover.remove();
         }
       });
     };
 
     const createAndOpenPopover = () => {
-      console.log('🔵 createAndOpenPopover llamado');
       // Siempre destruir antes de crear nuevo
       destroyPopover();
 
@@ -217,13 +213,6 @@ export const Default: Story = {
         ...(args['footerButtons.secondary.enabled'] && { secondary: { label: args['footerButtons.secondary.label'] || 'Secondary', onClick: () => alert('Secondary clicked!') } }),
         ...(args['footerButtons.primary.enabled'] && { primary: { label: args['footerButtons.primary.label'] || 'Primary', onClick: () => alert('Primary clicked!') } }),
       };
-
-      console.log('🔵 Creando popover con args:', {
-        title: args.title,
-        width: args.width,
-        tailPosition: args.tailPosition,
-        footerButtons: Object.keys(footerButtons).length > 0 ? footerButtons : undefined,
-      });
 
       const buttonRect = openButton.getBoundingClientRect();
       
@@ -246,7 +235,6 @@ export const Default: Story = {
         bodyContent: args.bodyContent,
         footerButtons: Object.keys(footerButtons).length > 0 ? footerButtons : undefined,
         onClose: () => {
-          console.log('🔵 Popover onClose llamado');
           if (args.onClose) {
             args.onClose();
           }
@@ -272,57 +260,38 @@ export const Default: Story = {
         }, 0);
       }
 
-      console.log('🔵 Popover creado:', popoverInstance);
-      console.log('🔵 Element del popover:', popoverInstance.element);
-      console.log('🔵 Clases del elemento:', popoverInstance.element.className);
       updateButtonText();
     };
 
     const handleButtonClick = (e: MouseEvent) => {
       e.preventDefault();
       e.stopPropagation();
-      console.log('🔵 handleButtonClick llamado');
-      console.log('🔵 popoverInstance existe:', !!popoverInstance);
-      console.log('🔵 popoverInstance.element existe:', popoverInstance ? !!popoverInstance.element : false);
-      console.log('🔵 popoverInstance.element.parentElement existe:', popoverInstance ? !!popoverInstance.element?.parentElement : false);
       
       if (!popoverInstance || !popoverInstance.element || !popoverInstance.element.parentElement) {
-        console.log('🔵 No existe instancia, creando...');
         createAndOpenPopover();
         // Abrir después de crear
         setTimeout(() => {
-          console.log('🔵 Intentando abrir popover después de crear');
           if (popoverInstance) {
-            console.log('🔵 popoverInstance existe, llamando open()');
             popoverInstance.open();
-            console.log('🔵 open() llamado, clases después:', popoverInstance.element.className);
             updateButtonText();
-          } else {
-            console.error('❌ popoverInstance es null después de crear');
           }
         }, 10);
         return;
       }
       
       const isOpen = popoverInstance.element.classList.contains('ubits-popover--open');
-      console.log('🔵 Estado actual - isOpen:', isOpen);
       if (isOpen) {
-        console.log('🔵 Cerrando popover');
         popoverInstance.close();
       } else {
-        console.log('🔵 Abriendo popover');
         popoverInstance.open();
       }
-      console.log('🔵 Clases después de toggle:', popoverInstance.element.className);
       updateButtonText();
     };
 
     openButton.addEventListener('click', handleButtonClick);
-    console.log('🔵 Event listener agregado al botón');
 
     // Recrear popover cuando cambian los args (Storybook controls)
     const recreatePopover = () => {
-      console.log('🔵 recreatePopover llamado - args cambiaron');
       const wasOpen = popoverInstance && popoverInstance.element && popoverInstance.element.classList.contains('ubits-popover--open');
       destroyPopover();
       // Esperar un poco para asegurar que el DOM se haya limpiado
@@ -341,18 +310,15 @@ export const Default: Story = {
 
     // Initial render if open is true
     if (args.open) {
-      console.log('🔵 args.open es true, creando popover inicialmente');
       setTimeout(() => {
         createAndOpenPopover();
         if (popoverInstance) {
-          console.log('🔵 Abriendo popover inicialmente');
           popoverInstance.open();
           updateButtonText();
         }
       }, 100);
     } else {
       // Crear pero no abrir inicialmente
-      console.log('🔵 args.open es false, creando popover cerrado');
       setTimeout(() => {
         createAndOpenPopover();
       }, 100);
@@ -391,7 +357,6 @@ export const Default: Story = {
       });
       
       if (currentArgs !== lastArgs) {
-        console.log('🔵 Args cambiaron, recreando popover');
         lastArgs = currentArgs;
         recreatePopover();
       }

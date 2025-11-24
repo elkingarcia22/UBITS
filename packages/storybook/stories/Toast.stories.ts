@@ -213,20 +213,12 @@ export const Default: Story = {
     requestAnimationFrame(() => {
       try {
         const showButton = createButton(showButtonOptions);
-        const showButtonParent = showButton.parentElement;
-        if (showButtonParent && showButtonParent !== document.body) {
-          controls.appendChild(showButtonParent);
-        } else {
-          controls.appendChild(showButton);
-        }
+        // appendChild automáticamente remueve el elemento de su padre anterior si tiene uno
+        controls.appendChild(showButton);
         
         const clearButton = createButton(clearButtonOptions);
-        const clearButtonParent = clearButton.parentElement;
-        if (clearButtonParent && clearButtonParent !== document.body) {
-          controls.appendChild(clearButtonParent);
-        } else {
-          controls.appendChild(clearButton);
-        }
+        // appendChild automáticamente remueve el elemento de su padre anterior si tiene uno
+        controls.appendChild(clearButton);
       } catch (error) {
         console.error('❌ Error creando botones:', error);
         // Fallback: crear botones HTML simples si createButton falla

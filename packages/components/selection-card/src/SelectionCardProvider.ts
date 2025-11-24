@@ -41,11 +41,6 @@ export function renderSelectionCard(cardData: SelectionCardData): string {
     isSelected ? 'ubits-selection-card--selected' : ''
   ].filter(Boolean).join(' ');
 
-  // Log para debugging (solo en desarrollo)
-  if (process.env.NODE_ENV === 'development') {
-    console.log('🎨 [SelectionCard] Renderizando:', { id, title, state, size });
-  }
-
   // Renderizar imagen o icono (icono ahora va dentro del título)
   let iconHTML = '';
   if (icon && !image) {
@@ -109,10 +104,7 @@ export function renderSelectionCard(cardData: SelectionCardData): string {
   // Verificar que los tokens UBITS estén disponibles (solo en desarrollo)
   if (typeof window !== 'undefined') {
     const rootStyle = getComputedStyle(document.documentElement);
-    const bgToken = rootStyle.getPropertyValue('--modifiers-normal-color-light-bg-1').trim();
-    if (!bgToken) {
-      console.warn('⚠️ [SelectionCard] Token --modifiers-normal-color-light-bg-1 no encontrado. Verifica que tokens.css esté cargado.');
-    }
+    // Verificación silenciosa de tokens
   }
 
   return html;
@@ -131,24 +123,10 @@ export function loadSelectionCards(options: SelectionCardOptions): void {
     onClick
   } = options;
 
-  // Log solo en desarrollo
-  if (process.env.NODE_ENV === 'development') {
-    console.log('📦 [SelectionCard] Cargando', cards.length, 'cards en', containerId);
-  }
-
   const targetContainer = document.getElementById(containerId);
   if (!targetContainer) {
     console.error(`❌ [SelectionCard] Contenedor con ID "${containerId}" no encontrado`);
     return;
-  }
-
-  // Verificar carga de estilos (solo en desarrollo)
-  if (process.env.NODE_ENV === 'development') {
-    const rootStyle = getComputedStyle(document.documentElement);
-    const hasTokens = rootStyle.getPropertyValue('--modifiers-normal-color-light-bg-1').trim();
-    if (!hasTokens) {
-      console.warn('⚠️ [SelectionCard] Tokens UBITS no detectados');
-    }
   }
 
   // Limpiar contenedor
@@ -348,75 +326,13 @@ export function createSelectionCard(cardData: SelectionCardData): HTMLElement {
         expectedLineHeight: tokens['--font-body-md-line'],
         expectedWeight: tokens['--weight-semibold']
       };
-      console.log('📝 [SelectionCard] Tipografía del título:', titleTypography);
       
-      // Verificar si el tamaño es correcto (16px)
-      const fontSizeNum = parseFloat(titleStyle.fontSize);
-      if (fontSizeNum !== 16) {
-        console.warn(`⚠️ [SelectionCard] Tamaño de fuente del título incorrecto. Esperado: 16px, Actual: ${titleStyle.fontSize}`);
-      } else {
-        console.log('✅ [SelectionCard] Tamaño de fuente del título correcto: 16px');
-      }
+      // Verificación silenciosa de tipografía
     }
     
     // Verificar si está seleccionado
     const isSelected = cardElement.classList.contains('ubits-selection-card--selected');
-    const selectedBorderColor = isSelected 
-      ? computedStyle.borderColor 
-      : 'N/A (no está seleccionado)';
-    
-    console.group('🔍 [SelectionCard] Debug de Estilos UBITS');
-    console.log('📋 Tokens UBITS disponibles:', tokens);
-    console.log('🎨 Estilos aplicados:', appliedStyles);
-    console.log('✅ Estado seleccionado:', isSelected);
-    console.log('🔵 Border color (selected):', selectedBorderColor);
-    
-    // Verificar si los tokens están definidos
-    const missingTokens = Object.entries(tokens)
-      .filter(([_, value]) => value === 'NO ENCONTRADO')
-      .map(([key]) => key);
-    
-    if (missingTokens.length > 0) {
-      console.warn('⚠️ Tokens faltantes:', missingTokens);
-    } else {
-      console.log('✅ Todos los tokens están disponibles');
-    }
-    
-    // Verificar si el borde se está aplicando
-    if (isSelected) {
-      const expectedBorderColor = tokens['--modifiers-static-inverted-color-light-accent-brand'];
-      const actualBorderColor = computedStyle.borderColor;
-      const actualBorderWidth = computedStyle.borderWidth;
-      const actualBorderStyle = computedStyle.borderStyle;
-      
-      console.log('🔵 [SelectionCard] Verificación de borde seleccionado:', {
-        expectedColor: expectedBorderColor,
-        actualColor: actualBorderColor,
-        borderWidth: actualBorderWidth,
-        borderStyle: actualBorderStyle,
-        fullBorder: computedStyle.border
-      });
-      
-      if (actualBorderColor === 'transparent' || actualBorderWidth === '0px' || !actualBorderWidth) {
-        console.error('❌ El borde no se está aplicando. Border actual:', {
-          color: actualBorderColor,
-          width: actualBorderWidth,
-          style: actualBorderStyle
-        });
-      } else {
-        // Verificar que sea azul (brand)
-        const isBlue = actualBorderColor.includes('56, 101, 245') || 
-                      actualBorderColor.includes('0c5bef') ||
-                      actualBorderColor.includes('12, 91, 239');
-        if (isBlue) {
-          console.log('✅ Borde azul (brand) aplicado correctamente:', actualBorderColor);
-        } else {
-          console.warn('⚠️ Borde aplicado pero no es azul brand. Color:', actualBorderColor);
-        }
-      }
-    }
-    
-    console.groupEnd();
+    // Verificación silenciosa de estilos (sin logs)
   }, 100);
 
   return cardElement;

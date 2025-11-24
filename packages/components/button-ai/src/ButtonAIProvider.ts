@@ -59,16 +59,6 @@ export function renderButtonAI(options: ButtonAIOptions): string {
     ? '<span class="ubits-button-ai__badge"></span>'
     : '';
 
-  // LOGS PARA DEBUG
-  console.log('[ButtonAI] Renderizando badge:', {
-    badge,
-    variant,
-    active,
-    iconOnly,
-    classes,
-    badgeHTML: badgeHTML ? 'SÍ' : 'NO'
-  });
-
   // Renderizar contenido
   let contentHTML = '';
   if (iconOnly) {
@@ -92,9 +82,6 @@ export function renderButtonAI(options: ButtonAIOptions): string {
     </button>
   `.trim();
 
-  console.log('[ButtonAI] HTML generado:', html);
-  console.log('[ButtonAI] Clases aplicadas:', classes);
-
   return html;
 }
 
@@ -102,8 +89,6 @@ export function renderButtonAI(options: ButtonAIOptions): string {
  * Crea e inicializa el componente Button AI en el DOM
  */
 export function createButtonAI(options: ButtonAIOptions): HTMLButtonElement | null {
-  console.log('[ButtonAI] createButtonAI llamado con opciones:', options);
-  
   const div = document.createElement('div');
   div.innerHTML = renderButtonAI(options);
   const button = div.querySelector('button') as HTMLButtonElement;
@@ -111,27 +96,6 @@ export function createButtonAI(options: ButtonAIOptions): HTMLButtonElement | nu
   if (!button) {
     console.error('ButtonAI: No se pudo crear el botón');
     return null;
-  }
-
-  // LOGS PARA DEBUG DEL BADGE
-  const badgeElement = button.querySelector('.ubits-button-ai__badge');
-  console.log('[ButtonAI] Badge encontrado en DOM:', badgeElement ? 'SÍ' : 'NO');
-  if (badgeElement) {
-    const computedStyle = window.getComputedStyle(badgeElement);
-    const buttonStyle = window.getComputedStyle(button);
-    console.log('[ButtonAI] Badge styles:', {
-      position: computedStyle.position,
-      top: computedStyle.top,
-      right: computedStyle.right,
-      zIndex: computedStyle.zIndex,
-      display: computedStyle.display,
-      visibility: computedStyle.visibility,
-      opacity: computedStyle.opacity,
-      buttonPosition: buttonStyle.position,
-      buttonOverflow: buttonStyle.overflow
-    });
-    console.log('[ButtonAI] Badge rect:', badgeElement.getBoundingClientRect());
-    console.log('[ButtonAI] Button rect:', button.getBoundingClientRect());
   }
 
   // Agregar event listener si existe
