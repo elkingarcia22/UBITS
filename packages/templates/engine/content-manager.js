@@ -186,16 +186,17 @@ class ContentManager {
       }
     };
 
-    const subNavConfig = subNavMap[section];
+    // Usar la sección normalizada para buscar en el mapa
+    const subNavConfig = subNavMap[normalizedSection] || subNavMap[section];
     if (subNavConfig) {
-      console.log('✅ [ContentManager] Configuración de SubNav encontrada para:', section);
+      console.log('✅ [ContentManager] Configuración de SubNav encontrada para:', normalizedSection);
       console.log('   - Variant:', subNavConfig.variant);
       console.log('   - Tabs count:', subNavConfig.tabs?.length);
       console.log('   - ActiveTabId:', subNavConfig.activeTabId);
       return subNavConfig;
     }
 
-    console.warn(`⚠️ [ContentManager] No hay configuración de SubNav para la sección: ${section}`);
+    console.warn(`⚠️ [ContentManager] No hay configuración de SubNav para la sección: ${normalizedSection}`);
     console.log('🔍 [ContentManager] Secciones disponibles en subNavMap:', Object.keys(subNavMap));
 
     // Configuración por defecto
