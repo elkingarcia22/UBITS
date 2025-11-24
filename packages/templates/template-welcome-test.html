@@ -565,44 +565,29 @@
         }
 
         /* Dark mode support */
+        /* Los tokens UBITS ya se redefinen automáticamente en [data-theme="dark"] */
+        /* Solo necesitamos asegurar que los elementos usen los tokens correctos */
         body[data-theme="dark"] {
-            background-color: var(--ubits-bg-2-dark, var(--modifiers-normal-color-dark-bg-2));
-        }
-
-        body[data-theme="dark"] .welcome-title,
-        body[data-theme="dark"] .welcome-features__title,
-        body[data-theme="dark"] .welcome-info-box__title {
-            color: var(--ubits-fg-1-high-dark, var(--modifiers-normal-color-dark-fg-1-high));
-        }
-
-        body[data-theme="dark"] .welcome-description,
-        body[data-theme="dark"] .welcome-features__item,
-        body[data-theme="dark"] .welcome-info-box__text {
-            color: var(--ubits-fg-1-medium-dark, var(--modifiers-normal-color-dark-fg-1-medium));
-        }
-
-        body[data-theme="dark"] .welcome-info-box {
-            background: var(--ubits-bg-active-dark, var(--modifiers-normal-color-dark-bg-active));
-            border-color: var(--ubits-border-2-dark, var(--modifiers-normal-color-dark-border-2));
+            background-color: var(--ubits-bg-2);
         }
 
         body[data-theme="dark"] .welcome-container {
-            background: var(--ubits-bg-2-dark, var(--modifiers-normal-color-dark-bg-2));
+            background: var(--ubits-bg-2);
         }
 
         body[data-theme="dark"] .welcome-content--image-right .welcome-text,
         body[data-theme="dark"] .welcome-content--image-left .welcome-text,
         body[data-theme="dark"] .welcome-content--no-image .welcome-text {
-            background: var(--ubits-bg-1-dark, var(--modifiers-normal-color-dark-bg-1));
+            background: var(--ubits-bg-1);
         }
 
-        body[data-theme="dark"] .welcome-banner {
-            background: var(--ubits-fg-green-subtle-static-inverted);
-            color: var(--ubits-fg-green-subtle-static);
+        body[data-theme="dark"] .welcome-info-box {
+            background: var(--ubits-bg-active);
+            border-color: var(--ubits-border-2);
         }
 
         body[data-theme="dark"] .welcome-image {
-            background: var(--ubits-bg-3-dark, var(--modifiers-normal-color-dark-bg-3));
+            background: var(--ubits-bg-3);
         }
 
         /* Transiciones suaves para dark mode */
@@ -673,16 +658,16 @@
         }
 
         body[data-theme="dark"] .dark-mode-toggle {
-            background: var(--ubits-bg-1-dark, var(--modifiers-normal-color-dark-bg-1));
-            border-color: var(--ubits-border-1-dark, var(--modifiers-normal-color-dark-border-1));
+            background: var(--ubits-bg-1);
+            border-color: var(--ubits-border-1);
         }
 
         body[data-theme="dark"] .dark-mode-toggle:hover {
-            background: var(--ubits-bg-2-dark, var(--modifiers-normal-color-dark-bg-2));
+            background: var(--ubits-bg-2);
         }
 
         body[data-theme="dark"] .dark-mode-toggle i {
-            color: var(--ubits-fg-1-high-dark, var(--modifiers-normal-color-dark-fg-1-high));
+            color: var(--ubits-fg-1-high);
         }
 
     </style>
