@@ -15,13 +15,26 @@ fi
 # Ir a la raíz del proyecto
 cd "$PROJECT_ROOT"
 
-# Construir tokens (sin instalar dependencias, solo construir)
+# Construir tokens directamente desde packages/tokens/build-css.cjs
+# Este script solo usa módulos nativos de Node.js, no requiere dependencias
+TOKENS_DIR="$PROJECT_ROOT/packages/tokens"
+TOKENS_DIST="$TOKENS_DIR/dist"
+
 echo "🔨 Construyendo tokens..."
-if [ -f "package.json" ]; then
-  # Intentar construir tokens, si falla por dependencias faltantes, continuar
-  npm run build:tokens || echo "⚠️  No se pudieron construir tokens (dependencias faltantes), continuando..."
+if [ -f "$TOKENS_DIR/build-css.cjs" ]; then
+  # Ejecutar build-css.cjs directamente (solo usa fs y path, módulos nativos)
+  cd "$TOKENS_DIR"
+  node build-css.cjs
+  cd "$PROJECT_ROOT"
+  echo "✅ Tokens construidos exitosamente"
+elif [ -f "$TOKENS_DIST/tokens.css" ] && [ -f "$TOKENS_DIST/figma-tokens.css" ]; then
+  echo "✅ Tokens ya existen, saltando construcción..."
 else
-  echo "⚠️  No se encontró package.json en la raíz, saltando construcción de tokens"
+  echo "⚠️  No se encontró build-css.cjs ni tokens pre-construidos"
+  if [ ! -f "$TOKENS_DIST/tokens.css" ]; then
+    echo "❌ Error: Tokens no encontrados y no se pudieron construir"
+    exit 1
+  fi
 fi
 
 # Construir Storybook
