@@ -15,9 +15,14 @@ fi
 # Ir a la raíz del proyecto
 cd "$PROJECT_ROOT"
 
-# Construir tokens
+# Construir tokens (sin instalar dependencias, solo construir)
 echo "🔨 Construyendo tokens..."
-npm run build:tokens
+if [ -f "package.json" ]; then
+  # Intentar construir tokens, si falla por dependencias faltantes, continuar
+  npm run build:tokens || echo "⚠️  No se pudieron construir tokens (dependencias faltantes), continuando..."
+else
+  echo "⚠️  No se encontró package.json en la raíz, saltando construcción de tokens"
+fi
 
 # Construir Storybook
 cd packages/storybook

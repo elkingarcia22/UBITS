@@ -3,7 +3,7 @@
   "outputDirectory": "storybook-static",
   "framework": null,
   "devCommand": "npm run storybook",
-  "installCommand": "cd ../.. && npm install && cd packages/storybook && npm install",
+  "installCommand": "npm install",
   "rewrites": [
     {
       "source": "/(.*)",
