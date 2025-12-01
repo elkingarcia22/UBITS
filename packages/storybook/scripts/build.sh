@@ -22,7 +22,7 @@ npm run build:tokens
 # Construir Storybook
 cd packages/storybook
 echo "📚 Construyendo Storybook..."
-npm run build-storybook
+npx storybook build
 
 echo "✅ Build completado!"
 
