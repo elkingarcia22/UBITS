@@ -107,6 +107,26 @@
         
         /* ⚠️ NOTA: Los estilos del tooltip del sidebar están en el componente sidebar.css */
         /* No sobrescribir aquí, usar los estilos del componente oficial */
+        
+        /* Asegurar que la línea divisoria del footer del sidebar se muestre */
+        .ubits-sidebar-footer {
+            position: relative !important;
+        }
+        
+        .ubits-sidebar-footer::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: 32px !important;
+            height: 1px !important;
+            background-color: var(--modifiers-normal-color-light-fg-1-medium) !important;
+        }
+        
+        [data-theme="dark"] .ubits-sidebar-footer::before {
+            background-color: var(--modifiers-normal-color-dark-fg-1-medium) !important;
+        }
 
         /* ========================================
            MAIN CONTENT
