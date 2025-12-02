@@ -825,6 +825,79 @@ window.createSidebar = function(options) {
     initDarkModeToggle(sidebarElement, options);
   }
 
+  // ========================================
+  // DIAGNÓSTICO: Línea divisoria del footer
+  // ========================================
+  setTimeout(() => {
+    console.log('🔍 [Sidebar Debug] ════════════════════════════════════════');
+    console.log('🔍 [Sidebar Debug] DIAGNÓSTICO LÍNEA DIVISORIA FOOTER');
+    console.log('🔍 [Sidebar Debug] ════════════════════════════════════════');
+    
+    const footerElement = sidebarElement.querySelector('.ubits-sidebar-footer');
+    if (footerElement) {
+      console.log('✅ [Sidebar Debug] Footer encontrado:', footerElement);
+      console.log('   - Clases:', footerElement.className);
+      console.log('   - HTML:', footerElement.outerHTML.substring(0, 200));
+      
+      const computedStyle = window.getComputedStyle(footerElement);
+      console.log('   - position:', computedStyle.position);
+      console.log('   - width:', computedStyle.width);
+      console.log('   - height:', computedStyle.height);
+      console.log('   - padding-top:', computedStyle.paddingTop);
+      
+      // Verificar pseudo-elemento ::before
+      const beforeStyle = window.getComputedStyle(footerElement, '::before');
+      console.log('   - ::before content:', beforeStyle.content);
+      console.log('   - ::before display:', beforeStyle.display);
+      console.log('   - ::before position:', beforeStyle.position);
+      console.log('   - ::before width:', beforeStyle.width);
+      console.log('   - ::before height:', beforeStyle.height);
+      console.log('   - ::before backgroundColor:', beforeStyle.backgroundColor);
+      console.log('   - ::before left:', beforeStyle.left);
+      console.log('   - ::before top:', beforeStyle.top);
+      console.log('   - ::before transform:', beforeStyle.transform);
+      
+      // Verificar si el CSS del sidebar está cargado
+      const sidebarStylesheet = Array.from(document.styleSheets).find(sheet => {
+        try {
+          return sheet.href && sheet.href.includes('sidebar.css');
+        } catch (e) {
+          return false;
+        }
+      });
+      console.log('   - CSS sidebar.css cargado:', !!sidebarStylesheet);
+      
+      if (sidebarStylesheet) {
+        try {
+          const rules = Array.from(sidebarStylesheet.cssRules || []);
+          const footerRule = rules.find(rule => 
+            rule.selectorText && rule.selectorText.includes('ubits-sidebar-footer')
+          );
+          console.log('   - Regla .ubits-sidebar-footer encontrada:', !!footerRule);
+          if (footerRule) {
+            console.log('     Selector:', footerRule.selectorText);
+          }
+          
+          const beforeRule = rules.find(rule => 
+            rule.selectorText && rule.selectorText.includes('ubits-sidebar-footer::before')
+          );
+          console.log('   - Regla .ubits-sidebar-footer::before encontrada:', !!beforeRule);
+          if (beforeRule) {
+            console.log('     Selector:', beforeRule.selectorText);
+            console.log('     CSS:', beforeRule.cssText);
+          }
+        } catch (e) {
+          console.log('   - Error al leer reglas CSS:', e.message);
+        }
+      }
+    } else {
+      console.log('❌ [Sidebar Debug] Footer NO encontrado');
+      console.log('   - Sidebar HTML:', sidebarElement.outerHTML.substring(0, 500));
+    }
+    
+    console.log('🔍 [Sidebar Debug] ════════════════════════════════════════');
+  }, 500);
+
   // ⚠️ ACTIVAR BOTÓN INICIAL si se especifica
   // IMPORTANTE: Hacer esto ANTES de agregar los event listeners para evitar conflictos
   if (options.initialActiveSection) {

@@ -768,6 +768,58 @@
                     
                     // Verificar componentes renderizados después de responsive
                     checkRenderedComponents();
+                    
+                    // ========================================
+                    // DIAGNÓSTICO: Línea divisoria del footer
+                    // ========================================
+                    setTimeout(() => {
+                        console.log('🔍 [Template Debug] ════════════════════════════════════════');
+                        console.log('🔍 [Template Debug] DIAGNÓSTICO LÍNEA DIVISORIA (Template)');
+                        console.log('🔍 [Template Debug] ════════════════════════════════════════');
+                        
+                        const sidebar = document.querySelector('.ubits-sidebar');
+                        if (sidebar) {
+                            const footer = sidebar.querySelector('.ubits-sidebar-footer');
+                            if (footer) {
+                                console.log('✅ [Template Debug] Footer encontrado');
+                                
+                                // Verificar estilos inline
+                                console.log('   - Estilos inline:', footer.style.cssText || '(ninguno)');
+                                
+                                // Verificar estilos computados
+                                const computed = window.getComputedStyle(footer);
+                                console.log('   - Computed position:', computed.position);
+                                console.log('   - Computed padding-top:', computed.paddingTop);
+                                
+                                // Verificar ::before
+                                const before = window.getComputedStyle(footer, '::before');
+                                console.log('   - ::before content:', before.content);
+                                console.log('   - ::before display:', before.display);
+                                console.log('   - ::before width:', before.width);
+                                console.log('   - ::before height:', before.height);
+                                console.log('   - ::before backgroundColor:', before.backgroundColor);
+                                
+                                // Verificar estilos en <style>
+                                const styleTags = document.querySelectorAll('style');
+                                let foundFooterStyle = false;
+                                styleTags.forEach((style, index) => {
+                                    if (style.textContent.includes('ubits-sidebar-footer')) {
+                                        console.log(`   - Estilo encontrado en <style> #${index}`);
+                                        foundFooterStyle = true;
+                                    }
+                                });
+                                if (!foundFooterStyle) {
+                                    console.log('   - ⚠️ No se encontró estilo para .ubits-sidebar-footer en <style> tags');
+                                }
+                            } else {
+                                console.log('❌ [Template Debug] Footer NO encontrado en sidebar');
+                            }
+                        } else {
+                            console.log('❌ [Template Debug] Sidebar NO encontrado');
+                        }
+                        
+                        console.log('🔍 [Template Debug] ════════════════════════════════════════');
+                    }, 1000);
                 }, 100);
                 
         // Cargar sección inicial después de que todo esté listo
