@@ -115,7 +115,7 @@
     transform: translateX(-50%);
     width: 32px; /* Línea corta y centrada */
     height: 1px;
-    background-color: var(--modifiers-normal-color-light-fg-1-medium);
+    background-color: var(--ubits-fg-1-medium, #5c646f);
 }
 
 /* ========================================
@@ -538,7 +538,7 @@ html[data-theme="dark"] .ubits-sidebar-profile-menu {
 
 /* Dark mode para tokens migrados */
 [data-theme="dark"] .ubits-sidebar-footer::before {
-    background-color: var(--modifiers-normal-color-dark-fg-1-medium);
+    background-color: var(--ubits-fg-1-medium, #d0d2d5);
     /* Mantener centrada y corta en dark mode también */
     left: 50%;
     transform: translateX(-50%);
