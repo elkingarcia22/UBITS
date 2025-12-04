@@ -1236,6 +1236,8 @@
     min-height: 0; /* Permitir que se comprima */
     overflow-y: auto;
     overflow-x: visible; /* Cambiar a visible para que sticky funcione */
+    /* CRÍTICO: Asegurar que sticky funcione en el header */
+    position: relative; /* Crear contexto de apilamiento para sticky */
 }
 
 /* Cuando hay columnas sticky, mantener flex: 1 para ocupar el espacio disponible */
