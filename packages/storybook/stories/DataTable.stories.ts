@@ -3276,6 +3276,103 @@ export const StickyControls: Story = {
   }
 };
 
+export const Header: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      height: auto;
+      overflow: visible !important;
+      max-height: none !important;
+    `;
+    
+    const tableContainerId = `data-table-header-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const tableContainer = document.createElement('div');
+    tableContainer.id = tableContainerId;
+    tableContainer.style.cssText = `
+      width: 100%;
+      max-width: 100%;
+      overflow: visible !important;
+      min-height: auto;
+      height: auto;
+      max-height: none !important;
+    `;
+    
+    container.appendChild(tableContainer);
+    
+    // Generar datos de ejemplo
+    const generateRows = (): TableRow[] => {
+      const rows: TableRow[] = [];
+      for (let i = 1; i <= 25; i++) {
+        rows.push({
+          id: i,
+          data: {
+            nombre: `Usuario ${i}`,
+            email: `usuario${i}@ejemplo.com`,
+            estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
+            pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
+            fecha: new Date(2024, 0, i).toISOString().split('T')[0]
+          }
+        });
+      }
+      return rows;
+    };
+    
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(tableContainerId);
+      if (containerElement) {
+        const rows = generateRows();
+        const columns: TableColumn[] = [
+          { id: 'nombre', title: 'Nombre', type: 'nombre', width: 200 },
+          { id: 'email', title: 'Email', type: 'correo', width: 250 },
+          { id: 'estado', title: 'Estado', type: 'estado', width: 150 },
+          { id: 'pais', title: 'País', type: 'pais', width: 150 },
+          { id: 'fecha', title: 'Fecha', type: 'fecha', width: 150 }
+        ];
+        
+        const options: DataTableOptions = {
+          containerId: tableContainerId,
+          columns,
+          rows,
+          showCheckbox: false,
+          showColumnMenu: false,
+          showContextMenu: false,
+          header: {
+            title: 'Usuarios',
+            showTitle: true,
+            counter: true, // Mostrar contador automático "X/Y resultados"
+            showCounter: true
+          }
+        };
+        
+        const tableInstance = createDataTable(options);
+        (window as any).__storybookDataTableInstance = tableInstance;
+      } else {
+        console.error('❌ Contenedor no encontrado en el DOM:', tableContainerId);
+      }
+    });
+    
+    return container;
+  },
+  args: {
+    showCheckbox: false,
+    showColumnMenu: false,
+    showContextMenu: false
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demuestra el header de la tabla con título y contador. El header muestra el título "Usuarios" y un contador que indica la cantidad de resultados (ej: "25 resultados").'
+      }
+    }
+  }
+};
+
 export const PinnedColumns: Story = {
   render: (args) => {
     const container = document.createElement('div');
