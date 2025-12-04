@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { renderButton, createButton } from '../../addons/button/src/ButtonProvider';
-import type { ButtonOptions } from '../../addons/button/src/types/ButtonOptions';
+import { renderButton, createButton } from '../../components/button/src/ButtonProvider';
+import type { ButtonOptions } from '../../components/button/src/types/ButtonOptions';
 import { renderSpinner } from '../../components/spinner/src/SpinnerProvider';
-import '../../addons/button/src/styles/button.css';
-import '../../addons/tooltip/src/styles/tooltip.css';
+import '../../components/button/src/styles/button.css';
+import '../../components/tooltip/src/styles/tooltip.css';
 
 const meta: Meta<ButtonOptions> = {
   title: 'Básicos/Button',
@@ -594,5 +594,962 @@ export const ActiveState: Story = {
     container.appendChild(info);
     
     return container;
+  },
+};
+
+// Helper para renderizar Button de manera consistente
+function renderButtonStory(options: Partial<ButtonOptions>) {
+  const container = document.createElement('div');
+  container.style.padding = '20px';
+  container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
+  container.style.borderRadius = '8px';
+  
+  const preview = document.createElement('div');
+  preview.style.display = 'flex';
+  preview.style.justifyContent = 'center';
+  preview.style.alignItems = 'flex-start';
+  preview.style.padding = '40px';
+  preview.style.minHeight = '120px';
+  preview.style.background = 'var(--modifiers-normal-color-light-bg-2)';
+  preview.style.borderRadius = '8px';
+  preview.style.marginBottom = '20px';
+  preview.style.position = 'relative';
+  
+  const buttonArgs = {
+    ...options,
+    iconOnly: options.iconPosition === 'only' || options.iconOnly,
+    iconPosition: options.iconPosition === 'only' ? 'left' : options.iconPosition
+  };
+
+  if (buttonArgs.dropdown && buttonArgs.dropdownOptions && buttonArgs.dropdownOptions.length > 0) {
+    const buttonWrapper = document.createElement('div');
+    buttonWrapper.style.position = 'relative';
+    buttonWrapper.style.display = 'inline-block';
+    
+    requestAnimationFrame(() => {
+      try {
+        const button = createButton(buttonArgs);
+        const parent = button.parentElement;
+        
+        if (buttonArgs.active) {
+          button.classList.add('ubits-button--active');
+        }
+        
+        if (parent) {
+          buttonWrapper.appendChild(parent);
+        } else {
+          buttonWrapper.appendChild(button);
+        }
+        
+        if (buttonArgs.iconOnly && buttonArgs.showTooltip && buttonArgs.tooltipText) {
+          applyUBITSTooltip(button, buttonArgs.tooltipText);
+        }
+      } catch (error) {
+        buttonWrapper.innerHTML = renderButton(buttonArgs);
+        const button = buttonWrapper.querySelector('button') as HTMLButtonElement;
+        if (button) {
+          if (buttonArgs.active) {
+            button.classList.add('ubits-button--active');
+          }
+          if (buttonArgs.iconOnly && buttonArgs.showTooltip && buttonArgs.tooltipText) {
+            applyUBITSTooltip(button, buttonArgs.tooltipText);
+          }
+        }
+      }
+    });
+    
+    preview.appendChild(buttonWrapper);
+  } else {
+    const buttonHTML = renderButton(buttonArgs);
+    const buttonContainer = document.createElement('div');
+    buttonContainer.innerHTML = buttonHTML;
+    preview.appendChild(buttonContainer);
+    
+    requestAnimationFrame(() => {
+      const button = buttonContainer.querySelector('button') as HTMLButtonElement;
+      if (button) {
+        if (buttonArgs.floating && !button.classList.contains('ubits-button--floating')) {
+          button.classList.add('ubits-button--floating');
+        }
+        
+        if (buttonArgs.active && !button.classList.contains('ubits-button--active')) {
+          button.classList.add('ubits-button--active');
+        }
+        
+        if (buttonArgs.active) {
+          const root = document.documentElement;
+          const bgActiveButton = getComputedStyle(root).getPropertyValue('--modifiers-normal-color-light-bg-active-button').trim() || 'var(--modifiers-normal-color-light-bg-active-button)';
+          const bg1 = getComputedStyle(root).getPropertyValue('--modifiers-normal-color-light-bg-1').trim() || 'var(--modifiers-normal-color-light-bg-1)';
+          const backgroundValue = `${bgActiveButton}, ${bg1}`;
+          
+          button.style.setProperty('background', backgroundValue, 'important');
+          button.style.setProperty('border', 'none', 'important');
+          button.style.setProperty('color', 'var(--modifiers-normal-color-light-accent-brand)', 'important');
+          
+          const spans = button.querySelectorAll('span');
+          spans.forEach((span) => {
+            span.style.color = 'var(--modifiers-normal-color-light-accent-brand)';
+          });
+          
+          const icons = button.querySelectorAll('i');
+          icons.forEach((icon) => {
+            icon.style.color = 'var(--modifiers-normal-color-light-accent-brand)';
+          });
+        }
+        
+        if (buttonArgs.iconOnly && buttonArgs.showTooltip && buttonArgs.tooltipText) {
+          applyUBITSTooltip(button, buttonArgs.tooltipText);
+        }
+      }
+    });
+  }
+  
+  container.appendChild(preview);
+  return container;
+}
+
+/**
+ * VariantPrimary
+ * Botón variante primary
+ */
+export const VariantPrimary: Story = {
+  name: 'Variant - Primary',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Botón Primary',
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón variante primary.',
+      },
+    },
+  },
+};
+
+/**
+ * VariantSecondary
+ * Botón variante secondary
+ */
+export const VariantSecondary: Story = {
+  name: 'Variant - Secondary',
+  args: {
+    variant: 'secondary',
+    size: 'md',
+    text: 'Botón Secondary',
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón variante secondary.',
+      },
+    },
+  },
+};
+
+/**
+ * VariantTertiary
+ * Botón variante tertiary
+ */
+export const VariantTertiary: Story = {
+  name: 'Variant - Tertiary',
+  args: {
+    variant: 'tertiary',
+    size: 'md',
+    text: 'Botón Tertiary',
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón variante tertiary.',
+      },
+    },
+  },
+};
+
+/**
+ * SizeXS
+ * Botón tamaño extra small
+ */
+export const SizeXS: Story = {
+  name: 'Size - XS',
+  args: {
+    variant: 'primary',
+    size: 'xs',
+    text: 'Botón XS',
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón tamaño extra small.',
+      },
+    },
+  },
+};
+
+/**
+ * SizeSM
+ * Botón tamaño small
+ */
+export const SizeSM: Story = {
+  name: 'Size - SM',
+  args: {
+    variant: 'primary',
+    size: 'sm',
+    text: 'Botón SM',
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón tamaño small.',
+      },
+    },
+  },
+};
+
+/**
+ * SizeMD
+ * Botón tamaño medium (default)
+ */
+export const SizeMD: Story = {
+  name: 'Size - MD (Default)',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Botón MD',
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón tamaño medium (valor por defecto).',
+      },
+    },
+  },
+};
+
+/**
+ * SizeLG
+ * Botón tamaño large
+ */
+export const SizeLG: Story = {
+  name: 'Size - LG',
+  args: {
+    variant: 'primary',
+    size: 'lg',
+    text: 'Botón LG',
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón tamaño large.',
+      },
+    },
+  },
+};
+
+/**
+ * SizeXL
+ * Botón tamaño extra large
+ */
+export const SizeXL: Story = {
+  name: 'Size - XL',
+  args: {
+    variant: 'primary',
+    size: 'xl',
+    text: 'Botón XL',
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón tamaño extra large.',
+      },
+    },
+  },
+};
+
+/**
+ * WithIconLeft
+ * Botón con icono a la izquierda
+ */
+export const WithIconLeft: Story = {
+  name: 'With Icon - Left',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Botón con icono',
+    icon: 'check',
+    iconStyle: 'regular',
+    iconPosition: 'left',
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón con icono a la izquierda del texto.',
+      },
+    },
+  },
+};
+
+/**
+ * WithIconRight
+ * Botón con icono a la derecha
+ */
+export const WithIconRight: Story = {
+  name: 'With Icon - Right',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Botón con icono',
+    icon: 'arrow-right',
+    iconStyle: 'regular',
+    iconPosition: 'right',
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón con icono a la derecha del texto.',
+      },
+    },
+  },
+};
+
+/**
+ * IconOnly
+ * Botón solo icono (sin texto)
+ */
+export const IconOnly: Story = {
+  name: 'Icon Only',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    icon: 'plus',
+    iconStyle: 'regular',
+    iconOnly: true,
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón solo icono, sin texto.',
+      },
+    },
+  },
+};
+
+/**
+ * IconStyleRegular
+ * Icono estilo regular (far)
+ */
+export const IconStyleRegular: Story = {
+  name: 'Icon Style - Regular',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Botón con icono',
+    icon: 'user',
+    iconStyle: 'regular',
+    iconPosition: 'left',
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón con icono estilo regular (far).',
+      },
+    },
+  },
+};
+
+/**
+ * IconStyleSolid
+ * Icono estilo solid (fas)
+ */
+export const IconStyleSolid: Story = {
+  name: 'Icon Style - Solid',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Botón con icono',
+    icon: 'user',
+    iconStyle: 'solid',
+    iconPosition: 'left',
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón con icono estilo solid (fas).',
+      },
+    },
+  },
+};
+
+/**
+ * Disabled
+ * Botón deshabilitado
+ */
+export const Disabled: Story = {
+  name: 'Disabled',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Botón deshabilitado',
+    disabled: true,
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón deshabilitado.',
+      },
+    },
+  },
+};
+
+/**
+ * Loading
+ * Botón en estado de carga (con spinner)
+ */
+export const Loading: Story = {
+  name: 'Loading',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Cargando...',
+    loading: true,
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón en estado de carga con spinner.',
+      },
+    },
+  },
+};
+
+/**
+ * LoadingWithText
+ * Botón loading con texto personalizado
+ */
+export const LoadingWithText: Story = {
+  name: 'Loading With Text',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Guardar',
+    loading: true,
+    loadingText: 'Guardando...',
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón loading con texto personalizado.',
+      },
+    },
+  },
+};
+
+/**
+ * WithBadge
+ * Botón con badge de notificación
+ */
+export const WithBadge: Story = {
+  name: 'With Badge',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Notificaciones',
+    badge: true,
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón con badge de notificación.',
+      },
+    },
+  },
+};
+
+/**
+ * Active
+ * Botón con estado active
+ */
+export const Active: Story = {
+  name: 'Active',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Botón Active',
+    active: true,
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón con estado active (fondo transparente + overlay azul).',
+      },
+    },
+  },
+};
+
+/**
+ * Floating
+ * Botón flotante con sombra
+ */
+export const Floating: Story = {
+  name: 'Floating',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Botón Flotante',
+    floating: true,
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón flotante con sombra del sistema de diseño.',
+      },
+    },
+  },
+};
+
+/**
+ * FullWidth
+ * Botón ancho completo
+ */
+export const FullWidth: Story = {
+  name: 'Full Width',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Botón Ancho Completo',
+    fullWidth: true,
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón con ancho completo.',
+      },
+    },
+  },
+};
+
+/**
+ * Block
+ * Botón display block
+ */
+export const Block: Story = {
+  name: 'Block',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Botón Block',
+    block: true,
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón con display block.',
+      },
+    },
+  },
+};
+
+/**
+ * WithDropdown
+ * Botón con dropdown
+ */
+export const WithDropdown: Story = {
+  name: 'With Dropdown',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Menú',
+    dropdown: true,
+    dropdownOptions: [
+      { label: 'Opción 1', value: 'opt1' },
+      { label: 'Opción 2', value: 'opt2' },
+      { label: 'Opción 3', value: 'opt3' },
+    ],
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón con funcionalidad dropdown que muestra una lista al hacer click.',
+      },
+    },
+  },
+};
+
+/**
+ * DropdownWithOptions
+ * Botón dropdown con opciones personalizadas
+ */
+export const DropdownWithOptions: Story = {
+  name: 'Dropdown With Options',
+  args: {
+    variant: 'secondary',
+    size: 'md',
+    text: 'Acciones',
+    icon: 'ellipsis-v',
+    iconPosition: 'left',
+    dropdown: true,
+    dropdownOptions: [
+      { label: 'Editar', value: 'edit', onClick: () => alert('Editar clickeado') },
+      { label: 'Eliminar', value: 'delete', onClick: () => alert('Eliminar clickeado') },
+      { label: 'Compartir', value: 'share', onClick: () => alert('Compartir clickeado') },
+    ],
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón dropdown con opciones personalizadas y callbacks.',
+      },
+    },
+  },
+};
+
+/**
+ * IconOnlyWithTooltip
+ * Botón icon-only con tooltip
+ */
+export const IconOnlyWithTooltip: Story = {
+  name: 'Icon Only With Tooltip',
+  args: {
+    variant: 'secondary',
+    size: 'md',
+    icon: 'info-circle',
+    iconStyle: 'regular',
+    iconOnly: true,
+    showTooltip: true,
+    tooltipText: 'Información adicional',
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón icon-only con tooltip que se muestra al hacer hover.',
+      },
+    },
+  },
+};
+
+/**
+ * OnClickCallback
+ * Botón con callback onClick
+ */
+export const OnClickCallback: Story = {
+  name: 'OnClick Callback',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Haz clic aquí',
+  },
+  render: (args) => {
+    const options: Partial<ButtonOptions> = {
+      ...args,
+      onClick: () => {
+        alert('Botón clickeado');
+        console.log('Button clicked');
+      }
+    };
+    return renderButtonStory(options);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón con callback onClick que se ejecuta cuando se hace clic.',
+      },
+    },
+  },
+};
+
+/**
+ * AllVariants
+ * Todas las variantes
+ */
+export const AllVariants: Story = {
+  name: 'All Variants',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Botón',
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.padding = '20px';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
+    container.style.borderRadius = '8px';
+    
+    const preview = document.createElement('div');
+    preview.style.display = 'flex';
+    preview.style.gap = '16px';
+    preview.style.justifyContent = 'center';
+    preview.style.alignItems = 'center';
+    preview.style.padding = '40px';
+    preview.style.minHeight = '120px';
+    preview.style.background = 'var(--modifiers-normal-color-light-bg-2)';
+    preview.style.borderRadius = '8px';
+    preview.style.marginBottom = '20px';
+    preview.style.flexWrap = 'wrap';
+    
+    const variants: Array<ButtonOptions['variant']> = ['primary', 'secondary', 'tertiary'];
+    
+    variants.forEach(variant => {
+      const buttonContainer = document.createElement('div');
+      buttonContainer.style.display = 'flex';
+      buttonContainer.style.flexDirection = 'column';
+      buttonContainer.style.alignItems = 'center';
+      buttonContainer.style.gap = '8px';
+      
+      const label = document.createElement('div');
+      label.style.fontSize = '12px';
+      label.style.color = 'var(--modifiers-normal-color-light-fg-1-medium)';
+      label.textContent = variant || 'default';
+      
+      buttonContainer.innerHTML = renderButton({
+        ...args,
+        variant: variant
+      } as ButtonOptions);
+      
+      buttonContainer.insertBefore(label, buttonContainer.firstChild);
+      preview.appendChild(buttonContainer);
+    });
+    
+    container.appendChild(preview);
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Todas las variantes disponibles (primary, secondary, tertiary).',
+      },
+    },
+  },
+};
+
+/**
+ * AllSizes
+ * Todos los tamaños
+ */
+export const AllSizes: Story = {
+  name: 'All Sizes',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Botón',
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.padding = '20px';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
+    container.style.borderRadius = '8px';
+    
+    const preview = document.createElement('div');
+    preview.style.display = 'flex';
+    preview.style.gap = '16px';
+    preview.style.justifyContent = 'center';
+    preview.style.alignItems = 'center';
+    preview.style.padding = '40px';
+    preview.style.minHeight = '120px';
+    preview.style.background = 'var(--modifiers-normal-color-light-bg-2)';
+    preview.style.borderRadius = '8px';
+    preview.style.marginBottom = '20px';
+    preview.style.flexWrap = 'wrap';
+    
+    const sizes: Array<ButtonOptions['size']> = ['xs', 'sm', 'md', 'lg', 'xl'];
+    
+    sizes.forEach(size => {
+      const buttonContainer = document.createElement('div');
+      buttonContainer.style.display = 'flex';
+      buttonContainer.style.flexDirection = 'column';
+      buttonContainer.style.alignItems = 'center';
+      buttonContainer.style.gap = '8px';
+      
+      const label = document.createElement('div');
+      label.style.fontSize = '12px';
+      label.style.color = 'var(--modifiers-normal-color-light-fg-1-medium)';
+      label.textContent = size?.toUpperCase() || 'default';
+      
+      buttonContainer.innerHTML = renderButton({
+        ...args,
+        size: size
+      } as ButtonOptions);
+      
+      buttonContainer.insertBefore(label, buttonContainer.firstChild);
+      preview.appendChild(buttonContainer);
+    });
+    
+    container.appendChild(preview);
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Todos los tamaños disponibles (xs, sm, md, lg, xl).',
+      },
+    },
+  },
+};
+
+/**
+ * AllIconPositions
+ * Todas las posiciones de icono
+ */
+export const AllIconPositions: Story = {
+  name: 'All Icon Positions',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Botón',
+    icon: 'check',
+    iconStyle: 'regular',
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.padding = '20px';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
+    container.style.borderRadius = '8px';
+    
+    const preview = document.createElement('div');
+    preview.style.display = 'flex';
+    preview.style.flexDirection = 'column';
+    preview.style.gap = '16px';
+    preview.style.justifyContent = 'center';
+    preview.style.alignItems = 'center';
+    preview.style.padding = '40px';
+    preview.style.minHeight = '120px';
+    preview.style.background = 'var(--modifiers-normal-color-light-bg-2)';
+    preview.style.borderRadius = '8px';
+    preview.style.marginBottom = '20px';
+    
+    const positions: Array<'left' | 'right'> = ['left', 'right'];
+    
+    positions.forEach(position => {
+      const buttonContainer = document.createElement('div');
+      buttonContainer.style.display = 'flex';
+      buttonContainer.style.alignItems = 'center';
+      buttonContainer.style.gap = '12px';
+      
+      const label = document.createElement('div');
+      label.style.fontSize = '12px';
+      label.style.color = 'var(--modifiers-normal-color-light-fg-1-medium)';
+      label.style.minWidth = '80px';
+      label.textContent = `Icon ${position}:`;
+      
+      buttonContainer.innerHTML = renderButton({
+        ...args,
+        iconPosition: position
+      } as ButtonOptions);
+      
+      buttonContainer.insertBefore(label, buttonContainer.firstChild);
+      preview.appendChild(buttonContainer);
+    });
+    
+    const iconOnlyContainer = document.createElement('div');
+    iconOnlyContainer.style.display = 'flex';
+    iconOnlyContainer.style.alignItems = 'center';
+    iconOnlyContainer.style.gap = '12px';
+    
+    const iconOnlyLabel = document.createElement('div');
+    iconOnlyLabel.style.fontSize = '12px';
+    iconOnlyLabel.style.color = 'var(--modifiers-normal-color-light-fg-1-medium)';
+    iconOnlyLabel.style.minWidth = '80px';
+    iconOnlyLabel.textContent = 'Icon only:';
+    
+    iconOnlyContainer.innerHTML = renderButton({
+      ...args,
+      iconOnly: true
+    } as ButtonOptions);
+    
+    iconOnlyContainer.insertBefore(iconOnlyLabel, iconOnlyContainer.firstChild);
+    preview.appendChild(iconOnlyContainer);
+    
+    container.appendChild(preview);
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Todas las posiciones de icono disponibles (left, right, icon-only).',
+      },
+    },
+  },
+};
+
+/**
+ * CompleteExample
+ * Ejemplo completo
+ */
+export const CompleteExample: Story = {
+  name: 'Complete Example',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Botón Completo',
+    icon: 'save',
+    iconStyle: 'regular',
+    iconPosition: 'left',
+    badge: true,
+    active: false,
+    floating: false,
+    fullWidth: false,
+    block: false,
+  },
+  render: (args) => {
+    const options: Partial<ButtonOptions> = {
+      ...args,
+      onClick: () => {
+        console.log('Button clicked');
+      }
+    };
+    return renderButtonStory(options);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón completo con todas las opciones: variante, tamaño, texto, icono, badge y callback onClick.',
+      },
+    },
+  },
+};
+
+/**
+ * MinimalExample
+ * Ejemplo mínimo
+ */
+export const MinimalExample: Story = {
+  name: 'Minimal Example',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'Botón',
+  },
+  render: (args) => renderButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Botón mínimo con solo variante, tamaño y texto.',
+      },
+    },
   },
 };
