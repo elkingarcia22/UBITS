@@ -2231,3 +2231,145 @@ export const ColumnSortable: Story = {
   }
 };
 
+/**
+ * Historia: Selección Múltiple con Checkbox
+ * 
+ * Esta historia demuestra cómo funciona la selección múltiple de filas mediante checkboxes.
+ * Cada fila tiene un checkbox y hay un checkbox maestro en el header para seleccionar todas las filas.
+ */
+export const CheckboxSelection: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      height: auto;
+      overflow: visible !important;
+      max-height: none !important;
+    `;
+    
+    const tableContainerId = `data-table-checkbox-selection-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const tableContainer = document.createElement('div');
+    tableContainer.id = tableContainerId;
+    tableContainer.style.cssText = `
+      width: 100%;
+      overflow: visible !important;
+      min-height: auto;
+      height: auto;
+      max-height: none !important;
+    `;
+    
+    container.appendChild(tableContainer);
+    
+    // Generar datos de ejemplo
+    const generateRows = (): TableRow[] => {
+      const rows: TableRow[] = [];
+      for (let i = 1; i <= 10; i++) {
+        rows.push({
+          id: i,
+          data: {
+            nombre: `Usuario ${i}`,
+            email: `usuario${i}@ejemplo.com`,
+            estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
+            pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
+            fecha: new Date(2024, 0, i).toISOString().split('T')[0],
+            'checkbox-2': false // Estado inicial del checkbox
+          }
+        });
+      }
+      return rows;
+    };
+    
+    const rows = generateRows();
+    
+    // Columnas simples para demostrar selección múltiple
+    const columns: TableColumn[] = [
+      { id: 'nombre', title: 'Nombre', type: 'nombre', width: 200 },
+      { id: 'email', title: 'Email', type: 'correo', width: 250 },
+      { id: 'estado', title: 'Estado', type: 'estado', width: 150 },
+      { id: 'pais', title: 'País', type: 'pais', width: 150 },
+      { id: 'fecha', title: 'Fecha', type: 'fecha', width: 150 }
+    ];
+    
+    const options: DataTableOptions = {
+      containerId: tableContainer.id,
+      columns,
+      rows,
+      columnReorderable: false,
+      rowReorderable: false,
+      rowExpandable: false,
+      columnSortable: false,
+      showCheckbox: true, // Habilitar selección múltiple con checkbox
+      showVerticalScrollbar: false,
+      showHorizontalScrollbar: false,
+      showColumnMenu: false,
+      showContextMenu: false,
+      showPagination: false,
+      header: {
+        title: 'Selección Múltiple con Checkbox',
+        showTitle: true,
+        counter: true,
+        displayedItems: rows.length,
+        totalItems: rows.length
+      }
+    };
+    
+    // Usar requestAnimationFrame para asegurar que el DOM esté listo
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(tableContainer.id);
+      if (containerElement) {
+        const tableInstance = createDataTable(options);
+        (window as any).__storybookDataTableInstance = tableInstance;
+        
+        // Agregar listener para detectar cambios en los checkboxes
+        setTimeout(() => {
+          const checkboxes = containerElement.querySelectorAll('input[type="checkbox"][data-column-id="checkbox-2"]');
+          checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', (e) => {
+              const target = e.target as HTMLInputElement;
+              const rowId = target.getAttribute('data-row-id');
+              console.log(`☑️ Checkbox de fila ${rowId} ${target.checked ? 'marcado' : 'desmarcado'}`);
+            });
+          });
+          
+          // Listener para el checkbox maestro
+          const masterCheckbox = containerElement.querySelector('input[type="checkbox"][data-column-checkbox-header="true"]');
+          if (masterCheckbox) {
+            masterCheckbox.addEventListener('change', (e) => {
+              const target = e.target as HTMLInputElement;
+              console.log(`☑️ Checkbox maestro ${target.checked ? 'marcado - todas las filas seleccionadas' : 'desmarcado - todas las filas deseleccionadas'}`);
+            });
+          }
+        }, 100);
+      } else {
+        console.error('❌ Contenedor no encontrado en el DOM:', tableContainer.id);
+      }
+    });
+    
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Esta historia demuestra cómo funciona la selección múltiple de filas mediante checkboxes. Cada fila tiene un checkbox en la primera columna, y hay un checkbox maestro en el header que permite seleccionar/deseleccionar todas las filas de una vez. El estado de los checkboxes se almacena en `row.data[\'checkbox-2\']`. Puedes escuchar los cambios mediante event listeners en los elementos checkbox del DOM.'
+      }
+    }
+  },
+  args: {
+    columnReorderable: false,
+    rowReorderable: false,
+    rowExpandable: false,
+    columnSortable: false,
+    showCheckbox: true,
+    showVerticalScrollbar: false,
+    showHorizontalScrollbar: false,
+    showColumnMenu: false,
+    showContextMenu: false,
+    showPagination: false
+  }
+};
+
