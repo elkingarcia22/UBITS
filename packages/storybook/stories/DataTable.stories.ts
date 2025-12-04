@@ -3417,25 +3417,28 @@ export const ActionBar: Story = {
       // renderButton ya está importado al inicio del archivo
       let buttonsHTML = '';
       
-      // Botón "Ver seleccionados" (siempre visible) - único con icono y texto
+      // Botón "Ver seleccionados" (siempre visible) - único con icono y texto, estado active cuando está activo
       buttonsHTML += renderButton({
         text: viewSelectedText,
-        variant: isViewSelectedActive ? 'primary' : 'secondary',
+        variant: 'secondary',
         size: 'sm',
         icon: 'eye',
         iconStyle: 'regular',
+        active: isViewSelectedActive, // Estado active cuando está activo
         className: 'ubits-data-table__action-bar-button',
         attributes: {
           id: 'action-btn-view-selected'
         }
       });
       
-      // Botón "Notificaciones" (solo múltiple selección) - terciario sin icono
+      // Botón "Notificaciones" (solo múltiple selección) - secondary solo icono
       if (isMultipleSelection) {
         buttonsHTML += renderButton({
-          text: 'Notificaciones',
-          variant: 'tertiary',
+          variant: 'secondary',
           size: 'sm',
+          icon: 'bell',
+          iconStyle: 'regular',
+          iconOnly: true, // Solo icono, sin texto
           className: 'ubits-data-table__action-bar-button',
           attributes: {
             id: 'action-btn-notifications'
@@ -3443,12 +3446,14 @@ export const ActionBar: Story = {
         });
       }
       
-      // Botones para selección individual (solo si hay 1 selección) - terciarios sin iconos
+      // Botones para selección individual (solo si hay 1 selección) - secondary solo icono
       if (!isMultipleSelection) {
         buttonsHTML += renderButton({
-          text: 'Copiar',
-          variant: 'tertiary',
+          variant: 'secondary',
           size: 'sm',
+          icon: 'copy',
+          iconStyle: 'regular',
+          iconOnly: true, // Solo icono, sin texto
           className: 'ubits-data-table__action-bar-button',
           attributes: {
             id: 'action-btn-copy'
@@ -3456,9 +3461,11 @@ export const ActionBar: Story = {
         });
         
         buttonsHTML += renderButton({
-          text: 'Ver',
-          variant: 'tertiary',
+          variant: 'secondary',
           size: 'sm',
+          icon: 'eye',
+          iconStyle: 'regular',
+          iconOnly: true, // Solo icono, sin texto
           className: 'ubits-data-table__action-bar-button',
           attributes: {
             id: 'action-btn-view'
@@ -3466,9 +3473,11 @@ export const ActionBar: Story = {
         });
         
         buttonsHTML += renderButton({
-          text: 'Editar',
-          variant: 'tertiary',
+          variant: 'secondary',
           size: 'sm',
+          icon: 'edit',
+          iconStyle: 'regular',
+          iconOnly: true, // Solo icono, sin texto
           className: 'ubits-data-table__action-bar-button',
           attributes: {
             id: 'action-btn-edit'
@@ -3476,9 +3485,11 @@ export const ActionBar: Story = {
         });
         
         buttonsHTML += renderButton({
-          text: 'Descargar',
-          variant: 'tertiary',
+          variant: 'secondary',
           size: 'sm',
+          icon: 'download',
+          iconStyle: 'regular',
+          iconOnly: true, // Solo icono, sin texto
           className: 'ubits-data-table__action-bar-button',
           attributes: {
             id: 'action-btn-download'
@@ -3486,11 +3497,13 @@ export const ActionBar: Story = {
         });
       }
       
-      // Botón "Eliminar" (siempre visible) - terciario sin icono
+      // Botón "Eliminar" (siempre visible) - secondary solo icono
       buttonsHTML += renderButton({
-        text: 'Eliminar',
-        variant: 'tertiary',
+        variant: 'secondary',
         size: 'sm',
+        icon: 'trash',
+        iconStyle: 'regular',
+        iconOnly: true, // Solo icono, sin texto
         className: 'ubits-data-table__action-bar-button',
         attributes: {
           id: 'action-btn-delete'
