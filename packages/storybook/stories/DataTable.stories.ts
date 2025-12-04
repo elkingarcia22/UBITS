@@ -1106,8 +1106,9 @@ export const Default: Story = {
     const headerTitle = (args as any).headerTitle ?? 'Lista de elementos';
     const showHeaderTitle = (args as any).showHeaderTitle !== undefined ? (args as any).showHeaderTitle : true;
     const headerCounter = (args as any).headerCounter !== undefined ? (args as any).headerCounter : true;
-    const headerDisplayedItems = (args as any).headerDisplayedItems ?? 32;
-    const headerTotalItems = (args as any).headerTotalItems ?? 206;
+    // Usar el número real de filas en lugar de valores hardcodeados
+    const headerDisplayedItems = (args as any).headerDisplayedItems !== undefined ? (args as any).headerDisplayedItems : rows.length;
+    const headerTotalItems = (args as any).headerTotalItems !== undefined ? (args as any).headerTotalItems : rows.length;
     const showHeaderPrimaryButton = (args as any).showHeaderPrimaryButton !== undefined ? (args as any).showHeaderPrimaryButton : true;
     const headerPrimaryButtonText = (args as any).headerPrimaryButtonText ?? 'Nuevo';
     const showHeaderSecondaryButtons = (args as any).showHeaderSecondaryButtons !== undefined ? (args as any).showHeaderSecondaryButtons : true;
