@@ -2102,3 +2102,131 @@ export const RowExpandable: Story = {
   }
 };
 
+/**
+ * Historia: Ordenamiento de Columnas
+ * 
+ * Esta historia demuestra cómo funciona el ordenamiento de columnas.
+ * Cada columna ordenable muestra iconos de flecha (↑↓) en el header para ordenar ascendente o descendente.
+ */
+export const ColumnSortable: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      height: auto;
+      overflow: visible !important;
+      max-height: none !important;
+    `;
+    
+    const tableContainerId = `data-table-column-sortable-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const tableContainer = document.createElement('div');
+    tableContainer.id = tableContainerId;
+    tableContainer.style.cssText = `
+      width: 100%;
+      overflow: visible !important;
+      min-height: auto;
+      height: auto;
+      max-height: none !important;
+    `;
+    
+    container.appendChild(tableContainer);
+    
+    // Generar datos de ejemplo con variación para demostrar ordenamiento
+    const generateRows = (): TableRow[] => {
+      const nombres = ['Ana', 'Carlos', 'Beatriz', 'Diego', 'Elena', 'Fernando', 'Gabriela', 'Hugo', 'Isabel', 'Juan'];
+      const paises = ['Colombia', 'México', 'Argentina', 'Chile', 'Perú', 'Ecuador', 'Venezuela', 'Uruguay', 'Paraguay', 'Bolivia'];
+      const estados = ['activo', 'pendiente', 'inactivo'];
+      
+      const rows: TableRow[] = [];
+      for (let i = 0; i < 10; i++) {
+        rows.push({
+          id: i + 1,
+          data: {
+            nombre: nombres[i],
+            email: `${nombres[i].toLowerCase()}@ejemplo.com`,
+            estado: estados[i % 3],
+            pais: paises[i],
+            fecha: new Date(2024, 0, i + 1).toISOString().split('T')[0],
+            edad: 20 + (i * 3)
+          }
+        });
+      }
+      return rows;
+    };
+    
+    const rows = generateRows();
+    
+    // Columnas con diferentes tipos para demostrar ordenamiento
+    const columns: TableColumn[] = [
+      { id: 'nombre-col1', title: 'Nombre', type: 'nombre', width: 200 },
+      { id: 'email-col2', title: 'Email', type: 'correo', width: 250 },
+      { id: 'estado-col3', title: 'Estado', type: 'estado', width: 150 },
+      { id: 'pais-col4', title: 'País', type: 'pais', width: 150 },
+      { id: 'fecha-col5', title: 'Fecha', type: 'fecha', width: 150 }
+    ];
+    
+    const options: DataTableOptions = {
+      containerId: tableContainer.id,
+      columns,
+      rows,
+      columnReorderable: false,
+      rowReorderable: false,
+      rowExpandable: false,
+      columnSortable: true, // Habilitar ordenamiento de columnas
+      showCheckbox: false,
+      showVerticalScrollbar: false,
+      showHorizontalScrollbar: false,
+      showColumnMenu: false,
+      showContextMenu: false,
+      showPagination: false,
+      header: {
+        title: 'Ordenamiento de Columnas',
+        showTitle: true,
+        counter: true,
+        displayedItems: rows.length,
+        totalItems: rows.length
+      },
+      onSort: (columnId: string, direction: 'asc' | 'desc') => {
+        console.log(`🔄 Columna ${columnId} ordenada: ${direction === 'asc' ? 'ascendente' : 'descendente'}`);
+      }
+    };
+    
+    // Usar requestAnimationFrame para asegurar que el DOM esté listo
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(tableContainer.id);
+      if (containerElement) {
+        const tableInstance = createDataTable(options);
+        (window as any).__storybookDataTableInstance = tableInstance;
+      } else {
+        console.error('❌ Contenedor no encontrado en el DOM:', tableContainer.id);
+      }
+    });
+    
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Esta historia demuestra cómo funciona el ordenamiento de columnas. Cada columna ordenable muestra iconos de flecha (↑↓) en el header. Al hacer click en el header de una columna, se ordena ascendente (↑), y al hacer click nuevamente se ordena descendente (↓). El callback `onSort` se ejecuta cuando se ordena una columna, recibiendo el ID de la columna y la dirección del ordenamiento (asc/desc).'
+      }
+    }
+  },
+  args: {
+    columnReorderable: false,
+    rowReorderable: false,
+    rowExpandable: false,
+    columnSortable: true,
+    showCheckbox: false,
+    showVerticalScrollbar: false,
+    showHorizontalScrollbar: false,
+    showColumnMenu: false,
+    showContextMenu: false,
+    showPagination: false
+  }
+};
+
