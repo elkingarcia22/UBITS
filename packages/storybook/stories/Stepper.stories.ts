@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { renderStepper, createStepper } from '../../addons/stepper/src/StepperProvider';
-import type { StepperOptions, StepperStep, StepperStepState, StepperOrientation } from '../../addons/stepper/src/types/StepperOptions';
-import '../../addons/stepper/src/styles/stepper.css';
+import { renderStepper, createStepper } from '../../components/stepper/src/StepperProvider';
+import type { StepperOptions, StepperStep, StepperStepState, StepperOrientation } from '../../components/stepper/src/types/StepperOptions';
+import '../../components/stepper/src/styles/stepper.css';
 
 interface ExtendedStepperOptions extends StepperOptions {
   numSteps?: number;
@@ -295,6 +295,853 @@ export const Default: Story = {
     container.appendChild(stepperContainer);
 
     return container;
+  },
+};
+
+// Helper para renderizar Stepper de manera consistente
+function renderStepperStory(options: StepperOptions) {
+  const container = document.createElement('div');
+  container.style.cssText = `
+    width: 100%;
+    padding: 40px;
+    background: var(--modifiers-normal-color-light-bg-1);
+    min-height: 200px;
+  `;
+
+  const stepperContainer = document.createElement('div');
+  stepperContainer.id = `stepper-container-${Date.now()}`;
+  stepperContainer.style.cssText = `
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  `;
+
+  try {
+    const html = renderStepper(options);
+    stepperContainer.innerHTML = html;
+  } catch (error) {
+    console.error('Error al renderizar stepper:', error);
+    stepperContainer.innerHTML = '<p style="color: var(--modifiers-normal-color-light-feedback-accent-error);">Error al renderizar el stepper</p>';
+  }
+
+  container.appendChild(stepperContainer);
+  return container;
+}
+
+/**
+ * OrientationHorizontal
+ * Stepper orientación horizontal
+ */
+export const OrientationHorizontal: Story = {
+  name: 'Orientation - Horizontal',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Desc for step one', state: 'completed' },
+      { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'active' },
+      { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper con orientación horizontal.',
+      },
+    },
+  },
+};
+
+/**
+ * OrientationVertical
+ * Stepper orientación vertical
+ */
+export const OrientationVertical: Story = {
+  name: 'Orientation - Vertical',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Desc for step one', state: 'completed' },
+      { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'active' },
+      { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'vertical',
+      size: 'md',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper con orientación vertical.',
+      },
+    },
+  },
+};
+
+/**
+ * SizeXS
+ * Stepper tamaño extra pequeño
+ */
+export const SizeXS: Story = {
+  name: 'Size - XS',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Desc for step one', state: 'completed' },
+      { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'active' },
+      { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'xs',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper tamaño extra pequeño (xs).',
+      },
+    },
+  },
+};
+
+/**
+ * SizeSM
+ * Stepper tamaño pequeño
+ */
+export const SizeSM: Story = {
+  name: 'Size - SM',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Desc for step one', state: 'completed' },
+      { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'active' },
+      { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'sm',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper tamaño pequeño (sm).',
+      },
+    },
+  },
+};
+
+/**
+ * SizeMD
+ * Stepper tamaño mediano
+ */
+export const SizeMD: Story = {
+  name: 'Size - MD',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Desc for step one', state: 'completed' },
+      { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'active' },
+      { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper tamaño mediano (md).',
+      },
+    },
+  },
+};
+
+/**
+ * SizeLG
+ * Stepper tamaño grande
+ */
+export const SizeLG: Story = {
+  name: 'Size - LG',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Desc for step one', state: 'completed' },
+      { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'active' },
+      { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'lg',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper tamaño grande (lg).',
+      },
+    },
+  },
+};
+
+/**
+ * WithTitle
+ * Stepper con títulos
+ */
+export const WithTitle: Story = {
+  name: 'With Title',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', state: 'completed' },
+      { number: 2, title: 'Step Two', state: 'active' },
+      { number: 3, title: 'Step Three', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: false,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper con títulos, sin descripciones.',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutTitle
+ * Stepper sin títulos
+ */
+export const WithoutTitle: Story = {
+  name: 'Without Title',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Desc for step one', state: 'completed' },
+      { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'active' },
+      { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: false,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper sin títulos, solo con descripciones.',
+      },
+    },
+  },
+};
+
+/**
+ * WithDescription
+ * Stepper con descripciones
+ */
+export const WithDescription: Story = {
+  name: 'With Description',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Desc for step one', state: 'completed' },
+      { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'active' },
+      { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper con títulos y descripciones.',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutDescription
+ * Stepper sin descripciones
+ */
+export const WithoutDescription: Story = {
+  name: 'Without Description',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', state: 'completed' },
+      { number: 2, title: 'Step Two', state: 'active' },
+      { number: 3, title: 'Step Three', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: false,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper con títulos, sin descripciones.',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutTitleAndDescription
+ * Stepper sin títulos ni descripciones
+ */
+export const WithoutTitleAndDescription: Story = {
+  name: 'Without Title and Description',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Desc for step one', state: 'completed' },
+      { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'active' },
+      { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: false,
+      showDescription: false,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper sin títulos ni descripciones, solo indicadores numéricos.',
+      },
+    },
+  },
+};
+
+/**
+ * StateDefault
+ * Paso en estado default
+ */
+export const StateDefault: Story = {
+  name: 'State - Default',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Desc for step one', state: 'default' },
+      { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'default' },
+      { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper con todos los pasos en estado default.',
+      },
+    },
+  },
+};
+
+/**
+ * StateCompleted
+ * Paso en estado completed
+ */
+export const StateCompleted: Story = {
+  name: 'State - Completed',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Desc for step one', state: 'completed' },
+      { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'completed' },
+      { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'completed' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper con todos los pasos en estado completed (muestra checkmark).',
+      },
+    },
+  },
+};
+
+/**
+ * StateActive
+ * Paso en estado active
+ */
+export const StateActive: Story = {
+  name: 'State - Active',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Desc for step one', state: 'active' },
+      { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'active' },
+      { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'active' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper con todos los pasos en estado active.',
+      },
+    },
+  },
+};
+
+/**
+ * StateError
+ * Paso en estado error
+ */
+export const StateError: Story = {
+  name: 'State - Error',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Desc for step one', state: 'error' },
+      { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'error' },
+      { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'error' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper con todos los pasos en estado error.',
+      },
+    },
+  },
+};
+
+/**
+ * StateWarning
+ * Paso en estado warning
+ */
+export const StateWarning: Story = {
+  name: 'State - Warning',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Desc for step one', state: 'warning' },
+      { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'warning' },
+      { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'warning' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper con todos los pasos en estado warning.',
+      },
+    },
+  },
+};
+
+/**
+ * TwoSteps
+ * Stepper con 2 pasos
+ */
+export const TwoSteps: Story = {
+  name: 'Two Steps',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Desc for step one', state: 'completed' },
+      { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'active' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper con 2 pasos.',
+      },
+    },
+  },
+};
+
+/**
+ * ThreeSteps
+ * Stepper con 3 pasos
+ */
+export const ThreeSteps: Story = {
+  name: 'Three Steps',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Desc for step one', state: 'completed' },
+      { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'active' },
+      { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper con 3 pasos.',
+      },
+    },
+  },
+};
+
+/**
+ * FourSteps
+ * Stepper con 4 pasos
+ */
+export const FourSteps: Story = {
+  name: 'Four Steps',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Desc for step one', state: 'completed' },
+      { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'completed' },
+      { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'active' },
+      { number: 4, title: 'Step Four', description: 'Desc for step four', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper con 4 pasos.',
+      },
+    },
+  },
+};
+
+/**
+ * FiveSteps
+ * Stepper con 5 pasos
+ */
+export const FiveSteps: Story = {
+  name: 'Five Steps',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Desc for step one', state: 'completed' },
+      { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'completed' },
+      { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'active' },
+      { number: 4, title: 'Step Four', description: 'Desc for step four', state: 'default' },
+      { number: 5, title: 'Step Five', description: 'Desc for step five', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper con 5 pasos.',
+      },
+    },
+  },
+};
+
+/**
+ * AllStates
+ * Stepper con todos los estados
+ */
+export const AllStates: Story = {
+  name: 'All States',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Completed state', state: 'completed' },
+      { number: 2, title: 'Step Two', description: 'Active state', state: 'active' },
+      { number: 3, title: 'Step Three', description: 'Default state', state: 'default' },
+      { number: 4, title: 'Step Four', description: 'Error state', state: 'error' },
+      { number: 5, title: 'Step Five', description: 'Warning state', state: 'warning' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper mostrando todos los estados posibles (completed, active, default, error, warning).',
+      },
+    },
+  },
+};
+
+/**
+ * ProgressiveSteps
+ * Stepper con pasos progresivos
+ */
+export const ProgressiveSteps: Story = {
+  name: 'Progressive Steps',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Completed', state: 'completed' },
+      { number: 2, title: 'Step Two', description: 'Active', state: 'active' },
+      { number: 3, title: 'Step Three', description: 'Pending', state: 'default' },
+      { number: 4, title: 'Step Four', description: 'Pending', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper con pasos progresivos (completed → active → default).',
+      },
+    },
+  },
+};
+
+/**
+ * MixedStates
+ * Stepper con estados mixtos
+ */
+export const MixedStates: Story = {
+  name: 'Mixed States',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Completed', state: 'completed' },
+      { number: 2, title: 'Step Two', description: 'Active', state: 'active' },
+      { number: 3, title: 'Step Three', description: 'Error', state: 'error' },
+      { number: 4, title: 'Step Four', description: 'Warning', state: 'warning' },
+      { number: 5, title: 'Step Five', description: 'Default', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper con estados mixtos (completed, active, error, warning, default).',
+      },
+    },
+  },
+};
+
+/**
+ * LongTitles
+ * Stepper con títulos largos
+ */
+export const LongTitles: Story = {
+  name: 'Long Titles',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Este es un título muy largo que debería truncarse correctamente', description: 'Desc for step one', state: 'completed' },
+      { number: 2, title: 'Este es otro título muy largo que también debería truncarse correctamente', description: 'Desc for step two', state: 'active' },
+      { number: 3, title: 'Y este es un tercer título largo para probar el truncamiento', description: 'Desc for step three', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper con títulos largos. Prueba el truncamiento de texto.',
+      },
+    },
+  },
+};
+
+/**
+ * LongDescriptions
+ * Stepper con descripciones largas
+ */
+export const LongDescriptions: Story = {
+  name: 'Long Descriptions',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Esta es una descripción muy larga que debería truncarse correctamente en el stepper para evitar que se desborde del contenedor', state: 'completed' },
+      { number: 2, title: 'Step Two', description: 'Esta es otra descripción muy larga que también debería truncarse correctamente para mantener un diseño limpio y profesional', state: 'active' },
+      { number: 3, title: 'Step Three', description: 'Y esta es una tercera descripción larga para probar el truncamiento de texto en múltiples pasos', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper con descripciones largas. Prueba el truncamiento de texto.',
+      },
+    },
+  },
+};
+
+/**
+ * MinimalExample
+ * Ejemplo mínimo
+ */
+export const MinimalExample: Story = {
+  name: 'Minimal Example',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', state: 'completed' },
+      { number: 2, title: 'Step Two', state: 'active' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: false,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper mínimo con 2 pasos, sin descripciones.',
+      },
+    },
+  },
+};
+
+/**
+ * CompleteExample
+ * Ejemplo completo
+ */
+export const CompleteExample: Story = {
+  name: 'Complete Example',
+  render: () => {
+    const steps: StepperStep[] = [
+      { number: 1, title: 'Step One', description: 'Desc for step one', state: 'completed' },
+      { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'active' },
+      { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'default' },
+      { number: 4, title: 'Step Four', description: 'Desc for step four', state: 'default' }
+    ];
+    
+    return renderStepperStory({
+      orientation: 'horizontal',
+      size: 'md',
+      showTitle: true,
+      showDescription: true,
+      steps: steps
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Stepper completo con todas las opciones: 4 pasos, títulos, descripciones y estados progresivos.',
+      },
+    },
   },
 };
 
