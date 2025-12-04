@@ -5332,7 +5332,7 @@ export const VerUsuariosSeleccionados: Story = {
         tableElement = tableInstance.element;
         (window as any).__storybookDataTableInstance = tableInstance;
         
-        // Marcar las filas pre-seleccionadas
+        // Marcar las filas pre-seleccionadas y mostrar la action bar
         setTimeout(() => {
           if (tableElement) {
             const checkboxes = tableElement.querySelectorAll('input[type="checkbox"][data-column-id="checkbox-2"]');
@@ -5342,12 +5342,43 @@ export const VerUsuariosSeleccionados: Story = {
                 const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
                 if (selectionState.selectedRowIds.has(rowId)) {
                   (cb as HTMLInputElement).checked = true;
+                  // Disparar evento change para que el DataTableProvider actualice su estado interno
+                  cb.dispatchEvent(new Event('change', { bubbles: true }));
                 }
               }
             });
+            
+            // También marcar el checkbox maestro si todas las filas visibles están seleccionadas
+            const masterCheckbox = tableElement.querySelector('input[type="checkbox"][data-column-id="checkbox-2"][data-row-id="all"]') as HTMLInputElement;
+            if (masterCheckbox) {
+              const visibleCheckboxes = Array.from(tableElement.querySelectorAll('input[type="checkbox"][data-column-id="checkbox-2"][data-row-id]')) as HTMLInputElement[];
+              const allChecked = visibleCheckboxes.length > 0 && visibleCheckboxes.every(cb => {
+                const rowIdStr = cb.getAttribute('data-row-id');
+                if (rowIdStr) {
+                  const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
+                  return selectionState.selectedRowIds.has(rowId);
+                }
+                return false;
+              });
+              if (allChecked) {
+                masterCheckbox.checked = true;
+                masterCheckbox.indeterminate = false;
+              } else if (visibleCheckboxes.some(cb => {
+                const rowIdStr = cb.getAttribute('data-row-id');
+                if (rowIdStr) {
+                  const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
+                  return selectionState.selectedRowIds.has(rowId);
+                }
+                return false;
+              })) {
+                masterCheckbox.indeterminate = true;
+              }
+            }
           }
+          
+          // Renderizar la action bar después de marcar los checkboxes
           renderActionBar();
-        }, 200);
+        }, 300);
         
         console.log('📝 [VER SELECCIONADOS] Tabla creada con funcionalidad de ver usuarios seleccionados');
         console.log('  - Filas pre-seleccionadas:', Array.from(selectionState.selectedRowIds));
