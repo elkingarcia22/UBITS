@@ -114,10 +114,12 @@ export function createAlert(options: AlertOptions = {}): HTMLDivElement {
     }, options.duration);
   }
 
-  // Mover el alert fuera del div temporal
-  const parent = alert.parentElement;
-  if (parent) {
-    parent.replaceChild(alert, parent);
+  // Extraer el alert del div temporal
+  // El alert está dentro de 'div' (el contenedor temporal)
+  // Necesitamos extraerlo antes de retornarlo
+  if (alert.parentElement === div) {
+    // Si el alert está dentro del div temporal, extraerlo
+    div.removeChild(alert);
   }
 
   return alert as HTMLDivElement;
