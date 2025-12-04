@@ -3276,6 +3276,115 @@ export const StickyControls: Story = {
   }
 };
 
+export const Search: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      height: auto;
+      overflow: visible !important;
+      max-height: none !important;
+    `;
+    
+    const tableContainerId = `data-table-search-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const tableContainer = document.createElement('div');
+    tableContainer.id = tableContainerId;
+    tableContainer.style.cssText = `
+      width: 100%;
+      max-width: 100%;
+      overflow: visible !important;
+      min-height: auto;
+      height: auto;
+      max-height: none !important;
+    `;
+    
+    container.appendChild(tableContainer);
+    
+    // Generar datos de ejemplo con más variedad para que la búsqueda sea útil
+    const generateRows = (): TableRow[] => {
+      const rows: TableRow[] = [];
+      const nombres = ['Juan Pérez', 'María García', 'Carlos López', 'Ana Martínez', 'Pedro Rodríguez', 'Laura Sánchez', 'Diego Fernández', 'Sofía González', 'Luis Hernández', 'Carmen Díaz'];
+      const estados = ['activo', 'pendiente', 'inactivo'];
+      const paises = ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'];
+      
+      for (let i = 1; i <= 30; i++) {
+        rows.push({
+          id: i,
+          data: {
+            nombre: nombres[i % nombres.length] + ` ${i}`,
+            email: `usuario${i}@ejemplo.com`,
+            estado: estados[i % estados.length],
+            pais: paises[i % paises.length],
+            fecha: new Date(2024, 0, i).toISOString().split('T')[0]
+          }
+        });
+      }
+      return rows;
+    };
+    
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(tableContainerId);
+      if (containerElement) {
+        const rows = generateRows();
+        const columns: TableColumn[] = [
+          { id: 'nombre', title: 'Nombre', type: 'nombre', width: 200 },
+          { id: 'email', title: 'Email', type: 'correo', width: 250 },
+          { id: 'estado', title: 'Estado', type: 'estado', width: 150 },
+          { id: 'pais', title: 'País', type: 'pais', width: 150 },
+          { id: 'fecha', title: 'Fecha', type: 'fecha', width: 150 }
+        ];
+        
+        const options: DataTableOptions = {
+          containerId: tableContainerId,
+          columns,
+          rows,
+          showCheckbox: false,
+          showColumnMenu: false,
+          showContextMenu: false,
+          header: {
+            title: 'Usuarios',
+            showTitle: true,
+            counter: true, // El contador se actualizará automáticamente con los resultados filtrados
+            showCounter: true,
+            searchButton: {
+              placeholder: 'Buscar usuarios...',
+              onSearch: (searchTerm: string, filteredRows: TableRow[]) => {
+                console.log('🔍 Búsqueda realizada:', searchTerm);
+                console.log('📊 Resultados encontrados:', filteredRows.length);
+              }
+            },
+            showSearchButton: true
+          }
+        };
+        
+        const tableInstance = createDataTable(options);
+        (window as any).__storybookDataTableInstance = tableInstance;
+      } else {
+        console.error('❌ Contenedor no encontrado en el DOM:', tableContainerId);
+      }
+    });
+    
+    return container;
+  },
+  args: {
+    showCheckbox: false,
+    showColumnMenu: false,
+    showContextMenu: false
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demuestra la funcionalidad de búsqueda en la tabla. El header incluye un campo de búsqueda que filtra las filas en tiempo real según el texto ingresado. El contador se actualiza automáticamente para mostrar la cantidad de resultados encontrados.'
+      }
+    }
+  }
+};
+
 export const Header: Story = {
   render: (args) => {
     const container = document.createElement('div');
