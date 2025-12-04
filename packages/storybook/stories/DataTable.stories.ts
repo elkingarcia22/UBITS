@@ -1359,7 +1359,24 @@ export const Default: Story = {
       }
       
       console.log('✅ [checkAndCreateTable] Creando nueva tabla con', options.columns.length, 'columnas');
+      
+      // Verificar si hay otras tablas en el DOM antes de crear
+      const allTablesInDOM = document.querySelectorAll('.ubits-data-table');
+      console.log('  - Tablas existentes en el DOM:', allTablesInDOM.length);
+      if (allTablesInDOM.length > 0) {
+        console.log('  ⚠️ ADVERTENCIA: Hay', allTablesInDOM.length, 'tablas en el DOM antes de crear una nueva');
+      }
+      
       tableInstance = createDataTable(options);
+      
+      // Verificar después de crear
+      setTimeout(() => {
+        const allTablesAfter = document.querySelectorAll('.ubits-data-table');
+        console.log('  - Tablas en el DOM después de crear:', allTablesAfter.length);
+        if (allTablesAfter.length > 1) {
+          console.log('  ⚠️ ADVERTENCIA: Hay múltiples tablas en el DOM!');
+        }
+      }, 100);
       
       // Guardar referencia a la instancia para poder inspeccionarla
       (window as any).__storybookDataTableInstance = tableInstance;
