@@ -822,8 +822,8 @@ function renderColumnHeader(
   const pinnedStyle = column.pinned ? `left: ${pinnedLeft}px !important;` : '';
   const widthStyle = column.width ? `width: ${column.width}px;` : '';
   const positionStyle = column.pinned ? 'position: sticky !important;' : '';
-  // CRÍTICO: Incluir z-index para asegurar que quede por encima
-  const zIndexStyle = column.pinned ? 'z-index: 10 !important;' : '';
+  // CRÍTICO: Incluir z-index para asegurar que quede por encima del thead (z-index: 9)
+  const zIndexStyle = column.pinned ? 'z-index: 13 !important;' : '';
   const combinedStyle = [positionStyle, pinnedStyle, zIndexStyle, widthStyle].filter(Boolean).join(' ');
   
   // Logs detallados para debugging (solo si es necesario)
