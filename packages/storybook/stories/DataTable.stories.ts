@@ -1383,11 +1383,29 @@ export const Default: Story = {
           const thead = tableInContainer.querySelector('thead');
           if (thead) {
             const headerCells = thead.querySelectorAll('th');
+            const columnIds = Array.from(headerCells).map(th => {
+              const id = th.getAttribute('data-column-id') || th.getAttribute('id') || 'sin-id';
+              const text = th.textContent?.trim() || '';
+              return { id, text };
+            });
             console.log('  - Columnas en la tabla renderizada:', headerCells.length);
-            console.log('  - IDs de columnas:', Array.from(headerCells).map(th => th.getAttribute('data-column-id') || th.textContent?.trim() || 'sin-id'));
+            console.log('  - IDs y textos de columnas:', columnIds);
+            console.log('  - options.columns.length:', options.columns.length);
+            console.log('  - options.columns IDs:', options.columns.map(c => c.id));
             
-            if (headerCells.length !== options.columns.length) {
-              console.error('  ❌ ERROR: El número de columnas en la tabla renderizada (', headerCells.length, ') no coincide con options.columns.length (', options.columns.length, ')');
+            // Contar solo columnas de datos (excluyendo checkbox, expand, drag-handle)
+            const dataColumns = columnIds.filter(col => 
+              !col.id.includes('checkbox') && 
+              !col.id.includes('expand') && 
+              !col.id.includes('drag-handle')
+            );
+            console.log('  - Columnas de datos (sin checkbox/expand/drag-handle):', dataColumns.length);
+            console.log('  - IDs de columnas de datos:', dataColumns.map(c => c.id));
+            
+            if (dataColumns.length !== options.columns.length) {
+              console.error('  ❌ ERROR: El número de columnas de datos en la tabla renderizada (', dataColumns.length, ') no coincide con options.columns.length (', options.columns.length, ')');
+            } else {
+              console.log('  ✅ OK: El número de columnas de datos coincide');
             }
           }
         }
