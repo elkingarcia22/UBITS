@@ -537,7 +537,10 @@ export const Default: Story = {
     });
     
     // Generar columnas dinámicamente según columnsCount
-    const columnsCount = args.columnsCount ?? 7;
+    // Asegurar que columnsCount sea un número válido entre 1 y 10
+    // Leer directamente de args para asegurar reactividad
+    const rawColumnsCount = args.columnsCount;
+    const columnsCount = Math.max(1, Math.min(10, typeof rawColumnsCount === 'number' ? rawColumnsCount : 7));
     
     // Tipos de columna disponibles (pueden ser controlados desde Storybook)
     // Leer directamente de args para asegurar que se actualicen cuando cambien
@@ -693,7 +696,9 @@ export const Default: Story = {
 ];
     
     // Seleccionar solo las columnas necesarias según columnsCount
-    const columns: TableColumn[] = allColumns.slice(0, columnsCount);
+    // Asegurar que no exceda el número de columnas disponibles
+    const validColumnsCount = Math.min(columnsCount, allColumns.length);
+    const columns: TableColumn[] = allColumns.slice(0, validColumnsCount);
     
     // Función helper para enriquecer los datos de las filas con campos para tipos interactivos
     // Coincide con la implementación de la web
