@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { renderBreadcrumb, createBreadcrumb } from '../../addons/breadcrumb/src/BreadcrumbProvider';
-import type { BreadcrumbOptions, BreadcrumbItem } from '../../addons/breadcrumb/src/types/BreadcrumbOptions';
-import '../../addons/breadcrumb/src/styles/breadcrumb.css';
+import { renderBreadcrumb, createBreadcrumb } from '../../components/breadcrumb/src/BreadcrumbProvider';
+import type { BreadcrumbOptions, BreadcrumbItem } from '../../components/breadcrumb/src/types/BreadcrumbOptions';
+import '../../components/breadcrumb/src/styles/breadcrumb.css';
 
 /**
  * Breadcrumb Component Stories
@@ -152,5 +152,735 @@ export const Default: Story = {
 
     return wrapper;
   }
+};
+
+// Helper para renderizar Breadcrumb de manera consistente
+function renderBreadcrumbStory(options: BreadcrumbOptions) {
+  const container = document.createElement('div');
+  container.style.cssText = `
+    padding: 40px;
+    background: var(--modifiers-normal-color-light-bg-2);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  `;
+  
+  const breadcrumbContainer = document.createElement('div');
+  breadcrumbContainer.id = `breadcrumb-container-${Date.now()}`;
+  
+  container.appendChild(breadcrumbContainer);
+  
+  // Crear breadcrumb con listeners
+  requestAnimationFrame(() => {
+    createBreadcrumb(options, breadcrumbContainer.id);
+  });
+  
+  return container;
+}
+
+/**
+ * BasicBreadcrumb
+ * Breadcrumb básico con 3 items
+ */
+export const BasicBreadcrumb: Story = {
+  name: 'Basic Breadcrumb',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#' },
+      { id: 'category', label: 'Categoría', url: '#' },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb básico con 3 items.',
+      },
+    },
+  },
+};
+
+/**
+ * LongBreadcrumb
+ * Breadcrumb largo con 8 items
+ */
+export const LongBreadcrumb: Story = {
+  name: 'Long Breadcrumb',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#' },
+      { id: 'category', label: 'Categoría', url: '#' },
+      { id: 'subcategory', label: 'Subcategoría', url: '#' },
+      { id: 'page', label: 'Página', url: '#' },
+      { id: 'detail', label: 'Detalle', url: '#' },
+      { id: 'element', label: 'Elemento', url: '#' },
+      { id: 'view', label: 'Vista', url: '#' },
+      { id: 'final', label: 'Final' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb largo con 8 items.',
+      },
+    },
+  },
+};
+
+/**
+ * ShortBreadcrumb
+ * Breadcrumb corto con 2 items
+ */
+export const ShortBreadcrumb: Story = {
+  name: 'Short Breadcrumb',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#' },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb corto con 2 items.',
+      },
+    },
+  },
+};
+
+/**
+ * WithURLs
+ * Breadcrumb con items que tienen URLs
+ */
+export const WithURLs: Story = {
+  name: 'With URLs',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#home' },
+      { id: 'category', label: 'Categoría', url: '#category' },
+      { id: 'subcategory', label: 'Subcategoría', url: '#subcategory' },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb con items que tienen URLs (navegación).',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutURLs
+ * Breadcrumb con items sin URLs (solo onClick)
+ */
+export const WithoutURLs: Story = {
+  name: 'Without URLs',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', onClick: () => alert('Click en Home') },
+      { id: 'category', label: 'Categoría', onClick: () => alert('Click en Categoría') },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb con items sin URLs, usando callbacks onClick.',
+      },
+    },
+  },
+};
+
+/**
+ * WithOnClick
+ * Breadcrumb con callbacks onClick en items
+ */
+export const WithOnClick: Story = {
+  name: 'With OnClick',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', onClick: () => console.log('Home clicked') },
+      { id: 'category', label: 'Categoría', onClick: () => console.log('Category clicked') },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb con callbacks onClick en items.',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutOnClick
+ * Breadcrumb sin callbacks onClick
+ */
+export const WithoutOnClick: Story = {
+  name: 'Without OnClick',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#' },
+      { id: 'category', label: 'Categoría', url: '#' },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb sin callbacks onClick, solo con URLs.',
+      },
+    },
+  },
+};
+
+/**
+ * WithDisabledItem
+ * Breadcrumb con un item deshabilitado
+ */
+export const WithDisabledItem: Story = {
+  name: 'With Disabled Item',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#' },
+      { id: 'category', label: 'Categoría', url: '#', disabled: true },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb con un item deshabilitado.',
+      },
+    },
+  },
+};
+
+/**
+ * AllItemsDisabled
+ * Breadcrumb con todos los items deshabilitados (excepto el activo)
+ */
+export const AllItemsDisabled: Story = {
+  name: 'All Items Disabled',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#', disabled: true },
+      { id: 'category', label: 'Categoría', url: '#', disabled: true },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb con todos los items deshabilitados (excepto el activo).',
+      },
+    },
+  },
+};
+
+/**
+ * SeparatorDefault
+ * Separador por defecto (>)
+ */
+export const SeparatorDefault: Story = {
+  name: 'Separator - Default (>)',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#' },
+      { id: 'category', label: 'Categoría', url: '#' },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb con separador por defecto (>).',
+      },
+    },
+  },
+};
+
+/**
+ * SeparatorSlash
+ * Separador slash (/)
+ */
+export const SeparatorSlash: Story = {
+  name: 'Separator - Slash (/)',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#' },
+      { id: 'category', label: 'Categoría', url: '#' },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '/',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb con separador slash (/).',
+      },
+    },
+  },
+};
+
+/**
+ * SeparatorArrow
+ * Separador flecha (→)
+ */
+export const SeparatorArrow: Story = {
+  name: 'Separator - Arrow (→)',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#' },
+      { id: 'category', label: 'Categoría', url: '#' },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '→',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb con separador flecha (→).',
+      },
+    },
+  },
+};
+
+/**
+ * SeparatorCustom
+ * Separador personalizado (ej: •)
+ */
+export const SeparatorCustom: Story = {
+  name: 'Separator - Custom (•)',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#' },
+      { id: 'category', label: 'Categoría', url: '#' },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '•',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb con separador personalizado (•).',
+      },
+    },
+  },
+};
+
+/**
+ * SingleItem
+ * Breadcrumb con un solo item
+ */
+export const SingleItem: Story = {
+  name: 'Single Item',
+  args: {
+    items: [
+      { id: 'home', label: 'Home' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb con un solo item (activo).',
+      },
+    },
+  },
+};
+
+/**
+ * MultipleItems
+ * Breadcrumb con múltiples items
+ */
+export const MultipleItems: Story = {
+  name: 'Multiple Items',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#' },
+      { id: 'category', label: 'Categoría', url: '#' },
+      { id: 'subcategory', label: 'Subcategoría', url: '#' },
+      { id: 'page', label: 'Página', url: '#' },
+      { id: 'detail', label: 'Detalle' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb con múltiples items (5 items).',
+      },
+    },
+  },
+};
+
+/**
+ * OnItemClickCallback
+ * Callback cuando se hace click en un item
+ */
+export const OnItemClickCallback: Story = {
+  name: 'On Item Click Callback',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#' },
+      { id: 'category', label: 'Categoría', url: '#' },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '>',
+    onItemClick: (itemId, itemElement) => {
+      alert(`Click en item: ${itemId}`);
+    },
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb con callback onItemClick cuando se hace click en un item.',
+      },
+    },
+  },
+};
+
+/**
+ * ItemWithURL
+ * Item con URL (navegación)
+ */
+export const ItemWithURL: Story = {
+  name: 'Item - With URL',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: 'https://example.com' },
+      { id: 'category', label: 'Categoría', url: 'https://example.com/category' },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb con items que tienen URLs (navegación).',
+      },
+    },
+  },
+};
+
+/**
+ * ItemWithOnClick
+ * Item con onClick (callback)
+ */
+export const ItemWithOnClick: Story = {
+  name: 'Item - With OnClick',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', onClick: () => alert('Home clicked') },
+      { id: 'category', label: 'Categoría', onClick: () => alert('Category clicked') },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb con items que tienen callbacks onClick.',
+      },
+    },
+  },
+};
+
+/**
+ * ItemActive
+ * Item activo (último item)
+ */
+export const ItemActive: Story = {
+  name: 'Item - Active',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#' },
+      { id: 'category', label: 'Categoría', url: '#' },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb mostrando el item activo (último item, siempre en bold).',
+      },
+    },
+  },
+};
+
+/**
+ * ItemDisabled
+ * Item deshabilitado
+ */
+export const ItemDisabled: Story = {
+  name: 'Item - Disabled',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#', disabled: true },
+      { id: 'category', label: 'Categoría', url: '#' },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb con item deshabilitado (no clickeable).',
+      },
+    },
+  },
+};
+
+/**
+ * MixedItems
+ * Breadcrumb con items mixtos (algunos con URL, algunos con onClick)
+ */
+export const MixedItems: Story = {
+  name: 'Mixed Items',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#' },
+      { id: 'category', label: 'Categoría', onClick: () => alert('Category clicked') },
+      { id: 'subcategory', label: 'Subcategoría', url: '#' },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb con items mixtos (algunos con URL, algunos con onClick).',
+      },
+    },
+  },
+};
+
+/**
+ * LongLabels
+ * Breadcrumb con labels largos
+ */
+export const LongLabels: Story = {
+  name: 'Long Labels',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#' },
+      { id: 'category', label: 'Categoría muy larga con mucho texto', url: '#' },
+      { id: 'page', label: 'Página de ejemplo con nombre extenso' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb con labels largos.',
+      },
+    },
+  },
+};
+
+/**
+ * ShortLabels
+ * Breadcrumb con labels cortos
+ */
+export const ShortLabels: Story = {
+  name: 'Short Labels',
+  args: {
+    items: [
+      { id: 'home', label: 'H', url: '#' },
+      { id: 'cat', label: 'Cat', url: '#' },
+      { id: 'pg', label: 'Pg' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb con labels cortos.',
+      },
+    },
+  },
+};
+
+/**
+ * EmptyBreadcrumb
+ * Breadcrumb sin items
+ */
+export const EmptyBreadcrumb: Story = {
+  name: 'Empty Breadcrumb',
+  args: {
+    items: [],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb sin items (vacío).',
+      },
+    },
+  },
+};
+
+/**
+ * AllSeparators
+ * Todos los separadores comunes
+ */
+export const AllSeparators: Story = {
+  name: 'All Separators',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#' },
+      { id: 'category', label: 'Categoría', url: '#' },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '>',
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 40px;
+      background: var(--modifiers-normal-color-light-bg-2);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    `;
+    
+    const separators = ['>', '/', '→', '•', '|', '-'];
+    
+    separators.forEach(separator => {
+      const separatorContainer = document.createElement('div');
+      separatorContainer.style.cssText = `
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      `;
+      
+      const label = document.createElement('div');
+      label.style.cssText = `
+        font-size: 14px;
+        color: var(--modifiers-normal-color-light-fg-1-high);
+        font-weight: 600;
+      `;
+      label.textContent = `Separator: "${separator}"`;
+      
+      const breadcrumbContainer = document.createElement('div');
+      breadcrumbContainer.id = `breadcrumb-container-${separator}-${Date.now()}`;
+      
+      separatorContainer.appendChild(label);
+      separatorContainer.appendChild(breadcrumbContainer);
+      container.appendChild(separatorContainer);
+      
+      requestAnimationFrame(() => {
+        createBreadcrumb({
+          items: args.items || [],
+          separator: separator,
+        }, breadcrumbContainer.id);
+      });
+    });
+    
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Todos los separadores comunes (>, /, →, •, |, -).',
+      },
+    },
+  },
+};
+
+/**
+ * CompleteExample
+ * Ejemplo completo
+ */
+export const CompleteExample: Story = {
+  name: 'Complete Example',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#' },
+      { id: 'category', label: 'Categoría', url: '#', onClick: () => console.log('Category clicked') },
+      { id: 'subcategory', label: 'Subcategoría', url: '#' },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '>',
+    onItemClick: (itemId, itemElement) => {
+      console.log('Item clicked:', itemId);
+    },
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb completo con todas las opciones habilitadas.',
+      },
+    },
+  },
+};
+
+/**
+ * MinimalExample
+ * Ejemplo mínimo
+ */
+export const MinimalExample: Story = {
+  name: 'Minimal Example',
+  args: {
+    items: [
+      { id: 'home', label: 'Home', url: '#' },
+      { id: 'page', label: 'Página' }
+    ],
+    separator: '>',
+  },
+  render: (args) => renderBreadcrumbStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Breadcrumb mínimo con solo las opciones esenciales.',
+      },
+    },
+  },
 };
 
