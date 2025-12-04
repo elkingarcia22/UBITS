@@ -499,8 +499,10 @@ export const Default: Story = {
     // Buscar y limpiar cualquier tabla anterior en el contenedor principal
     // Esto previene renderizados duplicados cuando se cambian los tipos de columna
     const existingContainers = container.querySelectorAll('[id^="data-table-story-container-"]');
+    console.log('🔴 [CLEANUP] Encontrados', existingContainers.length, 'contenedores existentes');
     
     existingContainers.forEach((oldContainer) => {
+      console.log('🔴 [CLEANUP] Limpiando contenedor:', oldContainer.id);
       // Buscar tabla directa o dentro de contenedor scrollable
       const oldTable = oldContainer.querySelector('.ubits-data-table');
       const oldScrollableContainer = oldContainer.querySelector('.ubits-data-table__scrollable-container');
@@ -511,12 +513,13 @@ export const Default: Story = {
           const tableElement = tableInside as HTMLElement;
           if ((tableElement as any)._dataTableInstance) {
             try {
+              console.log('🔴 [CLEANUP] Destruyendo instancia en scrollable container');
               const instance = (tableElement as any)._dataTableInstance;
               if (instance && typeof instance.destroy === 'function') {
                 instance.destroy();
               }
             } catch (e) {
-              // Silently ignore
+              console.error('🔴 [CLEANUP] Error al destruir instancia:', e);
             }
           }
         }
@@ -524,16 +527,18 @@ export const Default: Story = {
         const tableElement = oldTable as HTMLElement;
         if ((tableElement as any)._dataTableInstance) {
           try {
+            console.log('🔴 [CLEANUP] Destruyendo instancia en tabla directa');
             const instance = (tableElement as any)._dataTableInstance;
             if (instance && typeof instance.destroy === 'function') {
               instance.destroy();
             }
           } catch (e) {
-            // Silently ignore
+            console.error('🔴 [CLEANUP] Error al destruir instancia:', e);
           }
         }
       }
       oldContainer.remove();
+      console.log('🔴 [CLEANUP] Contenedor removido');
     });
     
     // Generar columnas dinámicamente según columnsCount
@@ -700,6 +705,7 @@ export const Default: Story = {
     // Asegurar que no exceda el número de columnas disponibles
     const validColumnsCount = Math.min(columnsCount, allColumns.length);
     const columns: TableColumn[] = allColumns.slice(0, validColumnsCount);
+    console.log('🟡 [INIT] Columnas seleccionadas:', columns.length, 'de', allColumns.length, 'disponibles. columnsCount:', columnsCount, 'validColumnsCount:', validColumnsCount);
     
     // Función helper para enriquecer los datos de las filas con campos para tipos interactivos
     // Coincide con la implementación de la web
