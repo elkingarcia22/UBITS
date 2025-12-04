@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { createScrollbar } from '../../addons/scroll/src/ScrollProvider';
-import type { ScrollOptions } from '../../addons/scroll/src/types/ScrollOptions';
-import '../../addons/scroll/src/styles/scroll.css';
+import { createScrollbar } from '../../components/scroll/src/ScrollProvider';
+import type { ScrollOptions } from '../../components/scroll/src/types/ScrollOptions';
+import '../../components/scroll/src/styles/scroll.css';
 
 const meta: Meta<ScrollOptions> = {
   title: 'Básicos/Scrollbar',
@@ -355,5 +355,360 @@ export const Default: Story = {
 
     container.appendChild(wrapper);
     return container;
+  },
+};
+
+// Helper para crear un scrollbar con contenido
+function createScrollbarWithContent(
+  orientation: 'vertical' | 'horizontal',
+  contentHeight?: number,
+  contentWidth?: number,
+  itemCount?: number
+) {
+  const container = document.createElement('div');
+  container.style.cssText = `
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: var(--modifiers-normal-color-light-bg-2, #f3f3f4);
+  `;
+
+  const wrapper = document.createElement('div');
+  wrapper.style.cssText = `
+    background: var(--modifiers-normal-color-light-bg-1, #ffffff);
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  `;
+
+  const contentWrapper = document.createElement('div');
+  
+  if (orientation === 'vertical') {
+    contentWrapper.style.cssText = `
+      display: flex;
+      align-items: stretch;
+      gap: 8px;
+      width: 600px;
+      height: 400px;
+    `;
+
+    const scrollableContainer = document.createElement('div');
+    scrollableContainer.id = `scrollbar-target-${Date.now()}`;
+    scrollableContainer.style.cssText = `
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 16px;
+      background: var(--modifiers-normal-color-light-bg-2, #f3f3f4);
+      border-radius: 8px;
+      border: 1px solid var(--modifiers-normal-color-light-border-1, #d0d2d5);
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    `;
+    
+    const styleId = `scrollbar-style-${Date.now()}`;
+    const styleElement = document.createElement('style');
+    styleElement.id = styleId;
+    styleElement.textContent = `
+      #${scrollableContainer.id}::-webkit-scrollbar {
+        display: none;
+      }
+    `;
+    document.head.appendChild(styleElement);
+
+    const content = document.createElement('div');
+    content.style.cssText = `
+      height: ${contentHeight || 1200}px;
+      padding: 16px;
+    `;
+    
+    const title = document.createElement('p');
+    title.textContent = 'Scrollbar Vertical';
+    title.style.cssText = `
+      margin: 0 0 16px 0;
+      color: var(--modifiers-normal-color-light-fg-1-high, #303a47);
+      font-size: var(--font-body-md-size, 16px);
+      font-weight: var(--weight-bold, 700);
+    `;
+    
+    const itemsContainer = document.createElement('div');
+    itemsContainer.style.cssText = `
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    `;
+    
+    const count = itemCount || 30;
+    for (let i = 1; i <= count; i++) {
+      const item = document.createElement('div');
+      item.style.cssText = `
+        padding: 12px;
+        background: var(--modifiers-normal-color-light-bg-1, #ffffff);
+        border-radius: 8px;
+        border: 1px solid var(--modifiers-normal-color-light-border-1, #d0d2d5);
+      `;
+      const itemText = document.createElement('p');
+      itemText.textContent = `Elemento ${i}`;
+      itemText.style.cssText = `
+        margin: 0;
+        color: var(--modifiers-normal-color-light-fg-1-high, #303a47);
+        font-size: var(--font-body-sm-size, 13px);
+      `;
+      item.appendChild(itemText);
+      itemsContainer.appendChild(item);
+    }
+    
+    content.appendChild(title);
+    content.appendChild(itemsContainer);
+    scrollableContainer.appendChild(content);
+    
+    const scrollbarContainer = document.createElement('div');
+    scrollbarContainer.id = `scrollbar-container-${Date.now()}`;
+    scrollbarContainer.style.cssText = `
+      height: 100%;
+    `;
+    
+    contentWrapper.appendChild(scrollableContainer);
+    contentWrapper.appendChild(scrollbarContainer);
+    
+    setTimeout(() => {
+      try {
+        createScrollbar({
+          orientation: 'vertical',
+          state: 'default',
+          targetId: scrollableContainer.id,
+          containerId: scrollbarContainer.id,
+        });
+      } catch (error) {
+        console.error('Error al crear scrollbar:', error);
+      }
+    }, 100);
+  } else {
+    contentWrapper.style.cssText = `
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 600px;
+      height: 300px;
+    `;
+
+    const scrollableContainer = document.createElement('div');
+    scrollableContainer.id = `scrollbar-target-${Date.now()}`;
+    scrollableContainer.style.cssText = `
+      flex: 1;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 16px;
+      background: var(--modifiers-normal-color-light-bg-2, #f3f3f4);
+      border-radius: 8px;
+      border: 1px solid var(--modifiers-normal-color-light-border-1, #d0d2d5);
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    `;
+    
+    const styleId = `scrollbar-style-${Date.now()}`;
+    const styleElement = document.createElement('style');
+    styleElement.id = styleId;
+    styleElement.textContent = `
+      #${scrollableContainer.id}::-webkit-scrollbar {
+        display: none;
+      }
+    `;
+    document.head.appendChild(styleElement);
+
+    const content = document.createElement('div');
+    content.style.cssText = `
+      width: ${contentWidth || 1800}px;
+      padding: 16px;
+    `;
+    
+    const title = document.createElement('p');
+    title.textContent = 'Scrollbar Horizontal';
+    title.style.cssText = `
+      margin: 0 0 16px 0;
+      color: var(--modifiers-normal-color-light-fg-1-high, #303a47);
+      font-size: var(--font-body-md-size, 16px);
+      font-weight: var(--weight-bold, 700);
+    `;
+    
+    const itemsContainer = document.createElement('div');
+    itemsContainer.style.cssText = `
+      display: flex;
+      gap: 12px;
+    `;
+    
+    const count = itemCount || 20;
+    for (let i = 1; i <= count; i++) {
+      const item = document.createElement('div');
+      item.style.cssText = `
+        min-width: 200px;
+        padding: 12px;
+        background: var(--modifiers-normal-color-light-bg-1, #ffffff);
+        border-radius: 8px;
+        border: 1px solid var(--modifiers-normal-color-light-border-1, #d0d2d5);
+      `;
+      const itemText = document.createElement('p');
+      itemText.textContent = `Elemento ${i}`;
+      itemText.style.cssText = `
+        margin: 0;
+        color: var(--modifiers-normal-color-light-fg-1-high, #303a47);
+        font-size: var(--font-body-sm-size, 13px);
+      `;
+      item.appendChild(itemText);
+      itemsContainer.appendChild(item);
+    }
+    
+    content.appendChild(title);
+    content.appendChild(itemsContainer);
+    scrollableContainer.appendChild(content);
+    
+    const scrollbarContainer = document.createElement('div');
+    scrollbarContainer.id = `scrollbar-container-${Date.now()}`;
+    scrollbarContainer.style.cssText = `
+      width: 100%;
+    `;
+    
+    contentWrapper.appendChild(scrollableContainer);
+    contentWrapper.appendChild(scrollbarContainer);
+    
+    setTimeout(() => {
+      try {
+        createScrollbar({
+          orientation: 'horizontal',
+          state: 'default',
+          targetId: scrollableContainer.id,
+          containerId: scrollbarContainer.id,
+        });
+      } catch (error) {
+        console.error('Error al crear scrollbar:', error);
+      }
+    }, 100);
+  }
+
+  wrapper.appendChild(contentWrapper);
+  container.appendChild(wrapper);
+  return container;
+}
+
+/**
+ * OrientationVertical
+ * Scrollbar orientación vertical
+ */
+export const OrientationVertical: Story = {
+  name: 'Orientation - Vertical',
+  args: {
+    orientation: 'vertical',
+    state: 'default',
+  },
+  render: (args) => createScrollbarWithContent('vertical'),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Scrollbar con orientación vertical. Aparece a la derecha del contenedor scrollable.',
+      },
+    },
+  },
+};
+
+/**
+ * OrientationHorizontal
+ * Scrollbar orientación horizontal
+ */
+export const OrientationHorizontal: Story = {
+  name: 'Orientation - Horizontal',
+  args: {
+    orientation: 'horizontal',
+    state: 'default',
+  },
+  render: (args) => createScrollbarWithContent('horizontal'),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Scrollbar con orientación horizontal. Aparece abajo del contenedor scrollable.',
+      },
+    },
+  },
+};
+
+/**
+ * WithLongContent
+ * Scrollbar con contenido largo (vertical)
+ */
+export const WithLongContent: Story = {
+  name: 'With Long Content',
+  args: {
+    orientation: 'vertical',
+    state: 'default',
+  },
+  render: (args) => createScrollbarWithContent('vertical', 2000, undefined, 50),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Scrollbar vertical con contenido muy largo (2000px de altura, 50 elementos).',
+      },
+    },
+  },
+};
+
+/**
+ * WithWideContent
+ * Scrollbar con contenido ancho (horizontal)
+ */
+export const WithWideContent: Story = {
+  name: 'With Wide Content',
+  args: {
+    orientation: 'horizontal',
+    state: 'default',
+  },
+  render: (args) => createScrollbarWithContent('horizontal', undefined, 3000, 30),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Scrollbar horizontal con contenido muy ancho (3000px de ancho, 30 elementos).',
+      },
+    },
+  },
+};
+
+/**
+ * WithShortContent
+ * Scrollbar con contenido corto (no aparece scrollbar)
+ */
+export const WithShortContent: Story = {
+  name: 'With Short Content',
+  args: {
+    orientation: 'vertical',
+    state: 'default',
+  },
+  render: (args) => createScrollbarWithContent('vertical', 200, undefined, 3),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Scrollbar con contenido corto que no requiere scroll. El scrollbar se oculta automáticamente.',
+      },
+    },
+  },
+};
+
+/**
+ * MinimalExample
+ * Ejemplo mínimo
+ */
+export const MinimalExample: Story = {
+  name: 'Minimal Example',
+  args: {
+    orientation: 'vertical',
+    state: 'default',
+  },
+  render: (args) => createScrollbarWithContent('vertical', 800, undefined, 15),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Ejemplo mínimo de scrollbar vertical con contenido moderado.',
+      },
+    },
   },
 };
