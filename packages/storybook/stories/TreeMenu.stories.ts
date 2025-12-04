@@ -779,3 +779,753 @@ export const Default: Story = {
   },
 };
 
+// Helper para renderizar TreeMenu de manera consistente
+function renderTreeMenuStory(args: {
+  showIcons?: boolean;
+  showChevron?: boolean;
+  maxLevels?: number;
+  defaultExpanded?: boolean;
+  size?: 'xs' | 'sm' | 'md' | 'lg';
+  cascade?: boolean;
+}) {
+  const container = document.createElement('div');
+  container.style.cssText = `
+    padding: var(--p-spacing-mode-1-lg, 24px);
+    background: var(--modifiers-normal-color-light-bg-2);
+    border-radius: 8px;
+    max-width: 600px;
+  `;
+  
+  const treeContainer = document.createElement('div');
+  treeContainer.style.cssText = `
+    background: var(--modifiers-normal-color-light-bg-1);
+    border-radius: 8px;
+    padding: var(--p-spacing-mode-1-md, 16px);
+  `;
+  
+  const treeHTML = renderTreeMenu(args);
+  treeContainer.innerHTML = treeHTML;
+  
+  // Agregar estilos CSS si no existen
+  const styleId = 'ubits-tree-menu-styles';
+  if (!document.getElementById(styleId)) {
+    const style = document.createElement('style');
+    style.id = styleId;
+    style.textContent = `
+      .ubits-tree-menu {
+        width: 100%;
+        user-select: none;
+      }
+      
+      .ubits-tree-node {
+        position: relative;
+      }
+      
+      .ubits-tree-node__content {
+        display: flex;
+        align-items: center;
+        gap: var(--p-spacing-mode-1-sm, 8px);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        color: var(--modifiers-normal-color-light-fg-1-high);
+        background: transparent;
+        position: relative;
+        font-family: var(--font-family-noto-sans-font-family);
+        box-sizing: border-box;
+        margin: 0;
+        border: none;
+        overflow: visible;
+      }
+      
+      .ubits-tree-node__content[data-size="xs"] {
+        padding: 8px 12px !important;
+        font-size: var(--modifiers-normal-body-xs-regular-fontsize) !important;
+        font-weight: var(--weight-regular, 400) !important;
+        line-height: var(--modifiers-normal-body-xs-regular-lineheight) !important;
+        min-height: 28px !important;
+        height: auto !important;
+        margin: 0 !important;
+      }
+      
+      .ubits-tree-node__content[data-size="sm"] {
+        padding: 10px 14px !important;
+        font-size: var(--modifiers-normal-body-sm-regular-fontsize) !important;
+        font-weight: var(--weight-regular, 400) !important;
+        line-height: var(--modifiers-normal-body-sm-regular-lineheight) !important;
+        min-height: 32px !important;
+        height: auto !important;
+        margin: 0 !important;
+      }
+      
+      .ubits-tree-node__content[data-size="md"] {
+        padding: 12px 16px !important;
+        font-size: var(--modifiers-normal-body-md-regular-fontsize) !important;
+        font-weight: var(--weight-regular, 400) !important;
+        line-height: var(--modifiers-normal-body-md-regular-lineheight) !important;
+        min-height: 40px !important;
+        height: auto !important;
+        margin: 0 !important;
+      }
+      
+      .ubits-tree-node__content[data-size="lg"] {
+        padding: 16px 20px !important;
+        font-size: var(--modifiers-normal-body-lg-regular-fontsize) !important;
+        font-weight: var(--weight-regular, 400) !important;
+        line-height: var(--modifiers-normal-body-lg-regular-lineheight) !important;
+        min-height: 48px !important;
+        height: auto !important;
+        margin: 0 !important;
+      }
+      
+      .ubits-tree-node__content:hover:not(.ubits-tree-node__content--active) {
+        background: var(--modifiers-normal-color-light-bg-2);
+      }
+      
+      .ubits-tree-node__content--active,
+      .ubits-tree-node__content[aria-selected="true"] {
+        color: var(--modifiers-normal-color-light-accent-brand);
+        background: var(--modifiers-normal-color-light-bg-active);
+      }
+      
+      .ubits-tree-node__content--expandable:focus-visible {
+        outline: 2px solid var(--modifiers-normal-color-light-accent-brand);
+        outline-offset: -2px;
+        border-radius: 6px;
+      }
+      
+      .ubits-tree-node__chevron {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        color: var(--modifiers-normal-color-light-fg-1-medium);
+        transition: color 0.2s ease;
+      }
+      
+      .ubits-tree-node__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        color: var(--modifiers-normal-color-light-fg-1-medium);
+        width: 20px;
+        transition: color 0.2s ease;
+      }
+      
+      .ubits-tree-node__label {
+        flex: 1;
+        color: var(--modifiers-normal-color-light-fg-1-high);
+        transition: color 0.2s ease, font-weight 0.2s ease;
+      }
+      
+      .ubits-tree-menu--vertical .ubits-tree-node {
+        padding-left: 0 !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+  
+  // Agregar funcionalidad de expandir/colapsar
+  setTimeout(() => {
+    const treeElement = treeContainer.querySelector('.ubits-tree-menu');
+    if (treeElement) {
+      treeElement.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        const content = target.closest('.ubits-tree-node__content') as HTMLElement;
+        
+        if (!content) return;
+        
+        if (content.classList.contains('ubits-tree-node__content--expandable')) {
+          const nodeId = content.getAttribute('data-node-id');
+          const children = treeElement.querySelector(`[data-children-id="${nodeId}"]`) as HTMLElement;
+          const chevron = content.querySelector('.ubits-tree-node__chevron i') as HTMLElement;
+          const isExpanded = content.getAttribute('data-expanded') === 'true';
+          
+          if (children) {
+            if (isExpanded) {
+              children.style.display = 'none';
+              content.setAttribute('data-expanded', 'false');
+              content.setAttribute('aria-expanded', 'false');
+              if (chevron && args.showChevron !== false) {
+                chevron.className = 'far fa-chevron-right';
+              }
+            } else {
+              children.style.display = 'block';
+              content.setAttribute('data-expanded', 'true');
+              content.setAttribute('aria-expanded', 'true');
+              if (chevron && args.showChevron !== false) {
+                chevron.className = 'far fa-chevron-down';
+              }
+            }
+          }
+        }
+        
+        const allContents = treeElement.querySelectorAll('.ubits-tree-node__content');
+        allContents.forEach((node) => {
+          node.classList.remove('ubits-tree-node__content--active');
+          node.removeAttribute('aria-selected');
+        });
+        
+        content.classList.add('ubits-tree-node__content--active');
+        content.setAttribute('aria-selected', 'true');
+      });
+    }
+  }, 100);
+  
+  container.appendChild(treeContainer);
+  return container;
+}
+
+/**
+ * WithIcons
+ * Con iconos
+ */
+export const WithIcons: Story = {
+  name: 'With Icons',
+  args: {
+    showIcons: true,
+    showChevron: true,
+    maxLevels: 3,
+    defaultExpanded: false,
+    size: 'md',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu con iconos en todos los nodos.',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutIcons
+ * Sin iconos
+ */
+export const WithoutIcons: Story = {
+  name: 'Without Icons',
+  args: {
+    showIcons: false,
+    showChevron: true,
+    maxLevels: 3,
+    defaultExpanded: false,
+    size: 'md',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu sin iconos.',
+      },
+    },
+  },
+};
+
+/**
+ * WithChevron
+ * Con chevron (flecha)
+ */
+export const WithChevron: Story = {
+  name: 'With Chevron',
+  args: {
+    showIcons: true,
+    showChevron: true,
+    maxLevels: 3,
+    defaultExpanded: false,
+    size: 'md',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu con chevron (flecha) para expandir/colapsar.',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutChevron
+ * Sin chevron
+ */
+export const WithoutChevron: Story = {
+  name: 'Without Chevron',
+  args: {
+    showIcons: true,
+    showChevron: false,
+    maxLevels: 3,
+    defaultExpanded: false,
+    size: 'md',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu sin chevron (flecha).',
+      },
+    },
+  },
+};
+
+/**
+ * MaxLevels1
+ * 1 nivel
+ */
+export const MaxLevels1: Story = {
+  name: 'Max Levels - 1',
+  args: {
+    showIcons: true,
+    showChevron: true,
+    maxLevels: 1,
+    defaultExpanded: false,
+    size: 'md',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu con 1 nivel (sin hijos).',
+      },
+    },
+  },
+};
+
+/**
+ * MaxLevels2
+ * 2 niveles
+ */
+export const MaxLevels2: Story = {
+  name: 'Max Levels - 2',
+  args: {
+    showIcons: true,
+    showChevron: true,
+    maxLevels: 2,
+    defaultExpanded: false,
+    size: 'md',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu con 2 niveles.',
+      },
+    },
+  },
+};
+
+/**
+ * MaxLevels3
+ * 3 niveles (default)
+ */
+export const MaxLevels3: Story = {
+  name: 'Max Levels - 3',
+  args: {
+    showIcons: true,
+    showChevron: true,
+    maxLevels: 3,
+    defaultExpanded: false,
+    size: 'md',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu con 3 niveles (default).',
+      },
+    },
+  },
+};
+
+/**
+ * MaxLevels4
+ * 4 niveles
+ */
+export const MaxLevels4: Story = {
+  name: 'Max Levels - 4',
+  args: {
+    showIcons: true,
+    showChevron: true,
+    maxLevels: 4,
+    defaultExpanded: false,
+    size: 'md',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu con 4 niveles.',
+      },
+    },
+  },
+};
+
+/**
+ * MaxLevels5
+ * 5 niveles
+ */
+export const MaxLevels5: Story = {
+  name: 'Max Levels - 5',
+  args: {
+    showIcons: true,
+    showChevron: true,
+    maxLevels: 5,
+    defaultExpanded: false,
+    size: 'md',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu con 5 niveles.',
+      },
+    },
+  },
+};
+
+/**
+ * DefaultExpanded
+ * Expandido por defecto
+ */
+export const DefaultExpanded: Story = {
+  name: 'Default Expanded',
+  args: {
+    showIcons: true,
+    showChevron: true,
+    maxLevels: 3,
+    defaultExpanded: true,
+    size: 'md',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu con todos los nodos expandidos por defecto.',
+      },
+    },
+  },
+};
+
+/**
+ * DefaultCollapsed
+ * Colapsado por defecto
+ */
+export const DefaultCollapsed: Story = {
+  name: 'Default Collapsed',
+  args: {
+    showIcons: true,
+    showChevron: true,
+    maxLevels: 3,
+    defaultExpanded: false,
+    size: 'md',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu con todos los nodos colapsados por defecto.',
+      },
+    },
+  },
+};
+
+/**
+ * SizeXS
+ * Tamaño xs
+ */
+export const SizeXS: Story = {
+  name: 'Size - XS',
+  args: {
+    showIcons: true,
+    showChevron: true,
+    maxLevels: 3,
+    defaultExpanded: false,
+    size: 'xs',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu con tamaño xs.',
+      },
+    },
+  },
+};
+
+/**
+ * SizeSM
+ * Tamaño sm
+ */
+export const SizeSM: Story = {
+  name: 'Size - SM',
+  args: {
+    showIcons: true,
+    showChevron: true,
+    maxLevels: 3,
+    defaultExpanded: false,
+    size: 'sm',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu con tamaño sm.',
+      },
+    },
+  },
+};
+
+/**
+ * SizeMD
+ * Tamaño md (default)
+ */
+export const SizeMD: Story = {
+  name: 'Size - MD',
+  args: {
+    showIcons: true,
+    showChevron: true,
+    maxLevels: 3,
+    defaultExpanded: false,
+    size: 'md',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu con tamaño md (default).',
+      },
+    },
+  },
+};
+
+/**
+ * SizeLG
+ * Tamaño lg
+ */
+export const SizeLG: Story = {
+  name: 'Size - LG',
+  args: {
+    showIcons: true,
+    showChevron: true,
+    maxLevels: 3,
+    defaultExpanded: false,
+    size: 'lg',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu con tamaño lg.',
+      },
+    },
+  },
+};
+
+/**
+ * ModeCascade
+ * Modo cascada (con indentación)
+ */
+export const ModeCascade: Story = {
+  name: 'Mode - Cascade',
+  args: {
+    showIcons: true,
+    showChevron: true,
+    maxLevels: 3,
+    defaultExpanded: false,
+    size: 'md',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu en modo cascada (con indentación).',
+      },
+    },
+  },
+};
+
+/**
+ * ModeVertical
+ * Modo vertical (sin indentación)
+ */
+export const ModeVertical: Story = {
+  name: 'Mode - Vertical',
+  args: {
+    showIcons: true,
+    showChevron: true,
+    maxLevels: 3,
+    defaultExpanded: false,
+    size: 'md',
+    cascade: false
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu en modo vertical (sin indentación, se despliega hacia abajo).',
+      },
+    },
+  },
+};
+
+/**
+ * CascadeWithIcons
+ * Modo cascada con iconos
+ */
+export const CascadeWithIcons: Story = {
+  name: 'Cascade - With Icons',
+  args: {
+    showIcons: true,
+    showChevron: true,
+    maxLevels: 3,
+    defaultExpanded: false,
+    size: 'md',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu en modo cascada con iconos.',
+      },
+    },
+  },
+};
+
+/**
+ * VerticalWithIcons
+ * Modo vertical con iconos
+ */
+export const VerticalWithIcons: Story = {
+  name: 'Vertical - With Icons',
+  args: {
+    showIcons: true,
+    showChevron: true,
+    maxLevels: 3,
+    defaultExpanded: false,
+    size: 'md',
+    cascade: false
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu en modo vertical con iconos.',
+      },
+    },
+  },
+};
+
+/**
+ * CascadeWithoutIcons
+ * Modo cascada sin iconos
+ */
+export const CascadeWithoutIcons: Story = {
+  name: 'Cascade - Without Icons',
+  args: {
+    showIcons: false,
+    showChevron: true,
+    maxLevels: 3,
+    defaultExpanded: false,
+    size: 'md',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu en modo cascada sin iconos.',
+      },
+    },
+  },
+};
+
+/**
+ * VerticalWithoutIcons
+ * Modo vertical sin iconos
+ */
+export const VerticalWithoutIcons: Story = {
+  name: 'Vertical - Without Icons',
+  args: {
+    showIcons: false,
+    showChevron: true,
+    maxLevels: 3,
+    defaultExpanded: false,
+    size: 'md',
+    cascade: false
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu en modo vertical sin iconos.',
+      },
+    },
+  },
+};
+
+/**
+ * CompleteExample
+ * Ejemplo completo
+ */
+export const CompleteExample: Story = {
+  name: 'Complete Example',
+  args: {
+    showIcons: true,
+    showChevron: true,
+    maxLevels: 4,
+    defaultExpanded: true,
+    size: 'md',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu completo con todas las opciones habilitadas: iconos, chevron, 4 niveles, expandido por defecto, tamaño md, modo cascada.',
+      },
+    },
+  },
+};
+
+/**
+ * MinimalExample
+ * Ejemplo mínimo
+ */
+export const MinimalExample: Story = {
+  name: 'Minimal Example',
+  args: {
+    showIcons: false,
+    showChevron: false,
+    maxLevels: 1,
+    defaultExpanded: false,
+    size: 'md',
+    cascade: true
+  },
+  render: (args) => renderTreeMenuStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TreeMenu mínimo con solo las opciones esenciales: sin iconos, sin chevron, 1 nivel, colapsado por defecto.',
+      },
+    },
+  },
+};
+
