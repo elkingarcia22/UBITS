@@ -3676,9 +3676,17 @@ export function createDataTable(options: DataTableOptions): {
         });
         
         // Preparar items de la lista
+        // Helper para crear label con icono (similar al menú contextual)
+        const createLabelWithIcon = (icon: string, text: string) => {
+          return `<div style="display: flex; align-items: center; gap: var(--ubits-spacing-xs);">
+            <i class="far fa-${icon}" style="font-size: 14px; width: 16px; text-align: center;"></i>
+            <span>${text}</span>
+          </div>`;
+        };
+        
         const listItems = [
           {
-            label: isPinned ? 'Desfijar columna' : 'Fijar columna',
+            label: createLabelWithIcon('thumbtack', isPinned ? 'Desfijar columna' : 'Fijar columna'),
             value: 'pin',
             state: 'default' as const
           }
