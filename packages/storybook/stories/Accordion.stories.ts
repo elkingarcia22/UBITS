@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { renderAccordion, createAccordion } from '../../addons/accordion/src/AccordionProvider';
-import type { AccordionOptions, AccordionItem } from '../../addons/accordion/src/types/AccordionOptions';
-import '../../addons/accordion/src/styles/accordion.css';
+import { renderAccordion, createAccordion } from '../../components/accordion/src/AccordionProvider';
+import type { AccordionOptions, AccordionItem } from '../../components/accordion/src/types/AccordionOptions';
+import '../../components/accordion/src/styles/accordion.css';
 
 const meta: Meta<AccordionOptions> = {
   title: 'Layout/Accordion',
@@ -169,5 +169,413 @@ export const Interactive: Story = {
     createAccordion(container, finalArgs);
     
     return container;
+  },
+};
+
+/**
+ * VariantList
+ * Accordion con variante 'list' (lista simple)
+ */
+export const VariantList: Story = {
+  name: 'Variant - List',
+  args: {
+    items: sampleItems,
+    variant: 'list',
+    chevronPosition: 'right',
+    allowMultiple: false,
+    showIcons: false,
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.padding = '24px';
+    container.style.maxWidth = '800px';
+    createAccordion(container, args);
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Accordion con variante lista simple. Chevron a la derecha, sin iconos, solo un item abierto a la vez.',
+      },
+    },
+  },
+};
+
+/**
+ * VariantBoxed
+ * Accordion con variante 'boxed' (tipo caja)
+ */
+export const VariantBoxed: Story = {
+  name: 'Variant - Boxed',
+  args: {
+    items: itemsWithIcons,
+    variant: 'boxed',
+    chevronPosition: 'right',
+    allowMultiple: false,
+    showIcons: true,
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.padding = '24px';
+    container.style.maxWidth = '800px';
+    createAccordion(container, args);
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Accordion con variante tipo caja. Chevron a la derecha, con iconos, solo un item abierto a la vez.',
+      },
+    },
+  },
+};
+
+/**
+ * ChevronLeft
+ * Accordion con chevron a la izquierda
+ */
+export const ChevronLeft: Story = {
+  name: 'Chevron - Left',
+  args: {
+    items: itemsWithIcons,
+    variant: 'list',
+    chevronPosition: 'left',
+    allowMultiple: false,
+    showIcons: true,
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.padding = '24px';
+    container.style.maxWidth = '800px';
+    createAccordion(container, args);
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Accordion con chevron a la izquierda. Variante lista, con iconos, solo un item abierto a la vez.',
+      },
+    },
+  },
+};
+
+/**
+ * ChevronRight
+ * Accordion con chevron a la derecha (default)
+ */
+export const ChevronRight: Story = {
+  name: 'Chevron - Right',
+  args: {
+    items: itemsWithIcons,
+    variant: 'list',
+    chevronPosition: 'right',
+    allowMultiple: false,
+    showIcons: true,
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.padding = '24px';
+    container.style.maxWidth = '800px';
+    createAccordion(container, args);
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Accordion con chevron a la derecha (comportamiento por defecto). Variante lista, con iconos, solo un item abierto a la vez.',
+      },
+    },
+  },
+};
+
+/**
+ * AllowMultiple
+ * Accordion que permite múltiples items abiertos simultáneamente
+ */
+export const AllowMultiple: Story = {
+  name: 'Allow Multiple',
+  args: {
+    items: itemsWithIcons,
+    variant: 'list',
+    chevronPosition: 'right',
+    allowMultiple: true,
+    showIcons: true,
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.padding = '24px';
+    container.style.maxWidth = '800px';
+    createAccordion(container, args);
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Accordion que permite múltiples items abiertos simultáneamente. Variante lista, con iconos, chevron a la derecha.',
+      },
+    },
+  },
+};
+
+/**
+ * DefaultOpen
+ * Accordion con items abiertos por defecto
+ */
+export const DefaultOpen: Story = {
+  name: 'Default Open',
+  args: {
+    items: itemsWithIcons,
+    variant: 'list',
+    chevronPosition: 'right',
+    allowMultiple: false,
+    showIcons: true,
+    defaultOpen: ['1', '3'],
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.padding = '24px';
+    container.style.maxWidth = '800px';
+    createAccordion(container, args);
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Accordion con items abiertos por defecto (items 1 y 3). Variante lista, con iconos, solo un item abierto a la vez.',
+      },
+    },
+  },
+};
+
+/**
+ * WithIcons
+ * Accordion con iconos
+ */
+export const WithIcons: Story = {
+  name: 'With Icons',
+  args: {
+    items: itemsWithIcons,
+    variant: 'list',
+    chevronPosition: 'right',
+    allowMultiple: false,
+    showIcons: true,
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.padding = '24px';
+    container.style.maxWidth = '800px';
+    createAccordion(container, args);
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Accordion con iconos estilo regular. Variante lista, chevron a la derecha, solo un item abierto a la vez.',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutIcons
+ * Accordion sin iconos
+ */
+export const WithoutIcons: Story = {
+  name: 'Without Icons',
+  args: {
+    items: sampleItems,
+    variant: 'list',
+    chevronPosition: 'right',
+    allowMultiple: false,
+    showIcons: false,
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.padding = '24px';
+    container.style.maxWidth = '800px';
+    createAccordion(container, args);
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Accordion sin iconos. Variante lista, chevron a la derecha, solo un item abierto a la vez.',
+      },
+    },
+  },
+};
+
+/**
+ * IconStyleSolid
+ * Accordion con iconos estilo solid
+ */
+export const IconStyleSolid: Story = {
+  name: 'Icon Style - Solid',
+  args: {
+    items: itemsWithIcons.map(item => ({ ...item, iconStyle: 'solid' as const })),
+    variant: 'list',
+    chevronPosition: 'right',
+    allowMultiple: false,
+    showIcons: true,
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.padding = '24px';
+    container.style.maxWidth = '800px';
+    createAccordion(container, args);
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Accordion con iconos estilo solid. Variante lista, chevron a la derecha, solo un item abierto a la vez.',
+      },
+    },
+  },
+};
+
+/**
+ * WithSubHeaders
+ * Accordion con subheaders
+ */
+export const WithSubHeaders: Story = {
+  name: 'With Sub Headers',
+  args: {
+    items: itemsWithSubHeaders,
+    variant: 'list',
+    chevronPosition: 'right',
+    allowMultiple: false,
+    showIcons: false,
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.padding = '24px';
+    container.style.maxWidth = '800px';
+    createAccordion(container, args);
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Accordion con subheaders en cada item. Variante lista, chevron a la derecha, sin iconos, solo un item abierto a la vez.',
+      },
+    },
+  },
+};
+
+/**
+ * BoxedWithSubHeaders
+ * Accordion variante boxed con subheaders
+ */
+export const BoxedWithSubHeaders: Story = {
+  name: 'Boxed - With Sub Headers',
+  args: {
+    items: itemsWithSubHeaders.map(item => ({ ...item, icon: 'user', iconStyle: 'regular' as const })),
+    variant: 'boxed',
+    chevronPosition: 'right',
+    allowMultiple: false,
+    showIcons: true,
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.padding = '24px';
+    container.style.maxWidth = '800px';
+    createAccordion(container, args);
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Accordion variante boxed con subheaders en cada item. Chevron a la derecha, con iconos, solo un item abierto a la vez.',
+      },
+    },
+  },
+};
+
+/**
+ * BoxedChevronLeft
+ * Accordion variante boxed con chevron a la izquierda
+ */
+export const BoxedChevronLeft: Story = {
+  name: 'Boxed - Chevron Left',
+  args: {
+    items: itemsWithIcons,
+    variant: 'boxed',
+    chevronPosition: 'left',
+    allowMultiple: false,
+    showIcons: true,
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.padding = '24px';
+    container.style.maxWidth = '800px';
+    createAccordion(container, args);
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Accordion variante boxed con chevron a la izquierda. Con iconos, solo un item abierto a la vez.',
+      },
+    },
+  },
+};
+
+/**
+ * BoxedAllowMultiple
+ * Accordion variante boxed que permite múltiples items abiertos
+ */
+export const BoxedAllowMultiple: Story = {
+  name: 'Boxed - Allow Multiple',
+  args: {
+    items: itemsWithIcons,
+    variant: 'boxed',
+    chevronPosition: 'right',
+    allowMultiple: true,
+    showIcons: true,
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.padding = '24px';
+    container.style.maxWidth = '800px';
+    createAccordion(container, args);
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Accordion variante boxed que permite múltiples items abiertos simultáneamente. Con iconos, chevron a la derecha.',
+      },
+    },
+  },
+};
+
+/**
+ * BoxedDefaultOpen
+ * Accordion variante boxed con items abiertos por defecto
+ */
+export const BoxedDefaultOpen: Story = {
+  name: 'Boxed - Default Open',
+  args: {
+    items: itemsWithIcons,
+    variant: 'boxed',
+    chevronPosition: 'right',
+    allowMultiple: false,
+    showIcons: true,
+    defaultOpen: ['2', '4'],
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.padding = '24px';
+    container.style.maxWidth = '800px';
+    createAccordion(container, args);
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Accordion variante boxed con items abiertos por defecto (items 2 y 4). Con iconos, chevron a la derecha, solo un item abierto a la vez.',
+      },
+    },
   },
 };
