@@ -2988,7 +2988,7 @@ export const PinnedColumns: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funcionan las columnas fijadas (pinned). Las columnas con `pinned: true` permanecen visibles al hacer scroll horizontal, lo que es útil para mantener información importante (como nombre o email) siempre visible mientras navegas por otras columnas. En este ejemplo, las columnas "Nombre" y "Email" están fijadas. Puedes hacer scroll horizontal para ver cómo permanecen visibles mientras las demás columnas se desplazan.'
+        story: 'Esta historia demuestra cómo funcionan las columnas fijadas (pinned). Las columnas con `pinned: true` permanecen visibles al hacer scroll horizontal, lo que es útil para mantener información importante (como nombre o email) siempre visible mientras navegas por otras columnas. En este ejemplo, las columnas "Nombre" y "Email" están fijadas inicialmente. Puedes hacer click en el botón de menú (3 puntos) en cualquier header de columna para fijar/desfijar columnas dinámicamente. También puedes hacer scroll horizontal para ver cómo las columnas fijadas permanecen visibles mientras las demás columnas se desplazan.'
       }
     }
   },
@@ -3000,7 +3000,7 @@ export const PinnedColumns: Story = {
     showCheckbox: false,
     showVerticalScrollbar: false,
     showHorizontalScrollbar: true,
-    showColumnMenu: false,
+    showColumnMenu: true,
     showContextMenu: false,
     showPagination: false
   }
