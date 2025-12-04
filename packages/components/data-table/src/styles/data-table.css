@@ -1509,9 +1509,24 @@
     max-width: 100% !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
+}
+
+/* Asegurar que el contenido interno (div con flex) también respete el ancho */
+.ubits-data-table__column-menu-dropdown .ubits-list-item > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    min-width: 0 !important; /* CRÍTICO: Permite que flex items se encojan */
+}
+
+/* Asegurar que el span del texto se trunque correctamente */
+.ubits-data-table__column-menu-dropdown .ubits-list-item > div > span {
+    overflow: hidden !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
-    word-wrap: break-word !important;
+    min-width: 0 !important; /* CRÍTICO: Permite que el span se encoja en flex */
+    flex: 1 !important; /* Ocupar el espacio disponible */
 }
 
 /* Estilos para el menú contextual */
@@ -1535,9 +1550,24 @@
     max-width: 100% !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
+}
+
+/* Asegurar que el contenido interno (div con flex) también respete el ancho */
+#ubits-data-table-context-menu .ubits-list-item > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    min-width: 0 !important; /* CRÍTICO: Permite que flex items se encojan */
+}
+
+/* Asegurar que el span del texto se trunque correctamente */
+#ubits-data-table-context-menu .ubits-list-item > div > span {
+    overflow: hidden !important;
     text-overflow: ellipsis !important;
     white-space: nowrap !important;
-    word-wrap: break-word !important;
+    min-width: 0 !important; /* CRÍTICO: Permite que el span se encoja en flex */
+    flex: 1 !important; /* Ocupar el espacio disponible */
 }
 
 /* CRÍTICO: NO aplicar position: relative aquí - se aplicará inline cuando sea necesario (sticky para columnas fijadas) */
