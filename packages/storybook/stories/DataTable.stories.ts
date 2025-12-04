@@ -1106,9 +1106,14 @@ export const Default: Story = {
     const headerTitle = (args as any).headerTitle ?? 'Lista de elementos';
     const showHeaderTitle = (args as any).showHeaderTitle !== undefined ? (args as any).showHeaderTitle : true;
     const headerCounter = (args as any).headerCounter !== undefined ? (args as any).headerCounter : true;
-    // Usar el número real de filas en lugar de valores hardcodeados
-    const headerDisplayedItems = (args as any).headerDisplayedItems !== undefined ? (args as any).headerDisplayedItems : rows.length;
-    const headerTotalItems = (args as any).headerTotalItems !== undefined ? (args as any).headerTotalItems : rows.length;
+    // Siempre usar el número real de filas - ignorar valores hardcodeados obsoletos
+    // Si el usuario establece un valor explícito diferente, respetarlo, pero por defecto usar rows.length
+    const headerDisplayedItems = (args as any).headerDisplayedItems !== undefined && (args as any).headerDisplayedItems !== 32 && (args as any).headerDisplayedItems !== 206
+      ? (args as any).headerDisplayedItems 
+      : rows.length;
+    const headerTotalItems = (args as any).headerTotalItems !== undefined && (args as any).headerTotalItems !== 32 && (args as any).headerTotalItems !== 206
+      ? (args as any).headerTotalItems 
+      : rows.length;
     const showHeaderPrimaryButton = (args as any).showHeaderPrimaryButton !== undefined ? (args as any).showHeaderPrimaryButton : true;
     const headerPrimaryButtonText = (args as any).headerPrimaryButtonText ?? 'Nuevo';
     const showHeaderSecondaryButtons = (args as any).showHeaderSecondaryButtons !== undefined ? (args as any).showHeaderSecondaryButtons : true;
