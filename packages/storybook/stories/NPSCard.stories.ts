@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { renderNPSCard, createNPSCard } from '../../addons/nps-card/src/NPSCardProvider';
-import type { NPSCardOptions, NPSCategory } from '../../addons/nps-card/src/types/NPSCardOptions';
-import '../../addons/nps-card/src/styles/nps-card.css';
-import '../../addons/button/src/styles/button.css';
+import { renderNPSCard, createNPSCard } from '../../components/nps-card/src/NPSCardProvider';
+import type { NPSCardOptions, NPSCategory } from '../../components/nps-card/src/types/NPSCardOptions';
+import '../../components/nps-card/src/styles/nps-card.css';
+import '../../components/button/src/styles/button.css';
 
 const meta: Meta<NPSCardOptions & {
   category1Label?: string;
@@ -377,5 +377,1452 @@ export const Default: Story = {
     
     return container;
   }
+};
+
+// Helper para renderizar NPS Card de manera consistente
+function renderNPSCardStory(options: NPSCardOptions) {
+  const container = document.createElement('div');
+  container.style.cssText = 'width: 100%; padding: 24px; background: var(--modifiers-normal-color-light-bg-2); border: 1px solid var(--modifiers-normal-color-light-border-1); border-radius: 8px;';
+  
+  const wrapper = document.createElement('div');
+  wrapper.style.cssText = 'max-width: 500px; width: 100%; margin: 0 auto;';
+  
+  const cardHTML = renderNPSCard(options);
+  wrapper.innerHTML = cardHTML;
+  container.appendChild(wrapper);
+  
+  return container;
+}
+
+/**
+ * SizeSM
+ * Tamaño small
+ */
+export const SizeSM: Story = {
+  name: 'Size - SM',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'sm',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' },
+      { label: 'Neutrales', current: 10, total: 100, color: '#F6AD55' },
+      { label: 'Tienen confianza', current: 30, total: 100, color: '#38A169' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card tamaño small.',
+      },
+    },
+  },
+};
+
+/**
+ * SizeMD
+ * Tamaño medium (default)
+ */
+export const SizeMD: Story = {
+  name: 'Size - MD (Default)',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' },
+      { label: 'Neutrales', current: 10, total: 100, color: '#F6AD55' },
+      { label: 'Tienen confianza', current: 30, total: 100, color: '#38A169' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card tamaño medium (valor por defecto).',
+      },
+    },
+  },
+};
+
+/**
+ * SizeLG
+ * Tamaño large
+ */
+export const SizeLG: Story = {
+  name: 'Size - LG',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'lg',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' },
+      { label: 'Neutrales', current: 10, total: 100, color: '#F6AD55' },
+      { label: 'Tienen confianza', current: 30, total: 100, color: '#38A169' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card tamaño large.',
+      },
+    },
+  },
+};
+
+/**
+ * ScoreLow
+ * Score bajo (0-20)
+ */
+export const ScoreLow: Story = {
+  name: 'Score - Low (0-20)',
+  args: {
+    title: 'Nivel de confianza',
+    score: 15,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' },
+      { label: 'Neutrales', current: 10, total: 100, color: '#F6AD55' },
+      { label: 'Tienen confianza', current: 30, total: 100, color: '#38A169' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con score bajo (0-20).',
+      },
+    },
+  },
+};
+
+/**
+ * ScoreMedium
+ * Score medio (20-60)
+ */
+export const ScoreMedium: Story = {
+  name: 'Score - Medium (20-60)',
+  args: {
+    title: 'Nivel de confianza',
+    score: 45,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' },
+      { label: 'Neutrales', current: 10, total: 100, color: '#F6AD55' },
+      { label: 'Tienen confianza', current: 30, total: 100, color: '#38A169' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con score medio (20-60).',
+      },
+    },
+  },
+};
+
+/**
+ * ScoreHigh
+ * Score alto (60-100)
+ */
+export const ScoreHigh: Story = {
+  name: 'Score - High (60-100)',
+  args: {
+    title: 'Nivel de confianza',
+    score: 75,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' },
+      { label: 'Neutrales', current: 10, total: 100, color: '#F6AD55' },
+      { label: 'Tienen confianza', current: 30, total: 100, color: '#38A169' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con score alto (60-100).',
+      },
+    },
+  },
+};
+
+/**
+ * ScoreZero
+ * Score cero
+ */
+export const ScoreZero: Story = {
+  name: 'Score - Zero',
+  args: {
+    title: 'Nivel de confianza',
+    score: 0,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' },
+      { label: 'Neutrales', current: 10, total: 100, color: '#F6AD55' },
+      { label: 'Tienen confianza', current: 30, total: 100, color: '#38A169' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con score cero.',
+      },
+    },
+  },
+};
+
+/**
+ * ScoreMax
+ * Score máximo (100)
+ */
+export const ScoreMax: Story = {
+  name: 'Score - Max (100)',
+  args: {
+    title: 'Nivel de confianza',
+    score: 100,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' },
+      { label: 'Neutrales', current: 10, total: 100, color: '#F6AD55' },
+      { label: 'Tienen confianza', current: 30, total: 100, color: '#38A169' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con score máximo (100).',
+      },
+    },
+  },
+};
+
+/**
+ * WithTitle
+ * Con título
+ */
+export const WithTitle: Story = {
+  name: 'With Title',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con título visible.',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutTitle
+ * Sin título
+ */
+export const WithoutTitle: Story = {
+  name: 'Without Title',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: false,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card sin título.',
+      },
+    },
+  },
+};
+
+/**
+ * WithResponsesCount
+ * Con contador de respuestas
+ */
+export const WithResponsesCount: Story = {
+  name: 'With Responses Count',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con contador de respuestas visible.',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutResponsesCount
+ * Sin contador de respuestas
+ */
+export const WithoutResponsesCount: Story = {
+  name: 'Without Responses Count',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: false,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card sin contador de respuestas.',
+      },
+    },
+  },
+};
+
+/**
+ * WithGauge
+ * Con gauge semicircular
+ */
+export const WithGauge: Story = {
+  name: 'With Gauge',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con gauge semicircular visible.',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutGauge
+ * Sin gauge semicircular
+ */
+export const WithoutGauge: Story = {
+  name: 'Without Gauge',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: false,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' },
+      { label: 'Neutrales', current: 10, total: 100, color: '#F6AD55' },
+      { label: 'Tienen confianza', current: 30, total: 100, color: '#38A169' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card sin gauge semicircular (solo categorías).',
+      },
+    },
+  },
+};
+
+/**
+ * WithCategories
+ * Con categorías
+ */
+export const WithCategories: Story = {
+  name: 'With Categories',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' },
+      { label: 'Neutrales', current: 10, total: 100, color: '#F6AD55' },
+      { label: 'Tienen confianza', current: 30, total: 100, color: '#38A169' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con categorías visibles.',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutCategories
+ * Sin categorías
+ */
+export const WithoutCategories: Story = {
+  name: 'Without Categories',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: false,
+    categories: [],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card sin categorías (solo gauge).',
+      },
+    },
+  },
+};
+
+/**
+ * WithInfoIcon
+ * Con icono de información
+ */
+export const WithInfoIcon: Story = {
+  name: 'With Info Icon',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    showInfoIcon: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con icono de información junto al título.',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutInfoIcon
+ * Sin icono de información
+ */
+export const WithoutInfoIcon: Story = {
+  name: 'Without Info Icon',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    showInfoIcon: false,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card sin icono de información.',
+      },
+    },
+  },
+};
+
+/**
+ * WithActionButton
+ * Con botón de acción
+ */
+export const WithActionButton: Story = {
+  name: 'With Action Button',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    showActionButton: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con botón de acción (flecha a la derecha).',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutActionButton
+ * Sin botón de acción
+ */
+export const WithoutActionButton: Story = {
+  name: 'Without Action Button',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    showActionButton: false,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card sin botón de acción.',
+      },
+    },
+  },
+};
+
+/**
+ * MultipleCategories
+ * Múltiples categorías
+ */
+export const MultipleCategories: Story = {
+  name: 'Multiple Categories',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' },
+      { label: 'Neutrales', current: 10, total: 100, color: '#F6AD55' },
+      { label: 'Tienen confianza', current: 30, total: 100, color: '#38A169' },
+      { label: 'Muy satisfechos', current: 10, total: 100, color: '#22543D' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con múltiples categorías.',
+      },
+    },
+  },
+};
+
+/**
+ * SingleCategory
+ * Una sola categoría
+ */
+export const SingleCategory: Story = {
+  name: 'Single Category',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con una sola categoría.',
+      },
+    },
+  },
+};
+
+/**
+ * ManyResponses
+ * Muchas respuestas (100+)
+ */
+export const ManyResponses: Story = {
+  name: 'Many Responses',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 1250,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con muchas respuestas (100+).',
+      },
+    },
+  },
+};
+
+/**
+ * FewResponses
+ * Pocas respuestas (1-10)
+ */
+export const FewResponses: Story = {
+  name: 'Few Responses',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 5,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con pocas respuestas (1-10).',
+      },
+    },
+  },
+};
+
+/**
+ * ZeroResponses
+ * Sin respuestas (0)
+ */
+export const ZeroResponses: Story = {
+  name: 'Zero Responses',
+  args: {
+    title: 'Nivel de confianza',
+    score: 0,
+    scoreLabel: 'Puntuación',
+    totalResponses: 0,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 0, total: 0, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card sin respuestas (0).',
+      },
+    },
+  },
+};
+
+/**
+ * CustomScoreLabel
+ * Con etiqueta personalizada para el score
+ */
+export const CustomScoreLabel: Story = {
+  name: 'Custom Score Label',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'NPS Score',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con etiqueta personalizada para el score.',
+      },
+    },
+  },
+};
+
+/**
+ * CustomResponsesLabel
+ * Con etiqueta personalizada para respuestas
+ */
+export const CustomResponsesLabel: Story = {
+  name: 'Custom Responses Label',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'evaluaciones',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con etiqueta personalizada para respuestas.',
+      },
+    },
+  },
+};
+
+/**
+ * CustomColors
+ * Con colores personalizados para el gauge
+ */
+export const CustomColors: Story = {
+  name: 'Custom Colors',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    lowColor: '#FF0000',
+    mediumColor: '#FFA500',
+    highColor: '#00FF00',
+    gaugeBackgroundColor: '#F0F0F0',
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con colores personalizados para el gauge.',
+      },
+    },
+  },
+};
+
+/**
+ * OnClickCallback
+ * Con callback onClick
+ */
+export const OnClickCallback: Story = {
+  name: 'OnClick Callback',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    const options: NPSCardOptions = {
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+      onClick: () => {
+        alert('NPS Card clicked');
+        console.log('NPS Card clicked');
+      }
+    };
+    return renderNPSCardStory(options);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con callback onClick que se ejecuta cuando se hace clic en la tarjeta.',
+      },
+    },
+  },
+};
+
+/**
+ * OnActionCallback
+ * Con callback onAction
+ */
+export const OnActionCallback: Story = {
+  name: 'OnAction Callback',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    showActionButton: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    const options: NPSCardOptions = {
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+      onAction: () => {
+        alert('Action button clicked');
+        console.log('Action button clicked');
+      }
+    };
+    return renderNPSCardStory(options);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card con callback onAction que se ejecuta cuando se hace clic en el botón de acción.',
+      },
+    },
+  },
+};
+
+/**
+ * AllSizes
+ * Todos los tamaños
+ */
+export const AllSizes: Story = {
+  name: 'All Sizes',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-2);
+      border-radius: 8px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    `;
+    
+    const sizes: Array<NPSCardOptions['size']> = ['sm', 'md', 'lg'];
+    const categories = buildCategories(args);
+    
+    sizes.forEach(size => {
+      const sizeContainer = document.createElement('div');
+      sizeContainer.style.cssText = `
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 24px;
+        background: var(--modifiers-normal-color-light-bg-1);
+        border-radius: 8px;
+      `;
+      
+      const label = document.createElement('div');
+      label.style.cssText = `
+        font-size: 14px;
+        color: var(--modifiers-normal-color-light-fg-1-high);
+        font-weight: 600;
+        margin-bottom: 12px;
+        width: 100%;
+      `;
+      label.textContent = `Size: ${size?.toUpperCase() || 'default'}`;
+      
+      const wrapper = document.createElement('div');
+      wrapper.style.cssText = `
+        max-width: 500px;
+        width: 100%;
+      `;
+      
+      const cardHTML = renderNPSCard({
+        ...args,
+        size: size,
+        categories: categories.length > 0 ? categories : args.categories || [],
+      } as NPSCardOptions);
+      
+      wrapper.innerHTML = cardHTML;
+      
+      const innerContainer = document.createElement('div');
+      innerContainer.style.cssText = `
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      `;
+      innerContainer.appendChild(label);
+      innerContainer.appendChild(wrapper);
+      sizeContainer.appendChild(innerContainer);
+      container.appendChild(sizeContainer);
+    });
+    
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Todos los tamaños disponibles (sm, md, lg).',
+      },
+    },
+  },
+};
+
+/**
+ * AllScores
+ * Todos los rangos de score
+ */
+export const AllScores: Story = {
+  name: 'All Scores',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-2);
+      border-radius: 8px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    `;
+    
+    const scores = [0, 15, 45, 75, 100];
+    const scoreLabels = ['Bajo (0)', 'Bajo (15)', 'Medio (45)', 'Alto (75)', 'Máximo (100)'];
+    const categories = buildCategories(args);
+    
+    scores.forEach((score, index) => {
+      const scoreContainer = document.createElement('div');
+      scoreContainer.style.cssText = `
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 24px;
+        background: var(--modifiers-normal-color-light-bg-1);
+        border-radius: 8px;
+      `;
+      
+      const label = document.createElement('div');
+      label.style.cssText = `
+        font-size: 14px;
+        color: var(--modifiers-normal-color-light-fg-1-high);
+        font-weight: 600;
+        margin-bottom: 12px;
+        width: 100%;
+      `;
+      label.textContent = `Score: ${scoreLabels[index]}`;
+      
+      const wrapper = document.createElement('div');
+      wrapper.style.cssText = `
+        max-width: 500px;
+        width: 100%;
+      `;
+      
+      const cardHTML = renderNPSCard({
+        ...args,
+        score: score,
+        categories: categories.length > 0 ? categories : args.categories || [],
+      } as NPSCardOptions);
+      
+      wrapper.innerHTML = cardHTML;
+      
+      const innerContainer = document.createElement('div');
+      innerContainer.style.cssText = `
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      `;
+      innerContainer.appendChild(label);
+      innerContainer.appendChild(wrapper);
+      scoreContainer.appendChild(innerContainer);
+      container.appendChild(scoreContainer);
+    });
+    
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Todos los rangos de score disponibles (bajo, medio, alto, máximo).',
+      },
+    },
+  },
+};
+
+/**
+ * CompleteExample
+ * Ejemplo completo
+ */
+export const CompleteExample: Story = {
+  name: 'Complete Example',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    showInfoIcon: true,
+    showActionButton: true,
+    lowColor: '#E53E3E',
+    mediumColor: '#F6AD55',
+    highColor: '#38A169',
+    gaugeBackgroundColor: 'var(--modifiers-normal-color-light-bg-2)',
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' },
+      { label: 'Neutrales', current: 10, total: 100, color: '#F6AD55' },
+      { label: 'Tienen confianza', current: 30, total: 100, color: '#38A169' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    const options: NPSCardOptions = {
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+      onClick: () => {
+        console.log('NPS Card clicked');
+      },
+      onAction: () => {
+        console.log('Action button clicked');
+      }
+    };
+    return renderNPSCardStory(options);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card completo con todas las opciones habilitadas.',
+      },
+    },
+  },
+};
+
+/**
+ * MinimalExample
+ * Ejemplo mínimo
+ */
+export const MinimalExample: Story = {
+  name: 'Minimal Example',
+  args: {
+    title: 'Nivel de confianza',
+    score: 56,
+    scoreLabel: 'Puntuación',
+    totalResponses: 290,
+    responsesLabel: 'respuestas',
+    size: 'md',
+    showTitle: true,
+    showResponsesCount: true,
+    showGauge: true,
+    showCategories: true,
+    categories: [
+      { label: 'No tienen confianza', current: 50, total: 100, color: '#E53E3E' }
+    ],
+  },
+  render: (args) => {
+    const categories = buildCategories(args);
+    return renderNPSCardStory({
+      ...args,
+      categories: categories.length > 0 ? categories : args.categories || [],
+    } as NPSCardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'NPS Card mínimo con solo las opciones esenciales.',
+      },
+    },
+  },
 };
 
