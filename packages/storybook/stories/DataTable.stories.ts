@@ -2880,6 +2880,115 @@ export const ContextMenu: Story = {
  * Esta historia demuestra cómo funcionan las columnas fijadas.
  * Las columnas fijadas permanecen visibles al hacer scroll horizontal, útil para mantener información importante siempre visible.
  */
+export const Pagination: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      height: auto;
+      overflow: visible !important;
+      max-height: none !important;
+    `;
+    
+    const tableContainerId = `data-table-pagination-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const tableContainer = document.createElement('div');
+    tableContainer.id = tableContainerId;
+    tableContainer.style.cssText = `
+      width: 100%;
+      max-width: 100%;
+      overflow: visible !important;
+      min-height: auto;
+      height: auto;
+      max-height: none !important;
+    `;
+    
+    container.appendChild(tableContainer);
+    
+    // Generar más datos para que se vea el efecto de paginación
+    const generateRows = (): TableRow[] => {
+      const rows: TableRow[] = [];
+      for (let i = 1; i <= 50; i++) {
+        rows.push({
+          id: i,
+          data: {
+            nombre: `Usuario ${i}`,
+            email: `usuario${i}@ejemplo.com`,
+            estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
+            pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
+            fecha: new Date(2024, 0, i).toISOString().split('T')[0],
+            telefono: `+57 300 ${i.toString().padStart(7, '0')}`
+          }
+        });
+      }
+      return rows;
+    };
+    
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(tableContainerId);
+      if (containerElement) {
+        const rows = generateRows();
+        const columns: TableColumn[] = [
+          { id: 'nombre', title: 'Nombre', type: 'nombre', width: 200 },
+          { id: 'email', title: 'Email', type: 'correo', width: 250 },
+          { id: 'estado', title: 'Estado', type: 'estado', width: 150 },
+          { id: 'pais', title: 'País', type: 'pais', width: 150 },
+          { id: 'fecha', title: 'Fecha', type: 'fecha', width: 150 },
+          { id: 'telefono', title: 'Teléfono', type: 'telefono', width: 180 }
+        ];
+        
+        const options: DataTableOptions = {
+          containerId: tableContainerId,
+          columns,
+          rows,
+          showPagination: true,
+          currentPage: 1,
+          itemsPerPage: 10, // Mostrar 10 items por página para que se vea el efecto
+          paginationVariant: 'default',
+          paginationSize: 'md',
+          showCheckbox: false,
+          showColumnMenu: false,
+          showContextMenu: false,
+          onPageChange: (page: number) => {
+            console.log('📄 Página cambiada a:', page);
+          },
+          onItemsPerPageChange: (itemsPerPage: number) => {
+            console.log('📊 Items por página cambiados a:', itemsPerPage);
+          }
+        };
+        
+        const tableInstance = createDataTable(options);
+        (window as any).__storybookDataTableInstance = tableInstance;
+      } else {
+        console.error('❌ Contenedor no encontrado en el DOM:', tableContainerId);
+      }
+    });
+    
+    return container;
+  },
+  args: {
+    showPagination: true,
+    currentPage: 1,
+    itemsPerPage: 10,
+    paginationVariant: 'default',
+    paginationSize: 'md',
+    showCheckbox: false,
+    showColumnMenu: false,
+    showContextMenu: false
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demuestra la funcionalidad de paginación de la tabla. Permite navegar entre páginas usando los botones Anterior/Siguiente. La tabla muestra 10 items por página de un total de 50 items.'
+      }
+    }
+  }
+};
+
 export const StickyControls: Story = {
   render: (args) => {
     const container = document.createElement('div');
