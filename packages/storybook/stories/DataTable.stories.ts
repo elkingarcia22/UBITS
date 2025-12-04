@@ -3276,6 +3276,336 @@ export const StickyControls: Story = {
   }
 };
 
+export const ActionBar: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      height: auto;
+      overflow: visible !important;
+      max-height: none !important;
+    `;
+    
+    const tableContainerId = `data-table-action-bar-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const tableContainer = document.createElement('div');
+    tableContainer.id = tableContainerId;
+    tableContainer.style.cssText = `
+      width: 100%;
+      max-width: 100%;
+      overflow: visible !important;
+      min-height: auto;
+      height: auto;
+      max-height: none !important;
+    `;
+    
+    container.appendChild(tableContainer);
+    
+    // Generar datos de ejemplo
+    const generateRows = (): TableRow[] => {
+      const rows: TableRow[] = [];
+      for (let i = 1; i <= 20; i++) {
+        rows.push({
+          id: i,
+          data: {
+            nombre: `Usuario ${i}`,
+            email: `usuario${i}@ejemplo.com`,
+            estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
+            pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
+            fecha: new Date(2024, 0, i).toISOString().split('T')[0]
+          }
+        });
+      }
+      return rows;
+    };
+    
+    // Estado de selecciones para la action bar
+    const selectionState: {
+      selectedRowIds: Set<string | number>;
+      viewSelectedActive: boolean;
+    } = {
+      selectedRowIds: new Set(),
+      viewSelectedActive: false
+    };
+    
+    // Función para renderizar la barra de acciones
+    const renderActionBar = (containerElement: HTMLElement) => {
+      const header = containerElement.querySelector('.ubits-data-table__header');
+      if (!header) {
+        return;
+      }
+      
+      // Buscar barra existente
+      let actionBar = containerElement.querySelector('.ubits-data-table__action-bar') as HTMLElement;
+      
+      // Si no existe, crearla
+      if (!actionBar) {
+        actionBar = document.createElement('div');
+        actionBar.className = 'ubits-data-table__action-bar';
+        actionBar.style.cssText = `
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          flex-wrap: wrap;
+          background-color: var(--modifiers-normal-color-light-bg-1);
+          padding: var(--ubits-spacing-sm) var(--ubits-spacing-md);
+          gap: var(--ubits-spacing-xs);
+        `;
+        header.insertAdjacentElement('afterend', actionBar);
+      }
+      
+      // Contar selecciones
+      const selectedCount = selectionState.selectedRowIds.size;
+      const selectedIds = Array.from(selectionState.selectedRowIds);
+      
+      // Ocultar la barra si no hay selecciones
+      if (selectedCount === 0) {
+        actionBar.style.display = 'none';
+        return;
+      }
+      
+      // Mostrar la barra cuando hay selecciones
+      actionBar.style.display = 'flex';
+      
+      const countText = `(${selectedCount})`;
+      const isMultipleSelection = selectedCount > 1;
+      
+      // Estado del botón "Ver seleccionados"
+      const isViewSelectedActive = selectionState.viewSelectedActive;
+      const viewSelectedText = isViewSelectedActive
+        ? `Ver todos ${countText}`
+        : `Ver seleccionados ${countText}`;
+      
+      // Importar renderButton dinámicamente
+      const { renderButton } = require('../../addons/button/src/ButtonProvider');
+      
+      let buttonsHTML = '';
+      
+      // Botón "Ver seleccionados" (siempre visible)
+      buttonsHTML += renderButton({
+        text: viewSelectedText,
+        variant: isViewSelectedActive ? 'primary' : 'secondary',
+        size: 'sm',
+        icon: 'eye',
+        iconStyle: 'regular',
+        className: 'ubits-data-table__action-bar-button',
+        attributes: {
+          id: 'action-btn-view-selected'
+        }
+      });
+      
+      // Botón "Notificaciones" (solo múltiple selección)
+      if (isMultipleSelection) {
+        buttonsHTML += renderButton({
+          text: 'Notificaciones',
+          variant: 'secondary',
+          size: 'sm',
+          icon: 'bell',
+          iconStyle: 'regular',
+          className: 'ubits-data-table__action-bar-button',
+          attributes: {
+            id: 'action-btn-notifications'
+          }
+        });
+      }
+      
+      // Botones para selección individual (solo si hay 1 selección)
+      if (!isMultipleSelection) {
+        buttonsHTML += renderButton({
+          text: 'Copiar',
+          variant: 'secondary',
+          size: 'sm',
+          icon: 'copy',
+          iconStyle: 'regular',
+          className: 'ubits-data-table__action-bar-button',
+          attributes: {
+            id: 'action-btn-copy'
+          }
+        });
+        
+        buttonsHTML += renderButton({
+          text: 'Ver',
+          variant: 'secondary',
+          size: 'sm',
+          icon: 'eye',
+          iconStyle: 'regular',
+          className: 'ubits-data-table__action-bar-button',
+          attributes: {
+            id: 'action-btn-view'
+          }
+        });
+        
+        buttonsHTML += renderButton({
+          text: 'Editar',
+          variant: 'secondary',
+          size: 'sm',
+          icon: 'edit',
+          iconStyle: 'regular',
+          className: 'ubits-data-table__action-bar-button',
+          attributes: {
+            id: 'action-btn-edit'
+          }
+        });
+        
+        buttonsHTML += renderButton({
+          text: 'Descargar',
+          variant: 'secondary',
+          size: 'sm',
+          icon: 'download',
+          iconStyle: 'regular',
+          className: 'ubits-data-table__action-bar-button',
+          attributes: {
+            id: 'action-btn-download'
+          }
+        });
+      }
+      
+      // Botón "Eliminar" (siempre visible)
+      buttonsHTML += renderButton({
+        text: 'Eliminar',
+        variant: 'error',
+        size: 'sm',
+        icon: 'trash',
+        iconStyle: 'regular',
+        className: 'ubits-data-table__action-bar-button',
+        attributes: {
+          id: 'action-btn-delete'
+        }
+      });
+      
+      actionBar.innerHTML = buttonsHTML;
+      
+      // Agregar listeners
+      const viewSelectedBtn = actionBar.querySelector('#action-btn-view-selected');
+      if (viewSelectedBtn) {
+        viewSelectedBtn.addEventListener('click', () => {
+          selectionState.viewSelectedActive = !selectionState.viewSelectedActive;
+          console.log('👁️ Ver seleccionados:', selectionState.viewSelectedActive);
+          renderActionBar(containerElement);
+        });
+      }
+      
+      // Otros botones
+      ['notifications', 'copy', 'view', 'edit', 'download', 'delete'].forEach(action => {
+        const btn = actionBar.querySelector(`#action-btn-${action}`);
+        if (btn) {
+          btn.addEventListener('click', () => {
+            console.log(`🔘 Acción: ${action}`, selectedIds);
+            alert(`Acción "${action}" para ${selectedCount} elemento(s) seleccionado(s)`);
+          });
+        }
+      });
+    };
+    
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(tableContainerId);
+      if (containerElement) {
+        const rows = generateRows();
+        const columns: TableColumn[] = [
+          { id: 'nombre', title: 'Nombre', type: 'nombre', width: 200 },
+          { id: 'email', title: 'Email', type: 'correo', width: 250 },
+          { id: 'estado', title: 'Estado', type: 'estado', width: 150 },
+          { id: 'pais', title: 'País', type: 'pais', width: 150 },
+          { id: 'fecha', title: 'Fecha', type: 'fecha', width: 150 }
+        ];
+        
+        const options: DataTableOptions = {
+          containerId: tableContainerId,
+          columns,
+          rows,
+          showCheckbox: true, // Necesario para la action bar
+          showColumnMenu: false,
+          showContextMenu: false,
+          header: {
+            title: 'Usuarios',
+            showTitle: true,
+            counter: true,
+            showCounter: true
+          }
+        };
+        
+        const tableInstance = createDataTable(options);
+        (window as any).__storybookDataTableInstance = tableInstance;
+        
+        // Configurar listeners para checkboxes
+        setTimeout(() => {
+          const checkboxes = containerElement.querySelectorAll('input[type="checkbox"][data-row-id]');
+          checkboxes.forEach((checkbox) => {
+            const cb = checkbox as HTMLInputElement;
+            const rowIdStr = cb.getAttribute('data-row-id');
+            if (!rowIdStr) return;
+            
+            const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
+            
+            // Remover listener anterior si existe
+            const newCheckbox = cb.cloneNode(true) as HTMLInputElement;
+            cb.parentNode?.replaceChild(newCheckbox, cb);
+            
+            newCheckbox.addEventListener('change', () => {
+              if (newCheckbox.checked) {
+                selectionState.selectedRowIds.add(rowId);
+              } else {
+                selectionState.selectedRowIds.delete(rowId);
+              }
+              renderActionBar(containerElement);
+            });
+          });
+          
+          // Listener para checkbox del header (seleccionar todos)
+          const headerCheckbox = containerElement.querySelector('input[type="checkbox"][data-column-checkbox-header]') as HTMLInputElement;
+          if (headerCheckbox) {
+            const newHeaderCheckbox = headerCheckbox.cloneNode(true) as HTMLInputElement;
+            headerCheckbox.parentNode?.replaceChild(newHeaderCheckbox, headerCheckbox);
+            
+            newHeaderCheckbox.addEventListener('change', () => {
+              const allCheckboxes = containerElement.querySelectorAll('input[type="checkbox"][data-row-id]') as NodeListOf<HTMLInputElement>;
+              if (newHeaderCheckbox.checked) {
+                allCheckboxes.forEach(cb => {
+                  const rowIdStr = cb.getAttribute('data-row-id');
+                  if (rowIdStr) {
+                    const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
+                    selectionState.selectedRowIds.add(rowId);
+                    cb.checked = true;
+                  }
+                });
+              } else {
+                selectionState.selectedRowIds.clear();
+                allCheckboxes.forEach(cb => {
+                  cb.checked = false;
+                });
+              }
+              renderActionBar(containerElement);
+            });
+          }
+          
+          // Renderizar action bar inicialmente
+          renderActionBar(containerElement);
+        }, 200);
+      } else {
+        console.error('❌ Contenedor no encontrado en el DOM:', tableContainerId);
+      }
+    });
+    
+    return container;
+  },
+  args: {
+    showCheckbox: true,
+    showColumnMenu: false,
+    showContextMenu: false
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demuestra la barra de acciones que aparece cuando se seleccionan filas. La barra muestra diferentes botones según si hay una o múltiples selecciones. Para selección individual: Ver seleccionados, Copiar, Ver, Editar, Descargar, Eliminar. Para selección múltiple: Ver seleccionados, Notificaciones, Eliminar. Selecciona filas usando los checkboxes para ver la barra de acciones.'
+      }
+    }
+  }
+};
+
 export const ColumnSelector: Story = {
   render: (args) => {
     const container = document.createElement('div');
