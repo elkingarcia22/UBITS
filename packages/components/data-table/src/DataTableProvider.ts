@@ -4028,9 +4028,17 @@ export function createDataTable(options: DataTableOptions): {
             label: createLabelWithIcon('trash', 'Eliminar'),
             value: 'delete',
             state: 'default' as const,
+            attributes: {
+              'style': 'color: var(--modifiers-normal-color-light-feedback-fg-error-subtle-default, var(--ubits-fg-error, #DC2626)) !important;',
+              'data-action': 'delete'
+            },
             onClick: () => {
               closeContextMenu();
-              alert(`Eliminar para fila: ${rowId}`);
+              if (currentOptions.onRowAction) {
+                currentOptions.onRowAction(rowId, rowData);
+              } else {
+                alert(`Eliminar para fila: ${rowId}`);
+              }
             }
           }
         ];

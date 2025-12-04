@@ -119,6 +119,16 @@
     background: var(--modifiers-normal-color-light-bg-active) !important;
 }
 
+/* Error/Danger state - para acciones destructivas como eliminar */
+.ubits-list-item[data-action="delete"] {
+    color: var(--modifiers-normal-color-light-feedback-fg-error-subtle-default, var(--ubits-fg-error, #DC2626)) !important;
+}
+
+.ubits-list-item[data-action="delete"]:hover:not(.ubits-list-item--disabled) {
+    color: var(--modifiers-normal-color-light-feedback-fg-error-subtle-default, var(--ubits-fg-error, #DC2626)) !important;
+    background: var(--modifiers-normal-color-light-feedback-bg-error-subtle-default, var(--ubits-bg-error-subtle, rgba(220, 38, 38, 0.1))) !important;
+}
+
 /* Active/Selected state */
 .ubits-list-item--active,
 .ubits-list-item[aria-selected="true"] {
