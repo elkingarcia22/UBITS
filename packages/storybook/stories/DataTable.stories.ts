@@ -2906,9 +2906,11 @@ export const LazyLoad: Story = {
       width: 100%;
       max-width: 100%;
       height: 500px; /* Altura fija para que se active el scroll */
-      overflow: visible !important;
+      overflow: hidden !important; /* CRÍTICO: Ocultar overflow para que el scrollable container maneje el scroll */
       min-height: 500px;
       max-height: 500px;
+      display: flex;
+      flex-direction: column;
     `;
     
     container.appendChild(tableContainer);
