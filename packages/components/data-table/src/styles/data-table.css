@@ -287,9 +287,12 @@
 /* Header */
 .ubits-data-table__thead {
     background-color: var(--modifiers-normal-color-light-bg-1);
-    position: sticky;
-    top: 0;
-    z-index: 9; /* Menor que las columnas fijadas para que queden por debajo */
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 9 !important; /* Menor que las columnas fijadas para que queden por debajo */
+    /* CRÍTICO: Asegurar que sticky funcione dentro del scrollable container */
+    margin: 0;
+    padding: 0;
 }
 
 .ubits-data-table__header-row {
