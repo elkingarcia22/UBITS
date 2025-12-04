@@ -900,7 +900,7 @@ function renderRow(row: TableRow, columns: TableColumn[], rowIndex: number, pinn
 /**
  * Renderiza el header del DataTable con título, contador y botones
  */
-function renderDataTableHeader(options: DataTableOptions, activeFilters: Record<string, string> = {}): string {
+function renderDataTableHeader(options: DataTableOptions, activeFilters: Record<string, string> = {}, paginatedRowsCount?: number): string {
   const { header, rows } = options;
   
   // Si no hay configuración de header, no renderizar nada
@@ -945,9 +945,11 @@ function renderDataTableHeader(options: DataTableOptions, activeFilters: Record<
       }
     } else if (counter === true) {
       // Modo "X/Y resultados"
-      // Si hay paginación, mostrar items de la página actual / total
-      // Si no hay paginación, mostrar todos los items / total
-      const currentDisplayed = displayedItems !== undefined ? displayedItems : rows.length;
+      // Si hay paginación, usar paginatedRowsCount si está disponible
+      // Si no, usar displayedItems o rows.length
+      const currentDisplayed = paginatedRowsCount !== undefined 
+        ? paginatedRowsCount 
+        : (displayedItems !== undefined ? displayedItems : rows.length);
       const total = totalItems !== undefined ? totalItems : rows.length;
       // Si displayedItems y totalItems son iguales, mostrar solo el total
       if (currentDisplayed === total) {
@@ -1595,7 +1597,9 @@ export function renderDataTable(
   }
   
   // Renderizar el header del DataTable
-  const headerHTML = renderDataTableHeader(options, activeFilters);
+  // Pasar el número de filas paginadas si hay paginación activa
+  const paginatedRowsCount = showPagination ? paginatedRows.length : undefined;
+  const headerHTML = renderDataTableHeader(options, activeFilters, paginatedRowsCount);
   
   // Agregar el paginador FUERA del contenedor de la tabla, siempre debajo
   let html: string;
