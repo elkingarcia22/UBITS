@@ -2495,3 +2495,131 @@ export const VerticalScroll: Story = {
   }
 };
 
+/**
+ * Historia: Scroll Horizontal
+ * 
+ * Esta historia demuestra cómo funciona el scroll horizontal en la tabla.
+ * Cuando hay muchas columnas o columnas anchas, el scroll horizontal permite navegar por todas ellas sin que la tabla se comprima.
+ */
+export const HorizontalScroll: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 600px;
+      min-height: auto;
+      height: auto;
+      overflow: visible !important;
+      max-height: none !important;
+    `;
+    
+    const tableContainerId = `data-table-horizontal-scroll-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const tableContainer = document.createElement('div');
+    tableContainer.id = tableContainerId;
+    tableContainer.style.cssText = `
+      width: 100%;
+      overflow: visible !important;
+      min-height: auto;
+      height: auto;
+      max-height: none !important;
+    `;
+    
+    container.appendChild(tableContainer);
+    
+    // Generar datos de ejemplo
+    const generateRows = (): TableRow[] => {
+      const rows: TableRow[] = [];
+      for (let i = 1; i <= 10; i++) {
+        rows.push({
+          id: i,
+          data: {
+            nombre: `Usuario ${i}`,
+            email: `usuario${i}@ejemplo.com`,
+            estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
+            pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
+            fecha: new Date(2024, 0, i).toISOString().split('T')[0],
+            telefono: `+57 300 ${i.toString().padStart(7, '0')}`,
+            ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][i % 5],
+            departamento: ['Cundinamarca', 'Antioquia', 'Valle del Cauca', 'Atlántico', 'Bolívar'][i % 5],
+            cargo: ['Desarrollador', 'Diseñador', 'Product Manager', 'QA', 'DevOps'][i % 5]
+          }
+        });
+      }
+      return rows;
+    };
+    
+    const rows = generateRows();
+    
+    // Muchas columnas anchas para demostrar el scroll horizontal
+    const columns: TableColumn[] = [
+      { id: 'nombre', title: 'Nombre Completo', type: 'nombre', width: 200 },
+      { id: 'email', title: 'Correo Electrónico', type: 'correo', width: 250 },
+      { id: 'telefono', title: 'Teléfono de Contacto', type: 'telefono', width: 180 },
+      { id: 'estado', title: 'Estado del Usuario', type: 'estado', width: 150 },
+      { id: 'pais', title: 'País de Residencia', type: 'pais', width: 150 },
+      { id: 'ciudad', title: 'Ciudad', type: 'texto', width: 150 },
+      { id: 'departamento', title: 'Departamento', type: 'texto', width: 180 },
+      { id: 'cargo', title: 'Cargo en la Empresa', type: 'texto', width: 200 },
+      { id: 'fecha', title: 'Fecha de Registro', type: 'fecha', width: 150 }
+    ];
+    
+    const options: DataTableOptions = {
+      containerId: tableContainer.id,
+      columns,
+      rows,
+      columnReorderable: false,
+      rowReorderable: false,
+      rowExpandable: false,
+      columnSortable: false,
+      showCheckbox: false,
+      showVerticalScrollbar: false,
+      showHorizontalScrollbar: true, // Habilitar scroll horizontal
+      showColumnMenu: false,
+      showContextMenu: false,
+      showPagination: false,
+      header: {
+        title: 'Scroll Horizontal',
+        showTitle: true,
+        counter: true,
+        displayedItems: rows.length,
+        totalItems: rows.length
+      }
+    };
+    
+    // Usar requestAnimationFrame para asegurar que el DOM esté listo
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(tableContainer.id);
+      if (containerElement) {
+        const tableInstance = createDataTable(options);
+        (window as any).__storybookDataTableInstance = tableInstance;
+      } else {
+        console.error('❌ Contenedor no encontrado en el DOM:', tableContainer.id);
+      }
+    });
+    
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Esta historia demuestra cómo funciona el scroll horizontal en la tabla. Cuando `showHorizontalScrollbar` está habilitado y el contenido de la tabla es más ancho que el contenedor, aparece un scrollbar horizontal que permite navegar por todas las columnas. El contenedor tiene un ancho limitado (600px en este ejemplo) y la tabla tiene 9 columnas anchas, lo que fuerza el scroll horizontal para ver todas las columnas.'
+      }
+    }
+  },
+  args: {
+    columnReorderable: false,
+    rowReorderable: false,
+    rowExpandable: false,
+    columnSortable: false,
+    showCheckbox: false,
+    showVerticalScrollbar: false,
+    showHorizontalScrollbar: true,
+    showColumnMenu: false,
+    showContextMenu: false,
+    showPagination: false
+  }
+};
+
