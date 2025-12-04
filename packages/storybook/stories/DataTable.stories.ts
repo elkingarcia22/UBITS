@@ -1682,8 +1682,8 @@ export const Default: Story = {
     headerTitle: 'Lista de elementos',
     showHeaderTitle: true,
     headerCounter: true,
-    headerDisplayedItems: 32,
-    headerTotalItems: 206,
+    // Los valores de displayedItems y totalItems se calcularán dinámicamente basándose en rows.length
+    // No establecer valores por defecto para que siempre use la cantidad real de items
     showHeaderPrimaryButton: true,
     headerPrimaryButtonText: 'Nuevo',
     showHeaderSecondaryButtons: true,

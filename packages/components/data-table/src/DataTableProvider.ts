@@ -2122,6 +2122,11 @@ export function createDataTable(options: DataTableOptions): {
         displayedItems: currentOptions.header.displayedItems !== undefined && !searchTerm && Object.keys(activeFilters).length === 0
           ? currentOptions.header.displayedItems
           : filteredRows.length,
+        // Actualizar totalItems con el número real de filas filtradas
+        // Si no hay búsqueda ni filtros, usar el total original, sino usar filteredRows.length
+        totalItems: searchTerm || Object.keys(activeFilters).length > 0
+          ? filteredRows.length
+          : (currentOptions.header.totalItems !== undefined ? currentOptions.header.totalItems : filteredRows.length),
         // Pasar el estado activo del SearchButton y el término de búsqueda a través de las opciones
         __isSearchActive: isSearchActive,
         __searchTerm: searchTerm
