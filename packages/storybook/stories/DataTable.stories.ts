@@ -653,53 +653,57 @@ export const Default: Story = {
       return column;
     };
     
-    // Columna 1 - ID y título dinámicos según el tipo
-    const col1Config = columnTypeMapping[columnType1] || { id: 'nombre', title: 'Nombre' };
-    const col1 = buildColumn(columnType1, col1Config, 200, {
-      avatarVariant: column1AvatarVariant,
-      editable: column1Editable
-});
+    // Construir todas las columnas con IDs únicos
+    // Usar un índice para asegurar que cada columna tenga un ID único, incluso si comparten tipo
+    const columnTypes = [
+      columnType1,
+      columnType2,
+      columnType3,
+      columnType4,
+      columnType5,
+      columnType6,
+      columnType7,
+      columnType8,
+      columnType9,
+      columnType10
+    ];
     
-    // Columna 2 - ID y título dinámicos según el tipo
-    const col2Config = columnTypeMapping[columnType2] || { id: 'email', title: 'Email' };
-    const col2 = buildColumn(columnType2, col2Config, 250, {
-      emailClickable: column2EmailClickable,
-      editable: column1Editable, // Usar el control de columna 1 para simplicidad
+    const allColumns: TableColumn[] = columnTypes.map((columnType, index) => {
+      const baseConfig = columnTypeMapping[columnType] || { id: 'nombre', title: 'Nombre' };
+      
+      // Hacer el ID único agregando el índice
+      const baseId = baseConfig.id;
+      const uniqueId = `${baseId}-col${index + 1}`;
+      
+      const config = {
+        id: uniqueId,
+        title: baseConfig.title
+      };
+      
+      // Aplicar opciones específicas solo a las primeras columnas
+      let options: any = {};
+      if (index === 0) {
+        options = {
+          avatarVariant: column1AvatarVariant,
+          editable: column1Editable
+        };
+      } else if (index === 1) {
+        options = {
+          emailClickable: column2EmailClickable,
+          editable: column1Editable
+        };
+      } else if (index === 2) {
+        options = {
+          editable: column3Editable,
+          radioLabel: column3RadioLabel,
+          toggleLabel: column3ToggleLabel,
+          checkboxLabel: column3CheckboxLabel
+        };
+      }
+      
+      const width = index === 0 ? 200 : index === 1 ? 250 : index === 2 ? 150 : 180;
+      return buildColumn(columnType, config, width, options);
     });
-    
-    // Columna 3 - ID y título dinámicos según el tipo
-    const col3Config = columnTypeMapping[columnType3] || { id: 'estado', title: 'Estado' };
-    const col3 = buildColumn(columnType3, col3Config, 150, {
-      editable: column3Editable,
-      radioLabel: column3RadioLabel,
-      toggleLabel: column3ToggleLabel,
-      checkboxLabel: column3CheckboxLabel
-});
-    
-    // Columna 4 - ID y título dinámicos según el tipo
-    const col4Config = columnTypeMapping[columnType4] || { id: 'progreso', title: 'Progreso' };
-    const col4 = buildColumn(columnType4, col4Config, 180);
-    
-    // Columnas adicionales (5-10) - también con ID y título dinámicos
-    const col5Config = columnTypeMapping[columnType5] || { id: 'telefono', title: 'Teléfono' };
-    const col6Config = columnTypeMapping[columnType6] || { id: 'ciudad', title: 'Ciudad' };
-    const col7Config = columnTypeMapping[columnType7] || { id: 'pais', title: 'País' };
-    const col8Config = columnTypeMapping[columnType8] || { id: 'fecha', title: 'Fecha' };
-    const col9Config = columnTypeMapping[columnType9] || { id: 'categoria', title: 'Categoría' };
-    const col10Config = columnTypeMapping[columnType10] || { id: 'prioridad', title: 'Prioridad' };
-    
-    const allColumns: TableColumn[] = [
-      col1,
-      col2,
-      col3,
-      col4,
-      buildColumn(columnType5, col5Config, 150),
-      buildColumn(columnType6, col6Config, 150),
-      buildColumn(columnType7, col7Config, 150),
-      buildColumn(columnType8, col8Config, 150),
-      buildColumn(columnType9, col9Config, 150),
-      buildColumn(columnType10, col10Config, 150)
-];
     
     // Seleccionar solo las columnas necesarias según columnsCount
     // Asegurar que no exceda el número de columnas disponibles
