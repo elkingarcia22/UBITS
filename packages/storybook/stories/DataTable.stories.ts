@@ -3337,29 +3337,40 @@ export const ActionBar: Story = {
     
     // Función para renderizar la barra de acciones
     const renderActionBar = () => {
+      console.log('🔵 [ACTION BAR RENDER] Iniciando renderActionBar...');
+      console.log('  - tableElement existe:', !!tableElement);
+      
       if (!tableElement) {
-        console.warn('⚠️ [ACTION BAR] tableElement no está disponible');
+        console.error('❌ [ACTION BAR RENDER] tableElement no está disponible');
         return;
       }
       
       // Buscar el contenedor de la tabla (ubits-data-table__container)
       const dataTableContainer = tableElement.querySelector('.ubits-data-table__container') as HTMLElement;
+      console.log('  - dataTableContainer encontrado:', !!dataTableContainer);
+      
       if (!dataTableContainer) {
-        console.warn('⚠️ [ACTION BAR] No se encontró .ubits-data-table__container');
+        console.error('❌ [ACTION BAR RENDER] No se encontró .ubits-data-table__container');
+        console.log('  - tableElement.innerHTML (primeros 500 chars):', tableElement.innerHTML.substring(0, 500));
         return;
       }
       
       const header = dataTableContainer.querySelector('.ubits-data-table__header');
+      console.log('  - header encontrado:', !!header);
+      
       if (!header) {
-        console.warn('⚠️ [ACTION BAR] No se encontró .ubits-data-table__header');
+        console.error('❌ [ACTION BAR RENDER] No se encontró .ubits-data-table__header');
+        console.log('  - dataTableContainer.innerHTML (primeros 500 chars):', dataTableContainer.innerHTML.substring(0, 500));
         return;
       }
       
       // Buscar barra existente
       let actionBar = dataTableContainer.querySelector('.ubits-data-table__action-bar') as HTMLElement;
+      console.log('  - actionBar existente encontrada:', !!actionBar);
       
       // Si no existe, crearla
       if (!actionBar) {
+        console.log('  - Creando nueva actionBar...');
         actionBar = document.createElement('div');
         actionBar.className = 'ubits-data-table__action-bar';
         actionBar.style.cssText = `
@@ -3372,20 +3383,24 @@ export const ActionBar: Story = {
           gap: var(--ubits-spacing-xs);
         `;
         header.insertAdjacentElement('afterend', actionBar);
-        console.log('✅ [ACTION BAR] Barra de acciones creada');
+        console.log('✅ [ACTION BAR RENDER] Barra de acciones creada e insertada');
       }
       
       // Contar selecciones
       const selectedCount = selectionState.selectedRowIds.size;
       const selectedIds = Array.from(selectionState.selectedRowIds);
+      console.log('  - selectedCount:', selectedCount);
+      console.log('  - selectedIds:', selectedIds);
       
       // Ocultar la barra si no hay selecciones
       if (selectedCount === 0) {
+        console.log('  - Ocultando barra (no hay selecciones)');
         actionBar.style.display = 'none';
         return;
       }
       
       // Mostrar la barra cuando hay selecciones
+      console.log('  - Mostrando barra (hay selecciones)');
       actionBar.style.display = 'flex';
       
       const countText = `(${selectedCount})`;
@@ -3544,24 +3559,38 @@ export const ActionBar: Story = {
             showCounter: true
           },
           onRowSelect: (rowId, selected) => {
-            console.log('🔘 [ACTION BAR] onRowSelect:', rowId, selected);
+            console.log('🔘 [ACTION BAR CALLBACK] onRowSelect llamado');
+            console.log('  - rowId:', rowId);
+            console.log('  - selected:', selected);
+            console.log('  - selectionState antes:', Array.from(selectionState.selectedRowIds));
+            
             // Actualizar estado de selección
             if (selected) {
               selectionState.selectedRowIds.add(rowId);
             } else {
               selectionState.selectedRowIds.delete(rowId);
             }
-            console.log('📊 [ACTION BAR] Selecciones actuales:', Array.from(selectionState.selectedRowIds));
+            
+            console.log('  - selectionState después:', Array.from(selectionState.selectedRowIds));
+            console.log('  - Llamando renderActionBar...');
+            
             // Actualizar barra de acciones
             renderActionBar();
           },
           onSelectAll: (selected) => {
-            console.log('🔘 [ACTION BAR] onSelectAll:', selected);
+            console.log('🔘 [ACTION BAR CALLBACK] onSelectAll llamado');
+            console.log('  - selected:', selected);
+            console.log('  - tableElement existe:', !!tableElement);
+            
             // Actualizar estado de selección - todas las filas visibles
             if (tableElement) {
               const table = tableElement.querySelector('.ubits-data-table');
+              console.log('  - table encontrado:', !!table);
+              
               if (table) {
                 const checkboxes = table.querySelectorAll('input[type="checkbox"][data-column-id="checkbox-2"][data-row-id]');
+                console.log('  - checkboxes encontrados:', checkboxes.length);
+                
                 checkboxes.forEach((cb) => {
                   const rowIdStr = (cb as HTMLInputElement).getAttribute('data-row-id');
                   if (rowIdStr) {
@@ -3575,20 +3604,28 @@ export const ActionBar: Story = {
                 });
               }
             }
-            console.log('📊 [ACTION BAR] Selecciones después de selectAll:', Array.from(selectionState.selectedRowIds));
+            
+            console.log('  - selectionState después:', Array.from(selectionState.selectedRowIds));
+            console.log('  - Llamando renderActionBar...');
+            
             // Actualizar barra de acciones
             renderActionBar();
           }
         };
         
+        console.log('🟡 [ACTION BAR INIT] Creando tabla...');
         const tableInstance = createDataTable(options);
         tableElement = tableInstance.element; // Guardar referencia al elemento de la tabla
         (window as any).__storybookDataTableInstance = tableInstance;
         
-        console.log('✅ [ACTION BAR] Tabla creada, tableElement:', tableElement);
+        console.log('✅ [ACTION BAR INIT] Tabla creada');
+        console.log('  - tableElement:', tableElement);
+        console.log('  - tableElement.className:', tableElement.className);
+        console.log('  - tableElement tiene .ubits-data-table__container:', !!tableElement.querySelector('.ubits-data-table__container'));
         
         // Renderizar action bar inicialmente (estará oculta hasta que haya selecciones)
         setTimeout(() => {
+          console.log('🟡 [ACTION BAR INIT] Llamando renderActionBar inicial...');
           renderActionBar();
         }, 200);
       } else {
