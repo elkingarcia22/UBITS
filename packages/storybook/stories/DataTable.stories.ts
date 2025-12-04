@@ -4586,3 +4586,175 @@ export const EditableCells: Story = {
   }
 };
 
+export const EmptyState: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      height: auto;
+      overflow: visible !important;
+      max-height: none !important;
+    `;
+    
+    // Crear tres tablas para demostrar los diferentes tipos de empty state
+    const createTable = (tableId: string, title: string, rows: TableRow[], emptyStateConfig: any) => {
+      const tableContainer = document.createElement('div');
+      tableContainer.style.cssText = `
+        margin-bottom: 40px;
+      `;
+      
+      const titleElement = document.createElement('h3');
+      titleElement.textContent = title;
+      titleElement.style.cssText = `
+        margin-bottom: 16px;
+        font-family: var(--font-family-noto-sans-font-family);
+        font-size: var(--font-body-lg-size);
+        font-weight: var(--weight-bold);
+        color: var(--ubits-fg-1-high);
+      `;
+      tableContainer.appendChild(titleElement);
+      
+      const tableDiv = document.createElement('div');
+      tableDiv.id = tableId;
+      tableDiv.style.cssText = `
+        width: 100%;
+        max-width: 100%;
+        overflow: visible !important;
+      `;
+      tableContainer.appendChild(tableDiv);
+      
+      requestAnimationFrame(() => {
+        const containerElement = document.getElementById(tableId);
+        if (containerElement) {
+          const columns: TableColumn[] = [
+            { id: 'nombre', title: 'Nombre', type: 'nombre', width: 200 },
+            { id: 'email', title: 'Email', type: 'correo', width: 250 },
+            { id: 'estado', title: 'Estado', type: 'estado', width: 150 }
+          ];
+          
+          const options: DataTableOptions = {
+            containerId: tableId,
+            columns,
+            rows,
+            showCheckbox: false,
+            showColumnMenu: false,
+            showContextMenu: false,
+            showPagination: false,
+            emptyState: emptyStateConfig,
+            header: {
+              title: 'Usuarios',
+              showTitle: true,
+              counter: true,
+              showCounter: true
+            }
+          };
+          
+          const tableInstance = createDataTable(options);
+          (window as any)[`__storybookDataTableInstance_${tableId}`] = tableInstance;
+        }
+      });
+      
+      return tableContainer;
+    };
+    
+    // Tabla 1: Sin datos (noData)
+    const table1Id = `data-table-empty-no-data-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const table1 = createTable(
+      table1Id,
+      '1. Sin Datos (noData)',
+      [], // Sin filas
+      {
+        noData: {
+          title: 'No hay usuarios',
+          description: 'Aún no has creado ningún usuario. Comienza agregando tu primer usuario.',
+          icon: 'user-plus',
+          actionLabel: 'Agregar usuario',
+          showPrimaryButton: true,
+          primaryButtonIcon: 'plus',
+          showPrimaryButtonIcon: true,
+          onAction: () => {
+            alert('Acción: Agregar usuario');
+          }
+        }
+      }
+    );
+    container.appendChild(table1);
+    
+    // Tabla 2: Sin resultados de búsqueda (noSearchResults)
+    const table2Id = `data-table-empty-no-search-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const table2 = createTable(
+      table2Id,
+      '2. Sin Resultados de Búsqueda (noSearchResults)',
+      [], // Sin filas para simular búsqueda sin resultados
+      {
+        noSearchResults: {
+          title: 'No se encontraron resultados',
+          description: 'No hay usuarios que coincidan con tu búsqueda. Intenta con otros términos.',
+          icon: 'search',
+          actionLabel: 'Limpiar búsqueda',
+          showPrimaryButton: true,
+          primaryButtonIcon: 'times',
+          showPrimaryButtonIcon: true,
+          onAction: () => {
+            alert('Acción: Limpiar búsqueda');
+          },
+          secondaryActionLabel: 'Ver todos',
+          showSecondaryButton: true,
+          onSecondaryAction: () => {
+            alert('Acción: Ver todos');
+          }
+        }
+      }
+    );
+    container.appendChild(table2);
+    
+    // Tabla 3: Sin resultados de filtros (noFilterResults)
+    const table3Id = `data-table-empty-no-filter-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const table3 = createTable(
+      table3Id,
+      '3. Sin Resultados de Filtros (noFilterResults)',
+      [], // Sin filas para simular filtros sin resultados
+      {
+        noFilterResults: {
+          title: 'No hay resultados con estos filtros',
+          description: 'No se encontraron usuarios que cumplan con los filtros aplicados. Intenta ajustar los filtros.',
+          icon: 'filter',
+          actionLabel: 'Limpiar filtros',
+          showPrimaryButton: true,
+          primaryButtonIcon: 'times',
+          showPrimaryButtonIcon: true,
+          onAction: () => {
+            alert('Acción: Limpiar filtros');
+          },
+          secondaryActionLabel: 'Ver todos',
+          showSecondaryButton: true,
+          onSecondaryAction: () => {
+            alert('Acción: Ver todos');
+          }
+        }
+      }
+    );
+    container.appendChild(table3);
+    
+    return container;
+  },
+  args: {
+    showCheckbox: false,
+    showColumnMenu: false,
+    showContextMenu: false,
+    showPagination: false
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demuestra los diferentes tipos de empty state (estado vacío) en el DataTable. El empty state se muestra cuando no hay datos o no hay resultados después de aplicar búsqueda o filtros. Hay tres variantes: `noData` (cuando no hay datos en absoluto), `noSearchResults` (cuando no hay resultados de búsqueda) y `noFilterResults` (cuando no hay resultados de filtros). Cada variante puede tener título, descripción, icono, imagen, y botones de acción primarios y secundarios con callbacks personalizados.'
+      }
+    }
+  }
+};
+
