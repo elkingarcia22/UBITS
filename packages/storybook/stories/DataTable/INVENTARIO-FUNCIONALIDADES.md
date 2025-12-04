@@ -151,5 +151,5 @@
 20. ✅ **ColumnTypes** - Tipos de columnas
 21. ✅ **EditableCells** - Edición de celdas
 22. ✅ **EmptyState** - Estado vacío
-23. ⬜ **HeaderButtons** - Botones del header (primario y secundarios)
+23. ✅ **HeaderButtons** - Botones del header (primario y secundarios)
 
