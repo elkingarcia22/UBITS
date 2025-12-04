@@ -33,7 +33,10 @@ import '../../empty-state/src/styles/empty-state.css';
  * Renderiza una celda según el tipo de columna
  */
 function renderCellByType(column: TableColumn, row: TableRow, columnType: ColumnType): string {
-  const cellValue = row.data[column.id];
+  // Extraer el ID base del ID único (ej: "nombre-col1" -> "nombre")
+  // Esto permite usar IDs únicos para evitar duplicados pero mantener compatibilidad con datos
+  const baseId = column.id.includes('-col') ? column.id.split('-col')[0] : column.id;
+  const cellValue = row.data[column.id] || row.data[baseId];
   const cellData = row.data;
   
   switch (columnType) {
@@ -541,7 +544,9 @@ function renderCell(column: TableColumn, row: TableRow, pinnedLeft: number = 0):
     (column.id === 'checkbox' || column.id.startsWith('checkbox-'));
   
   if (isFixedCheckboxColumn) {
-    const checkboxValue = row.data[column.id] || false;
+    // Extraer el ID base del ID único para buscar datos
+    const baseId = column.id.includes('-col') ? column.id.split('-col')[0] : column.id;
+    const checkboxValue = row.data[column.id] || row.data[baseId] || false;
     
     const checkboxHTML = renderCheckbox({
       label: '',
