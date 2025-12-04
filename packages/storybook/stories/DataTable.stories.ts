@@ -3413,6 +3413,8 @@ export const ActionBar: Story = {
       const viewSelectedText = isViewSelectedActive
         ? `Ver todos ${countText}`
         : `Ver seleccionados ${countText}`;
+      // Cambiar icono según el estado: eye cuando inactivo, eye-slash cuando activo
+      const viewSelectedIcon = isViewSelectedActive ? 'eye-slash' : 'eye';
       
       // renderButton ya está importado al inicio del archivo
       let buttonsHTML = '';
@@ -3422,7 +3424,7 @@ export const ActionBar: Story = {
         text: viewSelectedText,
         variant: 'secondary',
         size: 'sm',
-        icon: 'eye',
+        icon: viewSelectedIcon, // Cambia según el estado
         iconStyle: 'regular',
         active: isViewSelectedActive, // Estado active cuando está activo
         className: 'ubits-data-table__action-bar-button',
