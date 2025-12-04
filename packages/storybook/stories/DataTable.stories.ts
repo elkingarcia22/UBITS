@@ -541,6 +541,7 @@ export const Default: Story = {
     // Leer directamente de args para asegurar reactividad
     const rawColumnsCount = args.columnsCount;
     const columnsCount = Math.max(1, Math.min(10, typeof rawColumnsCount === 'number' ? rawColumnsCount : 7));
+    console.log('🔵 [INIT] columnsCount inicial:', columnsCount, 'rawColumnsCount:', rawColumnsCount, 'tipo:', typeof rawColumnsCount);
     
     // Tipos de columna disponibles (pueden ser controlados desde Storybook)
     // Leer directamente de args para asegurar que se actualicen cuando cambien
@@ -1330,8 +1331,10 @@ export const Default: Story = {
     // Verificar si ya hay una tabla en el contenedor antes de crear una nueva
     // Esto previene renderizados duplicados cuando Storybook llama al render múltiples veces
     const checkAndCreateTable = () => {
+      console.log('🔵 [checkAndCreateTable] Iniciando...');
       const containerElement = document.getElementById(tableContainerId);
       if (!containerElement) {
+        console.log('❌ [checkAndCreateTable] Container no encontrado:', tableContainerId);
         return false;
       }
       
@@ -1339,10 +1342,16 @@ export const Default: Story = {
       const existingTable = containerElement.querySelector('.ubits-data-table');
       const existingScrollable = containerElement.querySelector('.ubits-data-table__scrollable-container');
       
+      console.log('  - existingTable:', !!existingTable);
+      console.log('  - existingScrollable:', !!existingScrollable);
+      console.log('  - options.columns.length:', options.columns.length);
+      
       if (existingTable || existingScrollable) {
+        console.log('⚠️ [checkAndCreateTable] Ya existe una tabla, no se creará otra');
         return false;
       }
       
+      console.log('✅ [checkAndCreateTable] Creando nueva tabla con', options.columns.length, 'columnas');
       tableInstance = createDataTable(options);
       
       // Guardar referencia a la instancia para poder inspeccionarla
@@ -1390,6 +1399,7 @@ export const Default: Story = {
     const buildColumnsFromArgs = (): TableColumn[] => {
       const currentRawColumnsCount = args.columnsCount;
       const currentColumnsCount = Math.max(1, Math.min(10, typeof currentRawColumnsCount === 'number' ? currentRawColumnsCount : 7));
+      console.log('🟢 [buildColumnsFromArgs] currentColumnsCount:', currentColumnsCount, 'raw:', currentRawColumnsCount, 'tipo:', typeof currentRawColumnsCount);
       
       const currentColumnType1 = args.columnType1 ?? 'nombre';
       const currentColumnType2 = args.columnType2 ?? 'correo';
@@ -1466,6 +1476,7 @@ export const Default: Story = {
       showCheckbox: args.showCheckbox,
       showPagination: args.showPagination
     });
+    console.log('🟡 [INIT] lastArgs inicial:', lastArgs);
     
     const checkArgsInterval = setInterval(() => {
       const currentRawColumnsCount = args.columnsCount;
@@ -1482,38 +1493,61 @@ export const Default: Story = {
       });
       
       if (currentArgs !== lastArgs) {
+        console.log('🟠 [CHECK] Cambio detectado!');
+        console.log('  - lastArgs:', lastArgs);
+        console.log('  - currentArgs:', currentArgs);
+        console.log('  - currentColumnsCount:', currentColumnsCount);
+        console.log('  - rawColumnsCount:', currentRawColumnsCount, 'tipo:', typeof currentRawColumnsCount);
         lastArgs = currentArgs;
+        
         // Destruir tabla existente y recrearla
         const containerElement = document.getElementById(tableContainerId);
-        if (containerElement) {
-          const existingTable = containerElement.querySelector('.ubits-data-table');
-          const existingScrollable = containerElement.querySelector('.ubits-data-table__scrollable-container');
+        if (!containerElement) {
+          console.log('❌ [CHECK] Container no encontrado:', tableContainerId);
+          return;
+        }
+        
+        const existingTable = containerElement.querySelector('.ubits-data-table');
+        const existingScrollable = containerElement.querySelector('.ubits-data-table__scrollable-container');
+        
+        console.log('  - existingTable:', !!existingTable);
+        console.log('  - existingScrollable:', !!existingScrollable);
+        
+        if (existingTable || existingScrollable) {
+          console.log('🟣 [CHECK] Destruyendo tabla existente...');
           
-          if (existingTable || existingScrollable) {
-            if (tableInstance) {
-              try {
-                tableInstance.destroy();
-              } catch (e) {
-                // Ignorar errores
-              }
-              tableInstance = null;
+          if (tableInstance) {
+            try {
+              console.log('  - Destruyendo instancia...');
+              tableInstance.destroy();
+            } catch (e) {
+              console.error('  - Error al destruir instancia:', e);
             }
-            
-            if (existingScrollable) {
-              existingScrollable.remove();
-            } else if (existingTable) {
-              existingTable.remove();
-            }
-            
-            // Reconstruir columnas y opciones con los nuevos argumentos
-            const newColumns = buildColumnsFromArgs();
-            options.columns = newColumns;
-            
-            // Recrear la tabla con los nuevos argumentos
-            setTimeout(() => {
-              checkAndCreateTable();
-            }, 50);
+            tableInstance = null;
           }
+          
+          if (existingScrollable) {
+            console.log('  - Removiendo scrollable container...');
+            existingScrollable.remove();
+          } else if (existingTable) {
+            console.log('  - Removiendo tabla...');
+            existingTable.remove();
+          }
+          
+          // Reconstruir columnas y opciones con los nuevos argumentos
+          console.log('🟢 [CHECK] Reconstruyendo columnas...');
+          const newColumns = buildColumnsFromArgs();
+          console.log('  - Nuevas columnas:', newColumns.length, 'columnas');
+          console.log('  - IDs de columnas:', newColumns.map(c => c.id));
+          options.columns = newColumns;
+          
+          // Recrear la tabla con los nuevos argumentos
+          setTimeout(() => {
+            console.log('🟢 [CHECK] Recreando tabla...');
+            checkAndCreateTable();
+          }, 50);
+        } else {
+          console.log('⚠️ [CHECK] No hay tabla existente para destruir');
         }
       }
     }, 100);
