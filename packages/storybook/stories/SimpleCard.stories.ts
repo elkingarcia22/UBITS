@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { renderSimpleCard, createSimpleCard } from '../../addons/card/src/SimpleCardProvider';
-import type { SimpleCardOptions } from '../../addons/card/src/types/SimpleCardOptions';
-import '../../addons/card/src/styles/simple-card.css';
-import '../../addons/button/src/styles/button.css';
+import { renderSimpleCard, createSimpleCard } from '../../components/card/src/SimpleCardProvider';
+import type { SimpleCardOptions } from '../../components/card/src/types/SimpleCardOptions';
+import '../../components/card/src/styles/simple-card.css';
+import '../../components/button/src/styles/button.css';
 
 // Tokens disponibles para controladores
 const BACKGROUND_TOKENS = [
@@ -401,5 +401,1021 @@ export const Default: Story = {
     
     return container;
   }
+};
+
+// Helper para renderizar Simple Card de manera consistente
+function renderSimpleCardStory(options: SimpleCardOptions) {
+  const container = document.createElement('div');
+  container.style.display = 'flex';
+  container.style.justifyContent = 'center';
+  container.style.alignItems = 'flex-start';
+  container.style.padding = '48px';
+  container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
+  container.style.minHeight = '400px';
+  container.style.width = '100%';
+  
+  const wrapper = document.createElement('div');
+  wrapper.style.width = '100%';
+  wrapper.style.display = 'flex';
+  wrapper.style.justifyContent = 'center';
+  
+  try {
+    const cardElement = createSimpleCard(options);
+    wrapper.appendChild(cardElement);
+    container.appendChild(wrapper);
+  } catch (error) {
+    console.error('❌ [SimpleCard Story] Error al crear card:', error);
+    const errorDiv = document.createElement('div');
+    errorDiv.textContent = `Error: ${error instanceof Error ? error.message : 'Error desconocido'}`;
+    errorDiv.style.color = 'var(--modifiers-normal-color-light-feedback-fg-error-subtle-default)';
+    errorDiv.style.padding = '20px';
+    container.appendChild(errorDiv);
+  }
+  
+  return container;
+}
+
+/**
+ * BasicCard
+ * Card básica con solo título
+ */
+export const BasicCard: Story = {
+  name: 'Basic Card',
+  args: {
+    title: 'Advanced Card',
+    showHeader: false,
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card básica con solo título.',
+      },
+    },
+  },
+};
+
+/**
+ * WithSubtitle
+ * Card con título y subtítulo
+ */
+export const WithSubtitle: Story = {
+  name: 'With Subtitle',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    showHeader: false,
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con título y subtítulo.',
+      },
+    },
+  },
+};
+
+/**
+ * WithContent
+ * Card con título y contenido
+ */
+export const WithContent: Story = {
+  name: 'With Content',
+  args: {
+    title: 'Advanced Card',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
+    showHeader: false,
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con título y contenido.',
+      },
+    },
+  },
+};
+
+/**
+ * WithSubtitleAndContent
+ * Card con título, subtítulo y contenido
+ */
+export const WithSubtitleAndContent: Story = {
+  name: 'With Subtitle and Content',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
+    showHeader: false,
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con título, subtítulo y contenido.',
+      },
+    },
+  },
+};
+
+/**
+ * WithHeader
+ * Card con header decorativo
+ */
+export const WithHeader: Story = {
+  name: 'With Header',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    showHeader: true,
+    headerDecorations: true,
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con header decorativo.',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutHeader
+ * Card sin header
+ */
+export const WithoutHeader: Story = {
+  name: 'Without Header',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    showHeader: false,
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card sin header.',
+      },
+    },
+  },
+};
+
+/**
+ * WithHeaderDecorations
+ * Card con header y decoraciones
+ */
+export const WithHeaderDecorations: Story = {
+  name: 'With Header Decorations',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    showHeader: true,
+    headerDecorations: true,
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con header y decoraciones (burbujas).',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutHeaderDecorations
+ * Card con header sin decoraciones
+ */
+export const WithoutHeaderDecorations: Story = {
+  name: 'Without Header Decorations',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    showHeader: true,
+    headerDecorations: false,
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con header sin decoraciones.',
+      },
+    },
+  },
+};
+
+/**
+ * VariantDefault
+ * Card variante default
+ */
+export const VariantDefault: Story = {
+  name: 'Variant - Default',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    variant: 'default',
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card variante default.',
+      },
+    },
+  },
+};
+
+/**
+ * VariantElevated
+ * Card variante elevated
+ */
+export const VariantElevated: Story = {
+  name: 'Variant - Elevated',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    variant: 'elevated',
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card variante elevated (con sombra).',
+      },
+    },
+  },
+};
+
+/**
+ * VariantBordered
+ * Card variante bordered
+ */
+export const VariantBordered: Story = {
+  name: 'Variant - Bordered',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    variant: 'bordered',
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card variante bordered.',
+      },
+    },
+  },
+};
+
+/**
+ * VariantFlat
+ * Card variante flat
+ */
+export const VariantFlat: Story = {
+  name: 'Variant - Flat',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    variant: 'flat',
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card variante flat (sin borde ni sombra).',
+      },
+    },
+  },
+};
+
+/**
+ * SizeSmall
+ * Card tamaño pequeño
+ */
+export const SizeSmall: Story = {
+  name: 'Size - Small',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    size: 'sm',
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card tamaño pequeño (sm: 280px).',
+      },
+    },
+  },
+};
+
+/**
+ * SizeMedium
+ * Card tamaño mediano
+ */
+export const SizeMedium: Story = {
+  name: 'Size - Medium',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    size: 'md',
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card tamaño mediano (md: 400px).',
+      },
+    },
+  },
+};
+
+/**
+ * SizeLarge
+ * Card tamaño grande
+ */
+export const SizeLarge: Story = {
+  name: 'Size - Large',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    size: 'lg',
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card tamaño grande (lg: 560px).',
+      },
+    },
+  },
+};
+
+/**
+ * SizeXLarge
+ * Card tamaño extra grande
+ */
+export const SizeXLarge: Story = {
+  name: 'Size - XLarge',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    size: 'xl',
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card tamaño extra grande (xl: 720px).',
+      },
+    },
+  },
+};
+
+/**
+ * WithButtons
+ * Card con botones
+ */
+export const WithButtons: Story = {
+  name: 'With Buttons',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    showButtons: true,
+    button1Label: 'Cancel',
+    button1Variant: 'secondary',
+    button2Label: 'Save',
+    button2Variant: 'primary'
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con botones.',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutButtons
+ * Card sin botones
+ */
+export const WithoutButtons: Story = {
+  name: 'Without Buttons',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card sin botones.',
+      },
+    },
+  },
+};
+
+/**
+ * SingleButton
+ * Card con un solo botón
+ */
+export const SingleButton: Story = {
+  name: 'Single Button',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    showButtons: true,
+    button1Label: 'Save',
+    button1Variant: 'primary',
+    button2Label: ''
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con un solo botón.',
+      },
+    },
+  },
+};
+
+/**
+ * MultipleButtons
+ * Card con múltiples botones
+ */
+export const MultipleButtons: Story = {
+  name: 'Multiple Buttons',
+  render: () => {
+    const cardOptions: SimpleCardOptions = {
+      title: 'Advanced Card',
+      subtitle: 'Card subtitle',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+      showButtons: true,
+      buttons: [
+        { label: 'Cancel', variant: 'secondary', size: 'md' },
+        { label: 'Save Draft', variant: 'secondary', size: 'md' },
+        { label: 'Save', variant: 'primary', size: 'md' }
+      ]
+    };
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con múltiples botones.',
+      },
+    },
+  },
+};
+
+/**
+ * ButtonVariants
+ * Card con botones de diferentes variantes
+ */
+export const ButtonVariants: Story = {
+  name: 'Button Variants',
+  render: () => {
+    const cardOptions: SimpleCardOptions = {
+      title: 'Advanced Card',
+      subtitle: 'Card subtitle',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+      showButtons: true,
+      buttons: [
+        { label: 'Primary', variant: 'primary', size: 'md' },
+        { label: 'Secondary', variant: 'secondary', size: 'md' },
+        { label: 'Tertiary', variant: 'tertiary', size: 'md' }
+      ]
+    };
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con botones de diferentes variantes.',
+      },
+    },
+  },
+};
+
+/**
+ * ButtonSizes
+ * Card con botones de diferentes tamaños
+ */
+export const ButtonSizes: Story = {
+  name: 'Button Sizes',
+  render: () => {
+    const cardOptions: SimpleCardOptions = {
+      title: 'Advanced Card',
+      subtitle: 'Card subtitle',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+      showButtons: true,
+      buttons: [
+        { label: 'XS', variant: 'secondary', size: 'xs' },
+        { label: 'SM', variant: 'secondary', size: 'sm' },
+        { label: 'MD', variant: 'secondary', size: 'md' },
+        { label: 'LG', variant: 'secondary', size: 'lg' }
+      ]
+    };
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con botones de diferentes tamaños.',
+      },
+    },
+  },
+};
+
+/**
+ * ButtonOnClick
+ * Card con botones y handlers onClick
+ */
+export const ButtonOnClick: Story = {
+  name: 'Button OnClick',
+  render: () => {
+    const cardOptions: SimpleCardOptions = {
+      title: 'Advanced Card',
+      subtitle: 'Card subtitle',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+      showButtons: true,
+      buttons: [
+        {
+          label: 'Cancel',
+          variant: 'secondary',
+          size: 'md',
+          onClick: () => {
+            alert('Cancel button clicked');
+          }
+        },
+        {
+          label: 'Save',
+          variant: 'primary',
+          size: 'md',
+          onClick: () => {
+            alert('Save button clicked');
+          }
+        }
+      ]
+    };
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con botones y handlers onClick.',
+      },
+    },
+  },
+};
+
+/**
+ * TitleTypographyH1
+ * Card con título typography h1
+ */
+export const TitleTypographyH1: Story = {
+  name: 'Title Typography - H1',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    titleTypographyClass: 'ubits-heading-h1',
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con título typography h1.',
+      },
+    },
+  },
+};
+
+/**
+ * TitleTypographyH2
+ * Card con título typography h2
+ */
+export const TitleTypographyH2: Story = {
+  name: 'Title Typography - H2',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    titleTypographyClass: 'ubits-heading-h2',
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con título typography h2.',
+      },
+    },
+  },
+};
+
+/**
+ * TitleTypographyBody
+ * Card con título typography body
+ */
+export const TitleTypographyBody: Story = {
+  name: 'Title Typography - Body',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    titleTypographyClass: 'ubits-body-md',
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con título typography body.',
+      },
+    },
+  },
+};
+
+/**
+ * CustomMaxWidth
+ * Card con ancho máximo personalizado
+ */
+export const CustomMaxWidth: Story = {
+  name: 'Custom Max Width',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    maxWidth: '600px',
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con ancho máximo personalizado.',
+      },
+    },
+  },
+};
+
+/**
+ * CustomHeaderBackground
+ * Card con header background personalizado
+ */
+export const CustomHeaderBackground: Story = {
+  name: 'Custom Header Background',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    showHeader: true,
+    headerBackgroundToken: 'var(--modifiers-normal-color-light-accent-brand)',
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con header background personalizado.',
+      },
+    },
+  },
+};
+
+/**
+ * LongTitle
+ * Card con título largo
+ */
+export const LongTitle: Story = {
+  name: 'Long Title',
+  args: {
+    title: 'Este es un título muy largo que debería truncarse correctamente en la card para evitar que se desborde del contenedor y mantenga un diseño limpio y profesional',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con título largo. Prueba el truncamiento de texto.',
+      },
+    },
+  },
+};
+
+/**
+ * LongSubtitle
+ * Card con subtítulo largo
+ */
+export const LongSubtitle: Story = {
+  name: 'Long Subtitle',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Este es un subtítulo muy largo que debería truncarse correctamente en la card para evitar que se desborde del contenedor y mantenga un diseño limpio y profesional',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con subtítulo largo. Prueba el truncamiento de texto.',
+      },
+    },
+  },
+};
+
+/**
+ * LongContent
+ * Card con contenido largo
+ */
+export const LongContent: Story = {
+  name: 'Long Content',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Este es un contenido muy largo que debería truncarse correctamente en la card para evitar que se desborde del contenedor y mantenga un diseño limpio y profesional. El contenido puede contener múltiples líneas de texto y debe manejarse adecuadamente para mantener la legibilidad y el diseño visual.',
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card con contenido largo. Prueba el truncamiento de texto.',
+      },
+    },
+  },
+};
+
+/**
+ * MinimalExample
+ * Ejemplo mínimo
+ */
+export const MinimalExample: Story = {
+  name: 'Minimal Example',
+  args: {
+    title: 'Advanced Card',
+    showHeader: false,
+    showButtons: false
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card mínimo con solo título.',
+      },
+    },
+  },
+};
+
+/**
+ * CompleteExample
+ * Ejemplo completo
+ */
+export const CompleteExample: Story = {
+  name: 'Complete Example',
+  args: {
+    title: 'Advanced Card',
+    subtitle: 'Card subtitle',
+    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!',
+    showHeader: true,
+    headerDecorations: true,
+    variant: 'elevated',
+    size: 'md',
+    showButtons: true,
+    button1Label: 'Cancel',
+    button1Variant: 'secondary',
+    button2Label: 'Save',
+    button2Variant: 'primary'
+  },
+  render: (args) => {
+    const cardOptions = buildSimpleCardOptions(args);
+    return renderSimpleCardStory(cardOptions);
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Simple Card completo con todas las opciones: header, decoraciones, variante elevated, botones, etc.',
+      },
+    },
+  },
+};
+
+/**
+ * AllVariants
+ * Múltiples cards con todas las variantes
+ */
+export const AllVariants: Story = {
+  name: 'All Variants',
+  render: () => {
+    const container = document.createElement('div');
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.gap = '24px';
+    container.style.padding = '48px';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
+    container.style.width = '100%';
+    
+    const variants: Array<'default' | 'elevated' | 'bordered' | 'flat'> = ['default', 'elevated', 'bordered', 'flat'];
+    
+    variants.forEach(variant => {
+      const cardOptions: SimpleCardOptions = {
+        title: `Card ${variant.charAt(0).toUpperCase() + variant.slice(1)}`,
+        subtitle: `Variante ${variant}`,
+        content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+        variant: variant,
+        showButtons: false
+      };
+      
+      const wrapper = document.createElement('div');
+      wrapper.style.width = '100%';
+      wrapper.style.display = 'flex';
+      wrapper.style.justifyContent = 'center';
+      
+      const cardElement = createSimpleCard(cardOptions);
+      wrapper.appendChild(cardElement);
+      container.appendChild(wrapper);
+    });
+    
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Múltiples Simple Cards mostrando todas las variantes (default, elevated, bordered, flat).',
+      },
+    },
+  },
+};
+
+/**
+ * AllSizes
+ * Múltiples cards con todos los tamaños
+ */
+export const AllSizes: Story = {
+  name: 'All Sizes',
+  render: () => {
+    const container = document.createElement('div');
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.gap = '24px';
+    container.style.padding = '48px';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
+    container.style.width = '100%';
+    
+    const sizes: Array<'sm' | 'md' | 'lg' | 'xl'> = ['sm', 'md', 'lg', 'xl'];
+    
+    sizes.forEach(size => {
+      const cardOptions: SimpleCardOptions = {
+        title: `Card ${size.toUpperCase()}`,
+        subtitle: `Tamaño ${size}`,
+        content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+        size: size,
+        showButtons: false
+      };
+      
+      const wrapper = document.createElement('div');
+      wrapper.style.width = '100%';
+      wrapper.style.display = 'flex';
+      wrapper.style.justifyContent = 'center';
+      
+      const cardElement = createSimpleCard(cardOptions);
+      wrapper.appendChild(cardElement);
+      container.appendChild(wrapper);
+    });
+    
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Múltiples Simple Cards mostrando todos los tamaños (sm, md, lg, xl).',
+      },
+    },
+  },
 };
 
