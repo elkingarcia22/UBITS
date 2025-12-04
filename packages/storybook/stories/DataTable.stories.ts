@@ -1389,9 +1389,9 @@ export const Default: Story = {
               return { id, text };
             });
             console.log('  - Columnas en la tabla renderizada:', headerCells.length);
-            console.log('  - IDs y textos de columnas:', columnIds);
+            console.log('  - IDs y textos de columnas:', JSON.stringify(columnIds, null, 2));
             console.log('  - options.columns.length:', options.columns.length);
-            console.log('  - options.columns IDs:', options.columns.map(c => c.id));
+            console.log('  - options.columns IDs:', JSON.stringify(options.columns.map(c => ({ id: c.id, title: c.title, type: c.type })), null, 2));
             
             // Contar solo columnas de datos (excluyendo checkbox, expand, drag-handle)
             const dataColumns = columnIds.filter(col => 
