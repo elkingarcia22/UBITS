@@ -2751,3 +2751,126 @@ export const ColumnMenu: Story = {
   }
 };
 
+/**
+ * Historia: Menú Contextual
+ * 
+ * Esta historia demuestra cómo funciona el menú contextual (click derecho) en las filas.
+ * El menú contextual muestra acciones disponibles para cada fila (ver, editar, eliminar, etc.).
+ */
+export const ContextMenu: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      height: auto;
+      overflow: visible !important;
+      max-height: none !important;
+    `;
+    
+    const tableContainerId = `data-table-context-menu-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const tableContainer = document.createElement('div');
+    tableContainer.id = tableContainerId;
+    tableContainer.style.cssText = `
+      width: 100%;
+      overflow: visible !important;
+      min-height: auto;
+      height: auto;
+      max-height: none !important;
+    `;
+    
+    container.appendChild(tableContainer);
+    
+    // Generar datos de ejemplo
+    const generateRows = (): TableRow[] => {
+      const rows: TableRow[] = [];
+      for (let i = 1; i <= 10; i++) {
+        rows.push({
+          id: i,
+          data: {
+            nombre: `Usuario ${i}`,
+            email: `usuario${i}@ejemplo.com`,
+            estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
+            pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
+            fecha: new Date(2024, 0, i).toISOString().split('T')[0]
+          }
+        });
+      }
+      return rows;
+    };
+    
+    const rows = generateRows();
+    
+    // Columnas simples para demostrar el menú contextual
+    const columns: TableColumn[] = [
+      { id: 'nombre', title: 'Nombre', type: 'nombre', width: 200 },
+      { id: 'email', title: 'Email', type: 'correo', width: 250 },
+      { id: 'estado', title: 'Estado', type: 'estado', width: 150 },
+      { id: 'pais', title: 'País', type: 'pais', width: 150 },
+      { id: 'fecha', title: 'Fecha', type: 'fecha', width: 150 }
+    ];
+    
+    const options: DataTableOptions = {
+      containerId: tableContainer.id,
+      columns,
+      rows,
+      columnReorderable: false,
+      rowReorderable: false,
+      rowExpandable: false,
+      columnSortable: false,
+      showCheckbox: false,
+      showVerticalScrollbar: false,
+      showHorizontalScrollbar: false,
+      showColumnMenu: false,
+      showContextMenu: true, // Habilitar menú contextual
+      showPagination: false,
+      header: {
+        title: 'Menú Contextual',
+        showTitle: true,
+        counter: true,
+        displayedItems: rows.length,
+        totalItems: rows.length
+      },
+      onRowAction: (rowId: string | number, row: TableRow) => {
+        console.log(`🖱️ Acción ejecutada en fila ${rowId}:`, row.data);
+      }
+    };
+    
+    // Usar requestAnimationFrame para asegurar que el DOM esté listo
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(tableContainer.id);
+      if (containerElement) {
+        const tableInstance = createDataTable(options);
+        (window as any).__storybookDataTableInstance = tableInstance;
+      } else {
+        console.error('❌ Contenedor no encontrado en el DOM:', tableContainer.id);
+      }
+    });
+    
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Esta historia demuestra cómo funciona el menú contextual en las filas. Cuando `showContextMenu` está habilitado, puedes hacer click derecho en cualquier fila para abrir un menú contextual con acciones disponibles (ver, editar, eliminar, etc.). El callback `onRowAction` se ejecuta cuando se selecciona una acción del menú, recibiendo el ID de la fila y los datos completos de la fila.'
+      }
+    }
+  },
+  args: {
+    columnReorderable: false,
+    rowReorderable: false,
+    rowExpandable: false,
+    columnSortable: false,
+    showCheckbox: false,
+    showVerticalScrollbar: false,
+    showHorizontalScrollbar: false,
+    showColumnMenu: false,
+    showContextMenu: true,
+    showPagination: false
+  }
+};
+
