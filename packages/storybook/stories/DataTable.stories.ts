@@ -706,6 +706,7 @@ export const Default: Story = {
     const validColumnsCount = Math.min(columnsCount, allColumns.length);
     const columns: TableColumn[] = allColumns.slice(0, validColumnsCount);
     console.log('🟡 [INIT] Columnas seleccionadas:', columns.length, 'de', allColumns.length, 'disponibles. columnsCount:', columnsCount, 'validColumnsCount:', validColumnsCount);
+    console.log('🟡 [INIT] Columnas seleccionadas:', columns.length, 'de', allColumns.length, 'disponibles. columnsCount:', columnsCount, 'validColumnsCount:', validColumnsCount);
     
     // Función helper para enriquecer los datos de las filas con campos para tipos interactivos
     // Coincide con la implementación de la web
