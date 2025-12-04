@@ -237,7 +237,7 @@
     width: 100%;
     background-color: var(--modifiers-normal-color-light-bg-1);
     box-sizing: border-box;
-    padding: 0 var(--ubits-spacing-md) var(--ubits-spacing-md) var(--ubits-spacing-md);
+    padding: 0 var(--ubits-spacing-md) var(--ubits-spacing-2xl) var(--ubits-spacing-md);
     overflow: visible !important; /* Cambiar a visible por defecto, se aplicará auto solo cuando sea necesario */
     max-height: none !important; /* Remover max-height por defecto - el scrollable-container maneja su propio max-height */
     border-collapse: collapse;

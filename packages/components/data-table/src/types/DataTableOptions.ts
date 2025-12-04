@@ -250,7 +250,7 @@ export interface DataTableOptions {
   currentPage?: number;
 
   /**
-   * Items por página (por defecto: 10)
+   * Items por página (por defecto: 20)
    */
   itemsPerPage?: number;
 

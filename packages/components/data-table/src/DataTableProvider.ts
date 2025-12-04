@@ -1090,7 +1090,7 @@ export function renderDataTable(
     showColumnMenu = true,
     showPagination = false,
     currentPage = 1,
-    itemsPerPage = 10,
+    itemsPerPage = 20,
     paginationVariant = 'default',
     paginationSize = 'md',
     lazyLoad,
