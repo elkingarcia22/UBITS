@@ -8,7 +8,7 @@ export function renderBadge(options: BadgeOptions = {}): string {
     content,
     size = 'md',
     type,
-    variant = 'primary',
+    variant = 'error',
     style,
     absolute = false,
     position = 'top-right',
@@ -46,16 +46,14 @@ export function renderBadge(options: BadgeOptions = {}): string {
   if (needsDot) {
     // Determinar color del punto según la variante usando tokens Figma
     const variantColors: Record<string, string> = {
-      'primary': 'var(--modifiers-normal-color-light-feedback-accent-error)',
-      'secondary': 'var(--modifiers-normal-color-light-fg-1-medium)',
       'success': 'var(--modifiers-normal-color-light-feedback-accent-success)',
       'warning': 'var(--modifiers-normal-color-light-feedback-accent-warning)',
       'error': 'var(--modifiers-normal-color-light-feedback-accent-error)',
       'info': 'var(--modifiers-normal-color-light-feedback-accent-info)'
     };
     // Normalizar el nombre de la variante (por si acaso viene con mayúsculas o espacios)
-    const normalizedVariant = String(variant || 'primary').toLowerCase().trim();
-    const dotColor = variantColors[normalizedVariant] || variantColors['primary'];
+    const normalizedVariant = String(variant || 'error').toLowerCase().trim();
+    const dotColor = variantColors[normalizedVariant] || variantColors['error'];
     
     // Para estilo bold: dot blanco, número del color de la variante
     // Para light/neutral: dot del color de la variante, número blanco dentro del dot

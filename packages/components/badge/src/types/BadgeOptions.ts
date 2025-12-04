@@ -20,7 +20,7 @@ export interface BadgeOptions {
   /**
    * Variante de color
    */
-  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';
+  variant?: 'success' | 'warning' | 'error' | 'info';
   
   /**
    * Estilo del badge: 'light' (badge y label sin borde), 'neutral' (con borde gris) o 'bold' (fondo de color y texto blanco)

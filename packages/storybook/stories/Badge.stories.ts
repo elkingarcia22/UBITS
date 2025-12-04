@@ -381,53 +381,6 @@ export const SizeLG: Story = {
   },
 };
 
-/**
- * VariantPrimary
- * Badge variante primary
- */
-export const VariantPrimary: Story = {
-  name: 'Variant - Primary',
-  args: {
-    type: 'number',
-    variant: 'primary',
-    style: 'light',
-    size: 'md',
-    content: 5,
-    absolute: false,
-  },
-  render: (args) => renderBadgeStory(args),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Badge variante primary.',
-      },
-    },
-  },
-};
-
-/**
- * VariantSecondary
- * Badge variante secondary
- */
-export const VariantSecondary: Story = {
-  name: 'Variant - Secondary',
-  args: {
-    type: 'number',
-    variant: 'secondary',
-    style: 'light',
-    size: 'md',
-    content: 5,
-    absolute: false,
-  },
-  render: (args) => renderBadgeStory(args),
-  parameters: {
-    docs: {
-      description: {
-        story: 'Badge variante secondary.',
-      },
-    },
-  },
-};
 
 /**
  * VariantSuccess
@@ -928,7 +881,7 @@ export const AllVariants: Story = {
   name: 'All Variants',
   args: {
     type: 'number',
-    variant: 'primary',
+    variant: 'error',
     style: 'light',
     size: 'md',
     content: 5,
@@ -952,7 +905,7 @@ export const AllVariants: Story = {
     preview.style.marginBottom = '20px';
     preview.style.flexWrap = 'wrap';
     
-    const variants: Array<BadgeOptions['variant']> = ['primary', 'secondary', 'success', 'warning', 'error', 'info'];
+    const variants: Array<BadgeOptions['variant']> = ['success', 'warning', 'error', 'info'];
     
     variants.forEach(variant => {
       const badgeContainer = document.createElement('div');
@@ -981,7 +934,7 @@ export const AllVariants: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Todos los colores de variante disponibles (primary, secondary, success, warning, error, info).',
+        story: 'Todos los colores de variante disponibles (success, warning, error, info).',
       },
     },
   },
