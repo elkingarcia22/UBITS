@@ -1477,50 +1477,59 @@ export const Default: Story = {
       const currentColumn3ToggleLabel = args.column3ToggleLabel ?? false;
       const currentColumn3CheckboxLabel = args.column3CheckboxLabel !== undefined ? args.column3CheckboxLabel : true;
       
-      const col1Config = columnTypeMapping[currentColumnType1] || { id: 'nombre', title: 'Nombre' };
-      const col1 = buildColumn(currentColumnType1, col1Config, 200, {
-        avatarVariant: currentColumn1AvatarVariant,
-        editable: currentColumn1Editable
-      });
-      
-      const col2Config = columnTypeMapping[currentColumnType2] || { id: 'email', title: 'Email' };
-      const col2 = buildColumn(currentColumnType2, col2Config, 250, {
-        emailClickable: currentColumn2EmailClickable,
-        editable: currentColumn1Editable
-      });
-      
-      const col3Config = columnTypeMapping[currentColumnType3] || { id: 'estado', title: 'Estado' };
-      const col3 = buildColumn(currentColumnType3, col3Config, 150, {
-        editable: currentColumn3Editable,
-        radioLabel: currentColumn3RadioLabel,
-        toggleLabel: currentColumn3ToggleLabel,
-        checkboxLabel: currentColumn3CheckboxLabel
-      });
-      
-      const col4Config = columnTypeMapping[currentColumnType4] || { id: 'progreso', title: 'Progreso' };
-      const col4 = buildColumn(currentColumnType4, col4Config, 180);
-      
-      const col5Config = columnTypeMapping[currentColumnType5] || { id: 'telefono', title: 'Teléfono' };
-      const col6Config = columnTypeMapping[currentColumnType6] || { id: 'ciudad', title: 'Ciudad' };
-      const col7Config = columnTypeMapping[currentColumnType7] || { id: 'pais', title: 'País' };
-      const col8Config = columnTypeMapping[currentColumnType8] || { id: 'fecha', title: 'Fecha' };
-      const col9Config = columnTypeMapping[currentColumnType9] || { id: 'categoria', title: 'Categoría' };
-      const col10Config = columnTypeMapping[currentColumnType10] || { id: 'prioridad', title: 'Prioridad' };
-      
-      const allColumns: TableColumn[] = [
-        col1,
-        col2,
-        col3,
-        col4,
-        buildColumn(currentColumnType5, col5Config, 150),
-        buildColumn(currentColumnType6, col6Config, 150),
-        buildColumn(currentColumnType7, col7Config, 150),
-        buildColumn(currentColumnType8, col8Config, 150),
-        buildColumn(currentColumnType9, col9Config, 150),
-        buildColumn(currentColumnType10, col10Config, 150)
+      // Construir todas las columnas con IDs únicos
+      // Usar un índice para asegurar que cada columna tenga un ID único, incluso si comparten tipo
+      const columnTypes = [
+        currentColumnType1,
+        currentColumnType2,
+        currentColumnType3,
+        currentColumnType4,
+        currentColumnType5,
+        currentColumnType6,
+        currentColumnType7,
+        currentColumnType8,
+        currentColumnType9,
+        currentColumnType10
       ];
       
-      return allColumns.slice(0, currentColumnsCount);
+      const allColumns: TableColumn[] = columnTypes.slice(0, currentColumnsCount).map((columnType, index) => {
+        const baseConfig = columnTypeMapping[columnType] || { id: 'nombre', title: 'Nombre' };
+        
+        // Hacer el ID único agregando el índice si es necesario
+        // Solo agregar sufijo si hay múltiples columnas con el mismo tipo base
+        const baseId = baseConfig.id;
+        const uniqueId = `${baseId}-col${index + 1}`;
+        
+        const config = {
+          id: uniqueId,
+          title: baseConfig.title
+        };
+        
+        // Aplicar opciones específicas solo a las primeras columnas
+        let options: any = {};
+        if (index === 0) {
+          options = {
+            avatarVariant: currentColumn1AvatarVariant,
+            editable: currentColumn1Editable
+          };
+        } else if (index === 1) {
+          options = {
+            emailClickable: currentColumn2EmailClickable,
+            editable: currentColumn1Editable
+          };
+        } else if (index === 2) {
+          options = {
+            editable: currentColumn3Editable,
+            radioLabel: currentColumn3RadioLabel,
+            toggleLabel: currentColumn3ToggleLabel,
+            checkboxLabel: currentColumn3CheckboxLabel
+          };
+        }
+        
+        return buildColumn(columnType, config, index === 0 ? 200 : index === 1 ? 250 : index === 2 ? 150 : 180, options);
+      });
+      
+      return allColumns;
     };
     
     // Observar cambios en columnsCount y otros args para re-renderizar la tabla
