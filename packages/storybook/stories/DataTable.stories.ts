@@ -4252,3 +4252,170 @@ export const PinnedColumns: Story = {
   }
 };
 
+export const ColumnTypes: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      height: auto;
+      overflow: visible !important;
+      max-height: none !important;
+    `;
+    
+    const tableContainerId = `data-table-column-types-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const tableContainer = document.createElement('div');
+    tableContainer.id = tableContainerId;
+    tableContainer.style.cssText = `
+      width: 100%;
+      max-width: 100%;
+      overflow: visible !important;
+    `;
+    container.appendChild(tableContainer);
+    
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(tableContainerId);
+      if (containerElement) {
+        // Generar filas de ejemplo con diferentes tipos de datos
+        const generateRows = (): TableRow[] => {
+          return [
+            {
+              id: 1,
+              data: {
+                nombre: 'Juan Pérez',
+                nombreAvatar: 'María García',
+                nombreAvatarTexto: 'Carlos López',
+                correo: 'juan.perez@example.com',
+                estado: 'activo',
+                progreso: 75,
+                fecha: '2024-01-15',
+                telefono: '+57 300 123 4567',
+                checkbox: true,
+                radio: true,
+                toggle: true,
+                pais: 'Colombia',
+                ciudad: 'Bogotá',
+                area: 'Desarrollo',
+                lider: 'Ana Martínez'
+              }
+            },
+            {
+              id: 2,
+              data: {
+                nombre: 'Ana Martínez',
+                nombreAvatar: 'Pedro Rodríguez',
+                nombreAvatarTexto: 'Laura Sánchez',
+                correo: 'ana.martinez@example.com',
+                estado: 'pendiente',
+                progreso: 45,
+                fecha: '2024-02-20',
+                telefono: '+57 301 234 5678',
+                checkbox: false,
+                radio: false,
+                toggle: false,
+                pais: 'México',
+                ciudad: 'Ciudad de México',
+                area: 'Diseño',
+                lider: 'Juan Pérez'
+              }
+            },
+            {
+              id: 3,
+              data: {
+                nombre: 'Carlos López',
+                nombreAvatar: 'Sofía Hernández',
+                nombreAvatarTexto: 'Diego Torres',
+                correo: 'carlos.lopez@example.com',
+                estado: 'inactivo',
+                progreso: 90,
+                fecha: '2024-03-10',
+                telefono: '+57 302 345 6789',
+                checkbox: true,
+                radio: true,
+                toggle: true,
+                pais: 'Argentina',
+                ciudad: 'Buenos Aires',
+                area: 'Marketing',
+                lider: 'Ana Martínez'
+              }
+            }
+          ];
+        };
+        
+        const rows = generateRows();
+        
+        // Columnas con diferentes tipos
+        const columns: TableColumn[] = [
+          { id: 'nombre', title: 'Nombre', type: 'nombre', width: 200 },
+          { 
+            id: 'nombreAvatar', 
+            title: 'Nombre + Avatar', 
+            type: 'nombre-avatar', 
+            width: 250,
+            avatarVariant: 'initials' // Puede ser 'photo', 'initials' o 'icon'
+          },
+          { 
+            id: 'nombreAvatarTexto', 
+            title: 'Nombre + Avatar + Texto', 
+            type: 'nombre-avatar-texto', 
+            width: 280,
+            avatarVariant: 'initials'
+          },
+          { id: 'correo', title: 'Correo', type: 'correo', width: 250, emailClickable: true },
+          { id: 'estado', title: 'Estado', type: 'estado', width: 150 },
+          { id: 'progreso', title: 'Progreso', type: 'progreso', width: 200 },
+          { id: 'fecha', title: 'Fecha', type: 'fecha', width: 150 },
+          { id: 'telefono', title: 'Teléfono', type: 'telefono', width: 180 },
+          { id: 'checkbox', title: 'Checkbox', type: 'checkbox', width: 120, checkboxLabel: 'Aprobado' },
+          { id: 'radio', title: 'Radio', type: 'radio', width: 120, radioLabel: 'Seleccionar' },
+          { id: 'toggle', title: 'Toggle', type: 'toggle', width: 120, toggleLabel: 'Activo' },
+          { id: 'pais', title: 'País', type: 'pais', width: 150 },
+          { id: 'ciudad', title: 'Ciudad', type: 'ciudad', width: 150 },
+          { id: 'area', title: 'Área', type: 'area', width: 150 },
+          { id: 'lider', title: 'Líder', type: 'lider', width: 200 }
+        ];
+        
+        const options: DataTableOptions = {
+          containerId: tableContainerId,
+          columns,
+          rows,
+          showCheckbox: false, // No mostrar checkbox de selección múltiple
+          showColumnMenu: false,
+          showContextMenu: false,
+          showPagination: false,
+          header: {
+            title: 'Tipos de Columnas',
+            showTitle: true,
+            counter: true,
+            showCounter: true
+          }
+        };
+        
+        const tableInstance = createDataTable(options);
+        (window as any).__storybookDataTableInstance = tableInstance;
+      } else {
+        console.error('❌ Contenedor no encontrado en el DOM:', tableContainerId);
+      }
+    });
+    
+    return container;
+  },
+  args: {
+    showCheckbox: false,
+    showColumnMenu: false,
+    showContextMenu: false,
+    showPagination: false
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demuestra los diferentes tipos de columnas disponibles en el DataTable. Incluye ejemplos de: nombre, nombre-avatar, nombre-avatar-texto, correo, estado, progreso, fecha, teléfono, checkbox, radio, toggle, país, ciudad, área y líder. Cada tipo de columna tiene su propio formato de renderizado y comportamiento.'
+      }
+    }
+  }
+};
+
