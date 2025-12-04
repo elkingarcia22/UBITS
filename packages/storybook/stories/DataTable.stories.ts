@@ -1385,6 +1385,86 @@ export const Default: Story = {
         console.error(`❌ [STORY] Error creating data table:`, error);
       }
     });
+    
+    // Observar cambios en columnsCount y otros args para re-renderizar la tabla
+    let lastArgs = JSON.stringify({
+      columnsCount: columnsCount,
+      columnType1: columnType1,
+      columnType2: columnType2,
+      columnType3: columnType3,
+      columnType4: columnType4,
+      showCheckbox: args.showCheckbox,
+      showPagination: args.showPagination
+    });
+    
+    const checkArgsInterval = setInterval(() => {
+      const currentRawColumnsCount = args.columnsCount;
+      const currentColumnsCount = Math.max(1, Math.min(10, typeof currentRawColumnsCount === 'number' ? currentRawColumnsCount : 7));
+      
+      const currentArgs = JSON.stringify({
+        columnsCount: currentColumnsCount,
+        columnType1: args.columnType1 ?? 'nombre',
+        columnType2: args.columnType2 ?? 'correo',
+        columnType3: args.columnType3 ?? 'estado',
+        columnType4: args.columnType4 ?? 'nombre',
+        showCheckbox: args.showCheckbox,
+        showPagination: args.showPagination
+      });
+      
+      if (currentArgs !== lastArgs) {
+        lastArgs = currentArgs;
+        // Destruir tabla existente y recrearla
+        const containerElement = document.getElementById(tableContainerId);
+        if (containerElement) {
+          const existingTable = containerElement.querySelector('.ubits-data-table');
+          const existingScrollable = containerElement.querySelector('.ubits-data-table__scrollable-container');
+          
+          if (existingTable || existingScrollable) {
+            if (tableInstance) {
+              try {
+                tableInstance.destroy();
+              } catch (e) {
+                // Ignorar errores
+              }
+              tableInstance = null;
+            }
+            
+            if (existingScrollable) {
+              existingScrollable.remove();
+            } else if (existingTable) {
+              existingTable.remove();
+            }
+            
+            // Recrear la tabla con los nuevos argumentos
+            setTimeout(() => {
+              checkAndCreateTable();
+            }, 50);
+          }
+        }
+      }
+    }, 100);
+    
+    // Limpiar interval cuando se destruye el componente
+    const cleanup = () => {
+      clearInterval(checkArgsInterval);
+      if (tableInstance) {
+        try {
+          tableInstance.destroy();
+        } catch (e) {
+          // Ignorar errores
+        }
+      }
+    };
+    
+    // Usar MutationObserver para detectar cuando el container se elimina
+    const observer = new MutationObserver(() => {
+      if (!document.body.contains(container)) {
+        cleanup();
+        observer.disconnect();
+      }
+    });
+    
+    observer.observe(document.body, { childList: true, subtree: true });
 
     return container;
   },
