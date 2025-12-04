@@ -2373,3 +2373,125 @@ export const CheckboxSelection: Story = {
   }
 };
 
+/**
+ * Historia: Scroll Vertical
+ * 
+ * Esta historia demuestra cómo funciona el scroll vertical en la tabla.
+ * Cuando hay muchas filas, el scroll vertical permite navegar por todas ellas sin que la tabla ocupe todo el espacio disponible.
+ */
+export const VerticalScroll: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-height: 400px;
+      height: 500px;
+      overflow: visible !important;
+      max-height: 500px !important;
+    `;
+    
+    const tableContainerId = `data-table-vertical-scroll-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const tableContainer = document.createElement('div');
+    tableContainer.id = tableContainerId;
+    tableContainer.style.cssText = `
+      width: 100%;
+      height: 100%;
+      overflow: visible !important;
+    `;
+    
+    container.appendChild(tableContainer);
+    
+    // Generar muchas filas para demostrar el scroll vertical
+    const generateRows = (): TableRow[] => {
+      const rows: TableRow[] = [];
+      const nombres = ['Ana', 'Carlos', 'Beatriz', 'Diego', 'Elena', 'Fernando', 'Gabriela', 'Hugo', 'Isabel', 'Juan'];
+      const paises = ['Colombia', 'México', 'Argentina', 'Chile', 'Perú', 'Ecuador', 'Venezuela', 'Uruguay', 'Paraguay', 'Bolivia'];
+      const estados = ['activo', 'pendiente', 'inactivo'];
+      
+      for (let i = 1; i <= 50; i++) {
+        rows.push({
+          id: i,
+          data: {
+            nombre: `${nombres[i % 10]} ${i}`,
+            email: `${nombres[i % 10].toLowerCase()}${i}@ejemplo.com`,
+            estado: estados[i % 3],
+            pais: paises[i % 10],
+            fecha: new Date(2024, 0, (i % 28) + 1).toISOString().split('T')[0]
+          }
+        });
+      }
+      return rows;
+    };
+    
+    const rows = generateRows();
+    
+    // Columnas simples
+    const columns: TableColumn[] = [
+      { id: 'nombre', title: 'Nombre', type: 'nombre', width: 200 },
+      { id: 'email', title: 'Email', type: 'correo', width: 250 },
+      { id: 'estado', title: 'Estado', type: 'estado', width: 150 },
+      { id: 'pais', title: 'País', type: 'pais', width: 150 },
+      { id: 'fecha', title: 'Fecha', type: 'fecha', width: 150 }
+    ];
+    
+    const options: DataTableOptions = {
+      containerId: tableContainer.id,
+      columns,
+      rows,
+      columnReorderable: false,
+      rowReorderable: false,
+      rowExpandable: false,
+      columnSortable: false,
+      showCheckbox: false,
+      showVerticalScrollbar: true, // Habilitar scroll vertical
+      showHorizontalScrollbar: false,
+      showColumnMenu: false,
+      showContextMenu: false,
+      showPagination: false,
+      header: {
+        title: 'Scroll Vertical',
+        showTitle: true,
+        counter: true,
+        displayedItems: rows.length,
+        totalItems: rows.length
+      }
+    };
+    
+    // Usar requestAnimationFrame para asegurar que el DOM esté listo
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(tableContainer.id);
+      if (containerElement) {
+        const tableInstance = createDataTable(options);
+        (window as any).__storybookDataTableInstance = tableInstance;
+      } else {
+        console.error('❌ Contenedor no encontrado en el DOM:', tableContainer.id);
+      }
+    });
+    
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Esta historia demuestra cómo funciona el scroll vertical en la tabla. Cuando `showVerticalScrollbar` está habilitado, la tabla muestra un scrollbar vertical que permite navegar por todas las filas cuando el contenido excede la altura disponible. El contenedor de la tabla tiene una altura limitada (500px en este ejemplo) y el scroll vertical permite ver todas las 50 filas sin que la tabla ocupe todo el espacio disponible.'
+      }
+    }
+  },
+  args: {
+    columnReorderable: false,
+    rowReorderable: false,
+    rowExpandable: false,
+    columnSortable: false,
+    showCheckbox: false,
+    showVerticalScrollbar: true,
+    showHorizontalScrollbar: false,
+    showColumnMenu: false,
+    showContextMenu: false,
+    showPagination: false
+  }
+};
+
