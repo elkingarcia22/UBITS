@@ -2882,6 +2882,8 @@ export const ContextMenu: Story = {
  */
 export const LazyLoad: Story = {
   render: (args) => {
+    console.log('🟢 [LAZY LOAD STORY] Iniciando render...');
+    
     const container = document.createElement('div');
     container.style.cssText = `
       padding: 20px;
@@ -2896,6 +2898,8 @@ export const LazyLoad: Story = {
     `;
     
     const tableContainerId = `data-table-lazy-load-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    console.log('🟡 [LAZY LOAD STORY] Container ID:', tableContainerId);
+    
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
     tableContainer.style.cssText = `
@@ -2908,9 +2912,11 @@ export const LazyLoad: Story = {
     `;
     
     container.appendChild(tableContainer);
+    console.log('🟡 [LAZY LOAD STORY] Container agregado al DOM');
     
     // Generar muchos datos para que se vea el efecto de lazy load
     const generateRows = (): TableRow[] => {
+      console.log('🟡 [LAZY LOAD STORY] Generando 100 filas...');
       const rows: TableRow[] = [];
       for (let i = 1; i <= 100; i++) {
         rows.push({
@@ -2925,12 +2931,16 @@ export const LazyLoad: Story = {
           }
         });
       }
+      console.log('✅ [LAZY LOAD STORY] Filas generadas:', rows.length);
       return rows;
     };
     
     requestAnimationFrame(() => {
+      console.log('🟡 [LAZY LOAD STORY] requestAnimationFrame ejecutado');
       const containerElement = document.getElementById(tableContainerId);
       if (containerElement) {
+        console.log('✅ [LAZY LOAD STORY] Container encontrado en el DOM');
+        
         const rows = generateRows();
         const columns: TableColumn[] = [
           { id: 'nombre', title: 'Nombre', type: 'nombre', width: 200 },
@@ -2940,6 +2950,13 @@ export const LazyLoad: Story = {
           { id: 'fecha', title: 'Fecha', type: 'fecha', width: 150 },
           { id: 'telefono', title: 'Teléfono', type: 'telefono', width: 180 }
         ];
+        
+        console.log('🟡 [LAZY LOAD STORY] Configurando opciones:');
+        console.log('  - lazyLoad: true');
+        console.log('  - lazyLoadItemsPerBatch: 15');
+        console.log('  - showVerticalScrollbar: true');
+        console.log('  - showPagination: false');
+        console.log('  - Total rows:', rows.length);
         
         const options: DataTableOptions = {
           containerId: tableContainerId,
@@ -2953,14 +2970,51 @@ export const LazyLoad: Story = {
           showColumnMenu: false,
           showContextMenu: false,
           onLazyLoad: (loadedItems: number, totalItems: number) => {
-            console.log(`📦 Lazy Load: ${loadedItems}/${totalItems} items cargados`);
+            console.log(`📦 [LAZY LOAD CALLBACK] ${loadedItems}/${totalItems} items cargados`);
           }
         };
         
+        console.log('🟡 [LAZY LOAD STORY] Creando instancia de DataTable...');
         const tableInstance = createDataTable(options);
         (window as any).__storybookDataTableInstance = tableInstance;
+        console.log('✅ [LAZY LOAD STORY] DataTable creado');
+        
+        // Verificar después de un delay que el scrollable container existe
+        setTimeout(() => {
+          const scrollableContainer = containerElement.querySelector('.ubits-data-table__scrollable-container') as HTMLElement;
+          if (scrollableContainer) {
+            console.log('✅ [LAZY LOAD STORY] Scrollable container encontrado');
+            console.log('  - Height:', scrollableContainer.offsetHeight);
+            console.log('  - ScrollHeight:', scrollableContainer.scrollHeight);
+            console.log('  - ClientHeight:', scrollableContainer.clientHeight);
+            
+            // Verificar si hay scroll listeners
+            const hasScrollListener = scrollableContainer.getAttribute('data-lazy-load-listener');
+            console.log('  - Tiene listener de scroll:', hasScrollListener ? 'Sí' : 'No');
+            
+            // Agregar listener manual para debug
+            scrollableContainer.addEventListener('scroll', () => {
+              const scrollTop = scrollableContainer.scrollTop;
+              const scrollHeight = scrollableContainer.scrollHeight;
+              const clientHeight = scrollableContainer.clientHeight;
+              const scrollPercentage = (scrollTop + clientHeight) / scrollHeight;
+              
+              console.log('📜 [SCROLL DEBUG]', {
+                scrollTop,
+                scrollHeight,
+                clientHeight,
+                scrollPercentage: (scrollPercentage * 100).toFixed(2) + '%',
+                nearEnd: scrollPercentage >= 0.8
+              });
+            }, { passive: true });
+            
+            console.log('✅ [LAZY LOAD STORY] Listener de scroll de debug agregado');
+          } else {
+            console.error('❌ [LAZY LOAD STORY] Scrollable container NO encontrado');
+          }
+        }, 500);
       } else {
-        console.error('❌ Contenedor no encontrado en el DOM:', tableContainerId);
+        console.error('❌ [LAZY LOAD STORY] Contenedor no encontrado en el DOM:', tableContainerId);
       }
     });
     
