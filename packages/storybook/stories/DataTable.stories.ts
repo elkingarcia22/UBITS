@@ -3334,6 +3334,8 @@ export const ActionBar: Story = {
     
     // Referencia al elemento de la tabla
     let tableElement: HTMLElement | null = null;
+    let tableInstance: ReturnType<typeof createDataTable> | null = null;
+    let originalRows: TableRow[] = [];
     
     // Función para renderizar la barra de acciones
     const renderActionBar = () => {
@@ -3415,7 +3417,7 @@ export const ActionBar: Story = {
       // renderButton ya está importado al inicio del archivo
       let buttonsHTML = '';
       
-      // Botón "Ver seleccionados" (siempre visible)
+      // Botón "Ver seleccionados" (siempre visible) - único con icono y texto
       buttonsHTML += renderButton({
         text: viewSelectedText,
         variant: isViewSelectedActive ? 'primary' : 'secondary',
@@ -3428,14 +3430,12 @@ export const ActionBar: Story = {
         }
       });
       
-      // Botón "Notificaciones" (solo múltiple selección)
+      // Botón "Notificaciones" (solo múltiple selección) - terciario sin icono
       if (isMultipleSelection) {
         buttonsHTML += renderButton({
           text: 'Notificaciones',
-          variant: 'secondary',
+          variant: 'tertiary',
           size: 'sm',
-          icon: 'bell',
-          iconStyle: 'regular',
           className: 'ubits-data-table__action-bar-button',
           attributes: {
             id: 'action-btn-notifications'
@@ -3443,14 +3443,12 @@ export const ActionBar: Story = {
         });
       }
       
-      // Botones para selección individual (solo si hay 1 selección)
+      // Botones para selección individual (solo si hay 1 selección) - terciarios sin iconos
       if (!isMultipleSelection) {
         buttonsHTML += renderButton({
           text: 'Copiar',
-          variant: 'secondary',
+          variant: 'tertiary',
           size: 'sm',
-          icon: 'copy',
-          iconStyle: 'regular',
           className: 'ubits-data-table__action-bar-button',
           attributes: {
             id: 'action-btn-copy'
@@ -3459,10 +3457,8 @@ export const ActionBar: Story = {
         
         buttonsHTML += renderButton({
           text: 'Ver',
-          variant: 'secondary',
+          variant: 'tertiary',
           size: 'sm',
-          icon: 'eye',
-          iconStyle: 'regular',
           className: 'ubits-data-table__action-bar-button',
           attributes: {
             id: 'action-btn-view'
@@ -3471,10 +3467,8 @@ export const ActionBar: Story = {
         
         buttonsHTML += renderButton({
           text: 'Editar',
-          variant: 'secondary',
+          variant: 'tertiary',
           size: 'sm',
-          icon: 'edit',
-          iconStyle: 'regular',
           className: 'ubits-data-table__action-bar-button',
           attributes: {
             id: 'action-btn-edit'
@@ -3483,10 +3477,8 @@ export const ActionBar: Story = {
         
         buttonsHTML += renderButton({
           text: 'Descargar',
-          variant: 'secondary',
+          variant: 'tertiary',
           size: 'sm',
-          icon: 'download',
-          iconStyle: 'regular',
           className: 'ubits-data-table__action-bar-button',
           attributes: {
             id: 'action-btn-download'
@@ -3494,13 +3486,11 @@ export const ActionBar: Story = {
         });
       }
       
-      // Botón "Eliminar" (siempre visible)
+      // Botón "Eliminar" (siempre visible) - terciario sin icono
       buttonsHTML += renderButton({
         text: 'Eliminar',
-        variant: 'error',
+        variant: 'tertiary',
         size: 'sm',
-        icon: 'trash',
-        iconStyle: 'regular',
         className: 'ubits-data-table__action-bar-button',
         attributes: {
           id: 'action-btn-delete'
@@ -3514,7 +3504,24 @@ export const ActionBar: Story = {
       if (viewSelectedBtn) {
         viewSelectedBtn.addEventListener('click', () => {
           selectionState.viewSelectedActive = !selectionState.viewSelectedActive;
-          console.log('👁️ Ver seleccionados:', selectionState.viewSelectedActive);
+          console.log('👁️ [VIEW SELECTED] Cambiando estado:', selectionState.viewSelectedActive);
+          
+          // Filtrar filas según el estado
+          if (tableInstance && originalRows.length > 0) {
+            if (selectionState.viewSelectedActive) {
+              // Mostrar solo las filas seleccionadas
+              const filteredRows = originalRows.filter(row => 
+                selectionState.selectedRowIds.has(row.id)
+              );
+              console.log('👁️ [VIEW SELECTED] Filtrando a', filteredRows.length, 'filas seleccionadas');
+              tableInstance.update({ rows: filteredRows });
+            } else {
+              // Mostrar todas las filas originales
+              console.log('👁️ [VIEW SELECTED] Mostrando todas las', originalRows.length, 'filas');
+              tableInstance.update({ rows: originalRows });
+            }
+          }
+          
           renderActionBar();
         });
       }
@@ -3612,8 +3619,9 @@ export const ActionBar: Story = {
         };
         
         console.log('🟡 [ACTION BAR INIT] Creando tabla...');
-        const tableInstance = createDataTable(options);
+        tableInstance = createDataTable(options);
         tableElement = tableInstance.element; // Guardar referencia al elemento de la tabla
+        originalRows = [...rows]; // Guardar copia de las filas originales
         (window as any).__storybookDataTableInstance = tableInstance;
         
         console.log('✅ [ACTION BAR INIT] Tabla creada');
