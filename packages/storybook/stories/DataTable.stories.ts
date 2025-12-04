@@ -3412,9 +3412,7 @@ export const ActionBar: Story = {
         ? `Ver todos ${countText}`
         : `Ver seleccionados ${countText}`;
       
-      // Importar renderButton dinámicamente
-      const { renderButton } = require('../../addons/button/src/ButtonProvider');
-      
+      // renderButton ya está importado al inicio del archivo
       let buttonsHTML = '';
       
       // Botón "Ver seleccionados" (siempre visible)
@@ -3517,7 +3515,7 @@ export const ActionBar: Story = {
         viewSelectedBtn.addEventListener('click', () => {
           selectionState.viewSelectedActive = !selectionState.viewSelectedActive;
           console.log('👁️ Ver seleccionados:', selectionState.viewSelectedActive);
-          renderActionBar(containerElement);
+          renderActionBar();
         });
       }
       
