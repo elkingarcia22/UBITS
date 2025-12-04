@@ -2874,3 +2874,135 @@ export const ContextMenu: Story = {
   }
 };
 
+/**
+ * Historia: Columnas Fijadas (Pinned)
+ * 
+ * Esta historia demuestra cómo funcionan las columnas fijadas.
+ * Las columnas fijadas permanecen visibles al hacer scroll horizontal, útil para mantener información importante siempre visible.
+ */
+export const PinnedColumns: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      height: auto;
+      overflow: visible !important;
+      max-height: none !important;
+    `;
+    
+    const tableContainerId = `data-table-pinned-columns-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const tableContainer = document.createElement('div');
+    tableContainer.id = tableContainerId;
+    tableContainer.style.cssText = `
+      width: 100%;
+      max-width: 600px;
+      overflow: visible !important;
+      min-height: auto;
+      height: auto;
+      max-height: none !important;
+    `;
+    
+    container.appendChild(tableContainer);
+    
+    // Generar datos de ejemplo
+    const generateRows = (): TableRow[] => {
+      const rows: TableRow[] = [];
+      for (let i = 1; i <= 10; i++) {
+        rows.push({
+          id: i,
+          data: {
+            nombre: `Usuario ${i}`,
+            email: `usuario${i}@ejemplo.com`,
+            estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
+            pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
+            fecha: new Date(2024, 0, i).toISOString().split('T')[0],
+            telefono: `+57 300 ${i.toString().padStart(7, '0')}`,
+            ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][i % 5],
+            departamento: ['Cundinamarca', 'Antioquia', 'Valle del Cauca', 'Atlántico', 'Bolívar'][i % 5],
+            cargo: ['Desarrollador', 'Diseñador', 'Product Manager', 'QA', 'DevOps'][i % 5]
+          }
+        });
+      }
+      return rows;
+    };
+    
+    const rows = generateRows();
+    
+    // Columnas con algunas fijadas para demostrar el efecto
+    const columns: TableColumn[] = [
+      { id: 'nombre', title: 'Nombre', type: 'nombre', width: 200, pinned: true }, // Columna fijada
+      { id: 'email', title: 'Email', type: 'correo', width: 250, pinned: true }, // Columna fijada
+      { id: 'telefono', title: 'Teléfono', type: 'telefono', width: 180 },
+      { id: 'estado', title: 'Estado', type: 'estado', width: 150 },
+      { id: 'pais', title: 'País', type: 'pais', width: 150 },
+      { id: 'ciudad', title: 'Ciudad', type: 'texto', width: 150 },
+      { id: 'departamento', title: 'Departamento', type: 'texto', width: 180 },
+      { id: 'cargo', title: 'Cargo', type: 'texto', width: 200 },
+      { id: 'fecha', title: 'Fecha', type: 'fecha', width: 150 }
+    ];
+    
+    const options: DataTableOptions = {
+      containerId: tableContainer.id,
+      columns,
+      rows,
+      columnReorderable: false,
+      rowReorderable: false,
+      rowExpandable: false,
+      columnSortable: false,
+      showCheckbox: false,
+      showVerticalScrollbar: false,
+      showHorizontalScrollbar: true, // Habilitar scroll horizontal para ver el efecto
+      showColumnMenu: false,
+      showContextMenu: false,
+      showPagination: false,
+      header: {
+        title: 'Columnas Fijadas',
+        showTitle: true,
+        counter: true,
+        displayedItems: rows.length,
+        totalItems: rows.length
+      },
+      onColumnPin: (columnId: string, pinned: boolean) => {
+        console.log(`📌 Columna ${columnId} ${pinned ? 'fijada' : 'desfijada'}`);
+      }
+    };
+    
+    // Usar requestAnimationFrame para asegurar que el DOM esté listo
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(tableContainer.id);
+      if (containerElement) {
+        const tableInstance = createDataTable(options);
+        (window as any).__storybookDataTableInstance = tableInstance;
+      } else {
+        console.error('❌ Contenedor no encontrado en el DOM:', tableContainer.id);
+      }
+    });
+    
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Esta historia demuestra cómo funcionan las columnas fijadas (pinned). Las columnas con `pinned: true` permanecen visibles al hacer scroll horizontal, lo que es útil para mantener información importante (como nombre o email) siempre visible mientras navegas por otras columnas. En este ejemplo, las columnas "Nombre" y "Email" están fijadas. Puedes hacer scroll horizontal para ver cómo permanecen visibles mientras las demás columnas se desplazan.'
+      }
+    }
+  },
+  args: {
+    columnReorderable: false,
+    rowReorderable: false,
+    rowExpandable: false,
+    columnSortable: false,
+    showCheckbox: false,
+    showVerticalScrollbar: false,
+    showHorizontalScrollbar: true,
+    showColumnMenu: false,
+    showContextMenu: false,
+    showPagination: false
+  }
+};
+
