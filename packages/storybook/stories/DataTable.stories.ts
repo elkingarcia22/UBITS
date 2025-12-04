@@ -5222,14 +5222,23 @@ export const VerUsuariosSeleccionados: Story = {
         viewSelectedBtn.addEventListener('click', () => {
           selectionState.viewSelectedActive = !selectionState.viewSelectedActive;
           
+          console.log('👁️ [VER SELECCIONADOS] Click en botón');
+          console.log('  - Estado anterior:', !selectionState.viewSelectedActive);
+          console.log('  - Estado nuevo:', selectionState.viewSelectedActive);
+          console.log('  - IDs seleccionados:', Array.from(selectionState.selectedRowIds));
+          
           if (tableInstance && originalRows.length > 0) {
             if (selectionState.viewSelectedActive) {
               // Filtrar filas: comparar IDs como números o strings
               const filteredRows = originalRows.filter(row => {
                 const rowId = typeof row.id === 'number' ? row.id : Number(row.id);
-                return selectionState.selectedRowIds.has(row.id) || 
+                const matches = selectionState.selectedRowIds.has(row.id) || 
                        selectionState.selectedRowIds.has(rowId) ||
                        selectionState.selectedRowIds.has(String(row.id));
+                if (matches) {
+                  console.log(`  ✅ Fila ${row.id} coincide con selección`);
+                }
+                return matches;
               });
               
               console.log('👁️ [VER SELECCIONADOS] Filtrando filas:');
@@ -5239,9 +5248,49 @@ export const VerUsuariosSeleccionados: Story = {
               console.log('  - IDs de filas filtradas:', filteredRows.map(r => r.id));
               
               tableInstance.update({ rows: filteredRows });
+              
+              // Después de actualizar, marcar los checkboxes de las filas filtradas
+              setTimeout(() => {
+                if (tableElement) {
+                  console.log('👁️ [VER SELECCIONADOS] Marcando checkboxes después de filtrar...');
+                  const checkboxes = tableElement.querySelectorAll('input[type="checkbox"][data-column-id="checkbox-2"][data-row-id]') as NodeListOf<HTMLInputElement>;
+                  console.log(`  - Checkboxes encontrados después de filtrar: ${checkboxes.length}`);
+                  
+                  checkboxes.forEach((cb) => {
+                    const rowIdStr = cb.getAttribute('data-row-id');
+                    if (rowIdStr && rowIdStr !== 'all') {
+                      const rowIdNum = Number(rowIdStr);
+                      const isNumber = !isNaN(rowIdNum);
+                      
+                      let shouldBeSelected = false;
+                      if (isNumber) {
+                        shouldBeSelected = selectionState.selectedRowIds.has(rowIdNum) || selectionState.selectedRowIds.has(rowIdStr);
+                      } else {
+                        shouldBeSelected = selectionState.selectedRowIds.has(rowIdStr);
+                      }
+                      
+                      if (shouldBeSelected) {
+                        console.log(`  ✅ Marcando checkbox para fila ${rowIdStr}`);
+                        cb.checked = true;
+                        cb.dispatchEvent(new Event('change', { bubbles: true }));
+                      } else {
+                        console.log(`  ⚠️ Checkbox para fila ${rowIdStr} NO debería estar seleccionado`);
+                      }
+                    }
+                  });
+                  
+                  updateMasterCheckbox();
+                }
+              }, 100);
             } else {
               console.log('👁️ [VER SELECCIONADOS] Restaurando todas las filas');
               tableInstance.update({ rows: originalRows });
+              
+              // Después de restaurar, volver a marcar los checkboxes
+              setTimeout(() => {
+                markCheckboxes(1);
+                updateMasterCheckbox();
+              }, 100);
             }
           }
           
@@ -5347,7 +5396,10 @@ export const VerUsuariosSeleccionados: Story = {
         // Marcar las filas pre-seleccionadas y mostrar la action bar
         // Usar múltiples intentos para asegurar que todos los checkboxes estén disponibles
         const markCheckboxes = (attempt = 1) => {
-          if (!tableElement) return;
+          if (!tableElement) {
+            console.error('🔵 [PRE-SELECCIÓN] tableElement no disponible');
+            return;
+          }
           
           console.log(`🔵 [PRE-SELECCIÓN] Intento ${attempt}: Marcando checkboxes para IDs:`, Array.from(selectionState.selectedRowIds));
           
@@ -5355,8 +5407,19 @@ export const VerUsuariosSeleccionados: Story = {
           const checkboxes = tableElement.querySelectorAll('input[type="checkbox"][data-column-id="checkbox-2"][data-row-id]') as NodeListOf<HTMLInputElement>;
           console.log(`  - Checkboxes encontrados: ${checkboxes.length}`);
           
+          // Log de todos los checkboxes encontrados
+          const foundIds: string[] = [];
+          checkboxes.forEach((cb) => {
+            const rowIdStr = cb.getAttribute('data-row-id');
+            if (rowIdStr && rowIdStr !== 'all') {
+              foundIds.push(rowIdStr);
+            }
+          });
+          console.log(`  - IDs de checkboxes encontrados:`, foundIds);
+          
           let markedCount = 0;
           const expectedIds = Array.from(selectionState.selectedRowIds);
+          console.log(`  - IDs esperados para marcar:`, expectedIds);
           
           checkboxes.forEach((cb) => {
             const rowIdStr = cb.getAttribute('data-row-id');
@@ -5365,35 +5428,62 @@ export const VerUsuariosSeleccionados: Story = {
               const rowIdNum = Number(rowIdStr);
               const isNumber = !isNaN(rowIdNum);
               
+              console.log(`  - Procesando checkbox para fila ID: ${rowIdStr} (número: ${rowIdNum}, es número: ${isNumber})`);
+              
               // Verificar si este ID está en la lista de seleccionados
               let shouldBeSelected = false;
               
               if (isNumber) {
                 // Comparar como número
                 shouldBeSelected = selectionState.selectedRowIds.has(rowIdNum);
+                console.log(`    - Comparación como número (${rowIdNum}): ${shouldBeSelected}`);
                 // También verificar como string por si acaso
                 if (!shouldBeSelected) {
                   shouldBeSelected = selectionState.selectedRowIds.has(rowIdStr);
+                  console.log(`    - Comparación como string (${rowIdStr}): ${shouldBeSelected}`);
                 }
               } else {
                 // Comparar como string
                 shouldBeSelected = selectionState.selectedRowIds.has(rowIdStr);
+                console.log(`    - Comparación como string (${rowIdStr}): ${shouldBeSelected}`);
               }
               
               if (shouldBeSelected) {
+                const wasChecked = cb.checked;
                 cb.checked = true;
                 markedCount++;
-                console.log(`  ✅ Checkbox marcado para fila ID: ${rowIdStr} (número: ${rowIdNum})`);
+                console.log(`  ✅ Checkbox marcado para fila ID: ${rowIdStr} (número: ${rowIdNum}) - Estado anterior: ${wasChecked}`);
                 
                 // Disparar evento change para que el DataTableProvider actualice su estado interno
                 const changeEvent = new Event('change', { bubbles: true });
                 cb.dispatchEvent(changeEvent);
+                
+                // Verificar que se marcó correctamente
+                setTimeout(() => {
+                  if (!cb.checked) {
+                    console.error(`  ❌ ERROR: Checkbox para fila ${rowIdStr} NO se mantuvo marcado después del evento`);
+                  } else {
+                    console.log(`  ✅ Checkbox para fila ${rowIdStr} se mantuvo marcado correctamente`);
+                  }
+                }, 50);
+              } else {
+                console.log(`  ⚠️ Checkbox para fila ID: ${rowIdStr} NO debe estar seleccionado`);
               }
             }
           });
           
           console.log(`🔵 [PRE-SELECCIÓN] Total checkboxes marcados: ${markedCount} de ${expectedIds.length}`);
           console.log(`  - IDs esperados:`, expectedIds);
+          console.log(`  - IDs encontrados en checkboxes:`, foundIds);
+          
+          // Verificar qué IDs faltaron
+          const missingIds = expectedIds.filter(id => {
+            const idStr = String(id);
+            return !foundIds.includes(idStr);
+          });
+          if (missingIds.length > 0) {
+            console.warn(`  ⚠️ IDs esperados pero NO encontrados en checkboxes:`, missingIds);
+          }
           
           // Si no se marcaron todos y aún hay intentos, reintentar
           if (markedCount < expectedIds.length && attempt < 3) {
@@ -5401,6 +5491,14 @@ export const VerUsuariosSeleccionados: Story = {
             setTimeout(() => markCheckboxes(attempt + 1), 200);
           } else if (markedCount < expectedIds.length) {
             console.error(`  ❌ ERROR: Solo se marcaron ${markedCount} de ${expectedIds.length} checkboxes después de ${attempt} intentos`);
+            console.error(`  - IDs que NO se marcaron:`, expectedIds.filter(id => {
+              const idStr = String(id);
+              const checkbox = Array.from(checkboxes).find(cb => {
+                const rowIdStr = cb.getAttribute('data-row-id');
+                return rowIdStr === idStr;
+              });
+              return !checkbox || !checkbox.checked;
+            }));
           }
         };
         
