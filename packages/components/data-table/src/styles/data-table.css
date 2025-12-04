@@ -1245,8 +1245,8 @@
 .ubits-data-table__scrollable-container--horizontal {
     overflow-x: auto !important;
     overflow-y: visible !important; /* Mantener visible para que sticky funcione */
-    max-width: 800px !important; /* Ancho máximo fijo para forzar el scroll horizontal */
-    width: 100% !important; /* Ocupar todo el ancho disponible hasta el máximo */
+    /* NO limitar el ancho - mantener el tamaño del contenedor padre */
+    width: 100% !important; /* Ocupar todo el ancho disponible del contenedor padre */
     box-sizing: border-box !important;
     display: block !important; /* Asegurar que es un bloque */
     position: relative !important; /* Necesario para sticky */
@@ -1284,8 +1284,8 @@
 .ubits-data-table__scrollable-container--vertical.ubits-data-table__scrollable-container--horizontal {
     flex: 1; /* Ocupar todo el espacio vertical disponible */
     min-height: 0; /* Permitir que se comprima */
-    max-width: 800px; /* Ancho máximo fijo para forzar el scroll horizontal */
-    width: 100%; /* Ocupar todo el ancho disponible hasta el máximo */
+    /* NO limitar el ancho - mantener el tamaño del contenedor padre */
+    width: 100%; /* Ocupar todo el ancho disponible del contenedor padre */
     overflow-y: auto;
     overflow-x: auto;
 }
