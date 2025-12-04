@@ -5404,38 +5404,52 @@ export const VerUsuariosSeleccionados: Story = {
           }
         };
         
-        // Primer intento después de un delay inicial
-        setTimeout(() => markCheckboxes(1), 300);
+        // Función para actualizar el checkbox maestro
+        const updateMasterCheckbox = () => {
+          if (!tableElement) return;
+          
+          const masterCheckbox = tableElement.querySelector('input[type="checkbox"][data-column-id="checkbox-2"][data-row-id="all"]') as HTMLInputElement;
+          if (masterCheckbox) {
+            const visibleCheckboxes = Array.from(tableElement.querySelectorAll('input[type="checkbox"][data-column-id="checkbox-2"][data-row-id]')) as HTMLInputElement[];
+            const allChecked = visibleCheckboxes.length > 0 && visibleCheckboxes.every(cb => {
+              const rowIdStr = cb.getAttribute('data-row-id');
+              if (rowIdStr && rowIdStr !== 'all') {
+                const rowIdNum = Number(rowIdStr);
+                const isNumber = !isNaN(rowIdNum);
+                if (isNumber) {
+                  return selectionState.selectedRowIds.has(rowIdNum) || selectionState.selectedRowIds.has(rowIdStr);
+                }
+                return selectionState.selectedRowIds.has(rowIdStr);
+              }
+              return false;
+            });
             
-            // También marcar el checkbox maestro si todas las filas visibles están seleccionadas
-            const masterCheckbox = tableElement.querySelector('input[type="checkbox"][data-column-id="checkbox-2"][data-row-id="all"]') as HTMLInputElement;
-            if (masterCheckbox) {
-              const visibleCheckboxes = Array.from(tableElement.querySelectorAll('input[type="checkbox"][data-column-id="checkbox-2"][data-row-id]')) as HTMLInputElement[];
-              const allChecked = visibleCheckboxes.length > 0 && visibleCheckboxes.every(cb => {
+            if (allChecked) {
+              masterCheckbox.checked = true;
+              masterCheckbox.indeterminate = false;
+            } else {
+              const someChecked = visibleCheckboxes.some(cb => {
                 const rowIdStr = cb.getAttribute('data-row-id');
-                if (rowIdStr) {
-                  const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
-                  return selectionState.selectedRowIds.has(rowId);
+                if (rowIdStr && rowIdStr !== 'all') {
+                  const rowIdNum = Number(rowIdStr);
+                  const isNumber = !isNaN(rowIdNum);
+                  if (isNumber) {
+                    return selectionState.selectedRowIds.has(rowIdNum) || selectionState.selectedRowIds.has(rowIdStr);
+                  }
+                  return selectionState.selectedRowIds.has(rowIdStr);
                 }
                 return false;
               });
-              if (allChecked) {
-                masterCheckbox.checked = true;
-                masterCheckbox.indeterminate = false;
-              } else if (visibleCheckboxes.some(cb => {
-                const rowIdStr = cb.getAttribute('data-row-id');
-                if (rowIdStr) {
-                  const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
-                  return selectionState.selectedRowIds.has(rowId);
-                }
-                return false;
-              })) {
-                masterCheckbox.indeterminate = true;
-              }
+              masterCheckbox.indeterminate = someChecked;
+              masterCheckbox.checked = false;
             }
           }
-          
-          // Renderizar la action bar después de marcar los checkboxes
+        };
+        
+        // Primer intento después de un delay inicial
+        setTimeout(() => {
+          markCheckboxes(1);
+          updateMasterCheckbox();
           renderActionBar();
         }, 300);
         
