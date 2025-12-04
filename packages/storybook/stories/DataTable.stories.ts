@@ -2957,7 +2957,7 @@ export const PinnedColumns: Story = {
       showCheckbox: false,
       showVerticalScrollbar: false,
       showHorizontalScrollbar: true, // Habilitar scroll horizontal para ver el efecto
-      showColumnMenu: false,
+      showColumnMenu: true, // Habilitar menú de columnas para poder fijar/desfijar
       showContextMenu: false,
       showPagination: false,
       header: {
