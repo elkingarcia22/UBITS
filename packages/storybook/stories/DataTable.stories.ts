@@ -3411,7 +3411,7 @@ export const ActionBar: Story = {
       // Estado del botón "Ver seleccionados"
       const isViewSelectedActive = selectionState.viewSelectedActive;
       const viewSelectedText = isViewSelectedActive
-        ? `Ver todos ${countText}`
+        ? `Dejar de ver seleccionados ${countText}`
         : `Ver seleccionados ${countText}`;
       // Cambiar icono según el estado: eye cuando inactivo, eye-slash cuando activo
       const viewSelectedIcon = isViewSelectedActive ? 'eye-slash' : 'eye';
