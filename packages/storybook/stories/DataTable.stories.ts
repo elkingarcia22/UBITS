@@ -3525,64 +3525,46 @@ export const ActionBar: Story = {
             showTitle: true,
             counter: true,
             showCounter: true
+          },
+          onRowSelect: (rowId, selected) => {
+            console.log('🔘 [ACTION BAR] onRowSelect:', rowId, selected);
+            // Actualizar estado de selección
+            if (selected) {
+              selectionState.selectedRowIds.add(rowId);
+            } else {
+              selectionState.selectedRowIds.delete(rowId);
+            }
+            // Actualizar barra de acciones
+            renderActionBar(containerElement);
+          },
+          onSelectAll: (selected) => {
+            console.log('🔘 [ACTION BAR] onSelectAll:', selected);
+            // Actualizar estado de selección - todas las filas visibles
+            const table = containerElement.querySelector('.ubits-data-table');
+            if (table) {
+              const checkboxes = table.querySelectorAll('input[type="checkbox"][data-column-id="checkbox-2"][data-row-id]');
+              checkboxes.forEach((cb) => {
+                const rowIdStr = (cb as HTMLInputElement).getAttribute('data-row-id');
+                if (rowIdStr) {
+                  const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
+                  if (selected) {
+                    selectionState.selectedRowIds.add(rowId);
+                  } else {
+                    selectionState.selectedRowIds.delete(rowId);
+                  }
+                }
+              });
+            }
+            // Actualizar barra de acciones
+            renderActionBar(containerElement);
           }
         };
         
         const tableInstance = createDataTable(options);
         (window as any).__storybookDataTableInstance = tableInstance;
         
-        // Configurar listeners para checkboxes
+        // Renderizar action bar inicialmente (estará oculta hasta que haya selecciones)
         setTimeout(() => {
-          const checkboxes = containerElement.querySelectorAll('input[type="checkbox"][data-row-id]');
-          checkboxes.forEach((checkbox) => {
-            const cb = checkbox as HTMLInputElement;
-            const rowIdStr = cb.getAttribute('data-row-id');
-            if (!rowIdStr) return;
-            
-            const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
-            
-            // Remover listener anterior si existe
-            const newCheckbox = cb.cloneNode(true) as HTMLInputElement;
-            cb.parentNode?.replaceChild(newCheckbox, cb);
-            
-            newCheckbox.addEventListener('change', () => {
-              if (newCheckbox.checked) {
-                selectionState.selectedRowIds.add(rowId);
-              } else {
-                selectionState.selectedRowIds.delete(rowId);
-              }
-              renderActionBar(containerElement);
-            });
-          });
-          
-          // Listener para checkbox del header (seleccionar todos)
-          const headerCheckbox = containerElement.querySelector('input[type="checkbox"][data-column-checkbox-header]') as HTMLInputElement;
-          if (headerCheckbox) {
-            const newHeaderCheckbox = headerCheckbox.cloneNode(true) as HTMLInputElement;
-            headerCheckbox.parentNode?.replaceChild(newHeaderCheckbox, headerCheckbox);
-            
-            newHeaderCheckbox.addEventListener('change', () => {
-              const allCheckboxes = containerElement.querySelectorAll('input[type="checkbox"][data-row-id]') as NodeListOf<HTMLInputElement>;
-              if (newHeaderCheckbox.checked) {
-                allCheckboxes.forEach(cb => {
-                  const rowIdStr = cb.getAttribute('data-row-id');
-                  if (rowIdStr) {
-                    const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
-                    selectionState.selectedRowIds.add(rowId);
-                    cb.checked = true;
-                  }
-                });
-              } else {
-                selectionState.selectedRowIds.clear();
-                allCheckboxes.forEach(cb => {
-                  cb.checked = false;
-                });
-              }
-              renderActionBar(containerElement);
-            });
-          }
-          
-          // Renderizar action bar inicialmente
           renderActionBar(containerElement);
         }, 200);
       } else {
