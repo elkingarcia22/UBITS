@@ -5345,36 +5345,67 @@ export const VerUsuariosSeleccionados: Story = {
         (window as any).__storybookDataTableInstance = tableInstance;
         
         // Marcar las filas pre-seleccionadas y mostrar la action bar
-        setTimeout(() => {
-          if (tableElement) {
-            console.log('🔵 [PRE-SELECCIÓN] Marcando checkboxes para IDs:', Array.from(selectionState.selectedRowIds));
-            
-            const checkboxes = tableElement.querySelectorAll('input[type="checkbox"][data-column-id="checkbox-2"]');
-            let markedCount = 0;
-            
-            checkboxes.forEach((cb) => {
-              const rowIdStr = (cb as HTMLInputElement).getAttribute('data-row-id');
-              if (rowIdStr && rowIdStr !== 'all') {
-                // Intentar como número y como string
-                const rowIdNum = Number(rowIdStr);
-                const rowId = isNaN(rowIdNum) ? rowIdStr : rowIdNum;
-                
-                // Verificar si está seleccionado (comparar como número o string)
-                const isSelected = selectionState.selectedRowIds.has(rowId) || 
-                                  selectionState.selectedRowIds.has(rowIdNum) ||
-                                  selectionState.selectedRowIds.has(rowIdStr);
-                
-                if (isSelected) {
-                  (cb as HTMLInputElement).checked = true;
-                  markedCount++;
-                  console.log(`  ✅ Checkbox marcado para fila ID: ${rowIdStr} (${rowId})`);
-                  // Disparar evento change para que el DataTableProvider actualice su estado interno
-                  cb.dispatchEvent(new Event('change', { bubbles: true }));
+        // Usar múltiples intentos para asegurar que todos los checkboxes estén disponibles
+        const markCheckboxes = (attempt = 1) => {
+          if (!tableElement) return;
+          
+          console.log(`🔵 [PRE-SELECCIÓN] Intento ${attempt}: Marcando checkboxes para IDs:`, Array.from(selectionState.selectedRowIds));
+          
+          // Buscar todos los checkboxes de filas (excluir el checkbox maestro)
+          const checkboxes = tableElement.querySelectorAll('input[type="checkbox"][data-column-id="checkbox-2"][data-row-id]') as NodeListOf<HTMLInputElement>;
+          console.log(`  - Checkboxes encontrados: ${checkboxes.length}`);
+          
+          let markedCount = 0;
+          const expectedIds = Array.from(selectionState.selectedRowIds);
+          
+          checkboxes.forEach((cb) => {
+            const rowIdStr = cb.getAttribute('data-row-id');
+            if (rowIdStr && rowIdStr !== 'all') {
+              // Convertir a número para comparar
+              const rowIdNum = Number(rowIdStr);
+              const isNumber = !isNaN(rowIdNum);
+              
+              // Verificar si este ID está en la lista de seleccionados
+              let shouldBeSelected = false;
+              
+              if (isNumber) {
+                // Comparar como número
+                shouldBeSelected = selectionState.selectedRowIds.has(rowIdNum);
+                // También verificar como string por si acaso
+                if (!shouldBeSelected) {
+                  shouldBeSelected = selectionState.selectedRowIds.has(rowIdStr);
                 }
+              } else {
+                // Comparar como string
+                shouldBeSelected = selectionState.selectedRowIds.has(rowIdStr);
               }
-            });
-            
-            console.log(`🔵 [PRE-SELECCIÓN] Total checkboxes marcados: ${markedCount} de ${selectionState.selectedRowIds.size}`);
+              
+              if (shouldBeSelected) {
+                cb.checked = true;
+                markedCount++;
+                console.log(`  ✅ Checkbox marcado para fila ID: ${rowIdStr} (número: ${rowIdNum})`);
+                
+                // Disparar evento change para que el DataTableProvider actualice su estado interno
+                const changeEvent = new Event('change', { bubbles: true });
+                cb.dispatchEvent(changeEvent);
+              }
+            }
+          });
+          
+          console.log(`🔵 [PRE-SELECCIÓN] Total checkboxes marcados: ${markedCount} de ${expectedIds.length}`);
+          console.log(`  - IDs esperados:`, expectedIds);
+          
+          // Si no se marcaron todos y aún hay intentos, reintentar
+          if (markedCount < expectedIds.length && attempt < 3) {
+            console.log(`  ⚠️ No se marcaron todos los checkboxes, reintentando en 200ms...`);
+            setTimeout(() => markCheckboxes(attempt + 1), 200);
+          } else if (markedCount < expectedIds.length) {
+            console.error(`  ❌ ERROR: Solo se marcaron ${markedCount} de ${expectedIds.length} checkboxes después de ${attempt} intentos`);
+          }
+        };
+        
+        // Primer intento después de un delay inicial
+        setTimeout(() => markCheckboxes(1), 300);
             
             // También marcar el checkbox maestro si todas las filas visibles están seleccionadas
             const masterCheckbox = tableElement.querySelector('input[type="checkbox"][data-column-id="checkbox-2"][data-row-id="all"]') as HTMLInputElement;
