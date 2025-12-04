@@ -5100,3 +5100,281 @@ export const HeaderButtons: Story = {
   }
 };
 
+export const VerUsuariosSeleccionados: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      height: auto;
+      overflow: visible !important;
+      max-height: none !important;
+    `;
+    
+    const tableContainerId = `data-table-ver-seleccionados-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const tableContainer = document.createElement('div');
+    tableContainer.id = tableContainerId;
+    tableContainer.style.cssText = `
+      width: 100%;
+      max-width: 100%;
+      overflow: visible !important;
+    `;
+    container.appendChild(tableContainer);
+    
+    // Estado de selección
+    const selectionState = {
+      selectedRowIds: new Set<number | string>(),
+      viewSelectedActive: false
+    };
+    
+    // Referencia al elemento de la tabla
+    let tableElement: HTMLElement | null = null;
+    let tableInstance: ReturnType<typeof createDataTable> | null = null;
+    let originalRows: TableRow[] = [];
+    
+    // Función para renderizar la barra de acciones
+    const renderActionBar = () => {
+      if (!tableElement) {
+        return;
+      }
+      
+      const dataTableContainer = tableElement.querySelector('.ubits-data-table__container') as HTMLElement;
+      if (!dataTableContainer) {
+        return;
+      }
+      
+      const header = dataTableContainer.querySelector('.ubits-data-table__header');
+      if (!header) {
+        return;
+      }
+      
+      let actionBar = dataTableContainer.querySelector('.ubits-data-table__action-bar') as HTMLElement;
+      
+      if (!actionBar) {
+        actionBar = document.createElement('div');
+        actionBar.className = 'ubits-data-table__action-bar';
+        actionBar.style.cssText = `
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          flex-wrap: wrap;
+          background-color: var(--modifiers-normal-color-light-bg-1);
+          padding: var(--ubits-spacing-sm) var(--ubits-spacing-md);
+          gap: var(--ubits-spacing-xs);
+        `;
+        header.insertAdjacentElement('afterend', actionBar);
+      }
+      
+      const selectedCount = selectionState.selectedRowIds.size;
+      
+      if (selectedCount === 0) {
+        actionBar.style.display = 'none';
+        return;
+      }
+      
+      actionBar.style.display = 'flex';
+      
+      const countText = `(${selectedCount})`;
+      const isViewSelectedActive = selectionState.viewSelectedActive;
+      const viewSelectedText = isViewSelectedActive
+        ? `Dejar de ver seleccionados ${countText}`
+        : `Ver seleccionados ${countText}`;
+      const viewSelectedIcon = isViewSelectedActive ? 'eye-slash' : 'eye';
+      
+      let buttonsHTML = '';
+      
+      // Botón "Ver seleccionados"
+      buttonsHTML += renderButton({
+        text: viewSelectedText,
+        variant: 'secondary',
+        size: 'sm',
+        icon: viewSelectedIcon,
+        iconStyle: 'regular',
+        active: isViewSelectedActive,
+        className: 'ubits-data-table__action-bar-button',
+        attributes: {
+          id: 'action-btn-view-selected'
+        }
+      });
+      
+      // Botón "Eliminar"
+      buttonsHTML += renderButton({
+        variant: 'secondary',
+        size: 'sm',
+        icon: 'trash',
+        iconStyle: 'regular',
+        iconOnly: true,
+        className: 'ubits-data-table__action-bar-button',
+        attributes: {
+          id: 'action-btn-delete'
+        }
+      });
+      
+      actionBar.innerHTML = buttonsHTML;
+      
+      // Listener para "Ver seleccionados"
+      const viewSelectedBtn = actionBar.querySelector('#action-btn-view-selected');
+      if (viewSelectedBtn) {
+        viewSelectedBtn.addEventListener('click', () => {
+          selectionState.viewSelectedActive = !selectionState.viewSelectedActive;
+          
+          if (tableInstance && originalRows.length > 0) {
+            if (selectionState.viewSelectedActive) {
+              const filteredRows = originalRows.filter(row => 
+                selectionState.selectedRowIds.has(row.id)
+              );
+              tableInstance.update({ rows: filteredRows });
+            } else {
+              tableInstance.update({ rows: originalRows });
+            }
+          }
+          
+          renderActionBar();
+        });
+      }
+      
+      // Listener para "Eliminar"
+      const deleteBtn = actionBar.querySelector('#action-btn-delete');
+      if (deleteBtn) {
+        deleteBtn.addEventListener('click', () => {
+          const selectedIds = Array.from(selectionState.selectedRowIds);
+          alert(`Eliminar ${selectedIds.length} usuario(s) seleccionado(s)`);
+        });
+      }
+    };
+    
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(tableContainerId);
+      if (containerElement) {
+        // Generar filas de ejemplo
+        const generateRows = (): TableRow[] => {
+          const rows: TableRow[] = [];
+          for (let i = 1; i <= 30; i++) {
+            rows.push({
+              id: i,
+              data: {
+                nombre: `Usuario ${i}`,
+                email: `usuario${i}@ejemplo.com`,
+                estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
+                pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5]
+              }
+            });
+          }
+          return rows;
+        };
+        
+        const rows = generateRows();
+        originalRows = [...rows];
+        
+        // Seleccionar algunas filas por defecto para demostración
+        selectionState.selectedRowIds.add(2);
+        selectionState.selectedRowIds.add(5);
+        selectionState.selectedRowIds.add(8);
+        selectionState.selectedRowIds.add(12);
+        selectionState.selectedRowIds.add(15);
+        
+        const columns: TableColumn[] = [
+          { id: 'nombre', title: 'Nombre', type: 'nombre', width: 200 },
+          { id: 'email', title: 'Email', type: 'correo', width: 250 },
+          { id: 'estado', title: 'Estado', type: 'estado', width: 150 },
+          { id: 'pais', title: 'País', type: 'pais', width: 150 }
+        ];
+        
+        const options: DataTableOptions = {
+          containerId: tableContainerId,
+          columns,
+          rows,
+          showCheckbox: true,
+          showColumnMenu: false,
+          showContextMenu: false,
+          showPagination: false,
+          header: {
+            title: 'Usuarios',
+            showTitle: true,
+            counter: true,
+            showCounter: true
+          },
+          onRowSelect: (rowId, selected) => {
+            if (selected) {
+              selectionState.selectedRowIds.add(rowId);
+            } else {
+              selectionState.selectedRowIds.delete(rowId);
+            }
+            renderActionBar();
+          },
+          onSelectAll: (selected) => {
+            if (tableElement) {
+              const table = tableElement.querySelector('.ubits-data-table');
+              if (table) {
+                const checkboxes = table.querySelectorAll('input[type="checkbox"][data-column-id="checkbox-2"][data-row-id]');
+                checkboxes.forEach((cb) => {
+                  const rowIdStr = (cb as HTMLInputElement).getAttribute('data-row-id');
+                  if (rowIdStr) {
+                    const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
+                    if (selected) {
+                      selectionState.selectedRowIds.add(rowId);
+                    } else {
+                      selectionState.selectedRowIds.delete(rowId);
+                    }
+                  }
+                });
+              }
+            }
+            renderActionBar();
+          }
+        };
+        
+        tableInstance = createDataTable(options);
+        tableElement = tableInstance.element;
+        (window as any).__storybookDataTableInstance = tableInstance;
+        
+        // Marcar las filas pre-seleccionadas
+        setTimeout(() => {
+          if (tableElement) {
+            const checkboxes = tableElement.querySelectorAll('input[type="checkbox"][data-column-id="checkbox-2"]');
+            checkboxes.forEach((cb) => {
+              const rowIdStr = (cb as HTMLInputElement).getAttribute('data-row-id');
+              if (rowIdStr) {
+                const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
+                if (selectionState.selectedRowIds.has(rowId)) {
+                  (cb as HTMLInputElement).checked = true;
+                }
+              }
+            });
+          }
+          renderActionBar();
+        }, 200);
+        
+        console.log('📝 [VER SELECCIONADOS] Tabla creada con funcionalidad de ver usuarios seleccionados');
+        console.log('  - Filas pre-seleccionadas:', Array.from(selectionState.selectedRowIds));
+        console.log('  - Instrucciones:');
+        console.log('    1. Selecciona usuarios con los checkboxes');
+        console.log('    2. Aparecerá la barra de acciones con el botón "Ver seleccionados"');
+        console.log('    3. Haz click en "Ver seleccionados" para filtrar y mostrar solo los seleccionados');
+        console.log('    4. Haz click en "Dejar de ver seleccionados" para volver a ver todos');
+      } else {
+        console.error('❌ Contenedor no encontrado en el DOM:', tableContainerId);
+      }
+    });
+    
+    return container;
+  },
+  args: {
+    showCheckbox: true,
+    showColumnMenu: false,
+    showContextMenu: false,
+    showPagination: false
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demuestra la funcionalidad de "Ver usuarios seleccionados" de la ActionBar. Esta funcionalidad permite filtrar la tabla para mostrar solo las filas que han sido seleccionadas con los checkboxes. Cuando se activa el botón "Ver seleccionados", la tabla se filtra automáticamente y solo muestra los usuarios seleccionados. El botón cambia a "Dejar de ver seleccionados" cuando está activo, y al hacer click nuevamente, se restauran todas las filas. La barra de acciones aparece automáticamente cuando hay al menos una fila seleccionada.'
+      }
+    }
+  }
+};
+
