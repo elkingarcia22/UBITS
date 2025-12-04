@@ -2162,12 +2162,13 @@ export const ColumnSortable: Story = {
     const rows = generateRows();
     
     // Columnas con diferentes tipos para demostrar ordenamiento
+    // Usar IDs base (sin sufijo) para que el ordenamiento funcione correctamente
     const columns: TableColumn[] = [
-      { id: 'nombre-col1', title: 'Nombre', type: 'nombre', width: 200 },
-      { id: 'email-col2', title: 'Email', type: 'correo', width: 250 },
-      { id: 'estado-col3', title: 'Estado', type: 'estado', width: 150 },
-      { id: 'pais-col4', title: 'País', type: 'pais', width: 150 },
-      { id: 'fecha-col5', title: 'Fecha', type: 'fecha', width: 150 }
+      { id: 'nombre', title: 'Nombre', type: 'nombre', width: 200 },
+      { id: 'email', title: 'Email', type: 'correo', width: 250 },
+      { id: 'estado', title: 'Estado', type: 'estado', width: 150 },
+      { id: 'pais', title: 'País', type: 'pais', width: 150 },
+      { id: 'fecha', title: 'Fecha', type: 'fecha', width: 150 }
     ];
     
     const options: DataTableOptions = {
