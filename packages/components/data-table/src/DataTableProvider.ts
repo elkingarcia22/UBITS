@@ -4029,7 +4029,7 @@ export function createDataTable(options: DataTableOptions): {
             value: 'delete',
             state: 'default' as const,
             attributes: {
-              'style': 'color: var(--modifiers-normal-color-light-feedback-fg-error-subtle-default, var(--ubits-fg-error, #DC2626)) !important;',
+              'style': 'color: var(--modifiers-normal-color-light-feedback-accent-error) !important;',
               'data-action': 'delete'
             },
             onClick: () => {

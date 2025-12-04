@@ -121,11 +121,11 @@
 
 /* Error/Danger state - para acciones destructivas como eliminar */
 .ubits-list-item[data-action="delete"] {
-    color: var(--modifiers-normal-color-light-feedback-fg-error-subtle-default, var(--ubits-fg-error, #DC2626)) !important;
+    color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
 }
 
 .ubits-list-item[data-action="delete"]:hover:not(.ubits-list-item--disabled) {
-    color: var(--modifiers-normal-color-light-feedback-fg-error-subtle-default, var(--ubits-fg-error, #DC2626)) !important;
+    color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
     background: var(--modifiers-normal-color-light-feedback-bg-error-subtle-default, var(--ubits-bg-error-subtle, rgba(220, 38, 38, 0.1))) !important;
 }
 
