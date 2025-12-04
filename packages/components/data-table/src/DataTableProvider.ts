@@ -945,9 +945,16 @@ function renderDataTableHeader(options: DataTableOptions, activeFilters: Record<
       }
     } else if (counter === true) {
       // Modo "X/Y resultados"
+      // Si hay paginación, mostrar items de la página actual / total
+      // Si no hay paginación, mostrar todos los items / total
       const currentDisplayed = displayedItems !== undefined ? displayedItems : rows.length;
       const total = totalItems !== undefined ? totalItems : rows.length;
-      counterText = `${currentDisplayed}/${total} resultados`;
+      // Si displayedItems y totalItems son iguales, mostrar solo el total
+      if (currentDisplayed === total) {
+        counterText = `${total} resultados`;
+      } else {
+        counterText = `${currentDisplayed}/${total} resultados`;
+      }
     }
   }
   
