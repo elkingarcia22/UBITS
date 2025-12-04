@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { createTabBar } from '../../addons/tabbar/src/TabBarProvider';
-import { defaultFloatingMenuSections, defaultProfileMenuItems } from '../../addons/tabbar/src/configs/defaultFloatingMenu';
-import type { TabBarOptions, TabBarItem, FloatingMenuSection, ProfileMenuItem } from '../../addons/tabbar/src/types/TabBarOptions';
+import { createTabBar } from '../../components/tabbar/src/TabBarProvider';
+import { defaultFloatingMenuSections, defaultProfileMenuItems } from '../../components/tabbar/src/configs/defaultFloatingMenu';
+import type { TabBarOptions, TabBarItem, FloatingMenuSection, ProfileMenuItem } from '../../components/tabbar/src/types/TabBarOptions';
 
 // Configuraciones de Floating Menu para cada variante
 const colaboradorFloatingMenuSections: FloatingMenuSection[] = [
@@ -546,6 +546,838 @@ export const Default: Story = {
     }, 3000);
 
     return wrapper;
+  },
+};
+
+// Helper para renderizar TabBar de manera consistente
+function renderTabBarStory(options: TabBarOptions & { variant?: 'colaborador' | 'admin' }) {
+  const variant = options.variant || 'colaborador';
+  const config = getTabBarConfig(variant);
+  
+  const wrapper = document.createElement('div');
+  wrapper.style.cssText = `
+    width: 100%;
+    max-width: 375px;
+    margin: 0 auto;
+    padding: 16px;
+    background: var(--modifiers-normal-color-light-bg-2);
+    border-radius: 8px;
+    border: 1px solid var(--modifiers-normal-color-light-border-1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    isolation: isolate;
+  `;
+
+  const container = document.createElement('div');
+  container.id = options.containerId || `tabbar-container-${Date.now()}`;
+  container.classList.add('ubits-tabbar-preview-container');
+  container.style.cssText = `
+    position: relative !important;
+    width: 100%;
+    min-height: 576px;
+    margin-top: auto;
+    overflow: visible;
+    box-sizing: border-box;
+    isolation: isolate;
+    background: var(--modifiers-normal-color-light-bg-2);
+    border-radius: 8px;
+  `;
+
+  wrapper.appendChild(container);
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        try {
+          createTabBar({
+            ...options,
+            container: container,
+            visible: options.visible !== false,
+            darkModeEnabled: options.darkModeEnabled !== false,
+            floatingMenuSections: options.floatingMenuSections || config.floatingMenuSections,
+            profileMenuItems: options.profileMenuItems || config.profileMenuItems
+          });
+        } catch (error) {
+          console.error('Error creating TabBar:', error);
+        }
+      }, 100);
+    });
+  });
+
+  return wrapper;
+}
+
+/**
+ * VariantColaborador
+ * Variante colaborador
+ */
+export const VariantColaborador: Story = {
+  name: 'Variant - Colaborador',
+  args: {
+    containerId: 'tabbar-colaborador-container',
+    variant: 'colaborador',
+    items: defaultItems,
+    activeTabId: 'modulos',
+    darkModeEnabled: true,
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar en variante colaborador.',
+      },
+    },
+  },
+};
+
+/**
+ * VariantAdmin
+ * Variante admin
+ */
+export const VariantAdmin: Story = {
+  name: 'Variant - Admin',
+  args: {
+    containerId: 'tabbar-admin-container',
+    variant: 'admin',
+    items: defaultItems,
+    activeTabId: 'modulos',
+    darkModeEnabled: true,
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar en variante admin.',
+      },
+    },
+  },
+};
+
+/**
+ * WithIcons
+ * Items con iconos
+ */
+export const WithIcons: Story = {
+  name: 'With Icons',
+  args: {
+    containerId: 'tabbar-icons-container',
+    variant: 'colaborador',
+    items: [
+      { id: 'modulos', label: 'Módulos', icon: 'th-large' },
+      { id: 'perfil', label: 'Mi perfil', icon: 'user' },
+      { id: 'modo-oscuro', label: 'Modo oscuro', icon: 'moon' }
+    ],
+    activeTabId: 'modulos',
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con items que tienen iconos.',
+      },
+    },
+  },
+};
+
+/**
+ * WithAvatar
+ * Items con avatar
+ */
+export const WithAvatar: Story = {
+  name: 'With Avatar',
+  args: {
+    containerId: 'tabbar-avatar-container',
+    variant: 'colaborador',
+    items: [
+      { id: 'modulos', label: 'Módulos', icon: 'th-large' },
+      { id: 'perfil', label: 'Mi perfil', avatar: '/images/Profile-image.jpg', avatarAlt: 'Mi perfil' },
+      { id: 'modo-oscuro', label: 'Modo oscuro', icon: 'moon' }
+    ],
+    activeTabId: 'perfil',
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con items que tienen avatar (en lugar de icono).',
+      },
+    },
+  },
+};
+
+/**
+ * MixedItems
+ * Items mixtos (algunos con iconos, algunos con avatar)
+ */
+export const MixedItems: Story = {
+  name: 'Mixed Items',
+  args: {
+    containerId: 'tabbar-mixed-container',
+    variant: 'colaborador',
+    items: [
+      { id: 'modulos', label: 'Módulos', icon: 'th-large' },
+      { id: 'perfil', label: 'Mi perfil', avatar: '/images/Profile-image.jpg', avatarAlt: 'Mi perfil' },
+      { id: 'modo-oscuro', label: 'Modo oscuro', icon: 'moon' }
+    ],
+    activeTabId: 'modulos',
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con items mixtos (algunos con iconos, algunos con avatar).',
+      },
+    },
+  },
+};
+
+/**
+ * ActiveTab
+ * Con tab activo
+ */
+export const ActiveTab: Story = {
+  name: 'Active Tab',
+  args: {
+    containerId: 'tabbar-active-tab-container',
+    variant: 'colaborador',
+    items: defaultItems,
+    activeTabId: 'perfil',
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con tab activo (Mi perfil).',
+      },
+    },
+  },
+};
+
+/**
+ * NoActiveTab
+ * Sin tab activo
+ */
+export const NoActiveTab: Story = {
+  name: 'No Active Tab',
+  args: {
+    containerId: 'tabbar-no-active-tab-container',
+    variant: 'colaborador',
+    items: defaultItems,
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar sin tab activo.',
+      },
+    },
+  },
+};
+
+/**
+ * ItemWithOnClick
+ * Item con callback onClick
+ */
+export const ItemWithOnClick: Story = {
+  name: 'Item - With OnClick',
+  args: {
+    containerId: 'tabbar-onclick-container',
+    variant: 'colaborador',
+    items: [
+      { id: 'modulos', label: 'Módulos', icon: 'th-large', onClick: () => alert('Módulos clicked') },
+      { id: 'perfil', label: 'Mi perfil', avatar: '/images/Profile-image.jpg', onClick: () => alert('Perfil clicked') },
+      { id: 'modo-oscuro', label: 'Modo oscuro', icon: 'moon', onClick: () => alert('Dark mode clicked') }
+    ],
+    activeTabId: 'modulos',
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con items que tienen callbacks onClick.',
+      },
+    },
+  },
+};
+
+/**
+ * OnTabChangeCallback
+ * Callback cuando cambia el tab activo
+ */
+export const OnTabChangeCallback: Story = {
+  name: 'On Tab Change Callback',
+  args: {
+    containerId: 'tabbar-tab-change-container',
+    variant: 'colaborador',
+    items: defaultItems,
+    activeTabId: 'modulos',
+    visible: true,
+    onTabChange: (tabId, item, element) => {
+      alert(`Tab cambiado: ${tabId}`);
+    }
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con callback onTabChange cuando cambia el tab activo.',
+      },
+    },
+  },
+};
+
+/**
+ * Visible
+ * TabBar visible
+ */
+export const Visible: Story = {
+  name: 'Visible',
+  args: {
+    containerId: 'tabbar-visible-container',
+    variant: 'colaborador',
+    items: defaultItems,
+    activeTabId: 'modulos',
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar visible (modo preview).',
+      },
+    },
+  },
+};
+
+/**
+ * Hidden
+ * TabBar oculto
+ */
+export const Hidden: Story = {
+  name: 'Hidden',
+  args: {
+    containerId: 'tabbar-hidden-container',
+    variant: 'colaborador',
+    items: defaultItems,
+    activeTabId: 'modulos',
+    visible: false
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar oculto (visible: false).',
+      },
+    },
+  },
+};
+
+/**
+ * WithDarkModeToggle
+ * Con toggle de dark mode
+ */
+export const WithDarkModeToggle: Story = {
+  name: 'With Dark Mode Toggle',
+  args: {
+    containerId: 'tabbar-dark-mode-container',
+    variant: 'colaborador',
+    items: defaultItems,
+    activeTabId: 'modulos',
+    darkModeEnabled: true,
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con toggle de dark mode habilitado.',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutDarkModeToggle
+ * Sin toggle de dark mode
+ */
+export const WithoutDarkModeToggle: Story = {
+  name: 'Without Dark Mode Toggle',
+  args: {
+    containerId: 'tabbar-no-dark-mode-container',
+    variant: 'colaborador',
+    items: [
+      { id: 'modulos', label: 'Módulos', icon: 'th-large' },
+      { id: 'perfil', label: 'Mi perfil', avatar: '/images/Profile-image.jpg' }
+    ],
+    activeTabId: 'modulos',
+    darkModeEnabled: false,
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar sin toggle de dark mode (sin item "modo-oscuro").',
+      },
+    },
+  },
+};
+
+/**
+ * OnDarkModeToggleCallback
+ * Callback cuando se cambia el dark mode
+ */
+export const OnDarkModeToggleCallback: Story = {
+  name: 'On Dark Mode Toggle Callback',
+  args: {
+    containerId: 'tabbar-dark-mode-callback-container',
+    variant: 'colaborador',
+    items: defaultItems,
+    activeTabId: 'modulos',
+    darkModeEnabled: true,
+    visible: true,
+    onDarkModeToggle: (isDark) => {
+      alert(`Dark mode: ${isDark ? 'Activado' : 'Desactivado'}`);
+    }
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con callback onDarkModeToggle cuando se cambia el dark mode.',
+      },
+    },
+  },
+};
+
+/**
+ * WithFloatingMenu
+ * Con Floating Menu (Módulos)
+ */
+export const WithFloatingMenu: Story = {
+  name: 'With Floating Menu',
+  args: {
+    containerId: 'tabbar-floating-menu-container',
+    variant: 'colaborador',
+    items: defaultItems,
+    activeTabId: 'modulos',
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con Floating Menu (se muestra al hacer click en "Módulos").',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutFloatingMenu
+ * Sin Floating Menu
+ */
+export const WithoutFloatingMenu: Story = {
+  name: 'Without Floating Menu',
+  args: {
+    containerId: 'tabbar-no-floating-menu-container',
+    variant: 'colaborador',
+    items: [
+      { id: 'perfil', label: 'Mi perfil', avatar: '/images/Profile-image.jpg' },
+      { id: 'modo-oscuro', label: 'Modo oscuro', icon: 'moon' }
+    ],
+    activeTabId: 'perfil',
+    floatingMenuSections: [],
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar sin Floating Menu.',
+      },
+    },
+  },
+};
+
+/**
+ * WithProfileMenu
+ * Con Profile Menu (Mi perfil)
+ */
+export const WithProfileMenu: Story = {
+  name: 'With Profile Menu',
+  args: {
+    containerId: 'tabbar-profile-menu-container',
+    variant: 'colaborador',
+    items: defaultItems,
+    activeTabId: 'perfil',
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con Profile Menu (se muestra al hacer click en "Mi perfil").',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutProfileMenu
+ * Sin Profile Menu
+ */
+export const WithoutProfileMenu: Story = {
+  name: 'Without Profile Menu',
+  args: {
+    containerId: 'tabbar-no-profile-menu-container',
+    variant: 'colaborador',
+    items: [
+      { id: 'modulos', label: 'Módulos', icon: 'th-large' },
+      { id: 'modo-oscuro', label: 'Modo oscuro', icon: 'moon' }
+    ],
+    activeTabId: 'modulos',
+    profileMenuItems: [],
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar sin Profile Menu.',
+      },
+    },
+  },
+};
+
+/**
+ * OnFloatingMenuItemClickCallback
+ * Callback cuando se hace click en un item del Floating Menu
+ */
+export const OnFloatingMenuItemClickCallback: Story = {
+  name: 'On Floating Menu Item Click Callback',
+  args: {
+    containerId: 'tabbar-floating-menu-callback-container',
+    variant: 'colaborador',
+    items: defaultItems,
+    activeTabId: 'modulos',
+    visible: true,
+    onFloatingMenuItemClick: (sectionId, subitemId, url) => {
+      alert(`Floating menu item clicked: ${sectionId}${subitemId ? ` - ${subitemId}` : ''}`);
+    }
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con callback onFloatingMenuItemClick cuando se hace click en un item del Floating Menu.',
+      },
+    },
+  },
+};
+
+/**
+ * OnProfileMenuItemClickCallback
+ * Callback cuando se hace click en un item del Profile Menu
+ */
+export const OnProfileMenuItemClickCallback: Story = {
+  name: 'On Profile Menu Item Click Callback',
+  args: {
+    containerId: 'tabbar-profile-menu-callback-container',
+    variant: 'colaborador',
+    items: defaultItems,
+    activeTabId: 'perfil',
+    visible: true,
+    onProfileMenuItemClick: (itemId, item) => {
+      alert(`Profile menu item clicked: ${itemId}`);
+    }
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con callback onProfileMenuItemClick cuando se hace click en un item del Profile Menu.',
+      },
+    },
+  },
+};
+
+/**
+ * TreeMenuSizeXS
+ * Tree menu tamaño xs
+ */
+export const TreeMenuSizeXS: Story = {
+  name: 'Tree Menu Size - XS',
+  args: {
+    containerId: 'tabbar-tree-menu-xs-container',
+    variant: 'colaborador',
+    items: defaultItems,
+    activeTabId: 'modulos',
+    treeMenuSize: 'xs',
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con tree menu tamaño xs.',
+      },
+    },
+  },
+};
+
+/**
+ * TreeMenuSizeSM
+ * Tree menu tamaño sm
+ */
+export const TreeMenuSizeSM: Story = {
+  name: 'Tree Menu Size - SM',
+  args: {
+    containerId: 'tabbar-tree-menu-sm-container',
+    variant: 'colaborador',
+    items: defaultItems,
+    activeTabId: 'modulos',
+    treeMenuSize: 'sm',
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con tree menu tamaño sm.',
+      },
+    },
+  },
+};
+
+/**
+ * TreeMenuSizeMD
+ * Tree menu tamaño md (default)
+ */
+export const TreeMenuSizeMD: Story = {
+  name: 'Tree Menu Size - MD',
+  args: {
+    containerId: 'tabbar-tree-menu-md-container',
+    variant: 'colaborador',
+    items: defaultItems,
+    activeTabId: 'modulos',
+    treeMenuSize: 'md',
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con tree menu tamaño md (default).',
+      },
+    },
+  },
+};
+
+/**
+ * TreeMenuSizeLG
+ * Tree menu tamaño lg
+ */
+export const TreeMenuSizeLG: Story = {
+  name: 'Tree Menu Size - LG',
+  args: {
+    containerId: 'tabbar-tree-menu-lg-container',
+    variant: 'colaborador',
+    items: defaultItems,
+    activeTabId: 'modulos',
+    treeMenuSize: 'lg',
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con tree menu tamaño lg.',
+      },
+    },
+  },
+};
+
+/**
+ * FewItems
+ * Pocos items (2-3)
+ */
+export const FewItems: Story = {
+  name: 'Few Items',
+  args: {
+    containerId: 'tabbar-few-items-container',
+    variant: 'colaborador',
+    items: [
+      { id: 'modulos', label: 'Módulos', icon: 'th-large' },
+      { id: 'perfil', label: 'Mi perfil', avatar: '/images/Profile-image.jpg' }
+    ],
+    activeTabId: 'modulos',
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con pocos items (2 items).',
+      },
+    },
+  },
+};
+
+/**
+ * ManyItems
+ * Muchos items (5+)
+ */
+export const ManyItems: Story = {
+  name: 'Many Items',
+  args: {
+    containerId: 'tabbar-many-items-container',
+    variant: 'colaborador',
+    items: [
+      { id: 'modulos', label: 'Módulos', icon: 'th-large' },
+      { id: 'perfil', label: 'Mi perfil', avatar: '/images/Profile-image.jpg' },
+      { id: 'modo-oscuro', label: 'Modo oscuro', icon: 'moon' },
+      { id: 'notificaciones', label: 'Notificaciones', icon: 'bell' },
+      { id: 'configuracion', label: 'Configuración', icon: 'cog' }
+    ],
+    activeTabId: 'modulos',
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con muchos items (5 items).',
+      },
+    },
+  },
+};
+
+/**
+ * LongLabels
+ * Labels largos
+ */
+export const LongLabels: Story = {
+  name: 'Long Labels',
+  args: {
+    containerId: 'tabbar-long-labels-container',
+    variant: 'colaborador',
+    items: [
+      { id: 'modulos', label: 'Módulos de Aprendizaje', icon: 'th-large' },
+      { id: 'perfil', label: 'Mi Perfil de Usuario', avatar: '/images/Profile-image.jpg' },
+      { id: 'modo-oscuro', label: 'Modo Oscuro/Claro', icon: 'moon' }
+    ],
+    activeTabId: 'modulos',
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con labels largos.',
+      },
+    },
+  },
+};
+
+/**
+ * ShortLabels
+ * Labels cortos
+ */
+export const ShortLabels: Story = {
+  name: 'Short Labels',
+  args: {
+    containerId: 'tabbar-short-labels-container',
+    variant: 'colaborador',
+    items: [
+      { id: 'modulos', label: 'Mód', icon: 'th-large' },
+      { id: 'perfil', label: 'Per', avatar: '/images/Profile-image.jpg' },
+      { id: 'modo-oscuro', label: 'Mod', icon: 'moon' }
+    ],
+    activeTabId: 'modulos',
+    visible: true
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar con labels cortos.',
+      },
+    },
+  },
+};
+
+/**
+ * CompleteExample
+ * Ejemplo completo
+ */
+export const CompleteExample: Story = {
+  name: 'Complete Example',
+  args: {
+    containerId: 'tabbar-complete-container',
+    variant: 'admin',
+    items: defaultItems,
+    activeTabId: 'modulos',
+    darkModeEnabled: true,
+    visible: true,
+    treeMenuSize: 'md',
+    onTabChange: (tabId, item, element) => {
+      console.log('Tab cambiado:', tabId);
+    },
+    onDarkModeToggle: (isDark) => {
+      console.log('Dark mode toggled:', isDark);
+    },
+    onFloatingMenuItemClick: (sectionId, subitemId, url) => {
+      console.log('Floating menu item clicked:', sectionId, subitemId, url);
+    },
+    onProfileMenuItemClick: (itemId, item) => {
+      console.log('Profile menu item clicked:', itemId);
+    }
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar completo con todas las opciones habilitadas (variante admin).',
+      },
+    },
+  },
+};
+
+/**
+ * MinimalExample
+ * Ejemplo mínimo
+ */
+export const MinimalExample: Story = {
+  name: 'Minimal Example',
+  args: {
+    containerId: 'tabbar-minimal-container',
+    variant: 'colaborador',
+    items: [
+      { id: 'modulos', label: 'Módulos', icon: 'th-large' },
+      { id: 'perfil', label: 'Perfil', avatar: '/images/Profile-image.jpg' }
+    ],
+    activeTabId: 'modulos',
+    visible: true,
+    floatingMenuSections: [],
+    profileMenuItems: []
+  },
+  render: (args) => renderTabBarStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'TabBar mínimo con solo las opciones esenciales.',
+      },
+    },
   },
 };
 
