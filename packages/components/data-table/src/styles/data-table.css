@@ -1485,15 +1485,59 @@
 
 /* El contenedor del dropdown no debe tener fondo ni sombra, el List lo maneja */
 /* IMPORTANTE: Asegurar que el List también tenga z-index alto para quedar por encima de columnas fijadas */
+.ubits-data-table__column-menu-dropdown {
+    overflow: hidden !important; /* Prevenir que el contenido se salga */
+}
+
 .ubits-data-table__column-menu-dropdown .ubits-list {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
     position: relative !important;
     z-index: inherit !important;
     /* El List ya tiene sus propios estilos: background, border-radius, box-shadow */
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important; /* Prevenir scroll horizontal */
+    overflow-y: auto !important; /* Permitir scroll vertical si es necesario */
+}
+
+/* Asegurar que los items de la lista no se salgan del contenedor */
+.ubits-data-table__column-menu-dropdown .ubits-list-item {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    word-wrap: break-word !important;
+}
+
+/* Estilos para el menú contextual */
+#ubits-data-table-context-menu {
+    overflow: hidden !important; /* Prevenir que el contenido se salga */
+    box-sizing: border-box !important;
+}
+
+#ubits-data-table-context-menu .ubits-list {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important; /* Prevenir scroll horizontal */
+    overflow-y: auto !important; /* Permitir scroll vertical si es necesario */
+}
+
+/* Asegurar que los items del menú contextual no se salgan del contenedor */
+#ubits-data-table-context-menu .ubits-list-item {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    word-wrap: break-word !important;
 }
 
 /* CRÍTICO: NO aplicar position: relative aquí - se aplicará inline cuando sea necesario (sticky para columnas fijadas) */
