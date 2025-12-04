@@ -1376,7 +1376,22 @@ export const Default: Story = {
         if (allTablesAfter.length > 1) {
           console.log('  ⚠️ ADVERTENCIA: Hay múltiples tablas en el DOM!');
         }
-      }, 100);
+        
+        // Verificar cuántas columnas tiene realmente la tabla renderizada
+        const tableInContainer = containerElement.querySelector('.ubits-data-table');
+        if (tableInContainer) {
+          const thead = tableInContainer.querySelector('thead');
+          if (thead) {
+            const headerCells = thead.querySelectorAll('th');
+            console.log('  - Columnas en la tabla renderizada:', headerCells.length);
+            console.log('  - IDs de columnas:', Array.from(headerCells).map(th => th.getAttribute('data-column-id') || th.textContent?.trim() || 'sin-id'));
+            
+            if (headerCells.length !== options.columns.length) {
+              console.error('  ❌ ERROR: El número de columnas en la tabla renderizada (', headerCells.length, ') no coincide con options.columns.length (', options.columns.length, ')');
+            }
+          }
+        }
+      }, 200);
       
       // Guardar referencia a la instancia para poder inspeccionarla
       (window as any).__storybookDataTableInstance = tableInstance;
