@@ -1734,63 +1734,74 @@ export const ColumnReorderable: Story = {
     
     container.appendChild(tableContainer);
     
-    // Generar datos de ejemplo
-    const generateRows = (): TableRow[] => {
-      const rows: TableRow[] = [];
-      for (let i = 1; i <= 10; i++) {
-        rows.push({
-          id: i,
-          data: {
-            nombre: `Usuario ${i}`,
-            email: `usuario${i}@ejemplo.com`,
-            estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
-            pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
-            fecha: new Date(2024, 0, i).toISOString().split('T')[0]
-          }
-        });
+    // Asegurar que el contenedor esté en el DOM antes de crear la tabla
+    // Usar setTimeout para asegurar que el DOM esté listo
+    setTimeout(() => {
+      // Generar datos de ejemplo
+      const generateRows = (): TableRow[] => {
+        const rows: TableRow[] = [];
+        for (let i = 1; i <= 10; i++) {
+          rows.push({
+            id: i,
+            data: {
+              nombre: `Usuario ${i}`,
+              email: `usuario${i}@ejemplo.com`,
+              estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
+              pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
+              fecha: new Date(2024, 0, i).toISOString().split('T')[0]
+            }
+          });
+        }
+        return rows;
+      };
+      
+      const rows = generateRows();
+      
+      // Columnas simples para demostrar el reordenamiento
+      const columns: TableColumn[] = [
+        { id: 'nombre-col1', title: 'Nombre', type: 'nombre', width: 200 },
+        { id: 'email-col2', title: 'Email', type: 'correo', width: 250 },
+        { id: 'estado-col3', title: 'Estado', type: 'estado', width: 150 },
+        { id: 'pais-col4', title: 'País', type: 'pais', width: 150 },
+        { id: 'fecha-col5', title: 'Fecha', type: 'fecha', width: 150 }
+      ];
+      
+      const options: DataTableOptions = {
+        containerId: tableContainer.id,
+        columns,
+        rows,
+        columnReorderable: true, // Habilitar reordenamiento de columnas
+        rowReorderable: false,
+        rowExpandable: false,
+        columnSortable: false,
+        showCheckbox: false,
+        showVerticalScrollbar: false,
+        showHorizontalScrollbar: false,
+        showColumnMenu: false,
+        showContextMenu: false,
+        showPagination: false,
+        header: {
+          title: 'Reordenamiento de Columnas',
+          showTitle: true,
+          counter: true,
+          displayedItems: rows.length,
+          totalItems: rows.length
+        },
+        onColumnReorder: (columnIds: string[]) => {
+          console.log('🔄 Columnas reordenadas:', columnIds);
+        }
+      };
+      
+      // Verificar que el contenedor existe en el DOM
+      const containerElement = document.getElementById(tableContainer.id);
+      if (!containerElement) {
+        console.error('❌ Contenedor no encontrado en el DOM:', tableContainer.id);
+        return;
       }
-      return rows;
-    };
-    
-    const rows = generateRows();
-    
-    // Columnas simples para demostrar el reordenamiento
-    const columns: TableColumn[] = [
-      { id: 'nombre-col1', title: 'Nombre', type: 'nombre', width: 200 },
-      { id: 'email-col2', title: 'Email', type: 'correo', width: 250 },
-      { id: 'estado-col3', title: 'Estado', type: 'estado', width: 150 },
-      { id: 'pais-col4', title: 'País', type: 'pais', width: 150 },
-      { id: 'fecha-col5', title: 'Fecha', type: 'fecha', width: 150 }
-    ];
-    
-    const options: DataTableOptions = {
-      containerId: tableContainer.id,
-      columns,
-      rows,
-      columnReorderable: true, // Habilitar reordenamiento de columnas
-      rowReorderable: false,
-      rowExpandable: false,
-      columnSortable: false,
-      showCheckbox: false,
-      showVerticalScrollbar: false,
-      showHorizontalScrollbar: false,
-      showColumnMenu: false,
-      showContextMenu: false,
-      showPagination: false,
-      header: {
-        title: 'Reordenamiento de Columnas',
-        showTitle: true,
-        counter: true,
-        displayedItems: rows.length,
-        totalItems: rows.length
-      },
-      onColumnReorder: (columnIds: string[]) => {
-        console.log('🔄 Columnas reordenadas:', columnIds);
-      }
-    };
-    
-    const tableInstance = createDataTable(options);
-    (window as any).__storybookDataTableInstance = tableInstance;
+      
+      const tableInstance = createDataTable(options);
+      (window as any).__storybookDataTableInstance = tableInstance;
+    }, 0);
     
     return container;
   },
