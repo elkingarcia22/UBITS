@@ -628,9 +628,11 @@ function renderCell(column: TableColumn, row: TableRow, pinnedLeft: number = 0):
   }
   
   // Renderizado normal para otras columnas (usar renderCell personalizado si existe)
+  // Extraer el ID base del ID único para buscar datos (ej: "nombre-col1" -> "nombre")
+  const baseId = column.id.includes('-col') ? column.id.split('-col')[0] : column.id;
   const content = column.renderCell 
     ? column.renderCell(row.data)
-    : row.data[column.id] || '';
+    : row.data[column.id] || row.data[baseId] || '';
   
   // Agregar clase si la columna está fijada
   const pinnedClass = column.pinned ? ' ubits-data-table__cell--pinned' : '';
