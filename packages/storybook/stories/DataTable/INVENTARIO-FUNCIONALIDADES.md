@@ -147,8 +147,8 @@
 16. ⬜ **Search** - Búsqueda en la tabla
 17. ⬜ **Filters** - Filtros de columnas
 18. ⬜ **ColumnSelector** - Selector de columnas
-19. ⬜ **ActionBar** - Barra de acciones
-20. ⬜ **ColumnTypes** - Tipos de columnas
+19. ✅ **ActionBar** - Barra de acciones
+20. ✅ **ColumnTypes** - Tipos de columnas
 21. ⬜ **EditableCells** - Edición de celdas
 22. ⬜ **EmptyState** - Estado vacío
 23. ⬜ **HeaderButtons** - Botones del header (primario y secundarios)
