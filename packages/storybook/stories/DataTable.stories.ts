@@ -102,7 +102,7 @@ const meta: Meta<DataTableOptions & { columnsCount?: number }> = {
       control: { type: 'number', min: 1, max: 10, step: 1 },
       description: 'Número de columnas de datos a mostrar (excluyendo checkbox)',
       table: {
-        defaultValue: { summary: '3' }
+        defaultValue: { summary: '7' }
 }
 },
     columnType1: {
@@ -537,7 +537,7 @@ export const Default: Story = {
     });
     
     // Generar columnas dinámicamente según columnsCount
-    const columnsCount = args.columnsCount ?? 3;
+    const columnsCount = args.columnsCount ?? 7;
     
     // Tipos de columna disponibles (pueden ser controlados desde Storybook)
     // Leer directamente de args para asegurar que se actualicen cuando cambien
