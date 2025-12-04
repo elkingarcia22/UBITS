@@ -2880,6 +2880,110 @@ export const ContextMenu: Story = {
  * Esta historia demuestra cómo funcionan las columnas fijadas.
  * Las columnas fijadas permanecen visibles al hacer scroll horizontal, útil para mantener información importante siempre visible.
  */
+export const LazyLoad: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      height: auto;
+      overflow: visible !important;
+      max-height: none !important;
+    `;
+    
+    const tableContainerId = `data-table-lazy-load-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const tableContainer = document.createElement('div');
+    tableContainer.id = tableContainerId;
+    tableContainer.style.cssText = `
+      width: 100%;
+      max-width: 100%;
+      height: 500px; /* Altura fija para que se active el scroll */
+      overflow: visible !important;
+      min-height: 500px;
+      max-height: 500px;
+    `;
+    
+    container.appendChild(tableContainer);
+    
+    // Generar muchos datos para que se vea el efecto de lazy load
+    const generateRows = (): TableRow[] => {
+      const rows: TableRow[] = [];
+      for (let i = 1; i <= 100; i++) {
+        rows.push({
+          id: i,
+          data: {
+            nombre: `Usuario ${i}`,
+            email: `usuario${i}@ejemplo.com`,
+            estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
+            pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
+            fecha: new Date(2024, 0, i).toISOString().split('T')[0],
+            telefono: `+57 300 ${i.toString().padStart(7, '0')}`
+          }
+        });
+      }
+      return rows;
+    };
+    
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(tableContainerId);
+      if (containerElement) {
+        const rows = generateRows();
+        const columns: TableColumn[] = [
+          { id: 'nombre', title: 'Nombre', type: 'nombre', width: 200 },
+          { id: 'email', title: 'Email', type: 'correo', width: 250 },
+          { id: 'estado', title: 'Estado', type: 'estado', width: 150 },
+          { id: 'pais', title: 'País', type: 'pais', width: 150 },
+          { id: 'fecha', title: 'Fecha', type: 'fecha', width: 150 },
+          { id: 'telefono', title: 'Teléfono', type: 'telefono', width: 180 }
+        ];
+        
+        const options: DataTableOptions = {
+          containerId: tableContainerId,
+          columns,
+          rows,
+          lazyLoad: true, // Habilitar lazy load
+          lazyLoadItemsPerBatch: 15, // Cargar 15 items por batch
+          showVerticalScrollbar: true, // Necesario para que funcione el scroll
+          showPagination: false, // Deshabilitar paginación (lazy load se activa automáticamente)
+          showCheckbox: false,
+          showColumnMenu: false,
+          showContextMenu: false,
+          onLazyLoad: (loadedItems: number, totalItems: number) => {
+            console.log(`📦 Lazy Load: ${loadedItems}/${totalItems} items cargados`);
+          }
+        };
+        
+        const tableInstance = createDataTable(options);
+        (window as any).__storybookDataTableInstance = tableInstance;
+      } else {
+        console.error('❌ Contenedor no encontrado en el DOM:', tableContainerId);
+      }
+    });
+    
+    return container;
+  },
+  args: {
+    lazyLoad: true,
+    lazyLoadItemsPerBatch: 15,
+    showVerticalScrollbar: true,
+    showPagination: false,
+    showCheckbox: false,
+    showColumnMenu: false,
+    showContextMenu: false
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demuestra la funcionalidad de lazy load (carga incremental/infinite scroll). Al hacer scroll hacia abajo, se cargan automáticamente más items en lotes de 15. La tabla tiene 100 items en total y carga inicialmente 15 items.'
+      }
+    }
+  }
+};
+
 export const Pagination: Story = {
   render: (args) => {
     const container = document.createElement('div');
