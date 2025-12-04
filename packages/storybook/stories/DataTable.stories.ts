@@ -3332,15 +3332,31 @@ export const ActionBar: Story = {
       viewSelectedActive: false
     };
     
+    // Referencia al elemento de la tabla
+    let tableElement: HTMLElement | null = null;
+    
     // Función para renderizar la barra de acciones
-    const renderActionBar = (containerElement: HTMLElement) => {
-      const header = containerElement.querySelector('.ubits-data-table__header');
+    const renderActionBar = () => {
+      if (!tableElement) {
+        console.warn('⚠️ [ACTION BAR] tableElement no está disponible');
+        return;
+      }
+      
+      // Buscar el contenedor de la tabla (ubits-data-table__container)
+      const dataTableContainer = tableElement.querySelector('.ubits-data-table__container') as HTMLElement;
+      if (!dataTableContainer) {
+        console.warn('⚠️ [ACTION BAR] No se encontró .ubits-data-table__container');
+        return;
+      }
+      
+      const header = dataTableContainer.querySelector('.ubits-data-table__header');
       if (!header) {
+        console.warn('⚠️ [ACTION BAR] No se encontró .ubits-data-table__header');
         return;
       }
       
       // Buscar barra existente
-      let actionBar = containerElement.querySelector('.ubits-data-table__action-bar') as HTMLElement;
+      let actionBar = dataTableContainer.querySelector('.ubits-data-table__action-bar') as HTMLElement;
       
       // Si no existe, crearla
       if (!actionBar) {
@@ -3356,6 +3372,7 @@ export const ActionBar: Story = {
           gap: var(--ubits-spacing-xs);
         `;
         header.insertAdjacentElement('afterend', actionBar);
+        console.log('✅ [ACTION BAR] Barra de acciones creada');
       }
       
       // Contar selecciones
@@ -3534,38 +3551,45 @@ export const ActionBar: Story = {
             } else {
               selectionState.selectedRowIds.delete(rowId);
             }
+            console.log('📊 [ACTION BAR] Selecciones actuales:', Array.from(selectionState.selectedRowIds));
             // Actualizar barra de acciones
-            renderActionBar(containerElement);
+            renderActionBar();
           },
           onSelectAll: (selected) => {
             console.log('🔘 [ACTION BAR] onSelectAll:', selected);
             // Actualizar estado de selección - todas las filas visibles
-            const table = containerElement.querySelector('.ubits-data-table');
-            if (table) {
-              const checkboxes = table.querySelectorAll('input[type="checkbox"][data-column-id="checkbox-2"][data-row-id]');
-              checkboxes.forEach((cb) => {
-                const rowIdStr = (cb as HTMLInputElement).getAttribute('data-row-id');
-                if (rowIdStr) {
-                  const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
-                  if (selected) {
-                    selectionState.selectedRowIds.add(rowId);
-                  } else {
-                    selectionState.selectedRowIds.delete(rowId);
+            if (tableElement) {
+              const table = tableElement.querySelector('.ubits-data-table');
+              if (table) {
+                const checkboxes = table.querySelectorAll('input[type="checkbox"][data-column-id="checkbox-2"][data-row-id]');
+                checkboxes.forEach((cb) => {
+                  const rowIdStr = (cb as HTMLInputElement).getAttribute('data-row-id');
+                  if (rowIdStr) {
+                    const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
+                    if (selected) {
+                      selectionState.selectedRowIds.add(rowId);
+                    } else {
+                      selectionState.selectedRowIds.delete(rowId);
+                    }
                   }
-                }
-              });
+                });
+              }
             }
+            console.log('📊 [ACTION BAR] Selecciones después de selectAll:', Array.from(selectionState.selectedRowIds));
             // Actualizar barra de acciones
-            renderActionBar(containerElement);
+            renderActionBar();
           }
         };
         
         const tableInstance = createDataTable(options);
+        tableElement = tableInstance.element; // Guardar referencia al elemento de la tabla
         (window as any).__storybookDataTableInstance = tableInstance;
+        
+        console.log('✅ [ACTION BAR] Tabla creada, tableElement:', tableElement);
         
         // Renderizar action bar inicialmente (estará oculta hasta que haya selecciones)
         setTimeout(() => {
-          renderActionBar(containerElement);
+          renderActionBar();
         }, 200);
       } else {
         console.error('❌ Contenedor no encontrado en el DOM:', tableContainerId);
