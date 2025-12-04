@@ -829,6 +829,7 @@ function createCalendarPicker(container: HTMLElement, inputElement: HTMLInputEle
   // Importar dinámicamente el CalendarProvider usando ruta relativa
   let calendarInstance: ReturnType<typeof import('../../calendar/src/CalendarProvider').createCalendar> | null = null;
   let calendarContainer: HTMLElement | null = null;
+  let isCreatingCalendar = false; // Flag para evitar múltiples creaciones simultáneas
 
   const formatDate = (date: Date): string => {
     const day = String(date.getDate()).padStart(2, '0');
@@ -857,6 +858,11 @@ function createCalendarPicker(container: HTMLElement, inputElement: HTMLInputEle
       return;
     }
 
+    // Si ya se está creando el calendario, no hacer nada
+    if (isCreatingCalendar) {
+      return;
+    }
+
     // Crear contenedor para el calendario si no existe
     if (!calendarContainer) {
       calendarContainer = document.createElement('div');
@@ -868,9 +874,20 @@ function createCalendarPicker(container: HTMLElement, inputElement: HTMLInputEle
 
     // Si el calendario ya existe, solo mostrarlo
     if (calendarInstance) {
-      calendarContainer.style.display = 'block';
-      return;
+      // Verificar si el elemento ya está en el contenedor
+      if (calendarContainer.contains(calendarInstance.element)) {
+        calendarContainer.style.display = 'block';
+        return;
+      } else {
+        // Si el elemento no está en el contenedor, agregarlo
+        calendarContainer.appendChild(calendarInstance.element);
+        calendarContainer.style.display = 'block';
+        return;
+      }
     }
+
+    // Marcar que se está creando el calendario
+    isCreatingCalendar = true;
 
     // Cargar el módulo de calendar dinámicamente
     try {
@@ -898,9 +915,15 @@ function createCalendarPicker(container: HTMLElement, inputElement: HTMLInputEle
         }
       });
 
+      // Limpiar el contenedor antes de agregar el calendario (por si acaso hay contenido previo)
+      calendarContainer.innerHTML = '';
+      
       // Agregar el calendario al contenedor
       calendarContainer.appendChild(calendarInstance.element);
       calendarContainer.style.display = 'block';
+      
+      // Resetear el flag
+      isCreatingCalendar = false;
     } catch (error) {
       console.error('❌ [Calendar Picker] Error cargando Calendar UBITS:', error);
       // Fallback: mostrar mensaje de error
@@ -908,21 +931,34 @@ function createCalendarPicker(container: HTMLElement, inputElement: HTMLInputEle
         calendarContainer.innerHTML = `<div style="padding: var(--ubits-spacing-lg, 16px); background: var(--modifiers-normal-color-light-bg-1); border: 1px solid var(--modifiers-normal-color-light-border-1); border-radius: var(--ubits-border-radius-lg, 8px); color: var(--modifiers-normal-color-light-fg-1-high);">Error al cargar el calendario</div>`;
         calendarContainer.style.display = 'block';
       }
+      // Resetear el flag en caso de error
+      isCreatingCalendar = false;
     }
   };
 
   // Event listeners para mostrar/ocultar el calendario
-  // Usar tanto 'click' como 'focus' para inputs readonly
+  // Usar click para inputs readonly (focus puede dispararse también, pero lo manejamos con un pequeño delay)
+  let clickTimeout: ReturnType<typeof setTimeout> | null = null;
+  
   inputElement.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
+    // Limpiar timeout si existe
+    if (clickTimeout) {
+      clearTimeout(clickTimeout);
+    }
     showCalendar();
   });
 
   inputElement.addEventListener('focus', (e) => {
     e.preventDefault();
     e.stopPropagation();
-    showCalendar();
+    // Usar un pequeño delay para evitar que se dispare si ya se hizo click
+    // Si se hizo click, el timeout se limpiará y esto no se ejecutará
+    clickTimeout = setTimeout(() => {
+      showCalendar();
+      clickTimeout = null;
+    }, 100);
   });
 
   // También escuchar clicks en el icono del calendario
