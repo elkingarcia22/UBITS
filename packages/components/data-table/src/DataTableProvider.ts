@@ -1862,6 +1862,12 @@ export function createDataTable(options: DataTableOptions): {
 
   // Función para configurar lazy load (infinite scroll)
   const setupLazyLoad = () => {
+    console.log('🔵 [LAZY LOAD SETUP] Iniciando setupLazyLoad...');
+    console.log('  - isLazyLoadEnabled:', isLazyLoadEnabled);
+    console.log('  - lazyLoadCurrentItems:', lazyLoadCurrentItems);
+    console.log('  - lazyLoadItemsPerBatch:', lazyLoadItemsPerBatch);
+    console.log('  - totalRows:', currentOptions.rows.length);
+    
     // Remover listener anterior si existe
     if (lazyLoadScrollListener) {
       const scrollableContainer = element.querySelector('.ubits-data-table__scrollable-container') as HTMLElement;
@@ -1874,6 +1880,7 @@ export function createDataTable(options: DataTableOptions): {
     
     // Buscar el contenedor scrollable
     const scrollableContainer = element.querySelector('.ubits-data-table__scrollable-container') as HTMLElement;
+    console.log('  - scrollableContainer encontrado:', !!scrollableContainer);
     
     // Función para verificar si está cerca del final
     const checkScroll = () => {
@@ -1966,8 +1973,20 @@ export function createDataTable(options: DataTableOptions): {
       }, 100);
     } else {
       // Agregar listener al contenedor scrollable
+      console.log('  - Agregando listener de scroll al contenedor');
+      console.log('  - scrollableContainer dimensions:', {
+        scrollHeight: scrollableContainer.scrollHeight,
+        clientHeight: scrollableContainer.clientHeight,
+        offsetHeight: scrollableContainer.offsetHeight,
+        hasScroll: scrollableContainer.scrollHeight > scrollableContainer.clientHeight
+      });
+      
       lazyLoadScrollListener = checkScroll;
       scrollableContainer.addEventListener('scroll', lazyLoadScrollListener, { passive: true });
+      console.log('✅ [LAZY LOAD SETUP] Listener de scroll agregado');
+      
+      // Marcar que tiene listener
+      scrollableContainer.setAttribute('data-lazy-load-listener', 'true');
     }
   };
 
