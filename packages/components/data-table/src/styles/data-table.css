@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%; /* Ocupar todo el espacio vertical disponible */
   gap: 0;
   padding: 0; /* Sin padding para que el header esté pegado al borde */
 }
@@ -1221,19 +1222,23 @@
 /* Contenedor scrollable base */
 .ubits-data-table__scrollable-container {
     position: relative;
+    flex: 1; /* Ocupar el espacio restante en el contenedor flex */
+    min-height: 0; /* Permitir que se comprima si es necesario */
 }
 
 /* Scroll vertical solamente */
 .ubits-data-table__scrollable-container--vertical {
-    max-height: 400px;
+    flex: 1; /* Ocupar todo el espacio vertical disponible */
+    min-height: 0; /* Permitir que se comprima */
     overflow-y: auto;
     overflow-x: visible; /* Cambiar a visible para que sticky funcione */
 }
 
-/* Cuando hay columnas sticky, no limitar el tamaño */
+/* Cuando hay columnas sticky, mantener flex: 1 para ocupar el espacio disponible */
 .ubits-data-table__scrollable-container--vertical:has(.ubits-data-table__column-header--pinned),
 .ubits-data-table__scrollable-container--vertical:has(.ubits-data-table__cell--pinned) {
-    max-height: none;
+    flex: 1;
+    min-height: 0;
 }
 
 /* Scroll horizontal solamente */
@@ -1277,7 +1282,8 @@
 
 /* Ambos scrolls (vertical y horizontal) */
 .ubits-data-table__scrollable-container--vertical.ubits-data-table__scrollable-container--horizontal {
-    max-height: 400px;
+    flex: 1; /* Ocupar todo el espacio vertical disponible */
+    min-height: 0; /* Permitir que se comprima */
     max-width: 800px; /* Ancho máximo fijo para forzar el scroll horizontal */
     width: 100%; /* Ocupar todo el ancho disponible hasta el máximo */
     overflow-y: auto;
@@ -1287,7 +1293,8 @@
 /* Cuando hay columnas sticky, no limitar el tamaño */
 .ubits-data-table__scrollable-container--vertical.ubits-data-table__scrollable-container--horizontal:has(.ubits-data-table__column-header--pinned),
 .ubits-data-table__scrollable-container--vertical.ubits-data-table__scrollable-container--horizontal:has(.ubits-data-table__cell--pinned) {
-    max-height: none;
+    flex: 1;
+    min-height: 0;
     max-width: none;
 }
 
