@@ -4962,3 +4962,141 @@ export const EmptyState: Story = {
   }
 };
 
+export const HeaderButtons: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      height: auto;
+      overflow: visible !important;
+      max-height: none !important;
+    `;
+    
+    const tableContainerId = `data-table-header-buttons-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const tableContainer = document.createElement('div');
+    tableContainer.id = tableContainerId;
+    tableContainer.style.cssText = `
+      width: 100%;
+      max-width: 100%;
+      overflow: visible !important;
+    `;
+    container.appendChild(tableContainer);
+    
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(tableContainerId);
+      if (containerElement) {
+        // Generar filas de ejemplo
+        const generateRows = (): TableRow[] => {
+          const rows: TableRow[] = [];
+          for (let i = 1; i <= 20; i++) {
+            rows.push({
+              id: i,
+              data: {
+                nombre: `Usuario ${i}`,
+                email: `usuario${i}@ejemplo.com`,
+                estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
+                pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5]
+              }
+            });
+          }
+          return rows;
+        };
+        
+        const rows = generateRows();
+        const columns: TableColumn[] = [
+          { id: 'nombre', title: 'Nombre', type: 'nombre', width: 200 },
+          { id: 'email', title: 'Email', type: 'correo', width: 250 },
+          { id: 'estado', title: 'Estado', type: 'estado', width: 150 },
+          { id: 'pais', title: 'País', type: 'pais', width: 150 }
+        ];
+        
+        const options: DataTableOptions = {
+          containerId: tableContainerId,
+          columns,
+          rows,
+          showCheckbox: false,
+          showColumnMenu: false,
+          showContextMenu: false,
+          showPagination: false,
+          header: {
+            title: 'Usuarios',
+            showTitle: true,
+            counter: true,
+            showCounter: true,
+            // Botón primario (icon-only, aparece al final)
+            primaryButton: {
+              text: 'Nuevo usuario',
+              icon: 'plus',
+              iconStyle: 'regular',
+              onClick: (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                alert('Acción: Crear nuevo usuario');
+                console.log('🔘 Botón primario clickeado');
+              }
+            },
+            showPrimaryButton: true,
+            // Botones secundarios (máximo 2, icon-only, aparecen antes del primario)
+            secondaryButtons: [
+              {
+                text: 'Exportar',
+                icon: 'download',
+                iconStyle: 'regular',
+                onClick: (e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  alert('Acción: Exportar usuarios');
+                  console.log('🔘 Botón secundario 1 (Exportar) clickeado');
+                }
+              },
+              {
+                text: 'Importar',
+                icon: 'upload',
+                iconStyle: 'regular',
+                onClick: (e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  alert('Acción: Importar usuarios');
+                  console.log('🔘 Botón secundario 2 (Importar) clickeado');
+                }
+              }
+            ],
+            showSecondaryButtons: true
+          }
+        };
+        
+        const tableInstance = createDataTable(options);
+        (window as any).__storybookDataTableInstance = tableInstance;
+        
+        console.log('📝 [HEADER BUTTONS] Tabla creada con botones del header:');
+        console.log('  - Botón primario: Nuevo usuario (icon: plus)');
+        console.log('  - Botón secundario 1: Exportar (icon: download)');
+        console.log('  - Botón secundario 2: Importar (icon: upload)');
+        console.log('  - Los botones son icon-only y muestran tooltips al hacer hover');
+      } else {
+        console.error('❌ Contenedor no encontrado en el DOM:', tableContainerId);
+      }
+    });
+    
+    return container;
+  },
+  args: {
+    showCheckbox: false,
+    showColumnMenu: false,
+    showContextMenu: false,
+    showPagination: false
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demuestra los botones del header del DataTable. El header puede incluir un botón primario y hasta 2 botones secundarios. Todos los botones son icon-only (solo muestran el icono, sin texto) y muestran tooltips al hacer hover. El botón primario aparece al final (a la derecha) y los botones secundarios aparecen antes del primario. Cada botón puede tener su propio icono, estilo de icono (regular/solid), estado de carga (loading), estado deshabilitado (disabled) y callback onClick personalizado.'
+      }
+    }
+  }
+};
+
