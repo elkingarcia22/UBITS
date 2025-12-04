@@ -3276,6 +3276,147 @@ export const StickyControls: Story = {
   }
 };
 
+export const Filters: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      height: auto;
+      overflow: visible !important;
+      max-height: none !important;
+    `;
+    
+    const tableContainerId = `data-table-filters-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const tableContainer = document.createElement('div');
+    tableContainer.id = tableContainerId;
+    tableContainer.style.cssText = `
+      width: 100%;
+      max-width: 100%;
+      overflow: visible !important;
+      min-height: auto;
+      height: auto;
+      max-height: none !important;
+    `;
+    
+    container.appendChild(tableContainer);
+    
+    // Generar datos de ejemplo con variedad para que los filtros sean útiles
+    const generateRows = (): TableRow[] => {
+      const rows: TableRow[] = [];
+      const estados = ['activo', 'pendiente', 'inactivo'];
+      const paises = ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'];
+      
+      for (let i = 1; i <= 30; i++) {
+        rows.push({
+          id: i,
+          data: {
+            nombre: `Usuario ${i}`,
+            email: `usuario${i}@ejemplo.com`,
+            estado: estados[i % estados.length],
+            pais: paises[i % paises.length],
+            fecha: new Date(2024, 0, i).toISOString().split('T')[0]
+          }
+        });
+      }
+      return rows;
+    };
+    
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(tableContainerId);
+      if (containerElement) {
+        const rows = generateRows();
+        const columns: TableColumn[] = [
+          { id: 'nombre', title: 'Nombre', type: 'nombre', width: 200 },
+          { id: 'email', title: 'Email', type: 'correo', width: 250 },
+          { id: 'estado', title: 'Estado', type: 'estado', width: 150 },
+          { id: 'pais', title: 'País', type: 'pais', width: 150 },
+          { id: 'fecha', title: 'Fecha', type: 'fecha', width: 150 }
+        ];
+        
+        const options: DataTableOptions = {
+          containerId: tableContainerId,
+          columns,
+          rows,
+          showCheckbox: false,
+          showColumnMenu: false,
+          showContextMenu: false,
+          header: {
+            title: 'Usuarios',
+            showTitle: true,
+            counter: true, // El contador se actualizará automáticamente con los resultados filtrados
+            showCounter: true,
+            filterButton: {
+              filters: [
+                {
+                  id: 'estado-filter',
+                  label: 'Estado',
+                  columnId: 'estado',
+                  type: 'select',
+                  options: [
+                    { value: 'activo', label: 'Activo' },
+                    { value: 'pendiente', label: 'Pendiente' },
+                    { value: 'inactivo', label: 'Inactivo' }
+                  ]
+                },
+                {
+                  id: 'pais-filter',
+                  label: 'País',
+                  columnId: 'pais',
+                  type: 'select',
+                  options: [
+                    { value: 'Colombia', label: 'Colombia' },
+                    { value: 'México', label: 'México' },
+                    { value: 'Argentina', label: 'Argentina' },
+                    { value: 'Chile', label: 'Chile' },
+                    { value: 'Perú', label: 'Perú' }
+                  ]
+                },
+                {
+                  id: 'nombre-filter',
+                  label: 'Nombre',
+                  columnId: 'nombre',
+                  type: 'text'
+                }
+              ],
+              onApplyFilters: (filters: Record<string, string>) => {
+                console.log('🔍 Filtros aplicados:', filters);
+              },
+              onClearFilters: () => {
+                console.log('🧹 Filtros limpiados');
+              }
+            },
+            showFilterButton: true
+          }
+        };
+        
+        const tableInstance = createDataTable(options);
+        (window as any).__storybookDataTableInstance = tableInstance;
+      } else {
+        console.error('❌ Contenedor no encontrado en el DOM:', tableContainerId);
+      }
+    });
+    
+    return container;
+  },
+  args: {
+    showCheckbox: false,
+    showColumnMenu: false,
+    showContextMenu: false
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demuestra la funcionalidad de filtros de columnas. El header incluye un botón de filtros que abre un drawer con opciones de filtrado. Se pueden filtrar por Estado (select), País (select) y Nombre (text). El contador se actualiza automáticamente para mostrar la cantidad de resultados filtrados. El botón muestra un badge con el número de filtros activos.'
+      }
+    }
+  }
+};
+
 export const Search: Story = {
   render: (args) => {
     const container = document.createElement('div');
