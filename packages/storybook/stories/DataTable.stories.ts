@@ -1386,6 +1386,76 @@ export const Default: Story = {
       }
     });
     
+    // Función para construir columnas dinámicamente basándose en los args actuales
+    const buildColumnsFromArgs = (): TableColumn[] => {
+      const currentRawColumnsCount = args.columnsCount;
+      const currentColumnsCount = Math.max(1, Math.min(10, typeof currentRawColumnsCount === 'number' ? currentRawColumnsCount : 7));
+      
+      const currentColumnType1 = args.columnType1 ?? 'nombre';
+      const currentColumnType2 = args.columnType2 ?? 'correo';
+      const currentColumnType3 = args.columnType3 ?? 'estado';
+      const currentColumnType4 = args.columnType4 ?? 'nombre';
+      const currentColumnType5 = (args as any).columnType5 ?? 'nombre';
+      const currentColumnType6 = (args as any).columnType6 ?? 'nombre';
+      const currentColumnType7 = (args as any).columnType7 ?? 'pais';
+      const currentColumnType8 = (args as any).columnType8 ?? 'fecha';
+      const currentColumnType9 = (args as any).columnType9 ?? 'nombre';
+      const currentColumnType10 = (args as any).columnType10 ?? 'estado';
+      
+      const currentColumn1AvatarVariant = args.column1AvatarVariant ?? 'initials';
+      const currentColumn1Editable = args.column1Editable ?? false;
+      const currentColumn2EmailClickable = args.column2EmailClickable ?? true;
+      const currentColumn3Editable = args.column3Editable ?? false;
+      const currentColumn3RadioLabel = args.column3RadioLabel ?? false;
+      const currentColumn3ToggleLabel = args.column3ToggleLabel ?? false;
+      const currentColumn3CheckboxLabel = args.column3CheckboxLabel !== undefined ? args.column3CheckboxLabel : true;
+      
+      const col1Config = columnTypeMapping[currentColumnType1] || { id: 'nombre', title: 'Nombre' };
+      const col1 = buildColumn(currentColumnType1, col1Config, 200, {
+        avatarVariant: currentColumn1AvatarVariant,
+        editable: currentColumn1Editable
+      });
+      
+      const col2Config = columnTypeMapping[currentColumnType2] || { id: 'email', title: 'Email' };
+      const col2 = buildColumn(currentColumnType2, col2Config, 250, {
+        emailClickable: currentColumn2EmailClickable,
+        editable: currentColumn1Editable
+      });
+      
+      const col3Config = columnTypeMapping[currentColumnType3] || { id: 'estado', title: 'Estado' };
+      const col3 = buildColumn(currentColumnType3, col3Config, 150, {
+        editable: currentColumn3Editable,
+        radioLabel: currentColumn3RadioLabel,
+        toggleLabel: currentColumn3ToggleLabel,
+        checkboxLabel: currentColumn3CheckboxLabel
+      });
+      
+      const col4Config = columnTypeMapping[currentColumnType4] || { id: 'progreso', title: 'Progreso' };
+      const col4 = buildColumn(currentColumnType4, col4Config, 180);
+      
+      const col5Config = columnTypeMapping[currentColumnType5] || { id: 'telefono', title: 'Teléfono' };
+      const col6Config = columnTypeMapping[currentColumnType6] || { id: 'ciudad', title: 'Ciudad' };
+      const col7Config = columnTypeMapping[currentColumnType7] || { id: 'pais', title: 'País' };
+      const col8Config = columnTypeMapping[currentColumnType8] || { id: 'fecha', title: 'Fecha' };
+      const col9Config = columnTypeMapping[currentColumnType9] || { id: 'categoria', title: 'Categoría' };
+      const col10Config = columnTypeMapping[currentColumnType10] || { id: 'prioridad', title: 'Prioridad' };
+      
+      const allColumns: TableColumn[] = [
+        col1,
+        col2,
+        col3,
+        col4,
+        buildColumn(currentColumnType5, col5Config, 150),
+        buildColumn(currentColumnType6, col6Config, 150),
+        buildColumn(currentColumnType7, col7Config, 150),
+        buildColumn(currentColumnType8, col8Config, 150),
+        buildColumn(currentColumnType9, col9Config, 150),
+        buildColumn(currentColumnType10, col10Config, 150)
+      ];
+      
+      return allColumns.slice(0, currentColumnsCount);
+    };
+    
     // Observar cambios en columnsCount y otros args para re-renderizar la tabla
     let lastArgs = JSON.stringify({
       columnsCount: columnsCount,
@@ -1434,6 +1504,10 @@ export const Default: Story = {
             } else if (existingTable) {
               existingTable.remove();
             }
+            
+            // Reconstruir columnas y opciones con los nuevos argumentos
+            const newColumns = buildColumnsFromArgs();
+            options.columns = newColumns;
             
             // Recrear la tabla con los nuevos argumentos
             setTimeout(() => {
