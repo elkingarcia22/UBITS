@@ -149,7 +149,7 @@
 18. ⬜ **ColumnSelector** - Selector de columnas
 19. ✅ **ActionBar** - Barra de acciones
 20. ✅ **ColumnTypes** - Tipos de columnas
-21. ⬜ **EditableCells** - Edición de celdas
+21. ✅ **EditableCells** - Edición de celdas
 22. ⬜ **EmptyState** - Estado vacío
 23. ⬜ **HeaderButtons** - Botones del header (primario y secundarios)
 
