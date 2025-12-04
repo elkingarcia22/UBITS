@@ -1946,3 +1946,159 @@ export const RowReorderable: Story = {
   }
 };
 
+/**
+ * Historia: Filas Expandibles
+ * 
+ * Esta historia demuestra cómo funcionan las filas expandibles.
+ * Cada fila tiene un icono de expandir/colapsar que permite mostrar contenido adicional.
+ */
+export const RowExpandable: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      height: auto;
+      overflow: visible !important;
+      max-height: none !important;
+    `;
+    
+    const tableContainerId = `data-table-row-expandable-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const tableContainer = document.createElement('div');
+    tableContainer.id = tableContainerId;
+    tableContainer.style.cssText = `
+      width: 100%;
+      overflow: visible !important;
+      min-height: auto;
+      height: auto;
+      max-height: none !important;
+    `;
+    
+    container.appendChild(tableContainer);
+    
+    // Generar datos de ejemplo con contenido expandible
+    const generateRows = (): TableRow[] => {
+      const rows: TableRow[] = [];
+      for (let i = 1; i <= 8; i++) {
+        rows.push({
+          id: i,
+          data: {
+            nombre: `Usuario ${i}`,
+            email: `usuario${i}@ejemplo.com`,
+            estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
+            pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
+            fecha: new Date(2024, 0, i).toISOString().split('T')[0]
+          },
+          expanded: false,
+          renderExpandedContent: (data: any) => {
+            return `
+              <div style="padding: 16px; background: var(--ubits-bg-2); border-radius: 8px;">
+                <h4 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600; color: var(--ubits-fg-1-high);">
+                  Detalles adicionales de ${data.nombre}
+                </h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13px;">
+                  <div>
+                    <strong style="color: var(--ubits-fg-1-medium);">Email:</strong>
+                    <div style="color: var(--ubits-fg-1-high); margin-top: 4px;">${data.email}</div>
+                  </div>
+                  <div>
+                    <strong style="color: var(--ubits-fg-1-medium);">País:</strong>
+                    <div style="color: var(--ubits-fg-1-high); margin-top: 4px;">${data.pais}</div>
+                  </div>
+                  <div>
+                    <strong style="color: var(--ubits-fg-1-medium);">Estado:</strong>
+                    <div style="color: var(--ubits-fg-1-high); margin-top: 4px;">${data.estado}</div>
+                  </div>
+                  <div>
+                    <strong style="color: var(--ubits-fg-1-medium);">Fecha de registro:</strong>
+                    <div style="color: var(--ubits-fg-1-high); margin-top: 4px;">${data.fecha}</div>
+                  </div>
+                </div>
+                <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--ubits-border-1);">
+                  <p style="margin: 0; font-size: 13px; color: var(--ubits-fg-1-medium);">
+                    Este es un ejemplo de contenido expandible. Puedes incluir cualquier HTML personalizado aquí.
+                  </p>
+                </div>
+              </div>
+            `;
+          }
+        });
+      }
+      return rows;
+    };
+    
+    const rows = generateRows();
+    
+    // Columnas simples para demostrar filas expandibles
+    const columns: TableColumn[] = [
+      { id: 'nombre-col1', title: 'Nombre', type: 'nombre', width: 200 },
+      { id: 'email-col2', title: 'Email', type: 'correo', width: 250 },
+      { id: 'estado-col3', title: 'Estado', type: 'estado', width: 150 },
+      { id: 'pais-col4', title: 'País', type: 'pais', width: 150 },
+      { id: 'fecha-col5', title: 'Fecha', type: 'fecha', width: 150 }
+    ];
+    
+    const options: DataTableOptions = {
+      containerId: tableContainer.id,
+      columns,
+      rows,
+      columnReorderable: false,
+      rowReorderable: false,
+      rowExpandable: true, // Habilitar filas expandibles
+      columnSortable: false,
+      showCheckbox: false,
+      showVerticalScrollbar: false,
+      showHorizontalScrollbar: false,
+      showColumnMenu: false,
+      showContextMenu: false,
+      showPagination: false,
+      header: {
+        title: 'Filas Expandibles',
+        showTitle: true,
+        counter: true,
+        displayedItems: rows.length,
+        totalItems: rows.length
+      },
+      onRowExpand: (rowId: string | number, expanded: boolean) => {
+        console.log(`🔄 Fila ${rowId} ${expanded ? 'expandida' : 'colapsada'}`);
+      }
+    };
+    
+    // Usar requestAnimationFrame para asegurar que el DOM esté listo
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(tableContainer.id);
+      if (containerElement) {
+        const tableInstance = createDataTable(options);
+        (window as any).__storybookDataTableInstance = tableInstance;
+      } else {
+        console.error('❌ Contenedor no encontrado en el DOM:', tableContainer.id);
+      }
+    });
+    
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Esta historia demuestra cómo funcionan las filas expandibles. Cada fila tiene un icono de expandir/colapsar (▶/▼) que permite mostrar contenido adicional. El contenido expandible se define mediante la función `renderExpandedContent` en cada fila. El callback `onRowExpand` se ejecuta cuando una fila se expande o colapsa, recibiendo el ID de la fila y el estado (expandida/colapsada).'
+      }
+    }
+  },
+  args: {
+    columnReorderable: false,
+    rowReorderable: false,
+    rowExpandable: true,
+    columnSortable: false,
+    showCheckbox: false,
+    showVerticalScrollbar: false,
+    showHorizontalScrollbar: false,
+    showColumnMenu: false,
+    showContextMenu: false,
+    showPagination: false
+  }
+};
+
