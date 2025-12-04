@@ -2880,6 +2880,133 @@ export const ContextMenu: Story = {
  * Esta historia demuestra cómo funcionan las columnas fijadas.
  * Las columnas fijadas permanecen visibles al hacer scroll horizontal, útil para mantener información importante siempre visible.
  */
+export const StickyControls: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      height: auto;
+      overflow: visible !important;
+      max-height: none !important;
+    `;
+    
+    const tableContainerId = `data-table-sticky-controls-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const tableContainer = document.createElement('div');
+    tableContainer.id = tableContainerId;
+    tableContainer.style.cssText = `
+      width: 100%;
+      max-width: 800px;
+      overflow: visible !important;
+      min-height: auto;
+      height: auto;
+      max-height: none !important;
+    `;
+    
+    container.appendChild(tableContainer);
+    
+    // Generar datos de ejemplo
+    const generateRows = (): TableRow[] => {
+      const rows: TableRow[] = [];
+      for (let i = 1; i <= 15; i++) {
+        rows.push({
+          id: i,
+          data: {
+            nombre: `Usuario ${i}`,
+            email: `usuario${i}@ejemplo.com`,
+            estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
+            pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
+            fecha: new Date(2024, 0, i).toISOString().split('T')[0],
+            telefono: `+57 300 ${i.toString().padStart(7, '0')}`,
+            ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][i % 5],
+            departamento: ['Cundinamarca', 'Antioquia', 'Valle del Cauca', 'Atlántico', 'Bolívar'][i % 5],
+            cargo: ['Desarrollador', 'Diseñador', 'Product Manager', 'QA', 'DevOps'][i % 5],
+            salario: `$${(50000 + i * 1000).toLocaleString()}`,
+            experiencia: `${i} años`
+          },
+          renderExpandedContent: (rowData: any) => {
+            return `
+              <div style="padding: 16px; background: var(--modifiers-normal-color-light-bg-2);">
+                <h4 style="margin: 0 0 8px 0; font-size: 14px; font-weight: 600;">Detalles adicionales</h4>
+                <p style="margin: 4px 0; font-size: 12px;"><strong>Ciudad:</strong> ${rowData.ciudad}</p>
+                <p style="margin: 4px 0; font-size: 12px;"><strong>Departamento:</strong> ${rowData.departamento}</p>
+                <p style="margin: 4px 0; font-size: 12px;"><strong>Cargo:</strong> ${rowData.cargo}</p>
+                <p style="margin: 4px 0; font-size: 12px;"><strong>Salario:</strong> ${rowData.salario}</p>
+                <p style="margin: 4px 0; font-size: 12px;"><strong>Experiencia:</strong> ${rowData.experiencia}</p>
+              </div>
+            `;
+          }
+        });
+      }
+      return rows;
+    };
+    
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(tableContainerId);
+      if (containerElement) {
+        const rows = generateRows();
+        const columns: TableColumn[] = [
+          { id: 'nombre', title: 'Nombre', type: 'nombre', width: 200 },
+          { id: 'email', title: 'Email', type: 'correo', width: 250 },
+          { id: 'estado', title: 'Estado', type: 'estado', width: 150 },
+          { id: 'pais', title: 'País', type: 'pais', width: 150 },
+          { id: 'fecha', title: 'Fecha', type: 'fecha', width: 150 },
+          { id: 'telefono', title: 'Teléfono', type: 'telefono', width: 180 },
+          { id: 'ciudad', title: 'Ciudad', type: 'texto', width: 150 },
+          { id: 'departamento', title: 'Departamento', type: 'texto', width: 180 },
+          { id: 'cargo', title: 'Cargo', type: 'texto', width: 200 },
+          { id: 'salario', title: 'Salario', type: 'texto', width: 150 },
+          { id: 'experiencia', title: 'Experiencia', type: 'texto', width: 150 }
+        ];
+        
+        const options: DataTableOptions = {
+          containerId: tableContainerId,
+          columns,
+          rows,
+          showCheckbox: true,
+          checkboxSticky: true, // Checkbox sticky
+          rowReorderable: true,
+          dragHandleSticky: true, // Drag handle sticky
+          rowExpandable: true,
+          expandSticky: true, // Expand sticky
+          showHorizontalScrollbar: true, // Necesario para ver el efecto sticky
+          showColumnMenu: false,
+          onRowReorder: (rowIds: (string | number)[]) => {
+            console.log('🔄 Filas reordenadas:', rowIds);
+          }
+        };
+        
+        const tableInstance = createDataTable(options);
+        (window as any).__storybookDataTableInstance = tableInstance;
+      } else {
+        console.error('❌ Contenedor no encontrado en el DOM:', tableContainerId);
+      }
+    });
+    
+    return container;
+  },
+  args: {
+    showCheckbox: true,
+    checkboxSticky: true,
+    rowReorderable: true,
+    dragHandleSticky: true,
+    rowExpandable: true,
+    expandSticky: true,
+    showHorizontalScrollbar: true
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demuestra los controles sticky (checkbox, drag-handle, expand) que permanecen fijos al hacer scroll horizontal. Los controles se mantienen visibles mientras navegas por las columnas de la tabla.'
+      }
+    }
+  }
+};
+
 export const PinnedColumns: Story = {
   render: (args) => {
     const container = document.createElement('div');
