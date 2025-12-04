@@ -4686,60 +4686,264 @@ export const EmptyState: Story = {
     container.appendChild(table1);
     
     // Tabla 2: Sin resultados de búsqueda (noSearchResults)
+    // Necesitamos filas iniciales y luego simular una búsqueda que no devuelve resultados
     const table2Id = `data-table-empty-no-search-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    const table2 = createTable(
-      table2Id,
-      '2. Sin Resultados de Búsqueda (noSearchResults)',
-      [], // Sin filas para simular búsqueda sin resultados
-      {
-        noSearchResults: {
-          title: 'No se encontraron resultados',
-          description: 'No hay usuarios que coincidan con tu búsqueda. Intenta con otros términos.',
-          icon: 'search',
-          actionLabel: 'Limpiar búsqueda',
-          showPrimaryButton: true,
-          primaryButtonIcon: 'times',
-          showPrimaryButtonIcon: true,
-          onAction: () => {
-            alert('Acción: Limpiar búsqueda');
+    const table2Container = document.createElement('div');
+    table2Container.style.cssText = `margin-bottom: 40px;`;
+    
+    const title2 = document.createElement('h3');
+    title2.textContent = '2. Sin Resultados de Búsqueda (noSearchResults)';
+    title2.style.cssText = `
+      margin-bottom: 16px;
+      font-family: var(--font-family-noto-sans-font-family);
+      font-size: var(--font-body-lg-size);
+      font-weight: var(--weight-bold);
+      color: var(--ubits-fg-1-high);
+    `;
+    table2Container.appendChild(title2);
+    
+    const table2Div = document.createElement('div');
+    table2Div.id = table2Id;
+    table2Div.style.cssText = `
+      width: 100%;
+      max-width: 100%;
+      overflow: visible !important;
+    `;
+    table2Container.appendChild(table2Div);
+    
+    // Filas iniciales (que luego se filtrarán)
+    const initialRows2: TableRow[] = [
+      { id: 1, data: { nombre: 'Juan Pérez', email: 'juan@example.com', estado: 'activo' } },
+      { id: 2, data: { nombre: 'Ana Martínez', email: 'ana@example.com', estado: 'pendiente' } },
+      { id: 3, data: { nombre: 'Carlos López', email: 'carlos@example.com', estado: 'activo' } }
+    ];
+    
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(table2Id);
+      if (containerElement) {
+        const columns: TableColumn[] = [
+          { id: 'nombre', title: 'Nombre', type: 'nombre', width: 200 },
+          { id: 'email', title: 'Email', type: 'correo', width: 250 },
+          { id: 'estado', title: 'Estado', type: 'estado', width: 150 }
+        ];
+        
+        const options: DataTableOptions = {
+          containerId: table2Id,
+          columns,
+          rows: initialRows2,
+          showCheckbox: false,
+          showColumnMenu: false,
+          showContextMenu: false,
+          showPagination: false,
+          emptyState: {
+            noSearchResults: {
+              title: 'No se encontraron resultados',
+              description: 'No hay usuarios que coincidan con tu búsqueda. Intenta con otros términos.',
+              icon: 'search',
+              actionLabel: 'Limpiar búsqueda',
+              showPrimaryButton: true,
+              primaryButtonIcon: 'times',
+              showPrimaryButtonIcon: true,
+              onAction: () => {
+                const instance = (window as any)[`__storybookDataTableInstance_${table2Id}`];
+                if (instance) {
+                  // Limpiar búsqueda restaurando todas las filas
+                  instance.update({ rows: initialRows2 });
+                  // También necesitamos limpiar el término de búsqueda en el header
+                  const searchInput = containerElement.querySelector('.ubits-search-button__input') as HTMLInputElement;
+                  if (searchInput) {
+                    searchInput.value = '';
+                  }
+                }
+              },
+              secondaryActionLabel: 'Ver todos',
+              showSecondaryButton: true,
+              onSecondaryAction: () => {
+                alert('Acción: Ver todos');
+              }
+            }
           },
-          secondaryActionLabel: 'Ver todos',
-          showSecondaryButton: true,
-          onSecondaryAction: () => {
-            alert('Acción: Ver todos');
+          header: {
+            title: 'Usuarios',
+            showTitle: true,
+            counter: true,
+            showCounter: true,
+            searchButton: {
+              placeholder: 'Buscar usuarios...',
+              onSearch: (searchTerm: string, filteredRows: TableRow[]) => {
+                // Si no hay resultados, la tabla mostrará automáticamente el empty state
+                console.log('🔍 Búsqueda:', searchTerm, 'Resultados:', filteredRows.length);
+              }
+            },
+            showSearchButton: true
           }
-        }
+        };
+        
+        const tableInstance = createDataTable(options);
+        (window as any)[`__storybookDataTableInstance_${table2Id}`] = tableInstance;
+        
+        // Simular una búsqueda que no devuelve resultados después de un breve delay
+        setTimeout(() => {
+          // Filtrar filas para que no haya resultados (búsqueda que no coincide)
+          const filteredRows: TableRow[] = [];
+          instance.update({ rows: filteredRows });
+          // Activar búsqueda y establecer término
+          const searchInput = containerElement.querySelector('.ubits-search-button__input') as HTMLInputElement;
+          if (searchInput) {
+            searchInput.value = 'xyz123noexiste';
+            // Disparar evento para activar la búsqueda
+            searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+          }
+        }, 500);
       }
-    );
-    container.appendChild(table2);
+    });
+    container.appendChild(table2Container);
     
     // Tabla 3: Sin resultados de filtros (noFilterResults)
     const table3Id = `data-table-empty-no-filter-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    const table3 = createTable(
-      table3Id,
-      '3. Sin Resultados de Filtros (noFilterResults)',
-      [], // Sin filas para simular filtros sin resultados
-      {
-        noFilterResults: {
-          title: 'No hay resultados con estos filtros',
-          description: 'No se encontraron usuarios que cumplan con los filtros aplicados. Intenta ajustar los filtros.',
-          icon: 'filter',
-          actionLabel: 'Limpiar filtros',
-          showPrimaryButton: true,
-          primaryButtonIcon: 'times',
-          showPrimaryButtonIcon: true,
-          onAction: () => {
-            alert('Acción: Limpiar filtros');
+    const table3Container = document.createElement('div');
+    table3Container.style.cssText = `margin-bottom: 40px;`;
+    
+    const title3 = document.createElement('h3');
+    title3.textContent = '3. Sin Resultados de Filtros (noFilterResults)';
+    title3.style.cssText = `
+      margin-bottom: 16px;
+      font-family: var(--font-family-noto-sans-font-family);
+      font-size: var(--font-body-lg-size);
+      font-weight: var(--weight-bold);
+      color: var(--ubits-fg-1-high);
+    `;
+    table3Container.appendChild(title3);
+    
+    const table3Div = document.createElement('div');
+    table3Div.id = table3Id;
+    table3Div.style.cssText = `
+      width: 100%;
+      max-width: 100%;
+      overflow: visible !important;
+    `;
+    table3Container.appendChild(table3Div);
+    
+    // Filas iniciales (que luego se filtrarán)
+    const initialRows3: TableRow[] = [
+      { id: 1, data: { nombre: 'Juan Pérez', email: 'juan@example.com', estado: 'activo' } },
+      { id: 2, data: { nombre: 'Ana Martínez', email: 'ana@example.com', estado: 'pendiente' } },
+      { id: 3, data: { nombre: 'Carlos López', email: 'carlos@example.com', estado: 'activo' } }
+    ];
+    
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(table3Id);
+      if (containerElement) {
+        const columns: TableColumn[] = [
+          { id: 'nombre', title: 'Nombre', type: 'nombre', width: 200 },
+          { id: 'email', title: 'Email', type: 'correo', width: 250 },
+          { id: 'estado', title: 'Estado', type: 'estado', width: 150 }
+        ];
+        
+        const options: DataTableOptions = {
+          containerId: table3Id,
+          columns,
+          rows: initialRows3,
+          showCheckbox: false,
+          showColumnMenu: false,
+          showContextMenu: false,
+          showPagination: false,
+          emptyState: {
+            noFilterResults: {
+              title: 'No hay resultados con estos filtros',
+              description: 'No se encontraron usuarios que cumplan con los filtros aplicados. Intenta ajustar los filtros.',
+              icon: 'filter',
+              actionLabel: 'Limpiar filtros',
+              showPrimaryButton: true,
+              primaryButtonIcon: 'times',
+              showPrimaryButtonIcon: true,
+              onAction: () => {
+                const instance = (window as any)[`__storybookDataTableInstance_${table3Id}`];
+                if (instance) {
+                  // Limpiar filtros restaurando todas las filas
+                  instance.update({ rows: initialRows3 });
+                }
+              },
+              secondaryActionLabel: 'Ver todos',
+              showSecondaryButton: true,
+              onSecondaryAction: () => {
+                alert('Acción: Ver todos');
+              }
+            }
           },
-          secondaryActionLabel: 'Ver todos',
-          showSecondaryButton: true,
-          onSecondaryAction: () => {
-            alert('Acción: Ver todos');
+          header: {
+            title: 'Usuarios',
+            showTitle: true,
+            counter: true,
+            showCounter: true,
+            filterButton: {
+              filters: [
+                {
+                  id: 'estado',
+                  label: 'Estado',
+                  columnId: 'estado',
+                  type: 'select',
+                  options: [
+                    { value: 'activo', label: 'Activo' },
+                    { value: 'pendiente', label: 'Pendiente' },
+                    { value: 'inactivo', label: 'Inactivo' },
+                    { value: 'cancelado', label: 'Cancelado' } // Este valor no existe en los datos
+                  ]
+                }
+              ],
+              onApplyFilters: (filters: Record<string, string>) => {
+                console.log('🔍 Filtros aplicados:', filters);
+                // Filtrar filas según los filtros
+                let filtered = [...initialRows3];
+                if (filters.estado) {
+                  filtered = filtered.filter(row => row.data.estado === filters.estado);
+                }
+                const instance = (window as any)[`__storybookDataTableInstance_${table3Id}`];
+                if (instance) {
+                  instance.update({ rows: filtered });
+                }
+              },
+              onClearFilters: () => {
+                const instance = (window as any)[`__storybookDataTableInstance_${table3Id}`];
+                if (instance) {
+                  instance.update({ rows: initialRows3 });
+                }
+              }
+            },
+            showFilterButton: true
           }
-        }
+        };
+        
+        const tableInstance = createDataTable(options);
+        (window as any)[`__storybookDataTableInstance_${table3Id}`] = tableInstance;
+        
+        // Simular filtros aplicados que no devuelven resultados después de un breve delay
+        setTimeout(() => {
+          // Aplicar un filtro que no coincide con ningún dato (estado: 'cancelado')
+          const filterButton = containerElement.querySelector('.ubits-data-table__header-filter-button') as HTMLElement;
+          if (filterButton) {
+            filterButton.click();
+            // Esperar a que se abra el drawer y luego aplicar el filtro
+            setTimeout(() => {
+              const drawer = document.querySelector('.ubits-drawer');
+              if (drawer) {
+                const select = drawer.querySelector('select') as HTMLSelectElement;
+                if (select) {
+                  select.value = 'cancelado';
+                  select.dispatchEvent(new Event('change', { bubbles: true }));
+                  // Buscar y hacer click en el botón "Aplicar filtros"
+                  const applyButton = drawer.querySelector('button[data-action="apply"]') as HTMLElement;
+                  if (applyButton) {
+                    applyButton.click();
+                  }
+                }
+              }
+            }, 300);
+          }
+        }, 500);
       }
-    );
-    container.appendChild(table3);
+    });
+    container.appendChild(table3Container);
     
     return container;
   },
