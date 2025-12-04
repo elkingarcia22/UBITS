@@ -271,9 +271,10 @@
     border-spacing: 0 !important;
 }
 
-/* Asegurar que el contenedor no comprima la tabla */
+/* Asegurar que el contenedor mantenga su ancho original */
 .ubits-data-table__scrollable-container--horizontal {
-    min-width: 0 !important; /* Permitir que se comprima hasta el max-width */
+    /* Mantener el ancho del contenedor padre - no comprimir */
+    min-width: 100% !important; /* Mantener al menos el ancho del padre */
 }
 
 .ubits-data-table__scrollable-container--horizontal > .ubits-data-table__table {
