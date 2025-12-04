@@ -33,7 +33,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: var(--ubits-spacing-md);
+  padding-top: 0;
   padding-bottom: var(--ubits-spacing-sm);
   padding-left: 0; /* Alinear con el borde izquierdo del contenedor */
   padding-right: 0; /* Alinear con el borde derecho del contenedor */
@@ -237,7 +237,7 @@
     width: 100%;
     background-color: var(--modifiers-normal-color-light-bg-1);
     box-sizing: border-box;
-    padding: var(--ubits-spacing-md);
+    padding: 0 var(--ubits-spacing-md) var(--ubits-spacing-md) var(--ubits-spacing-md);
     overflow: visible !important; /* Cambiar a visible por defecto, se aplicará auto solo cuando sea necesario */
     max-height: none !important; /* Remover max-height por defecto - el scrollable-container maneja su propio max-height */
     border-collapse: collapse;
@@ -285,6 +285,9 @@
 /* Header */
 .ubits-data-table__thead {
     background-color: var(--modifiers-normal-color-light-bg-1);
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 .ubits-data-table__header-row {
@@ -304,6 +307,7 @@
     vertical-align: middle;
     display: table-cell;
     position: sticky;
+    top: 0;
     left: 60px;
     z-index: 21;
     box-sizing: border-box;
@@ -460,6 +464,9 @@
     font-weight: 600;
     font-size: var(--modifiers-normal-body-sm-regular-fontsize);
     color: var(--modifiers-normal-color-light-fg-1-high);
+    position: sticky;
+    top: 0;
+    z-index: 10;
     /* NO aplicar position: relative aquí, se aplicará inline cuando esté fijada */
 }
 
@@ -1223,6 +1230,12 @@
     overflow-x: visible; /* Cambiar a visible para que sticky funcione */
 }
 
+/* Cuando hay columnas sticky, no limitar el tamaño */
+.ubits-data-table__scrollable-container--vertical:has(.ubits-data-table__column-header--pinned),
+.ubits-data-table__scrollable-container--vertical:has(.ubits-data-table__cell--pinned) {
+    max-height: none;
+}
+
 /* Scroll horizontal solamente */
 .ubits-data-table__scrollable-container--horizontal {
     overflow-x: auto !important;
@@ -1236,6 +1249,12 @@
     min-width: 0 !important;
     /* Forzar que el contenedor pueda calcular scrollWidth correctamente */
     contain: none !important;
+}
+
+/* Cuando hay columnas sticky, no limitar el ancho */
+.ubits-data-table__scrollable-container--horizontal:has(.ubits-data-table__column-header--pinned),
+.ubits-data-table__scrollable-container--horizontal:has(.ubits-data-table__cell--pinned) {
+    max-width: none !important;
 }
 
 /* Asegurar que la tabla se expanda más allá del ancho del contenedor */
@@ -1263,6 +1282,13 @@
     width: 100%; /* Ocupar todo el ancho disponible hasta el máximo */
     overflow-y: auto;
     overflow-x: auto;
+}
+
+/* Cuando hay columnas sticky, no limitar el tamaño */
+.ubits-data-table__scrollable-container--vertical.ubits-data-table__scrollable-container--horizontal:has(.ubits-data-table__column-header--pinned),
+.ubits-data-table__scrollable-container--vertical.ubits-data-table__scrollable-container--horizontal:has(.ubits-data-table__cell--pinned) {
+    max-height: none;
+    max-width: none;
 }
 
 /* Ajustar posicionamiento sticky dentro del contenedor scrollable */
@@ -1392,6 +1418,7 @@
 /* IMPORTANTE: Para que sticky funcione, el contenedor padre debe tener overflow-x: auto o scroll */
 .ubits-data-table__column-header--pinned {
     position: sticky !important;
+    top: 0 !important;
     /* left se establece inline desde el código, pero establecer 0 como base para la primera columna */
     left: 0 !important;
     z-index: 13 !important;
