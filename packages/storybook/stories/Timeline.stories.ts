@@ -875,3 +875,602 @@ export const Default: Story = {
   }
 };
 
+// Helper para renderizar Timeline de manera consistente
+function renderTimelineStory(args: {
+  showAvatar?: boolean;
+  showDate?: boolean;
+  showDescription?: boolean;
+  showIcon?: boolean;
+  alignment?: 'left' | 'center';
+  filledItems?: number;
+}) {
+  // Asegurar que avatar e icono sean mutuamente excluyentes
+  if (args.showAvatar === true) {
+    args.showIcon = false;
+  }
+  if (args.showIcon === true) {
+    args.showAvatar = false;
+  }
+  
+  const container = document.createElement('div');
+  container.style.cssText = `
+    padding: var(--p-spacing-mode-1-lg, 16px);
+    background: var(--modifiers-normal-color-light-bg-2);
+    border-radius: var(--ubits-border-radius-md, 8px);
+    max-width: 800px;
+  `;
+  
+  const timelineContainer = document.createElement('div');
+  timelineContainer.style.cssText = `
+    background: var(--modifiers-normal-color-light-bg-1);
+    border-radius: var(--ubits-border-radius-md, 8px);
+    padding: var(--p-spacing-mode-1-lg, 16px);
+  `;
+  
+  const timelineHTML = renderTimeline(args);
+  timelineContainer.innerHTML = timelineHTML;
+  
+  // Agregar estilos CSS si no existen
+  const styleId = 'ubits-timeline-styles';
+  if (!document.getElementById(styleId)) {
+    const style = document.createElement('style');
+    style.id = styleId;
+    style.textContent = document.querySelector(`#${styleId}`)?.textContent || '';
+  }
+  
+  container.appendChild(timelineContainer);
+  return container;
+}
+
+/**
+ * AlignmentLeft
+ * Timeline con alineación izquierda
+ */
+export const AlignmentLeft: Story = {
+  name: 'Alignment - Left',
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 2
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline con alineación izquierda.',
+      },
+    },
+  },
+};
+
+/**
+ * AlignmentCenter
+ * Timeline con alineación centrada
+ */
+export const AlignmentCenter: Story = {
+  name: 'Alignment - Center',
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'center',
+    filledItems: 2
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline con alineación centrada (contenido a los lados).',
+      },
+    },
+  },
+};
+
+/**
+ * WithAvatar
+ * Timeline con avatares
+ */
+export const WithAvatar: Story = {
+  name: 'With Avatar',
+  args: {
+    showAvatar: true,
+    showDate: true,
+    showDescription: true,
+    showIcon: false,
+    alignment: 'left',
+    filledItems: 2
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline con avatares en los marcadores.',
+      },
+    },
+  },
+};
+
+/**
+ * WithIcon
+ * Timeline con iconos
+ */
+export const WithIcon: Story = {
+  name: 'With Icon',
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 2
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline con iconos en los marcadores.',
+      },
+    },
+  },
+};
+
+/**
+ * WithDate
+ * Timeline con fechas
+ */
+export const WithDate: Story = {
+  name: 'With Date',
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 2
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline con fechas en cada item.',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutDate
+ * Timeline sin fechas
+ */
+export const WithoutDate: Story = {
+  name: 'Without Date',
+  args: {
+    showAvatar: false,
+    showDate: false,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 2
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline sin fechas.',
+      },
+    },
+  },
+};
+
+/**
+ * WithDescription
+ * Timeline con descripciones
+ */
+export const WithDescription: Story = {
+  name: 'With Description',
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 2
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline con descripciones en cada item.',
+      },
+    },
+  },
+};
+
+/**
+ * WithoutDescription
+ * Timeline sin descripciones
+ */
+export const WithoutDescription: Story = {
+  name: 'Without Description',
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: false,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 2
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline sin descripciones.',
+      },
+    },
+  },
+};
+
+/**
+ * StateDefault
+ * Timeline con todos los items en estado default
+ */
+export const StateDefault: Story = {
+  name: 'State - Default',
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 0
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline con todos los items en estado default (círculos sin relleno).',
+      },
+    },
+  },
+};
+
+/**
+ * StateFilled
+ * Timeline con todos los items en estado filled
+ */
+export const StateFilled: Story = {
+  name: 'State - Filled',
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 4
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline con todos los items en estado filled (círculos rellenos).',
+      },
+    },
+  },
+};
+
+/**
+ * MixedStates
+ * Timeline con estados mixtos
+ */
+export const MixedStates: Story = {
+  name: 'Mixed States',
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 2
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline con estados mixtos (algunos items rellenos, otros no).',
+      },
+    },
+  },
+};
+
+/**
+ * FilledItems0
+ * Timeline con 0 items rellenos
+ */
+export const FilledItems0: Story = {
+  name: 'Filled Items - 0',
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 0
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline con 0 items rellenos (todos en estado default).',
+      },
+    },
+  },
+};
+
+/**
+ * FilledItems1
+ * Timeline con 1 item relleno
+ */
+export const FilledItems1: Story = {
+  name: 'Filled Items - 1',
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 1
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline con 1 item relleno.',
+      },
+    },
+  },
+};
+
+/**
+ * FilledItems2
+ * Timeline con 2 items rellenos
+ */
+export const FilledItems2: Story = {
+  name: 'Filled Items - 2',
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 2
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline con 2 items rellenos.',
+      },
+    },
+  },
+};
+
+/**
+ * FilledItems3
+ * Timeline con 3 items rellenos
+ */
+export const FilledItems3: Story = {
+  name: 'Filled Items - 3',
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 3
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline con 3 items rellenos.',
+      },
+    },
+  },
+};
+
+/**
+ * FilledItems4
+ * Timeline con 4 items rellenos
+ */
+export const FilledItems4: Story = {
+  name: 'Filled Items - 4',
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 4
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline con 4 items rellenos.',
+      },
+    },
+  },
+};
+
+/**
+ * MinimalExample
+ * Ejemplo mínimo
+ */
+export const MinimalExample: Story = {
+  name: 'Minimal Example',
+  args: {
+    showAvatar: false,
+    showDate: false,
+    showDescription: false,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 2
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline mínimo con solo títulos e iconos.',
+      },
+    },
+  },
+};
+
+/**
+ * CompleteExample
+ * Ejemplo completo
+ */
+export const CompleteExample: Story = {
+  name: 'Complete Example',
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 2
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline completo con todas las opciones: fechas, descripciones, iconos y estados mixtos.',
+      },
+    },
+  },
+};
+
+/**
+ * LeftAlignmentWithIcon
+ * Timeline izquierda con iconos
+ */
+export const LeftAlignmentWithIcon: Story = {
+  name: 'Left Alignment - With Icon',
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 2
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline con alineación izquierda e iconos.',
+      },
+    },
+  },
+};
+
+/**
+ * LeftAlignmentWithAvatar
+ * Timeline izquierda con avatares
+ */
+export const LeftAlignmentWithAvatar: Story = {
+  name: 'Left Alignment - With Avatar',
+  args: {
+    showAvatar: true,
+    showDate: true,
+    showDescription: true,
+    showIcon: false,
+    alignment: 'left',
+    filledItems: 2
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline con alineación izquierda y avatares.',
+      },
+    },
+  },
+};
+
+/**
+ * CenterAlignmentWithIcon
+ * Timeline centrada con iconos
+ */
+export const CenterAlignmentWithIcon: Story = {
+  name: 'Center Alignment - With Icon',
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'center',
+    filledItems: 2
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline con alineación centrada e iconos.',
+      },
+    },
+  },
+};
+
+/**
+ * CenterAlignmentWithAvatar
+ * Timeline centrada con avatares
+ */
+export const CenterAlignmentWithAvatar: Story = {
+  name: 'Center Alignment - With Avatar',
+  args: {
+    showAvatar: true,
+    showDate: true,
+    showDescription: true,
+    showIcon: false,
+    alignment: 'center',
+    filledItems: 2
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline con alineación centrada y avatares.',
+      },
+    },
+  },
+};
+
+/**
+ * ProgressiveFilled
+ * Timeline con items progresivamente rellenos
+ */
+export const ProgressiveFilled: Story = {
+  name: 'Progressive Filled',
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 2
+  },
+  render: (args) => renderTimelineStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Timeline con items progresivamente rellenos (los primeros items están rellenos).',
+      },
+    },
+  },
+};
+
