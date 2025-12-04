@@ -4419,3 +4419,170 @@ export const ColumnTypes: Story = {
   }
 };
 
+export const EditableCells: Story = {
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      height: auto;
+      overflow: visible !important;
+      max-height: none !important;
+    `;
+    
+    const tableContainerId = `data-table-editable-cells-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const tableContainer = document.createElement('div');
+    tableContainer.id = tableContainerId;
+    tableContainer.style.cssText = `
+      width: 100%;
+      max-width: 100%;
+      overflow: visible !important;
+    `;
+    container.appendChild(tableContainer);
+    
+    requestAnimationFrame(() => {
+      const containerElement = document.getElementById(tableContainerId);
+      if (containerElement) {
+        // Generar filas de ejemplo
+        const generateRows = (): TableRow[] => {
+          return [
+            {
+              id: 1,
+              data: {
+                nombre: 'Juan Pérez',
+                nombreAvatar: 'María García',
+                estado: 'activo',
+                fecha: '2024-01-15',
+                checkbox: true,
+                radio: true
+              }
+            },
+            {
+              id: 2,
+              data: {
+                nombre: 'Ana Martínez',
+                nombreAvatar: 'Pedro Rodríguez',
+                estado: 'pendiente',
+                fecha: '2024-02-20',
+                checkbox: false,
+                radio: false
+              }
+            },
+            {
+              id: 3,
+              data: {
+                nombre: 'Carlos López',
+                nombreAvatar: 'Sofía Hernández',
+                estado: 'inactivo',
+                fecha: '2024-03-10',
+                checkbox: true,
+                radio: true
+              }
+            }
+          ];
+        };
+        
+        const rows = generateRows();
+        
+        // Columnas editables
+        const columns: TableColumn[] = [
+          { 
+            id: 'nombre', 
+            title: 'Nombre (Editable)', 
+            type: 'nombre', 
+            width: 200,
+            editable: true // Permite editar el texto directamente
+          },
+          { 
+            id: 'nombreAvatar', 
+            title: 'Nombre + Avatar (Editable)', 
+            type: 'nombre-avatar', 
+            width: 250,
+            avatarVariant: 'initials',
+            editable: true // Permite editar el nombre (el avatar se mantiene)
+          },
+          { 
+            id: 'estado', 
+            title: 'Estado (Editable)', 
+            type: 'estado', 
+            width: 180,
+            editable: true // Muestra dropdown con estados disponibles
+          },
+          { 
+            id: 'fecha', 
+            title: 'Fecha (Editable)', 
+            type: 'fecha', 
+            width: 180,
+            editable: true // Abre date picker al hacer click
+          },
+          { 
+            id: 'checkbox', 
+            title: 'Checkbox (Editable)', 
+            type: 'checkbox', 
+            width: 150,
+            checkboxLabel: 'Aprobado',
+            editable: true // Permite activar/desactivar el checkbox
+          },
+          { 
+            id: 'radio', 
+            title: 'Radio (Editable)', 
+            type: 'radio', 
+            width: 150,
+            radioLabel: 'Seleccionar',
+            editable: true // Permite seleccionar/deseleccionar el radio
+          }
+        ];
+        
+        const options: DataTableOptions = {
+          containerId: tableContainerId,
+          columns,
+          rows,
+          showCheckbox: false,
+          showColumnMenu: false,
+          showContextMenu: false,
+          showPagination: false,
+          header: {
+            title: 'Celdas Editables',
+            showTitle: true,
+            counter: true,
+            showCounter: true
+          }
+        };
+        
+        const tableInstance = createDataTable(options);
+        (window as any).__storybookDataTableInstance = tableInstance;
+        
+        // Log cuando se edita una celda
+        console.log('📝 [EDITABLE CELLS] Tabla creada. Puedes editar:');
+        console.log('  - Nombre: Haz click en el texto para editarlo directamente');
+        console.log('  - Nombre + Avatar: Haz click en el nombre para editarlo');
+        console.log('  - Estado: Haz click en el badge para ver el dropdown de estados');
+        console.log('  - Fecha: Haz click en la fecha para abrir el date picker');
+        console.log('  - Checkbox: Haz click para activar/desactivar');
+        console.log('  - Radio: Haz click para seleccionar/deseleccionar');
+      } else {
+        console.error('❌ Contenedor no encontrado en el DOM:', tableContainerId);
+      }
+    });
+    
+    return container;
+  },
+  args: {
+    showCheckbox: false,
+    showColumnMenu: false,
+    showContextMenu: false,
+    showPagination: false
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demuestra la funcionalidad de edición de celdas en el DataTable. Las columnas con `editable: true` permiten modificar su contenido directamente. Los tipos editables incluyen: nombre (edición de texto inline), nombre-avatar (edición del nombre manteniendo el avatar), estado (dropdown con estados disponibles), fecha (date picker), checkbox (activar/desactivar) y radio (seleccionar/deseleccionar). Los cambios se guardan automáticamente cuando pierdes el foco o seleccionas una opción.'
+      }
+    }
+  }
+};
+
