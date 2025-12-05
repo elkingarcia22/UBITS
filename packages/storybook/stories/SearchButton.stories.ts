@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { renderSearchButton } from '../../addons/search-button/src/SearchButtonProvider';
-import type { SearchButtonOptions } from '../../addons/search-button/src/types/SearchButtonOptions';
+import { renderSearchButton } from '../../components/search-button/src/SearchButtonProvider';
+import type { SearchButtonOptions } from '../../components/search-button/src/types/SearchButtonOptions';
 // Importar CSS del botón UBITS (necesario para el modo botón)
-import '../../addons/button/src/styles/button.css';
+import '../../components/button/src/styles/button.css';
 // Importar CSS del Search Button (necesario para el modo input)
-import '../../addons/search-button/src/styles/search-button.css';
+import '../../components/search-button/src/styles/search-button.css';
 
 const meta: Meta<SearchButtonOptions> = {
   title: 'Formularios/Search Button',
@@ -350,6 +350,741 @@ export const Default: Story = {
     observer.observe(document.body, { childList: true, subtree: true });
 
     return container;
+  },
+};
+
+// Helper para renderizar Search Button de manera consistente (versión simplificada para historias estáticas)
+function renderSearchButtonStory(options: SearchButtonOptions) {
+  const container = document.createElement('div');
+  container.style.cssText = `
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    background: var(--modifiers-normal-color-light-bg-2, #f5f5f5);
+    border-radius: 8px;
+  `;
+
+  const searchHTML = renderSearchButton({
+    active: options.active !== undefined ? options.active : false,
+    size: options.size || 'md',
+    state: options.state || 'default',
+    disabled: options.disabled !== undefined ? options.disabled : false,
+    placeholder: options.placeholder || '',
+    value: options.value || '',
+    width: options.width || 248,
+    className: options.className || ''
+  });
+
+  container.innerHTML = searchHTML;
+
+  // Agregar event listeners básicos
+  const buttonElement = container.querySelector('button') as HTMLButtonElement;
+  const inputElement = container.querySelector('.ubits-search-button__input') as HTMLInputElement;
+  const clearButton = container.querySelector('.ubits-search-button__clear') as HTMLButtonElement;
+
+  if (buttonElement && options.onClick) {
+    buttonElement.addEventListener('click', options.onClick);
+  }
+
+  if (inputElement) {
+    if (options.onChange) {
+      inputElement.addEventListener('input', options.onChange);
+      inputElement.addEventListener('change', options.onChange);
+    }
+    if (options.onFocus) {
+      inputElement.addEventListener('focus', options.onFocus);
+    }
+    if (options.onBlur) {
+      inputElement.addEventListener('blur', options.onBlur);
+    }
+  }
+
+  if (clearButton) {
+    clearButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (inputElement) {
+        inputElement.value = '';
+        inputElement.focus();
+        if (options.onChange) {
+          const event = new Event('input', { bubbles: true });
+          inputElement.dispatchEvent(event);
+        }
+      }
+    });
+  }
+
+  return container;
+}
+
+/**
+ * ModeButton
+ * Modo botón (no activo)
+ */
+export const ModeButton: Story = {
+  name: 'Mode - Button',
+  args: {
+    active: false,
+    size: 'md',
+    state: 'default',
+    disabled: false,
+    placeholder: '',
+    value: '',
+    width: 248
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button en modo botón (no activo, muestra solo el botón con icono de lupa).',
+      },
+    },
+  },
+};
+
+/**
+ * ModeInput
+ * Modo input (activo)
+ */
+export const ModeInput: Story = {
+  name: 'Mode - Input',
+  args: {
+    active: true,
+    size: 'md',
+    state: 'active',
+    disabled: false,
+    placeholder: 'Buscar...',
+    value: '',
+    width: 248
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button en modo input (activo, muestra el campo de búsqueda).',
+      },
+    },
+  },
+};
+
+/**
+ * SizeSM
+ * Tamaño sm
+ */
+export const SizeSM: Story = {
+  name: 'Size - SM',
+  args: {
+    active: false,
+    size: 'sm',
+    state: 'default',
+    disabled: false,
+    placeholder: '',
+    value: '',
+    width: 248
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button con tamaño sm (32px).',
+      },
+    },
+  },
+};
+
+/**
+ * SizeMD
+ * Tamaño md (default)
+ */
+export const SizeMD: Story = {
+  name: 'Size - MD',
+  args: {
+    active: false,
+    size: 'md',
+    state: 'default',
+    disabled: false,
+    placeholder: '',
+    value: '',
+    width: 248
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button con tamaño md (40px, default).',
+      },
+    },
+  },
+};
+
+/**
+ * StateDefault
+ * Estado default
+ */
+export const StateDefault: Story = {
+  name: 'State - Default',
+  args: {
+    active: false,
+    size: 'md',
+    state: 'default',
+    disabled: false,
+    placeholder: '',
+    value: '',
+    width: 248
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button en estado default.',
+      },
+    },
+  },
+};
+
+/**
+ * StateHover
+ * Estado hover
+ */
+export const StateHover: Story = {
+  name: 'State - Hover',
+  args: {
+    active: false,
+    size: 'md',
+    state: 'hover',
+    disabled: false,
+    placeholder: '',
+    value: '',
+    width: 248
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button en estado hover.',
+      },
+    },
+  },
+};
+
+/**
+ * StateActive
+ * Estado active (despliega input)
+ */
+export const StateActive: Story = {
+  name: 'State - Active',
+  args: {
+    active: true,
+    size: 'md',
+    state: 'active',
+    disabled: false,
+    placeholder: 'Buscar...',
+    value: '',
+    width: 248
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button en estado active (despliega el input automáticamente).',
+      },
+    },
+  },
+};
+
+/**
+ * StateDisabled
+ * Estado disabled
+ */
+export const StateDisabled: Story = {
+  name: 'State - Disabled',
+  args: {
+    active: false,
+    size: 'md',
+    state: 'disabled',
+    disabled: true,
+    placeholder: '',
+    value: '',
+    width: 248
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button en estado disabled.',
+      },
+    },
+  },
+};
+
+/**
+ * ActiveWithValue
+ * Activo con valor
+ */
+export const ActiveWithValue: Story = {
+  name: 'Active - With Value',
+  args: {
+    active: true,
+    size: 'md',
+    state: 'active',
+    disabled: false,
+    placeholder: 'Buscar...',
+    value: 'Texto de búsqueda',
+    width: 248
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button activo con valor en el input (muestra botón de limpiar).',
+      },
+    },
+  },
+};
+
+/**
+ * ActiveWithoutValue
+ * Activo sin valor
+ */
+export const ActiveWithoutValue: Story = {
+  name: 'Active - Without Value',
+  args: {
+    active: true,
+    size: 'md',
+    state: 'active',
+    disabled: false,
+    placeholder: 'Buscar...',
+    value: '',
+    width: 248
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button activo sin valor en el input (no muestra botón de limpiar).',
+      },
+    },
+  },
+};
+
+/**
+ * ActiveWithClearButton
+ * Activo con botón de limpiar visible
+ */
+export const ActiveWithClearButton: Story = {
+  name: 'Active - With Clear Button',
+  args: {
+    active: true,
+    size: 'md',
+    state: 'active',
+    disabled: false,
+    placeholder: 'Buscar...',
+    value: 'Texto de ejemplo',
+    width: 248
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button activo con botón de limpiar visible (cuando hay texto en el input).',
+      },
+    },
+  },
+};
+
+/**
+ * WithPlaceholder
+ * Con placeholder
+ */
+export const WithPlaceholder: Story = {
+  name: 'With Placeholder',
+  args: {
+    active: true,
+    size: 'md',
+    state: 'active',
+    disabled: false,
+    placeholder: 'Buscar usuarios, productos...',
+    value: '',
+    width: 248
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button activo con placeholder personalizado.',
+      },
+    },
+  },
+};
+
+/**
+ * CustomWidth
+ * Ancho personalizado
+ */
+export const CustomWidth: Story = {
+  name: 'Custom Width',
+  args: {
+    active: true,
+    size: 'md',
+    state: 'active',
+    disabled: false,
+    placeholder: 'Buscar...',
+    value: '',
+    width: 400
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button activo con ancho personalizado (400px).',
+      },
+    },
+  },
+};
+
+/**
+ * DefaultWidth
+ * Ancho por defecto (248px)
+ */
+export const DefaultWidth: Story = {
+  name: 'Default Width',
+  args: {
+    active: true,
+    size: 'md',
+    state: 'active',
+    disabled: false,
+    placeholder: 'Buscar...',
+    value: '',
+    width: 248
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button activo con ancho por defecto (248px).',
+      },
+    },
+  },
+};
+
+/**
+ * Disabled
+ * Search button deshabilitado
+ */
+export const Disabled: Story = {
+  name: 'Disabled',
+  args: {
+    active: false,
+    size: 'md',
+    state: 'disabled',
+    disabled: true,
+    placeholder: '',
+    value: '',
+    width: 248
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button deshabilitado.',
+      },
+    },
+  },
+};
+
+/**
+ * OnChangeCallback
+ * Callback onChange
+ */
+export const OnChangeCallback: Story = {
+  name: 'On Change Callback',
+  args: {
+    active: true,
+    size: 'md',
+    state: 'active',
+    disabled: false,
+    placeholder: 'Buscar...',
+    value: '',
+    width: 248,
+    onChange: (event: Event) => {
+      const target = event.target as HTMLInputElement;
+      console.log('Valor cambiado:', target.value);
+    }
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button activo con callback onChange cuando cambia el valor del input.',
+      },
+    },
+  },
+};
+
+/**
+ * OnClickCallback
+ * Callback onClick
+ */
+export const OnClickCallback: Story = {
+  name: 'On Click Callback',
+  args: {
+    active: false,
+    size: 'md',
+    state: 'default',
+    disabled: false,
+    placeholder: '',
+    value: '',
+    width: 248,
+    onClick: (event: MouseEvent) => {
+      console.log('Botón clickeado:', event);
+    }
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button en modo botón con callback onClick cuando se hace click.',
+      },
+    },
+  },
+};
+
+/**
+ * OnFocusCallback
+ * Callback onFocus
+ */
+export const OnFocusCallback: Story = {
+  name: 'On Focus Callback',
+  args: {
+    active: true,
+    size: 'md',
+    state: 'active',
+    disabled: false,
+    placeholder: 'Buscar...',
+    value: '',
+    width: 248,
+    onFocus: (event: FocusEvent) => {
+      console.log('Input enfocado:', event);
+    }
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button activo con callback onFocus cuando el input recibe focus.',
+      },
+    },
+  },
+};
+
+/**
+ * OnBlurCallback
+ * Callback onBlur
+ */
+export const OnBlurCallback: Story = {
+  name: 'On Blur Callback',
+  args: {
+    active: true,
+    size: 'md',
+    state: 'active',
+    disabled: false,
+    placeholder: 'Buscar...',
+    value: '',
+    width: 248,
+    onBlur: (event: FocusEvent) => {
+      console.log('Input desenfocado:', event);
+    }
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button activo con callback onBlur cuando el input pierde focus.',
+      },
+    },
+  },
+};
+
+/**
+ * AllSizes
+ * Todos los tamaños
+ */
+export const AllSizes: Story = {
+  name: 'All Sizes',
+  args: {
+    active: false,
+    size: 'md',
+    state: 'default',
+    disabled: false,
+    placeholder: '',
+    value: '',
+    width: 248
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      background: var(--modifiers-normal-color-light-bg-2, #f5f5f5);
+      border-radius: 8px;
+    `;
+
+    ['sm', 'md'].forEach((size) => {
+      const wrapper = document.createElement('div');
+      wrapper.style.cssText = 'display: flex; align-items: center; gap: 8px;';
+      const label = document.createElement('span');
+      label.textContent = `Size ${size.toUpperCase()}:`;
+      label.style.cssText = 'min-width: 80px; font-size: 14px; color: var(--modifiers-normal-color-light-fg-1-medium);';
+      wrapper.appendChild(label);
+      
+      const searchHTML = renderSearchButton({
+        active: false,
+        size: size as 'sm' | 'md',
+        state: 'default',
+        disabled: false,
+        placeholder: '',
+        value: '',
+        width: 248
+      });
+      wrapper.insertAdjacentHTML('beforeend', searchHTML);
+      container.appendChild(wrapper);
+    });
+
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search buttons en todos los tamaños disponibles (sm, md).',
+      },
+    },
+  },
+};
+
+/**
+ * AllStates
+ * Todos los estados
+ */
+export const AllStates: Story = {
+  name: 'All States',
+  args: {
+    active: false,
+    size: 'md',
+    state: 'default',
+    disabled: false,
+    placeholder: '',
+    value: '',
+    width: 248
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      background: var(--modifiers-normal-color-light-bg-2, #f5f5f5);
+      border-radius: 8px;
+    `;
+
+    ['default', 'hover', 'active', 'disabled'].forEach((state) => {
+      const wrapper = document.createElement('div');
+      wrapper.style.cssText = 'display: flex; align-items: center; gap: 8px; width: 100%; max-width: 400px;';
+      const label = document.createElement('span');
+      label.textContent = `State ${state.charAt(0).toUpperCase() + state.slice(1)}:`;
+      label.style.cssText = 'min-width: 100px; font-size: 14px; color: var(--modifiers-normal-color-light-fg-1-medium);';
+      wrapper.appendChild(label);
+      
+      const searchHTML = renderSearchButton({
+        active: state === 'active',
+        size: 'md',
+        state: state as 'default' | 'hover' | 'active' | 'disabled',
+        disabled: state === 'disabled',
+        placeholder: 'Buscar...',
+        value: '',
+        width: 248
+      });
+      wrapper.insertAdjacentHTML('beforeend', searchHTML);
+      container.appendChild(wrapper);
+    });
+
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search buttons en todos los estados disponibles (default, hover, active, disabled).',
+      },
+    },
+  },
+};
+
+/**
+ * CompleteExample
+ * Ejemplo completo
+ */
+export const CompleteExample: Story = {
+  name: 'Complete Example',
+  args: {
+    active: true,
+    size: 'md',
+    state: 'active',
+    disabled: false,
+    placeholder: 'Buscar usuarios, productos...',
+    value: 'Texto de búsqueda',
+    width: 300,
+    onChange: (event: Event) => {
+      const target = event.target as HTMLInputElement;
+      console.log('Valor cambiado:', target.value);
+    },
+    onClick: (event: MouseEvent) => {
+      console.log('Botón clickeado:', event);
+    },
+    onFocus: (event: FocusEvent) => {
+      console.log('Input enfocado:', event);
+    },
+    onBlur: (event: FocusEvent) => {
+      console.log('Input desenfocado:', event);
+    }
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button completo con todas las opciones habilitadas: activo, placeholder, valor, ancho personalizado, y todos los callbacks.',
+      },
+    },
+  },
+};
+
+/**
+ * MinimalExample
+ * Ejemplo mínimo
+ */
+export const MinimalExample: Story = {
+  name: 'Minimal Example',
+  args: {
+    active: false,
+    size: 'md',
+    state: 'default',
+    disabled: false,
+    placeholder: '',
+    value: '',
+    width: 248
+  },
+  render: (args) => renderSearchButtonStory(args),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Search button mínimo con solo las opciones esenciales (modo botón, tamaño md, estado default).',
+      },
+    },
   },
 };
 
