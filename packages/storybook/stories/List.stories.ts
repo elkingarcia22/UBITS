@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { renderList, createList } from '../../components/list/src/ListProvider';
+import { renderList } from '../../components/list/src/ListProvider';
 import type { ListOptions, ListItem, ListItemState, ListSize } from '../../components/list/src/types/ListOptions';
 import '../../components/list/src/styles/list.css';
 
@@ -330,7 +330,7 @@ export const Default: Story = {
 };
 
 // Helper para renderizar List de manera consistente
-function renderListStory(options: ListOptions) {
+function renderListStory(options: Omit<ListOptions, 'containerId'>) {
   const container = document.createElement('div');
   container.style.cssText = `
     padding: 20px;
@@ -344,7 +344,6 @@ function renderListStory(options: ListOptions) {
   `;
 
   const listContainer = document.createElement('div');
-  listContainer.id = options.containerId || `list-container-${Date.now()}`;
   listContainer.style.cssText = `
     width: 100%;
     background: var(--modifiers-normal-color-light-bg-1, #ffffff);
@@ -353,10 +352,84 @@ function renderListStory(options: ListOptions) {
     overflow: hidden;
   `;
 
-  const listElement = createList(options);
-  listContainer.appendChild(listElement);
-  container.appendChild(listContainer);
+  // Usar renderList en lugar de createList para evitar problemas con el DOM
+  const listHTML = renderList(options);
+  listContainer.innerHTML = listHTML;
 
+  // Agregar event listeners manualmente si es necesario
+  const listElement = listContainer.querySelector('.ubits-list') as HTMLElement;
+  if (listElement && (options.onSelectionChange || options.multiple)) {
+    const listItems = listElement.querySelectorAll('.ubits-list-item');
+    let selectedIndex: number | null = null;
+    const selectedIndices = new Set<number>();
+
+    listItems.forEach((itemEl, index) => {
+      const item = options.items[index];
+      if (!item) return;
+
+      // Click handler
+      if (item.state !== 'disabled') {
+        itemEl.addEventListener('click', () => {
+          if (item.onClick) {
+            item.onClick(item, index);
+          }
+
+          if (!options.multiple) {
+            // Deseleccionar anterior
+            if (selectedIndex !== null && selectedIndex !== index) {
+              const prevItem = listItems[selectedIndex];
+              prevItem.classList.remove('ubits-list-item--active');
+              prevItem.removeAttribute('aria-selected');
+            }
+
+            // Seleccionar nuevo
+            if (selectedIndex !== index) {
+              itemEl.classList.add('ubits-list-item--active');
+              itemEl.setAttribute('aria-selected', 'true');
+              selectedIndex = index;
+
+              if (options.onSelectionChange) {
+                options.onSelectionChange(item, index);
+              }
+            } else {
+              // Deseleccionar si se hace clic en el mismo
+              itemEl.classList.remove('ubits-list-item--active');
+              itemEl.removeAttribute('aria-selected');
+              selectedIndex = null;
+
+              if (options.onSelectionChange) {
+                options.onSelectionChange(null, null);
+              }
+            }
+          } else {
+            // Selección múltiple
+            const isSelected = itemEl.classList.contains('ubits-list-item--active');
+            if (isSelected) {
+              itemEl.classList.remove('ubits-list-item--active');
+              itemEl.removeAttribute('aria-selected');
+              selectedIndices.delete(index);
+            } else {
+              itemEl.classList.add('ubits-list-item--active');
+              itemEl.setAttribute('aria-selected', 'true');
+              selectedIndices.add(index);
+            }
+
+            if (options.onSelectionChange) {
+              // Pasar el último seleccionado para compatibilidad
+              if (selectedIndices.size > 0) {
+                const lastIndex = Array.from(selectedIndices).pop()!;
+                options.onSelectionChange(options.items[lastIndex], lastIndex);
+              } else {
+                options.onSelectionChange(null, null);
+              }
+            }
+          }
+        });
+      }
+    });
+  }
+
+  container.appendChild(listContainer);
   return container;
 }
 
@@ -376,7 +449,6 @@ export const SizeXS: Story = {
     item4State: 'default'
   },
   render: (args) => {
-    const containerId = `list-xs-${Date.now()}`;
     const items: ListItem[] = [
       { label: 'Item 1', state: args.item1State || 'default' },
       { label: 'Item 2', state: args.item2State || 'default' },
@@ -384,7 +456,6 @@ export const SizeXS: Story = {
       { label: 'Item 4', state: args.item4State || 'default' }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'xs',
       maxHeight: args.maxHeight || '400px'
@@ -415,7 +486,6 @@ export const SizeSM: Story = {
     item4State: 'default'
   },
   render: (args) => {
-    const containerId = `list-sm-${Date.now()}`;
     const items: ListItem[] = [
       { label: 'Item 1', state: args.item1State || 'default' },
       { label: 'Item 2', state: args.item2State || 'default' },
@@ -423,7 +493,6 @@ export const SizeSM: Story = {
       { label: 'Item 4', state: args.item4State || 'default' }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'sm',
       maxHeight: args.maxHeight || '400px'
@@ -454,7 +523,6 @@ export const SizeMD: Story = {
     item4State: 'default'
   },
   render: (args) => {
-    const containerId = `list-md-${Date.now()}`;
     const items: ListItem[] = [
       { label: 'Item 1', state: args.item1State || 'default' },
       { label: 'Item 2', state: args.item2State || 'default' },
@@ -462,7 +530,6 @@ export const SizeMD: Story = {
       { label: 'Item 4', state: args.item4State || 'default' }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: args.maxHeight || '400px'
@@ -493,7 +560,6 @@ export const SizeLG: Story = {
     item4State: 'default'
   },
   render: (args) => {
-    const containerId = `list-lg-${Date.now()}`;
     const items: ListItem[] = [
       { label: 'Item 1', state: args.item1State || 'default' },
       { label: 'Item 2', state: args.item2State || 'default' },
@@ -501,7 +567,6 @@ export const SizeLG: Story = {
       { label: 'Item 4', state: args.item4State || 'default' }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'lg',
       maxHeight: args.maxHeight || '400px'
@@ -532,7 +597,7 @@ export const StateDefault: Story = {
     item4State: 'default'
   },
   render: (args) => {
-    const containerId = `list-default-${Date.now()}`;
+    
     const items: ListItem[] = [
       { label: 'Item 1', state: 'default' },
       { label: 'Item 2', state: 'default' },
@@ -540,7 +605,6 @@ export const StateDefault: Story = {
       { label: 'Item 4', state: 'default' }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: args.maxHeight || '400px'
@@ -571,7 +635,7 @@ export const StateHover: Story = {
     item4State: 'hover'
   },
   render: (args) => {
-    const containerId = `list-hover-${Date.now()}`;
+    
     const items: ListItem[] = [
       { label: 'Item 1', state: 'hover' },
       { label: 'Item 2', state: 'hover' },
@@ -579,7 +643,6 @@ export const StateHover: Story = {
       { label: 'Item 4', state: 'hover' }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: args.maxHeight || '400px'
@@ -610,7 +673,7 @@ export const StateActive: Story = {
     item4State: 'active'
   },
   render: (args) => {
-    const containerId = `list-active-${Date.now()}`;
+    
     const items: ListItem[] = [
       { label: 'Item 1', state: 'active', selected: true },
       { label: 'Item 2', state: 'active', selected: true },
@@ -618,7 +681,6 @@ export const StateActive: Story = {
       { label: 'Item 4', state: 'active', selected: true }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: args.maxHeight || '400px'
@@ -649,7 +711,7 @@ export const StateDisabled: Story = {
     item4State: 'disabled'
   },
   render: (args) => {
-    const containerId = `list-disabled-${Date.now()}`;
+    
     const items: ListItem[] = [
       { label: 'Item 1', state: 'disabled' },
       { label: 'Item 2', state: 'disabled' },
@@ -657,7 +719,6 @@ export const StateDisabled: Story = {
       { label: 'Item 4', state: 'disabled' }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: args.maxHeight || '400px'
@@ -684,7 +745,7 @@ export const MixedStates: Story = {
     showScrollbar: false
   },
   render: (args) => {
-    const containerId = `list-mixed-${Date.now()}`;
+    
     const items: ListItem[] = [
       { label: 'Item default', state: 'default' },
       { label: 'Item hover', state: 'hover' },
@@ -693,7 +754,6 @@ export const MixedStates: Story = {
       { label: 'Item default 2', state: 'default' }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: args.maxHeight || '400px'
@@ -720,7 +780,7 @@ export const SelectedItem: Story = {
     showScrollbar: false
   },
   render: (args) => {
-    const containerId = `list-selected-${Date.now()}`;
+    
     const items: ListItem[] = [
       { label: 'Item 1', state: 'default' },
       { label: 'Item 2', state: 'active', selected: true },
@@ -728,7 +788,6 @@ export const SelectedItem: Story = {
       { label: 'Item 4', state: 'default' }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: args.maxHeight || '400px'
@@ -755,7 +814,7 @@ export const MultipleSelectedItems: Story = {
     showScrollbar: false
   },
   render: (args) => {
-    const containerId = `list-multiple-selected-${Date.now()}`;
+    
     const items: ListItem[] = [
       { label: 'Item 1', state: 'active', selected: true },
       { label: 'Item 2', state: 'default' },
@@ -764,7 +823,6 @@ export const MultipleSelectedItems: Story = {
       { label: 'Item 5', state: 'active', selected: true }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: args.maxHeight || '400px',
@@ -792,7 +850,7 @@ export const SingleSelection: Story = {
     showScrollbar: false
   },
   render: (args) => {
-    const containerId = `list-single-${Date.now()}`;
+    
     const items: ListItem[] = [
       { label: 'Item 1', state: 'default' },
       { label: 'Item 2', state: 'default' },
@@ -801,7 +859,6 @@ export const SingleSelection: Story = {
       { label: 'Item 5', state: 'default' }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: args.maxHeight || '400px',
@@ -832,7 +889,7 @@ export const MultipleSelection: Story = {
     showScrollbar: false
   },
   render: (args) => {
-    const containerId = `list-multiple-${Date.now()}`;
+    
     const items: ListItem[] = [
       { label: 'Item 1', state: 'default' },
       { label: 'Item 2', state: 'default' },
@@ -841,7 +898,6 @@ export const MultipleSelection: Story = {
       { label: 'Item 5', state: 'default' }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: args.maxHeight || '400px',
@@ -872,13 +928,12 @@ export const CustomMaxHeight: Story = {
     showScrollbar: false
   },
   render: (args) => {
-    const containerId = `list-custom-height-${Date.now()}`;
+    
     const items: ListItem[] = Array.from({ length: 10 }, (_, i) => ({
       label: `Item ${i + 1}`,
       state: 'default' as const
     }));
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: '200px'
@@ -905,14 +960,13 @@ export const FewItems: Story = {
     showScrollbar: false
   },
   render: (args) => {
-    const containerId = `list-few-${Date.now()}`;
+    
     const items: ListItem[] = [
       { label: 'Item 1', state: 'default' },
       { label: 'Item 2', state: 'default' },
       { label: 'Item 3', state: 'default' }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: args.maxHeight || '400px'
@@ -939,13 +993,12 @@ export const ManyItems: Story = {
     showScrollbar: false
   },
   render: (args) => {
-    const containerId = `list-many-${Date.now()}`;
+    
     const items: ListItem[] = Array.from({ length: 20 }, (_, i) => ({
       label: `Item ${i + 1}`,
       state: 'default' as const
     }));
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: args.maxHeight || '400px'
@@ -972,7 +1025,7 @@ export const ItemWithValue: Story = {
     showScrollbar: false
   },
   render: (args) => {
-    const containerId = `list-values-${Date.now()}`;
+    
     const items: ListItem[] = [
       { label: 'Item 1', value: 'value-1', state: 'default' },
       { label: 'Item 2', value: 'value-2', state: 'default' },
@@ -980,7 +1033,6 @@ export const ItemWithValue: Story = {
       { label: 'Item 4', value: 'value-4', state: 'default' }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: args.maxHeight || '400px'
@@ -1007,7 +1059,7 @@ export const ItemWithOnClick: Story = {
     showScrollbar: false
   },
   render: (args) => {
-    const containerId = `list-onclick-${Date.now()}`;
+    
     const items: ListItem[] = [
       { 
         label: 'Item 1', 
@@ -1035,7 +1087,6 @@ export const ItemWithOnClick: Story = {
       }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: args.maxHeight || '400px'
@@ -1062,7 +1113,7 @@ export const ItemWithAttributes: Story = {
     showScrollbar: false
   },
   render: (args) => {
-    const containerId = `list-attributes-${Date.now()}`;
+    
     const items: ListItem[] = [
       { 
         label: 'Item 1', 
@@ -1090,7 +1141,6 @@ export const ItemWithAttributes: Story = {
       }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: args.maxHeight || '400px'
@@ -1117,7 +1167,7 @@ export const OnSelectionChangeCallback: Story = {
     showScrollbar: false
   },
   render: (args) => {
-    const containerId = `list-selection-callback-${Date.now()}`;
+    
     const items: ListItem[] = [
       { label: 'Item 1', state: 'default' },
       { label: 'Item 2', state: 'default' },
@@ -1125,7 +1175,6 @@ export const OnSelectionChangeCallback: Story = {
       { label: 'Item 4', state: 'default' }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: args.maxHeight || '400px',
@@ -1175,19 +1224,17 @@ export const AllSizes: Story = {
     ['xs', 'sm', 'md', 'lg'].forEach((size) => {
       const wrapper = document.createElement('div');
       wrapper.style.cssText = 'width: 100%;';
-      const containerId = `list-size-${size}-${Date.now()}`;
       const items: ListItem[] = [
         { label: `Item 1 (${size.toUpperCase()})`, state: 'default' },
         { label: `Item 2 (${size.toUpperCase()})`, state: 'default' },
         { label: `Item 3 (${size.toUpperCase()})`, state: 'default' }
       ];
-      const listElement = createList({
-        containerId,
+      const listHTML = renderList({
         items,
         size: size as ListSize,
         maxHeight: '200px'
       });
-      wrapper.appendChild(listElement);
+      wrapper.innerHTML = listHTML;
       container.appendChild(wrapper);
     });
 
@@ -1214,7 +1261,7 @@ export const AllStates: Story = {
     showScrollbar: false
   },
   render: (args) => {
-    const containerId = `list-all-states-${Date.now()}`;
+    
     const items: ListItem[] = [
       { label: 'Item default', state: 'default' },
       { label: 'Item hover', state: 'hover' },
@@ -1222,7 +1269,6 @@ export const AllStates: Story = {
       { label: 'Item disabled', state: 'disabled' }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: args.maxHeight || '400px'
@@ -1249,7 +1295,7 @@ export const CompleteExample: Story = {
     showScrollbar: false
   },
   render: (args) => {
-    const containerId = `list-complete-${Date.now()}`;
+    
     const items: ListItem[] = [
       { 
         label: 'Item 1', 
@@ -1294,7 +1340,6 @@ export const CompleteExample: Story = {
       }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: args.maxHeight || '400px',
@@ -1325,14 +1370,13 @@ export const MinimalExample: Story = {
     showScrollbar: false
   },
   render: (args) => {
-    const containerId = `list-minimal-${Date.now()}`;
+    
     const items: ListItem[] = [
       { label: 'Item 1', state: 'default' },
       { label: 'Item 2', state: 'default' },
       { label: 'Item 3', state: 'default' }
     ];
     return renderListStory({
-      containerId,
       items,
       size: 'md',
       maxHeight: args.maxHeight || '400px'
