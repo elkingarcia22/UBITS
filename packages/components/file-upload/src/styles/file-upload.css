@@ -140,7 +140,7 @@
    ======================================== */
 
 .ubits-file-upload--files-list {
-    border: var(--ubits-spacing-xs) solid var(--modifiers-normal-color-light-border-1);
+    border: 1px solid var(--modifiers-normal-color-light-border-1);
     border-radius: var(--ubits-border-radius-sm);
     background-color: var(--modifiers-normal-color-light-bg-1);
     padding: var(--ubits-spacing-lg);
@@ -195,7 +195,7 @@
     align-items: center;
     gap: var(--ubits-spacing-md);
     padding: var(--ubits-spacing-md);
-    border: var(--ubits-spacing-xs) solid var(--modifiers-normal-color-light-border-1);
+    border: 1px solid var(--modifiers-normal-color-light-border-1);
     border-radius: var(--ubits-border-radius-sm);
     background-color: var(--modifiers-normal-color-light-bg-1);
     transition: background-color 0.2s ease;
