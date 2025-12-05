@@ -65,15 +65,6 @@ const meta: Meta<ExtendedStepperOptions> = {
         category: 'Apariencia',
       },
     },
-    showTitle: {
-      control: { type: 'boolean' },
-      description: 'Mostrar títulos',
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'true' },
-        category: 'Apariencia',
-      },
-    },
     showDescription: {
       control: { type: 'boolean' },
       description: 'Mostrar descripciones (texto complementario)',
