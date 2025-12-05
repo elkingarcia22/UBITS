@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import type { ListItemState } from '../../addons/list/src/types/ListOptions';
+import { renderList, createList } from '../../components/list/src/ListProvider';
+import type { ListOptions, ListItem, ListItemState, ListSize } from '../../components/list/src/types/ListOptions';
+import '../../components/list/src/styles/list.css';
 
 const meta: Meta<{
   size?: 'xs' | 'sm' | 'md' | 'lg';
@@ -324,6 +326,1024 @@ export const Default: Story = {
     container.appendChild(preview);
     
     return container;
+  },
+};
+
+// Helper para renderizar List de manera consistente
+function renderListStory(options: ListOptions) {
+  const container = document.createElement('div');
+  container.style.cssText = `
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: var(--modifiers-normal-color-light-bg-2, #f5f5f5);
+    border-radius: 8px;
+    max-width: 400px;
+    margin: 0 auto;
+  `;
+
+  const listContainer = document.createElement('div');
+  listContainer.id = options.containerId || `list-container-${Date.now()}`;
+  listContainer.style.cssText = `
+    width: 100%;
+    background: var(--modifiers-normal-color-light-bg-1, #ffffff);
+    border-radius: 8px;
+    border: 1px solid var(--modifiers-normal-color-light-border-1, #e5e7eb);
+    overflow: hidden;
+  `;
+
+  const listElement = createList(options);
+  listContainer.appendChild(listElement);
+  container.appendChild(listContainer);
+
+  return container;
+}
+
+/**
+ * SizeXS
+ * Tamaño xs
+ */
+export const SizeXS: Story = {
+  name: 'Size - XS',
+  args: {
+    size: 'xs',
+    maxHeight: '400px',
+    showScrollbar: false,
+    item1State: 'default',
+    item2State: 'default',
+    item3State: 'default',
+    item4State: 'default'
+  },
+  render: (args) => {
+    const containerId = `list-xs-${Date.now()}`;
+    const items: ListItem[] = [
+      { label: 'Item 1', state: args.item1State || 'default' },
+      { label: 'Item 2', state: args.item2State || 'default' },
+      { label: 'Item 3', state: args.item3State || 'default' },
+      { label: 'Item 4', state: args.item4State || 'default' }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'xs',
+      maxHeight: args.maxHeight || '400px'
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con tamaño xs.',
+      },
+    },
+  },
+};
+
+/**
+ * SizeSM
+ * Tamaño sm
+ */
+export const SizeSM: Story = {
+  name: 'Size - SM',
+  args: {
+    size: 'sm',
+    maxHeight: '400px',
+    showScrollbar: false,
+    item1State: 'default',
+    item2State: 'default',
+    item3State: 'default',
+    item4State: 'default'
+  },
+  render: (args) => {
+    const containerId = `list-sm-${Date.now()}`;
+    const items: ListItem[] = [
+      { label: 'Item 1', state: args.item1State || 'default' },
+      { label: 'Item 2', state: args.item2State || 'default' },
+      { label: 'Item 3', state: args.item3State || 'default' },
+      { label: 'Item 4', state: args.item4State || 'default' }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'sm',
+      maxHeight: args.maxHeight || '400px'
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con tamaño sm.',
+      },
+    },
+  },
+};
+
+/**
+ * SizeMD
+ * Tamaño md (default)
+ */
+export const SizeMD: Story = {
+  name: 'Size - MD',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false,
+    item1State: 'default',
+    item2State: 'default',
+    item3State: 'default',
+    item4State: 'default'
+  },
+  render: (args) => {
+    const containerId = `list-md-${Date.now()}`;
+    const items: ListItem[] = [
+      { label: 'Item 1', state: args.item1State || 'default' },
+      { label: 'Item 2', state: args.item2State || 'default' },
+      { label: 'Item 3', state: args.item3State || 'default' },
+      { label: 'Item 4', state: args.item4State || 'default' }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: args.maxHeight || '400px'
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con tamaño md (default).',
+      },
+    },
+  },
+};
+
+/**
+ * SizeLG
+ * Tamaño lg
+ */
+export const SizeLG: Story = {
+  name: 'Size - LG',
+  args: {
+    size: 'lg',
+    maxHeight: '400px',
+    showScrollbar: false,
+    item1State: 'default',
+    item2State: 'default',
+    item3State: 'default',
+    item4State: 'default'
+  },
+  render: (args) => {
+    const containerId = `list-lg-${Date.now()}`;
+    const items: ListItem[] = [
+      { label: 'Item 1', state: args.item1State || 'default' },
+      { label: 'Item 2', state: args.item2State || 'default' },
+      { label: 'Item 3', state: args.item3State || 'default' },
+      { label: 'Item 4', state: args.item4State || 'default' }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'lg',
+      maxHeight: args.maxHeight || '400px'
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con tamaño lg.',
+      },
+    },
+  },
+};
+
+/**
+ * StateDefault
+ * Items en estado default
+ */
+export const StateDefault: Story = {
+  name: 'State - Default',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false,
+    item1State: 'default',
+    item2State: 'default',
+    item3State: 'default',
+    item4State: 'default'
+  },
+  render: (args) => {
+    const containerId = `list-default-${Date.now()}`;
+    const items: ListItem[] = [
+      { label: 'Item 1', state: 'default' },
+      { label: 'Item 2', state: 'default' },
+      { label: 'Item 3', state: 'default' },
+      { label: 'Item 4', state: 'default' }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: args.maxHeight || '400px'
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con todos los items en estado default.',
+      },
+    },
+  },
+};
+
+/**
+ * StateHover
+ * Items en estado hover
+ */
+export const StateHover: Story = {
+  name: 'State - Hover',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false,
+    item1State: 'hover',
+    item2State: 'hover',
+    item3State: 'hover',
+    item4State: 'hover'
+  },
+  render: (args) => {
+    const containerId = `list-hover-${Date.now()}`;
+    const items: ListItem[] = [
+      { label: 'Item 1', state: 'hover' },
+      { label: 'Item 2', state: 'hover' },
+      { label: 'Item 3', state: 'hover' },
+      { label: 'Item 4', state: 'hover' }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: args.maxHeight || '400px'
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con todos los items en estado hover.',
+      },
+    },
+  },
+};
+
+/**
+ * StateActive
+ * Items en estado active
+ */
+export const StateActive: Story = {
+  name: 'State - Active',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false,
+    item1State: 'active',
+    item2State: 'active',
+    item3State: 'active',
+    item4State: 'active'
+  },
+  render: (args) => {
+    const containerId = `list-active-${Date.now()}`;
+    const items: ListItem[] = [
+      { label: 'Item 1', state: 'active', selected: true },
+      { label: 'Item 2', state: 'active', selected: true },
+      { label: 'Item 3', state: 'active', selected: true },
+      { label: 'Item 4', state: 'active', selected: true }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: args.maxHeight || '400px'
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con todos los items en estado active (seleccionados).',
+      },
+    },
+  },
+};
+
+/**
+ * StateDisabled
+ * Items en estado disabled
+ */
+export const StateDisabled: Story = {
+  name: 'State - Disabled',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false,
+    item1State: 'disabled',
+    item2State: 'disabled',
+    item3State: 'disabled',
+    item4State: 'disabled'
+  },
+  render: (args) => {
+    const containerId = `list-disabled-${Date.now()}`;
+    const items: ListItem[] = [
+      { label: 'Item 1', state: 'disabled' },
+      { label: 'Item 2', state: 'disabled' },
+      { label: 'Item 3', state: 'disabled' },
+      { label: 'Item 4', state: 'disabled' }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: args.maxHeight || '400px'
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con todos los items en estado disabled.',
+      },
+    },
+  },
+};
+
+/**
+ * MixedStates
+ * Items con diferentes estados
+ */
+export const MixedStates: Story = {
+  name: 'Mixed States',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false
+  },
+  render: (args) => {
+    const containerId = `list-mixed-${Date.now()}`;
+    const items: ListItem[] = [
+      { label: 'Item default', state: 'default' },
+      { label: 'Item hover', state: 'hover' },
+      { label: 'Item active', state: 'active', selected: true },
+      { label: 'Item disabled', state: 'disabled' },
+      { label: 'Item default 2', state: 'default' }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: args.maxHeight || '400px'
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con items en diferentes estados (default, hover, active, disabled).',
+      },
+    },
+  },
+};
+
+/**
+ * SelectedItem
+ * Item seleccionado
+ */
+export const SelectedItem: Story = {
+  name: 'Selected Item',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false
+  },
+  render: (args) => {
+    const containerId = `list-selected-${Date.now()}`;
+    const items: ListItem[] = [
+      { label: 'Item 1', state: 'default' },
+      { label: 'Item 2', state: 'active', selected: true },
+      { label: 'Item 3', state: 'default' },
+      { label: 'Item 4', state: 'default' }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: args.maxHeight || '400px'
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con un item seleccionado.',
+      },
+    },
+  },
+};
+
+/**
+ * MultipleSelectedItems
+ * Múltiples items seleccionados
+ */
+export const MultipleSelectedItems: Story = {
+  name: 'Multiple Selected Items',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false
+  },
+  render: (args) => {
+    const containerId = `list-multiple-selected-${Date.now()}`;
+    const items: ListItem[] = [
+      { label: 'Item 1', state: 'active', selected: true },
+      { label: 'Item 2', state: 'default' },
+      { label: 'Item 3', state: 'active', selected: true },
+      { label: 'Item 4', state: 'default' },
+      { label: 'Item 5', state: 'active', selected: true }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: args.maxHeight || '400px',
+      multiple: true
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con múltiples items seleccionados (modo múltiple).',
+      },
+    },
+  },
+};
+
+/**
+ * SingleSelection
+ * Selección simple
+ */
+export const SingleSelection: Story = {
+  name: 'Single Selection',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false
+  },
+  render: (args) => {
+    const containerId = `list-single-${Date.now()}`;
+    const items: ListItem[] = [
+      { label: 'Item 1', state: 'default' },
+      { label: 'Item 2', state: 'default' },
+      { label: 'Item 3', state: 'default' },
+      { label: 'Item 4', state: 'default' },
+      { label: 'Item 5', state: 'default' }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: args.maxHeight || '400px',
+      multiple: false,
+      onSelectionChange: (selectedItem, index) => {
+        console.log('Item seleccionado:', selectedItem?.label, 'Índice:', index);
+      }
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con selección simple (solo un item puede estar seleccionado a la vez).',
+      },
+    },
+  },
+};
+
+/**
+ * MultipleSelection
+ * Selección múltiple
+ */
+export const MultipleSelection: Story = {
+  name: 'Multiple Selection',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false
+  },
+  render: (args) => {
+    const containerId = `list-multiple-${Date.now()}`;
+    const items: ListItem[] = [
+      { label: 'Item 1', state: 'default' },
+      { label: 'Item 2', state: 'default' },
+      { label: 'Item 3', state: 'default' },
+      { label: 'Item 4', state: 'default' },
+      { label: 'Item 5', state: 'default' }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: args.maxHeight || '400px',
+      multiple: true,
+      onSelectionChange: (selectedItem, index) => {
+        console.log('Selección cambiada:', selectedItem?.label, 'Índice:', index);
+      }
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con selección múltiple (múltiples items pueden estar seleccionados).',
+      },
+    },
+  },
+};
+
+/**
+ * CustomMaxHeight
+ * Con altura máxima personalizada
+ */
+export const CustomMaxHeight: Story = {
+  name: 'Custom Max Height',
+  args: {
+    size: 'md',
+    maxHeight: '200px',
+    showScrollbar: false
+  },
+  render: (args) => {
+    const containerId = `list-custom-height-${Date.now()}`;
+    const items: ListItem[] = Array.from({ length: 10 }, (_, i) => ({
+      label: `Item ${i + 1}`,
+      state: 'default' as const
+    }));
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: '200px'
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con altura máxima personalizada (200px, mostrará scroll si hay más items).',
+      },
+    },
+  },
+};
+
+/**
+ * FewItems
+ * Pocos items
+ */
+export const FewItems: Story = {
+  name: 'Few Items',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false
+  },
+  render: (args) => {
+    const containerId = `list-few-${Date.now()}`;
+    const items: ListItem[] = [
+      { label: 'Item 1', state: 'default' },
+      { label: 'Item 2', state: 'default' },
+      { label: 'Item 3', state: 'default' }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: args.maxHeight || '400px'
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con pocos items (3 items).',
+      },
+    },
+  },
+};
+
+/**
+ * ManyItems
+ * Muchos items (con scroll)
+ */
+export const ManyItems: Story = {
+  name: 'Many Items',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false
+  },
+  render: (args) => {
+    const containerId = `list-many-${Date.now()}`;
+    const items: ListItem[] = Array.from({ length: 20 }, (_, i) => ({
+      label: `Item ${i + 1}`,
+      state: 'default' as const
+    }));
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: args.maxHeight || '400px'
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con muchos items (20 items, mostrará scroll).',
+      },
+    },
+  },
+};
+
+/**
+ * ItemWithValue
+ * Items con valor
+ */
+export const ItemWithValue: Story = {
+  name: 'Item With Value',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false
+  },
+  render: (args) => {
+    const containerId = `list-values-${Date.now()}`;
+    const items: ListItem[] = [
+      { label: 'Item 1', value: 'value-1', state: 'default' },
+      { label: 'Item 2', value: 'value-2', state: 'default' },
+      { label: 'Item 3', value: 'value-3', state: 'default' },
+      { label: 'Item 4', value: 'value-4', state: 'default' }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: args.maxHeight || '400px'
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con items que tienen valores asignados.',
+      },
+    },
+  },
+};
+
+/**
+ * ItemWithOnClick
+ * Items con callback onClick
+ */
+export const ItemWithOnClick: Story = {
+  name: 'Item With On Click',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false
+  },
+  render: (args) => {
+    const containerId = `list-onclick-${Date.now()}`;
+    const items: ListItem[] = [
+      { 
+        label: 'Item 1', 
+        state: 'default',
+        onClick: (item, index) => {
+          console.log('Item clickeado:', item.label, 'Índice:', index);
+          alert(`Item clickeado: ${item.label}`);
+        }
+      },
+      { 
+        label: 'Item 2', 
+        state: 'default',
+        onClick: (item, index) => {
+          console.log('Item clickeado:', item.label, 'Índice:', index);
+          alert(`Item clickeado: ${item.label}`);
+        }
+      },
+      { 
+        label: 'Item 3', 
+        state: 'default',
+        onClick: (item, index) => {
+          console.log('Item clickeado:', item.label, 'Índice:', index);
+          alert(`Item clickeado: ${item.label}`);
+        }
+      }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: args.maxHeight || '400px'
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con items que tienen callback onClick individual.',
+      },
+    },
+  },
+};
+
+/**
+ * ItemWithAttributes
+ * Items con atributos personalizados
+ */
+export const ItemWithAttributes: Story = {
+  name: 'Item With Attributes',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false
+  },
+  render: (args) => {
+    const containerId = `list-attributes-${Date.now()}`;
+    const items: ListItem[] = [
+      { 
+        label: 'Item 1', 
+        state: 'default',
+        attributes: {
+          'data-custom': 'value1',
+          'aria-label': 'Primer item'
+        }
+      },
+      { 
+        label: 'Item 2', 
+        state: 'default',
+        attributes: {
+          'data-custom': 'value2',
+          'aria-label': 'Segundo item'
+        }
+      },
+      { 
+        label: 'Item 3', 
+        state: 'default',
+        attributes: {
+          'data-custom': 'value3',
+          'aria-label': 'Tercer item'
+        }
+      }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: args.maxHeight || '400px'
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con items que tienen atributos HTML personalizados.',
+      },
+    },
+  },
+};
+
+/**
+ * OnSelectionChangeCallback
+ * Callback onSelectionChange
+ */
+export const OnSelectionChangeCallback: Story = {
+  name: 'On Selection Change Callback',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false
+  },
+  render: (args) => {
+    const containerId = `list-selection-callback-${Date.now()}`;
+    const items: ListItem[] = [
+      { label: 'Item 1', state: 'default' },
+      { label: 'Item 2', state: 'default' },
+      { label: 'Item 3', state: 'default' },
+      { label: 'Item 4', state: 'default' }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: args.maxHeight || '400px',
+      onSelectionChange: (selectedItem, index) => {
+        console.log('Selección cambiada:', selectedItem?.label, 'Índice:', index);
+        if (selectedItem) {
+          alert(`Item seleccionado: ${selectedItem.label} (Índice: ${index})`);
+        } else {
+          alert('Selección desactivada');
+        }
+      }
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con callback onSelectionChange cuando cambia la selección.',
+      },
+    },
+  },
+};
+
+/**
+ * AllSizes
+ * Todos los tamaños
+ */
+export const AllSizes: Story = {
+  name: 'All Sizes',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      background: var(--modifiers-normal-color-light-bg-2, #f5f5f5);
+      border-radius: 8px;
+      max-width: 400px;
+      margin: 0 auto;
+    `;
+
+    ['xs', 'sm', 'md', 'lg'].forEach((size) => {
+      const wrapper = document.createElement('div');
+      wrapper.style.cssText = 'width: 100%;';
+      const containerId = `list-size-${size}-${Date.now()}`;
+      const items: ListItem[] = [
+        { label: `Item 1 (${size.toUpperCase()})`, state: 'default' },
+        { label: `Item 2 (${size.toUpperCase()})`, state: 'default' },
+        { label: `Item 3 (${size.toUpperCase()})`, state: 'default' }
+      ];
+      const listElement = createList({
+        containerId,
+        items,
+        size: size as ListSize,
+        maxHeight: '200px'
+      });
+      wrapper.appendChild(listElement);
+      container.appendChild(wrapper);
+    });
+
+    return container;
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Lists en todos los tamaños disponibles (xs, sm, md, lg).',
+      },
+    },
+  },
+};
+
+/**
+ * AllStates
+ * Todos los estados
+ */
+export const AllStates: Story = {
+  name: 'All States',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false
+  },
+  render: (args) => {
+    const containerId = `list-all-states-${Date.now()}`;
+    const items: ListItem[] = [
+      { label: 'Item default', state: 'default' },
+      { label: 'Item hover', state: 'hover' },
+      { label: 'Item active', state: 'active', selected: true },
+      { label: 'Item disabled', state: 'disabled' }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: args.maxHeight || '400px'
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List con items en todos los estados disponibles (default, hover, active, disabled).',
+      },
+    },
+  },
+};
+
+/**
+ * CompleteExample
+ * Ejemplo completo
+ */
+export const CompleteExample: Story = {
+  name: 'Complete Example',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false
+  },
+  render: (args) => {
+    const containerId = `list-complete-${Date.now()}`;
+    const items: ListItem[] = [
+      { 
+        label: 'Item 1', 
+        value: 'value-1',
+        state: 'default',
+        onClick: (item, index) => {
+          console.log('Item clickeado:', item.label);
+        }
+      },
+      { 
+        label: 'Item 2', 
+        value: 'value-2',
+        state: 'active',
+        selected: true,
+        onClick: (item, index) => {
+          console.log('Item clickeado:', item.label);
+        }
+      },
+      { 
+        label: 'Item 3', 
+        value: 'value-3',
+        state: 'default',
+        onClick: (item, index) => {
+          console.log('Item clickeado:', item.label);
+        }
+      },
+      { 
+        label: 'Item 4', 
+        value: 'value-4',
+        state: 'disabled',
+        onClick: (item, index) => {
+          console.log('Item clickeado:', item.label);
+        }
+      },
+      { 
+        label: 'Item 5', 
+        value: 'value-5',
+        state: 'default',
+        onClick: (item, index) => {
+          console.log('Item clickeado:', item.label);
+        }
+      }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: args.maxHeight || '400px',
+      multiple: false,
+      onSelectionChange: (selectedItem, index) => {
+        console.log('Selección cambiada:', selectedItem?.label, 'Índice:', index);
+      }
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List completo con todas las opciones habilitadas: diferentes estados, valores, callbacks onClick, y callback onSelectionChange.',
+      },
+    },
+  },
+};
+
+/**
+ * MinimalExample
+ * Ejemplo mínimo
+ */
+export const MinimalExample: Story = {
+  name: 'Minimal Example',
+  args: {
+    size: 'md',
+    maxHeight: '400px',
+    showScrollbar: false
+  },
+  render: (args) => {
+    const containerId = `list-minimal-${Date.now()}`;
+    const items: ListItem[] = [
+      { label: 'Item 1', state: 'default' },
+      { label: 'Item 2', state: 'default' },
+      { label: 'Item 3', state: 'default' }
+    ];
+    return renderListStory({
+      containerId,
+      items,
+      size: 'md',
+      maxHeight: args.maxHeight || '400px'
+    });
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'List mínimo con solo las opciones esenciales (items básicos, tamaño md).',
+      },
+    },
   },
 };
 
