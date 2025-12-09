@@ -499,10 +499,10 @@ export const Default: Story = {
     // Buscar y limpiar cualquier tabla anterior en el contenedor principal
     // Esto previene renderizados duplicados cuando se cambian los tipos de columna
     const existingContainers = container.querySelectorAll('[id^="data-table-story-container-"]');
-    console.log('🔴 [CLEANUP] Encontrados', existingContainers.length, 'contenedores existentes');
+    // console.log('🔴 [CLEANUP] Encontrados', existingContainers.length, 'contenedores existentes');
     
     existingContainers.forEach((oldContainer) => {
-      console.log('🔴 [CLEANUP] Limpiando contenedor:', oldContainer.id);
+      // console.log('🔴 [CLEANUP] Limpiando contenedor:', oldContainer.id);
       // Buscar tabla directa o dentro de contenedor scrollable
       const oldTable = oldContainer.querySelector('.ubits-data-table');
       const oldScrollableContainer = oldContainer.querySelector('.ubits-data-table__scrollable-container');
@@ -513,13 +513,13 @@ export const Default: Story = {
           const tableElement = tableInside as HTMLElement;
           if ((tableElement as any)._dataTableInstance) {
             try {
-              console.log('🔴 [CLEANUP] Destruyendo instancia en scrollable container');
+              // console.log('🔴 [CLEANUP] Destruyendo instancia en scrollable container');
               const instance = (tableElement as any)._dataTableInstance;
               if (instance && typeof instance.destroy === 'function') {
                 instance.destroy();
               }
             } catch (e) {
-              console.error('🔴 [CLEANUP] Error al destruir instancia:', e);
+              // Silenciar errores de limpieza
             }
           }
         }
@@ -527,18 +527,18 @@ export const Default: Story = {
         const tableElement = oldTable as HTMLElement;
         if ((tableElement as any)._dataTableInstance) {
           try {
-            console.log('🔴 [CLEANUP] Destruyendo instancia en tabla directa');
+            // console.log('🔴 [CLEANUP] Destruyendo instancia en tabla directa');
             const instance = (tableElement as any)._dataTableInstance;
             if (instance && typeof instance.destroy === 'function') {
               instance.destroy();
             }
           } catch (e) {
-            console.error('🔴 [CLEANUP] Error al destruir instancia:', e);
+            // Silenciar errores de limpieza
           }
         }
       }
       oldContainer.remove();
-      console.log('🔴 [CLEANUP] Contenedor removido');
+      // console.log('🔴 [CLEANUP] Contenedor removido');
     });
     
     // Generar columnas dinámicamente según columnsCount
@@ -546,7 +546,7 @@ export const Default: Story = {
     // Leer directamente de args para asegurar reactividad
     const rawColumnsCount = args.columnsCount;
     const columnsCount = Math.max(1, Math.min(10, typeof rawColumnsCount === 'number' ? rawColumnsCount : 7));
-    console.log('🔵 [INIT] columnsCount inicial:', columnsCount, 'rawColumnsCount:', rawColumnsCount, 'tipo:', typeof rawColumnsCount);
+    // console.log('🔵 [INIT] columnsCount inicial:', columnsCount, 'rawColumnsCount:', rawColumnsCount, 'tipo:', typeof rawColumnsCount);
     
     // Tipos de columna disponibles (pueden ser controlados desde Storybook)
     // Leer directamente de args para asegurar que se actualicen cuando cambien
@@ -709,8 +709,7 @@ export const Default: Story = {
     // Asegurar que no exceda el número de columnas disponibles
     const validColumnsCount = Math.min(columnsCount, allColumns.length);
     const columns: TableColumn[] = allColumns.slice(0, validColumnsCount);
-    console.log('🟡 [INIT] Columnas seleccionadas:', columns.length, 'de', allColumns.length, 'disponibles. columnsCount:', columnsCount, 'validColumnsCount:', validColumnsCount);
-    console.log('🟡 [INIT] Columnas seleccionadas:', columns.length, 'de', allColumns.length, 'disponibles. columnsCount:', columnsCount, 'validColumnsCount:', validColumnsCount);
+    // console.log('🟡 [INIT] Columnas seleccionadas:', columns.length, 'de', allColumns.length, 'disponibles. columnsCount:', columnsCount, 'validColumnsCount:', validColumnsCount);
     
     // Función helper para enriquecer los datos de las filas con campos para tipos interactivos
     // Coincide con la implementación de la web
@@ -1348,10 +1347,10 @@ export const Default: Story = {
     // Verificar si ya hay una tabla en el contenedor antes de crear una nueva
     // Esto previene renderizados duplicados cuando Storybook llama al render múltiples veces
     const checkAndCreateTable = () => {
-      console.log('🔵 [checkAndCreateTable] Iniciando...');
+      // console.log('🔵 [checkAndCreateTable] Iniciando...');
       const containerElement = document.getElementById(tableContainerId);
       if (!containerElement) {
-        console.log('❌ [checkAndCreateTable] Container no encontrado:', tableContainerId);
+        // console.log('❌ [checkAndCreateTable] Container no encontrado:', tableContainerId);
         return false;
       }
       
@@ -1359,67 +1358,28 @@ export const Default: Story = {
       const existingTable = containerElement.querySelector('.ubits-data-table');
       const existingScrollable = containerElement.querySelector('.ubits-data-table__scrollable-container');
       
-      console.log('  - existingTable:', !!existingTable);
-      console.log('  - existingScrollable:', !!existingScrollable);
-      console.log('  - options.columns.length:', options.columns.length);
+      // console.log('  - existingTable:', !!existingTable);
+      // console.log('  - existingScrollable:', !!existingScrollable);
+      // console.log('  - options.columns.length:', options.columns.length);
       
       if (existingTable || existingScrollable) {
-        console.log('⚠️ [checkAndCreateTable] Ya existe una tabla, no se creará otra');
+        // console.log('⚠️ [checkAndCreateTable] Ya existe una tabla, no se creará otra');
         return false;
       }
       
-      console.log('✅ [checkAndCreateTable] Creando nueva tabla con', options.columns.length, 'columnas');
+      // console.log('✅ [checkAndCreateTable] Creando nueva tabla con', options.columns.length, 'columnas');
       
       // Verificar si hay otras tablas en el DOM antes de crear
       const allTablesInDOM = document.querySelectorAll('.ubits-data-table');
-      console.log('  - Tablas existentes en el DOM:', allTablesInDOM.length);
-      if (allTablesInDOM.length > 0) {
-        console.log('  ⚠️ ADVERTENCIA: Hay', allTablesInDOM.length, 'tablas en el DOM antes de crear una nueva');
-      }
+      // console.log('  - Tablas existentes en el DOM:', allTablesInDOM.length);
       
       tableInstance = createDataTable(options);
       
-      // Verificar después de crear
-      setTimeout(() => {
-        const allTablesAfter = document.querySelectorAll('.ubits-data-table');
-        console.log('  - Tablas en el DOM después de crear:', allTablesAfter.length);
-        if (allTablesAfter.length > 1) {
-          console.log('  ⚠️ ADVERTENCIA: Hay múltiples tablas en el DOM!');
-        }
-        
-        // Verificar cuántas columnas tiene realmente la tabla renderizada
-        const tableInContainer = containerElement.querySelector('.ubits-data-table');
-        if (tableInContainer) {
-          const thead = tableInContainer.querySelector('thead');
-          if (thead) {
-            const headerCells = thead.querySelectorAll('th');
-            const columnIds = Array.from(headerCells).map(th => {
-              const id = th.getAttribute('data-column-id') || th.getAttribute('id') || 'sin-id';
-              const text = th.textContent?.trim() || '';
-              return { id, text };
-            });
-            console.log('  - Columnas en la tabla renderizada:', headerCells.length);
-            console.log('  - IDs y textos de columnas:', JSON.stringify(columnIds, null, 2));
-            console.log('  - options.columns.length:', options.columns.length);
-            console.log('  - options.columns IDs:', JSON.stringify(options.columns.map(c => ({ id: c.id, title: c.title, type: c.type })), null, 2));
-            
-            // Contar solo columnas de datos (excluyendo checkbox, expand, drag-handle)
-            const dataColumns = columnIds.filter(col => 
-              !col.id.includes('checkbox') && 
-              !col.id.includes('expand') && 
-              !col.id.includes('drag-handle')
-            );
-            console.log('  - Columnas de datos (sin checkbox/expand/drag-handle):', dataColumns.length);
-            console.log('  - IDs de columnas de datos:', dataColumns.map(c => c.id));
-            
-            if (dataColumns.length !== options.columns.length) {
-              console.error('  ❌ ERROR: El número de columnas de datos en la tabla renderizada (', dataColumns.length, ') no coincide con options.columns.length (', options.columns.length, ')');
-            } else {
-              console.log('  ✅ OK: El número de columnas de datos coincide');
-            }
-          }
-        }
-      }, 200);
+      // Verificar después de crear (comentado para reducir ruido en consola)
+      // setTimeout(() => {
+      //   const allTablesAfter = document.querySelectorAll('.ubits-data-table');
+      //   // console.log('  - Tablas en el DOM después de crear:', allTablesAfter.length);
+      // }, 200);
       
       // Guardar referencia a la instancia para poder inspeccionarla
       (window as any).__storybookDataTableInstance = tableInstance;
@@ -1466,7 +1426,7 @@ export const Default: Story = {
     const buildColumnsFromArgs = (): TableColumn[] => {
       const currentRawColumnsCount = args.columnsCount;
       const currentColumnsCount = Math.max(1, Math.min(10, typeof currentRawColumnsCount === 'number' ? currentRawColumnsCount : 7));
-      console.log('🟢 [buildColumnsFromArgs] currentColumnsCount:', currentColumnsCount, 'raw:', currentRawColumnsCount, 'tipo:', typeof currentRawColumnsCount);
+      // console.log('🟢 [buildColumnsFromArgs] currentColumnsCount:', currentColumnsCount, 'raw:', currentRawColumnsCount, 'tipo:', typeof currentRawColumnsCount);
       
       const currentColumnType1 = args.columnType1 ?? 'nombre';
       const currentColumnType2 = args.columnType2 ?? 'correo';
@@ -1552,103 +1512,110 @@ export const Default: Story = {
       showCheckbox: args.showCheckbox,
       showPagination: args.showPagination
     });
-    console.log('🟡 [INIT] lastArgs inicial:', lastArgs);
+    // console.log('🟡 [INIT] lastArgs inicial:', lastArgs);
     
     const checkArgsInterval = setInterval(() => {
-      const currentRawColumnsCount = args.columnsCount;
-      const currentColumnsCount = Math.max(1, Math.min(10, typeof currentRawColumnsCount === 'number' ? currentRawColumnsCount : 7));
-      
-      const currentArgs = JSON.stringify({
-        columnsCount: currentColumnsCount,
-        columnType1: args.columnType1 ?? 'nombre',
-        columnType2: args.columnType2 ?? 'correo',
-        columnType3: args.columnType3 ?? 'estado',
-        columnType4: args.columnType4 ?? 'nombre',
-        showCheckbox: args.showCheckbox,
-        showPagination: args.showPagination
-      });
-      
-      if (currentArgs !== lastArgs) {
-        console.log('🟠 [CHECK] Cambio detectado!');
-        console.log('  - lastArgs:', lastArgs);
-        console.log('  - currentArgs:', currentArgs);
-        console.log('  - currentColumnsCount:', currentColumnsCount);
-        console.log('  - rawColumnsCount:', currentRawColumnsCount, 'tipo:', typeof currentRawColumnsCount);
-        lastArgs = currentArgs;
+      try {
+        const currentRawColumnsCount = args.columnsCount;
+        const currentColumnsCount = Math.max(1, Math.min(10, typeof currentRawColumnsCount === 'number' ? currentRawColumnsCount : 7));
         
-        // Destruir tabla existente y recrearla
-        const containerElement = document.getElementById(tableContainerId);
-        if (!containerElement) {
-          console.log('❌ [CHECK] Container no encontrado:', tableContainerId);
-          return;
-        }
+        const currentArgs = JSON.stringify({
+          columnsCount: currentColumnsCount,
+          columnType1: args.columnType1 ?? 'nombre',
+          columnType2: args.columnType2 ?? 'correo',
+          columnType3: args.columnType3 ?? 'estado',
+          columnType4: args.columnType4 ?? 'nombre',
+          showCheckbox: args.showCheckbox,
+          showPagination: args.showPagination
+        });
         
-        const existingTable = containerElement.querySelector('.ubits-data-table');
-        const existingScrollable = containerElement.querySelector('.ubits-data-table__scrollable-container');
-        
-        console.log('  - existingTable:', !!existingTable);
-        console.log('  - existingScrollable:', !!existingScrollable);
-        
-        if (existingTable || existingScrollable) {
-          console.log('🟣 [CHECK] Destruyendo tabla existente...');
+        if (currentArgs !== lastArgs) {
+          // console.log('🟠 [CHECK] Cambio detectado!');
+          lastArgs = currentArgs;
           
-          if (tableInstance) {
-            try {
-              console.log('  - Destruyendo instancia...');
-              tableInstance.destroy();
-            } catch (e) {
-              console.error('  - Error al destruir instancia:', e);
+          // Destruir tabla existente y recrearla
+          const containerElement = document.getElementById(tableContainerId);
+          if (!containerElement) {
+            return;
+          }
+          
+          const existingTable = containerElement.querySelector('.ubits-data-table');
+          const existingScrollable = containerElement.querySelector('.ubits-data-table__scrollable-container');
+          
+          if (existingTable || existingScrollable) {
+            // console.log('🟣 [CHECK] Destruyendo tabla existente...');
+            
+            if (tableInstance) {
+              try {
+                tableInstance.destroy();
+              } catch (e) {
+                // Silenciar errores de destrucción
+              }
+              tableInstance = null;
             }
-            tableInstance = null;
+            
+            if (existingScrollable) {
+              existingScrollable.remove();
+            } else if (existingTable) {
+              existingTable.remove();
+            }
+            
+            // Reconstruir columnas y opciones con los nuevos argumentos
+            const newColumns = buildColumnsFromArgs();
+            options.columns = newColumns;
+            
+            // Recrear la tabla con los nuevos argumentos
+            setTimeout(() => {
+              checkAndCreateTable();
+            }, 50);
           }
-          
-          if (existingScrollable) {
-            console.log('  - Removiendo scrollable container...');
-            existingScrollable.remove();
-          } else if (existingTable) {
-            console.log('  - Removiendo tabla...');
-            existingTable.remove();
-          }
-          
-          // Reconstruir columnas y opciones con los nuevos argumentos
-          console.log('🟢 [CHECK] Reconstruyendo columnas...');
-          const newColumns = buildColumnsFromArgs();
-          console.log('  - Nuevas columnas:', newColumns.length, 'columnas');
-          console.log('  - IDs de columnas:', newColumns.map(c => c.id));
-          options.columns = newColumns;
-          
-          // Recrear la tabla con los nuevos argumentos
-          setTimeout(() => {
-            console.log('🟢 [CHECK] Recreando tabla...');
-            checkAndCreateTable();
-          }, 50);
-        } else {
-          console.log('⚠️ [CHECK] No hay tabla existente para destruir');
         }
+      } catch (error) {
+        // Silenciar errores en el interval para evitar ruido en consola
       }
     }, 100);
     
     // Limpiar interval cuando se destruye el componente
     const cleanup = () => {
-      clearInterval(checkArgsInterval);
-      if (tableInstance) {
-        try {
-          tableInstance.destroy();
-        } catch (e) {
-          // Ignorar errores
+      try {
+        clearInterval(checkArgsInterval);
+        if (tableInstance) {
+          try {
+            tableInstance.destroy();
+          } catch (e) {
+            // Ignorar errores
+          }
         }
+        if (observer) {
+          observer.disconnect();
+          observer = null;
+        }
+      } catch (error) {
+        // Silenciar errores de limpieza
       }
     };
     
     // Usar MutationObserver para detectar cuando el container se elimina
-    const observer = new MutationObserver(() => {
-      if (!document.body.contains(container)) {
-        cleanup();
-        observer.disconnect();
-      }
-    });
-    
-    observer.observe(document.body, { childList: true, subtree: true });
+    let observer: MutationObserver | null = null;
+    try {
+      observer = new MutationObserver(() => {
+        try {
+          if (!document.body.contains(container)) {
+            cleanup();
+            if (observer) {
+              observer.disconnect();
+              observer = null;
+            }
+          }
+        } catch (error) {
+          // Silenciar errores del observer
+        }
+      });
+      
+      observer.observe(document.body, { childList: true, subtree: true });
+    } catch (error) {
+      // Silenciar errores al crear el observer
+    }
 
     return container;
   },
