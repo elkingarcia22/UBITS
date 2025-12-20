@@ -107,8 +107,8 @@ intents: {
 ---
 
 **Última actualización:** Diciembre 2024
-**Total completados:** 19/59 (32%)
-**Total pendientes:** 40/59 (68%)
+**Total completados:** 24/59 (41%)
+**Total pendientes:** 35/59 (59%)
 
 ## 📦 Lote 1 Completado ✅
 
@@ -125,3 +125,11 @@ intents: {
 - ✅ FileUpload
 - ✅ Toast
 - ✅ Tooltip
+
+## 📦 Lote 3 Completado ✅
+
+- ✅ Popover
+- ✅ Drawer
+- ✅ EmptyState
+- ✅ ProgressBar
+- ✅ Spinner
