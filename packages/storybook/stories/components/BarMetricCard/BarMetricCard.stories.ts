@@ -72,10 +72,41 @@ const meta: Meta<
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: "createBarMetricCard(document.getElementById('bar-metric-card-container'), {\\n  containerId: 'bar-metric-card-container',\\n  title: 'Metricas',\\n  barData: [10, 20, 30],\\n  categories: [\\n    { label: 'Category 1', current: 10, total: 100 }\\n  ]\\n});",
-				basic: "createBarMetricCard(document.getElementById('bar-metric-card-container'), {\\n  containerId: 'bar-metric-card-container',\\n  title: 'Metricas',\\n  barData: [10, 20, 30],\\n  categories: [\\n    { label: 'Category 1', current: 10, total: 100 }\\n  ]\\n});",
-				horizontal: "createBarMetricCard(document.getElementById('bar-metric-card-container'), {\\n  containerId: 'bar-metric-card-container',\\n  title: 'Metricas',\\n  barData: [10, 20, 30],\\n  categories: [\\n    { label: 'Category 1', current: 10, total: 100 }\\n  ],\\n  layout: 'horizontal'\\n});",
-				withResponseCount: "createBarMetricCard(document.getElementById('bar-metric-card-container'), {\\n  containerId: 'bar-metric-card-container',\\n  title: 'Metricas',\\n  barData: [10, 20, 30],\\n  categories: [\\n    { label: 'Category 1', current: 10, total: 100 }\\n  ],\\n  showResponseCount: true,\\n  responseCount: 50\\n});",
+				canonical: `createBarMetricCard(document.getElementById('bar-metric-card-container'), {
+  containerId: 'bar-metric-card-container',
+  title: 'Metricas',
+  barData: [10, 20, 30],
+  categories: [
+    { label: 'Category 1', current: 10, total: 100 }
+  ]
+});`,
+				basic: `createBarMetricCard(document.getElementById('bar-metric-card-container'), {
+  containerId: 'bar-metric-card-container',
+  title: 'Metricas',
+  barData: [10, 20, 30],
+  categories: [
+    { label: 'Category 1', current: 10, total: 100 }
+  ]
+});`,
+				horizontal: `createBarMetricCard(document.getElementById('bar-metric-card-container'), {
+  containerId: 'bar-metric-card-container',
+  title: 'Metricas',
+  barData: [10, 20, 30],
+  categories: [
+    { label: 'Category 1', current: 10, total: 100 }
+  ],
+  layout: 'horizontal'
+});`,
+				withResponseCount: `createBarMetricCard(document.getElementById('bar-metric-card-container'), {
+  containerId: 'bar-metric-card-container',
+  title: 'Metricas',
+  barData: [10, 20, 30],
+  categories: [
+    { label: 'Category 1', current: 10, total: 100 }
+  ],
+  showResponseCount: true,
+  responseCount: 50
+});`,
 			},
 			variants: {
 				layout: ['vertical', 'horizontal'],

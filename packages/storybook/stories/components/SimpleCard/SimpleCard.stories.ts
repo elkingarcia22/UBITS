@@ -79,10 +79,32 @@ const meta: Meta<
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: "createSimpleCard({\\n  title: 'Advanced Card',\\n  subtitle: 'Card subtitle',\\n  content: '<p>Card content</p>',\\n  onButton1Click: function() {},\\n  onButton2Click: function() {}\\n});",
-				basic: "createSimpleCard({\\n  title: 'Advanced Card',\\n  subtitle: 'Card subtitle',\\n  content: '<p>Card content</p>'\\n});",
-				withHeader: "createSimpleCard({\\n  title: 'Advanced Card',\\n  subtitle: 'Card subtitle',\\n  content: '<p>Card content</p>',\\n  showHeader: true\\n});",
-				withButtons: "createSimpleCard({\\n  title: 'Advanced Card',\\n  subtitle: 'Card subtitle',\\n  content: '<p>Card content</p>',\\n  showButtons: true,\\n  button1Label: 'Action 1',\\n  button2Label: 'Action 2'\\n});",
+				canonical: `createSimpleCard({
+  title: 'Advanced Card',
+  subtitle: 'Card subtitle',
+  content: '<p>Card content</p>',
+  onButton1Click: function() {},
+  onButton2Click: function() {}
+});`,
+				basic: `createSimpleCard({
+  title: 'Advanced Card',
+  subtitle: 'Card subtitle',
+  content: '<p>Card content</p>'
+});`,
+				withHeader: `createSimpleCard({
+  title: 'Advanced Card',
+  subtitle: 'Card subtitle',
+  content: '<p>Card content</p>',
+  showHeader: true
+});`,
+				withButtons: `createSimpleCard({
+  title: 'Advanced Card',
+  subtitle: 'Card subtitle',
+  content: '<p>Card content</p>',
+  showButtons: true,
+  button1Label: 'Action 1',
+  button2Label: 'Action 2'
+});`,
 			},
 			variants: {
 				showHeader: [true, false],

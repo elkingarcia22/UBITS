@@ -57,10 +57,33 @@ const meta: Meta<MetricCardOptions> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: "createMetricCard({\\n  title: 'Net confidence score',\\n  value: '200 / 204',\\n  label: 'Colaboradores',\\n  onInfoClick: function() {},\\n  onActionClick: function() {}\\n});",
-				basic: "createMetricCard({\\n  title: 'Net confidence score',\\n  value: '200 / 204',\\n  label: 'Colaboradores'\\n});",
-				withIcon: "createMetricCard({\\n  title: 'Net confidence score',\\n  value: '200 / 204',\\n  label: 'Colaboradores',\\n  titleIcon: 'chart-line',\\n  titleIconStyle: 'regular'\\n});",
-				withButtons: "createMetricCard({\\n  title: 'Net confidence score',\\n  value: '200 / 204',\\n  label: 'Colaboradores',\\n  showInfoButton: true,\\n  showActionButton: true,\\n  actionButtonLabel: 'Ver detalles'\\n});",
+				canonical: `createMetricCard({
+  title: 'Net confidence score',
+  value: '200 / 204',
+  label: 'Colaboradores',
+  onInfoClick: function() {},
+  onActionClick: function() {}
+});`,
+				basic: `createMetricCard({
+  title: 'Net confidence score',
+  value: '200 / 204',
+  label: 'Colaboradores'
+});`,
+				withIcon: `createMetricCard({
+  title: 'Net confidence score',
+  value: '200 / 204',
+  label: 'Colaboradores',
+  titleIcon: 'chart-line',
+  titleIconStyle: 'regular'
+});`,
+				withButtons: `createMetricCard({
+  title: 'Net confidence score',
+  value: '200 / 204',
+  label: 'Colaboradores',
+  showInfoButton: true,
+  showActionButton: true,
+  actionButtonLabel: 'Ver detalles'
+});`,
 			},
 			variants: {
 				size: ['sm', 'md', 'lg'],

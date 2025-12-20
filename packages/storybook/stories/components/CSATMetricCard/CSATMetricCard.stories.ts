@@ -50,9 +50,31 @@ const meta: Meta<CSATMetricCardOptions> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: "createCSATMetricCard(document.getElementById('csat-metric-card-container'), {\\n  containerId: 'csat-metric-card-container',\\n  title: 'Califica el producto',\\n  totalResponses: 100,\\n  average: 4.5,\\n  score: { '1': 5, '2': 10, '3': 20, '4': 30, '5': 35 },\\n  onInfoClick: function() {},\\n  onActionClick: function() {}\\n});",
-				basic: "createCSATMetricCard(document.getElementById('csat-metric-card-container'), {\\n  containerId: 'csat-metric-card-container',\\n  title: 'Califica el producto',\\n  totalResponses: 100,\\n  average: 4.5,\\n  score: { '1': 5, '2': 10, '3': 20, '4': 30, '5': 35 }\\n});",
-				withButtons: "createCSATMetricCard(document.getElementById('csat-metric-card-container'), {\\n  containerId: 'csat-metric-card-container',\\n  title: 'Califica el producto',\\n  totalResponses: 100,\\n  average: 4.5,\\n  score: { '1': 5, '2': 10, '3': 20, '4': 30, '5': 35 },\\n  showInfoButton: true,\\n  showActionButton: true\\n});",
+				canonical: `createCSATMetricCard(document.getElementById('csat-metric-card-container'), {
+  containerId: 'csat-metric-card-container',
+  title: 'Califica el producto',
+  totalResponses: 100,
+  average: 4.5,
+  score: { '1': 5, '2': 10, '3': 20, '4': 30, '5': 35 },
+  onInfoClick: function() {},
+  onActionClick: function() {}
+});`,
+				basic: `createCSATMetricCard(document.getElementById('csat-metric-card-container'), {
+  containerId: 'csat-metric-card-container',
+  title: 'Califica el producto',
+  totalResponses: 100,
+  average: 4.5,
+  score: { '1': 5, '2': 10, '3': 20, '4': 30, '5': 35 }
+});`,
+				withButtons: `createCSATMetricCard(document.getElementById('csat-metric-card-container'), {
+  containerId: 'csat-metric-card-container',
+  title: 'Califica el producto',
+  totalResponses: 100,
+  average: 4.5,
+  score: { '1': 5, '2': 10, '3': 20, '4': 30, '5': 35 },
+  showInfoButton: true,
+  showActionButton: true
+});`,
 			},
 			variants: {
 				size: ['sm', 'md', 'lg'],

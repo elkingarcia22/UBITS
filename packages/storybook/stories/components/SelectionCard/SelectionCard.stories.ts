@@ -60,11 +60,35 @@ const meta: Meta<SelectionCardData & { showDescription?: boolean; showIcon?: boo
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: "createSelectionCard({\\n  id: 'card-1',\\n  title: 'Asignar toda la empresa',\\n  size: 'md',\\n  onClick: function(cardId) {}\\n});",
-				basic: "createSelectionCard({\\n  id: 'card-1',\\n  title: 'Asignar toda la empresa',\\n  size: 'md'\\n});",
-				selected: "createSelectionCard({\\n  id: 'card-1',\\n  title: 'Asignar toda la empresa',\\n  selected: true,\\n  size: 'md'\\n});",
-				withDescription: "createSelectionCard({\\n  id: 'card-1',\\n  title: 'Asignar toda la empresa',\\n  description: 'Agregaras a todos los colaboradores...',\\n  size: 'md'\\n});",
-				disabled: "createSelectionCard({\\n  id: 'card-1',\\n  title: 'Asignar toda la empresa',\\n  disabled: true,\\n  size: 'md'\\n});",
+				canonical: `createSelectionCard({
+  id: 'card-1',
+  title: 'Asignar toda la empresa',
+  size: 'md',
+  onClick: function(cardId) {}
+});`,
+				basic: `createSelectionCard({
+  id: 'card-1',
+  title: 'Asignar toda la empresa',
+  size: 'md'
+});`,
+				selected: `createSelectionCard({
+  id: 'card-1',
+  title: 'Asignar toda la empresa',
+  selected: true,
+  size: 'md'
+});`,
+				withDescription: `createSelectionCard({
+  id: 'card-1',
+  title: 'Asignar toda la empresa',
+  description: 'Agregaras a todos los colaboradores...',
+  size: 'md'
+});`,
+				disabled: `createSelectionCard({
+  id: 'card-1',
+  title: 'Asignar toda la empresa',
+  disabled: true,
+  size: 'md'
+});`,
 			},
 			variants: {
 				size: ['sm', 'md', 'lg'],
