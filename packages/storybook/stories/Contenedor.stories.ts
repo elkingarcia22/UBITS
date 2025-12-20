@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
+import { createUBITSContract } from './_shared/ubitsContract';
 
 interface ContenedorOptions {
   content: string;
@@ -13,9 +14,79 @@ const meta: Meta<ContenedorOptions> = {
     docs: {
       description: {
         component: 'Componente contenedor básico UBITS con fondo configurable (bg1, bg2, bg3, bg4), bordes con radio de 8px y padding interno de 12px. Usa tokens UBITS para mantener consistencia visual.'
-}
-}
-},
+      }
+    },
+    // ⭐ CONTRATO UBITS PARA AUTORUN
+    ubits: createUBITSContract({
+      componentId: '🧩-ux-contenedor',
+      api: {
+        create: 'renderContenedor', // Función helper que genera HTML
+        tag: '<ubits-contenedor>',
+      },
+      dependsOn: {
+        required: [],
+        optional: [],
+      },
+      internals: [],
+      tokensUsed: [
+        '--modifiers-normal-color-light-bg-1',
+        '--modifiers-normal-color-light-bg-2',
+        '--modifiers-normal-color-light-bg-3',
+        '--modifiers-normal-color-light-bg-4',
+        '--modifiers-normal-color-light-fg-1-high',
+        '--modifiers-normal-color-light-fg-1-medium',
+        '--modifiers-normal-color-light-border-1',
+        '--p-spacing-mode-1-md',
+      ],
+      rules: {
+        forbidHardcodedColors: true,
+        forbiddenPatterns: ['rgb(', 'rgba(', 'hsl(', 'hsla(', '#'],
+        requiredProps: [],
+      },
+      // ⭐ CAMPOS EXTENDIDOS
+      examples: {
+        canonical: `const container = document.createElement('div');
+container.className = 'ubits-container';
+container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
+container.style.padding = 'var(--p-spacing-mode-1-md, 12px)';
+container.style.borderRadius = '8px';
+container.textContent = 'Contenido del contenedor';`,
+        basic: `const container = document.createElement('div');
+container.className = 'ubits-container';
+container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
+container.style.padding = 'var(--p-spacing-mode-1-md, 12px)';
+container.style.borderRadius = '8px';
+container.textContent = 'Contenido del contenedor';`,
+        withBorder: `const container = document.createElement('div');
+container.className = 'ubits-container';
+container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
+container.style.padding = 'var(--p-spacing-mode-1-md, 12px)';
+container.style.borderRadius = '8px';
+container.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
+container.textContent = 'Contenido del contenedor';`,
+      },
+      variants: {
+        backgroundVariant: ['bg1', 'bg2', 'bg3', 'bg4'],
+        showBorder: [true, false],
+      },
+      events: {},
+      // ⭐ CAMPOS ADICIONALES PARA PERFECCIÓN AUTORUN
+      storybook: {
+        canonicalStoryId: 'layout-contenedor--implementation',
+        storiesByExample: {
+          canonical: 'layout-contenedor--implementation',
+          basic: 'layout-contenedor--default',
+          withBorder: 'layout-contenedor--with-border',
+        },
+      },
+      intents: {
+        'container.basic': 'canonical',
+        'container.wrapper': 'canonical',
+        'container.basic': 'canonical',
+        'container.with-border': 'withBorder',
+      },
+    }),
+  },
   argTypes: {
     content: {
       control: { type: 'text' },
