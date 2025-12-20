@@ -54,7 +54,7 @@ const meta: Meta<ModalOptions> = {
 			},
 			// ⭐ NUEVOS CAMPOS EXTENDIDOS
 			examples: {
-				canonical: 'const modal = window.UBITS.Modal.create({\n  title: "Confirmar acción",\n  bodyContent: "<p>¿Estás seguro de realizar esta acción?</p>",\n  footerButtons: {\n    primary: { label: "Confirmar", onClick: () => {} },\n    secondary: { label: "Cancelar", onClick: () => modal.close() }\n  }\n});\nmodal.open();',
+				canonical: 'const modal = window.UBITS.Modal.create({\\n  title: "Confirmar acción",\\n  bodyContent: "<p>¿Estás seguro de realizar esta acción?</p>",\\n  footerButtons: {\\n    primary: { label: "Confirmar", onClick: function() {} },\\n    secondary: { label: "Cancelar", onClick: function() { modal.close(); } }\\n  }\\n});\\nmodal.open();',
 				basic: 'const modal = window.UBITS.Modal.create({\n  title: "Confirmar acción",\n  bodyContent: "<p>¿Estás seguro de realizar esta acción?</p>",\n  footerButtons: {\n    primary: { label: "Confirmar", onClick: () => {} },\n    secondary: { label: "Cancelar", onClick: () => modal.close() }\n  }\n});',
 				withContent: 'const modal = window.UBITS.Modal.create({\n  title: "Título del modal",\n  size: "lg",\n  bodyContent: "<p>Contenido del modal</p>"\n});',
 			},

@@ -65,7 +65,7 @@ const meta: Meta<InputOptions> = {
 			},
 			// ⭐ NUEVOS CAMPOS EXTENDIDOS
 			examples: {
-				canonical: 'window.UBITS.Input.create(document.getElementById("input-container"), {\n  containerId: "input-container",\n  label: "Email",\n  type: "email",\n  placeholder: "tu@email.com",\n  onChange: (value) => {}\n});',
+				canonical: 'window.UBITS.Input.create(document.getElementById("input-container"), {\\n  containerId: "input-container",\\n  label: "Email",\\n  type: "email",\\n  placeholder: "tu@email.com",\\n  onChange: function(value) {}\\n});',
 				basic: 'window.UBITS.Input.create(document.getElementById("input-container"), {\n  containerId: "input-container",\n  label: "Email",\n  type: "email",\n  placeholder: "tu@email.com"\n});',
 				withIcon: 'window.UBITS.Input.create(document.getElementById("input-container"), {\n  containerId: "input-container",\n  label: "Buscar",\n  type: "search",\n  leftIcon: "search"\n});',
 				select: 'window.UBITS.Input.create(document.getElementById("input-container"), {\n  containerId: "input-container",\n  label: "País",\n  type: "select",\n  selectOptions: [{ label: "Colombia", value: "co" }]\n});',

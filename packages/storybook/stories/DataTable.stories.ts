@@ -74,7 +74,7 @@ const meta: Meta<DataTableOptions & { columnsCount?: number }> = {
       },
       // ⭐ NUEVOS CAMPOS EXTENDIDOS
       examples: {
-        canonical: 'window.UBITS.DataTable.create({\n  containerId: "datatable-container",\n  columns: [{ id: "name", label: "Nombre" }, { id: "email", label: "Email" }],\n  rows: [{ id: "1", name: "Juan", email: "juan@example.com" }],\n  header: {\n    buttons: [{ variant: "primary", text: "Nuevo", onClick: () => {} }],\n    searchInput: { placeholder: "Buscar...", onChange: (value) => {} }\n  },\n  footer: {\n    pagination: { currentPage: 1, totalPages: 10, onPageChange: (page) => {} }\n  }\n});',
+        canonical: 'window.UBITS.DataTable.create({\\n  containerId: "datatable-container",\\n  columns: [{ id: "name", label: "Nombre" }, { id: "email", label: "Email" }],\\n  rows: [{ id: "1", name: "Juan", email: "juan@example.com" }],\\n  header: {\\n    buttons: [{ variant: "primary", text: "Nuevo", onClick: function() {} }],\\n    searchInput: { placeholder: "Buscar...", onChange: function(value) {} }\\n  },\\n  footer: {\\n    pagination: { currentPage: 1, totalPages: 10, onPageChange: function(page) {} }\\n  }\\n});',
         basic: 'window.UBITS.DataTable.create({ columns: [{ id: "name", label: "Nombre" }], rows: [{ id: "1", name: "Juan" }] });',
         withPagination: 'window.UBITS.DataTable.create({ columns: [{ id: "name", label: "Nombre" }], rows: [{ id: "1", name: "Juan" }], pagination: { currentPage: 1, totalPages: 10 } });',
         withHeader: 'window.UBITS.DataTable.create({ columns: [{ id: "name", label: "Nombre" }], rows: [{ id: "1", name: "Juan" }], header: { buttons: [{ variant: "primary", text: "Nuevo" }] } });',
