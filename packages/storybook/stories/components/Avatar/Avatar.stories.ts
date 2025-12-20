@@ -49,10 +49,10 @@ const meta: Meta<AvatarOptions> = {
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
 				canonical: 'window.UBITS.Avatar.create({\\n  icon: \'user\',\\n  size: \'md\',\\n  alt: \'Avatar\',\\n  onClick: function() {}\\n});',
-				basic: 'window.UBITS.Avatar.create({\\n  icon: \'user\',\\n  size: \'md\',\\n  alt: \'Avatar\'\n});',
-				withInitials: 'window.UBITS.Avatar.create({\\n  initials: \'JD\',\\n  size: \'md\',\\n  alt: \'Avatar\'\n});',
-				withImage: 'window.UBITS.Avatar.create({\\n  imageUrl: \'https://example.com/avatar.jpg\',\\n  size: \'md\',\\n  alt: \'Avatar\'\n});',
-				withBadge: 'window.UBITS.Avatar.create({\\n  icon: \'user\',\\n  size: \'md\',\\n  badgeColor: \'error\',\\n  badgeContent: \'5\',\\n  alt: \'Avatar\'\n});',
+				basic: 'window.UBITS.Avatar.create({\\n  icon: \'user\',\\n  size: \'md\',\\n  alt: \'Avatar\'\\n});',
+				withInitials: 'window.UBITS.Avatar.create({\\n  initials: \'JD\',\\n  size: \'md\',\\n  alt: \'Avatar\'\\n});',
+				withImage: 'window.UBITS.Avatar.create({\\n  imageUrl: \'https://example.com/avatar.jpg\',\\n  size: \'md\',\\n  alt: \'Avatar\'\\n});',
+				withBadge: 'window.UBITS.Avatar.create({\\n  icon: \'user\',\\n  size: \'md\',\\n  badgeColor: \'error\',\\n  badgeContent: \'5\',\\n  alt: \'Avatar\'\\n});',
 			},
 			variants: {
 				size: ['xs', 'sm', 'md', 'lg'],
