@@ -13,11 +13,11 @@
 ## 🔄 Componentes pendientes (52 componentes)
 
 ### Básicos (6 pendientes)
-- [ ] Input
-- [ ] Badge
-- [ ] Avatar
-- [ ] Chip
-- [ ] Alert
+- [x] Input ✅
+- [x] Badge ✅
+- [x] Avatar ✅
+- [x] Chip ✅
+- [x] Alert ✅
 - [ ] Skeleton
 
 ### Formularios (7 pendientes)
@@ -107,5 +107,13 @@ intents: {
 ---
 
 **Última actualización:** Diciembre 2024
-**Total completados:** 7/59 (12%)
-**Total pendientes:** 52/59 (88%)
+**Total completados:** 14/59 (24%)
+**Total pendientes:** 45/59 (76%)
+
+## 📦 Lote 1 Completado ✅
+
+- ✅ Avatar
+- ✅ Chip
+- ✅ Alert
+- ✅ Checkbox
+- ✅ RadioButton
