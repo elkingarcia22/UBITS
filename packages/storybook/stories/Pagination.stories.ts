@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { createPagination, renderPagination } from '../../components/pagination/src/PaginationProvider';
 import type { PaginationOptions } from '../../components/pagination/src/types/PaginationOptions';
+import { createUBITSContract } from './_shared/ubitsContract';
 import '../../components/pagination/src/styles/pagination.css';
 import '../../components/button/src/styles/button.css';
 import '../../components/list/src/styles/list.css';
@@ -12,9 +13,78 @@ const meta: Meta<PaginationOptions> = {
     docs: {
       description: {
         component: 'Componente Pagination UBITS para paginación de datos usando tokens UBITS, tipografía UBITS y componentes UBITS. Ideal para tablas y listas de datos.'
-}
-}
-},
+      }
+    },
+    // ⭐ CONTRATO UBITS PARA AUTORUN
+    ubits: createUBITSContract({
+      componentId: '🧩-ux-pagination',
+      api: {
+        create: 'window.UBITS.Pagination.create',
+        tag: '<ubits-pagination>',
+      },
+      dependsOn: {
+        required: ['🧩-ux-button'], // Botones de navegación son requeridos
+        optional: ['🧩-ux-list'], // Selector de items por página usa List
+      },
+      internals: [],
+      tokensUsed: [
+        '--modifiers-normal-color-light-bg-1',
+        '--modifiers-normal-color-light-fg-1-high',
+        '--ubits-spacing-md',
+      ],
+      rules: {
+        forbidHardcodedColors: true,
+        forbiddenPatterns: ['rgb(', 'rgba(', 'hsl(', 'hsla(', '#'],
+        requiredProps: ['containerId', 'currentPage', 'totalPages'],
+      },
+      // ⭐ CAMPOS EXTENDIDOS
+      examples: {
+        canonical: 'window.UBITS.Pagination.create(document.getElementById(\'pagination-container\'), {\\n  containerId: \'pagination-container\',\\n  currentPage: 1,\\n  totalPages: 10,\\n  onPageChange: function(page) {}\\n});',
+        basic: 'window.UBITS.Pagination.create(document.getElementById(\'pagination-container\'), {\\n  containerId: \'pagination-container\',\\n  currentPage: 1,\\n  totalPages: 10\\n});',
+        withInfo: 'window.UBITS.Pagination.create(document.getElementById(\'pagination-container\'), {\\n  containerId: \'pagination-container\',\\n  currentPage: 1,\\n  totalPages: 10,\\n  showInfo: true,\\n  totalItems: 100\\n});',
+        compact: 'window.UBITS.Pagination.create(document.getElementById(\'pagination-container\'), {\\n  containerId: \'pagination-container\',\\n  currentPage: 1,\\n  totalPages: 10,\\n  variant: \'compact\'\\n});',
+      },
+      variants: {
+        variant: ['default', 'compact', 'minimal'],
+        size: ['sm', 'md', 'lg'],
+        showInfo: [true, false],
+        showItemsPerPage: [true, false],
+      },
+      events: {
+        onPageChange: {
+          type: 'Event',
+          description: 'Emitted when page changes',
+          payload: {
+            page: 'number',
+          },
+        },
+        onItemsPerPageChange: {
+          type: 'Event',
+          description: 'Emitted when items per page changes',
+          payload: {
+            itemsPerPage: 'number',
+          },
+        },
+      },
+      // ⭐ CAMPOS ADICIONALES PARA PERFECCIÓN AUTORUN
+      storybook: {
+        canonicalStoryId: 'data-pagination--default',
+        storiesByExample: {
+          canonical: 'data-pagination--default',
+          basic: 'data-pagination--default',
+          withInfo: 'data-pagination--show-info',
+          compact: 'data-pagination--variant-compact',
+        },
+      },
+      intents: {
+        'pagination.navigation': 'canonical',
+        'pagination.table': 'canonical',
+        'pagination.basic': 'canonical',
+        'pagination.with-info': 'withInfo',
+        'pagination.compact': 'compact',
+      },
+    }),
+  },
   argTypes: {
     currentPage: {
       control: { type: 'number', min: 1, max: 100 },
@@ -117,25 +187,71 @@ export const Default: Story = {
     container.style.display = 'flex';
     container.style.justifyContent = 'center';
 
-    const options: PaginationOptions = {
-      ...args,
-      containerId,
-      onPageChange: (page) => {
-        // Página cambiada
-        // Actualizar el componente
-        const newOptions = { ...args, currentPage: page, containerId };
-        createPagination(newOptions);
-      },
-      onItemsPerPageChange: (itemsPerPage) => {
-        // Items por página cambiados
-        const newOptions = { ...args, itemsPerPage, currentPage: 1, containerId };
-        createPagination(newOptions);
+    // Mantener referencia al estado actual
+    let currentPageState = args.currentPage || 1;
+    let currentItemsPerPageState = args.itemsPerPage || 10;
+
+    const updatePagination = () => {
+      // Usar el contenedor directamente en lugar de buscarlo por ID
+      // Esto evita problemas cuando el contenedor aún no está en el DOM
+      if (!container || !container.parentElement) {
+        // Si el contenedor no tiene parent, aún no está en el DOM
+        // Esperar un poco más
+        setTimeout(() => {
+          updatePagination();
+        }, 50);
+        return;
+      }
+
+      // Asegurar que el ID esté establecido
+      if (!container.id) {
+        container.id = containerId;
+      }
+
+      const options: PaginationOptions = {
+        ...args,
+        currentPage: currentPageState,
+        itemsPerPage: currentItemsPerPageState,
+        containerId: container.id, // Usar el ID del contenedor
+        onPageChange: (page) => {
+          console.log('[Pagination Story] Página cambiada a:', page);
+          currentPageState = page;
+          // Actualizar el componente después de un pequeño delay
+          setTimeout(() => {
+            updatePagination();
+          }, 10);
+        },
+        onItemsPerPageChange: (itemsPerPage) => {
+          console.log('[Pagination Story] Items por página cambiados a:', itemsPerPage);
+          currentItemsPerPageState = itemsPerPage;
+          currentPageState = 1; // Reset a página 1 cuando cambia items por página
+          // Actualizar el componente después de un pequeño delay
+          setTimeout(() => {
+            updatePagination();
+          }, 10);
+        }
+      };
+      
+      const result = createPagination(options);
+      if (!result) {
+        console.error('[Pagination Story] Error al crear paginación');
       }
     };
 
-    setTimeout(() => {
-      createPagination(options);
-    }, 0);
+    // Esperar a que el contenedor esté en el DOM antes de inicializar
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        // Verificar que el contenedor esté en el DOM
+        if (container.parentElement || document.body.contains(container)) {
+          updatePagination();
+        } else {
+          // Si aún no está en el DOM, esperar un poco más
+          setTimeout(() => {
+            updatePagination();
+          }, 100);
+        }
+      });
+    });
 
     return container;
   },

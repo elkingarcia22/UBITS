@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { renderDataView, createDataView } from '../../components/data-view/src/DataViewProvider';
 import type { DataViewOptions, ProductData, StockStatus } from '../../components/data-view/src/types/DataViewOptions';
+import { createUBITSContract } from './_shared/ubitsContract';
 // Importar estilos necesarios
 import '../../components/data-view/src/styles/data-view.css';
 import '../../components/button/src/styles/button.css';
@@ -17,10 +18,88 @@ const meta: Meta<DataViewOptions & {
     docs: {
       description: {
         component: 'Componente DataView UBITS para mostrar listas de productos con imagen, categoría, nombre, rating, precio, botón de favoritos y botón de compra. Usa tokens UBITS para colores, tipografía y espaciado.'
-}
-},
-    layout: 'padded'
-},
+      }
+    },
+    layout: 'padded',
+    // ⭐ CONTRATO UBITS PARA AUTORUN
+    ubits: createUBITSContract({
+      componentId: '🧩-ux-data-view',
+      api: {
+        create: 'window.UBITS.DataView.create',
+        tag: '<ubits-data-view>',
+      },
+      dependsOn: {
+        required: ['🧩-ux-button'], // Botones de compra y favoritos son requeridos
+        optional: [],
+      },
+      internals: [],
+      tokensUsed: [
+        '--modifiers-normal-color-light-bg-1',
+        '--modifiers-normal-color-light-fg-1-high',
+        '--ubits-spacing-md',
+      ],
+      rules: {
+        forbidHardcodedColors: true,
+        forbiddenPatterns: ['rgb(', 'rgba(', 'hsl(', 'hsla(', '#'],
+        requiredProps: ['products'],
+      },
+      // ⭐ CAMPOS EXTENDIDOS
+      examples: {
+        canonical: 'window.UBITS.DataView.create(document.getElementById(\'dataview-container\'), {\\n  containerId: \'dataview-container\',\\n  products: [{\\n    id: \'1\',\\n    image: \'/image.jpg\',\\n    category: \'Category\',\\n    name: \'Product Name\',\\n    rating: 4,\\n    price: 50,\\n    stockStatus: \'INSTOCK\'\\n  }],\\n  onProductClick: function(product) {},\\n  onBuyClick: function(product) {}\\n});',
+        basic: 'window.UBITS.DataView.create(document.getElementById(\'dataview-container\'), {\\n  containerId: \'dataview-container\',\\n  products: [{\\n    id: \'1\',\\n    name: \'Product Name\',\\n    price: 50\\n  }]\\n});',
+        withRating: 'window.UBITS.DataView.create(document.getElementById(\'dataview-container\'), {\\n  containerId: \'dataview-container\',\\n  products: [{\\n    id: \'1\',\\n    name: \'Product Name\',\\n    rating: 4,\\n    price: 50\\n  }]\\n});',
+        withWishlist: 'window.UBITS.DataView.create(document.getElementById(\'dataview-container\'), {\\n  containerId: \'dataview-container\',\\n  products: [{\\n    id: \'1\',\\n    name: \'Product Name\',\\n    price: 50,\\n    inWishlist: true\\n  }],\\n  onWishlistClick: function(product) {}\\n});',
+      },
+      variants: {
+        size: ['sm', 'md', 'lg'],
+        showCategory: [true, false],
+        showRating: [true, false],
+        showPrice: [true, false],
+        showWishlist: [true, false],
+        showBuyButton: [true, false],
+      },
+      events: {
+        onProductClick: {
+          type: 'Event',
+          description: 'Emitted when a product is clicked',
+          payload: {
+            product: 'ProductData',
+          },
+        },
+        onBuyClick: {
+          type: 'Event',
+          description: 'Emitted when buy button is clicked',
+          payload: {
+            product: 'ProductData',
+          },
+        },
+        onWishlistClick: {
+          type: 'Event',
+          description: 'Emitted when wishlist button is clicked',
+          payload: {
+            product: 'ProductData',
+          },
+        },
+      },
+      // ⭐ CAMPOS ADICIONALES PARA PERFECCIÓN AUTORUN
+      storybook: {
+        canonicalStoryId: 'data-dataview--default',
+        storiesByExample: {
+          canonical: 'data-dataview--default',
+          basic: 'data-dataview--default',
+          withRating: 'data-dataview--show-rating',
+          withWishlist: 'data-dataview--with-wishlist-items',
+        },
+      },
+      intents: {
+        'dataview.products': 'canonical',
+        'dataview.catalog': 'canonical',
+        'dataview.list': 'canonical',
+        'dataview.with-rating': 'withRating',
+        'dataview.with-wishlist': 'withWishlist',
+      },
+    }),
+  },
   argTypes: {
     productCount: {
       control: { type: 'number', min: 1, max: 10, step: 1 },

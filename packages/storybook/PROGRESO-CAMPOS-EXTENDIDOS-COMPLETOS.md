@@ -37,15 +37,15 @@
 - [ ] EmptyState
 - [ ] ProgressBar
 - [ ] Spinner
-- [ ] StatusTag
+- [x] StatusTag ✅
 
 ### Data (2 pendientes)
 - [ ] Pagination
 - [ ] DataView
 
 ### Navegación (8 pendientes)
-- [ ] Sidebar
-- [ ] TabBar
+- [x] Sidebar ✅
+- [x] TabBar ✅
 - [ ] Tabs
 - [ ] SubNav
 - [ ] Breadcrumb
