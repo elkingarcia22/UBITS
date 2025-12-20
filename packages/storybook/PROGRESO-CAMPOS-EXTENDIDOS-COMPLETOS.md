@@ -51,13 +51,13 @@
 - [ ] Breadcrumb
 - [ ] Menu
 - [ ] TreeMenu
-- [ ] SegmentControl
+- [x] SegmentControl ✅
 
 ### Layout (6 pendientes)
-- [ ] Stepper
-- [ ] Accordion
-- [ ] List
-- [ ] CardContent
+- [x] Stepper ✅
+- [x] Accordion ✅
+- [x] List ✅
+- [x] CardContent ✅
 - [ ] SimpleCard
 - [ ] SelectionCard
 
@@ -149,3 +149,11 @@ intents: {
 - ✅ Breadcrumb
 - ✅ Menu
 - ✅ TreeMenu
+
+## 📦 Lote 6 Completado ✅
+
+- ✅ SegmentControl
+- ✅ Stepper
+- ✅ Accordion
+- ✅ List
+- ✅ CardContent

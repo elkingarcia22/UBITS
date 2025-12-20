@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { renderStepper, createStepper } from '../../components/stepper/src/StepperProvider';
 import type { StepperOptions, StepperStep, StepperStepState, StepperOrientation } from '../../components/stepper/src/types/StepperOptions';
+import { createUBITSContract } from './_shared/ubitsContract';
 import '../../components/stepper/src/styles/stepper.css';
 
 interface ExtendedStepperOptions extends StepperOptions {
@@ -34,6 +35,88 @@ const meta: Meta<ExtendedStepperOptions> = {
       },
     },
     layout: 'padded',
+    // ⭐ CONTRATO UBITS para Autorun
+    ubits: createUBITSContract({
+      componentId: '🧩-ux-stepper',
+      api: {
+        create: 'window.UBITS.Stepper.create',
+        tag: '<ubits-stepper>',
+      },
+      dependsOn: {
+        required: [], // Stepper no requiere otros componentes UBITS
+        optional: [], // No tiene dependencias opcionales
+      },
+      internals: [], // Stepper no tiene componentes internos privados
+      slots: {}, // Stepper no tiene slots
+      tokensUsed: [
+        '--modifiers-normal-color-light-bg-1',
+        '--modifiers-normal-color-light-bg-2',
+        '--modifiers-normal-color-light-bg-active',
+        '--modifiers-normal-color-light-border-1',
+        '--modifiers-normal-color-light-fg-1-high',
+        '--modifiers-normal-color-light-fg-1-medium',
+        '--modifiers-normal-color-light-fg-1-low',
+        '--modifiers-normal-color-light-fg-disabled',
+        '--modifiers-normal-color-light-accent-brand',
+        '--modifiers-normal-color-light-feedback-bg-success-subtle-default',
+        '--modifiers-normal-color-light-feedback-bg-error-subtle-default',
+        '--modifiers-normal-color-light-feedback-bg-warning-subtle-default',
+        '--modifiers-normal-color-light-feedback-border-success',
+        '--modifiers-normal-color-light-feedback-border-error',
+        '--modifiers-normal-color-light-feedback-border-warning',
+        '--modifiers-normal-color-light-feedback-fg-success-subtle-default',
+        '--modifiers-normal-color-light-feedback-fg-error-subtle-default',
+        '--modifiers-normal-color-light-feedback-fg-warning-subtle-default',
+        '--font-family-noto-sans-font-family',
+        '--modifiers-normal-body-sm-regular-fontsize',
+        '--modifiers-normal-body-md-regular-fontsize',
+        '--weight-semibold',
+        '--p-spacing-mode-1-xs',
+        '--p-spacing-mode-1-sm',
+        '--p-spacing-mode-1-md',
+        '--ubits-border-radius-full',
+      ],
+      rules: {
+        forbidHardcodedColors: true,
+        forbiddenPatterns: ['rgb(', 'hsl(', '#'],
+        requiredProps: ['steps'],
+      },
+      // ⭐ CAMPOS EXTENDIDOS
+      examples: {
+        canonical: "window.UBITS.Stepper.create(document.getElementById('stepper-container'), {\\n  containerId: 'stepper-container',\\n  steps: [\\n    { number: 1, title: 'Step 1', state: 'default' },\\n    { number: 2, title: 'Step 2', state: 'active' }\\n  ],\\n  orientation: 'horizontal',\\n  size: 'md',\\n  onStepClick: function(stepNumber) {}\\n});",
+        basic: "window.UBITS.Stepper.create(document.getElementById('stepper-container'), {\\n  containerId: 'stepper-container',\\n  steps: [\\n    { number: 1, title: 'Step 1', state: 'default' },\\n    { number: 2, title: 'Step 2', state: 'active' }\\n  ],\\n  orientation: 'horizontal',\\n  size: 'md'\\n});",
+        vertical: "window.UBITS.Stepper.create(document.getElementById('stepper-container'), {\\n  containerId: 'stepper-container',\\n  steps: [\\n    { number: 1, title: 'Step 1', state: 'completed' },\\n    { number: 2, title: 'Step 2', state: 'active' }\\n  ],\\n  orientation: 'vertical',\\n  size: 'md'\\n});",
+        withError: "window.UBITS.Stepper.create(document.getElementById('stepper-container'), {\\n  containerId: 'stepper-container',\\n  steps: [\\n    { number: 1, title: 'Step 1', state: 'completed' },\\n    { number: 2, title: 'Step 2', state: 'error' }\\n  ],\\n  orientation: 'horizontal',\\n  size: 'md'\\n});",
+      },
+      variants: {
+        orientation: ['horizontal', 'vertical'],
+        size: ['xs', 'sm', 'md', 'lg'],
+        state: ['default', 'completed', 'active', 'error', 'warning'],
+      },
+      events: {
+        onStepClick: {
+          type: 'Event',
+          description: 'Emitted when a step is clicked',
+        },
+      },
+      // ⭐ CAMPOS ADICIONALES PARA PERFECCIÓN AUTORUN
+      storybook: {
+        canonicalStoryId: 'layout-stepper--implementation',
+        storiesByExample: {
+          canonical: 'layout-stepper--implementation',
+          basic: 'layout-stepper--default',
+          vertical: 'layout-stepper--vertical',
+          withError: 'layout-stepper--with-error',
+        },
+      },
+      intents: {
+        'stepper.steps': 'canonical',
+        'stepper.progress': 'canonical',
+        'stepper.basic': 'canonical',
+        'stepper.vertical': 'vertical',
+        'stepper.error': 'withError',
+      },
+    }),
   },
   argTypes: {
     orientation: {
@@ -175,6 +258,167 @@ const meta: Meta<ExtendedStepperOptions> = {
 export default meta;
 type Story = StoryObj<ExtendedStepperOptions>;
 
+/**
+ * ⭐ STORY CANÓNICA: Implementation (Copy/Paste)
+ *
+ * Esta story es el punto de anclaje para Autorun.
+ * - Args explícitos (no depende de defaults)
+ * - Estado estable (sin datos aleatorios)
+ * - Snippet exacto controlado
+ */
+export const Implementation: Story = {
+  name: 'Implementation (Copy/Paste)',
+  args: {
+    orientation: 'horizontal',
+    size: 'md',
+    showTitle: true,
+    showDescription: true,
+    numSteps: 3,
+    step1State: 'completed',
+    step1Title: 'Step One',
+    step1Description: 'Desc for step one',
+    step2State: 'active',
+    step2Title: 'Step Two',
+    step2Description: 'Desc for step two',
+    step3State: 'default',
+    step3Title: 'Step Three',
+    step3Description: 'Desc for step three',
+  },
+  parameters: {
+    docs: {
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        code: `// 1. Crear contenedor HTML
+<div id="stepper-implementation-container"></div>
+
+// 2. Crear Stepper
+// Opción A: Usando window.UBITS.Stepper.create (si está expuesto globalmente)
+const stepper = window.UBITS.Stepper.create({
+  containerId: 'stepper-implementation-container',
+  orientation: 'horizontal',
+  size: 'md',
+  showTitle: true,
+  showDescription: true,
+  steps: [
+    {
+      number: 1,
+      title: 'Step One',
+      description: 'Desc for step one',
+      state: 'completed'
+    },
+    {
+      number: 2,
+      title: 'Step Two',
+      description: 'Desc for step two',
+      state: 'active'
+    },
+    {
+      number: 3,
+      title: 'Step Three',
+      description: 'Desc for step three',
+      state: 'default'
+    }
+  ]
+});
+
+// Opción B: Importando directamente (si usas módulos)
+// import { createStepper } from '@ubits/stepper';
+// const stepper = createStepper({
+//   containerId: 'stepper-implementation-container',
+//   orientation: 'horizontal',
+//   size: 'md',
+//   showTitle: true,
+//   showDescription: true,
+//   steps: [
+//     { number: 1, title: 'Step One', description: 'Desc for step one', state: 'completed' },
+//     { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'active' },
+//     { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'default' }
+//   ]
+// });
+
+// Opción C: Usando renderStepper (retorna HTML string)
+// import { renderStepper } from '@ubits/stepper';
+// const stepperHTML = renderStepper({
+//   orientation: 'horizontal',
+//   size: 'md',
+//   showTitle: true,
+//   showDescription: true,
+//   steps: [
+//     { number: 1, title: 'Step One', description: 'Desc for step one', state: 'completed' },
+//     { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'active' },
+//     { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'default' }
+//   ]
+// });
+// document.getElementById('stepper-implementation-container').innerHTML = stepperHTML;
+
+// Nota: createStepper retorna un objeto con:
+// - stepper.element: El elemento DOM del stepper
+// - stepper.update(newOptions): Método para actualizar el stepper
+// - stepper.destroy(): Método para destruir el stepper`,
+      },
+    },
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.setAttribute('data-ubits-id', '🧩-ux-stepper');
+    container.setAttribute('data-ubits-component', 'Stepper');
+    container.style.cssText = `
+      width: 100%;
+      padding: 40px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      min-height: 200px;
+    `;
+
+    const stepperContainer = document.createElement('div');
+    stepperContainer.style.cssText = `
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    `;
+
+    // Construir array de pasos
+    const numSteps = args.numSteps || 3;
+    const steps: StepperStep[] = [];
+
+    for (let i = 1; i <= numSteps; i++) {
+      const stepState = (args as any)[`step${i}State`] || (i === 1 ? 'completed' : i === 2 ? 'active' : 'default');
+      const stepTitle = (args as any)[`step${i}Title`] || `Step ${i === 1 ? 'One' : i === 2 ? 'Two' : i === 3 ? 'Three' : i === 4 ? 'Four' : 'Five'}`;
+      const stepDescription = (args as any)[`step${i}Description`] || `Desc for step ${i === 1 ? 'one' : i === 2 ? 'two' : i === 3 ? 'three' : i === 4 ? 'four' : 'five'}`;
+
+      steps.push({
+        number: i,
+        title: stepTitle,
+        description: stepDescription,
+        state: stepState,
+      });
+    }
+
+    // Crear opciones del stepper
+    const stepperOptions: StepperOptions = {
+      orientation: args.orientation || 'horizontal',
+      size: args.size || 'md',
+      showTitle: args.showTitle !== undefined ? args.showTitle : true,
+      showDescription: args.showDescription !== undefined ? args.showDescription : true,
+      steps: steps,
+    };
+
+    // Renderizar stepper
+    try {
+      const html = renderStepper(stepperOptions);
+      if (!html || html.trim() === '') {
+        throw new Error('El stepper no generó HTML válido');
+      }
+      stepperContainer.innerHTML = html;
+    } catch (error) {
+      console.error('Error al renderizar stepper:', error);
+      stepperContainer.innerHTML = `<p style="color: var(--modifiers-normal-color-light-feedback-accent-error);">Error al renderizar el stepper: ${error instanceof Error ? error.message : 'Error desconocido'}</p>`;
+    }
+
+    container.appendChild(stepperContainer);
+    return container;
+  },
+};
+
 export const Default: Story = {
   args: {
     orientation: 'horizontal',
@@ -272,7 +516,7 @@ export const Default: Story = {
 
     startWatching();
 
-    // Limpiar al desmontar
+    // Limpiar al desmontar usando MutationObserver (DOMNodeRemoved está deprecado)
     const cleanup = () => {
       if (checkInterval) {
         clearInterval(checkInterval);
@@ -281,7 +525,27 @@ export const Default: Story = {
       stepperContainer.innerHTML = '';
     };
 
-    container.addEventListener('DOMNodeRemoved', cleanup);
+    // Usar MutationObserver para detectar cuando el contenedor se elimina
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          mutation.removedNodes.forEach((node) => {
+            if (node === container || (node instanceof Element && node.contains(container))) {
+              cleanup();
+              observer.disconnect();
+            }
+          });
+        }
+      });
+    });
+
+    // Observar el contenedor padre cuando esté disponible
+    setTimeout(() => {
+      const parent = container.parentElement;
+      if (parent) {
+        observer.observe(parent, { childList: true, subtree: true });
+      }
+    }, 0);
 
     container.appendChild(stepperContainer);
 
