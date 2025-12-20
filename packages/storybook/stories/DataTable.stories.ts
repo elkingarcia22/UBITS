@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { createDataTable } from '../../addons/data-table/src/DataTableProvider';
-import type { DataTableOptions, TableColumn, TableRow } from '../../addons/data-table/src/types/DataTableOptions';
-import { renderButton } from '../../addons/button/src/ButtonProvider';
+import { createDataTable } from '../../components/data-table/src/DataTableProvider';
+import type { DataTableOptions, TableColumn, TableRow } from '../../components/data-table/src/types/DataTableOptions';
+import { renderButton } from '../../components/button/src/ButtonProvider';
+import { createUBITSContract } from './_shared/ubitsContract';
 
 const meta: Meta<DataTableOptions & { columnsCount?: number }> = {
   title: 'Data/Data Table',
@@ -10,9 +11,115 @@ const meta: Meta<DataTableOptions & { columnsCount?: number }> = {
     docs: {
       description: {
         component: 'Tabla de datos UBITS con soporte para columnas fijadas, reordenamiento, ordenamiento, selección múltiple, filas expandibles y menú de columnas.'
-}
-}
-},
+      }
+    },
+    // ⭐ CONTRATO UBITS PARA AUTORUN
+    ubits: createUBITSContract({
+      componentId: '🧩-ux-data-table',
+      api: {
+        create: 'window.UBITS.DataTable.create',
+        tag: '<ubits-data-table>',
+      },
+      dependsOn: {
+        required: [
+          '🧩-ux-button', // Header buttons y acciones
+          '🧩-ux-input', // Search input (opcional pero común)
+        ],
+        optional: [
+          '🧩-ux-checkbox', // Selección múltiple
+          '🧩-ux-radio-button', // Columnas de tipo radio
+          '🧩-ux-toggle', // Columnas de tipo toggle
+          '🧩-ux-pagination', // Paginación
+          '🧩-ux-progress', // Columnas de tipo progreso
+          '🧩-ux-status-tag', // Columnas de tipo estado
+          '🧩-ux-avatar', // Columnas de tipo nombre-avatar
+          '🧩-ux-badge', // Badges
+          '🧩-ux-list', // Menús
+          '🧩-ux-drawer', // Menú de columnas
+          '🧩-ux-empty-state', // Estado vacío
+          '🧩-ux-search-button', // Botón de búsqueda
+        ],
+      },
+      internals: [
+        '⚙️-functional-scroll', // Scrollbar interno
+        '⚙️-functional-drag-handle', // Drag handle para reordenar
+        '⚙️-functional-expand-icon', // Icono de expandir/colapsar
+        '⚙️-functional-column-menu', // Menú de columnas interno
+        '⚙️-functional-context-menu', // Menú contextual interno
+      ],
+      slots: {
+        header: ['🧩-ux-button', '🧩-ux-input', '🧩-ux-search-button'], // Header buttons, search y filtros
+        body: [], // Body es interno (tabla)
+        footer: ['🧩-ux-pagination'], // Paginación (opcional)
+      },
+      tokensUsed: [
+        '--modifiers-normal-color-light-bg-1',
+        '--modifiers-normal-color-light-bg-2',
+        '--modifiers-normal-color-light-border-1',
+        '--modifiers-normal-color-light-fg-1-high',
+        '--modifiers-normal-color-light-fg-1-medium',
+        '--modifiers-normal-color-light-fg-1-low',
+        '--modifiers-normal-color-light-fg-1-disabled',
+        '--modifiers-normal-color-light-feedback-accent-error',
+        '--ubits-spacing-xs',
+        '--ubits-spacing-sm',
+        '--ubits-spacing-md',
+        '--ubits-spacing-lg',
+        '--ubits-border-radius-md',
+      ],
+      rules: {
+        forbidHardcodedColors: true,
+        forbiddenPatterns: ['rgb(', 'rgba(', 'hsl(', 'hsla(', '#'],
+        requiredProps: ['columns', 'rows'],
+      },
+      // ⭐ NUEVOS CAMPOS EXTENDIDOS
+      examples: {
+        canonical: 'window.UBITS.DataTable.create({\n  containerId: "datatable-container",\n  columns: [{ id: "name", label: "Nombre" }, { id: "email", label: "Email" }],\n  rows: [{ id: "1", name: "Juan", email: "juan@example.com" }],\n  header: {\n    buttons: [{ variant: "primary", text: "Nuevo", onClick: () => {} }],\n    searchInput: { placeholder: "Buscar...", onChange: (value) => {} }\n  },\n  footer: {\n    pagination: { currentPage: 1, totalPages: 10, onPageChange: (page) => {} }\n  }\n});',
+        basic: 'window.UBITS.DataTable.create({ columns: [{ id: "name", label: "Nombre" }], rows: [{ id: "1", name: "Juan" }] });',
+        withPagination: 'window.UBITS.DataTable.create({ columns: [{ id: "name", label: "Nombre" }], rows: [{ id: "1", name: "Juan" }], pagination: { currentPage: 1, totalPages: 10 } });',
+        withHeader: 'window.UBITS.DataTable.create({ columns: [{ id: "name", label: "Nombre" }], rows: [{ id: "1", name: "Juan" }], header: { buttons: [{ variant: "primary", text: "Nuevo" }] } });',
+        withSearch: 'window.UBITS.DataTable.create({ columns: [{ id: "name", label: "Nombre" }], rows: [{ id: "1", name: "Juan" }], header: { searchInput: { placeholder: "Buscar..." } } });',
+      },
+      variants: {
+        columnReorderable: [true, false],
+        rowReorderable: [true, false],
+        rowExpandable: [true, false],
+        columnSortable: [true, false],
+      },
+      events: {
+        onRowClick: {
+          type: 'MouseEvent',
+          description: 'Emitted when a row is clicked',
+        },
+        onRowSelect: {
+          type: 'Event',
+          description: 'Emitted when a row is selected',
+        },
+        onColumnReorder: {
+          type: 'Event',
+          description: 'Emitted when columns are reordered',
+        },
+      },
+      // ⭐ CAMPOS ADICIONALES PARA PERFECCIÓN AUTORUN
+      storybook: {
+        canonicalStoryId: 'data-datatable--implementation',
+        storiesByExample: {
+          canonical: 'data-datatable--implementation',
+          basic: 'data-datatable--default',
+          withPagination: 'data-datatable--with-pagination',
+          withHeader: 'data-datatable--with-header',
+          withSearch: 'data-datatable--with-search',
+        },
+      },
+      intents: {
+        'datatable.complete': 'canonical',
+        'datatable.search': 'withSearch',
+        'datatable.pagination': 'withPagination',
+        'datatable.toolbar': 'withHeader',
+        'datatable.basic': 'basic',
+      },
+    }),
+  },
   argTypes: {
     columnReorderable: {
       control: 'boolean',
@@ -465,6 +572,729 @@ type Story = StoryObj<DataTableOptions & {
   paginationSize?: 'sm' | 'md' | 'lg';
 }>;
 
+/**
+ * ⭐ STORY CANÓNICA: Implementation (Copy/Paste)
+ *
+ * Esta story es el punto de anclaje para Autorun.
+ * - Args explícitos (no depende de defaults)
+ * - Estado estable (sin datos aleatorios)
+ * - Snippet exacto controlado
+ */
+export const Implementation: Story = {
+  name: 'Implementation (Copy/Paste)',
+  args: {
+    containerId: 'datatable-implementation-container',
+    columns: [
+      {
+        id: 'nombre',
+        title: 'Nombre',
+        type: 'nombre',
+      },
+      {
+        id: 'email',
+        title: 'Email',
+        type: 'correo',
+      },
+      {
+        id: 'estado',
+        title: 'Estado',
+        type: 'estado',
+      },
+    ],
+    rows: [
+      {
+        id: '1',
+        data: {
+          nombre: 'Juan Pérez',
+          email: 'juan@example.com',
+          estado: 'Activo',
+        },
+      },
+      {
+        id: '2',
+        data: {
+          nombre: 'María García',
+          email: 'maria@example.com',
+          estado: 'Inactivo',
+        },
+      },
+    ],
+    showCheckbox: true,
+    columnSortable: true,
+    rowExpandable: true, // Cambiar a true para que funcione como Default
+    columnReorderable: false,
+    rowReorderable: false,
+    // Desactivar botón de filtros para evitar que se abra el drawer automáticamente
+    showHeaderFilterButton: false,
+  },
+  parameters: {
+    docs: {
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        code: `// 1. Crear contenedor HTML
+<div id="datatable-implementation-container"></div>
+
+// 2. Crear DataTable con configuración completa
+window.UBITS.DataTable.create({
+  containerId: 'datatable-implementation-container',
+  columns: [
+    { id: 'nombre-col1', title: 'Nombre', type: 'nombre', width: 200 },
+    { id: 'email-col2', title: 'Email', type: 'correo', width: 250 },
+    { id: 'estado-col3', title: 'Estado', type: 'estado', width: 150 },
+    { id: 'nombre-col4', title: 'Nombre', type: 'nombre', width: 180 },
+    { id: 'nombre-col5', title: 'Nombre', type: 'nombre', width: 180 },
+    { id: 'pais-col6', title: 'País', type: 'pais', width: 180 },
+    { id: 'fecha-col7', title: 'Fecha', type: 'fecha', width: 180 }
+  ],
+  rows: [
+    {
+      id: 1,
+      data: {
+        'nombre-col1': 'Juan Pérez',
+        'email-col2': 'juan.perez@empresa.com',
+        'estado-col3': 'Activo',
+        'nombre-col4': 'Columna 1',
+        'nombre-col5': 'Extra 1',
+        'pais-col6': 'Colombia',
+        'fecha-col7': '2024-01-15',
+        'checkbox-2': false
+      }
+    },
+    {
+      id: 2,
+      data: {
+        'nombre-col1': 'María García',
+        'email-col2': 'maria.garcia@empresa.com',
+        'estado-col3': 'Inactivo',
+        'nombre-col4': 'Columna 2',
+        'nombre-col5': 'Extra 2',
+        'pais-col6': 'Colombia',
+        'fecha-col7': '2024-02-20',
+        'checkbox-2': false
+      }
+    }
+  ],
+  showCheckbox: true,
+  columnSortable: true,
+  rowExpandable: true,
+  columnReorderable: true,
+  rowReorderable: true,
+  showColumnMenu: true,
+  showContextMenu: true,
+  header: {
+    title: 'Lista de elementos',
+    showTitle: true,
+    counter: true,
+    displayedItems: 2,
+    totalItems: 2,
+    showCounter: true,
+    primaryButton: {
+      text: 'Nuevo',
+      icon: 'plus',
+      iconStyle: 'regular',
+      onClick: (e) => { alert('Botón primario'); }
+    },
+    showPrimaryButton: true,
+    secondaryButtons: [
+      {
+        text: 'Exportar',
+        icon: 'download',
+        iconStyle: 'regular',
+        onClick: (e) => { alert('Exportar'); }
+      },
+      {
+        text: 'Importar',
+        icon: 'upload',
+        iconStyle: 'regular',
+        onClick: (e) => { alert('Importar'); }
+      }
+    ],
+    showSecondaryButtons: true,
+    searchButton: {
+      placeholder: 'Buscar...',
+      onSearch: (searchTerm, filteredRows) => {}
+    },
+    showSearchButton: true,
+    filterButton: {
+      onClick: (e) => {},
+      onApplyFilters: (filters) => {},
+      onClearFilters: () => {}
+    },
+    showFilterButton: true,
+    columnSelectorButton: {
+      onClick: (e) => {}
+    },
+    showColumnSelectorButton: true
+  },
+  emptyState: {
+    noData: {
+      title: 'No hay datos',
+      description: 'No se han agregado elementos aún.',
+      icon: 'inbox'
+    },
+    noSearchResults: {
+      title: 'No se encontraron resultados',
+      description: 'Intenta con otros términos de búsqueda.',
+      icon: 'search'
+    },
+    noFilterResults: {
+      title: 'No hay resultados con los filtros aplicados',
+      description: 'Intenta ajustar los filtros.',
+      icon: 'filter'
+    }
+  },
+  onRowSelect: (rowId, selected) => {},
+  onSelectAll: (selected) => {}
+});`,
+      },
+    },
+  },
+  render: (args) => {
+    // Usar la misma lógica que Default con configuración completa incluyendo filtros
+    const renderId = `story-render-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    
+    // Contenedor principal con estilos UBITS
+    const container = document.createElement('div');
+    container.setAttribute('data-ubits-id', '🧩-ux-data-table');
+    container.setAttribute('data-ubits-component', 'DataTable');
+    container.style.cssText = `
+      padding: 20px;
+      background: var(--modifiers-normal-color-light-bg-1);
+      border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-height: auto;
+      height: auto;
+      overflow: visible !important;
+      max-height: none !important;
+    `;
+    
+    // Contenedor para la tabla - crear uno nuevo cada vez pero con ID único
+    const tableContainerId = args.containerId || `datatable-implementation-container-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const tableContainer = document.createElement('div');
+    tableContainer.id = tableContainerId;
+    tableContainer.style.cssText = `
+      width: 100%;
+      height: calc(100vh - 100px);
+      overflow: auto;
+    `;
+    
+    // La limpieza global ya se hizo al inicio del render, no es necesario limpiar aquí de nuevo
+    
+    // Generar columnas y filas como en Default
+    const columnsCount = 7; // Por defecto 7 columnas
+    const columnType1 = 'nombre';
+    const columnType2 = 'correo';
+    const columnType3 = 'estado';
+    const columnType4 = 'nombre';
+    const columnType5 = 'nombre';
+    const columnType6 = 'pais';
+    const columnType7 = 'fecha';
+    
+    const columnTypeMapping: Record<string, { id: string; title: string }> = {
+      'correo': { id: 'email', title: 'Email' },
+      'fecha': { id: 'fecha', title: 'Fecha' },
+      'nombre': { id: 'nombre', title: 'Nombre' },
+      'estado': { id: 'estado', title: 'Estado' },
+      'pais': { id: 'pais', title: 'País' },
+    };
+    
+    const columnTypes = [columnType1, columnType2, columnType3, columnType4, columnType5, columnType6, columnType7];
+    const allColumns: TableColumn[] = columnTypes.map((columnType, index) => {
+      const baseConfig = columnTypeMapping[columnType] || { id: 'nombre', title: 'Nombre' };
+      const baseId = baseConfig.id;
+      const uniqueId = `${baseId}-col${index + 1}`;
+      return {
+        id: uniqueId,
+        title: baseConfig.title,
+        type: columnType as any,
+        visible: true,
+        width: index === 0 ? 200 : index === 1 ? 250 : index === 2 ? 150 : 180
+      };
+    });
+    
+    const columns: TableColumn[] = allColumns.slice(0, columnsCount);
+    
+    // Generar 100 filas como en Default
+    const generateAllRows = (): TableRow[] => {
+      const allRowsData = [
+        { id: 1, nombre: 'Juan Pérez', email: 'juan.perez@empresa.com', estado: 'Activo', area: 'Desarrollo' },
+        { id: 2, nombre: 'María García', email: 'maria.garcia@empresa.com', estado: 'Inactivo', area: 'Diseño' },
+        { id: 3, nombre: 'Carlos López', email: 'carlos.lopez@empresa.com', estado: 'Activo', area: 'Marketing' },
+        { id: 4, nombre: 'Ana Martínez', email: 'ana.martinez@empresa.com', estado: 'Activo', area: 'Recursos Humanos' },
+        { id: 5, nombre: 'Pedro Rodríguez', email: 'pedro.rodriguez@empresa.com', estado: 'Pendiente', area: 'Ventas' },
+      ];
+      
+      // Generar 100 filas repitiendo y variando los datos
+      const rows: TableRow[] = [];
+      for (let i = 0; i < 100; i++) {
+        const baseData = allRowsData[i % allRowsData.length];
+        rows.push({
+          id: i + 1,
+          data: {
+            [`nombre-col${1}`]: baseData.nombre + (i > 4 ? ` ${i + 1}` : ''),
+            [`email-col${2}`]: baseData.email.replace('@', `${i + 1}@`),
+            [`estado-col${3}`]: baseData.estado,
+            [`nombre-col${4}`]: `Columna ${i + 1}`,
+            [`nombre-col${5}`]: `Extra ${i + 1}`,
+            [`pais-col${6}`]: 'Colombia',
+            [`fecha-col${7}`]: `2024-${String((i % 12) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}`,
+            'checkbox-2': false,
+          },
+          expanded: false,
+          renderExpandedContent: (data) => {
+            return `
+              <div style="padding: var(--ubits-spacing-md); background: var(--modifiers-normal-color-light-bg-2); border-radius: var(--ubits-border-radius-sm);">
+                <h4 style="margin: 0 0 var(--ubits-spacing-sm) 0; font-size: var(--modifiers-normal-body-md-semibold-fontsize); color: var(--modifiers-normal-color-light-fg-1-high);">
+                  Información adicional
+                </h4>
+                <p style="margin: 0; font-size: var(--modifiers-normal-body-sm-regular-fontsize); color: var(--modifiers-normal-color-light-fg-1-medium);">
+                  Detalles adicionales para ${data[`nombre-col${1}`] || 'usuario'}
+                </p>
+              </div>
+            `;
+          }
+        });
+      }
+      return rows;
+    };
+    
+    const rows: TableRow[] = generateAllRows();
+    
+    // Estado de selecciones para la barra de acciones
+    const selectionState: {
+      selectedRowIds: Set<string | number>;
+      viewSelectedActive: boolean;
+    } = {
+      selectedRowIds: new Set(),
+      viewSelectedActive: false
+    };
+    
+    // Declarar tableInstance en el scope del render para que esté disponible en todas las funciones
+    let tableInstance: ReturnType<typeof createDataTable> | null = null;
+    
+    // ========== BARRA DE ACCIONES - IMPLEMENTACIÓN COMPLETA ==========
+    // Función para renderizar la barra de acciones (igual que Default)
+    const renderActionBar = (container: HTMLElement) => {
+      const header = container.querySelector('.ubits-data-table__header');
+      if (!header) {
+        return;
+      }
+      
+      // Buscar barra existente
+      let actionBar = container.querySelector('.ubits-data-table__action-bar') as HTMLElement;
+      
+      // Si no existe, crearla
+      if (!actionBar) {
+        actionBar = document.createElement('div');
+        actionBar.className = 'ubits-data-table__action-bar';
+        actionBar.style.cssText = `
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          flex-wrap: wrap;
+          background-color: var(--modifiers-normal-color-light-bg-1);
+        `;
+        header.insertAdjacentElement('afterend', actionBar);
+      }
+      
+      // Contar selecciones
+      const selectedCount = selectionState.selectedRowIds.size;
+      const selectedIds = Array.from(selectionState.selectedRowIds);
+      
+      // IMPORTANTE: Ocultar la barra si no hay selecciones, mostrarla si hay al menos una
+      if (selectedCount === 0) {
+        // Ocultar la barra cuando no hay selecciones
+        actionBar.style.display = 'none';
+        return; // Salir temprano si no hay selecciones
+      }
+      
+      // Mostrar la barra cuando hay selecciones
+      actionBar.style.display = 'flex';
+      
+      const countText = `(${selectedCount})`;
+      const isMultipleSelection = selectedCount > 1;
+      
+      let buttonsHTML = '';
+      
+      // Estado del botón "Ver seleccionados" (compartido entre ambos modos)
+      const isViewSelectedActive = selectionState.viewSelectedActive;
+      const viewSelectedText = isViewSelectedActive
+        ? `Dejar de ver seleccionados ${countText}`
+        : `Ver seleccionados ${countText}`;
+      const viewSelectedIcon = isViewSelectedActive ? 'eye-slash' : 'eye';
+      
+      if (isMultipleSelection) {
+        // Si hay más de 1 selección: mostrar botones de acciones masivas (ver seleccionados, notificaciones y eliminar)
+        
+        const buttons: string[] = [];
+        
+        buttons.push(renderButton({
+          variant: 'secondary',
+          size: 'sm',
+          text: viewSelectedText,
+          icon: viewSelectedIcon,
+          iconStyle: 'regular',
+          active: isViewSelectedActive,
+          attributes: { id: 'action-btn-view-selected' }
+        }));
+        
+        buttons.push(renderButton({
+          variant: 'secondary',
+          size: 'sm',
+          icon: 'bell',
+          iconStyle: 'regular',
+          iconOnly: true,
+          attributes: { id: 'action-btn-notifications' }
+        }));
+        
+        buttons.push(renderButton({
+          variant: 'error',
+          size: 'sm',
+          icon: 'trash',
+          iconStyle: 'regular',
+          iconOnly: true,
+          attributes: { id: 'action-btn-delete' }
+        }));
+        
+        buttonsHTML = buttons.join('');
+      } else {
+        // Si hay 1 selección: mostrar todos los botones (menú individual)
+        
+        const buttons: string[] = [];
+        
+        buttons.push(renderButton({
+          variant: 'secondary',
+          size: 'sm',
+          text: viewSelectedText,
+          icon: viewSelectedIcon,
+          iconStyle: 'regular',
+          active: isViewSelectedActive,
+          attributes: { id: 'action-btn-view-selected' }
+        }));
+        
+        buttons.push(renderButton({
+          variant: 'secondary',
+          size: 'sm',
+          icon: 'bell',
+          iconStyle: 'regular',
+          iconOnly: true,
+          attributes: { id: 'action-btn-notifications' }
+        }));
+        
+        buttons.push(renderButton({
+          variant: 'secondary',
+          size: 'sm',
+          icon: 'copy',
+          iconStyle: 'regular',
+          iconOnly: true,
+          attributes: { id: 'action-btn-copy' }
+        }));
+        
+        buttons.push(renderButton({
+          variant: 'secondary',
+          size: 'sm',
+          icon: 'eye',
+          iconStyle: 'regular',
+          iconOnly: true,
+          attributes: { id: 'action-btn-view' }
+        }));
+        
+        buttons.push(renderButton({
+          variant: 'secondary',
+          size: 'sm',
+          icon: 'edit',
+          iconStyle: 'regular',
+          iconOnly: true,
+          attributes: { id: 'action-btn-edit' }
+        }));
+        
+        buttons.push(renderButton({
+          variant: 'secondary',
+          size: 'sm',
+          icon: 'download',
+          iconStyle: 'regular',
+          iconOnly: true,
+          attributes: { id: 'action-btn-download' }
+        }));
+        
+        buttons.push(renderButton({
+          variant: 'error',
+          size: 'sm',
+          icon: 'trash',
+          iconStyle: 'regular',
+          iconOnly: true,
+          attributes: { id: 'action-btn-delete' }
+        }));
+        
+        buttonsHTML = buttons.join('');
+      }
+      
+      actionBar.innerHTML = buttonsHTML;
+      
+      // Agregar listeners
+      const viewSelectedBtn = actionBar.querySelector('#action-btn-view-selected');
+      if (viewSelectedBtn) {
+        viewSelectedBtn.addEventListener('click', () => {
+          selectionState.viewSelectedActive = !selectionState.viewSelectedActive;
+          // Re-renderizar tabla con filtro
+          if (tableInstance) {
+            const filteredRows = selectionState.viewSelectedActive
+              ? rows.filter(row => selectionState.selectedRowIds.has(row.id))
+              : rows;
+            tableInstance.update({ rows: filteredRows });
+          }
+          renderActionBar(container);
+        });
+      }
+      
+      // Otros botones (placeholders)
+      ['notifications', 'copy', 'view', 'edit', 'download', 'delete'].forEach(action => {
+        const btn = actionBar.querySelector(`#action-btn-${action}`);
+        if (btn) {
+          btn.addEventListener('click', () => {
+            // Placeholder para acciones futuras
+          });
+        }
+      });
+    };
+    
+    // Configuración del header (igual que Default, incluyendo filtros)
+    // Si expandSticky está activado, asegurar que rowExpandable también esté activado (igual que Default)
+    const expandStickyValue = (args as any).expandSticky ?? false;
+    const rowExpandableValue = expandStickyValue ? true : (args.rowExpandable ?? true);
+    
+    const options: DataTableOptions = {
+      containerId: tableContainer.id,
+      columns,
+      rows,
+      columnReorderable: args.columnReorderable ?? true,
+      rowReorderable: args.rowReorderable ?? true,
+      rowExpandable: rowExpandableValue, // Usar el valor calculado igual que Default
+      columnSortable: args.columnSortable ?? true,
+      showCheckbox: args.showCheckbox ?? true,
+      showVerticalScrollbar: args.showVerticalScrollbar ?? true,
+      showHorizontalScrollbar: args.showHorizontalScrollbar ?? true,
+      showColumnMenu: args.showColumnMenu ?? true,
+      showContextMenu: args.showContextMenu ?? true,
+      checkboxSticky: false,
+      dragHandleSticky: false,
+      expandSticky: false,
+      showPagination: false,
+      lazyLoad: false,
+      header: {
+        title: 'Lista de elementos',
+        showTitle: true,
+        counter: true,
+        displayedItems: rows.length,
+        totalItems: rows.length,
+        showCounter: true,
+        primaryButton: {
+          text: 'Nuevo',
+          icon: 'plus',
+          iconStyle: 'regular',
+          onClick: (e) => {
+            alert('Botón primario: Nuevo');
+          }
+        },
+        showPrimaryButton: true,
+        secondaryButtons: [
+          {
+            text: 'Exportar',
+            icon: 'download',
+            iconStyle: 'regular',
+            onClick: (e) => {
+              alert('Exportar');
+            }
+          },
+          {
+            text: 'Importar',
+            icon: 'upload',
+            iconStyle: 'regular',
+            onClick: (e) => {
+              alert('Importar');
+            }
+          }
+        ],
+        showSecondaryButtons: true,
+        searchButton: {
+          placeholder: 'Buscar...',
+          value: '',
+          onChange: (value) => {},
+          onClick: (e) => {},
+          onSearch: (searchTerm, filteredRows) => {}
+        },
+        showSearchButton: true,
+        filterButton: {
+          onClick: (e) => {
+            // Este onClick solo se ejecuta si no hay filtros configurados
+          },
+          // Los filtros se generan automáticamente basados en las columnas de la tabla
+          onApplyFilters: (filters) => {
+          },
+          onClearFilters: () => {
+          }
+        },
+        showFilterButton: true,
+        columnSelectorButton: {
+          onClick: (e) => {
+            // El dropdown se maneja automáticamente, este onClick es opcional
+          }
+        },
+        showColumnSelectorButton: true
+      },
+      emptyState: {
+        noData: {
+          title: 'No hay datos',
+          description: 'No se han agregado elementos aún.',
+          icon: 'inbox',
+        },
+        noSearchResults: {
+          title: 'No se encontraron resultados',
+          description: 'Intenta con otros términos de búsqueda.',
+          icon: 'search',
+        },
+        noFilterResults: {
+          title: 'No hay resultados con los filtros aplicados',
+          description: 'Intenta ajustar los filtros.',
+          icon: 'filter',
+        }
+      },
+      onRowSelect: (rowId, selected) => {
+        if (selected) {
+          selectionState.selectedRowIds.add(rowId);
+        } else {
+          selectionState.selectedRowIds.delete(rowId);
+        }
+        const container = document.getElementById(tableContainerId);
+        if (container) {
+          renderActionBar(container);
+        }
+      },
+      onSelectAll: (selected) => {
+        const container = document.getElementById(tableContainerId);
+        if (container) {
+          const table = container.querySelector('.ubits-data-table');
+          if (table) {
+            const checkboxes = table.querySelectorAll('input[type="checkbox"][data-column-id="checkbox-2"][data-row-id]');
+            checkboxes.forEach((cb) => {
+              const rowIdStr = cb.getAttribute('data-row-id');
+              if (rowIdStr) {
+                const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
+                if (selected) {
+                  selectionState.selectedRowIds.add(rowId);
+                } else {
+                  selectionState.selectedRowIds.delete(rowId);
+                }
+              }
+            });
+          }
+          renderActionBar(container);
+        }
+      },
+      onRowExpand: (rowId, expanded) => {
+        // Callback para filas expandidas (igual que Default)
+        console.log(`🔄 [Implementation] Fila ${rowId} ${expanded ? 'expandida' : 'colapsada'}`);
+      }
+    };
+
+    container.appendChild(tableContainer);
+
+    // Crear la tabla después de que se monte en el DOM
+    const checkAndCreateTable = () => {
+      const foundContainer = document.getElementById(tableContainerId);
+      if (!foundContainer) {
+        return; // Contenedor no encontrado, salir
+      }
+      
+      // Verificar si ya hay una tabla en este contenedor (evitar duplicados en Docs)
+      const existingTable = foundContainer.querySelector('.ubits-data-table');
+      const existingScrollable = foundContainer.querySelector('.ubits-data-table__scrollable-container');
+      
+      if (existingTable || existingScrollable) {
+        // Ya existe una tabla, no crear otra
+        return;
+      }
+      
+      // Limpiar solo contenedores huérfanos (sin parentElement) para evitar duplicados en Docs
+      // Esto previene que se acumulen tablas cuando Storybook re-renderiza
+      if (foundContainer.parentElement) {
+        // Limpiar contenedores antiguos de Implementation que están huérfanos
+        const allImplementationContainers = document.querySelectorAll('[id^="datatable-implementation-container"]');
+        allImplementationContainers.forEach((oldContainer) => {
+          // No limpiar el contenedor actual
+          if (oldContainer.id === tableContainerId) {
+            return;
+          }
+          
+          // Solo limpiar si el contenedor está huérfano (sin parentElement)
+          // Esto es seguro porque significa que ya fue removido del DOM
+          if (!oldContainer.parentElement) {
+            // Limpiar instancias antiguas
+            const oldTable = oldContainer.querySelector('.ubits-data-table');
+            const oldScrollableContainer = oldContainer.querySelector('.ubits-data-table__scrollable-container');
+            
+            if (oldScrollableContainer) {
+              const tableInside = oldScrollableContainer.querySelector('.ubits-data-table');
+              if (tableInside) {
+                const tableElement = tableInside as HTMLElement;
+                if ((tableElement as any)._dataTableInstance) {
+                  try {
+                    const instance = (tableElement as any)._dataTableInstance;
+                    if (instance && typeof instance.destroy === 'function') {
+                      instance.destroy();
+                    }
+                  } catch (e) {
+                    // Ignorar errores
+                  }
+                }
+              }
+            } else if (oldTable) {
+              const tableElement = oldTable as HTMLElement;
+              if ((tableElement as any)._dataTableInstance) {
+                try {
+                  const instance = (tableElement as any)._dataTableInstance;
+                  if (instance && typeof instance.destroy === 'function') {
+                    instance.destroy();
+                  }
+                } catch (e) {
+                  // Ignorar errores
+                }
+              }
+            }
+            
+            // Remover el contenedor huérfano
+            oldContainer.remove();
+          }
+        });
+      }
+      
+      if (foundContainer.parentElement && !tableInstance) {
+        try {
+          tableInstance = createDataTable(options);
+          
+          // Renderizar barra de acciones inicial
+          setTimeout(() => {
+            const container = document.getElementById(tableContainerId);
+            if (container) {
+              renderActionBar(container);
+            }
+          }, 100);
+        } catch (error) {
+          console.error('Error creating DataTable:', error);
+        }
+      }
+    };
+
+    // Usar requestAnimationFrame para asegurar que el DOM esté listo
+    requestAnimationFrame(() => {
+      checkAndCreateTable();
+    });
+
+    return container;
+  },
+};
+
 export const Default: Story = {
   render: (args) => {
     const renderId = `story-render-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -490,10 +1320,8 @@ export const Default: Story = {
     tableContainer.id = tableContainerId;
     tableContainer.style.cssText = `
       width: 100%;
-      overflow: visible !important;
-      min-height: auto;
-      height: auto;
-      max-height: none !important;
+      height: calc(100vh - 100px);
+      overflow: auto;
     `;
     
     // Buscar y limpiar cualquier tabla anterior en el contenedor principal
@@ -550,15 +1378,15 @@ export const Default: Story = {
     
     // Tipos de columna disponibles (pueden ser controlados desde Storybook)
     // Leer directamente de args para asegurar que se actualicen cuando cambien
-    // Valores por defecto coinciden con la web: nombre, correo, estado (sin progreso por defecto)
+    // Valores por defecto coinciden con Implementation: nombre, correo, estado, nombre, nombre, pais, fecha
     const columnType1 = args.columnType1 ?? 'nombre';
     const columnType2 = args.columnType2 ?? 'correo';
     const columnType3 = args.columnType3 ?? 'estado';
     const columnType4 = args.columnType4 ?? 'nombre';
     const columnType5 = (args as any).columnType5 ?? 'nombre';
-    const columnType6 = (args as any).columnType6 ?? 'nombre';
-    const columnType7 = (args as any).columnType7 ?? 'pais';
-    const columnType8 = (args as any).columnType8 ?? 'fecha';
+    const columnType6 = (args as any).columnType6 ?? 'pais';
+    const columnType7 = (args as any).columnType7 ?? 'fecha';
+    const columnType8 = (args as any).columnType8 ?? 'nombre';
     const columnType9 = (args as any).columnType9 ?? 'nombre';
     const columnType10 = (args as any).columnType10 ?? 'estado';
     
@@ -1139,8 +1967,8 @@ export const Default: Story = {
       rowExpandable: rowExpandableValue,
       columnSortable: args.columnSortable ?? true,
       showCheckbox: args.showCheckbox ?? true,
-      showVerticalScrollbar: args.showVerticalScrollbar ?? false,
-      showHorizontalScrollbar: args.showHorizontalScrollbar ?? false,
+      showVerticalScrollbar: args.showVerticalScrollbar ?? true,
+      showHorizontalScrollbar: args.showHorizontalScrollbar ?? true,
       showColumnMenu: args.showColumnMenu ?? true,
       showContextMenu: args.showContextMenu ?? true,
       checkboxSticky: (args as any).checkboxSticky ?? false,
@@ -1206,15 +2034,6 @@ export const Default: Story = {
             // Este onClick solo se ejecuta si no hay filtros configurados
           },
           // Los filtros se generan automáticamente basados en las columnas de la tabla
-          // Si quieres filtros personalizados, puedes descomentar y configurar:
-          // filters: [
-          //   {
-          //     id: 'nombre',
-          //     label: 'Nombre',
-          //     columnId: 'nombre',
-          //     type: 'text'
-          //   }
-          // ],
           onApplyFilters: (filters) => {
           },
           onClearFilters: () => {
@@ -1626,14 +2445,14 @@ export const Default: Story = {
     rowExpandable: true,
     columnSortable: true,
     showCheckbox: true,
-    showVerticalScrollbar: false,
-    showHorizontalScrollbar: false,
+    showVerticalScrollbar: true,
+    showHorizontalScrollbar: true,
     showColumnMenu: true,
     showContextMenu: true,
     checkboxSticky: false,
     dragHandleSticky: false,
     expandSticky: false,
-    columnsCount: 3, // Coincide con la web (3 columnas por defecto)
+    columnsCount: 7, // Coincide con Implementation (7 columnas por defecto)
     columnType1: 'nombre', // Coincide con la web (nombre simple, no nombre-avatar)
     columnType2: 'correo',
     columnType3: 'estado',
@@ -1693,10 +2512,8 @@ export const ColumnReorderable: Story = {
     tableContainer.id = tableContainerId;
     tableContainer.style.cssText = `
       width: 100%;
-      overflow: visible !important;
-      min-height: auto;
-      height: auto;
-      max-height: none !important;
+      height: 600px;
+      overflow: auto;
     `;
     
     container.appendChild(tableContainer);
@@ -1816,10 +2633,8 @@ export const RowReorderable: Story = {
     tableContainer.id = tableContainerId;
     tableContainer.style.cssText = `
       width: 100%;
-      overflow: visible !important;
-      min-height: auto;
-      height: auto;
-      max-height: none !important;
+      height: 600px;
+      overflow: auto;
     `;
     
     container.appendChild(tableContainer);
@@ -1939,10 +2754,8 @@ export const RowExpandable: Story = {
     tableContainer.id = tableContainerId;
     tableContainer.style.cssText = `
       width: 100%;
-      overflow: visible !important;
-      min-height: auto;
-      height: auto;
-      max-height: none !important;
+      height: 600px;
+      overflow: auto;
     `;
     
     container.appendChild(tableContainer);
@@ -2095,10 +2908,8 @@ export const ColumnSortable: Story = {
     tableContainer.id = tableContainerId;
     tableContainer.style.cssText = `
       width: 100%;
-      overflow: visible !important;
-      min-height: auto;
-      height: auto;
-      max-height: none !important;
+      height: 600px;
+      overflow: auto;
     `;
     
     container.appendChild(tableContainer);
@@ -2224,10 +3035,8 @@ export const CheckboxSelection: Story = {
     tableContainer.id = tableContainerId;
     tableContainer.style.cssText = `
       width: 100%;
-      overflow: visible !important;
-      min-height: auto;
-      height: auto;
-      max-height: none !important;
+      height: 600px;
+      overflow: auto;
     `;
     
     container.appendChild(tableContainer);
@@ -2488,10 +3297,8 @@ export const HorizontalScroll: Story = {
     tableContainer.id = tableContainerId;
     tableContainer.style.cssText = `
       width: 100%;
-      overflow: visible !important;
-      min-height: auto;
-      height: auto;
-      max-height: none !important;
+      height: 600px;
+      overflow: auto;
     `;
     
     container.appendChild(tableContainer);
@@ -2744,10 +3551,8 @@ export const ContextMenu: Story = {
     tableContainer.id = tableContainerId;
     tableContainer.style.cssText = `
       width: 100%;
-      overflow: visible !important;
-      min-height: auto;
-      height: auto;
-      max-height: none !important;
+      height: 600px;
+      overflow: auto;
     `;
     
     container.appendChild(tableContainer);
@@ -4749,19 +5554,9 @@ export const EmptyState: Story = {
         const tableInstance = createDataTable(options);
         (window as any)[`__storybookDataTableInstance_${table2Id}`] = tableInstance;
         
-        // Simular una búsqueda que no devuelve resultados después de un breve delay
-        setTimeout(() => {
-          // Filtrar filas para que no haya resultados (búsqueda que no coincide)
-          const filteredRows: TableRow[] = [];
-          instance.update({ rows: filteredRows });
-          // Activar búsqueda y establecer término
-          const searchInput = containerElement.querySelector('.ubits-search-button__input') as HTMLInputElement;
-          if (searchInput) {
-            searchInput.value = 'xyz123noexiste';
-            // Disparar evento para activar la búsqueda
-            searchInput.dispatchEvent(new Event('input', { bubbles: true }));
-          }
-        }, 500);
+        // NOTA: El código que simulaba búsqueda automáticamente ha sido removido
+        // para evitar comportamientos inesperados. Si necesitas probar el empty state
+        // con búsqueda, puedes hacerlo manualmente escribiendo en el campo de búsqueda.
       }
     });
     container.appendChild(table2Container);
@@ -4884,30 +5679,10 @@ export const EmptyState: Story = {
         const tableInstance = createDataTable(options);
         (window as any)[`__storybookDataTableInstance_${table3Id}`] = tableInstance;
         
-        // Simular filtros aplicados que no devuelven resultados después de un breve delay
-        setTimeout(() => {
-          // Aplicar un filtro que no coincide con ningún dato (estado: 'cancelado')
-          const filterButton = containerElement.querySelector('.ubits-data-table__header-filter-button') as HTMLElement;
-          if (filterButton) {
-            filterButton.click();
-            // Esperar a que se abra el drawer y luego aplicar el filtro
-            setTimeout(() => {
-              const drawer = document.querySelector('.ubits-drawer');
-              if (drawer) {
-                const select = drawer.querySelector('select') as HTMLSelectElement;
-                if (select) {
-                  select.value = 'cancelado';
-                  select.dispatchEvent(new Event('change', { bubbles: true }));
-                  // Buscar y hacer click en el botón "Aplicar filtros"
-                  const applyButton = drawer.querySelector('button[data-action="apply"]') as HTMLElement;
-                  if (applyButton) {
-                    applyButton.click();
-                  }
-                }
-              }
-            }, 300);
-          }
-        }, 500);
+        // NOTA: El código que simulaba filtros automáticamente ha sido removido
+        // para evitar que el drawer se abra automáticamente al cargar la documentación.
+        // Si necesitas probar el empty state con filtros, puedes hacerlo manualmente
+        // haciendo click en el botón de filtros y aplicando un filtro que no devuelva resultados.
       }
     });
     container.appendChild(table3Container);
