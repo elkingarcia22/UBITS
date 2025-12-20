@@ -18,7 +18,7 @@
 - [x] Avatar ✅
 - [x] Chip ✅
 - [x] Alert ✅
-- [ ] Skeleton
+- [x] Skeleton ✅
 
 ### Formularios (7 pendientes)
 - [ ] Checkbox
@@ -30,8 +30,8 @@
 - [ ] SearchButton
 
 ### Feedback (8 pendientes)
-- [ ] Toast
-- [ ] Tooltip
+- [x] Toast ✅
+- [x] Tooltip ✅
 - [ ] Popover
 - [ ] Drawer
 - [ ] EmptyState
@@ -107,8 +107,8 @@ intents: {
 ---
 
 **Última actualización:** Diciembre 2024
-**Total completados:** 14/59 (24%)
-**Total pendientes:** 45/59 (76%)
+**Total completados:** 19/59 (32%)
+**Total pendientes:** 40/59 (68%)
 
 ## 📦 Lote 1 Completado ✅
 
@@ -117,3 +117,11 @@ intents: {
 - ✅ Alert
 - ✅ Checkbox
 - ✅ RadioButton
+
+## 📦 Lote 2 Completado ✅
+
+- ✅ Skeleton
+- ✅ Toggle
+- ✅ FileUpload
+- ✅ Toast
+- ✅ Tooltip
