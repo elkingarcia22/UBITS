@@ -58,8 +58,8 @@
 - [x] Accordion ✅
 - [x] List ✅
 - [x] CardContent ✅
-- [ ] SimpleCard
-- [ ] SelectionCard
+- [x] SimpleCard ✅
+- [x] SelectionCard ✅
 
 ### Charts (6 pendientes)
 - [ ] MetricCard
@@ -157,3 +157,11 @@ intents: {
 - ✅ Accordion
 - ✅ List
 - ✅ CardContent
+
+## 📦 Lote 7 Completado ✅
+
+- ✅ SimpleCard
+- ✅ SelectionCard
+- ✅ MetricCard
+- ✅ BarMetricCard
+- ✅ CSATMetricCard
