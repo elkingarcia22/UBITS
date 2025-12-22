@@ -1,21 +1,21 @@
 # 📊 Verificación Completa para Autorun - Reporte Detallado
 
-**Fecha:** 22/12/2025, 9:36:05
+**Fecha:** 22/12/2025, 9:53:34
 
 **Total de componentes verificados:** 54
 
 ## 📈 Resumen Ejecutivo
 
-- **✅ Completos:** 53 (98%)
-- **⚠️  Con advertencias:** 1 (2%)
+- **✅ Completos:** 54 (100%)
+- **⚠️  Con advertencias:** 0 (0%)
 - **❌ Con errores críticos:** 0 (0%)
 
 ## 🔍 Resumen por Fase
 
 ### Fase 1: Campos Básicos (componentId, api.create, api.tag)
 
-- ✅ Correctos: 53 (98%)
-- ⚠️  Advertencias: 1 (2%)
+- ✅ Correctos: 54 (100%)
+- ⚠️  Advertencias: 0 (0%)
 - ❌ Errores: 0 (0%)
 
 ### Fase 2: Dependencias (dependsOn, internals, slots)
@@ -69,7 +69,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-alert","apiCreate":"window.UBITS.Alert.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-alert","apiCreate":"window.UBITS.Alert.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":1,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":6,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -85,7 +85,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-avatar","apiCreate":"window.UBITS.Avatar.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-avatar","apiCreate":"window.UBITS.Avatar.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":1,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":3,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -101,7 +101,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-badge","apiCreate":"window.UBITS.Badge.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-badge","apiCreate":"window.UBITS.Badge.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":0,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":3,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -117,7 +117,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-button","apiCreate":"window.UBITS.Button.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-button","apiCreate":"window.UBITS.Button.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":2,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":4,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -133,7 +133,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-chip","apiCreate":"window.UBITS.Chip.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-chip","apiCreate":"window.UBITS.Chip.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":1,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":5,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -149,7 +149,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-skeleton","apiCreate":"window.UBITS.Skeleton.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-skeleton","apiCreate":"window.UBITS.Skeleton.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":0,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":6,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -165,7 +165,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-spinner","apiCreate":"window.UBITS.Spinner.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-spinner","apiCreate":"window.UBITS.Spinner.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":0,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":15,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -181,7 +181,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-status-tag","apiCreate":"window.UBITS.StatusTag.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-status-tag","apiCreate":"window.UBITS.StatusTag.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":1,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":3,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -199,7 +199,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-checkbox","apiCreate":"window.UBITS.Checkbox.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-checkbox","apiCreate":"window.UBITS.Checkbox.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":0,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":5,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -215,7 +215,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-input","apiCreate":"window.UBITS.Input.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-input","apiCreate":"window.UBITS.Input.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":1,"internalsCount":4,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":6,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -231,7 +231,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-radio-button","apiCreate":"window.UBITS.RadioButton.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-radio-button","apiCreate":"window.UBITS.RadioButton.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":0,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":5,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -247,7 +247,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-file-upload","apiCreate":"window.UBITS.FileUpload.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-file-upload","apiCreate":"window.UBITS.FileUpload.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":1,"dependsOnOptional":1,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":6,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -263,7 +263,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-search-button","apiCreate":"window.UBITS.SearchButton.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-search-button","apiCreate":"window.UBITS.SearchButton.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":1,"dependsOnOptional":1,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":5,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -279,7 +279,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-toggle","apiCreate":"window.UBITS.Toggle.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-toggle","apiCreate":"window.UBITS.Toggle.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":0,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":5,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -295,7 +295,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-calendar","apiCreate":"window.UBITS.Calendar.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-calendar","apiCreate":"window.UBITS.Calendar.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":3,"dependsOnOptional":0,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":29,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -311,7 +311,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-slider","apiCreate":"window.UBITS.Slider.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-slider","apiCreate":"window.UBITS.Slider.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":2,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":16,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -329,7 +329,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-toast","apiCreate":"window.UBITS.Toast.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-toast","apiCreate":"window.UBITS.Toast.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":1,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":8,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -345,7 +345,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-tooltip","apiCreate":"window.UBITS.Tooltip.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-tooltip","apiCreate":"window.UBITS.Tooltip.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":1,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":3,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -361,7 +361,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-empty-state","apiCreate":"window.UBITS.EmptyState.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-empty-state","apiCreate":"window.UBITS.EmptyState.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":1,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":4,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -377,7 +377,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"⚙️-functional-drawer","apiCreate":"window.UBITS.Drawer.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"⚙️-functional-drawer","apiCreate":"window.UBITS.Drawer.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":1,"dependsOnOptional":0,"internalsCount":2,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":4,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -393,7 +393,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"⚙️-functional-modal","apiCreate":"window.UBITS.Modal.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"⚙️-functional-modal","apiCreate":"window.UBITS.Modal.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":1,"dependsOnOptional":0,"internalsCount":2,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":4,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -409,7 +409,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-popover","apiCreate":"window.UBITS.Popover.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-popover","apiCreate":"window.UBITS.Popover.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":1,"dependsOnOptional":0,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":4,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -425,7 +425,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-mask","apiCreate":"window.UBITSMask.createMask","hasApiTag":false,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-mask","apiCreate":"window.UBITSMask.createMask","hasApiTag":false}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":2,"dependsOnOptional":2,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":3,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -443,7 +443,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-breadcrumb","apiCreate":"window.UBITS.Breadcrumb.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-breadcrumb","apiCreate":"window.UBITS.Breadcrumb.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":0,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":11,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -459,7 +459,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-menu","apiCreate":"window.UBITS.Menu.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-menu","apiCreate":"window.UBITS.Menu.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":1,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":25,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -475,7 +475,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-sidebar","apiCreate":"window.UBITS.Sidebar.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-sidebar","apiCreate":"window.UBITS.Sidebar.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":0,"internalsCount":4,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":6,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -491,7 +491,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-subnav","apiCreate":"window.UBITS.SubNav.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-subnav","apiCreate":"window.UBITS.SubNav.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":1,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":21,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -507,7 +507,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-tabbar","apiCreate":"window.UBITS.TabBar.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-tabbar","apiCreate":"window.UBITS.TabBar.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":0,"internalsCount":4,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":6,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -523,7 +523,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-tabs","apiCreate":"window.UBITS.Tabs.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-tabs","apiCreate":"window.UBITS.Tabs.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":1,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":17,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -539,7 +539,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-segment-control","apiCreate":"window.UBITS.SegmentControl.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-segment-control","apiCreate":"window.UBITS.SegmentControl.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":1,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":15,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -555,7 +555,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-tree-menu","apiCreate":"renderTreeMenu","hasApiTag":false,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-tree-menu","apiCreate":"renderTreeMenu","hasApiTag":false}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":0,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":20,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -571,7 +571,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-participants-menu","apiCreate":"window.UBITS.ParticipantsMenu.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-participants-menu","apiCreate":"window.UBITS.ParticipantsMenu.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":5,"dependsOnOptional":6,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":23,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -589,7 +589,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-list","apiCreate":"window.UBITS.List.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-list","apiCreate":"window.UBITS.List.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":1,"internalsCount":1,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":5,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -605,7 +605,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-data-table","apiCreate":"window.UBITS.DataTable.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-data-table","apiCreate":"window.UBITS.DataTable.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":3,"dependsOnOptional":13,"internalsCount":6,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":13,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -621,7 +621,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-data-view","apiCreate":"createDataView","hasApiTag":false,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-data-view","apiCreate":"createDataView","hasApiTag":false}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":2,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":18,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -637,7 +637,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-pagination","apiCreate":"window.UBITS.Pagination.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-pagination","apiCreate":"window.UBITS.Pagination.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":1,"dependsOnOptional":1,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":3,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -653,7 +653,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"⚙️-functional-scroll","apiCreate":"window.createScrollbar","hasApiTag":false,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"⚙️-functional-scroll","apiCreate":"window.createScrollbar","hasApiTag":false}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":0,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":1,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -671,7 +671,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-bar-metric-card","apiCreate":"createBarMetricCard","hasApiTag":false,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-bar-metric-card","apiCreate":"createBarMetricCard","hasApiTag":false}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":3,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":14,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -687,7 +687,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-csat-metric-card","apiCreate":"createCSATMetricCard","hasApiTag":false,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-csat-metric-card","apiCreate":"createCSATMetricCard","hasApiTag":false}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":2,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":9,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -703,7 +703,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-metric-card","apiCreate":"createMetricCard","hasApiTag":false,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-metric-card","apiCreate":"createMetricCard","hasApiTag":false}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":2,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":16,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -719,7 +719,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-nps-card","apiCreate":"createNPSCard","hasApiTag":false,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-nps-card","apiCreate":"createNPSCard","hasApiTag":false}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":2,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":19,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -735,7 +735,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-progress-bar","apiCreate":"window.createProgressBar","hasApiTag":false,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-progress-bar","apiCreate":"window.createProgressBar","hasApiTag":false}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":0,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":12,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -751,7 +751,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-score-card-metrics","apiCreate":"createScoreCardMetrics","hasApiTag":false,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-score-card-metrics","apiCreate":"createScoreCardMetrics","hasApiTag":false}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":2,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":16,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -767,7 +767,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-progress-general-card","apiCreate":"createProgressGeneralCard","hasApiTag":false,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-progress-general-card","apiCreate":"createProgressGeneralCard","hasApiTag":false}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":3,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":13,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -785,7 +785,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-card-content","apiCreate":"createCard","hasApiTag":false,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-card-content","apiCreate":"createCard","hasApiTag":false}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":0,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":10,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -801,7 +801,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-carousel","apiCreate":"window.UBITS.Carousel.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-carousel","apiCreate":"window.UBITS.Carousel.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":2,"dependsOnOptional":2,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":18,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -817,7 +817,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-gallery","apiCreate":"window.UBITS.Gallery.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-gallery","apiCreate":"window.UBITS.Gallery.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":2,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":24,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -833,7 +833,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-header-section","apiCreate":"window.UBITS.HeaderSection.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-header-section","apiCreate":"window.UBITS.HeaderSection.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":1,"dependsOnOptional":6,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":21,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -849,7 +849,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-selection-card","apiCreate":"createSelectionCard","hasApiTag":false,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-selection-card","apiCreate":"createSelectionCard","hasApiTag":false}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":2,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":15,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -865,7 +865,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-simple-card","apiCreate":"createSimpleCard","hasApiTag":false,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-simple-card","apiCreate":"createSimpleCard","hasApiTag":false}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":2,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":17,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -878,18 +878,15 @@
 
 #### 🧩-ux-timeline
 
-**Estado General:** ⚠️
-
-**Problemas:**
-- Timeline no tiene api.create (se implementa directamente)
+**Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ⚠️ {"componentId":"🧩-ux-timeline","apiCreate":"N/A (implementación directa)","hasApiTag":false,"isTimeline":true}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-timeline","apiCreate":"window.UBITS.Timeline.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":2,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":21,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
 - Fase 5: Ejemplos Adicionales (examples.basic, etc.): ✅ {"otherExamplesCount":1}
-- Fase 6: Variantes y Eventos (variants, events): ✅ {"variantsCount":13,"eventsCount":12}
+- Fase 6: Variantes y Eventos (variants, events): ✅ {"variantsCount":15,"eventsCount":12}
 - Fase 7: Storybook e Intents (storybook, intents): ✅ {"hasCanonicalStoryId":true,"hasStoriesByExample":true,"intentsCount":0}
 - Fase 8: DOM Marker (data-ubits-id): ✅ {"hasDataUbitsId":true,"value":"🧩-ux-timeline"}
 
@@ -900,7 +897,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-accordion","apiCreate":"window.UBITS.Accordion.create","hasApiTag":true,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-accordion","apiCreate":"window.UBITS.Accordion.create","hasApiTag":true}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":1,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":6,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -918,7 +915,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-button-ai","apiCreate":"createButtonAI","hasApiTag":false,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-button-ai","apiCreate":"createButtonAI","hasApiTag":false}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":0,"dependsOnOptional":0,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":19,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}
@@ -934,7 +931,7 @@
 **Estado General:** ✅
 
 **Estado por Fase:**
-- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-button-feedback","apiCreate":"createButtonFeedback","hasApiTag":false,"isTimeline":false}
+- Fase 1: Campos Básicos (componentId, api.create, api.tag): ✅ {"componentId":"🧩-ux-button-feedback","apiCreate":"createButtonFeedback","hasApiTag":false}
 - Fase 2: Dependencias (dependsOn, internals, slots): ✅ {"dependsOnRequired":4,"dependsOnOptional":0,"internalsCount":0,"hasSlots":true}
 - Fase 3: Tokens y Reglas (tokensUsed, rules): ✅ {"tokensCount":10,"hasRules":true,"forbidHardcodedColors":true}
 - Fase 4: Ejemplo Canónico (examples.canonical) ⚠️ CRÍTICO: ✅ {"hasCanonical":true}

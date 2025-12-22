@@ -38,8 +38,8 @@ const meta: Meta<{
 		ubits: createUBITSContract({
 			componentId: '🧩-ux-timeline',
 			api: {
-				// Timeline no tiene un componente separado, se implementa directamente
-				// Se documenta como patrón de implementación
+				create: 'window.UBITS.Timeline.create',
+				tag: '<ubits-timeline>',
 			},
 			dependsOn: {
 				required: [],
@@ -79,30 +79,8 @@ const meta: Meta<{
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: `// Timeline se implementa directamente con HTML y CSS
-// Ejemplo de estructura:
-const timelineHTML = \`
-  <div class='ubits-timeline'>
-    <div class='ubits-timeline-item'>
-      <div class='ubits-timeline-item__content'>
-        <h3>Event Title</h3>
-        <p>Event description</p>
-      </div>
-    </div>
-  </div>
-\`;`,
-				basic: `// Timeline se implementa directamente con HTML y CSS
-// Ejemplo de estructura:
-const timelineHTML = \`
-  <div class='ubits-timeline'>
-    <div class='ubits-timeline-item'>
-      <div class='ubits-timeline-item__content'>
-        <h3>Event Title</h3>
-        <p>Event description</p>
-      </div>
-    </div>
-  </div>
-\`;`,
+				canonical: "window.UBITS.Timeline.create({\n  items: [\n    {\n      date: 'Mar 15, 2024',\n      title: 'Project Kickoff',\n      description: 'Initial team meeting and project scope definition.',\n      state: 'filled',\n      icon: 'circle'\n    },\n    {\n      date: 'Mar 22, 2024',\n      title: 'Design Phase',\n      description: 'Completed wireframes and user interface mockups.',\n      state: 'filled',\n      icon: 'paint-brush'\n    }\n  ],\n  alignment: 'left',\n  showAvatar: false,\n  showDate: true,\n  showDescription: true,\n  showIcon: true\n});",
+				basic: "window.UBITS.Timeline.create({\n  items: [\n    {\n      title: 'Event Title',\n      description: 'Event description',\n      state: 'default'\n    }\n  ],\n  alignment: 'left'\n});",
 			},
 			variants: {
 				alignment: ['left', 'center'],
@@ -565,7 +543,7 @@ function renderTimeline(args: {
 	const alignmentClass = alignment === 'center' ? 'ubits-timeline--center' : 'ubits-timeline--left';
 
 	const timelineHTML = `
-    <div class="ubits-timeline ${alignmentClass}" id="${uniqueId}">
+    <div class="ubits-timeline ${alignmentClass}" id="${uniqueId}" data-ubits-id="🧩-ux-timeline">
       ${timelineData
 				.map((item, index) =>
 					renderTimelineItem(item, index, index === timelineData.length - 1, args),
@@ -1567,4 +1545,166 @@ export const Default: Story = {
 		return container;
 	},
 };
+
+// ⭐ API Helper para Autorun
+// Exponer función create para que pueda ser usada como window.UBITS.Timeline.create
+if (typeof window !== 'undefined' && window.UBITS) {
+	if (!window.UBITS.Timeline) {
+		window.UBITS.Timeline = {};
+	}
+	
+	/**
+	 * Crea un elemento Timeline
+	 * @param options Opciones del Timeline
+	 * @returns HTMLElement con el Timeline renderizado
+	 */
+	window.UBITS.Timeline.create = function(options: {
+		items: Array<{
+			date?: string;
+			title: string;
+			description?: string;
+			state?: 'default' | 'filled';
+			icon?: string;
+			avatar?: {
+				imageUrl?: string;
+				initials?: string;
+				icon?: string;
+			};
+		}>;
+		alignment?: 'left' | 'center';
+		showAvatar?: boolean;
+		showDate?: boolean;
+		showDescription?: boolean;
+		showIcon?: boolean;
+	}): HTMLElement {
+		const container = document.createElement('div');
+		container.setAttribute('data-ubits-id', '🧩-ux-timeline');
+		
+		const alignment = options.alignment || 'left';
+		const alignmentClass = alignment === 'center' ? 'ubits-timeline--center' : 'ubits-timeline--left';
+		const uniqueId = `timeline-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+		
+		// Convertir items a TimelineItem[]
+		const timelineItems: TimelineItem[] = options.items.map(item => ({
+			date: item.date,
+			title: item.title,
+			description: item.description,
+			state: item.state || 'default',
+			icon: item.icon,
+			avatar: item.avatar,
+		}));
+		
+		// Renderizar cada item
+		const itemsHTML = timelineItems.map((item, index) => {
+			return renderTimelineItem(item, index, index === timelineItems.length - 1, {
+				showAvatar: options.showAvatar ?? false,
+				showDate: options.showDate ?? true,
+				showDescription: options.showDescription ?? true,
+				showIcon: options.showIcon ?? true,
+				alignment: alignment,
+			});
+		}).join('');
+		
+		const timelineHTML = `
+			<div class="ubits-timeline ${alignmentClass}" id="${uniqueId}" data-ubits-id="🧩-ux-timeline">
+				${itemsHTML}
+			</div>
+		`;
+		
+		container.innerHTML = timelineHTML;
+		
+		// Agregar estilos CSS si no existen
+		const styleId = 'ubits-timeline-styles';
+		if (!document.getElementById(styleId)) {
+			const style = document.createElement('style');
+			style.id = styleId;
+			style.textContent = `
+				.ubits-timeline {
+					display: flex;
+					flex-direction: column;
+					gap: 0;
+					position: relative;
+				}
+				.ubits-timeline--left {
+					align-items: flex-start;
+				}
+				.ubits-timeline--center {
+					align-items: center;
+				}
+				.ubits-timeline-item {
+					display: flex;
+					align-items: flex-start;
+					position: relative;
+					width: 100%;
+				}
+				.ubits-timeline-item__marker-container {
+					position: relative;
+					z-index: 2;
+					flex-shrink: 0;
+				}
+				.ubits-timeline-marker {
+					width: 24px;
+					height: 24px;
+					border-radius: var(--ubits-border-radius-full, 50%);
+					border: 2px solid var(--modifiers-normal-color-light-border-1);
+					background-color: var(--modifiers-normal-color-light-bg-1);
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					position: relative;
+				}
+				.ubits-timeline-marker--filled {
+					border-color: var(--modifiers-static-color-light-fg-1-medium);
+					background-color: var(--modifiers-static-color-light-fg-1-medium);
+				}
+				.ubits-timeline-marker__icon {
+					font-size: 10px;
+					color: var(--modifiers-normal-color-light-fg-1-high);
+				}
+				.ubits-timeline-line {
+					position: absolute;
+					left: 11px;
+					top: 24px;
+					width: 2px;
+					height: calc(100% - 24px);
+					background-color: var(--modifiers-normal-color-light-border-1);
+				}
+				.ubits-timeline-item:last-child .ubits-timeline-line {
+					display: none;
+				}
+				.ubits-timeline-item__content {
+					margin-left: var(--p-spacing-mode-1-md, 12px);
+					flex: 1;
+					padding-bottom: var(--p-spacing-mode-1-lg, 16px);
+				}
+				.ubits-timeline-item__text {
+					display: flex;
+					flex-direction: column;
+					gap: var(--p-spacing-mode-1-sm, 4px);
+				}
+				.ubits-timeline-item__date {
+					font-size: var(--modifiers-normal-body-sm-regular-fontsize, 12px);
+					line-height: var(--modifiers-normal-body-sm-regular-lineheight, 16px);
+					color: var(--modifiers-normal-color-light-fg-1-medium);
+					font-weight: var(--weight-regular, 400);
+				}
+				.ubits-timeline-item__title {
+					font-size: var(--modifiers-normal-body-md-regular-fontsize, 14px);
+					line-height: var(--modifiers-normal-body-md-regular-lineheight, 20px);
+					font-weight: var(--modifiers-normal-body-md-semibold-fontweight, 600);
+					color: var(--modifiers-normal-color-light-fg-1-high);
+				}
+				.ubits-timeline-item__description {
+					font-size: var(--modifiers-normal-body-sm-regular-fontsize, 12px);
+					line-height: var(--modifiers-normal-body-sm-regular-lineheight, 16px);
+					color: var(--modifiers-normal-color-light-fg-1-medium);
+					font-weight: var(--weight-regular, 400);
+				}
+			`;
+			document.head.appendChild(style);
+		}
+		
+		return container;
+	};
+}
 

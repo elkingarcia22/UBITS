@@ -87,27 +87,19 @@ function verifyComponent(componentName: string, group: string): VerificationResu
 	const hasComponentId = /componentId:\s*['"]([^'"]+)['"]/.test(content);
 	const hasApiCreate = /api:\s*{[\s\S]*?create:\s*['"]([^'"]+)['"]/.test(content);
 	const hasApiTag = /api:\s*{[\s\S]*?tag:\s*['"]([^'"]+)['"]/.test(content);
-	const hasApiBlock = /api:\s*{[\s\S]*?}/.test(content);
 	
-	// Timeline no tiene api.create porque se implementa directamente
-	const isTimeline = componentName === 'Timeline';
-	
-	if (hasComponentId && (hasApiCreate || (isTimeline && hasApiBlock))) {
-		phases.phase1.status = isTimeline ? '⚠️' : '✅';
+	if (hasComponentId && hasApiCreate) {
+		phases.phase1.status = '✅';
 		const componentIdMatch = content.match(/componentId:\s*['"]([^'"]+)['"]/);
 		const apiCreateMatch = content.match(/create:\s*['"]([^'"]+)['"]/);
 		phases.phase1.details = {
 			componentId: componentIdMatch?.[1],
-			apiCreate: apiCreateMatch?.[1] || (isTimeline ? 'N/A (implementación directa)' : ''),
-			hasApiTag: hasApiTag,
-			isTimeline: isTimeline
+			apiCreate: apiCreateMatch?.[1],
+			hasApiTag: hasApiTag
 		};
-		if (isTimeline) {
-			issues.push('Timeline no tiene api.create (se implementa directamente)');
-		}
 	} else {
 		if (!hasComponentId) issues.push('Falta componentId');
-		if (!hasApiCreate && !isTimeline) issues.push('Falta api.create');
+		if (!hasApiCreate) issues.push('Falta api.create');
 		phases.phase1.status = '❌';
 	}
 	
