@@ -16,11 +16,31 @@ function getAbsolutePath(value: string): any {
 
 const config: StorybookConfig = {
   stories: [
+    // IMPORTANTE: Primero excluir TODOS los archivos de la raíz para evitar duplicados
+    '!../stories/*.stories.@(js|jsx|mjs|ts|tsx)',
+    // Luego incluir solo los archivos específicos de la raíz que NO tienen duplicados en components/
+    '../stories/Contenedor.stories.ts',
+    '../stories/Templates.stories.ts',
+    '../stories/Stepper.stories.ts',
+    '../stories/DataTable.stories.ts',
+    // Incluir historias en subdirectorios (components, TokensUBITS, Templates, etc.)
+    // IMPORTANTE: Excluir Stepper de components porque usamos el de la raíz
+    // IMPORTANTE: Excluir SaveIndicator porque el componente no existe aún
+    // IMPORTANTE: Excluir DataTable de components porque usamos el de la raíz (tiene todas las historias)
+    '!../stories/components/Stepper/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '!../stories/components/SaveIndicator/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '!../stories/components/SaveIndicator/SaveIndicator.stories.ts',
+    '!../stories/components/DataTable/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '../stories/components/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '../stories/TokensUBITS/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '../stories/Templates/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '../stories/recipes/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    // MDX files (si existen)
     '../stories/**/*.mdx',
-    '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'
   ],
   addons: [
-    getAbsolutePath('@storybook/addon-docs')
+    getAbsolutePath('@storybook/addon-docs'),
+    getAbsolutePath("@storybook/addon-a11y")
   ],
   framework: {
     name: getAbsolutePath('@storybook/html-vite'),
@@ -76,6 +96,46 @@ const config: StorybookConfig = {
     // Agregar plugin personalizado para ignorar tsconfig.node.json
     config.plugins = config.plugins || [];
     config.plugins.push(ignoreTsconfigNodeJsonPlugin());
+    
+    // Plugin para resolver importaciones incorrectas de componentes
+    config.plugins.push({
+      name: 'resolve-component-imports',
+      enforce: 'pre',
+      resolveId(id, importer) {
+        // Solo procesar importaciones que empiezan con ../../../components/
+        if (!id.startsWith('../../../components/')) {
+          return null;
+        }
+        
+        // Solo procesar si el importador es una historia
+        if (!importer || !importer.includes('/stories/components/')) {
+          return null;
+        }
+        
+        const fs = require('fs');
+        const path = require('path');
+        
+        // Intentar resolver desde la ruta correcta (packages/components/)
+        const componentPath = id.replace('../../../components/', '');
+        const correctPath = resolve(projectRoot, 'packages/components', componentPath);
+        
+        // Verificar si el archivo existe en la ruta correcta
+        if (fs.existsSync(correctPath)) {
+          return correctPath;
+        }
+        
+        // Si no existe, intentar con extensiones comunes
+        const extensions = ['.ts', '.js', '/index.ts', '/index.js'];
+        for (const ext of extensions) {
+          const pathWithExt = correctPath + ext;
+          if (fs.existsSync(pathWithExt)) {
+            return pathWithExt;
+          }
+        }
+        
+        return null;
+      },
+    });
     
     // Asegurar que Vite puede resolver módulos TypeScript correctamente
     config.resolve.conditions = config.resolve.conditions || [];
@@ -219,8 +279,8 @@ const config: StorybookConfig = {
     config.server.hmr = config.server.hmr || {};
     config.server.hmr.overlay = false;
     
-    // También deshabilitar errores en la consola del servidor
-    config.logLevel = 'warn';
+    // Configurar nivel de log para ver más información
+    config.logLevel = 'info'; // Cambiar a 'info' para ver más detalles, 'debug' para aún más
     
     // Configurar esbuild para evitar buscar tsconfig.node.json
     config.esbuild = config.esbuild || {};
