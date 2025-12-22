@@ -16,26 +16,23 @@ function getAbsolutePath(value: string): any {
 
 const config: StorybookConfig = {
   stories: [
-    // IMPORTANTE: Primero excluir TODOS los archivos de la raíz para evitar duplicados
+    // IMPORTANTE: Excluir TODOS los archivos de la raíz PRIMERO para evitar duplicados
     '!../stories/*.stories.@(js|jsx|mjs|ts|tsx)',
     // Luego incluir solo los archivos específicos de la raíz que NO tienen duplicados en components/
     '../stories/Contenedor.stories.ts',
     '../stories/Templates.stories.ts',
     '../stories/Stepper.stories.ts',
     '../stories/DataTable.stories.ts',
-    // Incluir historias en subdirectorios (components, TokensUBITS, Templates, etc.)
-    // IMPORTANTE: Excluir Stepper de components porque usamos el de la raíz
-    // IMPORTANTE: Excluir SaveIndicator porque el componente no existe aún
-    // IMPORTANTE: Excluir DataTable de components porque usamos el de la raíz (tiene todas las historias)
-    '!../stories/components/Stepper/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-    '!../stories/components/SaveIndicator/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-    '!../stories/components/SaveIndicator/SaveIndicator.stories.ts',
-    '!../stories/components/DataTable/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    // Incluir historias en subdirectorios (components, TokensUBITS, Templates, recipes)
     '../stories/components/**/*.stories.@(js|jsx|mjs|ts|tsx)',
     '../stories/TokensUBITS/**/*.stories.@(js|jsx|mjs|ts|tsx)',
     '../stories/Templates/**/*.stories.@(js|jsx|mjs|ts|tsx)',
     '../stories/recipes/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-    // MDX files (si existen)
+    // Excluir componentes específicos de components/ que tienen duplicados en la raíz
+    '!../stories/components/Stepper/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '!../stories/components/SaveIndicator/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '!../stories/components/DataTable/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    // MDX files (si existen) - al final para evitar conflictos
     '../stories/**/*.mdx',
   ],
   addons: [
