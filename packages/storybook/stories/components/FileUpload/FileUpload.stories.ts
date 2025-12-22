@@ -43,6 +43,7 @@ const meta: Meta<FileUploadOptions> = {
 				optional: ['🧩-ux-progress'], // Barra de progreso es opcional
 			},
 			internals: [], // FileUpload no tiene componentes internos privados
+			slots: {}, // FileUpload no tiene slots públicos
 			tokensUsed: [
 				'--modifiers-normal-color-light-bg-1',
 				'--modifiers-normal-color-light-bg-2',
@@ -58,10 +59,10 @@ const meta: Meta<FileUploadOptions> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: 'window.UBITS.FileUpload.create(document.getElementById(\'file-upload-container\'), {\\n  containerId: \'file-upload-container\',\\n  state: \'default\',\\n  dropText: \'Arrastra tus archivos aquí\',\\n  selectButtonText: \'Seleccionar archivos\',\\n  onFileSelect: function(files) {}\\n});',
-				basic: 'window.UBITS.FileUpload.create(document.getElementById(\'file-upload-container\'), {\\n  containerId: \'file-upload-container\',\\n  state: \'default\',\\n  dropText: \'Arrastra tus archivos aquí\',\\n  selectButtonText: \'Seleccionar archivos\'\\n});',
-				withFiles: 'window.UBITS.FileUpload.create(document.getElementById(\'file-upload-container\'), {\\n  containerId: \'file-upload-container\',\\n  state: \'files-list\',\\n  files: [{ name: \'documento.pdf\', size: 1024000 }],\\n  showProgress: true\\n});',
-				withMaxFiles: 'window.UBITS.FileUpload.create(document.getElementById(\'file-upload-container\'), {\\n  containerId: \'file-upload-container\',\\n  state: \'default\',\\n  maxFiles: 5,\\n  maxSize: 5242880\\n});',
+				canonical: "window.UBITS.FileUpload.create(document.getElementById('file-upload-container'), {\n  containerId: 'file-upload-container',\n  state: 'default',\n  dropText: 'Arrastra tus archivos aquí',\n  selectButtonText: 'Seleccionar archivos',\n  onFileSelect: (files) => {}\n});",
+				basic: "window.UBITS.FileUpload.create(document.getElementById('file-upload-container'), {\n  containerId: 'file-upload-container',\n  state: 'default',\n  dropText: 'Arrastra tus archivos aquí',\n  selectButtonText: 'Seleccionar archivos'\n});",
+				withFiles: "window.UBITS.FileUpload.create(document.getElementById('file-upload-container'), {\n  containerId: 'file-upload-container',\n  state: 'files-list',\n  files: [{ name: 'documento.pdf', size: 1024000 }],\n  showProgress: true\n});",
+				withMaxFiles: "window.UBITS.FileUpload.create(document.getElementById('file-upload-container'), {\n  containerId: 'file-upload-container',\n  state: 'default',\n  maxFiles: 5,\n  maxSize: 5242880\n});",
 			},
 			variants: {
 				state: ['default', 'files-list'],

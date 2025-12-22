@@ -46,6 +46,7 @@ const meta: Meta<InputOptions> = {
 				'⚙️-functional-calendar', // Calendar picker
 				'⚙️-functional-password-toggle', // Password toggle
 			],
+			slots: {}, // Input no tiene slots públicos
 			tokensUsed: [
 				'--modifiers-normal-color-light-bg-1',
 				'--modifiers-normal-color-light-bg-2',
@@ -65,10 +66,10 @@ const meta: Meta<InputOptions> = {
 			},
 			// ⭐ NUEVOS CAMPOS EXTENDIDOS
 			examples: {
-				canonical: 'window.UBITS.Input.create(document.getElementById("input-container"), {\\n  containerId: "input-container",\\n  label: "Email",\\n  type: "email",\\n  placeholder: "tu@email.com",\\n  onChange: function(value) {}\\n});',
-				basic: 'window.UBITS.Input.create(document.getElementById("input-container"), {\n  containerId: "input-container",\n  label: "Email",\n  type: "email",\n  placeholder: "tu@email.com"\n});',
-				withIcon: 'window.UBITS.Input.create(document.getElementById("input-container"), {\n  containerId: "input-container",\n  label: "Buscar",\n  type: "search",\n  leftIcon: "search"\n});',
-				select: 'window.UBITS.Input.create(document.getElementById("input-container"), {\n  containerId: "input-container",\n  label: "País",\n  type: "select",\n  selectOptions: [{ label: "Colombia", value: "co" }]\n});',
+				canonical: "window.UBITS.Input.create(document.getElementById('input-container'), {\n  containerId: 'input-container',\n  label: 'Email',\n  type: 'email',\n  placeholder: 'tu@email.com',\n  onChange: (value) => {}\n});",
+				basic: "window.UBITS.Input.create(document.getElementById('input-container'), {\n  containerId: 'input-container',\n  label: 'Email',\n  type: 'email',\n  placeholder: 'tu@email.com'\n});",
+				withIcon: "window.UBITS.Input.create(document.getElementById('input-container'), {\n  containerId: 'input-container',\n  label: 'Buscar',\n  type: 'search',\n  leftIcon: 'search'\n});",
+				select: "window.UBITS.Input.create(document.getElementById('input-container'), {\n  containerId: 'input-container',\n  label: 'País',\n  type: 'select',\n  selectOptions: [{ label: 'Colombia', value: 'co' }]\n});",
 			},
 			variants: {
 				type: ['text', 'email', 'password', 'number', 'tel', 'url', 'select', 'textarea', 'search', 'autocomplete', 'calendar'],

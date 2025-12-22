@@ -34,6 +34,7 @@ const meta: Meta<BadgeOptions> = {
 				optional: [], // No hay componentes opcionales
 			},
 			internals: [], // Badge no tiene componentes internos privados
+			slots: {}, // Badge no tiene slots públicos
 			tokensUsed: [
 				'--modifiers-normal-color-light-bg-1',
 				'--modifiers-normal-color-light-fg-1-high',
@@ -48,9 +49,22 @@ const meta: Meta<BadgeOptions> = {
 			examples: {
 				canonical: 'window.UBITS.Badge.create({\n  type: \'number\',\n  variant: \'error\',\n  style: \'light\',\n  size: \'md\',\n  content: \'5\'\n});',
 				basic: 'window.UBITS.Badge.create({\n  type: \'number\',\n  variant: \'error\',\n  style: \'light\',\n  size: \'md\',\n  content: \'5\'\n});',
-				dot: 'window.UBITS.Badge.create({\n  type: \'dot\',\n  variant: \'error\',\n  style: \'light\',\n  size: \'md\'\n});',
+				dot: `window.UBITS.Badge.create({
+  type: 'dot',
+  variant: 'error',
+  style: 'light',
+  size: 'md'
+});`,
 				withLabel: 'window.UBITS.Badge.create({\n  type: \'number\',\n  variant: \'error\',\n  style: \'light\',\n  size: \'md\',\n  content: \'5\',\n  showLabel: true,\n  label: \'Nuevos\'\n});',
-				absolute: 'window.UBITS.Badge.create({\n  type: \'number\',\n  variant: \'error\',\n  style: \'light\',\n  size: \'md\',\n  content: \'5\',\n  absolute: true,\n  position: \'top-right\'\n});',
+				absolute: `window.UBITS.Badge.create({
+  type: 'number',
+  variant: 'error',
+  style: 'light',
+  size: 'md',
+  content: '5',
+  absolute: true,
+  position: 'top-right'
+});`,
 			},
 			variants: {
 				type: ['dot', 'number'],

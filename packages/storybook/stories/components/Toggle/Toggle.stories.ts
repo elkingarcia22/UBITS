@@ -35,6 +35,7 @@ const meta: Meta<ToggleOptions> = {
 				optional: [], // No hay componentes opcionales
 			},
 			internals: [], // Toggle no tiene componentes internos privados
+			slots: {}, // Toggle no tiene slots públicos
 			tokensUsed: [
 				'--modifiers-normal-color-light-bg-1',
 				'--modifiers-normal-color-light-border-1',
@@ -49,12 +50,12 @@ const meta: Meta<ToggleOptions> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: 'window.UBITS.Toggle.create({\\n  checked: false,\\n  size: \'md\',\\n  state: \'default\',\\n  onChange: function() {}\\n});',
-				basic: 'window.UBITS.Toggle.create({\\n  checked: false,\\n  size: \'md\',\\n  state: \'default\'\n});',
-				checked: 'window.UBITS.Toggle.create({\\n  checked: true,\\n  size: \'md\',\\n  state: \'default\'\n});',
-				withLabel: 'window.UBITS.Toggle.create({\\n  label: \'Activar notificaciones\',\\n  checked: false,\\n  size: \'md\',\\n  state: \'default\'\n});',
-				withComplementaryText: 'window.UBITS.Toggle.create({\\n  label: \'Activar notificaciones\',\\n  complementaryText: \'Recibirás alertas por email\',\\n  checked: false,\\n  size: \'md\'\n});',
-				disabled: 'window.UBITS.Toggle.create({\\n  checked: false,\\n  disabled: true,\\n  size: \'md\'\n});',
+				canonical: "window.UBITS.Toggle.create({\n  checked: false,\n  size: 'md',\n  state: 'default',\n  onChange: () => {}\n});",
+				basic: "window.UBITS.Toggle.create({\n  checked: false,\n  size: 'md',\n  state: 'default'\n});",
+				checked: "window.UBITS.Toggle.create({\n  checked: true,\n  size: 'md',\n  state: 'default'\n});",
+				withLabel: "window.UBITS.Toggle.create({\n  label: 'Activar notificaciones',\n  checked: false,\n  size: 'md',\n  state: 'default'\n});",
+				withComplementaryText: "window.UBITS.Toggle.create({\n  label: 'Activar notificaciones',\n  complementaryText: 'Recibirás alertas por email',\n  checked: false,\n  size: 'md'\n});",
+				disabled: "window.UBITS.Toggle.create({\n  checked: false,\n  disabled: true,\n  size: 'md'\n});",
 			},
 			variants: {
 				size: ['sm', 'md'],

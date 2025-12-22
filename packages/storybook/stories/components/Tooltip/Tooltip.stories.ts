@@ -36,6 +36,7 @@ const meta: Meta<TooltipOptions> = {
 				optional: ['🧩-ux-button'], // Botones de acción son opcionales
 			},
 			internals: [], // Tooltip no tiene componentes internos privados
+			slots: {}, // Tooltip no tiene slots públicos
 			tokensUsed: [
 				'--modifiers-normal-color-light-bg-1',
 				'--modifiers-normal-color-light-fg-1-high',
@@ -48,10 +49,10 @@ const meta: Meta<TooltipOptions> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: 'window.UBITS.Tooltip.create({\\n  targetElement: document.getElementById(\'target\'),\\n  title: \'Título del tooltip\',\\n  description: \'Descripción o mensaje del tooltip\',\\n  tailPosition: \'top\',\\n  onClose: function() {}\\n});',
-				basic: 'window.UBITS.Tooltip.create({\\n  targetElement: document.getElementById(\'target\'),\\n  title: \'Título del tooltip\',\\n  description: \'Descripción o mensaje del tooltip\',\\n  tailPosition: \'top\'\\n});',
-				withButtons: 'window.UBITS.Tooltip.create({\\n  targetElement: document.getElementById(\'target\'),\\n  title: \'Título del tooltip\',\\n  description: \'Descripción del tooltip\',\\n  showPrimaryButton: true,\\n  primaryButtonLabel: \'Aceptar\',\\n  tailPosition: \'top\'\\n});',
-				differentPosition: 'window.UBITS.Tooltip.create({\\n  targetElement: document.getElementById(\'target\'),\\n  title: \'Título del tooltip\',\\n  description: \'Descripción del tooltip\',\\n  tailPosition: \'bottom\'\\n});',
+				canonical: "window.UBITS.Tooltip.create({\n  targetElement: document.getElementById('target'),\n  title: 'Título del tooltip',\n  description: 'Descripción o mensaje del tooltip',\n  tailPosition: 'top',\n  onClose: () => {}\n});",
+				basic: "window.UBITS.Tooltip.create({\n  targetElement: document.getElementById('target'),\n  title: 'Título del tooltip',\n  description: 'Descripción o mensaje del tooltip',\n  tailPosition: 'top'\n});",
+				withButtons: "window.UBITS.Tooltip.create({\n  targetElement: document.getElementById('target'),\n  title: 'Título del tooltip',\n  description: 'Descripción del tooltip',\n  showPrimaryButton: true,\n  primaryButtonLabel: 'Aceptar',\n  tailPosition: 'top'\n});",
+				differentPosition: "window.UBITS.Tooltip.create({\n  targetElement: document.getElementById('target'),\n  title: 'Título del tooltip',\n  description: 'Descripción del tooltip',\n  tailPosition: 'bottom'\n});",
 			},
 			variants: {
 				width: ['xs', 'sm', 'md', 'lg', 'xl'],

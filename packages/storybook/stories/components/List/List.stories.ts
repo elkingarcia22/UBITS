@@ -35,6 +35,7 @@ const meta: Meta<ListOptions> = {
 				optional: ['⚙️-functional-scroll'], // Scrollbar es opcional
 			},
 			internals: ['⚙️-functional-scroll'], // Scrollbar interno
+			slots: {}, // List no tiene slots públicos
 			tokensUsed: [
 				'--modifiers-normal-color-light-bg-1',
 				'--modifiers-normal-color-light-bg-2',
@@ -49,10 +50,10 @@ const meta: Meta<ListOptions> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: "window.UBITS.List.create(document.getElementById('list-container'), {\\n  containerId: 'list-container',\\n  items: [\\n    { label: 'Item 1', state: 'default' },\\n    { label: 'Item 2', state: 'active' }\\n  ],\\n  size: 'md',\\n  onItemClick: function(itemId) {}\\n});",
-				basic: "window.UBITS.List.create(document.getElementById('list-container'), {\\n  containerId: 'list-container',\\n  items: [\\n    { label: 'Item 1', state: 'default' },\\n    { label: 'Item 2', state: 'active' }\\n  ],\\n  size: 'md'\\n});",
-				multiple: "window.UBITS.List.create(document.getElementById('list-container'), {\\n  containerId: 'list-container',\\n  items: [\\n    { label: 'Item 1', state: 'default' },\\n    { label: 'Item 2', state: 'active' }\\n  ],\\n  size: 'md',\\n  multiple: true\\n});",
-				withMaxHeight: "window.UBITS.List.create(document.getElementById('list-container'), {\\n  containerId: 'list-container',\\n  items: [\\n    { label: 'Item 1', state: 'default' },\\n    { label: 'Item 2', state: 'active' }\\n  ],\\n  size: 'md',\\n  maxHeight: '400px'\\n});",
+				canonical: "window.UBITS.List.create(document.getElementById('list-container'), {\n  containerId: 'list-container',\n  items: [\n    { label: 'Item 1', state: 'default' },\n    { label: 'Item 2', state: 'active' }\n  ],\n  size: 'md',\n  onItemClick: (itemId) => {}\n});",
+				basic: "window.UBITS.List.create(document.getElementById('list-container'), {\n  containerId: 'list-container',\n  items: [\n    { label: 'Item 1', state: 'default' },\n    { label: 'Item 2', state: 'active' }\n  ],\n  size: 'md'\n});",
+				multiple: "window.UBITS.List.create(document.getElementById('list-container'), {\n  containerId: 'list-container',\n  items: [\n    { label: 'Item 1', state: 'default' },\n    { label: 'Item 2', state: 'active' }\n  ],\n  size: 'md',\n  multiple: true\n});",
+				withMaxHeight: "window.UBITS.List.create(document.getElementById('list-container'), {\n  containerId: 'list-container',\n  items: [\n    { label: 'Item 1', state: 'default' },\n    { label: 'Item 2', state: 'active' }\n  ],\n  size: 'md',\n  maxHeight: '400px'\n});",
 			},
 			variants: {
 				size: ['xs', 'sm', 'md', 'lg'],

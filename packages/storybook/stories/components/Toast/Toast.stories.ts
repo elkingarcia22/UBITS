@@ -36,6 +36,7 @@ const meta: Meta<ToastOptions> = {
 				optional: ['🧩-ux-button'], // Botón de acción es opcional
 			},
 			internals: [], // Toast no tiene componentes internos privados
+			slots: {}, // Toast no tiene slots públicos
 			tokensUsed: [
 				'--modifiers-normal-color-light-bg-1',
 				'--modifiers-normal-color-light-feedback-bg-success-subtle-default',
@@ -53,13 +54,13 @@ const meta: Meta<ToastOptions> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: 'window.UBITS.Toast.show({\\n  type: \'success\',\\n  message: \'Los cambios se han guardado correctamente.\',\\n  duration: 3500,\\n  onClose: function() {}\\n});',
-				basic: 'window.UBITS.Toast.show({\\n  type: \'success\',\\n  message: \'Los cambios se han guardado correctamente.\',\\n  duration: 3500\\n});',
-				withTitle: 'window.UBITS.Toast.show({\\n  type: \'success\',\\n  title: \'Operación completada\',\\n  message: \'Los cambios se han guardado correctamente.\',\\n  duration: 3500\\n});',
-				info: 'window.UBITS.Toast.show({\\n  type: \'info\',\\n  message: \'Información importante para el usuario.\',\\n  duration: 3500\\n});',
-				warning: 'window.UBITS.Toast.show({\\n  type: \'warning\',\\n  message: \'Advertencia: revisa los datos ingresados.\',\\n  duration: 3500\\n});',
-				error: 'window.UBITS.Toast.show({\\n  type: \'error\',\\n  message: \'Error al procesar la solicitud.\',\\n  duration: 3500\\n});',
-				noClose: 'window.UBITS.Toast.show({\\n  type: \'success\',\\n  message: \'Operación completada.\',\\n  noClose: true,\\n  duration: 0\\n});',
+				canonical: 'window.UBITS.Toast.show({\n  type: \'success\',\n  message: \'Los cambios se han guardado correctamente.\',\n  duration: 3500,\n  onClose: () => {}\n});',
+				basic: 'window.UBITS.Toast.show({\n  type: \'success\',\n  message: \'Los cambios se han guardado correctamente.\',\n  duration: 3500\n});',
+				withTitle: 'window.UBITS.Toast.show({\n  type: \'success\',\n  title: \'Operación completada\',\n  message: \'Los cambios se han guardado correctamente.\',\n  duration: 3500\n});',
+				info: 'window.UBITS.Toast.show({\n  type: \'info\',\n  message: \'Información importante para el usuario.\',\n  duration: 3500\n});',
+				warning: 'window.UBITS.Toast.show({\n  type: \'warning\',\n  message: \'Advertencia: revisa los datos ingresados.\',\n  duration: 3500\n});',
+				error: 'window.UBITS.Toast.show({\n  type: \'error\',\n  message: \'Error al procesar la solicitud.\',\n  duration: 3500\n});',
+				noClose: 'window.UBITS.Toast.show({\n  type: \'success\',\n  message: \'Operación completada.\',\n  noClose: true,\n  duration: 0\n});',
 			},
 			variants: {
 				type: ['success', 'info', 'warning', 'error'],

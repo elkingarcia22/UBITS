@@ -35,6 +35,7 @@ const meta: Meta<ButtonOptions> = {
 				optional: ['🧩-ux-icon', '🧩-ux-tooltip'], // Iconos y tooltips son opcionales
 			},
 			internals: [], // Button no tiene componentes internos privados
+			slots: {}, // Button no tiene slots públicos
 			tokensUsed: [
 				'--modifiers-normal-color-light-accent-brand',
 				'--modifiers-normal-color-light-bg-active-button',

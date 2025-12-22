@@ -37,6 +37,7 @@ const meta: Meta<AccordionOptions> = {
 				optional: ['🧩-ux-icon'], // Iconos son opcionales
 			},
 			internals: [], // Accordion no tiene componentes internos privados
+			slots: {}, // Accordion no tiene slots públicos
 			tokensUsed: [
 				'--modifiers-normal-color-light-bg-1',
 				'--modifiers-normal-color-light-bg-2',
@@ -52,11 +53,45 @@ const meta: Meta<AccordionOptions> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: 'window.UBITS.Accordion.create({\\n  items: [\\n    { id: \'1\', title: \'Pregunta 1\', content: \'Respuesta 1\' },\\n    { id: \'2\', title: \'Pregunta 2\', content: \'Respuesta 2\' }\\n  ],\\n  variant: \'list\',\\n  chevronPosition: \'right\',\\n  onToggle: function(itemId) {}\\n});',
-				basic: 'window.UBITS.Accordion.create({\\n  items: [\\n    { id: \'1\', title: \'Pregunta 1\', content: \'Respuesta 1\' },\\n    { id: \'2\', title: \'Pregunta 2\', content: \'Respuesta 2\' }\\n  ],\\n  variant: \'list\',\\n  chevronPosition: \'right\'\\n});',
-				boxed: 'window.UBITS.Accordion.create({\\n  items: [\\n    { id: \'1\', title: \'Pregunta 1\', content: \'Respuesta 1\' }\\n  ],\\n  variant: \'boxed\',\\n  chevronPosition: \'right\'\\n});',
-				withIcons: 'window.UBITS.Accordion.create({\\n  items: [\\n    { id: \'1\', title: \'Pregunta 1\', content: \'Respuesta 1\', icon: \'circle-question\' }\\n  ],\\n  variant: \'list\',\\n  showIcons: true\\n});',
-				multiple: 'window.UBITS.Accordion.create({\\n  items: [\\n    { id: \'1\', title: \'Pregunta 1\', content: \'Respuesta 1\' },\\n    { id: \'2\', title: \'Pregunta 2\', content: \'Respuesta 2\' }\\n  ],\\n  variant: \'list\',\\n  allowMultiple: true\\n});',
+				canonical: `window.UBITS.Accordion.create({
+  items: [
+    { id: '1', title: 'Pregunta 1', content: 'Respuesta 1' },
+    { id: '2', title: 'Pregunta 2', content: 'Respuesta 2' }
+  ],
+  variant: 'list',
+  chevronPosition: 'right',
+  onToggle: (itemId) => {}
+});`,
+				basic: `window.UBITS.Accordion.create({
+  items: [
+    { id: '1', title: 'Pregunta 1', content: 'Respuesta 1' },
+    { id: '2', title: 'Pregunta 2', content: 'Respuesta 2' }
+  ],
+  variant: 'list',
+  chevronPosition: 'right'
+});`,
+				boxed: `window.UBITS.Accordion.create({
+  items: [
+    { id: '1', title: 'Pregunta 1', content: 'Respuesta 1' }
+  ],
+  variant: 'boxed',
+  chevronPosition: 'right'
+});`,
+				withIcons: `window.UBITS.Accordion.create({
+  items: [
+    { id: '1', title: 'Pregunta 1', content: 'Respuesta 1', icon: 'circle-question' }
+  ],
+  variant: 'list',
+  showIcons: true
+});`,
+				multiple: `window.UBITS.Accordion.create({
+  items: [
+    { id: '1', title: 'Pregunta 1', content: 'Respuesta 1' },
+    { id: '2', title: 'Pregunta 2', content: 'Respuesta 2' }
+  ],
+  variant: 'list',
+  allowMultiple: true
+});`,
 			},
 			variants: {
 				variant: ['list', 'boxed'],

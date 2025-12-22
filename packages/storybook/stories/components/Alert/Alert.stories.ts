@@ -34,6 +34,7 @@ const meta: Meta<AlertOptions> = {
 				optional: ['🧩-ux-button'], // Botón de acción es opcional
 			},
 			internals: [], // Alert no tiene componentes internos privados
+			slots: {}, // Alert no tiene slots públicos
 			tokensUsed: [
 				'--modifiers-normal-color-light-bg-1',
 				'--modifiers-normal-color-light-feedback-bg-success-subtle-default',
@@ -49,12 +50,12 @@ const meta: Meta<AlertOptions> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: "window.UBITS.Alert.create({\\n  type: 'success',\\n  message: 'Los cambios se han guardado correctamente.',\\n  closable: true,\\n  onClose: function() {}\\n});",
-				basic: "window.UBITS.Alert.create({\\n  type: 'success',\\n  message: 'Los cambios se han guardado correctamente.',\\n  closable: true\\n});",
-				info: "window.UBITS.Alert.create({\\n  type: 'info',\\n  message: 'Información importante para el usuario.',\\n  closable: true\\n});",
-				warning: "window.UBITS.Alert.create({\\n  type: 'warning',\\n  message: 'Advertencia: revisa los datos ingresados.',\\n  closable: true\\n});",
-				error: "window.UBITS.Alert.create({\\n  type: 'error',\\n  message: 'Error al procesar la solicitud.',\\n  closable: true\\n});",
-				notClosable: "window.UBITS.Alert.create({\\n  type: 'success',\\n  message: 'Operación completada.',\\n  closable: false\\n});",
+				canonical: 'window.UBITS.Alert.create({\n  type: \'success\',\n  message: \'Los cambios se han guardado correctamente.\',\n  closable: true,\n  onClose: () => {}\n});',
+				basic: 'window.UBITS.Alert.create({\n  type: \'success\',\n  message: \'Los cambios se han guardado correctamente.\',\n  closable: true\n});',
+				info: 'window.UBITS.Alert.create({\n  type: \'info\',\n  message: \'Información importante para el usuario.\',\n  closable: true\n});',
+				warning: 'window.UBITS.Alert.create({\n  type: \'warning\',\n  message: \'Advertencia: revisa los datos ingresados.\',\n  closable: true\n});',
+				error: 'window.UBITS.Alert.create({\n  type: \'error\',\n  message: \'Error al procesar la solicitud.\',\n  closable: true\n});',
+				notClosable: 'window.UBITS.Alert.create({\n  type: \'success\',\n  message: \'Operación completada.\',\n  closable: false\n});',
 			},
 			variants: {
 				type: ['success', 'info', 'warning', 'error'],
