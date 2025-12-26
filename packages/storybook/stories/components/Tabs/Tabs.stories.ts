@@ -1,9 +1,3 @@
-import type { Meta, StoryObj } from '@storybook/html';
-import { renderTabs, createTabs } from '../../../components/tabs/src/TabsProvider';
-import type { TabsOptions, TabItem } from '../../../components/tabs/src/types/TabsOptions';
-import { createUBITSContract } from '../../_shared/ubitsContract';
-import '../../../components/tabs/src/styles/tabs.css';
-
 /**
  * Tabs Component Stories
  *
@@ -11,6 +5,12 @@ import '../../../components/tabs/src/styles/tabs.css';
  * El tab activo muestra fondo blanco, icono oscuro, texto en negrita
  * y una línea vertical rosa a la izquierda.
  */
+
+import type { Meta, StoryObj } from '@storybook/html';
+import { renderTabs, createTabs } from '../../../components/tabs/src/TabsProvider';
+import type { TabsOptions, TabItem } from '../../../components/tabs/src/types/TabsOptions';
+import { createUBITSContract } from '../../_shared/ubitsContract';
+import '../../../components/tabs/src/styles/tabs.css';
 const meta = {
   title: 'Navegación/Tabs',
   tags: ['autodocs'],
