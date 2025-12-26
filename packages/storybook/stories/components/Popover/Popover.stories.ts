@@ -240,12 +240,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `const popoverInstance = window.UBITS.Popover.create({
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `const popoverInstance = window.UBITS.Popover.create({
   title: 'Información adicional',
   bodyContent: '<p>Este es el contenido del popover con información contextual.</p>',
   width: 'md',
@@ -262,8 +262,8 @@ export const Implementation: Story = {
   closeOnOutsideClick: true,
   open: true
 });`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

@@ -267,12 +267,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Crear contenedor HTML
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Crear contenedor HTML
 <div id="checkbox-implementation-container"></div>
 
 // 2. Crear checkbox
@@ -287,8 +287,8 @@ window.UBITS.Checkbox.create({
   state: 'default',
   disabled: false
 });`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

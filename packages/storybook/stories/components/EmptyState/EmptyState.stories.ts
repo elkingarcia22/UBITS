@@ -300,12 +300,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// Opción 1: Usar createEmptyState (retorna elemento)
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// Opción 1: Usar createEmptyState (retorna elemento)
 const emptyStateElement = window.UBITS.EmptyState.create({
   title: 'No hay elementos',
   description: 'No se encontraron elementos para mostrar.',
@@ -326,8 +326,8 @@ const emptyStateHTML = window.UBITS.EmptyState.render({
   showPrimaryButton: true
 });
 document.getElementById('container').innerHTML = emptyStateHTML;`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

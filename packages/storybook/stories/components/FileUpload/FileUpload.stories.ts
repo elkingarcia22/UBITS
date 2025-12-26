@@ -308,12 +308,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Crear contenedor HTML
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Crear contenedor HTML
 <div id="fileupload-implementation-container"></div>
 
 // 2. Crear file upload
@@ -330,8 +330,8 @@ window.UBITS.FileUpload.create({
   showProgress: true,
   showActions: true
 });`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

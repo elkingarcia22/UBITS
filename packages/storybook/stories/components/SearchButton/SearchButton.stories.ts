@@ -242,12 +242,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Crear contenedor HTML
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Crear contenedor HTML
 <div id="searchbutton-implementation-container"></div>
 
 // 2. Crear search button
@@ -261,8 +261,8 @@ window.UBITS.SearchButton.create({
   value: '',
   width: 248
 });`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

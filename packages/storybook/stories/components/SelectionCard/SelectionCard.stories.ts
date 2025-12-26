@@ -261,12 +261,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Importar funciones (si usas módulos)
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Importar funciones (si usas módulos)
 // import { createSelectionCard, renderSelectionCard, loadSelectionCards } from '@ubits/selection-card';
 
 // 2. Crear SelectionCard individual
@@ -340,8 +340,8 @@ if (container) {
 //     console.log('Card clickeada:', card);
 //   }
 // });`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

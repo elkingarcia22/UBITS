@@ -262,12 +262,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Crear ProgressBar (variante default)
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Crear ProgressBar (variante default)
 const progressBarInstance = window.createProgressBar({
   containerId: 'progress-bar-container',
   size: 'md', // 'xs' | 'sm' | 'md' | 'lg'
@@ -316,8 +316,8 @@ const container = document.getElementById('progress-bar-container');
 if (container) {
   container.innerHTML = progressBarHTML;
 }`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		// Crear contenedor

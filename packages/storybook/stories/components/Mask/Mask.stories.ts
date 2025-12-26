@@ -222,12 +222,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Crear elemento objetivo (ejemplo: un botón)
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Crear elemento objetivo (ejemplo: un botón)
 <button id="target-button">Botón Destacado</button>
 
 // 2. Crear Mask
@@ -271,8 +271,8 @@ maskInstance.updateTarget('#nuevo-boton');
 
 // Ejemplo: Cerrar la máscara
 maskInstance.close();`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		// Crear contenido de ejemplo

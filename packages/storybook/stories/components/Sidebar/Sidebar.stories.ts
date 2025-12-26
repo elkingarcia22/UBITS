@@ -208,12 +208,12 @@ export const Implementation: Story = {
 	} as SidebarOptions & { variant?: SidebarVariant; activeButton?: string },
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Crear contenedor HTML
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Crear contenedor HTML
 <div id="sidebar-implementation-container" style="position: relative; width: 96px; height: 650px;"></div>
 
 // 2. Crear sidebar con configuración explícita
@@ -242,8 +242,8 @@ window.UBITS.Sidebar.create({
   darkModeEnabled: true,
   height: 650
 });`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		console.log('🔵 [Sidebar Implementation] Render iniciado', { containerId: args.containerId, variant: args.variant });

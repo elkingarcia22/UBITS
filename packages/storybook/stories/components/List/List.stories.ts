@@ -205,12 +205,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Crear contenedor HTML
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Crear contenedor HTML
 <div id="list-implementation-container"></div>
 
 // 2. Crear lista
@@ -233,8 +233,8 @@ window.UBITS.List.create({
   showScrollbar: false,
   multiple: false
 });`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

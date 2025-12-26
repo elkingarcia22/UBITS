@@ -245,12 +245,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// Opción 1: Usar createChip (retorna elemento)
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// Opción 1: Usar createChip (retorna elemento)
 const chipElement = window.UBITS.Chip.create({
   label: 'Etiqueta',
   size: 'md',
@@ -269,8 +269,8 @@ const chipHTML = window.UBITS.Chip.render({
   closable: false
 });
 document.getElementById('container').innerHTML = chipHTML;`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

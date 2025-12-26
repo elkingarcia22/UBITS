@@ -632,10 +632,9 @@ export const Implementation: Story = {
     docs: {
       source: {
         // ⭐ SNIPPET EXACTO para Autorun
-        
-				type: 'code',
-				state: 'open',
-				code: `// 1. Crear contenedor HTML
+        type: 'code',
+        state: 'open',
+        code: `// 1. Crear contenedor HTML
 <div id="datatable-implementation-container"></div>
 
 // 2. Crear DataTable con configuración completa

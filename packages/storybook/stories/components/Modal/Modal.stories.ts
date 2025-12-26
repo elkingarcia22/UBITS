@@ -229,12 +229,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `window.UBITS.Modal.create({
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `window.UBITS.Modal.create({
   title: 'Confirmar acción',
   size: 'md',
   fullScreen: false,
@@ -256,8 +256,8 @@ export const Implementation: Story = {
   closeOnOverlayClick: true,
   open: true
 });`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		// Limpiar cualquier modal existente antes de crear uno nuevo

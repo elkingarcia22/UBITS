@@ -244,11 +244,11 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				type: 'code',
-				state: 'open',
-				// ⭐ SNIPPET EXACTO para Autorun
-				code: `// 1. Crear contenedor HTML
+      source: {
+        type: 'code',
+        state: 'open',
+        // ⭐ SNIPPET EXACTO para Autorun
+        code: `// 1. Crear contenedor HTML
 <div id="accordion-implementation-container"></div>
 
 // 2. Crear accordion
@@ -277,8 +277,8 @@ window.UBITS.Accordion.create(
     showIcons: true
   }
 );`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		try {

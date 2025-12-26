@@ -233,12 +233,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// Opción 1: Usar createBadge (retorna elemento)
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// Opción 1: Usar createBadge (retorna elemento)
 const badgeElement = window.UBITS.Badge.create({
   type: 'number',
   variant: 'error',
@@ -259,8 +259,8 @@ const badgeHTML = window.UBITS.Badge.render({
   content: '5'
 });
 document.getElementById('container').innerHTML = badgeHTML;`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		console.log('🔵 [Badge Implementation] Render iniciado', {

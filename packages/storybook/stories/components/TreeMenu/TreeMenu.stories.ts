@@ -1092,9 +1092,9 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {type: 'code',
-				state: 'open',
-				code: `
+      source: {type: 'code',
+        state: 'open',
+        code: `
 // Función helper para renderizar TreeMenu
 function renderTreeMenu(options) {
   const {
@@ -1151,9 +1151,9 @@ function renderTreeMenu(options) {
 // Nota: renderTreeMenu retorna HTML string directamente
 // Los estilos se deben agregar manualmente o desde un archivo CSS
 // La funcionalidad de expandir/colapsar se debe inicializar manualmente
-				`,
-			},
-		},
+        `,
+      },
+    },
 	},
 };
 

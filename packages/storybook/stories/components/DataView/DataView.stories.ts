@@ -426,12 +426,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Importar funciones (si usas módulos)
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Importar funciones (si usas módulos)
 // import { createDataView, renderDataView } from '@ubits/data-view';
 
 // 2. Crear DataView
@@ -516,8 +516,8 @@ const container = document.getElementById('data-view-container');
 if (container) {
   container.innerHTML = dataViewHTML;
 }`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const {

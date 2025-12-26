@@ -216,12 +216,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Crear contenedor HTML
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Crear contenedor HTML
 <div id="tabs-implementation-container"></div>
 
 // 2. Crear Tabs
@@ -240,8 +240,8 @@ window.UBITS.Tabs.create({
 }, 'tabs-implementation-container');
 
 // Nota: El número de tabs se puede ajustar con el control 'tabCount' en Storybook`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		// Generar tabs según los controles - SIEMPRE regenerar basándose en showIcons y tabCount

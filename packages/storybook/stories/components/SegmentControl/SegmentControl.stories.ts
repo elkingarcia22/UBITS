@@ -219,12 +219,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Crear contenedor HTML
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Crear contenedor HTML
 <div id="segment-control-implementation-container"></div>
 
 // 2. Crear Segment Control
@@ -244,8 +244,8 @@ window.UBITS.SegmentControl.create({
 
 // Nota: Los iconos son opcionales. Si no se proporcionan, solo se mostrará el texto.
 // Para segmentos sin iconos, omitir la propiedad 'icon' o pasar undefined.`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		// Generar segmentos según los controles (igual que Default)

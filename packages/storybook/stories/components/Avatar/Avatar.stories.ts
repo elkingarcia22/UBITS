@@ -223,12 +223,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// Opción 1: Usar createAvatar (retorna elemento)
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// Opción 1: Usar createAvatar (retorna elemento)
 const avatarElement = window.UBITS.Avatar.create({
   initials: 'JD',
   size: 'md',
@@ -243,8 +243,8 @@ const avatarHTML = window.UBITS.Avatar.render({
   alt: 'Avatar'
 });
 document.getElementById('container').innerHTML = avatarHTML;`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

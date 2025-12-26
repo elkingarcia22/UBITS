@@ -192,12 +192,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// Opción 1: Usar createSpinner (retorna elemento)
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// Opción 1: Usar createSpinner (retorna elemento)
 const spinnerElement = window.UBITS.Spinner.create({
   size: 'md',
   variant: 'primary',
@@ -216,8 +216,8 @@ const spinnerHTML = window.UBITS.Spinner.render({
   fullScreen: false
 });
 document.getElementById('container').innerHTML = spinnerHTML;`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

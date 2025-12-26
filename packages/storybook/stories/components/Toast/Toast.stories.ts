@@ -216,12 +216,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// Opción 1: Usar showToast (recomendado - maneja contenedor automáticamente)
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// Opción 1: Usar showToast (recomendado - maneja contenedor automáticamente)
 window.UBITS.Toast.show('success', 'Los cambios se han guardado correctamente.', {
   title: 'Operación completada',
   duration: 3500,
@@ -240,8 +240,8 @@ const toastElement = window.UBITS.Toast.create({
 });
 const container = document.getElementById('ubits-toast-container') || document.body;
 container.appendChild(toastElement);`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

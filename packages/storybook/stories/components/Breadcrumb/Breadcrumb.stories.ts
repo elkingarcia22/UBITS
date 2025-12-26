@@ -193,12 +193,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Crear contenedor HTML
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Crear contenedor HTML
 <div id="breadcrumb-implementation-container"></div>
 
 // 2. Crear Breadcrumb
@@ -215,8 +215,8 @@ window.UBITS.Breadcrumb.create({
     console.log('Item clickeado:', itemId);
   }
 }, 'breadcrumb-implementation-container');`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

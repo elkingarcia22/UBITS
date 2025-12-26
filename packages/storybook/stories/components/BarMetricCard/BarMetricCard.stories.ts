@@ -457,12 +457,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Importar funciones (si usas módulos)
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Importar funciones (si usas módulos)
 // import { createBarMetricCard, renderBarMetricCard } from '@ubits/bar-metric-card';
 
 // 2. Crear contenedor HTML
@@ -547,8 +547,8 @@ if (container) {
     cardElement.addEventListener('click', onClick);
   }
 }`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

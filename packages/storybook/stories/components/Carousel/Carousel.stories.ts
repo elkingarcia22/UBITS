@@ -413,12 +413,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Crear contenedor HTML
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Crear contenedor HTML
 <div id="carousel-implementation-container"></div>
 
 // 2. Crear Carousel
@@ -495,8 +495,8 @@ if (container) {
 
 // Nota: createCarousel retorna un HTMLElement directamente
 // Los items del carrusel son SimpleCards que pueden incluir Buttons opcionales`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

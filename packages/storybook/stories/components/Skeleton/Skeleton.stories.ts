@@ -196,12 +196,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// Opción 1: Usar createSkeleton (retorna elemento)
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// Opción 1: Usar createSkeleton (retorna elemento)
 const skeletonElement = window.UBITS.Skeleton.create({
   variant: 'text',
   size: 'md',
@@ -236,8 +236,8 @@ const rectangleSkeleton = window.UBITS.Skeleton.create({
   height: 200,
   animated: true
 });`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

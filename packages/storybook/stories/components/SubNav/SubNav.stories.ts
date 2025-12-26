@@ -188,12 +188,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Crear contenedor HTML
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Crear contenedor HTML
 <div id="subnav-implementation-container"></div>
 
 // 2. Crear SubNav
@@ -206,8 +206,8 @@ window.UBITS.SubNav.create({
     console.log('Tab cambiado:', tabId);
   }
 });`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		console.log('🔵 [SubNav Implementation] Render iniciado', { 

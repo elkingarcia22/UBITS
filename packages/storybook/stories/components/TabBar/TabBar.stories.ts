@@ -358,12 +358,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Crear contenedor HTML
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Crear contenedor HTML
 <div id="tabbar-implementation-container" style="position: relative; width: 100%; min-height: 576px;"></div>
 
 // 2. Crear TabBar con configuración explícita
@@ -436,8 +436,8 @@ window.UBITS.TabBar.create({
     console.log('Dark mode toggled:', isDark);
   }
 });`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

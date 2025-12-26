@@ -234,12 +234,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `window.UBITS.Drawer.create({
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `window.UBITS.Drawer.create({
   title: 'Filtros',
   complementaryText: 'Aplica filtros para refinar los resultados',
   width: 40,
@@ -261,8 +261,8 @@ export const Implementation: Story = {
   closeOnOverlayClick: true,
   open: true
 });`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		// Limpiar cualquier drawer existente antes de crear uno nuevo

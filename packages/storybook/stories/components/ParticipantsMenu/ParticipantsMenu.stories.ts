@@ -339,12 +339,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Crear contenedor HTML
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Crear contenedor HTML
 <div id="participants-menu-implementation-container"></div>
 
 // 2. Datos de participantes (ejemplo)
@@ -451,8 +451,8 @@ const participantsMenu = window.UBITS.ParticipantsMenu.create({
 // - participantsMenu.update(newOptions): Método para actualizar el menú
 // - participantsMenu.updateParticipantsList(participants, selectedParticipantId?): Método para actualizar solo la lista
 // - participantsMenu.destroy(): Método para destruir el menú`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

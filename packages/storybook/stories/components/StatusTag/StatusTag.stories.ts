@@ -259,12 +259,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// Opción 1: Usar createStatusTag (retorna elemento)
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// Opción 1: Usar createStatusTag (retorna elemento)
 const statusTagElement = window.UBITS.StatusTag.create({
   label: 'Completado',
   size: 'md',
@@ -281,8 +281,8 @@ const statusTagHTML = window.UBITS.StatusTag.render({
   clickable: false
 });
 document.getElementById('container').innerHTML = statusTagHTML;`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

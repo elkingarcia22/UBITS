@@ -245,12 +245,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Importar funciones (si usas módulos)
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Importar funciones (si usas módulos)
 // import { createButtonAI, renderButtonAI } from '@ubits/button-ai';
 
 // 2. Crear ButtonAI
@@ -298,8 +298,8 @@ if (container) {
     buttonElement.addEventListener('click', onClick);
   }
 }`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

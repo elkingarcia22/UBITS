@@ -256,12 +256,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `const tooltipInstance = window.UBITS.Tooltip.create({
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `const tooltipInstance = window.UBITS.Tooltip.create({
   title: 'Información útil',
   showTitle: true,
   description: 'Este es un tooltip con información contextual.',
@@ -272,8 +272,8 @@ export const Implementation: Story = {
   showPrimaryButton: false,
   open: true
 });`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		console.log('🔵 [Tooltip Implementation] Render iniciado', {

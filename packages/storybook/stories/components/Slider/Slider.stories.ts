@@ -363,12 +363,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Crear contenedor HTML
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Crear contenedor HTML
 <div id="slider-implementation-container"></div>
 
 // 2. Crear Slider (modo single)
@@ -429,8 +429,8 @@ const sliderWithMarks = window.UBITS.Slider.create({
   marks: [0, 25, 50, 75, 100],
   showInputs: true
 });`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

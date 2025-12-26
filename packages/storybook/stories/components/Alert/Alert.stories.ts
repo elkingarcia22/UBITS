@@ -188,11 +188,11 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				type: 'code',
-				state: 'open', // Mostrar código automáticamente
-				// ⭐ SNIPPET EXACTO para Autorun
-				code: `// 1. Crear contenedor HTML
+      source: {
+        type: 'code',
+        state: 'open', // Mostrar código automáticamente
+        // ⭐ SNIPPET EXACTO para Autorun
+        code: `// 1. Crear contenedor HTML
 <div id="alert-implementation-container"></div>
 
 // 2. Crear alert
@@ -205,9 +205,9 @@ const alertElement = window.UBITS.Alert.create({
 
 // 3. Agregar al contenedor
 document.getElementById('alert-implementation-container').appendChild(alertElement);`,
-			},
-			codePanel: true, // Panel de código siempre visible
-		},
+      },
+      codePanel: true, // Panel de código siempre visible
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

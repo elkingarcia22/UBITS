@@ -575,12 +575,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// Timeline no tiene un componente separado, se implementa directamente
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// Timeline no tiene un componente separado, se implementa directamente
 // Este es un ejemplo de cómo implementar Timeline usando HTML y CSS con tokens UBITS
 
 // 1. Crear contenedor HTML
@@ -639,8 +639,8 @@ const avatarHTMLExample = window.UBITS.Avatar.render({
 // const markerWithAvatar = '<div class="ubits-timeline-marker ubits-timeline-marker--avatar">' + avatarHTMLExample + '</div>';
 
 // Nota: Timeline requiere CSS personalizado. Ver estilos en el archivo Timeline.stories.ts`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		// Asegurar que avatar e icono sean mutuamente excluyentes

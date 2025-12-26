@@ -402,12 +402,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Importar funciones (si usas módulos)
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Importar funciones (si usas módulos)
 // import { createProgressGeneralCard, renderProgressGeneralCard } from '@ubits/progress-general-card';
 
 // 2. Crear contenedor HTML
@@ -484,8 +484,8 @@ if (container) {
     cardElement.addEventListener('click', onClick);
   }
 }`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		// Construir las categorías desde los args

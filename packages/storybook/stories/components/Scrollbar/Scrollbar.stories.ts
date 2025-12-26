@@ -138,12 +138,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Crear elemento scrollable
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Crear elemento scrollable
 <div id="scrollable-container" style="
   width: 400px;
   height: 300px;
@@ -191,8 +191,8 @@ const scrollbarHorizontal = window.createScrollbar({
 // Nota: El scrollbar se sincroniza automáticamente con el elemento scrollable.
 // Aparece en hover y se adapta al tamaño del contenido.
 // Soporta arrastrar y clic para navegar.`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');

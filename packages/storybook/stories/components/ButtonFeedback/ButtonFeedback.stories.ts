@@ -251,12 +251,12 @@ export const Implementation: Story = {
 	},
 	parameters: {
 		docs: {
-			source: {
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
-				state: 'open',
-				code: `// 1. Importar función (si usas módulos)
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        
+        type: 'code',
+        state: 'open',
+        code: `// 1. Importar función (si usas módulos)
 // import { createButtonFeedback } from '@ubits/button-feedback';
 
 // 2. Crear ButtonFeedback
@@ -309,8 +309,8 @@ feedbackButtonInstance.close();
 
 // Ejemplo: Destruir el componente
 feedbackButtonInstance.destroy();`,
-			},
-		},
+      },
+    },
 	},
 	render: (args) => {
 		const container = document.createElement('div');
