@@ -28,7 +28,7 @@ const meta: Meta<
         component:
           'Componente Slider UBITS con soporte para orientación horizontal/vertical, modo single/range, inputs opcionales, marcas, y todos los tamaños y estados.
 
-```html
+\`\`\`html
 // 1. Crear contenedor HTML
 <div id="slider-implementation-container"></div>
 
@@ -90,7 +90,7 @@ const sliderWithMarks = window.UBITS.Slider.create({
   marks: [0, 25, 50, 75, 100],
   showInputs: true
 });
-```',
+\`\`\`',
       },
     },
     ubits: createUBITSContract({

@@ -21,7 +21,7 @@ const meta = {
         component:
           'Componente Spinner/Loader UBITS para mostrar estados de carga. Soporta múltiples tamaños, variantes de color y puede mostrarse con o sin etiqueta.
 
-```html
+\`\`\`html
 // Opción 1: Usar createSpinner (retorna elemento)
 const spinnerElement = window.UBITS.Spinner.create({
   size: 'md',
@@ -41,7 +41,7 @@ const spinnerHTML = window.UBITS.Spinner.render({
   fullScreen: false
 });
 document.getElementById('container').innerHTML = spinnerHTML;
-```',
+\`\`\`',
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

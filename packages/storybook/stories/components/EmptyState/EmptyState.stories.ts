@@ -26,7 +26,7 @@ const meta: Meta<EmptyStateOptions> = {
         component:
           'Componente Empty State UBITS para mostrar estados vacíos en la interfaz. Soporta imagen o icono, título, descripción y botones de acción.
 
-```html
+\`\`\`html
 // Opción 1: Usar createEmptyState (retorna elemento)
 const emptyStateElement = window.UBITS.EmptyState.create({
   title: 'No hay elementos',
@@ -48,7 +48,7 @@ const emptyStateHTML = window.UBITS.EmptyState.render({
   showPrimaryButton: true
 });
 document.getElementById('container').innerHTML = emptyStateHTML;
-```',
+\`\`\`',
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

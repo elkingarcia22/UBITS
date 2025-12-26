@@ -15,7 +15,7 @@ const meta: Meta<ButtonAIOptions> = {
         component:
           'Componente Button AI UBITS con estilo redondeado y gradación. Basado en Button de UBITS pero con bordes más redondeados (pill shape) y gradientes. Solo incluye variantes primary y secondary.
 
-```html
+\`\`\`html
 // 1. Importar funciones (si usas módulos)
 // import { createButtonAI, renderButtonAI } from '@ubits/button-ai';
 
@@ -64,7 +64,7 @@ if (container) {
     buttonElement.addEventListener('click', onClick);
   }
 }
-```',
+\`\`\`',
       },
     },
     ubits: createUBITSContract({

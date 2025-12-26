@@ -22,7 +22,7 @@ const meta: Meta<CheckboxOptions> = {
         component:
           'Componente Checkbox UBITS para selección múltiple. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.
 
-```html
+\`\`\`html
 // 1. Crear contenedor HTML
 <div id="checkbox-implementation-container"></div>
 
@@ -38,7 +38,7 @@ window.UBITS.Checkbox.create({
   state: 'default',
   disabled: false
 });
-```',
+\`\`\`',
       },
     },
     layout: 'centered',

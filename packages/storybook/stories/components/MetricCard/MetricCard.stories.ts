@@ -18,7 +18,7 @@ const meta: Meta<MetricCardOptions> = {
         component:
           'Componente MetricCard UBITS para mostrar métricas numéricas. Usa tokens UBITS para colores, tipografía y espaciado. Soporta iconos, tamaños y es completamente personalizable.
 
-```html
+\`\`\`html
 // 1. Importar funciones (si usas módulos)
 // import { createMetricCard, renderMetricCard } from '@ubits/metric-card';
 
@@ -67,7 +67,7 @@ if (container) {
     cardElement.addEventListener('click', onClick);
   }
 }
-```',
+\`\`\`',
       },
     },
     ubits: createUBITSContract({

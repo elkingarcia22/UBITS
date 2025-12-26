@@ -23,7 +23,7 @@ const meta = {
         component:
           'Componente SubNav UBITS de navegación superior horizontal con 8 variantes predefinidas. Muestra sub-navegaciones de los módulos principales con tabs personalizables, navegación por URL o callbacks, y soporte completo para dark mode. Se oculta en móvil y se reemplaza por tab-bar.
 
-```html
+\`\`\`html
 // 1. Crear contenedor HTML
 <div id="subnav-implementation-container"></div>
 
@@ -37,7 +37,7 @@ window.UBITS.SubNav.create({
     console.log('Tab cambiado:', tabId);
   }
 });
-```',
+\`\`\`',
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

@@ -26,7 +26,7 @@ const meta = {
         component:
           'Componente Menu UBITS de navegación lateral con secciones, items, shortcuts, badges e información de usuario. Usa tokens UBITS para colores, tipografía y espaciado.
 
-```html
+\`\`\`html
 // 1. Crear contenedor HTML
 <div id="menu-implementation-container"></div>
 
@@ -92,7 +92,7 @@ window.UBITS.Menu.create({
     console.log('Item activo cambiado:', itemId, sectionId);
   }
 });
-```',
+\`\`\`',
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

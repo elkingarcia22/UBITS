@@ -27,7 +27,7 @@ const meta: Meta<PaginationOptions> = {
         component:
           'Componente Pagination UBITS para paginación de datos usando tokens UBITS, tipografía UBITS y componentes UBITS. Ideal para tablas y listas de datos.
 
-```html
+\`\`\`html
 // 1. Crear contenedor HTML
 <div id="pagination-implementation-container"></div>
 
@@ -45,7 +45,7 @@ window.UBITS.Pagination.create({
   showInfo: false,
   showItemsPerPage: false
 });
-```',
+\`\`\`',
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

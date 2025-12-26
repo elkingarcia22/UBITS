@@ -86,7 +86,7 @@ const meta: Meta<
         component:
           'Componente DataView UBITS para mostrar listas de productos con imagen, categoría, nombre, rating, precio, botón de favoritos y botón de compra. Usa tokens UBITS para colores, tipografía y espaciado.
 
-```html
+\`\`\`html
 // 1. Importar funciones (si usas módulos)
 // import { createDataView, renderDataView } from '@ubits/data-view';
 
@@ -172,7 +172,7 @@ const container = document.getElementById('data-view-container');
 if (container) {
   container.innerHTML = dataViewHTML;
 }
-```',
+\`\`\`',
       },
     },
     layout: 'padded',

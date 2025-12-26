@@ -23,7 +23,7 @@ const meta: Meta<ToastOptions> = {
         component:
           'Componente Toast UBITS para mostrar notificaciones flotantes. Se posiciona en la parte superior central, tiene auto-cierre, pausa en hover, apilado máximo de 3, y soporta título, cuerpo y botón de acción opcional.
 
-```html
+\`\`\`html
 // Opción 1: Usar showToast (recomendado - maneja contenedor automáticamente)
 window.UBITS.Toast.show('success', 'Los cambios se han guardado correctamente.', {
   title: 'Operación completada',
@@ -43,7 +43,7 @@ const toastElement = window.UBITS.Toast.create({
 });
 const container = document.getElementById('ubits-toast-container') || document.body;
 container.appendChild(toastElement);
-```',
+\`\`\`',
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

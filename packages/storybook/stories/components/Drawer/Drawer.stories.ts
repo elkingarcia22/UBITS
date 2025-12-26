@@ -23,7 +23,7 @@ const meta: Meta<DrawerOptions> = {
         component:
           'Componente Drawer Navigation UBITS que se desliza desde la derecha de la pantalla. Ideal para formularios, filtros o vistas de detalle. Soporta diferentes anchos, un header con título y texto complementario, un body con contenido scrollable y un footer con botones de acción.
 
-```html
+\`\`\`html
 window.UBITS.Drawer.create({
   title: 'Filtros',
   complementaryText: 'Aplica filtros para refinar los resultados',
@@ -46,7 +46,7 @@ window.UBITS.Drawer.create({
   closeOnOverlayClick: true,
   open: true
 });
-```',
+\`\`\`',
       },
     },
     layout: 'fullscreen',

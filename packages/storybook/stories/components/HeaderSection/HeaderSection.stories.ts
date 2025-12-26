@@ -28,7 +28,7 @@ const meta = {
         component:
           'Componente HeaderSection UBITS para encabezados de sección con título (heading h2, fg-1-high), botón de información con tooltip (sm), y acciones (botones md). Todos los elementos son apagables/prendibles con controladores.
 
-```html
+\`\`\`html
 // 1. Crear contenedor HTML
 <div id="header-section-implementation-container"></div>
 
@@ -75,7 +75,7 @@ window.UBITS.HeaderSection.create({
   showActions: true,
   showBreadcrumb: false
 });
-```',
+\`\`\`',
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

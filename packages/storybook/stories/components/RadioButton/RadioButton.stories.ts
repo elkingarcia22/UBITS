@@ -25,7 +25,7 @@ const meta: Meta<RadioButtonOptions> = {
         component:
           'Componente Radio Button UBITS para selección única en grupos. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.
 
-```html
+\`\`\`html
 // 1. Crear contenedor HTML
 <div id="radiobutton-implementation-container"></div>
 
@@ -40,7 +40,7 @@ window.UBITS.RadioButton.create({
   state: 'default',
   disabled: false
 });
-```',
+\`\`\`',
       },
     },
     layout: 'centered',

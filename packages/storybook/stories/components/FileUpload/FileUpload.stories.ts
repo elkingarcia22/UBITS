@@ -30,7 +30,7 @@ const meta: Meta<FileUploadOptions> = {
         component:
           'Componente File Upload personalizado UBITS. Diseño moderno con dos vistas: Drop Zone (área de arrastrar y soltar con icono circular) y Files List (lista de archivos con progreso).
 
-```html
+\`\`\`html
 // 1. Crear contenedor HTML
 <div id="fileupload-implementation-container"></div>
 
@@ -48,7 +48,7 @@ window.UBITS.FileUpload.create({
   showProgress: true,
   showActions: true
 });
-```',
+\`\`\`',
       },
     },
     layout: 'fullscreen',

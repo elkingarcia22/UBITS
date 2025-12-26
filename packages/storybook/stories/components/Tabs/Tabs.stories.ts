@@ -22,7 +22,7 @@ const meta = {
         component:
           'Componente Tabs UBITS de navegación horizontal con soporte para iconos opcionales. El tab activo muestra fondo blanco, icono oscuro, texto en negrita y una línea vertical rosa a la izquierda. Los tabs inactivos muestran icono y texto en gris claro sin fondo.
 
-```html
+\`\`\`html
 // 1. Crear contenedor HTML
 <div id="tabs-implementation-container"></div>
 
@@ -42,7 +42,7 @@ window.UBITS.Tabs.create({
 }, 'tabs-implementation-container');
 
 // Nota: El número de tabs se puede ajustar con el control 'tabCount' en Storybook
-```',
+\`\`\`',
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

@@ -34,7 +34,7 @@ const meta: Meta<ExtendedStepperOptions> = {
       description: {
         component: 'Componente Stepper UBITS para mostrar el progreso de un proceso multi-paso. Soporta orientación horizontal y vertical, con estados: default, completado, activo, error y warning. Cada paso puede tener número, título y descripción.
 
-```html
+\`\`\`html
 // 1. Crear contenedor HTML
 <div id="stepper-implementation-container"></div>
 
@@ -102,7 +102,7 @@ const stepper = window.UBITS.Stepper.create({
 // - stepper.element: El elemento DOM del stepper
 // - stepper.update(newOptions): Método para actualizar el stepper
 // - stepper.destroy(): Método para destruir el stepper
-```',
+\`\`\`',
       },
     },
     layout: 'padded',

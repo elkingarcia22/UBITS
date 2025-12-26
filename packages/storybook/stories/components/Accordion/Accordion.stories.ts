@@ -25,7 +25,7 @@ const meta: Meta<AccordionOptions> = {
         component:
           'Componente Accordion UBITS con múltiples variantes: lista simple, tipo caja, chevron izquierda/derecha, iconos opcionales y sub-headers.
 
-```html
+\`\`\`html
 // 1. Crear contenedor HTML
 <div id="accordion-implementation-container"></div>
 
@@ -55,7 +55,7 @@ window.UBITS.Accordion.create(
     showIcons: true
   }
 );
-```',
+\`\`\`',
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

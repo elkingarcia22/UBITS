@@ -22,7 +22,7 @@ const meta: Meta<ToggleOptions> = {
         component:
           'Componente Toggle/Switch UBITS para activar/desactivar opciones. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.
 
-```html
+\`\`\`html
 // 1. Crear contenedor HTML
 <div id="toggle-implementation-container"></div>
 
@@ -37,7 +37,7 @@ window.UBITS.Toggle.create({
   state: 'default',
   disabled: false
 });
-```',
+\`\`\`',
       },
     },
     layout: 'centered',

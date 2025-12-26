@@ -28,7 +28,7 @@ const meta: Meta<
         component:
           'Componente Sidebar UBITS de navegación lateral con 2 variantes (colaborador y admin). Incluye tooltips internos, menú de perfil interno, dark mode toggle y ajuste dinámico de altura. Ancho fijo 96px.
 
-```html
+\`\`\`html
 // 1. Crear contenedor HTML
 <div id="sidebar-implementation-container" style="position: relative; width: 96px; height: 650px;"></div>
 
@@ -58,7 +58,7 @@ window.UBITS.Sidebar.create({
   darkModeEnabled: true,
   height: 650
 });
-```',
+\`\`\`',
       },
     },
     layout: 'fullscreen',

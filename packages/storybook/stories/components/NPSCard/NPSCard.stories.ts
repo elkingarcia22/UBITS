@@ -30,7 +30,7 @@ const meta: Meta<
         component:
           'Componente NPSCard UBITS para mostrar métricas NPS (Net Promoter Score) con gauge semicircular. Incluye segmentos de color (rojo, amarillo, verde), aguja indicadora, categorías con porcentajes y contador de respuestas. Usa tokens UBITS para colores, tipografía y espaciado.
 
-```html
+\`\`\`html
 // 1. Importar funciones (si usas módulos)
 // import { createNPSCard, renderNPSCard } from '@ubits/nps-card';
 
@@ -114,7 +114,7 @@ if (container) {
     cardElement.addEventListener('click', onClick);
   }
 }
-```',
+\`\`\`',
       },
     },
     ubits: createUBITSContract({

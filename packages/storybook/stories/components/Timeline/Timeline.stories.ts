@@ -35,7 +35,7 @@ const meta: Meta<{
         component:
           'Componente Timeline UBITS para mostrar secuencias de eventos o fases. Soporta avatar, fecha, título, descripción, iconos y alineación izquierda o centrada. Usa tokens UBITS.
 
-```html
+\`\`\`html
 // Timeline no tiene un componente separado, se implementa directamente
 // Este es un ejemplo de cómo implementar Timeline usando HTML y CSS con tokens UBITS
 
@@ -95,7 +95,7 @@ const avatarHTMLExample = window.UBITS.Avatar.render({
 // const markerWithAvatar = '<div class="ubits-timeline-marker ubits-timeline-marker--avatar">' + avatarHTMLExample + '</div>';
 
 // Nota: Timeline requiere CSS personalizado. Ver estilos en el archivo Timeline.stories.ts
-```',
+\`\`\`',
       },
     },
     ubits: createUBITSContract({

@@ -22,7 +22,7 @@ const meta: Meta<CardData> = {
         component:
           'Componente Card Content UBITS para mostrar contenido de aprendizaje. Soporta 11 tipos de contenido, 35 competencias oficiales, 18 proveedores, 3 niveles, 3 idiomas, y 3 estados (default, progress, completed).
 
-```html
+\`\`\`html
 // 1. Importar funciones (si usas módulos)
 // import { createCard, renderCardContent } from '@ubits/card';
 
@@ -78,7 +78,7 @@ if (container) {
 //     console.log('Card clickeada:', card);
 //   }
 // });
-```',
+\`\`\`',
       },
     },
     ubits: createUBITSContract({

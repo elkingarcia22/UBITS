@@ -30,7 +30,7 @@ const meta: Meta<ParticipantsMenuOptions> = {
         component:
           'Componente de menú lateral UBITS para mostrar una lista de participantes. Incluye búsqueda, filtro y lista de participantes con avatar, nombre, rol y estado.
 
-```html
+\`\`\`html
 // 1. Crear contenedor HTML
 <div id="participants-menu-implementation-container"></div>
 
@@ -138,7 +138,7 @@ const participantsMenu = window.UBITS.ParticipantsMenu.create({
 // - participantsMenu.update(newOptions): Método para actualizar el menú
 // - participantsMenu.updateParticipantsList(participants, selectedParticipantId?): Método para actualizar solo la lista
 // - participantsMenu.destroy(): Método para destruir el menú
-```',
+\`\`\`',
       },
     },
     layout: 'fullscreen',

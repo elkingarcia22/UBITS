@@ -23,7 +23,7 @@ const meta: Meta<ListOptions> = {
         component:
           'Componente List UBITS para mostrar listas de items con estados (default, hover, active, disabled). Soporta 4 tamaños (xs, sm, md, lg), scrollbar personalizado UBITS, navegación por teclado y selección simple o múltiple.
 
-```html
+\`\`\`html
 // 1. Crear contenedor HTML
 <div id="list-implementation-container"></div>
 
@@ -47,7 +47,7 @@ window.UBITS.List.create({
   showScrollbar: false,
   multiple: false
 });
-```',
+\`\`\`',
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

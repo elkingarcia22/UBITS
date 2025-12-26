@@ -15,7 +15,7 @@ const meta: Meta<ScrollOptions> = {
         component:
           'Componente Scrollbar personalizado UBITS. Se usa para crear scrollbars personalizados en elementos scrollable. Soporta orientación vertical y horizontal. Se sincroniza automáticamente con el elemento scrollable asociado. Aparece en hover y se adapta al tamaño del contenido. Soporta arrastrar y clic para navegar.
 
-```html
+\`\`\`html
 // 1. Crear elemento scrollable
 <div id="scrollable-container" style="
   width: 400px;
@@ -64,7 +64,7 @@ const scrollbarHorizontal = window.createScrollbar({
 // Nota: El scrollbar se sincroniza automáticamente con el elemento scrollable.
 // Aparece en hover y se adapta al tamaño del contenido.
 // Soporta arrastrar y clic para navegar.
-```',
+\`\`\`',
       },
     },
     layout: 'fullscreen',

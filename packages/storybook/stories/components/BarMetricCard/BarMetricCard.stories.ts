@@ -34,7 +34,7 @@ const meta: Meta<
         component:
           'Componente BarMetricCard UBITS para mostrar métricas con gráfico de barras y categorías. Soporta layout vertical y horizontal, múltiples tamaños y controles completos para personalización. Usa tokens UBITS para colores, tipografía y espaciado.
 
-```html
+\`\`\`html
 // 1. Importar funciones (si usas módulos)
 // import { createBarMetricCard, renderBarMetricCard } from '@ubits/bar-metric-card';
 
@@ -120,7 +120,7 @@ if (container) {
     cardElement.addEventListener('click', onClick);
   }
 }
-```',
+\`\`\`',
       },
     },
     ubits: createUBITSContract({

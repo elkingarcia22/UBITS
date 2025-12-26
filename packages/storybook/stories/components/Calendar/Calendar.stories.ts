@@ -29,7 +29,7 @@ const meta = {
         component:
           'Componente Calendar UBITS con selección única y por rango de fechas. Usa tokens UBITS, componentes Button, Input y List para una experiencia consistente.
 
-```html
+\`\`\`html
 // 1. Crear contenedor HTML
 <div id="calendar-implementation-container"></div>
 
@@ -70,7 +70,7 @@ const calendarRange = window.UBITS.Calendar.create({
   }
 });
 container.appendChild(calendarRange.element);
-```',
+\`\`\`',
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

@@ -33,7 +33,7 @@ const meta: Meta<
         component:
           'Componente ProgressGeneralCard UBITS para mostrar progreso general con indicador circular (donut chart) y categorías de progreso. Soporta layout vertical y horizontal, múltiples tamaños y controles completos para personalización. Usa tokens UBITS para colores, tipografía y espaciado.
 
-```html
+\`\`\`html
 // 1. Importar funciones (si usas módulos)
 // import { createProgressGeneralCard, renderProgressGeneralCard } from '@ubits/progress-general-card';
 
@@ -111,7 +111,7 @@ if (container) {
     cardElement.addEventListener('click', onClick);
   }
 }
-```',
+\`\`\`',
       },
     },
     ubits: createUBITSContract({

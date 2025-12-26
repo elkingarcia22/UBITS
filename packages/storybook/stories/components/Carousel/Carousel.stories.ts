@@ -111,7 +111,7 @@ const meta: Meta<
         component:
           'Componente Carousel UBITS para mostrar Simple Cards en un carrusel navegable. Incluye navegación con flechas, indicadores de paginación, autoplay y soporte para diferentes tamaños de cards.
 
-```html
+\`\`\`html
 // 1. Crear contenedor HTML
 <div id="carousel-implementation-container"></div>
 
@@ -189,7 +189,7 @@ if (container) {
 
 // Nota: createCarousel retorna un HTMLElement directamente
 // Los items del carrusel son SimpleCards que pueden incluir Buttons opcionales
-```',
+\`\`\`',
       },
     },
     layout: 'padded',

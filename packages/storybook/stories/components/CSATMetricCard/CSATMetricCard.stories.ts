@@ -18,7 +18,7 @@ const meta: Meta<CSATMetricCardOptions> = {
         component:
           'Componente CSATMetricCard UBITS para mostrar métricas CSAT (Customer Satisfaction) con caritas. Incluye título, estadísticas (respuestas y promedio), gráfico de 5 caritas con textos. Usa tokens UBITS para colores, tipografía y espaciado.
 
-```html
+\`\`\`html
 // 1. Importar funciones (si usas módulos)
 // import { createCSATMetricCard, renderCSATMetricCard } from '@ubits/csat-metric-card';
 
@@ -75,7 +75,7 @@ if (container) {
     cardElement.addEventListener('click', onClick);
   }
 }
-```',
+\`\`\`',
       },
     },
     ubits: createUBITSContract({

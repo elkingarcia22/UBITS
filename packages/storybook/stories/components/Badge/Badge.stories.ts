@@ -22,7 +22,7 @@ const meta: Meta<BadgeOptions> = {
         component:
           'Componente Badge UBITS para mostrar notificaciones, contadores o indicadores. Soporta solo bolita (dot) o con números, múltiples variantes de color y tamaños.
 
-```html
+\`\`\`html
 // Opción 1: Usar createBadge (retorna elemento)
 const badgeElement = window.UBITS.Badge.create({
   type: 'number',
@@ -44,7 +44,7 @@ const badgeHTML = window.UBITS.Badge.render({
   content: '5'
 });
 document.getElementById('container').innerHTML = badgeHTML;
-```',
+\`\`\`',
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

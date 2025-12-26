@@ -13,7 +13,7 @@ const meta: Meta<DataTableOptions & { columnsCount?: number }> = {
       description: {
         component: 'Tabla de datos UBITS con soporte para columnas fijadas, reordenamiento, ordenamiento, selección múltiple, filas expandibles y menú de columnas.
 
-```html
+\`\`\`html
 // 1. Crear contenedor HTML
 <div id="datatable-implementation-container"></div>
 
@@ -129,7 +129,7 @@ window.UBITS.DataTable.create({
   onRowSelect: (rowId, selected) => {},
   onSelectAll: (selected) => {}
 });
-```'
+\`\`\`'
       }
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

@@ -24,7 +24,7 @@ const meta = {
         component:
           'Componente Breadcrumb UBITS para navegación jerárquica. El último item muestra texto en bold (active), los demás en regular (default). Usa body-sm con tokens UBITS.
 
-```html
+\`\`\`html
 // 1. Crear contenedor HTML
 <div id="breadcrumb-implementation-container"></div>
 
@@ -42,7 +42,7 @@ window.UBITS.Breadcrumb.create({
     console.log('Item clickeado:', itemId);
   }
 }, 'breadcrumb-implementation-container');
-```',
+\`\`\`',
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

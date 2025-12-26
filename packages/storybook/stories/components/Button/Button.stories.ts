@@ -20,17 +20,16 @@ const meta: Meta<ButtonOptions> = {
     docs: {
       codePanel: true,
       description: {
-        component:
-          'Componente Button UBITS con múltiples variantes, tamaños y estados. Soporta iconos, badges y estado de carga.
+        component: `Componente Button UBITS con múltiples variantes, tamaños y estados. Soporta iconos, badges y estado de carga.
 
-```html
+\`\`\`html
 window.UBITS.Button.create({
   variant: 'secondary',
   size: 'md',
   text: 'Guardar',
   disabled: false
 });
-```',
+\`\`\``,
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

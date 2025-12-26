@@ -22,7 +22,7 @@ const meta: Meta<SelectionCardData & { showDescription?: boolean; showIcon?: boo
         component:
           'Componente Selection Card UBITS para mostrar opciones seleccionables. Soporta selección única o múltiple, estados (default, selected, disabled), y tamaños (sm, md, lg). Incluye un radio button visual a la derecha que refleja el estado de selección. La selección se realiza mediante click en toda la card.
 
-```html
+\`\`\`html
 // 1. Importar funciones (si usas módulos)
 // import { createSelectionCard, renderSelectionCard, loadSelectionCards } from '@ubits/selection-card';
 
@@ -97,7 +97,7 @@ if (container) {
 //     console.log('Card clickeada:', card);
 //   }
 // });
-```',
+\`\`\`',
       },
     },
     ubits: createUBITSContract({

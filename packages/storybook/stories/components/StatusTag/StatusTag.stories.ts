@@ -25,7 +25,7 @@ const meta: Meta<StatusTagOptions> = {
         component:
           'Componente Status Tag UBITS para mostrar estados con icono izquierdo opcional, texto y icono derecho opcional. Múltiples estados con colores diferenciados usando tokens UBITS.
 
-```html
+\`\`\`html
 // Opción 1: Usar createStatusTag (retorna elemento)
 const statusTagElement = window.UBITS.StatusTag.create({
   label: 'Completado',
@@ -43,7 +43,7 @@ const statusTagHTML = window.UBITS.StatusTag.render({
   clickable: false
 });
 document.getElementById('container').innerHTML = statusTagHTML;
-```',
+\`\`\`',
       },
     },
     layout: 'centered',

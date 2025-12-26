@@ -35,7 +35,7 @@ const meta: Meta<TreeMenuOptions> = {
         component:
           'Componente Tree Menu UBITS para mostrar estructuras jerárquicas con expandir/colapsar. Soporta iconos opcionales, múltiples niveles, chevron opcional y modo cascada o vertical. Usa tokens UBITS para colores, tipografía y espaciado.
 
-```html
+\`\`\`html
 // Función helper para renderizar TreeMenu
 function renderTreeMenu(options) {
   const {
@@ -92,7 +92,7 @@ function renderTreeMenu(options) {
 // Nota: renderTreeMenu retorna HTML string directamente
 // Los estilos se deben agregar manualmente o desde un archivo CSS
 // La funcionalidad de expandir/colapsar se debe inicializar manualmente
-```',
+\`\`\`',
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

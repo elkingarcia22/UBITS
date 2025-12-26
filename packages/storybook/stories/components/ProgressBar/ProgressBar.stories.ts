@@ -31,7 +31,7 @@ const meta: Meta<ExtendedProgressOptions> = {
         component:
           'Componente Progress Bar personalizado UBITS. Se usa para mostrar progreso de tareas o procesos. Soporta 4 tamaños (xs, sm, md, lg) y dos variantes: default (un solo color) y multi-color (múltiples segmentos con diferentes colores). El segmento gris se calcula automáticamente como el resto que falta para llegar a 100%. Incluye indicador opcional de texto o porcentaje.
 
-```html
+\`\`\`html
 // 1. Crear ProgressBar (variante default)
 const progressBarInstance = window.createProgressBar({
   containerId: 'progress-bar-container',
@@ -81,7 +81,7 @@ const container = document.getElementById('progress-bar-container');
 if (container) {
   container.innerHTML = progressBarHTML;
 }
-```',
+\`\`\`',
       },
     },
     layout: 'fullscreen',
