@@ -30,8 +30,8 @@ const meta: Meta<
 	title: 'Layout/Simple Card',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {codePanel: true,
-				
+		docs: {
+			codePanel: true,
 			description: {
 				component:
 					'Componente Simple Card UBITS con header decorativo, contenido y botones de acción. Usa tokens UBITS para colores, tipografía y espaciado. Incluye controladores completos para personalizar todos los aspectos del componente.',

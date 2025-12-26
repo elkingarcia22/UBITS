@@ -16,8 +16,8 @@ const meta: Meta<BadgeOptions> = {
 	title: 'Básicos/Badge',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {codePanel: true,
-				
+		docs: {
+			codePanel: true,
 			description: {
 				component:
 					'Componente Badge UBITS para mostrar notificaciones, contadores o indicadores. Soporta solo bolita (dot) o con números, múltiples variantes de color y tamaños.',

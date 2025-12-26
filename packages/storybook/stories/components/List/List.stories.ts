@@ -17,8 +17,8 @@ const meta: Meta<ListOptions> = {
 	title: 'Data/List',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {codePanel: true,
-				
+		docs: {
+			codePanel: true,
 			description: {
 				component:
 					'Componente List UBITS para mostrar listas de items con estados (default, hover, active, disabled). Soporta 4 tamaños (xs, sm, md, lg), scrollbar personalizado UBITS, navegación por teclado y selección simple o múltiple.',

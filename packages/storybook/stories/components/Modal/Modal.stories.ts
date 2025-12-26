@@ -17,8 +17,8 @@ const meta: Meta<ModalOptions> = {
 	title: 'Feedback/Modal',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {codePanel: true,
-				
+		docs: {
+			codePanel: true,
 			description: {
 				component:
 					'Componente Modal UBITS centrado con overlay. Ideal para diálogos, confirmaciones y formularios. Soporta diferentes tamaños, variante full-screen, header con título y botón de cerrar, body con contenido scrollable y footer con botones de acción.',

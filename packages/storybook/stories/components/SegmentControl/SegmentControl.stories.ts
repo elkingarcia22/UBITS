@@ -21,8 +21,8 @@ const meta = {
 	tags: ['autodocs'],
 	parameters: {
 		layout: 'padded',
-		docs: {codePanel: true,
-				
+		docs: {
+			codePanel: true,
 			description: {
 				component:
 					'Componente Segment Control UBITS de navegación horizontal con soporte para iconos opcionales. Similar a Tabs pero con contenedor con padding interno de 4px y altura de 30px. El segmento activo muestra fondo blanco, icono solid oscuro, texto en negrita. Los segmentos inactivos muestran icono regular y texto en gris claro sin fondo.',

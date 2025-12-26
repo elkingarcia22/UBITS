@@ -62,8 +62,8 @@ const meta: Meta<GalleryOptions> = {
 	title: 'Layout/Gallery',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {codePanel: true,
-				
+		docs: {
+			codePanel: true,
 			description: {
 				component:
 					'Componente Gallery UBITS para mostrar imágenes en diferentes layouts (grid, masonry, list) con múltiples tamaños, soporte para lightbox, lazy loading y thumbnails.',
@@ -469,6 +469,4 @@ export const Default: Story = {
 		return container;
 	},
 };
-
-
 

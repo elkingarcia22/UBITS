@@ -9,8 +9,8 @@ const meta: Meta<ScrollOptions> = {
 	title: 'Básicos/Scrollbar',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {codePanel: true,
-				
+		docs: {
+			codePanel: true,
 			description: {
 				component:
 					'Componente Scrollbar personalizado UBITS. Se usa para crear scrollbars personalizados en elementos scrollable. Soporta orientación vertical y horizontal. Se sincroniza automáticamente con el elemento scrollable asociado. Aparece en hover y se adapta al tamaño del contenido. Soporta arrastrar y clic para navegar.',
@@ -754,6 +754,4 @@ export const Default: Story = {
 		return container;
 	},
 };
-
-
 

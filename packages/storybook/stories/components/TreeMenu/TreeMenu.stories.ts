@@ -29,8 +29,8 @@ const meta: Meta<TreeMenuOptions> = {
 	title: 'Navegación/TreeMenu',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {codePanel: true,
-				
+		docs: {
+			codePanel: true,
 			description: {
 				component:
 					'Componente Tree Menu UBITS para mostrar estructuras jerárquicas con expandir/colapsar. Soporta iconos opcionales, múltiples niveles, chevron opcional y modo cascada o vertical. Usa tokens UBITS para colores, tipografía y espaciado.',

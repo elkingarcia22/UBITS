@@ -19,8 +19,8 @@ const meta: Meta<AccordionOptions> = {
 	title: 'Layout/Accordion',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {codePanel: true,
-				
+		docs: {
+			codePanel: true,
 			description: {
 				component:
 					'Componente Accordion UBITS con múltiples variantes: lista simple, tipo caja, chevron izquierda/derecha, iconos opcionales y sub-headers.',
@@ -246,10 +246,8 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				type: 'code',
-				// ⭐ SNIPPET EXACTO para Autorun
-				
-				type: 'code',
 				state: 'open',
+				// ⭐ SNIPPET EXACTO para Autorun
 				code: `// 1. Crear contenedor HTML
 <div id="accordion-implementation-container"></div>
 

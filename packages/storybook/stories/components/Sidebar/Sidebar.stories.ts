@@ -22,8 +22,8 @@ const meta: Meta<
 	title: 'Navegación/Sidebar',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {codePanel: true,
-				
+		docs: {
+			codePanel: true,
 			description: {
 				component:
 					'Componente Sidebar UBITS de navegación lateral con 2 variantes (colaborador y admin). Incluye tooltips internos, menú de perfil interno, dark mode toggle y ajuste dinámico de altura. Ancho fijo 96px.',

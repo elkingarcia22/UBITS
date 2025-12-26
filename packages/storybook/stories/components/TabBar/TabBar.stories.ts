@@ -142,8 +142,8 @@ const meta: Meta<
 	tags: ['autodocs'],
 	parameters: {
 		layout: 'padded',
-		docs: {codePanel: true,
-				
+		docs: {
+			codePanel: true,
 			description: {
 				component:
 					'Componente TabBar UBITS de navegación inferior para móviles. Reemplaza al sidebar en pantallas pequeñas (< 1024px) con items personalizables con iconos o avatares, dark mode toggle, Floating Menu (accordions) y Profile Menu (dropdown). Soporta 2 variantes: colaborador y admin.',

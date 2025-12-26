@@ -9,7 +9,8 @@ const meta: Meta<DataTableOptions & { columnsCount?: number }> = {
   tags: ['autodocs'],
   parameters: {
     docs: {
-      description: {
+			codePanel: true,
+			description: {
         component: 'Tabla de datos UBITS con soporte para columnas fijadas, reordenamiento, ordenamiento, selección múltiple, filas expandibles y menú de columnas.'
       }
     },
@@ -631,7 +632,10 @@ export const Implementation: Story = {
     docs: {
       source: {
         // ⭐ SNIPPET EXACTO para Autorun
-        code: `// 1. Crear contenedor HTML
+        
+				type: 'code',
+				state: 'open',
+				code: `// 1. Crear contenedor HTML
 <div id="datatable-implementation-container"></div>
 
 // 2. Crear DataTable con configuración completa

@@ -22,8 +22,8 @@ const meta: Meta<
 	tags: ['autodocs'],
 	parameters: {
 		layout: 'padded',
-		docs: {codePanel: true,
-				
+		docs: {
+			codePanel: true,
 			description: {
 				component:
 					'Componente Slider UBITS con soporte para orientación horizontal/vertical, modo single/range, inputs opcionales, marcas, y todos los tamaños y estados.',

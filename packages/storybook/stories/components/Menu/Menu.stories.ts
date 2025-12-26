@@ -20,8 +20,8 @@ const meta = {
 	tags: ['autodocs'],
 	parameters: {
 		layout: 'padded',
-		docs: {codePanel: true,
-				
+		docs: {
+			codePanel: true,
 			description: {
 				component:
 					'Componente Menu UBITS de navegación lateral con secciones, items, shortcuts, badges e información de usuario. Usa tokens UBITS para colores, tipografía y espaciado.',

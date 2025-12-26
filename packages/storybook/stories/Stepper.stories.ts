@@ -30,7 +30,8 @@ const meta: Meta<ExtendedStepperOptions> = {
   tags: ['autodocs'],
   parameters: {
     docs: {
-      description: {
+			codePanel: true,
+			description: {
         component: 'Componente Stepper UBITS para mostrar el progreso de un proceso multi-paso. Soporta orientación horizontal y vertical, con estados: default, completado, activo, error y warning. Cada paso puede tener número, título y descripción.',
       },
     },
@@ -288,7 +289,10 @@ export const Implementation: Story = {
     docs: {
       source: {
         // ⭐ SNIPPET EXACTO para Autorun
-        code: `// 1. Crear contenedor HTML
+        
+				type: 'code',
+				state: 'open',
+				code: `// 1. Crear contenedor HTML
 <div id="stepper-implementation-container"></div>
 
 // 2. Crear Stepper

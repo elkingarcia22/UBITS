@@ -17,8 +17,8 @@ const meta: Meta<TooltipOptions> = {
 	title: 'Feedback/Tooltip',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {codePanel: true,
-				
+		docs: {
+			codePanel: true,
 			description: {
 				component:
 					'Componente Tooltip UBITS con tail (flecha) para mostrar información contextual. Similar al Popover pero más simple, con título, descripción y botones de acción.',

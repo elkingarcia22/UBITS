@@ -9,8 +9,8 @@ const meta: Meta<ButtonAIOptions> = {
 	tags: ['autodocs'],
 	parameters: {
 		layout: 'padded',
-		docs: {codePanel: true,
-				
+		docs: {
+			codePanel: true,
 			description: {
 				component:
 					'Componente Button AI UBITS con estilo redondeado y gradación. Basado en Button de UBITS pero con bordes más redondeados (pill shape) y gradientes. Solo incluye variantes primary y secondary.',
