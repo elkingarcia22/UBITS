@@ -290,7 +290,7 @@ const chipHTML = window.UBITS.Chip.render({
   clickable: false,
   closable: false
 });
-document.getElementById('container').innerHTML = chipHTML;',
+document.getElementById('container').innerHTML = chipHTML;`,
       },
     },
   },

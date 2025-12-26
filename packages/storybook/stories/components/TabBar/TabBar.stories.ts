@@ -146,7 +146,7 @@ const meta: Meta<
       codePanel: true,
       description: {
         component:
-          'Componente TabBar UBITS de navegación inferior para móviles. Reemplaza al sidebar en pantallas pequeñas (< 1024px) con items personalizables con iconos o avatares, dark mode toggle, Floating Menu (accordions) y Profile Menu (dropdown). Soporta 2 variantes: colaborador y admin.
+          `Componente TabBar UBITS de navegación inferior para móviles. Reemplaza al sidebar en pantallas pequeñas (< 1024px) con items personalizables con iconos o avatares, dark mode toggle, Floating Menu (accordions) y Profile Menu (dropdown). Soporta 2 variantes: colaborador y admin.
 
 \`\`\`html
 // 1. Crear contenedor HTML

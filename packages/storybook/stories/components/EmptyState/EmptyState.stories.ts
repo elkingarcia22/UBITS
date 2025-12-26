@@ -349,7 +349,7 @@ const emptyStateHTML = window.UBITS.EmptyState.render({
   actionLabel: 'Crear elemento',
   showPrimaryButton: true
 });
-document.getElementById('container').innerHTML = emptyStateHTML;',
+document.getElementById('container').innerHTML = emptyStateHTML;`,
       },
     },
   },

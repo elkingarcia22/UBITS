@@ -36,7 +36,7 @@ type Story = StoryObj;
 /**
  * Extraer tokens de un modificador específico
  */
-function getModifierTokens(modifier: `normal' | 'inverted' | 'static' | 'static-inverted'): {
+function getModifierTokens(modifier: 'normal' | 'inverted' | 'static' | 'static-inverted'): {
   light: string[];
   dark: string[];
 } {
@@ -50,11 +50,11 @@ function getModifierTokens(modifier: `normal' | 'inverted' | 'static' | 'static-
   }
 
   const lightTokens = allTokens.filter(t => 
-    t.includes(`modifiers-${modifier}-color-light`)
+    t.includes('modifiers-' + modifier + '-color-light')
   );
   
   const darkTokens = allTokens.filter(t => 
-    t.includes(`modifiers-${modifier}-color-dark`)
+    t.includes('modifiers-' + modifier + '-color-dark')
   );
 
   return { light: lightTokens.sort(), dark: darkTokens.sort() };
@@ -106,7 +106,7 @@ export const TodosLosModificadores: Story = {
       section.style.backgroundColor = '#f9fafb';
 
       const sectionTitle = document.createElement('h3');
-      sectionTitle.textContent = `${modifier.charAt(0).toUpperCase() + modifier.slice(1).replace('-', ' ')}';
+      sectionTitle.textContent = `${modifier.charAt(0).toUpperCase() + modifier.slice(1).replace('-', ' ')}`;
       sectionTitle.style.fontSize = '20px';
       sectionTitle.style.fontWeight = '600';
       sectionTitle.style.marginBottom = '16px';
@@ -120,7 +120,9 @@ export const TodosLosModificadores: Story = {
       count.style.marginBottom = '16px';
       count.style.fontSize = '16px';
       count.style.fontWeight = '600';
-      count.textContent = `Total: ${totalCount} tokens (${tokens.light.length} Light + ${tokens.dark.length} Dark)`;
+      const lightCount = tokens.light.length;
+      const darkCount = tokens.dark.length;
+      count.textContent = `Total: ${totalCount} tokens (${lightCount} Light + ${darkCount} Dark)`;
       section.appendChild(count);
 
       if (totalCount > 0) {

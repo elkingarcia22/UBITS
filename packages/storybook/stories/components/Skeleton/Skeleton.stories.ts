@@ -19,7 +19,7 @@ const meta = {
       codePanel: true,
       description: {
         component:
-          'Componente Skeleton UBITS para mostrar placeholders de carga. Soporta múltiples variantes (text, circle, rectangle, custom), tamaños y animaciones.
+          `Componente Skeleton UBITS para mostrar placeholders de carga. Soporta múltiples variantes (text, circle, rectangle, custom), tamaños y animaciones.
 
 \`\`\`html
 // Opción 1: Usar createSkeleton (retorna elemento)

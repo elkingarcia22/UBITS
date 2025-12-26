@@ -19,10 +19,11 @@ const config: StorybookConfig = {
     // IMPORTANTE: Excluir TODOS los archivos de la raíz PRIMERO para evitar duplicados
     '!../stories/*.stories.@(js|jsx|mjs|ts|tsx)',
     // Luego incluir solo los archivos específicos de la raíz que NO tienen duplicados en components/
-    '../stories/Contenedor.stories.ts',
+    // TEMPORALMENTE EXCLUIDOS debido a problemas de parsing de Storybook:
+    // '../stories/Contenedor.stories.ts',
+    // '../stories/Stepper.stories.ts',
+    // '../stories/DataTable.stories.ts',
     '../stories/Templates.stories.ts',
-    '../stories/Stepper.stories.ts',
-    '../stories/DataTable.stories.ts',
     // Incluir historias en subdirectorios (components, TokensUBITS, Templates)
     '../stories/components/**/*.stories.@(js|jsx|mjs|ts|tsx)',
     '../stories/TokensUBITS/**/*.stories.@(js|jsx|mjs|ts|tsx)',
@@ -30,7 +31,6 @@ const config: StorybookConfig = {
     // Excluir componentes específicos de components/ que tienen duplicados en la raíz
     '!../stories/components/Stepper/**/*.stories.@(js|jsx|mjs|ts|tsx)',
     '!../stories/components/SaveIndicator/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-    '!../stories/components/DataTable/**/*.stories.@(js|jsx|mjs|ts|tsx)',
     // MDX files (si existen) - al final para evitar conflictos
     '../stories/**/*.mdx',
   ],
@@ -285,7 +285,17 @@ const config: StorybookConfig = {
         skipLibCheck: true,
         module: 'ESNext',
         moduleResolution: 'bundler',
+        target: 'ES2020',
+        jsx: 'preserve',
+        allowJs: true,
       },
+    };
+    
+    // Configurar el parser para ser más permisivo con template literals y sintaxis moderna
+    config.build = config.build || {};
+    config.build.commonjsOptions = {
+      include: [/node_modules/],
+      transformMixedEsModules: true,
     };
     
     // Configurar optimización para mejorar la resolución de módulos

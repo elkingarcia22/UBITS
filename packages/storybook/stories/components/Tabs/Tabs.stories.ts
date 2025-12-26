@@ -11,6 +11,7 @@ import { renderTabs, createTabs } from '../../../components/tabs/src/TabsProvide
 import type { TabsOptions, TabItem } from '../../../components/tabs/src/types/TabsOptions';
 import { createUBITSContract } from '../../_shared/ubitsContract';
 import '../../../components/tabs/src/styles/tabs.css';
+
 const meta = {
   title: 'Navegación/Tabs',
   tags: ['autodocs'],
@@ -20,7 +21,7 @@ const meta = {
       codePanel: true,
       description: {
         component:
-          'Componente Tabs UBITS de navegación horizontal con soporte para iconos opcionales. El tab activo muestra fondo blanco, icono oscuro, texto en negrita y una línea vertical rosa a la izquierda. Los tabs inactivos muestran icono y texto en gris claro sin fondo.
+          `Componente Tabs UBITS de navegación horizontal con soporte para iconos opcionales. El tab activo muestra fondo blanco, icono oscuro, texto en negrita y una línea vertical rosa a la izquierda. Los tabs inactivos muestran icono y texto en gris claro sin fondo.
 
 \`\`\`html
 // 1. Crear contenedor HTML
@@ -217,9 +218,9 @@ function generateTabs(count: number = 5, withIcons: boolean = true): TabItem[] {
   ];
 
   return Array.from({ length: count }, (_, i) => ({
-    id: 'tab-${i + 1}',
+    id: `tab-${i + 1}`,
     label: labels[i] || `Label ${i + 1}`,
-    icon: withIcons ? `far ${icons[i] || 'fa-th'}' : undefined,
+    icon: withIcons ? `far ${icons[i] || 'fa-th'}` : undefined,
     active: i === 0,
   }));
 }
@@ -242,7 +243,7 @@ export const Implementation: Story = {
         // ⭐ SNIPPET EXACTO para Autorun
         
         type: 'code',
-        state: 'open',
+        state: 'open', // Mostrar código automáticamente
         code: `// 1. Crear contenedor HTML
 <div id="tabs-implementation-container"></div>
 
@@ -261,8 +262,9 @@ window.UBITS.Tabs.create({
   }
 }, 'tabs-implementation-container');
 
-// Nota: El número de tabs se puede ajustar con el control 'tabCount' en Storybook',
+// Nota: El número de tabs se puede ajustar con el control 'tabCount' en Storybook`,
       },
+      codePanel: true, // Panel de código siempre visible
     },
   },
   render: (args) => {

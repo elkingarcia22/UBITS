@@ -20,7 +20,7 @@ const meta: Meta<ToggleOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Toggle/Switch UBITS para activar/desactivar opciones. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.
+          `Componente Toggle/Switch UBITS para activar/desactivar opciones. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.
 
 \`\`\`html
 // 1. Crear contenedor HTML

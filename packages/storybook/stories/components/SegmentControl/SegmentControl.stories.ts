@@ -25,7 +25,7 @@ const meta = {
       codePanel: true,
       description: {
         component:
-          'Componente Segment Control UBITS de navegación horizontal con soporte para iconos opcionales. Similar a Tabs pero con contenedor con padding interno de 4px y altura de 30px. El segmento activo muestra fondo blanco, icono solid oscuro, texto en negrita. Los segmentos inactivos muestran icono regular y texto en gris claro sin fondo.
+          `Componente Segment Control UBITS de navegación horizontal con soporte para iconos opcionales. Similar a Tabs pero con contenedor con padding interno de 4px y altura de 30px. El segmento activo muestra fondo blanco, icono solid oscuro, texto en negrita. Los segmentos inactivos muestran icono regular y texto en gris claro sin fondo.
 
 \`\`\`html
 // 1. Crear contenedor HTML
@@ -266,7 +266,7 @@ window.UBITS.SegmentControl.create({
 }, 'segment-control-implementation-container');
 
 // Nota: Los iconos son opcionales. Si no se proporcionan, solo se mostrará el texto.
-// Para segmentos sin iconos, omitir la propiedad 'icon' o pasar undefined.',
+// Para segmentos sin iconos, omitir la propiedad 'icon' o pasar undefined.`,
       },
     },
   },

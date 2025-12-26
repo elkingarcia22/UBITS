@@ -188,7 +188,7 @@ function generateBreadcrumbItems(count: number = 5): BreadcrumbItem[] {
   ];
 
   return Array.from({ length: count }, (_, i) => ({
-    id: 'item-${i + 1}',
+    id: `item-${i + 1}`,
     label: labels[i] || `Item ${i + 1}`,
     url: i < count - 1 ? `#${labels[i]?.toLowerCase() || `item-${i + 1}`}` : undefined,
     active: i === count - 1,
@@ -234,7 +234,7 @@ window.UBITS.Breadcrumb.create({
   onItemClick: (itemId, itemElement) => {
     console.log('Item clickeado:', itemId);
   }
-}, 'breadcrumb-implementation-container');',
+}, 'breadcrumb-implementation-container');`,
       },
     },
   },
@@ -268,7 +268,8 @@ window.UBITS.Breadcrumb.create({
       );
     } catch (error) {
       console.error('Error creando Breadcrumb:', error);
-      breadcrumbContainer.innerHTML = `<p style="color: var(--modifiers-normal-color-light-feedback-border-error); padding: 16px;">Error: ${error}</p>`;
+      const errorMsg = error instanceof Error ? error.message : String(error);
+      breadcrumbContainer.innerHTML = `<p style="color: var(--modifiers-normal-color-light-feedback-border-error); padding: 16px;">Error: ${errorMsg}</p>`;
     }
 
     return container;

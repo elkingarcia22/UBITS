@@ -26,7 +26,7 @@ const meta: Meta<
       codePanel: true,
       description: {
         component:
-          'Componente Slider UBITS con soporte para orientación horizontal/vertical, modo single/range, inputs opcionales, marcas, y todos los tamaños y estados.
+          `Componente Slider UBITS con soporte para orientación horizontal/vertical, modo single/range, inputs opcionales, marcas, y todos los tamaños y estados.
 
 \`\`\`html
 // 1. Crear contenedor HTML

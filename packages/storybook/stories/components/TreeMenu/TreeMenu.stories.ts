@@ -33,7 +33,7 @@ const meta: Meta<TreeMenuOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Tree Menu UBITS para mostrar estructuras jerárquicas con expandir/colapsar. Soporta iconos opcionales, múltiples niveles, chevron opcional y modo cascada o vertical. Usa tokens UBITS para colores, tipografía y espaciado.
+          `Componente Tree Menu UBITS para mostrar estructuras jerárquicas con expandir/colapsar. Soporta iconos opcionales, múltiples niveles, chevron opcional y modo cascada o vertical. Usa tokens UBITS para colores, tipografía y espaciado.
 
 \`\`\`html
 // Función helper para renderizar TreeMenu
@@ -408,7 +408,7 @@ function renderTreeNode(
   uniqueId: string,
 ): string {
   const hasChildren = node.children && node.children.length > 0;
-  const nodeId = `${uniqueId}-node-${level}-${node.label.toLowerCase().replace(/\s+/g, '-')}';
+  const nodeId = `${uniqueId}-node-${level}-${node.label.toLowerCase().replace(/\s+/g, '-')}`;
   const isExpanded = defaultExpanded && hasChildren;
 
   // Clases de tipografía según tamaño (matching List component)
@@ -422,15 +422,18 @@ function renderTreeNode(
           : 'ubits-body-md-regular';
 
   // Espaciado según modo (cascada o vertical)
-  const paddingLeft = cascade
-    ? size === 'xs'
-      ? `calc(var(--p-spacing-mode-1-sm, 8px) * ${level})`
-      : size === 'sm'
-        ? `calc(var(--p-spacing-mode-1-md, 16px) * ${level})`
-        : size === 'lg'
-          ? `calc(var(--p-spacing-mode-1-lg, 24px) * ${level})`
-          : `calc(var(--p-spacing-mode-1-md, 16px) * ${level})`
-    : '0';
+  let paddingLeft = '0';
+  if (cascade) {
+    if (size === 'xs') {
+      paddingLeft = `calc(var(--p-spacing-mode-1-sm, 8px) * ${level})`;
+    } else if (size === 'sm') {
+      paddingLeft = `calc(var(--p-spacing-mode-1-md, 16px) * ${level})`;
+    } else if (size === 'lg') {
+      paddingLeft = `calc(var(--p-spacing-mode-1-lg, 24px) * ${level})`;
+    } else {
+      paddingLeft = `calc(var(--p-spacing-mode-1-md, 16px) * ${level})`;
+    }
+  }
 
   // Tamaños de iconos y chevrons según tamaño (matching List component)
   const iconSize =
@@ -467,7 +470,7 @@ function renderTreeNode(
           : 'var(--modifiers-normal-body-md-regular-lineheight)';
 
   let html = `
-    <div class="ubits-tree-node ${cascade ? 'ubits-tree-node--cascade' : 'ubits-tree-node--vertical'}" data-level="${level}" style="${cascade ? `padding-left: ${paddingLeft};' : ''}">
+    <div class="ubits-tree-node ${cascade ? 'ubits-tree-node--cascade' : 'ubits-tree-node--vertical'}" data-level="${level}" style="${cascade ? `padding-left: ${paddingLeft};` : ''}">
       <div 
         class="ubits-tree-node__content ${hasChildren ? 'ubits-tree-node__content--expandable' : ''}" 
         data-node-id="${nodeId}"
@@ -584,12 +587,7 @@ export const Default: Story = {
   render: (args) => {
     // Crear contenedor principal
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: var(--p-spacing-mode-1-lg, 24px);
-      background: var(--modifiers-normal-color-light-bg-2);
-      border-radius: 8px;
-      max-width: 600px;
-    `;
+    container.style.cssText = 'padding: var(--p-spacing-mode-1-lg, 24px);; background: var(--modifiers-normal-color-light-bg-2);; border-radius: 8px;; max-width: 600px;';
 
     // Contenedor del árbol
     const treeContainer = document.createElement('div');
@@ -848,7 +846,16 @@ export const Default: Story = {
   },
 };
 
+/**
+ * ⭐ STORY CANÓNICA: Implementation (Copy/Paste)
+ *
+ * Esta story es el punto de anclaje para Autorun.
+ * - Args explícitos (no depende de defaults)
+ * - Estado estable (sin datos aleatorios)
+ * - Snippet exacto controlado
+ */
 export const Implementation: Story = {
+  name: 'Implementation (Copy/Paste)',
   args: {
     showIcons: true,
     showChevron: true,
@@ -875,14 +882,21 @@ export const Implementation: Story = {
       },
     ],
   },
+  parameters: {
+    docs: {
+      source: {
+        // ⭐ SNIPPET EXACTO para Autorun
+        type: 'code',
+        state: 'open',
+        code: '// 1. Crear contenedor HTML\n<div id="tree-menu-implementation-container"></div>\n\n// 2. Función helper para renderizar TreeMenu\n// TreeMenu se implementa usando HTML y CSS con tokens UBITS\n// Ver implementación completa en el código fuente del componente\n\n// 3. Ejemplo básico de estructura\nconst treeMenuHTML = \'<div class="ubits-tree-menu">\' +\n  \'<div class="ubits-tree-node">\' +\n    \'<div class="ubits-tree-node__content" data-size="md">\' +\n      \'<i class="far fa-code"></i>\' +\n      \'<span>Engineering</span>\' +\n    \'</div>\' +\n    \'<div class="ubits-tree-node__children">\' +\n      \'<div class="ubits-tree-node">\' +\n        \'<div class="ubits-tree-node__content" data-size="md">\' +\n          \'<i class="far fa-paint-brush"></i>\' +\n          \'<span>Frontend</span>\' +\n        \'</div>\' +\n      \'</div>\' +\n    \'</div>\' +\n  \'</div>\' +\n\'</div>\';\n\n// 4. Insertar en el contenedor\nconst container = document.getElementById(\'tree-menu-implementation-container\');\nif (container) {\n  container.innerHTML = treeMenuHTML;\n}\n\n// Nota: TreeMenu requiere CSS personalizado y event listeners para expandir/colapsar\n// Ver código completo en packages/storybook/stories/components/TreeMenu/TreeMenu.stories.ts',
+      },
+      codePanel: true,
+    },
+  },
   render: (args) => {
     const container = document.createElement('div');
     container.id = 'tree-menu-container';
-    container.style.cssText = `
-      padding: var(--p-spacing-mode-1-lg, 24px);
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-    `;
+    container.style.cssText = 'padding: var(--p-spacing-mode-1-lg, 24px); background: var(--modifiers-normal-color-light-bg-1); border-radius: 8px;';
 
     // Renderizar el árbol usando renderTreeMenu
     const treeHTML = renderTreeMenu(args);
@@ -1151,7 +1165,8 @@ export const Implementation: Story = {
   },
   parameters: {
     docs: {
-      source: {type: 'code',
+      source: {
+        type: 'code',
         state: 'open',
         code: `
 // Función helper para renderizar TreeMenu

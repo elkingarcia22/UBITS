@@ -282,7 +282,7 @@ const badgeHTML = window.UBITS.Badge.render({
   size: 'md',
   content: '5'
 });
-document.getElementById('container').innerHTML = badgeHTML;',
+document.getElementById('container').innerHTML = badgeHTML;`,
       },
     },
   },

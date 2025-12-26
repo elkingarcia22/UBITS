@@ -34,7 +34,7 @@ const meta: Meta<
       codePanel: true,
       description: {
         component:
-          'Componente Simple Card UBITS con header decorativo, contenido y botones de acción. Usa tokens UBITS para colores, tipografía y espaciado. Incluye controladores completos para personalizar todos los aspectos del componente.
+          `Componente Simple Card UBITS con header decorativo, contenido y botones de acción. Usa tokens UBITS para colores, tipografía y espaciado. Incluye controladores completos para personalizar todos los aspectos del componente.
 
 \`\`\`html
 // 1. Importar funciones (si usas módulos)

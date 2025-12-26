@@ -53,7 +53,7 @@ const meta: Meta<
       },
       // ⭐ CAMPOS EXTENDIDOS
       examples: {
-        canonical: 'window.UBITSMask.createMask({
+        canonical: `window.UBITSMask.createMask({
   targetElement: document.getElementById('target'),
   popover: {
     title: 'Título',

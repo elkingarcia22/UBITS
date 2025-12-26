@@ -21,7 +21,7 @@ const meta: Meta<ToastOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Toast UBITS para mostrar notificaciones flotantes. Se posiciona en la parte superior central, tiene auto-cierre, pausa en hover, apilado máximo de 3, y soporta título, cuerpo y botón de acción opcional.
+          `Componente Toast UBITS para mostrar notificaciones flotantes. Se posiciona en la parte superior central, tiene auto-cierre, pausa en hover, apilado máximo de 3, y soporta título, cuerpo y botón de acción opcional.
 
 \`\`\`html
 // Opción 1: Usar showToast (recomendado - maneja contenedor automáticamente)

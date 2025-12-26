@@ -29,7 +29,7 @@ type Story = StoryObj;
 
 // Tokens de tipografía organizados por categoría
 const TYPOGRAPHY_TOKENS = {
-  `font-family': [
+  'font-family': [
     '--font-sans',
   ],
   'font-size': [
@@ -182,7 +182,7 @@ export const TodosLosTokens: Story = {
       section.style.marginBottom = '40px';
 
       const sectionTitle = document.createElement('h3');
-      sectionTitle.textContent = `${category.charAt(0).toUpperCase() + category.slice(1).replace('-', ' ')} (${tokens.length} tokens)';
+      sectionTitle.textContent = `${category.charAt(0).toUpperCase() + category.slice(1).replace('-', ' ')} (${tokens.length} tokens)`;
       sectionTitle.style.fontSize = '20px';
       sectionTitle.style.fontWeight = '600';
       sectionTitle.style.marginBottom = '16px';

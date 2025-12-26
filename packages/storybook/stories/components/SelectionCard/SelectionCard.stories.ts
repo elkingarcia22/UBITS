@@ -20,7 +20,7 @@ const meta: Meta<SelectionCardData & { showDescription?: boolean; showIcon?: boo
       codePanel: true,
       description: {
         component:
-          'Componente Selection Card UBITS para mostrar opciones seleccionables. Soporta selección única o múltiple, estados (default, selected, disabled), y tamaños (sm, md, lg). Incluye un radio button visual a la derecha que refleja el estado de selección. La selección se realiza mediante click en toda la card.
+          `Componente Selection Card UBITS para mostrar opciones seleccionables. Soporta selección única o múltiple, estados (default, selected, disabled), y tamaños (sm, md, lg). Incluye un radio button visual a la derecha que refleja el estado de selección. La selección se realiza mediante click en toda la card.
 
 \`\`\`html
 // 1. Importar funciones (si usas módulos)
@@ -519,7 +519,7 @@ export const Default: Story = {
     } catch (error) {
       console.error('❌ [SelectionCard Story] Error al crear card:', error);
       const errorDiv = document.createElement('div');
-      errorDiv.textContent = `Error: ${error instanceof Error ? error.message : 'Error desconocido'}';
+      errorDiv.textContent = `Error: ${error instanceof Error ? error.message : 'Error desconocido'}`;
       errorDiv.style.color = 'red';
       errorDiv.style.padding = '20px';
       container.appendChild(errorDiv);

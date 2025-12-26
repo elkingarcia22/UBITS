@@ -260,7 +260,7 @@ const avatarHTML = window.UBITS.Avatar.render({
   size: 'md',
   alt: 'Avatar'
 });
-document.getElementById('container').innerHTML = avatarHTML;',
+document.getElementById('container').innerHTML = avatarHTML;`,
       },
     },
   },

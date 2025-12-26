@@ -13,7 +13,7 @@ const meta: Meta<ScrollOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Scrollbar personalizado UBITS. Se usa para crear scrollbars personalizados en elementos scrollable. Soporta orientación vertical y horizontal. Se sincroniza automáticamente con el elemento scrollable asociado. Aparece en hover y se adapta al tamaño del contenido. Soporta arrastrar y clic para navegar.
+          `Componente Scrollbar personalizado UBITS. Se usa para crear scrollbars personalizados en elementos scrollable. Soporta orientación vertical y horizontal. Se sincroniza automáticamente con el elemento scrollable asociado. Aparece en hover y se adapta al tamaño del contenido. Soporta arrastrar y clic para navegar.
 
 \`\`\`html
 // 1. Crear elemento scrollable
@@ -531,7 +531,7 @@ export const Default: Story = {
         const scrollableContainer = document.createElement('div');
         scrollableContainer.id = `scrollbar-target-horizontal-${Date.now()}`;
         // El contenedor debe tener un ancho fijo menor que el contenido para activar scroll
-        scrollableContainer.setAttribute('style', '
+        scrollableContainer.setAttribute('style', `
           width: 100% !important;
           height: calc(100% - 40px) !important;
           overflow-x: auto !important;
@@ -577,7 +577,7 @@ export const Default: Story = {
         });
         const content = document.createElement('div');
         // Usar box-sizing: content-box para que el padding se sume al ancho total
-        content.setAttribute('style', '
+        content.setAttribute('style', `
           width: ${requiredContentWidth}px !important;
           min-width: ${requiredContentWidth}px !important;
           max-width: ${requiredContentWidth}px !important;
@@ -608,7 +608,7 @@ export const Default: Story = {
 
         const itemsContainer = document.createElement('div');
         const itemsWidth = requiredContentWidth - 32; // Restar padding
-        itemsContainer.setAttribute('style', '
+        itemsContainer.setAttribute('style', `
           display: flex !important;
           gap: 12px !important;
           width: ${itemsWidth}px !important;
@@ -619,7 +619,7 @@ export const Default: Story = {
 
         for (let i = 1; i <= 20; i++) {
           const item = document.createElement('div');
-          item.setAttribute('style', '
+          item.setAttribute('style', `
             min-width: 200px !important;
             width: 200px !important;
             flex-shrink: 0 !important;
@@ -667,7 +667,7 @@ export const Default: Story = {
             if (targetEl && contentEl) {
               // Forzar el ancho del contenido usando !important inline
               const requiredWidth = 1800;
-              contentEl.setAttribute('style', '
+              contentEl.setAttribute('style', `
                 width: ${requiredWidth}px !important;
                 min-width: ${requiredWidth}px !important;
                 max-width: ${requiredWidth}px !important;
@@ -681,7 +681,7 @@ export const Default: Story = {
               // También forzar el ancho del itemsContainer
               if (itemsContainer) {
                 const itemsWidth = requiredWidth - 32; // Restar padding
-                itemsContainer.setAttribute('style', '
+                itemsContainer.setAttribute('style', `
                   display: flex;
                   gap: 12px;
                   width: ${itemsWidth}px !important;

@@ -19,7 +19,7 @@ const meta = {
       codePanel: true,
       description: {
         component:
-          'Componente Spinner/Loader UBITS para mostrar estados de carga. Soporta múltiples tamaños, variantes de color y puede mostrarse con o sin etiqueta.
+          `Componente Spinner/Loader UBITS para mostrar estados de carga. Soporta múltiples tamaños, variantes de color y puede mostrarse con o sin etiqueta.
 
 \`\`\`html
 // Opción 1: Usar createSpinner (retorna elemento)
@@ -237,7 +237,7 @@ const spinnerHTML = window.UBITS.Spinner.render({
   label: 'Cargando...',
   fullScreen: false
 });
-document.getElementById('container').innerHTML = spinnerHTML;',
+document.getElementById('container').innerHTML = spinnerHTML;`,
       },
     },
   },

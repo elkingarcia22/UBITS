@@ -8,7 +8,7 @@ const meta: Meta<{
   parameters: {
     docs: {
       description: {
-        component: `Templates completos de UBITS para modo Administrador y Colaborador. Incluyen Sidebar, TabBar, SubNav y todos los componentes del sistema de diseño UBITS. Estos templates representan las vistas completas de escritorio de las aplicaciones UBITS.'
+        component: `Templates completos de UBITS para modo Administrador y Colaborador. Incluyen Sidebar, TabBar, SubNav y todos los componentes del sistema de diseño UBITS. Estos templates representan las vistas completas de escritorio de las aplicaciones UBITS.`
       }
     },
     layout: 'fullscreen'
@@ -34,7 +34,7 @@ function getTemplatePath(template: 'admin' | 'colaborador'): string {
   // En Storybook, los templates están servidos desde staticDirs en /templates
   const basePath = '/templates';
   return template === 'admin' 
-    ? '${basePath}/template-admin.html'
+    ? `${basePath}/template-admin.html`
     : `${basePath}/template-colaborador.html`;
 }
 

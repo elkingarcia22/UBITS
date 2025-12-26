@@ -26,7 +26,7 @@ const meta: Meta<
       codePanel: true,
       description: {
         component:
-          'Componente Sidebar UBITS de navegación lateral con 2 variantes (colaborador y admin). Incluye tooltips internos, menú de perfil interno, dark mode toggle y ajuste dinámico de altura. Ancho fijo 96px.
+          `Componente Sidebar UBITS de navegación lateral con 2 variantes (colaborador y admin). Incluye tooltips internos, menú de perfil interno, dark mode toggle y ajuste dinámico de altura. Ancho fijo 96px.
 
 \`\`\`html
 // 1. Crear contenedor HTML

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { createDataTable } from '../../components/data-table/src/DataTableProvider';
-import type { DataTableOptions, TableColumn, TableRow } from '../../components/data-table/src/types/DataTableOptions';
-import { renderButton } from '../../components/button/src/ButtonProvider';
-import { createUBITSContract } from './_shared/ubitsContract';
+import { createDataTable } from '../../../components/data-table/src/DataTableProvider';
+import type { DataTableOptions, TableColumn, TableRow } from '../../../components/data-table/src/types/DataTableOptions';
+import { renderButton } from '../../../components/button/src/ButtonProvider';
+import { createUBITSContract } from '../../_shared/ubitsContract';
 
 const meta: Meta<DataTableOptions & { columnsCount?: number }> = {
   title: 'Data/Data Table',
@@ -129,7 +129,7 @@ window.UBITS.DataTable.create({
   onRowSelect: (rowId, selected) => {},
   onSelectAll: (selected) => {}
 });
-\`\`\`'
+\`\`\``
       }
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN
@@ -749,156 +749,31 @@ export const Implementation: Story = {
   parameters: {
     docs: {
       source: {
-        // ⭐ SNIPPET EXACTO para Autorun
         type: 'code',
         state: 'open',
-        code: `// 1. Crear contenedor HTML
-<div id="datatable-implementation-container"></div>
-
-// 2. Crear DataTable con configuración completa
-window.UBITS.DataTable.create({
-  containerId: 'datatable-implementation-container',
-  columns: [
-    { id: 'nombre-col1', title: 'Nombre', type: 'nombre', width: 200 },
-    { id: 'email-col2', title: 'Email', type: 'correo', width: 250 },
-    { id: 'estado-col3', title: 'Estado', type: 'estado', width: 150 },
-    { id: 'nombre-col4', title: 'Nombre', type: 'nombre', width: 180 },
-    { id: 'nombre-col5', title: 'Nombre', type: 'nombre', width: 180 },
-    { id: 'pais-col6', title: 'País', type: 'pais', width: 180 },
-    { id: 'fecha-col7', title: 'Fecha', type: 'fecha', width: 180 }
-  ],
-  rows: [
-    {
-      id: 1,
-      data: {
-        'nombre-col1': 'Juan Pérez',
-        'email-col2': 'juan.perez@empresa.com',
-        'estado-col3': 'Activo',
-        'nombre-col4': 'Columna 1',
-        'nombre-col5': 'Extra 1',
-        'pais-col6': 'Colombia',
-        'fecha-col7': '2024-01-15',
-        'checkbox-2': false
-      }
-    },
-    {
-      id: 2,
-      data: {
-        'nombre-col1': 'María García',
-        'email-col2': 'maria.garcia@empresa.com',
-        'estado-col3': 'Inactivo',
-        'nombre-col4': 'Columna 2',
-        'nombre-col5': 'Extra 2',
-        'pais-col6': 'Colombia',
-        'fecha-col7': '2024-02-20',
-        'checkbox-2': false
-      }
-    }
-  ],
-  showCheckbox: true,
-  columnSortable: true,
-  rowExpandable: true,
-  columnReorderable: true,
-  rowReorderable: true,
-  showColumnMenu: true,
-  showContextMenu: true,
-  header: {
-    title: 'Lista de elementos',
-    showTitle: true,
-    counter: true,
-    displayedItems: 2,
-    totalItems: 2,
-    showCounter: true,
-    primaryButton: {
-      text: 'Nuevo',
-      icon: 'plus',
-      iconStyle: 'regular',
-      onClick: (e) => { alert('Botón primario'); }
-    },
-    showPrimaryButton: true,
-    secondaryButtons: [
-      {
-        text: 'Exportar',
-        icon: 'download',
-        iconStyle: 'regular',
-        onClick: (e) => { alert('Exportar'); }
-      },
-      {
-        text: 'Importar',
-        icon: 'upload',
-        iconStyle: 'regular',
-        onClick: (e) => { alert('Importar'); }
-      }
-    ],
-    showSecondaryButtons: true,
-    searchButton: {
-      placeholder: 'Buscar...',
-      onSearch: (searchTerm, filteredRows) => {}
-    },
-    showSearchButton: true,
-    filterButton: {
-      onClick: (e) => {},
-      onApplyFilters: (filters) => {},
-      onClearFilters: () => {}
-    },
-    showFilterButton: true,
-    columnSelectorButton: {
-      onClick: (e) => {}
-    },
-    showColumnSelectorButton: true
-  },
-  emptyState: {
-    noData: {
-      title: 'No hay datos',
-      description: 'No se han agregado elementos aún.',
-      icon: 'inbox'
-    },
-    noSearchResults: {
-      title: 'No se encontraron resultados',
-      description: 'Intenta con otros términos de búsqueda.',
-      icon: 'search'
-    },
-    noFilterResults: {
-      title: 'No hay resultados con los filtros aplicados',
-      description: 'Intenta ajustar los filtros.',
-      icon: 'filter'
-    }
-  },
-  onRowSelect: (rowId, selected) => {},
-  onSelectAll: (selected) => {}
-});`,
+        code: '// 1. Crear contenedor HTML\n<div id="datatable-implementation-container"></div>\n\n// 2. Crear DataTable con configuración básica\nwindow.UBITS.DataTable.create({\n  containerId: \'datatable-implementation-container\',\n  columns: [\n    { id: \'nombre-col1\', title: \'Nombre\', type: \'nombre\', width: 200 },\n    { id: \'email-col2\', title: \'Email\', type: \'correo\', width: 250 },\n    { id: \'estado-col3\', title: \'Estado\', type: \'estado\', width: 150 }\n  ],\n  rows: [\n    {\n      id: 1,\n      data: {\n        \'nombre-col1\': \'Juan Pérez\',\n        \'email-col2\': \'juan.perez@empresa.com\',\n        \'estado-col3\': \'Activo\'\n      }\n    },\n    {\n      id: 2,\n      data: {\n        \'nombre-col1\': \'María García\',\n        \'email-col2\': \'maria.garcia@empresa.com\',\n        \'estado-col3\': \'Inactivo\'\n      }\n    }\n  ],\n  showCheckbox: true,\n  columnSortable: true,\n  rowExpandable: true\n});',
       },
     },
   },
   render: (args) => {
     // Usar la misma lógica que Default con configuración completa incluyendo filtros
-    const renderId = `story-render-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp = Date.now();
+    const randomStr = Math.random().toString(36).substr(2, 9);
+    const renderId = 'story-render-' + timestamp + '-' + randomStr;
     
     // Contenedor principal con estilos UBITS
     const container = document.createElement('div');
     container.setAttribute('data-ubits-id', '🧩-ux-data-table');
     container.setAttribute('data-ubits-component', 'DataTable');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px; background: var(--modifiers-normal-color-light-bg-1); border-radius: 8px; width: 100%; max-width: 100%; min-height: auto; height: auto; overflow: visible !important; max-height: none !important;';
     
     // Contenedor para la tabla - crear uno nuevo cada vez pero con ID único
-    const tableContainerId = args.containerId || `datatable-implementation-container-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp2 = Date.now();
+    const randomStr2 = Math.random().toString(36).substr(2, 9);
+    const tableContainerId = args.containerId || ('datatable-implementation-container-' + timestamp2 + '-' + randomStr2);
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      height: calc(100vh - 100px);
-      overflow: auto;
-    `;
+    tableContainer.style.cssText = 'width: 100%; height: calc(100vh - 100px); overflow: auto;';
     
     // La limpieza global ya se hizo al inicio del render, no es necesario limpiar aquí de nuevo
     
@@ -924,7 +799,7 @@ window.UBITS.DataTable.create({
     const allColumns: TableColumn[] = columnTypes.map((columnType, index) => {
       const baseConfig = columnTypeMapping[columnType] || { id: 'nombre', title: 'Nombre' };
       const baseId = baseConfig.id;
-      const uniqueId = `${baseId}-col${index + 1}`;
+      const uniqueId = baseId + '-col' + (index + 1);
       return {
         id: uniqueId,
         title: baseConfig.title,
@@ -953,27 +828,26 @@ window.UBITS.DataTable.create({
         rows.push({
           id: i + 1,
           data: {
-            [`nombre-col${1}`]: baseData.nombre + (i > 4 ? ` ${i + 1}` : ''),
-            [`email-col${2}`]: baseData.email.replace('@', `${i + 1}@`),
-            [`estado-col${3}`]: baseData.estado,
-            [`nombre-col${4}`]: `Columna ${i + 1}`,
-            [`nombre-col${5}`]: `Extra ${i + 1}`,
-            [`pais-col${6}`]: 'Colombia',
-            [`fecha-col${7}`]: `2024-${String((i % 12) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}`,
+            ['nombre-col1']: baseData.nombre + (i > 4 ? ' ' + (i + 1) : ''),
+            ['email-col2']: baseData.email.replace('@', (i + 1) + '@'),
+            ['estado-col3']: baseData.estado,
+            ['nombre-col4']: 'Columna ' + (i + 1),
+            ['nombre-col5']: 'Extra ' + (i + 1),
+            ['pais-col6']: 'Colombia',
+            ['fecha-col7']: '2024-' + String((i % 12) + 1).padStart(2, '0') + '-' + String((i % 28) + 1).padStart(2, '0'),
             'checkbox-2': false,
           },
           expanded: false,
           renderExpandedContent: (data) => {
-            return `
-              <div style="padding: var(--ubits-spacing-md); background: var(--modifiers-normal-color-light-bg-2); border-radius: var(--ubits-border-radius-sm);">
-                <h4 style="margin: 0 0 var(--ubits-spacing-sm) 0; font-size: var(--modifiers-normal-body-md-semibold-fontsize); color: var(--modifiers-normal-color-light-fg-1-high);">
-                  Información adicional
-                </h4>
-                <p style="margin: 0; font-size: var(--modifiers-normal-body-sm-regular-fontsize); color: var(--modifiers-normal-color-light-fg-1-medium);">
-                  Detalles adicionales para ${data[`nombre-col${1}`] || 'usuario'}
-                </p>
-              </div>
-            `;
+            const nombreUsuario = data['nombre-col1'] || 'usuario';
+            return '<div style="padding: var(--ubits-spacing-md); background: var(--modifiers-normal-color-light-bg-2); border-radius: var(--ubits-border-radius-sm);">' +
+              '<h4 style="margin: 0 0 var(--ubits-spacing-sm) 0; font-size: var(--modifiers-normal-body-md-semibold-fontsize); color: var(--modifiers-normal-color-light-fg-1-high);">' +
+              'Información adicional' +
+              '</h4>' +
+              '<p style="margin: 0; font-size: var(--modifiers-normal-body-sm-regular-fontsize); color: var(--modifiers-normal-color-light-fg-1-medium);">' +
+              'Detalles adicionales para ' + nombreUsuario +
+              '</p>' +
+              '</div>';
           }
         });
       }
@@ -1009,13 +883,7 @@ window.UBITS.DataTable.create({
       if (!actionBar) {
         actionBar = document.createElement('div');
         actionBar.className = 'ubits-data-table__action-bar';
-        actionBar.style.cssText = `
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
-          flex-wrap: wrap;
-          background-color: var(--modifiers-normal-color-light-bg-1);
-        `;
+        actionBar.style.cssText = 'display: flex;; align-items: center;; justify-content: flex-start;; flex-wrap: wrap;; background-color: var(--modifiers-normal-color-light-bg-1);';
         header.insertAdjacentElement('afterend', actionBar);
       }
       
@@ -1033,7 +901,7 @@ window.UBITS.DataTable.create({
       // Mostrar la barra cuando hay selecciones
       actionBar.style.display = 'flex';
       
-      const countText = `(${selectedCount})`;
+      const countText = '(' + selectedCount + ')';
       const isMultipleSelection = selectedCount > 1;
       
       let buttonsHTML = '';
@@ -1041,8 +909,8 @@ window.UBITS.DataTable.create({
       // Estado del botón "Ver seleccionados" (compartido entre ambos modos)
       const isViewSelectedActive = selectionState.viewSelectedActive;
       const viewSelectedText = isViewSelectedActive
-        ? `Dejar de ver seleccionados ${countText}`
-        : `Ver seleccionados ${countText}`;
+        ? 'Dejar de ver seleccionados ' + countText
+        : 'Ver seleccionados ' + countText;
       const viewSelectedIcon = isViewSelectedActive ? 'eye-slash' : 'eye';
       
       if (isMultipleSelection) {
@@ -1171,7 +1039,7 @@ window.UBITS.DataTable.create({
       
       // Otros botones (placeholders)
       ['notifications', 'copy', 'view', 'edit', 'download', 'delete'].forEach(action => {
-        const btn = actionBar.querySelector(`#action-btn-${action}`);
+        const btn = actionBar.querySelector('#action-btn-' + action);
         if (btn) {
           btn.addEventListener('click', () => {
             // Placeholder para acciones futuras
@@ -1315,7 +1183,7 @@ window.UBITS.DataTable.create({
       },
       onRowExpand: (rowId, expanded) => {
         // Callback para filas expandidas (igual que Default)
-        console.log(`🔄 [Implementation] Fila ${rowId} ${expanded ? `)expandida' : 'colapsada'}`);
+        const estadoFila = expanded ? 'expandida' : 'colapsada'; console.log('🔄 [Implementation] Fila ' + rowId + ' ' + estadoFila);
       }
     };
 
@@ -1418,32 +1286,18 @@ window.UBITS.DataTable.create({
 
 export const Default: Story = {
   render: (args) => {
-    const renderId = `story-render-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_render = Date.now(); const randomStr_render = Math.random().toString(36).substr(2, 9); const renderId = 'story-render-' + timestamp_render + '-' + randomStr_render;
     
     // Contenedor principal con estilos UBITS
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
     // Contenedor para la tabla - crear uno nuevo cada vez pero con ID único
     // Usar un ID único basado en timestamp para evitar conflictos entre renders
-    const tableContainerId = `data-table-story-container-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_tc_story = Date.now(); const randomStr_tc_story = Math.random().toString(36).substr(2, 9); const tableContainerId = 'data-table-story-container-' + timestamp_tc_story + '-' + randomStr_tc_story;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      height: calc(100vh - 100px);
-      overflow: auto;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; height: calc(100vh - 100px);; overflow: auto;';
     
     // Buscar y limpiar cualquier tabla anterior en el contenedor principal
     // Esto previene renderizados duplicados cuando se cambian los tipos de columna
@@ -1622,7 +1476,7 @@ export const Default: Story = {
       
       // Hacer el ID único agregando el índice
       const baseId = baseConfig.id;
-      const uniqueId = `${baseId}-col${index + 1}`;
+      const uniqueId = baseId + '-col' + (index + 1);
       
       const config = {
         id: uniqueId,
@@ -1796,10 +1650,10 @@ export const Default: Story = {
           estado: rowData.estado,
           area: rowData.area,
           progreso: Math.floor(Math.random() * 100),
-          telefono: `+57 ${300 + rowData.id} ${Math.floor(Math.random() * 1000)} ${Math.floor(Math.random() * 10000)}`,
+          telefono: '+57 ' + (300 + rowData.id) + ' ' + Math.floor(Math.random() * 1000) + ' ' + Math.floor(Math.random() * 10000),
           ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][Math.floor(Math.random() * 5)],
           pais: 'Colombia',
-          fecha: `2024-${String(Math.floor(Math.random() * 12) + 1).padStart(2, `0`)}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')}',
+          fecha: '2024-' + String(Math.floor(Math.random() * 12) + 1).padStart(2, '0') + '-' + String(Math.floor(Math.random() * 28) + 1).padStart(2, '0'),
           categoria: rowData.area,
           prioridad: ['Alta', 'Media', 'Baja'][Math.floor(Math.random() * 3)],
           'checkbox-2': false,
@@ -1807,14 +1661,14 @@ export const Default: Story = {
 }, rowData.id),
         expanded: false,
         renderExpandedContent: (data) => {
-          return `
-                Información adicional
-              </h4>
-              <p style="margin: 0; font-size: var(--modifiers-normal-body-sm-regular-fontsize); color: var(--modifiers-normal-color-light-fg-1-medium);">
-                Detalles adicionales para ${data.nombre}
-              </p>
-            </div>
-          `;
+          return '<div style="padding: var(--ubits-spacing-md); background: var(--modifiers-normal-color-light-bg-2); border-radius: var(--ubits-border-radius-sm);">' +
+            '<h4 style="margin: 0 0 var(--ubits-spacing-sm) 0; font-size: var(--modifiers-normal-body-md-semibold-fontsize); color: var(--modifiers-normal-color-light-fg-1-high);">' +
+            'Información adicional' +
+            '</h4>' +
+            '<p style="margin: 0; font-size: var(--modifiers-normal-body-sm-regular-fontsize); color: var(--modifiers-normal-color-light-fg-1-medium);">' +
+            'Detalles adicionales para ' + data.nombre +
+            '</p>' +
+            '</div>';
         }
 }));
     };
@@ -1847,13 +1701,7 @@ export const Default: Story = {
       if (!actionBar) {
         actionBar = document.createElement('div');
         actionBar.className = 'ubits-data-table__action-bar';
-        actionBar.style.cssText = `
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
-          flex-wrap: wrap;
-          background-color: var(--modifiers-normal-color-light-bg-1);
-        `;
+        actionBar.style.cssText = 'display: flex;; align-items: center;; justify-content: flex-start;; flex-wrap: wrap;; background-color: var(--modifiers-normal-color-light-bg-1);';
         header.insertAdjacentElement('afterend', actionBar);
       }
       
@@ -1871,7 +1719,7 @@ export const Default: Story = {
       // Mostrar la barra cuando hay selecciones
       actionBar.style.display = 'flex';
       
-      const countText = `(${selectedCount})`;
+      const countText = '(' + selectedCount + ')';
       const isMultipleSelection = selectedCount > 1;
       
       let buttonsHTML = '';
@@ -1879,8 +1727,8 @@ export const Default: Story = {
       // Estado del botón "Ver seleccionados" (compartido entre ambos modos)
       const isViewSelectedActive = selectionState.viewSelectedActive;
       const viewSelectedText = isViewSelectedActive
-        ? `Dejar de ver seleccionados ${countText}`
-        : `Ver seleccionados ${countText}`;
+        ? 'Dejar de ver seleccionados ' + countText
+        : 'Ver seleccionados ' + countText;
       const viewSelectedIcon = isViewSelectedActive ? 'eye-slash' : 'eye';
       
       if (isMultipleSelection) {
@@ -2029,7 +1877,7 @@ export const Default: Story = {
       
       // Otros botones (placeholders)
       ['notifications', 'copy', 'view', 'edit', 'download', 'delete'].forEach(action => {
-        const btn = actionBar.querySelector(`#action-btn-${action}`);
+        const btn = actionBar.querySelector('#action-btn-' + action);
         if (btn) {
           btn.addEventListener('click', () => {
           });
@@ -2358,7 +2206,7 @@ export const Default: Story = {
           }, 50);
         }
       } catch (error) {
-        console.error(`❌ [STORY] Error creating data table:`, error);
+        console.error('❌ [STORY] Error creating data table:', error);
       }
     });
     
@@ -2408,7 +2256,7 @@ export const Default: Story = {
         // Hacer el ID único agregando el índice si es necesario
         // Solo agregar sufijo si hay múltiples columnas con el mismo tipo base
         const baseId = baseConfig.id;
-        const uniqueId = `${baseId}-col${index + 1}`;
+        const uniqueId = baseId + '-col' + (index + 1);
         
         const config = {
           id: uniqueId,
@@ -2613,29 +2461,17 @@ export const Default: Story = {
  */
 export const ColumnReorderable: Story = {
   render: (args) => {
-    const renderId = `story-render-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_render = Date.now(); const randomStr_render = Math.random().toString(36).substr(2, 9); const renderId = 'story-render-' + timestamp_render + '-' + randomStr_render;
     
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-column-reorder-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_column = Date.now();
+    const randomStr_column = Math.random().toString(36).substr(2, 9);
+    const tableContainerId = 'data-table-column-' + timestamp_column + '-' + randomStr_column;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      height: 600px;
-      overflow: auto;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; height: 600px;; overflow: auto;';
     
     container.appendChild(tableContainer);
     
@@ -2646,8 +2482,8 @@ export const ColumnReorderable: Story = {
         rows.push({
           id: i,
           data: {
-            nombre: `Usuario ${i}`,
-            email: `usuario${i}@ejemplo.com`,
+            nombre: 'Usuario ' + i,
+            email: 'usuario' + i + '@ejemplo.com',
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0]
@@ -2710,7 +2546,7 @@ export const ColumnReorderable: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona el reordenamiento de columnas mediante drag & drop. Para reordenar una columna, arrastra el header de la columna y suéltala en la posición deseada. El callback `onColumnReorder` se ejecuta cuando se completa el reordenamiento.'
+        story: 'Esta historia demuestra cómo funciona el reordenamiento de columnas mediante drag & drop. Para reordenar una columna, arrastra el header de la columna y suéltala en la posición deseada. El callback onColumnReorder se ejecuta cuando se completa el reordenamiento.'
       }
     }
   },
@@ -2737,26 +2573,14 @@ export const ColumnReorderable: Story = {
 export const RowReorderable: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-row-reorder-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_row = Date.now();
+    const randomStr_row = Math.random().toString(36).substr(2, 9);
+    const tableContainerId = 'data-table-row-' + timestamp_row + '-' + randomStr_row;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      height: 600px;
-      overflow: auto;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; height: 600px;; overflow: auto;';
     
     container.appendChild(tableContainer);
     
@@ -2767,8 +2591,8 @@ export const RowReorderable: Story = {
         rows.push({
           id: i,
           data: {
-            nombre: `Usuario ${i}`,
-            email: `usuario${i}@ejemplo.com`,
+            nombre: 'Usuario ' + i,
+            email: 'usuario' + i + '@ejemplo.com',
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0]
@@ -2831,7 +2655,7 @@ export const RowReorderable: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona el reordenamiento de filas mediante drag & drop. Para reordenar una fila, arrastra el icono de drag-handle (⋮⋮) que aparece en la primera columna y suéltala en la posición deseada. El callback `onRowReorder' se ejecuta cuando se completa el reordenamiento, recibiendo el nuevo orden de los IDs de las filas.'
+        story: 'Esta historia demuestra cómo funciona el reordenamiento de filas mediante drag & drop. Para reordenar una fila, arrastra el icono de drag-handle (⋮⋮) que aparece en la primera columna y suéltala en la posición deseada. El callback onRowReorder se ejecuta cuando se completa el reordenamiento, recibiendo el nuevo orden de los IDs de las filas.'
       }
     }
   },
@@ -2858,26 +2682,14 @@ export const RowReorderable: Story = {
 export const RowExpandable: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-row-expandable-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_row = Date.now();
+    const randomStr_row = Math.random().toString(36).substr(2, 9);
+    const tableContainerId = 'data-table-row-' + timestamp_row + '-' + randomStr_row;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      height: 600px;
-      overflow: auto;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; height: 600px;; overflow: auto;';
     
     container.appendChild(tableContainer);
     
@@ -2888,44 +2700,42 @@ export const RowExpandable: Story = {
         rows.push({
           id: i,
           data: {
-            nombre: `Usuario ${i}`,
-            email: `usuario${i}@ejemplo.com`,
+            nombre: 'Usuario ' + i,
+            email: 'usuario' + i + '@ejemplo.com',
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0]
           },
           expanded: false,
           renderExpandedContent: (data: any) => {
-            return `
-              <div style="padding: 16px; background: var(--ubits-bg-2); border-radius: 8px;">
-                <h4 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600; color: var(--ubits-fg-1-high);">
-                  Detalles adicionales de ${data.nombre}
-                </h4>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13px;">
-                  <div>
-                    <strong style="color: var(--ubits-fg-1-medium);">Email:</strong>
-                    <div style="color: var(--ubits-fg-1-high); margin-top: 4px;">${data.email}</div>
-                  </div>
-                  <div>
-                    <strong style="color: var(--ubits-fg-1-medium);">País:</strong>
-                    <div style="color: var(--ubits-fg-1-high); margin-top: 4px;">${data.pais}</div>
-                  </div>
-                  <div>
-                    <strong style="color: var(--ubits-fg-1-medium);">Estado:</strong>
-                    <div style="color: var(--ubits-fg-1-high); margin-top: 4px;">${data.estado}</div>
-                  </div>
-                  <div>
-                    <strong style="color: var(--ubits-fg-1-medium);">Fecha de registro:</strong>
-                    <div style="color: var(--ubits-fg-1-high); margin-top: 4px;">${data.fecha}</div>
-                  </div>
-                </div>
-                <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--ubits-border-1);">
-                  <p style="margin: 0; font-size: 13px; color: var(--ubits-fg-1-medium);">
-                    Este es un ejemplo de contenido expandible. Puedes incluir cualquier HTML personalizado aquí.
-                  </p>
-                </div>
-              </div>
-            `;
+            return '<div style="padding: 16px; background: var(--ubits-bg-2); border-radius: 8px;">' +
+              '<h4 style="margin: 0 0 12px 0; font-size: 14px; font-weight: 600; color: var(--ubits-fg-1-high);">' +
+              'Detalles adicionales de ' + data.nombre +
+              '</h4>' +
+              '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13px;">' +
+              '<div>' +
+              '<strong style="color: var(--ubits-fg-1-medium);">Email:</strong>' +
+              '<div style="color: var(--ubits-fg-1-high); margin-top: 4px;">' + data.email + '</div>' +
+              '</div>' +
+              '<div>' +
+              '<strong style="color: var(--ubits-fg-1-medium);">País:</strong>' +
+              '<div style="color: var(--ubits-fg-1-high); margin-top: 4px;">' + data.pais + '</div>' +
+              '</div>' +
+              '<div>' +
+              '<strong style="color: var(--ubits-fg-1-medium);">Estado:</strong>' +
+              '<div style="color: var(--ubits-fg-1-high); margin-top: 4px;">' + data.estado + '</div>' +
+              '</div>' +
+              '<div>' +
+              '<strong style="color: var(--ubits-fg-1-medium);">Fecha de registro:</strong>' +
+              '<div style="color: var(--ubits-fg-1-high); margin-top: 4px;">' + data.fecha + '</div>' +
+              '</div>' +
+              '</div>' +
+              '<div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--ubits-border-1);">' +
+              '<p style="margin: 0; font-size: 13px; color: var(--ubits-fg-1-medium);">' +
+              'Este es un ejemplo de contenido expandible. Puedes incluir cualquier HTML personalizado aquí.' +
+              '</p>' +
+              '</div>' +
+              '</div>';
           }
         });
       }
@@ -2965,7 +2775,8 @@ export const RowExpandable: Story = {
         totalItems: rows.length
       },
       onRowExpand: (rowId: string | number, expanded: boolean) => {
-        console.log(`🔄 Fila ${rowId} ${expanded ? `)expandida' : 'colapsada'}');
+        const estadoFila_fix = expanded ? 'expandida' : 'colapsada';
+        console.log('🔄 Fila ' + rowId + ' ' + estadoFila_fix);
       }
     };
     
@@ -2985,7 +2796,7 @@ export const RowExpandable: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funcionan las filas expandibles. Cada fila tiene un icono de expandir/colapsar (▶/▼) que permite mostrar contenido adicional. El contenido expandible se define mediante la función `renderExpandedContent` en cada fila. El callback `onRowExpand` se ejecuta cuando una fila se expande o colapsa, recibiendo el ID de la fila y el estado (expandida/colapsada).'
+        story: 'Esta historia demuestra cómo funcionan las filas expandibles. Cada fila tiene un icono de expandir/colapsar (▶/▼) que permite mostrar contenido adicional. El contenido expandible se define mediante la función renderExpandedContent en cada fila. El callback onRowExpand se ejecuta cuando una fila se expande o colapsa, recibiendo el ID de la fila y el estado (expandida/colapsada).'
       }
     }
   },
@@ -3012,26 +2823,14 @@ export const RowExpandable: Story = {
 export const ColumnSortable: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-column-sortable-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_column = Date.now();
+    const randomStr_column = Math.random().toString(36).substr(2, 9);
+    const tableContainerId = 'data-table-column-' + timestamp_column + '-' + randomStr_column;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      height: 600px;
-      overflow: auto;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; height: 600px;; overflow: auto;';
     
     container.appendChild(tableContainer);
     
@@ -3047,7 +2846,7 @@ export const ColumnSortable: Story = {
           id: i + 1,
           data: {
             nombre: nombres[i],
-            email: `${nombres[i].toLowerCase()}@ejemplo.com`,
+            email: nombres[i].toLowerCase() + '@ejemplo.com',
             estado: estados[i % 3],
             pais: paises[i],
             fecha: new Date(2024, 0, i + 1).toISOString().split('T')[0],
@@ -3092,7 +2891,8 @@ export const ColumnSortable: Story = {
         totalItems: rows.length
       },
       onSort: (columnId: string, direction: 'asc' | 'desc') => {
-        console.log(`🔄 Columna ${columnId} ordenada: ${direction === `)asc' ? 'ascendente' : 'descendente'}');
+        const direccionTexto_fix = direction === 'asc' ? 'ascendente' : 'descendente';
+        console.log('🔄 Columna ' + columnId + ' ordenada: ' + direccionTexto_fix);
       }
     };
     
@@ -3112,7 +2912,7 @@ export const ColumnSortable: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona el ordenamiento de columnas. Cada columna ordenable muestra iconos de flecha (↑↓) en el header. Al hacer click en el header de una columna, se ordena ascendente (↑), y al hacer click nuevamente se ordena descendente (↓). El callback `onSort` se ejecuta cuando se ordena una columna, recibiendo el ID de la columna y la dirección del ordenamiento (asc/desc).'
+        story: 'Esta historia demuestra cómo funciona el ordenamiento de columnas. Cada columna ordenable muestra iconos de flecha (↑↓) en el header. Al hacer click en el header de una columna, se ordena ascendente (↑), y al hacer click nuevamente se ordena descendente (↓). El callback onSort se ejecuta cuando se ordena una columna, recibiendo el ID de la columna y la dirección del ordenamiento (asc/desc).'
       }
     }
   },
@@ -3139,26 +2939,14 @@ export const ColumnSortable: Story = {
 export const CheckboxSelection: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-checkbox-selection-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_checkbox = Date.now();
+    const randomStr_checkbox = Math.random().toString(36).substr(2, 9);
+    const tableContainerId = 'data-table-checkbox-' + timestamp_checkbox + '-' + randomStr_checkbox;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      height: 600px;
-      overflow: auto;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; height: 600px;; overflow: auto;';
     
     container.appendChild(tableContainer);
     
@@ -3169,8 +2957,8 @@ export const CheckboxSelection: Story = {
         rows.push({
           id: i,
           data: {
-            nombre: `Usuario ${i}`,
-            email: `usuario${i}@ejemplo.com`,
+            nombre: 'Usuario ' + i,
+            email: 'usuario' + i + '@ejemplo.com',
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
@@ -3229,7 +3017,8 @@ export const CheckboxSelection: Story = {
             checkbox.addEventListener('change', (e) => {
               const target = e.target as HTMLInputElement;
               const rowId = target.getAttribute('data-row-id');
-              console.log(`☑️ Checkbox de fila ${rowId} ${target.checked ? `)marcado' : 'desmarcado'}');
+              const estadoCheckbox_fix = target.checked ? 'marcado' : 'desmarcado';
+              console.log('☑️ Checkbox de fila ' + rowId + ' ' + estadoCheckbox_fix);
             });
           });
           
@@ -3238,7 +3027,8 @@ export const CheckboxSelection: Story = {
           if (masterCheckbox) {
             masterCheckbox.addEventListener('change', (e) => {
               const target = e.target as HTMLInputElement;
-              console.log(`☑️ Checkbox maestro ${target.checked ? `)marcado - todas las filas seleccionadas' : 'desmarcado - todas las filas deseleccionadas'}');
+              const estadoMaestro_fix = target.checked ? 'marcado - todas las filas seleccionadas' : 'desmarcado - todas las filas deseleccionadas';
+              console.log('☑️ Checkbox maestro ' + estadoMaestro_fix);
             });
           }
         }, 100);
@@ -3252,7 +3042,7 @@ export const CheckboxSelection: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona la selección múltiple de filas mediante checkboxes. Cada fila tiene un checkbox en la primera columna, y hay un checkbox maestro en el header que permite seleccionar/deseleccionar todas las filas de una vez. El estado de los checkboxes se almacena en 'row.data[\'checkbox-2\']'. Puedes escuchar los cambios mediante event listeners en los elementos checkbox del DOM.'
+        story: 'Esta historia demuestra cómo funciona la selección múltiple de filas mediante checkboxes. Cada fila tiene un checkbox en la primera columna, y hay un checkbox maestro en el header que permite seleccionar/deseleccionar todas las filas de una vez. El estado de los checkboxes se almacena en row.data[checkbox-2]. Puedes escuchar los cambios mediante event listeners en los elementos checkbox del DOM.'
       }
     }
   },
@@ -3279,26 +3069,14 @@ export const CheckboxSelection: Story = {
 export const VerticalScroll: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: 400px;
-      height: 500px;
-      overflow: visible !important;
-      max-height: 500px !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: 400px;; height: 500px;; overflow: visible !important;; max-height: 500px !important;';
     
-    const tableContainerId = `data-table-vertical-scroll-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_vertical = Date.now();
+    const randomStr_vertical = Math.random().toString(36).substr(2, 9);
+    const tableContainerId = 'data-table-vertical-' + timestamp_vertical + '-' + randomStr_vertical;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      height: 100%;
-      overflow: visible !important;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; height: 100%;; overflow: visible !important;';
     
     container.appendChild(tableContainer);
     
@@ -3313,8 +3091,8 @@ export const VerticalScroll: Story = {
         rows.push({
           id: i,
           data: {
-            nombre: `${nombres[i % 10]} ${i}`,
-            email: `${nombres[i % 10].toLowerCase()}${i}@ejemplo.com`,
+            nombre: nombres[i % 10] + ' ' + i,
+            email: nombres[i % 10].toLowerCase() + i + '@ejemplo.com',
             estado: estados[i % 3],
             pais: paises[i % 10],
             fecha: new Date(2024, 0, (i % 28) + 1).toISOString().split('T')[0]
@@ -3374,7 +3152,7 @@ export const VerticalScroll: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona el scroll vertical en la tabla. Cuando `showVerticalScrollbar` está habilitado, la tabla muestra un scrollbar vertical que permite navegar por todas las filas cuando el contenido excede la altura disponible. El contenedor de la tabla tiene una altura limitada (500px en este ejemplo) y el scroll vertical permite ver todas las 50 filas sin que la tabla ocupe todo el espacio disponible.'
+        story: 'Esta historia demuestra cómo funciona el scroll vertical en la tabla. Cuando showVerticalScrollbar está habilitado, la tabla muestra un scrollbar vertical que permite navegar por todas las filas cuando el contenido excede la altura disponible. El contenedor de la tabla tiene una altura limitada (500px en este ejemplo) y el scroll vertical permite ver todas las 50 filas sin que la tabla ocupe todo el espacio disponible.'
       }
     }
   },
@@ -3401,26 +3179,14 @@ export const VerticalScroll: Story = {
 export const HorizontalScroll: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 600px;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 600px;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-horizontal-scroll-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_horizontal = Date.now();
+    const randomStr_horizontal = Math.random().toString(36).substr(2, 9);
+    const tableContainerId = 'data-table-horizontal-' + timestamp_horizontal + '-' + randomStr_horizontal;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      height: 600px;
-      overflow: auto;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; height: 600px;; overflow: auto;';
     
     container.appendChild(tableContainer);
     
@@ -3431,12 +3197,12 @@ export const HorizontalScroll: Story = {
         rows.push({
           id: i,
           data: {
-            nombre: `Usuario ${i}`,
-            email: `usuario${i}@ejemplo.com`,
+            nombre: 'Usuario ' + i,
+            email: 'usuario' + i + '@ejemplo.com',
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, `0`)}',
+            telefono: '+57 300 ' + i.toString().padStart(7, '0'),
             ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][i % 5],
             departamento: ['Cundinamarca', 'Antioquia', 'Valle del Cauca', 'Atlántico', 'Bolívar'][i % 5],
             cargo: ['Desarrollador', 'Diseñador', 'Product Manager', 'QA', 'DevOps'][i % 5]
@@ -3500,7 +3266,7 @@ export const HorizontalScroll: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona el scroll horizontal en la tabla. Cuando `showHorizontalScrollbar' está habilitado y el contenido de la tabla es más ancho que el contenedor, aparece un scrollbar horizontal que permite navegar por todas las columnas. El contenedor tiene un ancho limitado (600px en este ejemplo) y la tabla tiene 9 columnas anchas, lo que fuerza el scroll horizontal para ver todas las columnas.'
+        story: 'Esta historia demuestra cómo funciona el scroll horizontal en la tabla. Cuando showHorizontalScrollbar está habilitado y el contenido de la tabla es más ancho que el contenedor, aparece un scrollbar horizontal que permite navegar por todas las columnas. El contenedor tiene un ancho limitado (600px en este ejemplo) y la tabla tiene 9 columnas anchas, lo que fuerza el scroll horizontal para ver todas las columnas.'
       }
     }
   },
@@ -3527,29 +3293,14 @@ export const HorizontalScroll: Story = {
 export const ColumnMenu: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-column-menu-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_column = Date.now();
+    const randomStr_column = Math.random().toString(36).substr(2, 9);
+    const tableContainerId = 'data-table-column-' + timestamp_column + '-' + randomStr_column;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      max-width: 600px;
-      overflow: visible !important;
-      min-height: auto;
-      height: auto;
-      max-height: none !important;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; max-width: 600px;; overflow: visible !important;; min-height: auto;; height: auto;; max-height: none !important;';
     
     container.appendChild(tableContainer);
     
@@ -3560,12 +3311,12 @@ export const ColumnMenu: Story = {
         rows.push({
           id: i,
           data: {
-            nombre: `Usuario ${i}`,
-            email: `usuario${i}@ejemplo.com`,
+            nombre: 'Usuario ' + i,
+            email: 'usuario' + i + '@ejemplo.com',
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, `0`)}',
+            telefono: '+57 300 ' + i.toString().padStart(7, '0'),
             ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][i % 5]
           }
         });
@@ -3608,7 +3359,8 @@ export const ColumnMenu: Story = {
         totalItems: rows.length
       },
       onColumnPin: (columnId: string, pinned: boolean) => {
-        console.log(`📌 Columna ${columnId} ${pinned ? `)fijada' : 'desfijada'}');
+        const estadoPinned_fix = pinned ? 'fijada' : 'desfijada';
+        console.log('📌 Columna ' + columnId + ' ' + estadoPinned_fix);
       }
     };
     
@@ -3628,7 +3380,7 @@ export const ColumnMenu: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona el menú de columnas. Cada header de columna tiene un botón de menú (3 puntos) que al hacer click muestra un dropdown con la opción de fijar/desfijar la columna. Cuando una columna está fijada (pinned), permanece visible al hacer scroll horizontal. El callback `onColumnPin` se ejecuta cuando se fija o desfija una columna, recibiendo el ID de la columna y el estado (pinned: true/false).'
+        story: 'Esta historia demuestra cómo funciona el menú de columnas. Cada header de columna tiene un botón de menú (3 puntos) que al hacer click muestra un dropdown con la opción de fijar/desfijar la columna. Cuando una columna está fijada (pinned), permanece visible al hacer scroll horizontal. El callback onColumnPin se ejecuta cuando se fija o desfija una columna, recibiendo el ID de la columna y el estado (pinned: true/false).'
       }
     }
   },
@@ -3655,26 +3407,14 @@ export const ColumnMenu: Story = {
 export const ContextMenu: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-context-menu-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_context = Date.now();
+    const randomStr_context = Math.random().toString(36).substr(2, 9);
+    const tableContainerId = 'data-table-context-' + timestamp_context + '-' + randomStr_context;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      height: 600px;
-      overflow: auto;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; height: 600px;; overflow: auto;';
     
     container.appendChild(tableContainer);
     
@@ -3685,8 +3425,8 @@ export const ContextMenu: Story = {
         rows.push({
           id: i,
           data: {
-            nombre: `Usuario ${i}`,
-            email: `usuario${i}@ejemplo.com`,
+            nombre: 'Usuario ' + i,
+            email: 'usuario' + i + '@ejemplo.com',
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0]
@@ -3729,7 +3469,7 @@ export const ContextMenu: Story = {
         totalItems: rows.length
       },
       onRowAction: (rowId: string | number, row: TableRow) => {
-        console.log(`🖱️ Acción ejecutada en fila ${rowId}:`, row.data);
+        console.log('🖱️ Acción ejecutada en fila ' + rowId + ':', row.data);
       }
     };
     
@@ -3749,7 +3489,7 @@ export const ContextMenu: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona el menú contextual en las filas. Cuando `showContextMenu` está habilitado, puedes hacer click derecho en cualquier fila para abrir un menú contextual con acciones disponibles (ver, editar, eliminar, etc.). El callback `onRowAction' se ejecuta cuando se selecciona una acción del menú, recibiendo el ID de la fila y los datos completos de la fila.'
+        story: 'Esta historia demuestra cómo funciona el menú contextual en las filas. Cuando showContextMenu está habilitado, puedes hacer click derecho en cualquier fila para abrir un menú contextual con acciones disponibles (ver, editar, eliminar, etc.). El callback onRowAction se ejecuta cuando se selecciona una acción del menú, recibiendo el ID de la fila y los datos completos de la fila.'
       }
     }
   },
@@ -3778,33 +3518,16 @@ export const LazyLoad: Story = {
     console.log('🟢 [LAZY LOAD STORY] Iniciando render...');
     
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-lazy-load-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_lazy = Date.now();
+    const randomStr_lazy = Math.random().toString(36).substr(2, 9);
+    const tableContainerId = 'data-table-lazy-' + timestamp_lazy + '-' + randomStr_lazy;
     console.log('🟡 [LAZY LOAD STORY] Container ID:', tableContainerId);
     
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      max-width: 100%;
-      height: 500px; /* Altura fija para que se active el scroll */
-      overflow: hidden !important; /* CRÍTICO: Ocultar overflow para que el scrollable container maneje el scroll */
-      min-height: 500px;
-      max-height: 500px;
-      display: flex;
-      flex-direction: column;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; max-width: 100%;; height: 500px; /* Altura fija para que se active el scroll */; overflow: hidden !important; /* CRÍTICO: Ocultar overflow para que el scrollable container maneje el scroll */; min-height: 500px;; max-height: 500px;; display: flex;; flex-direction: column;';
     
     container.appendChild(tableContainer);
     console.log('🟡 [LAZY LOAD STORY] Container agregado al DOM');
@@ -3817,12 +3540,12 @@ export const LazyLoad: Story = {
         rows.push({
           id: i,
           data: {
-            nombre: `Usuario ${i}`,
-            email: `usuario${i}@ejemplo.com`,
+            nombre: 'Usuario ' + i,
+            email: 'usuario' + i + '@ejemplo.com',
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, `0`)}'
+            telefono: '+57 300 ' + i.toString().padStart(7, '0')
           }
         });
       }
@@ -3865,7 +3588,7 @@ export const LazyLoad: Story = {
           showColumnMenu: false,
           showContextMenu: false,
           onLazyLoad: (loadedItems: number, totalItems: number) => {
-            console.log(`📦 [LAZY LOAD CALLBACK] ${loadedItems}/${totalItems} items cargados`);
+            console.log('📦 [LAZY LOAD CALLBACK] ' + loadedItems + '/' + totalItems + ' items cargados');
           }
         };
         
@@ -3936,29 +3659,12 @@ export const LazyLoad: Story = {
 export const Pagination: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-pagination-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_tc1 = Date.now(); const randomStr_tc1 = Math.random().toString(36).substr(2, 9); const tableContainerId = 'data-table-pagination-' + timestamp_tc1 + '-' + randomStr_tc1;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      max-width: 100%;
-      overflow: visible !important;
-      min-height: auto;
-      height: auto;
-      max-height: none !important;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; max-width: 100%;; overflow: visible !important;; min-height: auto;; height: auto;; max-height: none !important;';
     
     container.appendChild(tableContainer);
     
@@ -3969,12 +3675,12 @@ export const Pagination: Story = {
         rows.push({
           id: i,
           data: {
-            nombre: `Usuario ${i}`,
-            email: `usuario${i}@ejemplo.com`,
+            nombre: 'Usuario ' + i,
+            email: 'usuario' + i + '@ejemplo.com',
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, `0`)}'
+            telefono: '+57 300 ' + i.toString().padStart(7, '0')
           }
         });
       }
@@ -4045,29 +3751,14 @@ export const Pagination: Story = {
 export const StickyControls: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-sticky-controls-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_sticky = Date.now();
+    const randomStr_sticky = Math.random().toString(36).substr(2, 9);
+    const tableContainerId = 'data-table-sticky-' + timestamp_sticky + '-' + randomStr_sticky;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      max-width: 800px;
-      overflow: visible !important;
-      min-height: auto;
-      height: auto;
-      max-height: none !important;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; max-width: 800px;; overflow: visible !important;; min-height: auto;; height: auto;; max-height: none !important;';
     
     container.appendChild(tableContainer);
     
@@ -4078,29 +3769,27 @@ export const StickyControls: Story = {
         rows.push({
           id: i,
           data: {
-            nombre: `Usuario ${i}`,
-            email: `usuario${i}@ejemplo.com`,
+            nombre: 'Usuario ' + i,
+            email: 'usuario' + i + '@ejemplo.com',
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, `0`)}',
+            telefono: '+57 300 ' + i.toString().padStart(7, '0'),
             ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][i % 5],
             departamento: ['Cundinamarca', 'Antioquia', 'Valle del Cauca', 'Atlántico', 'Bolívar'][i % 5],
             cargo: ['Desarrollador', 'Diseñador', 'Product Manager', 'QA', 'DevOps'][i % 5],
-            salario: `$${(50000 + i * 1000).toLocaleString()}`,
-            experiencia: `${i} años`
+            salario: '$' + (50000 + i * 1000).toLocaleString(),
+            experiencia: i + ' años'
           },
           renderExpandedContent: (rowData: any) => {
-            return `
-              <div style="padding: 16px; background: var(--modifiers-normal-color-light-bg-2);">
-                <h4 style="margin: 0 0 8px 0; font-size: 14px; font-weight: 600;">Detalles adicionales</h4>
-                <p style="margin: 4px 0; font-size: 12px;"><strong>Ciudad:</strong> ${rowData.ciudad}</p>
-                <p style="margin: 4px 0; font-size: 12px;"><strong>Departamento:</strong> ${rowData.departamento}</p>
-                <p style="margin: 4px 0; font-size: 12px;"><strong>Cargo:</strong> ${rowData.cargo}</p>
-                <p style="margin: 4px 0; font-size: 12px;"><strong>Salario:</strong> ${rowData.salario}</p>
-                <p style="margin: 4px 0; font-size: 12px;"><strong>Experiencia:</strong> ${rowData.experiencia}</p>
-              </div>
-            `;
+            return '<div style="padding: 16px; background: var(--modifiers-normal-color-light-bg-2);">' +
+              '<h4 style="margin: 0 0 8px 0; font-size: 14px; font-weight: 600;">Detalles adicionales</h4>' +
+              '<p style="margin: 4px 0; font-size: 12px;"><strong>Ciudad:</strong> ' + rowData.ciudad + '</p>' +
+              '<p style="margin: 4px 0; font-size: 12px;"><strong>Departamento:</strong> ' + rowData.departamento + '</p>' +
+              '<p style="margin: 4px 0; font-size: 12px;"><strong>Cargo:</strong> ' + rowData.cargo + '</p>' +
+              '<p style="margin: 4px 0; font-size: 12px;"><strong>Salario:</strong> ' + rowData.salario + '</p>' +
+              '<p style="margin: 4px 0; font-size: 12px;"><strong>Experiencia:</strong> ' + rowData.experiencia + '</p>' +
+              '</div>';
           }
         });
       }
@@ -4172,29 +3861,14 @@ export const StickyControls: Story = {
 export const ActionBar: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-action-bar-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_action = Date.now();
+    const randomStr_action = Math.random().toString(36).substr(2, 9);
+    const tableContainerId = 'data-table-action-' + timestamp_action + '-' + randomStr_action;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      max-width: 100%;
-      overflow: visible !important;
-      min-height: auto;
-      height: auto;
-      max-height: none !important;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; max-width: 100%;; overflow: visible !important;; min-height: auto;; height: auto;; max-height: none !important;';
     
     container.appendChild(tableContainer);
     
@@ -4205,8 +3879,8 @@ export const ActionBar: Story = {
         rows.push({
           id: i,
           data: {
-            nombre: `Usuario ${i}`,
-            email: `usuario${i}@ejemplo.com`,
+            nombre: 'Usuario ' + i,
+            email: 'usuario' + i + '@ejemplo.com',
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0]
@@ -4268,15 +3942,7 @@ export const ActionBar: Story = {
         console.log('  - Creando nueva actionBar...');
         actionBar = document.createElement('div');
         actionBar.className = 'ubits-data-table__action-bar';
-        actionBar.style.cssText = `
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
-          flex-wrap: wrap;
-          background-color: var(--modifiers-normal-color-light-bg-1);
-          padding: var(--ubits-spacing-sm) var(--ubits-spacing-md);
-          gap: var(--ubits-spacing-xs);
-        `;
+        actionBar.style.cssText = 'display: flex;; align-items: center;; justify-content: flex-start;; flex-wrap: wrap;; background-color: var(--modifiers-normal-color-light-bg-1);; padding: var(--ubits-spacing-sm) var(--ubits-spacing-md);; gap: var(--ubits-spacing-xs);';
         header.insertAdjacentElement('afterend', actionBar);
         console.log('✅ [ACTION BAR RENDER] Barra de acciones creada e insertada');
       }
@@ -4298,14 +3964,14 @@ export const ActionBar: Story = {
       console.log('  - Mostrando barra (hay selecciones)');
       actionBar.style.display = 'flex';
       
-      const countText = `(${selectedCount})`;
+      const countText = '(' + selectedCount + ')';
       const isMultipleSelection = selectedCount > 1;
       
       // Estado del botón "Ver seleccionados"
       const isViewSelectedActive = selectionState.viewSelectedActive;
       const viewSelectedText = isViewSelectedActive
-        ? `Dejar de ver seleccionados ${countText}`
-        : `Ver seleccionados ${countText}`;
+        ? 'Dejar de ver seleccionados ' + countText
+        : 'Ver seleccionados ' + countText;
       // Cambiar icono según el estado: eye cuando inactivo, eye-slash cuando activo
       const viewSelectedIcon = isViewSelectedActive ? 'eye-slash' : 'eye';
       
@@ -4436,11 +4102,11 @@ export const ActionBar: Story = {
       
       // Otros botones
       ['notifications', 'copy', 'view', 'edit', 'download', 'delete'].forEach(action => {
-        const btn = actionBar.querySelector(`#action-btn-${action}`);
+        const btn = actionBar.querySelector('#action-btn-' + action);
         if (btn) {
           btn.addEventListener('click', () => {
-            console.log(`🔘 Acción: ${action}`, selectedIds);
-            alert(`Acción "${action}" para ${selectedCount} elemento(s) seleccionado(s)`);
+            console.log('🔘 Acción: ' + action, selectedIds);
+            alert('Acción "' + action + '" para ' + selectedCount + ' elemento(s) seleccionado(s)');
           });
         }
       });
@@ -4566,29 +4232,14 @@ export const ActionBar: Story = {
 export const ColumnSelector: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-column-selector-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_column = Date.now();
+    const randomStr_column = Math.random().toString(36).substr(2, 9);
+    const tableContainerId = 'data-table-column-' + timestamp_column + '-' + randomStr_column;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      max-width: 100%;
-      overflow: visible !important;
-      min-height: auto;
-      height: auto;
-      max-height: none !important;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; max-width: 100%;; overflow: visible !important;; min-height: auto;; height: auto;; max-height: none !important;';
     
     container.appendChild(tableContainer);
     
@@ -4599,12 +4250,12 @@ export const ColumnSelector: Story = {
         rows.push({
           id: i,
           data: {
-            nombre: `Usuario ${i}`,
-            email: `usuario${i}@ejemplo.com`,
+            nombre: 'Usuario ' + i,
+            email: 'usuario' + i + '@ejemplo.com',
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, `0`)}',
+            telefono: '+57 300 ' + i.toString().padStart(7, '0'),
             ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][i % 5],
             departamento: ['Cundinamarca', 'Antioquia', 'Valle del Cauca', 'Atlántico', 'Bolívar'][i % 5]
           }
@@ -4675,29 +4326,12 @@ export const ColumnSelector: Story = {
 export const Filters: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-filters-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_tc2 = Date.now(); const randomStr_tc2 = Math.random().toString(36).substr(2, 9); const tableContainerId = 'data-table-filters-' + timestamp_tc2 + '-' + randomStr_tc2;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      max-width: 100%;
-      overflow: visible !important;
-      min-height: auto;
-      height: auto;
-      max-height: none !important;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; max-width: 100%;; overflow: visible !important;; min-height: auto;; height: auto;; max-height: none !important;';
     
     container.appendChild(tableContainer);
     
@@ -4711,8 +4345,8 @@ export const Filters: Story = {
         rows.push({
           id: i,
           data: {
-            nombre: `Usuario ${i}`,
-            email: `usuario${i}@ejemplo.com`,
+            nombre: 'Usuario ' + i,
+            email: 'usuario' + i + '@ejemplo.com',
             estado: estados[i % estados.length],
             pais: paises[i % paises.length],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0]
@@ -4816,29 +4450,12 @@ export const Filters: Story = {
 export const Search: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-search-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_tc3 = Date.now(); const randomStr_tc3 = Math.random().toString(36).substr(2, 9); const tableContainerId = 'data-table-search-' + timestamp_tc3 + '-' + randomStr_tc3;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      max-width: 100%;
-      overflow: visible !important;
-      min-height: auto;
-      height: auto;
-      max-height: none !important;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; max-width: 100%;; overflow: visible !important;; min-height: auto;; height: auto;; max-height: none !important;';
     
     container.appendChild(tableContainer);
     
@@ -4853,8 +4470,8 @@ export const Search: Story = {
         rows.push({
           id: i,
           data: {
-            nombre: nombres[i % nombres.length] + ` ${i}`,
-            email: `usuario${i}@ejemplo.com`,
+            nombre: nombres[i % nombres.length] + ' ' + i,
+            email: 'usuario' + i + '@ejemplo.com',
             estado: estados[i % estados.length],
             pais: paises[i % paises.length],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0]
@@ -4925,29 +4542,12 @@ export const Search: Story = {
 export const Header: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-header-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_tc4 = Date.now(); const randomStr_tc4 = Math.random().toString(36).substr(2, 9); const tableContainerId = 'data-table-header-' + timestamp_tc4 + '-' + randomStr_tc4;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      max-width: 100%;
-      overflow: visible !important;
-      min-height: auto;
-      height: auto;
-      max-height: none !important;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; max-width: 100%;; overflow: visible !important;; min-height: auto;; height: auto;; max-height: none !important;';
     
     container.appendChild(tableContainer);
     
@@ -4958,8 +4558,8 @@ export const Header: Story = {
         rows.push({
           id: i,
           data: {
-            nombre: `Usuario ${i}`,
-            email: `usuario${i}@ejemplo.com`,
+            nombre: 'Usuario ' + i,
+            email: 'usuario' + i + '@ejemplo.com',
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0]
@@ -5022,29 +4622,14 @@ export const Header: Story = {
 export const PinnedColumns: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-pinned-columns-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_pinned = Date.now();
+    const randomStr_pinned = Math.random().toString(36).substr(2, 9);
+    const tableContainerId = 'data-table-pinned-' + timestamp_pinned + '-' + randomStr_pinned;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      max-width: 600px;
-      overflow: visible !important;
-      min-height: auto;
-      height: auto;
-      max-height: none !important;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; max-width: 600px;; overflow: visible !important;; min-height: auto;; height: auto;; max-height: none !important;';
     
     container.appendChild(tableContainer);
     
@@ -5055,12 +4640,12 @@ export const PinnedColumns: Story = {
         rows.push({
           id: i,
           data: {
-            nombre: `Usuario ${i}`,
-            email: `usuario${i}@ejemplo.com`,
+            nombre: 'Usuario ' + i,
+            email: 'usuario' + i + '@ejemplo.com',
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, `0`)}',
+            telefono: '+57 300 ' + i.toString().padStart(7, '0'),
             ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][i % 5],
             departamento: ['Cundinamarca', 'Antioquia', 'Valle del Cauca', 'Atlántico', 'Bolívar'][i % 5],
             cargo: ['Desarrollador', 'Diseñador', 'Product Manager', 'QA', 'DevOps'][i % 5]
@@ -5107,7 +4692,8 @@ export const PinnedColumns: Story = {
         totalItems: rows.length
       },
       onColumnPin: (columnId: string, pinned: boolean) => {
-        console.log(`📌 Columna ${columnId} ${pinned ? `)fijada' : 'desfijada'}');
+        const estadoPinned_fix = pinned ? 'fijada' : 'desfijada';
+        console.log('📌 Columna ' + columnId + ' ' + estadoPinned_fix);
       }
     };
     
@@ -5127,7 +4713,7 @@ export const PinnedColumns: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funcionan las columnas fijadas (pinned). Las columnas con `pinned: true` permanecen visibles al hacer scroll horizontal, lo que es útil para mantener información importante (como nombre o email) siempre visible mientras navegas por otras columnas. En este ejemplo, las columnas "Nombre" y "Email" están fijadas inicialmente. Puedes hacer click en el botón de menú (3 puntos) en cualquier header de columna para fijar/desfijar columnas dinámicamente. También puedes hacer scroll horizontal para ver cómo las columnas fijadas permanecen visibles mientras las demás columnas se desplazan.'
+        story: 'Esta historia demuestra cómo funcionan las columnas fijadas (pinned). Las columnas con pinned: true permanecen visibles al hacer scroll horizontal, lo que es útil para mantener información importante (como nombre o email) siempre visible mientras navegas por otras columnas. En este ejemplo, las columnas "Nombre" y "Email" están fijadas inicialmente. Puedes hacer click en el botón de menú (3 puntos) en cualquier header de columna para fijar/desfijar columnas dinámicamente. También puedes hacer scroll horizontal para ver cómo las columnas fijadas permanecen visibles mientras las demás columnas se desplazan.'
       }
     }
   },
@@ -5148,26 +4734,14 @@ export const PinnedColumns: Story = {
 export const ColumnTypes: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-column-types-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_column = Date.now();
+    const randomStr_column = Math.random().toString(36).substr(2, 9);
+    const tableContainerId = 'data-table-column-' + timestamp_column + '-' + randomStr_column;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      max-width: 100%;
-      overflow: visible !important;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; max-width: 100%;; overflow: visible !important;';
     container.appendChild(tableContainer);
     
     requestAnimationFrame(() => {
@@ -5315,26 +4889,14 @@ export const ColumnTypes: Story = {
 export const EditableCells: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-editable-cells-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_editable = Date.now();
+    const randomStr_editable = Math.random().toString(36).substr(2, 9);
+    const tableContainerId = 'data-table-editable-' + timestamp_editable + '-' + randomStr_editable;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      max-width: 100%;
-      overflow: visible !important;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; max-width: 100%;; overflow: visible !important;';
     container.appendChild(tableContainer);
     
     requestAnimationFrame(() => {
@@ -5473,7 +5035,7 @@ export const EditableCells: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Demuestra la funcionalidad de edición de celdas en el DataTable. Las columnas con `editable: true' permiten modificar su contenido directamente. Los tipos editables incluyen: nombre (edición de texto inline), nombre-avatar (edición del nombre manteniendo el avatar), estado (dropdown con estados disponibles), fecha (date picker), checkbox (activar/desactivar) y radio (seleccionar/deseleccionar). Los cambios se guardan automáticamente cuando pierdes el foco o seleccionas una opción.'
+        story: 'Demuestra la funcionalidad de edición de celdas en el DataTable. Las columnas con editable: true permiten modificar su contenido directamente. Los tipos editables incluyen: nombre (edición de texto inline), nombre-avatar (edición del nombre manteniendo el avatar), estado (dropdown con estados disponibles), fecha (date picker), checkbox (activar/desactivar) y radio (seleccionar/deseleccionar). Los cambios se guardan automáticamente cuando pierdes el foco o seleccionas una opción.'
       }
     }
   }
@@ -5482,43 +5044,21 @@ export const EditableCells: Story = {
 export const EmptyState: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
     // Crear tres tablas para demostrar los diferentes tipos de empty state
     const createTable = (tableId: string, title: string, rows: TableRow[], emptyStateConfig: any) => {
       const tableContainer = document.createElement('div');
-      tableContainer.style.cssText = `
-        margin-bottom: 40px;
-      `;
+      tableContainer.style.cssText = 'margin-bottom: 40px;';
       
       const titleElement = document.createElement('h3');
       titleElement.textContent = title;
-      titleElement.style.cssText = `
-        margin-bottom: 16px;
-        font-family: var(--font-family-noto-sans-font-family);
-        font-size: var(--font-body-lg-size);
-        font-weight: var(--weight-bold);
-        color: var(--ubits-fg-1-high);
-      `;
+      titleElement.style.cssText = 'margin-bottom: 16px;; font-family: var(--font-family-noto-sans-font-family);; font-size: var(--font-body-lg-size);; font-weight: var(--weight-bold);; color: var(--ubits-fg-1-high);';
       tableContainer.appendChild(titleElement);
       
       const tableDiv = document.createElement('div');
       tableDiv.id = tableId;
-      tableDiv.style.cssText = `
-        width: 100%;
-        max-width: 100%;
-        overflow: visible !important;
-      `;
+      tableDiv.style.cssText = 'width: 100%;; max-width: 100%;; overflow: visible !important;';
       tableContainer.appendChild(tableDiv);
       
       requestAnimationFrame(() => {
@@ -5548,7 +5088,7 @@ export const EmptyState: Story = {
           };
           
           const tableInstance = createDataTable(options);
-          (window as any)[`__storybookDataTableInstance_${tableId}`] = tableInstance;
+          (window as any)['__storybookDataTableInstance_' + tableId] = tableInstance;
         }
       });
       
@@ -5556,7 +5096,7 @@ export const EmptyState: Story = {
     };
     
     // Tabla 1: Sin datos (noData)
-    const table1Id = `data-table-empty-no-data-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_t1 = Date.now(); const randomStr_t1 = Math.random().toString(36).substr(2, 9); const table1Id = 'data-table-empty-no-data-' + timestamp_t1 + '-' + randomStr_t1;
     const table1 = createTable(
       table1Id,
       '1. Sin Datos (noData)',
@@ -5580,28 +5120,18 @@ export const EmptyState: Story = {
     
     // Tabla 2: Sin resultados de búsqueda (noSearchResults)
     // Necesitamos filas iniciales y luego simular una búsqueda que no devuelve resultados
-    const table2Id = `data-table-empty-no-search-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_t2 = Date.now(); const randomStr_t2 = Math.random().toString(36).substr(2, 9); const table2Id = 'data-table-empty-no-search-' + timestamp_t2 + '-' + randomStr_t2;
     const table2Container = document.createElement('div');
-    table2Container.style.cssText = `margin-bottom: 40px;`;
+    table2Container.style.cssText = 'margin-bottom: 40px;';
     
     const title2 = document.createElement('h3');
     title2.textContent = '2. Sin Resultados de Búsqueda (noSearchResults)';
-    title2.style.cssText = `
-      margin-bottom: 16px;
-      font-family: var(--font-family-noto-sans-font-family);
-      font-size: var(--font-body-lg-size);
-      font-weight: var(--weight-bold);
-      color: var(--ubits-fg-1-high);
-    `;
+    title2.style.cssText = 'margin-bottom: 16px;; font-family: var(--font-family-noto-sans-font-family);; font-size: var(--font-body-lg-size);; font-weight: var(--weight-bold);; color: var(--ubits-fg-1-high);';
     table2Container.appendChild(title2);
     
     const table2Div = document.createElement('div');
     table2Div.id = table2Id;
-    table2Div.style.cssText = `
-      width: 100%;
-      max-width: 100%;
-      overflow: visible !important;
-    `;
+    table2Div.style.cssText = 'width: 100%;; max-width: 100%;; overflow: visible !important;';
     table2Container.appendChild(table2Div);
     
     // Filas iniciales (que luego se filtrarán)
@@ -5638,7 +5168,7 @@ export const EmptyState: Story = {
               primaryButtonIcon: 'times',
               showPrimaryButtonIcon: true,
               onAction: () => {
-                const instance = (window as any)[`__storybookDataTableInstance_${table2Id}`];
+                const instance = (window as any)['__storybookDataTableInstance_' + table2Id];
                 if (instance) {
                   // Limpiar búsqueda restaurando todas las filas
                   instance.update({ rows: initialRows2 });
@@ -5673,7 +5203,7 @@ export const EmptyState: Story = {
         };
         
         const tableInstance = createDataTable(options);
-        (window as any)[`__storybookDataTableInstance_${table2Id}`] = tableInstance;
+        (window as any)['__storybookDataTableInstance_' + table2Id] = tableInstance;
         
         // NOTA: El código que simulaba búsqueda automáticamente ha sido removido
         // para evitar comportamientos inesperados. Si necesitas probar el empty state
@@ -5683,28 +5213,18 @@ export const EmptyState: Story = {
     container.appendChild(table2Container);
     
     // Tabla 3: Sin resultados de filtros (noFilterResults)
-    const table3Id = `data-table-empty-no-filter-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_t3 = Date.now(); const randomStr_t3 = Math.random().toString(36).substr(2, 9); const table3Id = 'data-table-empty-no-filter-' + timestamp_t3 + '-' + randomStr_t3;
     const table3Container = document.createElement('div');
-    table3Container.style.cssText = `margin-bottom: 40px;`;
+    table3Container.style.cssText = 'margin-bottom: 40px;';
     
     const title3 = document.createElement('h3');
     title3.textContent = '3. Sin Resultados de Filtros (noFilterResults)';
-    title3.style.cssText = `
-      margin-bottom: 16px;
-      font-family: var(--font-family-noto-sans-font-family);
-      font-size: var(--font-body-lg-size);
-      font-weight: var(--weight-bold);
-      color: var(--ubits-fg-1-high);
-    `;
+    title3.style.cssText = 'margin-bottom: 16px;; font-family: var(--font-family-noto-sans-font-family);; font-size: var(--font-body-lg-size);; font-weight: var(--weight-bold);; color: var(--ubits-fg-1-high);';
     table3Container.appendChild(title3);
     
     const table3Div = document.createElement('div');
     table3Div.id = table3Id;
-    table3Div.style.cssText = `
-      width: 100%;
-      max-width: 100%;
-      overflow: visible !important;
-    `;
+    table3Div.style.cssText = 'width: 100%;; max-width: 100%;; overflow: visible !important;';
     table3Container.appendChild(table3Div);
     
     // Filas iniciales (que luego se filtrarán)
@@ -5741,7 +5261,7 @@ export const EmptyState: Story = {
               primaryButtonIcon: 'times',
               showPrimaryButtonIcon: true,
               onAction: () => {
-                const instance = (window as any)[`__storybookDataTableInstance_${table3Id}`];
+                const instance = (window as any)['__storybookDataTableInstance_' + table3Id];
                 if (instance) {
                   // Limpiar filtros restaurando todas las filas
                   instance.update({ rows: initialRows3 });
@@ -5781,13 +5301,13 @@ export const EmptyState: Story = {
                 if (filters.estado) {
                   filtered = filtered.filter(row => row.data.estado === filters.estado);
                 }
-                const instance = (window as any)[`__storybookDataTableInstance_${table3Id}`];
+                const instance = (window as any)['__storybookDataTableInstance_' + table3Id];
                 if (instance) {
                   instance.update({ rows: filtered });
                 }
               },
               onClearFilters: () => {
-                const instance = (window as any)[`__storybookDataTableInstance_${table3Id}`];
+                const instance = (window as any)['__storybookDataTableInstance_' + table3Id];
                 if (instance) {
                   instance.update({ rows: initialRows3 });
                 }
@@ -5798,7 +5318,7 @@ export const EmptyState: Story = {
         };
         
         const tableInstance = createDataTable(options);
-        (window as any)[`__storybookDataTableInstance_${table3Id}`] = tableInstance;
+        (window as any)['__storybookDataTableInstance_' + table3Id] = tableInstance;
         
         // NOTA: El código que simulaba filtros automáticamente ha sido removido
         // para evitar que el drawer se abra automáticamente al cargar la documentación.
@@ -5819,7 +5339,7 @@ export const EmptyState: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Demuestra los diferentes tipos de empty state (estado vacío) en el DataTable. El empty state se muestra cuando no hay datos o no hay resultados después de aplicar búsqueda o filtros. Hay tres variantes: `noData` (cuando no hay datos en absoluto), `noSearchResults` (cuando no hay resultados de búsqueda) y `noFilterResults` (cuando no hay resultados de filtros). Cada variante puede tener título, descripción, icono, imagen, y botones de acción primarios y secundarios con callbacks personalizados.'
+        story: 'Demuestra los diferentes tipos de empty state (estado vacío) en el DataTable. El empty state se muestra cuando no hay datos o no hay resultados después de aplicar búsqueda o filtros. Hay tres variantes: noData (cuando no hay datos en absoluto), noSearchResults (cuando no hay resultados de búsqueda) y noFilterResults (cuando no hay resultados de filtros). Cada variante puede tener título, descripción, icono, imagen, y botones de acción primarios y secundarios con callbacks personalizados.'
       }
     }
   }
@@ -5828,26 +5348,14 @@ export const EmptyState: Story = {
 export const HeaderButtons: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-header-buttons-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_header = Date.now();
+    const randomStr_header = Math.random().toString(36).substr(2, 9);
+    const tableContainerId = 'data-table-header-' + timestamp_header + '-' + randomStr_header;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      max-width: 100%;
-      overflow: visible !important;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; max-width: 100%;; overflow: visible !important;';
     container.appendChild(tableContainer);
     
     requestAnimationFrame(() => {
@@ -5860,8 +5368,8 @@ export const HeaderButtons: Story = {
             rows.push({
               id: i,
               data: {
-                nombre: `Usuario ${i}`,
-                email: `usuario${i}@ejemplo.com`,
+                nombre: 'Usuario ' + i,
+                email: 'usuario' + i + '@ejemplo.com',
                 estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
                 pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5]
               }
@@ -5966,26 +5474,14 @@ export const HeaderButtons: Story = {
 export const VerUsuariosSeleccionados: Story = {
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
-      padding: 20px;
-      background: var(--modifiers-normal-color-light-bg-1);
-      border-radius: 8px;
-      width: 100%;
-      max-width: 100%;
-      min-height: auto;
-      height: auto;
-      overflow: visible !important;
-      max-height: none !important;
-    `;
+    container.style.cssText = 'padding: 20px;; background: var(--modifiers-normal-color-light-bg-1);; border-radius: 8px;; width: 100%;; max-width: 100%;; min-height: auto;; height: auto;; overflow: visible !important;; max-height: none !important;';
     
-    const tableContainerId = `data-table-ver-seleccionados-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const timestamp_ver = Date.now();
+    const randomStr_ver = Math.random().toString(36).substr(2, 9);
+    const tableContainerId = 'data-table-ver-' + timestamp_ver + '-' + randomStr_ver;
     const tableContainer = document.createElement('div');
     tableContainer.id = tableContainerId;
-    tableContainer.style.cssText = `
-      width: 100%;
-      max-width: 100%;
-      overflow: visible !important;
-    `;
+    tableContainer.style.cssText = 'width: 100%;; max-width: 100%;; overflow: visible !important;';
     container.appendChild(tableContainer);
     
     // Estado de selección
@@ -6020,15 +5516,7 @@ export const VerUsuariosSeleccionados: Story = {
       if (!actionBar) {
         actionBar = document.createElement('div');
         actionBar.className = 'ubits-data-table__action-bar';
-        actionBar.style.cssText = `
-          display: flex;
-          align-items: center;
-          justify-content: flex-start;
-          flex-wrap: wrap;
-          background-color: var(--modifiers-normal-color-light-bg-1);
-          padding: var(--ubits-spacing-sm) var(--ubits-spacing-md);
-          gap: var(--ubits-spacing-xs);
-        `;
+        actionBar.style.cssText = 'display: flex;; align-items: center;; justify-content: flex-start;; flex-wrap: wrap;; background-color: var(--modifiers-normal-color-light-bg-1);; padding: var(--ubits-spacing-sm) var(--ubits-spacing-md);; gap: var(--ubits-spacing-xs);';
         header.insertAdjacentElement('afterend', actionBar);
       }
       
@@ -6041,11 +5529,11 @@ export const VerUsuariosSeleccionados: Story = {
       
       actionBar.style.display = 'flex';
       
-      const countText = `(${selectedCount})`;
+      const countText = '(' + selectedCount + ')';
       const isViewSelectedActive = selectionState.viewSelectedActive;
       const viewSelectedText = isViewSelectedActive
-        ? `Dejar de ver seleccionados ${countText}`
-        : `Ver seleccionados ${countText}`;
+        ? 'Dejar de ver seleccionados ' + countText
+        : 'Ver seleccionados ' + countText;
       const viewSelectedIcon = isViewSelectedActive ? 'eye-slash' : 'eye';
       
       let buttonsHTML = '';
@@ -6145,7 +5633,7 @@ export const VerUsuariosSeleccionados: Story = {
       if (deleteBtn) {
         deleteBtn.addEventListener('click', () => {
           const selectedIds = Array.from(selectionState.selectedRowIds);
-          alert(`Eliminar ${selectedIds.length} usuario(s) seleccionado(s)`);
+          alert('Eliminar ' + selectedIds.length + ' usuario(s) seleccionado(s)');
         });
       }
     };
@@ -6160,8 +5648,8 @@ export const VerUsuariosSeleccionados: Story = {
             rows.push({
               id: i,
               data: {
-                nombre: `Usuario ${i}`,
-                email: `usuario${i}@ejemplo.com`,
+                nombre: 'Usuario ' + i,
+                email: 'usuario' + i + '@ejemplo.com',
                 estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
                 pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5]
               }

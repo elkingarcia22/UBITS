@@ -220,7 +220,7 @@ const alertElement = window.UBITS.Alert.create({
 });
 
 // 3. Agregar al contenedor
-document.getElementById('alert-implementation-container').appendChild(alertElement);',
+document.getElementById('alert-implementation-container').appendChild(alertElement);`,
       },
       codePanel: true, // Panel de código siempre visible
     },

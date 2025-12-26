@@ -33,7 +33,7 @@ const meta: Meta<{
       codePanel: true,
       description: {
         component:
-          'Componente Timeline UBITS para mostrar secuencias de eventos o fases. Soporta avatar, fecha, título, descripción, iconos y alineación izquierda o centrada. Usa tokens UBITS.
+          `Componente Timeline UBITS para mostrar secuencias de eventos o fases. Soporta avatar, fecha, título, descripción, iconos y alineación izquierda o centrada. Usa tokens UBITS.
 
 \`\`\`html
 // Timeline no tiene un componente separado, se implementa directamente
