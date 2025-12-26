@@ -32,7 +32,7 @@ const meta: Meta<ExtendedStepperOptions> = {
     docs: {
       codePanel: true,
       description: {
-        component: 'Componente Stepper UBITS para mostrar el progreso de un proceso multi-paso. Soporta orientación horizontal y vertical, con estados: default, completado, activo, error y warning. Cada paso puede tener número, título y descripción.
+        component: `Componente Stepper UBITS para mostrar el progreso de un proceso multi-paso. Soporta orientación horizontal y vertical, con estados: default, completado, activo, error y warning. Cada paso puede tener número, título y descripción.
 
 \`\`\`html
 // 1. Crear contenedor HTML
@@ -455,8 +455,8 @@ const stepper = window.UBITS.Stepper.create({
 
     for (let i = 1; i <= numSteps; i++) {
       const stepState = (args as any)[`step${i}State`] || (i === 1 ? 'completed' : i === 2 ? 'active' : 'default');
-      const stepTitle = (args as any)[`step${i}Title`] || `Step ${i === 1 ? 'One' : i === 2 ? 'Two' : i === 3 ? 'Three' : i === 4 ? 'Four' : 'Five'}`;
-      const stepDescription = (args as any)[`step${i}Description`] || `Desc for step ${i === 1 ? 'one' : i === 2 ? 'two' : i === 3 ? 'three' : i === 4 ? 'four' : 'five'}`;
+      const stepTitle = (args as any)[`step${i}Title`] || `Step ${i === 1 ? 'One' : i === 2 ? 'Two' : i === 3 ? 'Three' : i === 4 ? 'Four' : 'Five'}';
+      const stepDescription = (args as any)[`step${i}Description`] || `Desc for step ${i === 1 ? 'one' : i === 2 ? 'two' : i === 3 ? 'three' : i === 4 ? 'four' : 'five'}';
 
       steps.push({
         number: i,
@@ -484,7 +484,7 @@ const stepper = window.UBITS.Stepper.create({
       stepperContainer.innerHTML = html;
     } catch (error) {
       console.error('Error al renderizar stepper:', error);
-      stepperContainer.innerHTML = `<p style="color: var(--modifiers-normal-color-light-feedback-accent-error);">Error al renderizar el stepper: ${error instanceof Error ? error.message : 'Error desconocido'}</p>`;
+      stepperContainer.innerHTML = `<p style="color: var(--modifiers-normal-color-light-feedback-accent-error);">Error al renderizar el stepper: ${error instanceof Error ? error.message : 'Error desconocido'}</p>';
     }
 
     container.appendChild(stepperContainer);
@@ -538,8 +538,8 @@ export const Default: Story = {
 
       for (let i = 1; i <= numSteps; i++) {
         const stepState = (args as any)[`step${i}State`] || (i === 1 ? 'completed' : i === 2 ? 'active' : 'default');
-        const stepTitle = (args as any)[`step${i}Title`] || `Step ${i === 1 ? 'One' : i === 2 ? 'Two' : i === 3 ? 'Three' : i === 4 ? 'Four' : 'Five'}`;
-        const stepDescription = (args as any)[`step${i}Description`] || `Desc for step ${i === 1 ? 'one' : i === 2 ? 'two' : i === 3 ? 'three' : i === 4 ? 'four' : 'five'}`;
+        const stepTitle = (args as any)[`step${i}Title`] || `Step ${i === 1 ? 'One' : i === 2 ? 'Two' : i === 3 ? 'Three' : i === 4 ? 'Four' : 'Five'}';
+        const stepDescription = (args as any)[`step${i}Description`] || `Desc for step ${i === 1 ? 'one' : i === 2 ? 'two' : i === 3 ? 'three' : i === 4 ? 'four' : 'five'}';
 
         steps.push({
           number: i,

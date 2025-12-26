@@ -17,7 +17,7 @@ const meta: Meta<{
   parameters: {
     docs: {
       description: {
-        component: 'Componente List UBITS para mostrar listas de items con estados (default, hover, active, disabled). Soporta 4 tamaños (xs, sm, md, lg), scrollbar personalizado UBITS, navegación por teclado y selección simple o múltiple.',
+        component: `Componente List UBITS para mostrar listas de items con estados (default, hover, active, disabled). Soporta 4 tamaños (xs, sm, md, lg), scrollbar personalizado UBITS, navegación por teclado y selección simple o múltiple.',
       },
     },
   },
@@ -114,7 +114,7 @@ function renderListSimple(args: {
     { label: 'Item 10', state: 'default' as const }
   ];
   
-  const listContainerId = `list-container-${Date.now()}`;
+  const listContainerId = 'list-container-${Date.now()}';
   const listId = `list-${Date.now()}`;
   const scrollbarContainerId = `list-scrollbar-${Date.now()}`;
   
@@ -130,7 +130,7 @@ function renderListSimple(args: {
       const itemClasses = [
         'ubits-list-item',
         `ubits-list-item--${size}`,
-        itemState !== 'default' ? `ubits-list-item--${itemState}` : ''
+        itemState !== 'default' ? `ubits-list-item--${itemState}' : ''
       ].filter(Boolean).join(' ');
       
       const itemAttrs = [];
@@ -229,7 +229,7 @@ function renderListSimple(args: {
       const itemClasses = [
         'ubits-list-item',
         `ubits-list-item--${size}`,
-        itemState !== 'default' ? `ubits-list-item--${itemState}` : ''
+        itemState !== 'default' ? `ubits-list-item--${itemState}' : ''
       ].filter(Boolean).join(' ');
       
       const itemAttrs = [];
@@ -930,7 +930,7 @@ export const CustomMaxHeight: Story = {
   render: (args) => {
     
     const items: ListItem[] = Array.from({ length: 10 }, (_, i) => ({
-      label: `Item ${i + 1}`,
+      label: 'Item ${i + 1}',
       state: 'default' as const
     }));
     return renderListStory({
@@ -995,7 +995,7 @@ export const ManyItems: Story = {
   render: (args) => {
     
     const items: ListItem[] = Array.from({ length: 20 }, (_, i) => ({
-      label: `Item ${i + 1}`,
+      label: 'Item ${i + 1}',
       state: 'default' as const
     }));
     return renderListStory({
@@ -1225,9 +1225,9 @@ export const AllSizes: Story = {
       const wrapper = document.createElement('div');
       wrapper.style.cssText = 'width: 100%;';
       const items: ListItem[] = [
-        { label: `Item 1 (${size.toUpperCase()})`, state: 'default' },
-        { label: `Item 2 (${size.toUpperCase()})`, state: 'default' },
-        { label: `Item 3 (${size.toUpperCase()})`, state: 'default' }
+        { label: 'Item 1 (${size.toUpperCase()})', state: 'default' },
+        { label: 'Item 2 (${size.toUpperCase()})', state: 'default' },
+        { label: 'Item 3 (${size.toUpperCase()})', state: 'default' }
       ];
       const listHTML = renderList({
         items,

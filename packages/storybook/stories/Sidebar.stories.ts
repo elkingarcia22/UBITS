@@ -12,7 +12,7 @@ const meta: Meta<SidebarOptions & {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Sidebar UBITS de navegación lateral con 2 variantes (colaborador y admin). Incluye tooltips, menú de perfil, dark mode toggle y ajuste dinámico de altura. Ancho fijo 96px, colores fijos (no cambian con tema).'
+        component: `Componente Sidebar UBITS de navegación lateral con 2 variantes (colaborador y admin). Incluye tooltips, menú de perfil, dark mode toggle y ajuste dinámico de altura. Ancho fijo 96px, colores fijos (no cambian con tema).'
 }
 },
     layout: 'fullscreen'
@@ -82,7 +82,7 @@ export const Default: Story = {
     if (!wrapper) {
       wrapper = document.createElement('div');
       wrapper.id = 'sidebar-story-wrapper';
-      wrapper.style.cssText = `
+      wrapper.style.cssText = '
         display: flex;
         flex-direction: row;
         align-items: flex-start;
@@ -825,7 +825,7 @@ export const OnDarkModeToggleCallback: Story = {
       profileMenuItems: [],
       darkModeEnabled: true,
       onDarkModeToggle: (isDark) => {
-        alert(`Dark mode: ${isDark ? 'Activado' : 'Desactivado'}`);
+        alert(`Dark mode: ${isDark ? 'Activado' : 'Desactivado'}');
       },
       height: 650
     };

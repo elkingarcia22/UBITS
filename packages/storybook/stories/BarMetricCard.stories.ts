@@ -21,7 +21,7 @@ const meta: Meta<BarMetricCardOptions & {
   parameters: {
     docs: {
       description: {
-        component: 'Componente BarMetricCard UBITS para mostrar métricas con gráfico de barras y categorías. Soporta layout vertical y horizontal, múltiples tamaños y controles completos para personalización. Usa tokens UBITS para colores, tipografía y espaciado.',
+        component: `Componente BarMetricCard UBITS para mostrar métricas con gráfico de barras y categorías. Soporta layout vertical y horizontal, múltiples tamaños y controles completos para personalización. Usa tokens UBITS para colores, tipografía y espaciado.',
       },
     },
   },
@@ -315,7 +315,7 @@ export const Default: Story = {
   },
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
+    container.style.cssText = '
       padding: 20px;
       background: var(--modifiers-normal-color-light-bg-2, #f5f5f5);
       border-radius: 8px;
@@ -1576,7 +1576,7 @@ export const AllSizes: Story = {
         font-weight: 600;
         margin-bottom: 12px;
       `;
-      label.textContent = `Size: ${size?.toUpperCase() || 'default'}`;
+      label.textContent = `Size: ${size?.toUpperCase() || 'default'}';
       
       sizeContainer.appendChild(label);
       
@@ -1661,7 +1661,7 @@ export const AllLayouts: Story = {
         font-weight: 600;
         margin-bottom: 12px;
       `;
-      label.textContent = `Layout: ${layout?.charAt(0).toUpperCase() + layout?.slice(1) || 'default'}`;
+      label.textContent = `Layout: ${layout?.charAt(0).toUpperCase() + layout?.slice(1) || 'default'}';
       
       layoutContainer.appendChild(label);
       

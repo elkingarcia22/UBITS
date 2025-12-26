@@ -19,7 +19,7 @@ const meta: Meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Tokens para efectos visuales: elevation (sombras), focus (anillos de enfoque) y floating (elevacion flotante). Los efectos de elevation tienen estados Default y Hover, focus tiene propiedades configurables (position, blur, spread, color), y floating usa tokens de Figma con dos sombras combinadas.',
+        component: `Tokens para efectos visuales: elevation (sombras), focus (anillos de enfoque) y floating (elevacion flotante). Los efectos de elevation tienen estados Default y Hover, focus tiene propiedades configurables (position, blur, spread, color), y floating usa tokens de Figma con dos sombras combinadas.',
       },
     },
   },
@@ -34,7 +34,7 @@ type Story = StoryObj;
 function getTokenValue(token: string): string {
   const root = document.documentElement;
   const value = getComputedStyle(root).getPropertyValue(token).trim();
-  return value || '#cccccc';
+  return value || `#cccccc';
 }
 
 /**

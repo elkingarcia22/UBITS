@@ -9,7 +9,7 @@ const meta: Meta<SkeletonOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Skeleton UBITS para mostrar placeholders de carga. Soporta múltiples variantes (text, circle, rectangle, custom), tamaños y animaciones.'
+        component: `Componente Skeleton UBITS para mostrar placeholders de carga. Soporta múltiples variantes (text, circle, rectangle, custom), tamaños y animaciones.'
 }
 }
 },
@@ -121,10 +121,10 @@ export const Default: Story = {
         if (args.width === 'full' || !args.width) {
           skeletonElement.style.width = '100%';
         } else if (args.width) {
-          skeletonElement.style.width = typeof args.width === 'number' ? `${args.width}px` : args.width;
+          skeletonElement.style.width = typeof args.width === 'number' ? '${args.width}px' : args.width;
         }
         if (args.height) {
-          skeletonElement.style.height = typeof args.height === 'number' ? `${args.height}px` : args.height;
+          skeletonElement.style.height = typeof args.height === 'number' ? `${args.height}px' : args.height;
         }
       }
     }
@@ -176,10 +176,10 @@ function renderSkeletonStory(options: Partial<SkeletonOptions>) {
       if (options.width === 'full' || !options.width) {
         skeletonElement.style.width = '100%';
       } else if (options.width) {
-        skeletonElement.style.width = typeof options.width === 'number' ? `${options.width}px` : String(options.width);
+        skeletonElement.style.width = typeof options.width === 'number' ? `${options.width}px' : String(options.width);
       }
       if (options.height) {
-        skeletonElement.style.height = typeof options.height === 'number' ? `${options.height}px` : String(options.height);
+        skeletonElement.style.height = typeof options.height === 'number' ? `${options.height}px' : String(options.height);
       }
     }
   }
@@ -789,7 +789,7 @@ export const TextSizes: Story = {
       label.style.fontSize = '14px';
       label.style.color = 'var(--modifiers-normal-color-light-fg-1-medium)';
       label.style.fontWeight = '600';
-      label.textContent = `Text ${size?.toUpperCase() || 'default'}`;
+      label.textContent = `Text ${size?.toUpperCase() || 'default'}';
       
       const innerContainer = document.createElement('div');
       innerContainer.style.width = '100%';
@@ -940,7 +940,7 @@ export const RectangleSizes: Story = {
       label.style.fontSize = '14px';
       label.style.color = 'var(--modifiers-normal-color-light-fg-1-medium)';
       label.style.fontWeight = '600';
-      label.textContent = `Rectangle ${size?.toUpperCase() || 'default'}`;
+      label.textContent = `Rectangle ${size?.toUpperCase() || 'default'}';
       
       const innerContainer = document.createElement('div');
       innerContainer.style.width = '100%';

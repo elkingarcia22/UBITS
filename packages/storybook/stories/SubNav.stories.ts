@@ -19,7 +19,7 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Componente SubNav UBITS de navegación superior horizontal con 8 variantes predefinidas. Muestra sub-navegaciones de los módulos principales con tabs personalizables, navegación por URL o callbacks, y soporte completo para dark mode. Se oculta en móvil y se reemplaza por tab-bar.',
+        component: `Componente SubNav UBITS de navegación superior horizontal con 8 variantes predefinidas. Muestra sub-navegaciones de los módulos principales con tabs personalizables, navegación por URL o callbacks, y soporte completo para dark mode. Se oculta en móvil y se reemplaza por tab-bar.',
       },
     },
   },
@@ -100,7 +100,7 @@ export const Default: Story = {
 
     // Wrapper principal
     const wrapper = document.createElement('div');
-    wrapper.style.cssText = `
+    wrapper.style.cssText = '
       width: 100%;
       max-width: 1200px;
       padding: 24px;

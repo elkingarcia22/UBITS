@@ -23,7 +23,7 @@ const meta: Meta<AccordionOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Accordion UBITS con múltiples variantes: lista simple, tipo caja, chevron izquierda/derecha, iconos opcionales y sub-headers.
+          `Componente Accordion UBITS con múltiples variantes: lista simple, tipo caja, chevron izquierda/derecha, iconos opcionales y sub-headers.
 
 \`\`\`html
 // 1. Crear contenedor HTML

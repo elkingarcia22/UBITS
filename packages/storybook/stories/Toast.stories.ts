@@ -12,7 +12,7 @@ const meta: Meta<ToastOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Toast UBITS para mostrar notificaciones flotantes. Se posiciona en la parte superior central, tiene auto-cierre, pausa en hover, apilado máximo de 3, y soporta título, cuerpo y botón de acción opcional.',
+        component: `Componente Toast UBITS para mostrar notificaciones flotantes. Se posiciona en la parte superior central, tiene auto-cierre, pausa en hover, apilado máximo de 3, y soporta título, cuerpo y botón de acción opcional.',
       },
     },
   },
@@ -85,7 +85,7 @@ function ensureToastContainer(): HTMLElement {
   if (!container) {
     container = document.createElement('div');
     container.id = containerId;
-    container.style.cssText = `
+    container.style.cssText = '
       position: fixed;
       top: var(--p-spacing-mode-1-lg, 16px);
       left: 50%;
@@ -194,7 +194,7 @@ export const Default: Story = {
             }, 100);
           } catch (error) {
             console.error('❌ Error al mostrar toast:', error);
-            alert(`Error: ${error instanceof Error ? error.message : 'Error desconocido'}`);
+            alert(`Error: ${error instanceof Error ? error.message : 'Error desconocido'}');
           }
         }, 200);
       }

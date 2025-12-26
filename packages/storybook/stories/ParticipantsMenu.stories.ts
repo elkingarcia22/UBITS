@@ -14,7 +14,7 @@ const meta: Meta<ParticipantsMenuOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente de menú lateral UBITS para mostrar una lista de participantes. Incluye búsqueda, filtro y lista de participantes con avatar, nombre, rol y estado.'
+        component: `Componente de menú lateral UBITS para mostrar una lista de participantes. Incluye búsqueda, filtro y lista de participantes con avatar, nombre, rol y estado.'
 }
 },
     layout: 'fullscreen'
@@ -249,7 +249,7 @@ export const Default: Story = {
   render: (args) => {
     // Crear contenedor
     const container = document.createElement('div');
-    container.style.cssText = `
+    container.style.cssText = '
       width: 100%;
       padding: 24px;
       background: var(--modifiers-normal-color-light-bg-1);

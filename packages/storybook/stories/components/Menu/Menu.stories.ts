@@ -24,7 +24,7 @@ const meta = {
       codePanel: true,
       description: {
         component:
-          'Componente Menu UBITS de navegación lateral con secciones, items, shortcuts, badges e información de usuario. Usa tokens UBITS para colores, tipografía y espaciado.
+          `Componente Menu UBITS de navegación lateral con secciones, items, shortcuts, badges e información de usuario. Usa tokens UBITS para colores, tipografía y espaciado.
 
 \`\`\`html
 // 1. Crear contenedor HTML

@@ -10,7 +10,7 @@ const meta: Meta<ModalOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Modal UBITS centrado con overlay. Ideal para diálogos, confirmaciones y formularios. Soporta diferentes tamaños, variante full-screen, header con título y botón de cerrar, body con contenido scrollable y footer con botones de acción.'
+        component: `Componente Modal UBITS centrado con overlay. Ideal para diálogos, confirmaciones y formularios. Soporta diferentes tamaños, variante full-screen, header con título y botón de cerrar, body con contenido scrollable y footer con botones de acción.'
 }
 },
     layout: 'fullscreen'
@@ -116,7 +116,7 @@ export const Default: Story = {
     title: 'Título del modal',
     size: 'md',
     fullScreen: false,
-    bodyContent: `
+    bodyContent: '
         <p>
           Este es el contenido del modal. Puedes agregar cualquier contenido HTML aquí, como formularios, texto, imágenes, etc.
         </p>

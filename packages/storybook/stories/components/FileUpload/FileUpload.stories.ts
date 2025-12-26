@@ -28,7 +28,7 @@ const meta: Meta<FileUploadOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente File Upload personalizado UBITS. Diseño moderno con dos vistas: Drop Zone (área de arrastrar y soltar con icono circular) y Files List (lista de archivos con progreso).
+          `Componente File Upload personalizado UBITS. Diseño moderno con dos vistas: Drop Zone (área de arrastrar y soltar con icono circular) y Files List (lista de archivos con progreso).
 
 \`\`\`html
 // 1. Crear contenedor HTML

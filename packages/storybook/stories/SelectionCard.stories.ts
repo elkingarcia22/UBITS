@@ -10,7 +10,7 @@ const meta: Meta<SelectionCardData & { showDescription?: boolean; showIcon?: boo
   parameters: {
     docs: {
       description: {
-        component: 'Componente Selection Card UBITS para mostrar opciones seleccionables. Soporta selección única o múltiple, estados (default, selected, disabled), y tamaños (sm, md, lg). Incluye un radio button visual a la derecha que refleja el estado de selección. La selección se realiza mediante click en toda la card.'
+        component: `Componente Selection Card UBITS para mostrar opciones seleccionables. Soporta selección única o múltiple, estados (default, selected, disabled), y tamaños (sm, md, lg). Incluye un radio button visual a la derecha que refleja el estado de selección. La selección se realiza mediante click en toda la card.'
 }
 }
 },
@@ -165,7 +165,7 @@ export const Default: Story = {
     } catch (error) {
       console.error('❌ [SelectionCard Story] Error al crear card:', error);
       const errorDiv = document.createElement('div');
-      errorDiv.textContent = `Error: ${error instanceof Error ? error.message : 'Error desconocido'}`;
+      errorDiv.textContent = 'Error: ${error instanceof Error ? error.message : 'Error desconocido'}';
       errorDiv.style.color = 'red';
       errorDiv.style.padding = '20px';
       container.appendChild(errorDiv);
@@ -196,7 +196,7 @@ function renderSelectionCardStory(cardData: SelectionCardData) {
   } catch (error) {
     console.error('❌ [SelectionCard Story] Error al crear card:', error);
     const errorDiv = document.createElement('div');
-    errorDiv.textContent = `Error: ${error instanceof Error ? error.message : 'Error desconocido'}`;
+    errorDiv.textContent = `Error: ${error instanceof Error ? error.message : 'Error desconocido'}';
     errorDiv.style.color = 'var(--modifiers-normal-color-light-feedback-fg-error-subtle-default)';
     errorDiv.style.padding = '20px';
     container.appendChild(errorDiv);
@@ -776,7 +776,7 @@ export const SingleSelection: Story = {
       onSelectionChange: (selectedCards, selectedIds) => {
         console.log('Selected cards:', selectedCards);
         console.log('Selected IDs:', selectedIds);
-        alert(`Seleccionada: ${selectedCards[0]?.title || 'Ninguna'}`);
+        alert(`Seleccionada: ${selectedCards[0]?.title || 'Ninguna'}');
       }
     });
   },
@@ -932,7 +932,7 @@ export const OnSelectionChange: Story = {
       multiple: true,
       selectedIds: [],
       onSelectionChange: (selectedCards, selectedIds) => {
-        alert(`onSelectionChange: ${selectedCards.length} card(s) seleccionada(s)\nIDs: ${selectedIds.join(', ')}`);
+        alert(`onSelectionChange: ${selectedCards.length} card(s) seleccionada(s)\nIDs: ${selectedIds.join(', ')}');
         console.log('Selected cards:', selectedCards);
         console.log('Selected IDs:', selectedIds);
       }

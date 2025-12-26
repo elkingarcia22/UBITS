@@ -16,7 +16,7 @@ const meta: Meta<ScoreCardMetricsOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente ScoreCardMetrics UBITS para mostrar métricas de calificación con estrellas. Incluye título, estadísticas (respuestas y promedio), gráfico de 5 estrellas, etiquetas y descripción. Usa tokens UBITS para colores, tipografía y espaciado.
+          `Componente ScoreCardMetrics UBITS para mostrar métricas de calificación con estrellas. Incluye título, estadísticas (respuestas y promedio), gráfico de 5 estrellas, etiquetas y descripción. Usa tokens UBITS para colores, tipografía y espaciado.
 
 \`\`\`html
 // 1. Importar funciones (si usas módulos)

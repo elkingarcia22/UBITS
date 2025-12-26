@@ -16,7 +16,7 @@ const meta: Meta<MaskOptions & {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Mask UBITS para onboarding. Crea un overlay oscuro con un "agujero" que destaca un elemento específico de la interfaz. Incluye un Popover integrado para mostrar información o instrucciones. Ideal para guías de usuario, tutoriales y flujos de onboarding.',
+        component: `Componente Mask UBITS para onboarding. Crea un overlay oscuro con un "agujero" que destaca un elemento específico de la interfaz. Incluye un Popover integrado para mostrar información o instrucciones. Ideal para guías de usuario, tutoriales y flujos de onboarding.',
       },
     },
     layout: 'fullscreen',
@@ -108,7 +108,7 @@ export const Default: Story = {
   render: (args) => {
     // Crear contenido de ejemplo
     const container = document.createElement('div');
-    container.style.cssText = `
+    container.style.cssText = '
       padding: var(--ubits-spacing-8);
       min-height: 100vh;
       background-color: var(--modifiers-normal-color-light-bg-1);

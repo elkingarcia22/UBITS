@@ -16,7 +16,7 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Componente Breadcrumb UBITS para navegación jerárquica. El último item muestra texto en bold (active), los demás en regular (default). Usa body-sm con tokens UBITS.',
+        component: `Componente Breadcrumb UBITS para navegación jerárquica. El último item muestra texto en bold (active), los demás en regular (default). Usa body-sm con tokens UBITS.',
       },
     },
   },
@@ -57,8 +57,8 @@ function generateBreadcrumbItems(count: number = 5): BreadcrumbItem[] {
   const labels = ['Home', 'Categoría', 'Subcategoría', 'Página', 'Detalle', 'Elemento', 'Vista', 'Final'];
   
   return Array.from({ length: count }, (_, i) => ({
-    id: `item-${i + 1}`,
-    label: labels[i] || `Item ${i + 1}`,
+    id: 'item-${i + 1}',
+    label: labels[i] || 'Item ${i + 1}',
     url: i < count - 1 ? `#${labels[i]?.toLowerCase() || `item-${i + 1}`}` : undefined,
     active: i === count - 1,
   }));

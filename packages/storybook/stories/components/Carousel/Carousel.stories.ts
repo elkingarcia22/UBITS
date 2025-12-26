@@ -109,7 +109,7 @@ const meta: Meta<
       codePanel: true,
       description: {
         component:
-          'Componente Carousel UBITS para mostrar Simple Cards en un carrusel navegable. Incluye navegación con flechas, indicadores de paginación, autoplay y soporte para diferentes tamaños de cards.
+          `Componente Carousel UBITS para mostrar Simple Cards en un carrusel navegable. Incluye navegación con flechas, indicadores de paginación, autoplay y soporte para diferentes tamaños de cards.
 
 \`\`\`html
 // 1. Crear contenedor HTML

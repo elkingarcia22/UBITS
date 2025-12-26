@@ -26,7 +26,7 @@ const meta = {
       codePanel: true,
       description: {
         component:
-          'Componente HeaderSection UBITS para encabezados de sección con título (heading h2, fg-1-high), botón de información con tooltip (sm), y acciones (botones md). Todos los elementos son apagables/prendibles con controladores.
+          `Componente HeaderSection UBITS para encabezados de sección con título (heading h2, fg-1-high), botón de información con tooltip (sm), y acciones (botones md). Todos los elementos son apagables/prendibles con controladores.
 
 \`\`\`html
 // 1. Crear contenedor HTML

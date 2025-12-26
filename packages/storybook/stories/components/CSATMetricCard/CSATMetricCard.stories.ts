@@ -16,7 +16,7 @@ const meta: Meta<CSATMetricCardOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente CSATMetricCard UBITS para mostrar métricas CSAT (Customer Satisfaction) con caritas. Incluye título, estadísticas (respuestas y promedio), gráfico de 5 caritas con textos. Usa tokens UBITS para colores, tipografía y espaciado.
+          `Componente CSATMetricCard UBITS para mostrar métricas CSAT (Customer Satisfaction) con caritas. Incluye título, estadísticas (respuestas y promedio), gráfico de 5 caritas con textos. Usa tokens UBITS para colores, tipografía y espaciado.
 
 \`\`\`html
 // 1. Importar funciones (si usas módulos)

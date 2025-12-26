@@ -28,7 +28,7 @@ const meta: Meta<{
   parameters: {
     docs: {
       description: {
-        component: 'Componente Timeline UBITS para mostrar secuencias de eventos o fases. Soporta avatar, fecha, título, descripción, iconos y alineación izquierda o centrada. Usa tokens UBITS.'
+        component: `Componente Timeline UBITS para mostrar secuencias de eventos o fases. Soporta avatar, fecha, título, descripción, iconos y alineación izquierda o centrada. Usa tokens UBITS.'
 }
 }
 },
@@ -91,7 +91,7 @@ type Story = StoryObj<typeof meta>;
 // Función para renderizar icono FontAwesome
 function renderIcon(iconName: string, style: 'regular' | 'solid' = 'regular'): string {
   const iconClass = style === 'solid' ? 'fas' : 'far';
-  return `<i class="${iconClass} fa-${iconName}"></i>`;
+  return '<i class="${iconClass} fa-${iconName}"></i>';
 }
 
 // Función para generar datos de ejemplo
@@ -226,7 +226,7 @@ function renderTimelineItem(
     
     return `
       <div class="ubits-timeline-item ${isCentered ? `ubits-timeline-item--${contentSide}` : ''}" data-index="${index}" data-state="${item.state}">
-        ${isCentered && contentSide === 'right' ? `
+        ${isCentered && contentSide === 'right' ? '
           <div class="ubits-timeline-item__content">
             <div class="ubits-timeline-item__text">
               ${showDate && item.date ? `
@@ -251,7 +251,7 @@ function renderTimelineItem(
           </div>
         </div>
         ${lineHTML}
-        ${isCentered && contentSide === 'left' ? `
+        ${isCentered && contentSide === 'left' ? '
           <div class="ubits-timeline-item__content">
             <div class="ubits-timeline-item__text">
               ${showDate && item.date ? `
@@ -303,7 +303,7 @@ function renderTimelineItem(
   
   return `
     <div class="ubits-timeline-item ${isCentered ? `ubits-timeline-item--${contentSide}` : ''}" data-index="${index}" data-state="${item.state}">
-      ${isCentered && contentSide === 'right' ? `
+      ${isCentered && contentSide === 'right' ? '
         <div class="ubits-timeline-item__content">
           <div class="ubits-timeline-item__text">
             ${showDate && item.date ? `
@@ -328,7 +328,7 @@ function renderTimelineItem(
         </div>
       </div>
       ${lineHTML}
-      ${isCentered && contentSide === 'left' ? `
+      ${isCentered && contentSide === 'left' ? '
         <div class="ubits-timeline-item__content">
           <div class="ubits-timeline-item__text">
             ${showDate && item.date ? `

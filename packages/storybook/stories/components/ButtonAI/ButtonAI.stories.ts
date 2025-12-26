@@ -13,7 +13,7 @@ const meta: Meta<ButtonAIOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Button AI UBITS con estilo redondeado y gradación. Basado en Button de UBITS pero con bordes más redondeados (pill shape) y gradientes. Solo incluye variantes primary y secondary.
+          `Componente Button AI UBITS con estilo redondeado y gradación. Basado en Button de UBITS pero con bordes más redondeados (pill shape) y gradientes. Solo incluye variantes primary y secondary.
 
 \`\`\`html
 // 1. Importar funciones (si usas módulos)

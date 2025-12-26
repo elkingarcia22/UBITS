@@ -9,7 +9,7 @@ const meta: Meta<StatusTagOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Status Tag UBITS para mostrar estados con icono izquierdo opcional, texto y icono derecho opcional. Múltiples estados con colores diferenciados usando tokens UBITS. Border-radius de 4px, padding 4px vertical y 8px horizontal.',
+        component: `Componente Status Tag UBITS para mostrar estados con icono izquierdo opcional, texto y icono derecho opcional. Múltiples estados con colores diferenciados usando tokens UBITS. Border-radius de 4px, padding 4px vertical y 8px horizontal.',
       },
     },
     layout: 'centered',

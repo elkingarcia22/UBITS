@@ -217,9 +217,9 @@ function generateTabs(count: number = 5, withIcons: boolean = true): TabItem[] {
   ];
 
   return Array.from({ length: count }, (_, i) => ({
-    id: `tab-${i + 1}`,
+    id: 'tab-${i + 1}',
     label: labels[i] || `Label ${i + 1}`,
-    icon: withIcons ? `far ${icons[i] || 'fa-th'}` : undefined,
+    icon: withIcons ? `far ${icons[i] || 'fa-th'}' : undefined,
     active: i === 0,
   }));
 }
@@ -261,7 +261,7 @@ window.UBITS.Tabs.create({
   }
 }, 'tabs-implementation-container');
 
-// Nota: El número de tabs se puede ajustar con el control 'tabCount' en Storybook`,
+// Nota: El número de tabs se puede ajustar con el control 'tabCount' en Storybook',
       },
     },
   },

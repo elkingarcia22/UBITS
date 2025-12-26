@@ -19,7 +19,7 @@ const meta: Meta<{
   parameters: {
     docs: {
       description: {
-        component: 'Componente Tree Menu UBITS para mostrar estructuras jerárquicas con expandir/colapsar. Soporta iconos opcionales, múltiples niveles, chevron opcional y modo cascada o vertical.',
+        component: `Componente Tree Menu UBITS para mostrar estructuras jerárquicas con expandir/colapsar. Soporta iconos opcionales, múltiples niveles, chevron opcional y modo cascada o vertical.',
       },
     },
   },
@@ -82,7 +82,7 @@ type Story = StoryObj<typeof meta>;
 // Función para renderizar icono FontAwesome
 function renderIcon(iconName: string, style: 'regular' | 'solid' = 'regular'): string {
   const iconClass = style === 'solid' ? 'fas' : 'far';
-  return `<i class="${iconClass} fa-${iconName}"></i>`;
+  return '<i class="${iconClass} fa-${iconName}"></i>';
 }
 
 // Función para generar datos de ejemplo según niveles
@@ -257,7 +257,7 @@ function renderTreeNode(
   uniqueId: string
 ): string {
   const hasChildren = node.children && node.children.length > 0;
-  const nodeId = `${uniqueId}-node-${level}-${node.label.toLowerCase().replace(/\s+/g, '-')}`;
+  const nodeId = `${uniqueId}-node-${level}-${node.label.toLowerCase().replace(/\s+/g, '-')}';
   const isExpanded = defaultExpanded && hasChildren;
   
   // Clases de tipografía según tamaño (matching List component)
@@ -295,7 +295,7 @@ function renderTreeNode(
   const lineHeight = size === 'xs' ? 'var(--modifiers-normal-body-xs-regular-lineheight)' : size === 'sm' ? 'var(--modifiers-normal-body-sm-regular-lineheight)' : size === 'lg' ? 'var(--modifiers-normal-body-lg-regular-lineheight)' : 'var(--modifiers-normal-body-md-regular-lineheight)';
   
   let html = `
-    <div class="ubits-tree-node ${cascade ? 'ubits-tree-node--cascade' : 'ubits-tree-node--vertical'}" data-level="${level}" style="${cascade ? `padding-left: ${paddingLeft};` : ''}">
+    <div class="ubits-tree-node ${cascade ? 'ubits-tree-node--cascade' : 'ubits-tree-node--vertical'}" data-level="${level}" style="${cascade ? `padding-left: ${paddingLeft};' : ''}">
       <div 
         class="ubits-tree-node__content ${hasChildren ? 'ubits-tree-node__content--expandable' : ''}" 
         data-node-id="${nodeId}"

@@ -21,7 +21,7 @@ const meta: Meta<DrawerOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Drawer Navigation UBITS que se desliza desde la derecha de la pantalla. Ideal para formularios, filtros o vistas de detalle. Soporta diferentes anchos, un header con título y texto complementario, un body con contenido scrollable y un footer con botones de acción.
+          `Componente Drawer Navigation UBITS que se desliza desde la derecha de la pantalla. Ideal para formularios, filtros o vistas de detalle. Soporta diferentes anchos, un header con título y texto complementario, un body con contenido scrollable y un footer con botones de acción.
 
 \`\`\`html
 window.UBITS.Drawer.create({

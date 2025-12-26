@@ -231,7 +231,7 @@ const meta = {
     },
     docs: {
       description: {
-        component: 'Componente TabBar UBITS de navegación inferior para móviles. Reemplaza al sidebar en pantallas pequeñas (< 1024px) con items personalizables con iconos o avatares, dark mode toggle, y callbacks personalizables por item. Incluye Floating Menu con accordions (se muestra al hacer click en "Módulos") y Profile Menu dropdown (se muestra al hacer click en "Mi perfil"). Soporta 2 variantes: colaborador y admin.',
+        component: `Componente TabBar UBITS de navegación inferior para móviles. Reemplaza al sidebar en pantallas pequeñas (< 1024px) con items personalizables con iconos o avatares, dark mode toggle, y callbacks personalizables por item. Incluye Floating Menu con accordions (se muestra al hacer click en "Módulos") y Profile Menu dropdown (se muestra al hacer click en "Mi perfil"). Soporta 2 variantes: colaborador y admin.',
       },
     },
   },
@@ -378,7 +378,7 @@ export const Default: Story = {
 
     // Wrapper principal - tamaño móvil adecuado para preview
     const wrapper = document.createElement('div');
-    wrapper.style.cssText = `
+    wrapper.style.cssText = '
       width: 100%;
       max-width: 375px;
       margin: 0 auto;
@@ -946,7 +946,7 @@ export const OnDarkModeToggleCallback: Story = {
     darkModeEnabled: true,
     visible: true,
     onDarkModeToggle: (isDark) => {
-      alert(`Dark mode: ${isDark ? 'Activado' : 'Desactivado'}`);
+      alert(`Dark mode: ${isDark ? 'Activado' : 'Desactivado'}');
     }
   },
   render: (args) => renderTabBarStory(args),
@@ -1072,7 +1072,7 @@ export const OnFloatingMenuItemClickCallback: Story = {
     activeTabId: 'modulos',
     visible: true,
     onFloatingMenuItemClick: (sectionId, subitemId, url) => {
-      alert(`Floating menu item clicked: ${sectionId}${subitemId ? ` - ${subitemId}` : ''}`);
+      alert(`Floating menu item clicked: ${sectionId}${subitemId ? ` - ${subitemId}` : ''}');
     }
   },
   render: (args) => renderTabBarStory(args),

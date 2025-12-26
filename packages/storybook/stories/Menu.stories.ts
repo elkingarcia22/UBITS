@@ -53,7 +53,7 @@ const meta: Meta<MenuStoryArgs> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Menu UBITS de navegación lateral con secciones, items, shortcuts, badges e información de usuario. Usa tokens UBITS para colores, tipografía y espaciado.'
+        component: `Componente Menu UBITS de navegación lateral con secciones, items, shortcuts, badges e información de usuario. Usa tokens UBITS para colores, tipografía y espaciado.'
 }
 },
     layout: 'padded'
@@ -491,7 +491,7 @@ export const Default: Story = {
 },
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
+    container.style.cssText = '
       display: flex;
       background: var(--modifiers-normal-color-light-bg-2);
       overflow: hidden;

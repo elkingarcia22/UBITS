@@ -20,7 +20,7 @@ const meta: Meta<CardData> = {
       codePanel: true,
       description: {
         component:
-          'Componente Card Content UBITS para mostrar contenido de aprendizaje. Soporta 11 tipos de contenido, 35 competencias oficiales, 18 proveedores, 3 niveles, 3 idiomas, y 3 estados (default, progress, completed).
+          `Componente Card Content UBITS para mostrar contenido de aprendizaje. Soporta 11 tipos de contenido, 35 competencias oficiales, 18 proveedores, 3 niveles, 3 idiomas, y 3 estados (default, progress, completed).
 
 \`\`\`html
 // 1. Importar funciones (si usas módulos)

@@ -23,7 +23,7 @@ const meta: Meta<RadioButtonOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Radio Button UBITS para selección única en grupos. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.
+          `Componente Radio Button UBITS para selección única en grupos. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.
 
 \`\`\`html
 // 1. Crear contenedor HTML

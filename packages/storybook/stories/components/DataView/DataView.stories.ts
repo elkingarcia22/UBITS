@@ -84,7 +84,7 @@ const meta: Meta<
       codePanel: true,
       description: {
         component:
-          'Componente DataView UBITS para mostrar listas de productos con imagen, categoría, nombre, rating, precio, botón de favoritos y botón de compra. Usa tokens UBITS para colores, tipografía y espaciado.
+          `Componente DataView UBITS para mostrar listas de productos con imagen, categoría, nombre, rating, precio, botón de favoritos y botón de compra. Usa tokens UBITS para colores, tipografía y espaciado.
 
 \`\`\`html
 // 1. Importar funciones (si usas módulos)
@@ -480,7 +480,7 @@ function generateProducts(
     const priceIndex = index % prices.length;
 
     return {
-      id: `product-${index + 1}`,
+      id: 'product-${index + 1}',
       image: availableImages[index % availableImages.length],
       imageAlt: names[nameIndex],
       category: categories[categoryIndex],

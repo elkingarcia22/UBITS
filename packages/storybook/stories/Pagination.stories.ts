@@ -12,7 +12,7 @@ const meta: Meta<PaginationOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Pagination UBITS para paginación de datos usando tokens UBITS, tipografía UBITS y componentes UBITS. Ideal para tablas y listas de datos.'
+        component: `Componente Pagination UBITS para paginación de datos usando tokens UBITS, tipografía UBITS y componentes UBITS. Ideal para tablas y listas de datos.'
       }
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN
@@ -180,7 +180,7 @@ type Story = StoryObj<PaginationOptions>;
 
 export const Default: Story = {
   render: (args) => {
-    const containerId = `pagination-${Date.now()}`;
+    const containerId = 'pagination-${Date.now()}';
     const container = document.createElement('div');
     container.id = containerId;
     container.style.width = '100%';

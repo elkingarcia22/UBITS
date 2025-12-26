@@ -408,7 +408,7 @@ function renderTreeNode(
   uniqueId: string,
 ): string {
   const hasChildren = node.children && node.children.length > 0;
-  const nodeId = `${uniqueId}-node-${level}-${node.label.toLowerCase().replace(/\s+/g, '-')}`;
+  const nodeId = `${uniqueId}-node-${level}-${node.label.toLowerCase().replace(/\s+/g, '-')}';
   const isExpanded = defaultExpanded && hasChildren;
 
   // Clases de tipografía según tamaño (matching List component)
@@ -467,7 +467,7 @@ function renderTreeNode(
           : 'var(--modifiers-normal-body-md-regular-lineheight)';
 
   let html = `
-    <div class="ubits-tree-node ${cascade ? 'ubits-tree-node--cascade' : 'ubits-tree-node--vertical'}" data-level="${level}" style="${cascade ? `padding-left: ${paddingLeft};` : ''}">
+    <div class="ubits-tree-node ${cascade ? 'ubits-tree-node--cascade' : 'ubits-tree-node--vertical'}" data-level="${level}" style="${cascade ? `padding-left: ${paddingLeft};' : ''}">
       <div 
         class="ubits-tree-node__content ${hasChildren ? 'ubits-tree-node__content--expandable' : ''}" 
         data-node-id="${nodeId}"
@@ -842,7 +842,7 @@ export const Default: Story = {
 
     container.appendChild(treeContainer);
     container.setAttribute('data-ubits-component', 'TreeMenu');
-    container.setAttribute('data-ubits-id', `tree-menu-${Date.now()}`);
+    container.setAttribute('data-ubits-id', `tree-menu-${Date.now()}');
 
     return container;
   },
@@ -1145,7 +1145,7 @@ export const Implementation: Story = {
     }, 100);
 
     container.setAttribute('data-ubits-component', 'TreeMenu');
-    container.setAttribute('data-ubits-id', `tree-menu-${Date.now()}`);
+    container.setAttribute('data-ubits-id', `tree-menu-${Date.now()}');
 
     return container;
   },

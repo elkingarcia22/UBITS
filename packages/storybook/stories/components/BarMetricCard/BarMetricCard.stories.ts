@@ -32,7 +32,7 @@ const meta: Meta<
       codePanel: true,
       description: {
         component:
-          'Componente BarMetricCard UBITS para mostrar métricas con gráfico de barras y categorías. Soporta layout vertical y horizontal, múltiples tamaños y controles completos para personalización. Usa tokens UBITS para colores, tipografía y espaciado.
+          `Componente BarMetricCard UBITS para mostrar métricas con gráfico de barras y categorías. Soporta layout vertical y horizontal, múltiples tamaños y controles completos para personalización. Usa tokens UBITS para colores, tipografía y espaciado.
 
 \`\`\`html
 // 1. Importar funciones (si usas módulos)

@@ -20,7 +20,7 @@ const meta: Meta<BadgeOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Badge UBITS para mostrar notificaciones, contadores o indicadores. Soporta solo bolita (dot) o con números, múltiples variantes de color y tamaños.
+          `Componente Badge UBITS para mostrar notificaciones, contadores o indicadores. Soporta solo bolita (dot) o con números, múltiples variantes de color y tamaños.
 
 \`\`\`html
 // Opción 1: Usar createBadge (retorna elemento)
@@ -282,7 +282,7 @@ const badgeHTML = window.UBITS.Badge.render({
   size: 'md',
   content: '5'
 });
-document.getElementById('container').innerHTML = badgeHTML;`,
+document.getElementById('container').innerHTML = badgeHTML;',
       },
     },
   },

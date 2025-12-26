@@ -237,7 +237,7 @@ const spinnerHTML = window.UBITS.Spinner.render({
   label: 'Cargando...',
   fullScreen: false
 });
-document.getElementById('container').innerHTML = spinnerHTML;`,
+document.getElementById('container').innerHTML = spinnerHTML;',
       },
     },
   },

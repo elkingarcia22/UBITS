@@ -24,7 +24,7 @@ const meta: Meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Todos los colores del sistema organizados por modificador. Cada modificador (Normal, Inverted, Static, Static Inverted) contiene todos los colores (accent, fg, bg, border, feedback, chart, button) organizados por modo Light/Dark. Esta es la categoría principal con 1296 tokens totales.',
+        component: `Todos los colores del sistema organizados por modificador. Cada modificador (Normal, Inverted, Static, Static Inverted) contiene todos los colores (accent, fg, bg, border, feedback, chart, button) organizados por modo Light/Dark. Esta es la categoría principal con 1296 tokens totales.',
       },
     },
   },
@@ -36,7 +36,7 @@ type Story = StoryObj;
 /**
  * Extraer tokens de un modificador específico
  */
-function getModifierTokens(modifier: 'normal' | 'inverted' | 'static' | 'static-inverted'): {
+function getModifierTokens(modifier: `normal' | 'inverted' | 'static' | 'static-inverted'): {
   light: string[];
   dark: string[];
 } {
@@ -106,7 +106,7 @@ export const TodosLosModificadores: Story = {
       section.style.backgroundColor = '#f9fafb';
 
       const sectionTitle = document.createElement('h3');
-      sectionTitle.textContent = `${modifier.charAt(0).toUpperCase() + modifier.slice(1).replace('-', ' ')}`;
+      sectionTitle.textContent = `${modifier.charAt(0).toUpperCase() + modifier.slice(1).replace('-', ' ')}';
       sectionTitle.style.fontSize = '20px';
       sectionTitle.style.fontWeight = '600';
       sectionTitle.style.marginBottom = '16px';

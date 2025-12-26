@@ -9,7 +9,7 @@ const meta: Meta<CardData> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Card Content UBITS para mostrar contenido de aprendizaje. Soporta 11 tipos de contenido, 35 competencias oficiales, 18 proveedores, 3 niveles, 3 idiomas, y 3 estados (default, progress, completed).',
+        component: `Componente Card Content UBITS para mostrar contenido de aprendizaje. Soporta 11 tipos de contenido, 35 competencias oficiales, 18 proveedores, 3 niveles, 3 idiomas, y 3 estados (default, progress, completed).',
       },
     },
   },
@@ -136,7 +136,7 @@ function buildCardData(args: Partial<CardData>): CardData {
     level: args.level || 'Básico',
     progress: args.progress ?? 0,
     status: args.status || 'default',
-    image: args.image ? (args.image.startsWith('/') ? args.image : `/${args.image}`) : '/images/cards-learn/segmenta-la-experiencia-del-cliente.jpg',
+    image: args.image ? (args.image.startsWith('/') ? args.image : '/${args.image}') : '/images/cards-learn/segmenta-la-experiencia-del-cliente.jpg',
     competency: args.competency || 'Product design',
     language: args.language || 'Español',
   };

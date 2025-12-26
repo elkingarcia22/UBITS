@@ -20,7 +20,7 @@ const meta: Meta<ProgressGeneralCardOptions & {
   parameters: {
     docs: {
       description: {
-        component: 'Componente ProgressGeneralCard UBITS para mostrar progreso general con indicador circular (donut chart) y categorías de progreso. Soporta layout vertical y horizontal, múltiples tamaños y controles completos para personalización. Usa tokens UBITS para colores, tipografía y espaciado.'
+        component: `Componente ProgressGeneralCard UBITS para mostrar progreso general con indicador circular (donut chart) y categorías de progreso. Soporta layout vertical y horizontal, múltiples tamaños y controles completos para personalización. Usa tokens UBITS para colores, tipografía y espaciado.'
       }
     }
   },
@@ -321,7 +321,7 @@ export const Default: Story = {
 // Helper para renderizar Circle Metric Card de manera consistente
 function renderCircleMetricCardStory(options: ProgressGeneralCardOptions) {
   const container = document.createElement('div');
-  container.style.cssText = `
+  container.style.cssText = '
     padding: 40px;
     background: var(--modifiers-normal-color-light-bg-2);
     border-radius: 8px;
@@ -1864,7 +1864,7 @@ export const AllSizes: Story = {
         color: var(--modifiers-normal-color-light-fg-1-high);
         font-weight: 600;
       `;
-      label.textContent = `Size: ${size?.toUpperCase() || 'default'}`;
+      label.textContent = `Size: ${size?.toUpperCase() || 'default'}';
       
       const categories = buildCategories(args);
       const progressHTML = renderProgressGeneralCard({
@@ -1951,7 +1951,7 @@ export const AllLayouts: Story = {
         color: var(--modifiers-normal-color-light-fg-1-high);
         font-weight: 600;
       `;
-      label.textContent = `Layout: ${layout?.charAt(0).toUpperCase() + layout?.slice(1) || 'default'}`;
+      label.textContent = `Layout: ${layout?.charAt(0).toUpperCase() + layout?.slice(1) || 'default'}';
       
       const categories = buildCategories(args);
       const progressHTML = renderProgressGeneralCard({

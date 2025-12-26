@@ -20,7 +20,7 @@ const meta: Meta<CheckboxOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Checkbox UBITS para selección múltiple. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.
+          `Componente Checkbox UBITS para selección múltiple. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.
 
 \`\`\`html
 // 1. Crear contenedor HTML

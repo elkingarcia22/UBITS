@@ -25,7 +25,7 @@ const meta: Meta<PaginationOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Pagination UBITS para paginación de datos usando tokens UBITS, tipografía UBITS y componentes UBITS. Ideal para tablas y listas de datos.
+          `Componente Pagination UBITS para paginación de datos usando tokens UBITS, tipografía UBITS y componentes UBITS. Ideal para tablas y listas de datos.
 
 \`\`\`html
 // 1. Crear contenedor HTML

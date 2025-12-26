@@ -11,7 +11,7 @@ const meta: Meta<ButtonOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Button UBITS con múltiples variantes, tamaños y estados. Soporta iconos, badges y estado de carga.',
+        component: `Componente Button UBITS con múltiples variantes, tamaños y estados. Soporta iconos, badges y estado de carga.',
       },
     },
   },
@@ -218,7 +218,7 @@ export const Default: Story = {
               const root = document.documentElement;
               const bgActiveButton = getComputedStyle(root).getPropertyValue('--modifiers-normal-color-light-bg-active-button').trim() || 'var(--modifiers-normal-color-light-bg-active-button)';
               const bg1 = getComputedStyle(root).getPropertyValue('--modifiers-normal-color-light-bg-1').trim() || '#ffffff';
-              const backgroundValue = `${bgActiveButton}, ${bg1}`;
+              const backgroundValue = '${bgActiveButton}, ${bg1}';
               btn.style.setProperty('background', backgroundValue, 'important');
               btn.style.setProperty('border', 'none', 'important');
               btn.style.setProperty('color', 'var(--modifiers-normal-color-light-accent-brand)', 'important');

@@ -10,7 +10,7 @@ const meta: Meta<CSATMetricCardOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente CSATMetricCard UBITS para mostrar métricas CSAT (Customer Satisfaction) con caritas. Incluye título, estadísticas (respuestas y promedio), gráfico de 5 caritas con textos. Usa tokens UBITS para colores, tipografía y espaciado.',
+        component: `Componente CSATMetricCard UBITS para mostrar métricas CSAT (Customer Satisfaction) con caritas. Incluye título, estadísticas (respuestas y promedio), gráfico de 5 caritas con textos. Usa tokens UBITS para colores, tipografía y espaciado.',
       },
     },
   },
@@ -867,7 +867,7 @@ export const AllSizes: Story = {
   },
   render: (args) => {
     const container = document.createElement('div');
-    container.style.cssText = `
+    container.style.cssText = '
       padding: 20px;
       background: var(--modifiers-normal-color-light-bg-2);
       border-radius: 8px;
@@ -899,7 +899,7 @@ export const AllSizes: Story = {
         margin-bottom: 12px;
         width: 100%;
       `;
-      label.textContent = `Size: ${size?.toUpperCase() || 'default'}`;
+      label.textContent = `Size: ${size?.toUpperCase() || 'default'}';
       
       const wrapper = document.createElement('div');
       wrapper.style.cssText = `

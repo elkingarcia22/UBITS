@@ -66,7 +66,7 @@ const meta: Meta<GalleryOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Gallery UBITS para mostrar imágenes en diferentes layouts (grid, masonry, list) con múltiples tamaños, soporte para lightbox, lazy loading y thumbnails.
+          `Componente Gallery UBITS para mostrar imágenes en diferentes layouts (grid, masonry, list) con múltiples tamaños, soporte para lightbox, lazy loading y thumbnails.
 
 \`\`\`html
 // 1. Crear contenedor HTML

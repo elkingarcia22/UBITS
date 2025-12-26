@@ -11,7 +11,7 @@ const meta: Meta<DrawerOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Drawer Navigation UBITS que se desliza desde la derecha de la pantalla. Ideal para formularios, filtros o vistas de detalle. Soporta diferentes anchos, un header con título y texto complementario, un body con contenido scrollable y un footer con botones de acción.',
+        component: `Componente Drawer Navigation UBITS que se desliza desde la derecha de la pantalla. Ideal para formularios, filtros o vistas de detalle. Soporta diferentes anchos, un header con título y texto complementario, un body con contenido scrollable y un footer con botones de acción.',
       },
     },
     layout: 'fullscreen',
@@ -117,7 +117,7 @@ export const Default: Story = {
     title: 'Crear dato demográfico',
     complementaryText: '',
     width: 40,
-    bodyContent: `
+    bodyContent: '
       <div style="padding: 16px;">
         <div style="margin-bottom: 16px;">
           <label style="display: block; font-size: 12px; font-weight: 600; color: var(--modifiers-normal-color-light-fg-1-medium); margin-bottom: 8px;">Pregunta</label>

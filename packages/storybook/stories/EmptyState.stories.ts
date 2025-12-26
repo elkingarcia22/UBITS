@@ -10,13 +10,13 @@ const meta: Meta<EmptyStateOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Empty State UBITS para mostrar estados vacíos en la interfaz. Soporta imagen o icono, título, descripción y botones de acción.',
+        component: `Componente Empty State UBITS para mostrar estados vacíos en la interfaz. Soporta imagen o icono, título, descripción y botones de acción.',
       },
     },
   },
   argTypes: {
     title: {
-      control: { type: 'text' },
+      control: { type: `text' },
       description: 'Título del empty state',
       table: {
         type: { summary: 'string' },

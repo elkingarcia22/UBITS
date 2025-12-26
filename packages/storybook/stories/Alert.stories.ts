@@ -9,7 +9,7 @@ const meta: Meta<AlertOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Alert UBITS para mostrar notificaciones del sistema. Soporta múltiples variantes (success, info, warning, error), botón cerrar opcional y animaciones.',
+        component: `Componente Alert UBITS para mostrar notificaciones del sistema. Soporta múltiples variantes (success, info, warning, error), botón cerrar opcional y animaciones.',
       },
     },
   },
@@ -130,7 +130,7 @@ export const Default: Story = {
     info.style.fontSize = '14px';
     info.style.color = 'var(--modifiers-normal-color-light-fg-1-medium, #5c646f)';
     info.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
-    info.innerHTML = `
+    info.innerHTML = '
       <strong>Tipo:</strong> ${args.type}<br>
       <strong>Cierre:</strong> ${args.closable ? 'Con botón' : 'Sin botón'}<br>
       ${args.duration > 0 ? `<strong>Auto-cierre:</strong> ${args.duration}ms` : ''}
@@ -159,7 +159,7 @@ function renderAlertStory(options: AlertOptions, showInfo: boolean = false) {
     preview.appendChild(alertElement);
   } catch (error) {
     console.error('Error al crear alert:', error);
-    preview.innerHTML = `<div style="color: var(--modifiers-normal-color-light-feedback-accent-error); padding: 16px;">Error: ${error instanceof Error ? error.message : 'Error desconocido'}</div>`;
+    preview.innerHTML = `<div style="color: var(--modifiers-normal-color-light-feedback-accent-error); padding: 16px;">Error: ${error instanceof Error ? error.message : 'Error desconocido'}</div>';
   }
   
   container.appendChild(preview);

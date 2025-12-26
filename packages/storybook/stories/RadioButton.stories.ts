@@ -9,7 +9,7 @@ const meta: Meta<RadioButtonOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Radio Button UBITS para selección única en grupos. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.',
+        component: `Componente Radio Button UBITS para selección única en grupos. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.',
       },
     },
     layout: 'centered',
@@ -191,7 +191,7 @@ export const Default: Story = {
 // Helper para renderizar Radio Button de manera consistente
 function renderRadioButtonStory(options: RadioButtonOptions) {
   const container = document.createElement('div');
-  container.style.cssText = `
+  container.style.cssText = '
     padding: 20px;
     display: flex;
     align-items: center;
@@ -857,7 +857,7 @@ export const AllSizes: Story = {
 
     ['sm', 'md'].forEach((size) => {
       const radioButtonHTML = renderRadioButton({
-        label: `Radio button ${size.toUpperCase()}`,
+        label: 'Radio button ${size.toUpperCase()}',
         value: `option-${size}`,
         name: 'all-sizes-group',
         checked: false,
@@ -911,7 +911,7 @@ export const AllStates: Story = {
 
     ['default', 'hover', 'active', 'disabled'].forEach((state) => {
       const radioButtonHTML = renderRadioButton({
-        label: `Radio button ${state.charAt(0).toUpperCase() + state.slice(1)}`,
+        label: 'Radio button ${state.charAt(0).toUpperCase() + state.slice(1)}',
         value: `option-${state}`,
         name: 'all-states-group',
         checked: false,

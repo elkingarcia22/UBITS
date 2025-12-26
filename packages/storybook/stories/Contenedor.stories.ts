@@ -13,7 +13,7 @@ const meta: Meta<ContenedorOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente contenedor básico UBITS con fondo configurable (bg1, bg2, bg3, bg4), bordes con radio de 8px y padding interno de 12px. Usa tokens UBITS para mantener consistencia visual.'
+        component: `Componente contenedor básico UBITS con fondo configurable (bg1, bg2, bg3, bg4), bordes con radio de 8px y padding interno de 12px. Usa tokens UBITS para mantener consistencia visual.'
       }
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN
@@ -45,25 +45,25 @@ const meta: Meta<ContenedorOptions> = {
       },
       // ⭐ CAMPOS EXTENDIDOS
       examples: {
-        canonical: `const container = document.createElement('div');
+        canonical: 'const container = document.createElement('div');
 container.className = 'ubits-container';
 container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
 container.style.padding = 'var(--p-spacing-mode-1-md, 12px)';
 container.style.borderRadius = '8px';
-container.textContent = 'Contenido del contenedor';`,
+container.textContent = 'Contenido del contenedor';',
         basic: `const container = document.createElement('div');
 container.className = 'ubits-container';
 container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
 container.style.padding = 'var(--p-spacing-mode-1-md, 12px)';
 container.style.borderRadius = '8px';
-container.textContent = 'Contenido del contenedor';`,
+container.textContent = 'Contenido del contenedor';',
         withBorder: `const container = document.createElement('div');
 container.className = 'ubits-container';
 container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
 container.style.padding = 'var(--p-spacing-mode-1-md, 12px)';
 container.style.borderRadius = '8px';
 container.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
-container.textContent = 'Contenido del contenedor';`,
+container.textContent = 'Contenido del contenedor';',
       },
       variants: {
         backgroundVariant: ['bg1', 'bg2', 'bg3', 'bg4'],

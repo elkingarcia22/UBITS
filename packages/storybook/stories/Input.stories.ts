@@ -8,7 +8,7 @@ const meta: Meta<InputOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Input UBITS con soporte para múltiples tipos (text, email, password, number, tel, url, select, textarea, search, autocomplete, calendar), 4 tamaños (xs, sm, md, lg), 6 estados (default, hover, focus, active, invalid, disabled), iconos, helpers, contadores, y opciones mandatory/optional.',
+        component: `Componente Input UBITS con soporte para múltiples tipos (text, email, password, number, tel, url, select, textarea, search, autocomplete, calendar), 4 tamaños (xs, sm, md, lg), 6 estados (default, hover, focus, active, invalid, disabled), iconos, helpers, contadores, y opciones mandatory/optional.',
       },
     },
   },
@@ -143,7 +143,7 @@ type Story = StoryObj<InputOptions>;
 // Helper para generar opciones de ejemplo para select y autocomplete
 function generateSelectOptions(count: number = 20): SelectOption[] {
   return Array.from({ length: count }, (_, i) => ({
-    value: `opt-${i + 1}`,
+    value: 'opt-${i + 1}',
     text: `Opción ${i + 1}`
   }));
 }
@@ -259,8 +259,8 @@ export const Default: Story = {
           <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Helper:</strong> ${args.showHelper ? 'Visible' : 'Oculto'}</div>
           <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Counter:</strong> ${args.showCounter ? 'Visible' : 'Oculto'}</div>
           <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Mandatory:</strong> ${args.mandatory ? args.mandatoryType : 'No'}</div>
-          <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Iconos:</strong> ${finalLeftIcon ? `Izq: ${finalLeftIcon}` : ''} ${finalRightIcon ? `Der: ${finalRightIcon}` : 'Ninguno'}</div>
-          ${args.type === 'textarea' ? `<div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Barra de herramientas:</strong> ${args.showRichTextToolbar ? 'Visible' : 'Oculta'}</div>` : ''}
+          <div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Iconos:</strong> ${finalLeftIcon ? `Izq: ${finalLeftIcon}` : ''} ${finalRightIcon ? `Der: ${finalRightIcon}' : 'Ninguno'}</div>
+          ${args.type === 'textarea' ? '<div><strong style="color: var(--modifiers-normal-color-light-fg-1-high);">Barra de herramientas:</strong> ${args.showRichTextToolbar ? 'Visible' : 'Oculta'}</div>' : ''}
         </div>
       `;
       
@@ -1265,7 +1265,7 @@ export const AllSizes: Story = {
     ['xs', 'sm', 'md', 'lg'].forEach(size => {
       const wrapper = document.createElement('div');
       wrapper.style.cssText = 'width: 100%;';
-      const storyArgs = { ...args, containerId: `input-size-${size}-${Date.now()}`, size: size as InputSize, label: `Input ${size.toUpperCase()}` };
+      const storyArgs = { ...args, containerId: 'input-size-${size}-${Date.now()}', size: size as InputSize, label: 'Input ${size.toUpperCase()}' };
       const rendered = renderInputStory(storyArgs);
       container.appendChild(rendered);
     });
@@ -1302,7 +1302,7 @@ export const AllStates: Story = {
     ['default', 'hover', 'focus', 'active', 'invalid', 'disabled'].forEach(state => {
       const wrapper = document.createElement('div');
       wrapper.style.cssText = 'width: 100%;';
-      const storyArgs = { ...args, containerId: `input-state-${state}-${Date.now()}`, state: state as InputState, label: `Input ${state.charAt(0).toUpperCase() + state.slice(1)}` };
+      const storyArgs = { ...args, containerId: 'input-state-${state}-${Date.now()}', state: state as InputState, label: 'Input ${state.charAt(0).toUpperCase() + state.slice(1)}' };
       const rendered = renderInputStory(storyArgs);
       container.appendChild(rendered);
     });
@@ -1356,10 +1356,10 @@ export const AllTypes: Story = {
       wrapper.style.cssText = 'width: 100%;';
       const storyArgs: InputOptions = {
         ...args,
-        containerId: `input-type-${type}-${Date.now()}`,
+        containerId: 'input-type-${type}-${Date.now()}',
         type,
-        label: `Input ${typeLabels[type]}`,
-        placeholder: type === 'select' ? 'Elige una opción' : type === 'textarea' ? 'Escribe aquí...' : `Placeholder ${type}`,
+        label: 'Input ${typeLabels[type]}',
+        placeholder: type === 'select' ? 'Elige una opción' : type === 'textarea' ? 'Escribe aquí...' : `Placeholder ${type}',
         selectOptions: type === 'select' ? generateSelectOptions(20) : undefined,
         autocompleteOptions: type === 'autocomplete' ? generateAutocompleteOptions() : undefined
       };

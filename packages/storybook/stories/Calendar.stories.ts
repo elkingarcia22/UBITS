@@ -21,7 +21,7 @@ const meta: Meta<CalendarOptions> = {
     },
     docs: {
       description: {
-        component: 'Componente Calendar UBITS con selección única y por rango de fechas. Usa tokens UBITS, componentes Button, Input y List para una experiencia consistente.',
+        component: `Componente Calendar UBITS con selección única y por rango de fechas. Usa tokens UBITS, componentes Button, Input y List para una experiencia consistente.',
       },
     },
   },
@@ -145,7 +145,7 @@ export const Default: Story = {
       console.error('Error al crear calendario:', error);
       const errorDiv = document.createElement('div');
       errorDiv.style.cssText = 'color: var(--modifiers-normal-color-light-fg-1-high); padding: 20px; text-align: center;';
-      errorDiv.textContent = `Error al cargar el calendario: ${error}`;
+      errorDiv.textContent = 'Error al cargar el calendario: ${error}';
       return errorDiv;
     }
   },
@@ -496,7 +496,7 @@ export const OnDateSelectCallback: Story = {
       maxDate: toDate(args.maxDate),
       initialDate: toDate(args.initialDate) || new Date(),
       onDateSelect: (date: Date) => {
-        alert(`Fecha seleccionada: ${date.toLocaleDateString('es-ES')}`);
+        alert(`Fecha seleccionada: ${date.toLocaleDateString('es-ES')}');
       }
     });
   },
@@ -532,7 +532,7 @@ export const OnRangeSelectCallback: Story = {
       maxDate: toDate(args.maxDate),
       initialDate: toDate(args.initialDate) || new Date(),
       onRangeSelect: (startDate: Date, endDate: Date) => {
-        alert(`Rango seleccionado: ${startDate.toLocaleDateString('es-ES')} - ${endDate.toLocaleDateString('es-ES')}`);
+        alert(`Rango seleccionado: ${startDate.toLocaleDateString('es-ES')} - ${endDate.toLocaleDateString('es-ES')}');
       }
     });
   },

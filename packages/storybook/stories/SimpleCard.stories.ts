@@ -64,7 +64,7 @@ const meta: Meta<SimpleCardOptions & {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Simple Card UBITS con header decorativo, contenido y botones de acción. Usa tokens UBITS para colores, tipografía y espaciado. Incluye controladores completos para personalizar todos los aspectos del componente.'
+        component: `Componente Simple Card UBITS con header decorativo, contenido y botones de acción. Usa tokens UBITS para colores, tipografía y espaciado. Incluye controladores completos para personalizar todos los aspectos del componente.'
 }
 },
     layout: 'centered'
@@ -426,7 +426,7 @@ function renderSimpleCardStory(options: SimpleCardOptions) {
   } catch (error) {
     console.error('❌ [SimpleCard Story] Error al crear card:', error);
     const errorDiv = document.createElement('div');
-    errorDiv.textContent = `Error: ${error instanceof Error ? error.message : 'Error desconocido'}`;
+    errorDiv.textContent = 'Error: ${error instanceof Error ? error.message : 'Error desconocido'}';
     errorDiv.style.color = 'var(--modifiers-normal-color-light-feedback-fg-error-subtle-default)';
     errorDiv.style.padding = '20px';
     container.appendChild(errorDiv);
@@ -1344,8 +1344,8 @@ export const AllVariants: Story = {
     
     variants.forEach(variant => {
       const cardOptions: SimpleCardOptions = {
-        title: `Card ${variant.charAt(0).toUpperCase() + variant.slice(1)}`,
-        subtitle: `Variante ${variant}`,
+        title: 'Card ${variant.charAt(0).toUpperCase() + variant.slice(1)}',
+        subtitle: 'Variante ${variant}',
         content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
         variant: variant,
         showButtons: false
@@ -1391,8 +1391,8 @@ export const AllSizes: Story = {
     
     sizes.forEach(size => {
       const cardOptions: SimpleCardOptions = {
-        title: `Card ${size.toUpperCase()}`,
-        subtitle: `Tamaño ${size}`,
+        title: 'Card ${size.toUpperCase()}',
+        subtitle: 'Tamaño ${size}',
         content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
         size: size,
         showButtons: false

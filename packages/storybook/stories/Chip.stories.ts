@@ -9,7 +9,7 @@ const meta: Meta<ChipOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Chip UBITS para mostrar etiquetas o tags interactivas. Múltiples tamaños, estados y soporte para iconos izquierdo y derecho (botón de cerrar). Usa tokens UBITS exclusivamente.',
+        component: `Componente Chip UBITS para mostrar etiquetas o tags interactivas. Múltiples tamaños, estados y soporte para iconos izquierdo y derecho (botón de cerrar). Usa tokens UBITS exclusivamente.',
       },
     },
     layout: 'centered',
@@ -164,7 +164,7 @@ export const Default: Story = {
       // Usar valores del token Focus: border 2px solid #5297F4, box-shadow con spread 4px y opacity 30%
       const focusColor = '#5297F4';
       const focusRgba = hexToRgba(focusColor, 0.3);
-      chipElement.style.border = `2px solid var(--modifiers-static-inverted-color-light-accent-brand, ${focusColor})`;
+      chipElement.style.border = '2px solid var(--modifiers-static-inverted-color-light-accent-brand, ${focusColor})';
       chipElement.style.boxShadow = `0px 0px 0px 4px ${focusRgba}`;
       chipElement.style.outline = 'none';
     }

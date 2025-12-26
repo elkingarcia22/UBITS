@@ -16,7 +16,7 @@ const meta: Meta<MetricCardOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente MetricCard UBITS para mostrar métricas numéricas. Usa tokens UBITS para colores, tipografía y espaciado. Soporta iconos, tamaños y es completamente personalizable.
+          `Componente MetricCard UBITS para mostrar métricas numéricas. Usa tokens UBITS para colores, tipografía y espaciado. Soporta iconos, tamaños y es completamente personalizable.
 
 \`\`\`html
 // 1. Importar funciones (si usas módulos)

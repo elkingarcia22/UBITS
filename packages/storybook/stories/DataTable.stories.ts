@@ -11,7 +11,7 @@ const meta: Meta<DataTableOptions & { columnsCount?: number }> = {
     docs: {
       codePanel: true,
       description: {
-        component: 'Tabla de datos UBITS con soporte para columnas fijadas, reordenamiento, ordenamiento, selección múltiple, filas expandibles y menú de columnas.
+        component: `Tabla de datos UBITS con soporte para columnas fijadas, reordenamiento, ordenamiento, selección múltiple, filas expandibles y menú de columnas.
 
 \`\`\`html
 // 1. Crear contenedor HTML
@@ -954,12 +954,12 @@ window.UBITS.DataTable.create({
           id: i + 1,
           data: {
             [`nombre-col${1}`]: baseData.nombre + (i > 4 ? ` ${i + 1}` : ''),
-            [`email-col${2}`]: baseData.email.replace('@', `${i + 1}@`),
+            [`email-col${2}`]: baseData.email.replace('@', `${i + 1}@'),
             [`estado-col${3}`]: baseData.estado,
             [`nombre-col${4}`]: `Columna ${i + 1}`,
             [`nombre-col${5}`]: `Extra ${i + 1}`,
             [`pais-col${6}`]: 'Colombia',
-            [`fecha-col${7}`]: `2024-${String((i % 12) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}`,
+            [`fecha-col${7}`]: `2024-${String((i % 12) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}',
             'checkbox-2': false,
           },
           expanded: false,
@@ -1315,7 +1315,7 @@ window.UBITS.DataTable.create({
       },
       onRowExpand: (rowId, expanded) => {
         // Callback para filas expandidas (igual que Default)
-        console.log(`🔄 [Implementation] Fila ${rowId} ${expanded ? 'expandida' : 'colapsada'}`);
+        console.log(`🔄 [Implementation] Fila ${rowId} ${expanded ? 'expandida' : 'colapsada'}');
       }
     };
 
@@ -1799,7 +1799,7 @@ export const Default: Story = {
           telefono: `+57 ${300 + rowData.id} ${Math.floor(Math.random() * 1000)} ${Math.floor(Math.random() * 10000)}`,
           ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][Math.floor(Math.random() * 5)],
           pais: 'Colombia',
-          fecha: `2024-${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')}`,
+          fecha: `2024-${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')}',
           categoria: rowData.area,
           prioridad: ['Alta', 'Media', 'Baja'][Math.floor(Math.random() * 3)],
           'checkbox-2': false,
@@ -2710,7 +2710,7 @@ export const ColumnReorderable: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona el reordenamiento de columnas mediante drag & drop. Para reordenar una columna, arrastra el header de la columna y suéltala en la posición deseada. El callback `onColumnReorder` se ejecuta cuando se completa el reordenamiento.'
+        story: 'Esta historia demuestra cómo funciona el reordenamiento de columnas mediante drag & drop. Para reordenar una columna, arrastra el header de la columna y suéltala en la posición deseada. El callback `onColumnReorder' se ejecuta cuando se completa el reordenamiento.'
       }
     }
   },
@@ -2831,7 +2831,7 @@ export const RowReorderable: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona el reordenamiento de filas mediante drag & drop. Para reordenar una fila, arrastra el icono de drag-handle (⋮⋮) que aparece en la primera columna y suéltala en la posición deseada. El callback `onRowReorder` se ejecuta cuando se completa el reordenamiento, recibiendo el nuevo orden de los IDs de las filas.'
+        story: 'Esta historia demuestra cómo funciona el reordenamiento de filas mediante drag & drop. Para reordenar una fila, arrastra el icono de drag-handle (⋮⋮) que aparece en la primera columna y suéltala en la posición deseada. El callback `onRowReorder' se ejecuta cuando se completa el reordenamiento, recibiendo el nuevo orden de los IDs de las filas.'
       }
     }
   },
@@ -2965,7 +2965,7 @@ export const RowExpandable: Story = {
         totalItems: rows.length
       },
       onRowExpand: (rowId: string | number, expanded: boolean) => {
-        console.log(`🔄 Fila ${rowId} ${expanded ? 'expandida' : 'colapsada'}`);
+        console.log(`🔄 Fila ${rowId} ${expanded ? 'expandida' : 'colapsada'}');
       }
     };
     
@@ -2985,7 +2985,7 @@ export const RowExpandable: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funcionan las filas expandibles. Cada fila tiene un icono de expandir/colapsar (▶/▼) que permite mostrar contenido adicional. El contenido expandible se define mediante la función `renderExpandedContent` en cada fila. El callback `onRowExpand` se ejecuta cuando una fila se expande o colapsa, recibiendo el ID de la fila y el estado (expandida/colapsada).'
+        story: 'Esta historia demuestra cómo funcionan las filas expandibles. Cada fila tiene un icono de expandir/colapsar (▶/▼) que permite mostrar contenido adicional. El contenido expandible se define mediante la función `renderExpandedContent` en cada fila. El callback `onRowExpand' se ejecuta cuando una fila se expande o colapsa, recibiendo el ID de la fila y el estado (expandida/colapsada).'
       }
     }
   },
@@ -3092,7 +3092,7 @@ export const ColumnSortable: Story = {
         totalItems: rows.length
       },
       onSort: (columnId: string, direction: 'asc' | 'desc') => {
-        console.log(`🔄 Columna ${columnId} ordenada: ${direction === 'asc' ? 'ascendente' : 'descendente'}`);
+        console.log(`🔄 Columna ${columnId} ordenada: ${direction === 'asc' ? 'ascendente' : 'descendente'}');
       }
     };
     
@@ -3112,7 +3112,7 @@ export const ColumnSortable: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona el ordenamiento de columnas. Cada columna ordenable muestra iconos de flecha (↑↓) en el header. Al hacer click en el header de una columna, se ordena ascendente (↑), y al hacer click nuevamente se ordena descendente (↓). El callback `onSort` se ejecuta cuando se ordena una columna, recibiendo el ID de la columna y la dirección del ordenamiento (asc/desc).'
+        story: 'Esta historia demuestra cómo funciona el ordenamiento de columnas. Cada columna ordenable muestra iconos de flecha (↑↓) en el header. Al hacer click en el header de una columna, se ordena ascendente (↑), y al hacer click nuevamente se ordena descendente (↓). El callback `onSort' se ejecuta cuando se ordena una columna, recibiendo el ID de la columna y la dirección del ordenamiento (asc/desc).'
       }
     }
   },
@@ -3229,7 +3229,7 @@ export const CheckboxSelection: Story = {
             checkbox.addEventListener('change', (e) => {
               const target = e.target as HTMLInputElement;
               const rowId = target.getAttribute('data-row-id');
-              console.log(`☑️ Checkbox de fila ${rowId} ${target.checked ? 'marcado' : 'desmarcado'}`);
+              console.log(`☑️ Checkbox de fila ${rowId} ${target.checked ? 'marcado' : 'desmarcado'}');
             });
           });
           
@@ -3238,7 +3238,7 @@ export const CheckboxSelection: Story = {
           if (masterCheckbox) {
             masterCheckbox.addEventListener('change', (e) => {
               const target = e.target as HTMLInputElement;
-              console.log(`☑️ Checkbox maestro ${target.checked ? 'marcado - todas las filas seleccionadas' : 'desmarcado - todas las filas deseleccionadas'}`);
+              console.log(`☑️ Checkbox maestro ${target.checked ? 'marcado - todas las filas seleccionadas' : 'desmarcado - todas las filas deseleccionadas'}');
             });
           }
         }, 100);
@@ -3252,7 +3252,7 @@ export const CheckboxSelection: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona la selección múltiple de filas mediante checkboxes. Cada fila tiene un checkbox en la primera columna, y hay un checkbox maestro en el header que permite seleccionar/deseleccionar todas las filas de una vez. El estado de los checkboxes se almacena en `row.data[\'checkbox-2\']`. Puedes escuchar los cambios mediante event listeners en los elementos checkbox del DOM.'
+        story: 'Esta historia demuestra cómo funciona la selección múltiple de filas mediante checkboxes. Cada fila tiene un checkbox en la primera columna, y hay un checkbox maestro en el header que permite seleccionar/deseleccionar todas las filas de una vez. El estado de los checkboxes se almacena en 'row.data[\'checkbox-2\']'. Puedes escuchar los cambios mediante event listeners en los elementos checkbox del DOM.'
       }
     }
   },
@@ -3374,7 +3374,7 @@ export const VerticalScroll: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona el scroll vertical en la tabla. Cuando `showVerticalScrollbar` está habilitado, la tabla muestra un scrollbar vertical que permite navegar por todas las filas cuando el contenido excede la altura disponible. El contenedor de la tabla tiene una altura limitada (500px en este ejemplo) y el scroll vertical permite ver todas las 50 filas sin que la tabla ocupe todo el espacio disponible.'
+        story: 'Esta historia demuestra cómo funciona el scroll vertical en la tabla. Cuando `showVerticalScrollbar' está habilitado, la tabla muestra un scrollbar vertical que permite navegar por todas las filas cuando el contenido excede la altura disponible. El contenedor de la tabla tiene una altura limitada (500px en este ejemplo) y el scroll vertical permite ver todas las 50 filas sin que la tabla ocupe todo el espacio disponible.'
       }
     }
   },
@@ -3436,7 +3436,7 @@ export const HorizontalScroll: Story = {
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, '0')}`,
+            telefono: `+57 300 ${i.toString().padStart(7, '0')}',
             ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][i % 5],
             departamento: ['Cundinamarca', 'Antioquia', 'Valle del Cauca', 'Atlántico', 'Bolívar'][i % 5],
             cargo: ['Desarrollador', 'Diseñador', 'Product Manager', 'QA', 'DevOps'][i % 5]
@@ -3500,7 +3500,7 @@ export const HorizontalScroll: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona el scroll horizontal en la tabla. Cuando `showHorizontalScrollbar` está habilitado y el contenido de la tabla es más ancho que el contenedor, aparece un scrollbar horizontal que permite navegar por todas las columnas. El contenedor tiene un ancho limitado (600px en este ejemplo) y la tabla tiene 9 columnas anchas, lo que fuerza el scroll horizontal para ver todas las columnas.'
+        story: 'Esta historia demuestra cómo funciona el scroll horizontal en la tabla. Cuando `showHorizontalScrollbar' está habilitado y el contenido de la tabla es más ancho que el contenedor, aparece un scrollbar horizontal que permite navegar por todas las columnas. El contenedor tiene un ancho limitado (600px en este ejemplo) y la tabla tiene 9 columnas anchas, lo que fuerza el scroll horizontal para ver todas las columnas.'
       }
     }
   },
@@ -3565,7 +3565,7 @@ export const ColumnMenu: Story = {
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, '0')}`,
+            telefono: `+57 300 ${i.toString().padStart(7, '0')}',
             ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][i % 5]
           }
         });
@@ -3608,7 +3608,7 @@ export const ColumnMenu: Story = {
         totalItems: rows.length
       },
       onColumnPin: (columnId: string, pinned: boolean) => {
-        console.log(`📌 Columna ${columnId} ${pinned ? 'fijada' : 'desfijada'}`);
+        console.log(`📌 Columna ${columnId} ${pinned ? 'fijada' : 'desfijada'}');
       }
     };
     
@@ -3628,7 +3628,7 @@ export const ColumnMenu: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona el menú de columnas. Cada header de columna tiene un botón de menú (3 puntos) que al hacer click muestra un dropdown con la opción de fijar/desfijar la columna. Cuando una columna está fijada (pinned), permanece visible al hacer scroll horizontal. El callback `onColumnPin` se ejecuta cuando se fija o desfija una columna, recibiendo el ID de la columna y el estado (pinned: true/false).'
+        story: 'Esta historia demuestra cómo funciona el menú de columnas. Cada header de columna tiene un botón de menú (3 puntos) que al hacer click muestra un dropdown con la opción de fijar/desfijar la columna. Cuando una columna está fijada (pinned), permanece visible al hacer scroll horizontal. El callback `onColumnPin' se ejecuta cuando se fija o desfija una columna, recibiendo el ID de la columna y el estado (pinned: true/false).'
       }
     }
   },
@@ -3749,7 +3749,7 @@ export const ContextMenu: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona el menú contextual en las filas. Cuando `showContextMenu` está habilitado, puedes hacer click derecho en cualquier fila para abrir un menú contextual con acciones disponibles (ver, editar, eliminar, etc.). El callback `onRowAction` se ejecuta cuando se selecciona una acción del menú, recibiendo el ID de la fila y los datos completos de la fila.'
+        story: 'Esta historia demuestra cómo funciona el menú contextual en las filas. Cuando `showContextMenu` está habilitado, puedes hacer click derecho en cualquier fila para abrir un menú contextual con acciones disponibles (ver, editar, eliminar, etc.). El callback `onRowAction' se ejecuta cuando se selecciona una acción del menú, recibiendo el ID de la fila y los datos completos de la fila.'
       }
     }
   },
@@ -3822,7 +3822,7 @@ export const LazyLoad: Story = {
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, '0')}`
+            telefono: `+57 300 ${i.toString().padStart(7, '0')}'
           }
         });
       }
@@ -3974,7 +3974,7 @@ export const Pagination: Story = {
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, '0')}`
+            telefono: `+57 300 ${i.toString().padStart(7, '0')}'
           }
         });
       }
@@ -4083,7 +4083,7 @@ export const StickyControls: Story = {
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, '0')}`,
+            telefono: `+57 300 ${i.toString().padStart(7, '0')}',
             ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][i % 5],
             departamento: ['Cundinamarca', 'Antioquia', 'Valle del Cauca', 'Atlántico', 'Bolívar'][i % 5],
             cargo: ['Desarrollador', 'Diseñador', 'Product Manager', 'QA', 'DevOps'][i % 5],
@@ -4604,7 +4604,7 @@ export const ColumnSelector: Story = {
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, '0')}`,
+            telefono: `+57 300 ${i.toString().padStart(7, '0')}',
             ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][i % 5],
             departamento: ['Cundinamarca', 'Antioquia', 'Valle del Cauca', 'Atlántico', 'Bolívar'][i % 5]
           }
@@ -5060,7 +5060,7 @@ export const PinnedColumns: Story = {
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, '0')}`,
+            telefono: `+57 300 ${i.toString().padStart(7, '0')}',
             ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][i % 5],
             departamento: ['Cundinamarca', 'Antioquia', 'Valle del Cauca', 'Atlántico', 'Bolívar'][i % 5],
             cargo: ['Desarrollador', 'Diseñador', 'Product Manager', 'QA', 'DevOps'][i % 5]
@@ -5107,7 +5107,7 @@ export const PinnedColumns: Story = {
         totalItems: rows.length
       },
       onColumnPin: (columnId: string, pinned: boolean) => {
-        console.log(`📌 Columna ${columnId} ${pinned ? 'fijada' : 'desfijada'}`);
+        console.log(`📌 Columna ${columnId} ${pinned ? 'fijada' : 'desfijada'}');
       }
     };
     
@@ -5127,7 +5127,7 @@ export const PinnedColumns: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funcionan las columnas fijadas (pinned). Las columnas con `pinned: true` permanecen visibles al hacer scroll horizontal, lo que es útil para mantener información importante (como nombre o email) siempre visible mientras navegas por otras columnas. En este ejemplo, las columnas "Nombre" y "Email" están fijadas inicialmente. Puedes hacer click en el botón de menú (3 puntos) en cualquier header de columna para fijar/desfijar columnas dinámicamente. También puedes hacer scroll horizontal para ver cómo las columnas fijadas permanecen visibles mientras las demás columnas se desplazan.'
+        story: 'Esta historia demuestra cómo funcionan las columnas fijadas (pinned). Las columnas con `pinned: true' permanecen visibles al hacer scroll horizontal, lo que es útil para mantener información importante (como nombre o email) siempre visible mientras navegas por otras columnas. En este ejemplo, las columnas "Nombre" y "Email" están fijadas inicialmente. Puedes hacer click en el botón de menú (3 puntos) en cualquier header de columna para fijar/desfijar columnas dinámicamente. También puedes hacer scroll horizontal para ver cómo las columnas fijadas permanecen visibles mientras las demás columnas se desplazan.'
       }
     }
   },
@@ -5473,7 +5473,7 @@ export const EditableCells: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Demuestra la funcionalidad de edición de celdas en el DataTable. Las columnas con `editable: true` permiten modificar su contenido directamente. Los tipos editables incluyen: nombre (edición de texto inline), nombre-avatar (edición del nombre manteniendo el avatar), estado (dropdown con estados disponibles), fecha (date picker), checkbox (activar/desactivar) y radio (seleccionar/deseleccionar). Los cambios se guardan automáticamente cuando pierdes el foco o seleccionas una opción.'
+        story: 'Demuestra la funcionalidad de edición de celdas en el DataTable. Las columnas con `editable: true' permiten modificar su contenido directamente. Los tipos editables incluyen: nombre (edición de texto inline), nombre-avatar (edición del nombre manteniendo el avatar), estado (dropdown con estados disponibles), fecha (date picker), checkbox (activar/desactivar) y radio (seleccionar/deseleccionar). Los cambios se guardan automáticamente cuando pierdes el foco o seleccionas una opción.'
       }
     }
   }
@@ -5819,7 +5819,7 @@ export const EmptyState: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Demuestra los diferentes tipos de empty state (estado vacío) en el DataTable. El empty state se muestra cuando no hay datos o no hay resultados después de aplicar búsqueda o filtros. Hay tres variantes: `noData` (cuando no hay datos en absoluto), `noSearchResults` (cuando no hay resultados de búsqueda) y `noFilterResults` (cuando no hay resultados de filtros). Cada variante puede tener título, descripción, icono, imagen, y botones de acción primarios y secundarios con callbacks personalizados.'
+        story: 'Demuestra los diferentes tipos de empty state (estado vacío) en el DataTable. El empty state se muestra cuando no hay datos o no hay resultados después de aplicar búsqueda o filtros. Hay tres variantes: `noData` (cuando no hay datos en absoluto), `noSearchResults` (cuando no hay resultados de búsqueda) y `noFilterResults' (cuando no hay resultados de filtros). Cada variante puede tener título, descripción, icono, imagen, y botones de acción primarios y secundarios con callbacks personalizados.'
       }
     }
   }

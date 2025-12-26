@@ -21,7 +21,7 @@ const meta: Meta<ModalOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Modal UBITS centrado con overlay. Ideal para diálogos, confirmaciones y formularios. Soporta diferentes tamaños, variante full-screen, header con título y botón de cerrar, body con contenido scrollable y footer con botones de acción.
+          `Componente Modal UBITS centrado con overlay. Ideal para diálogos, confirmaciones y formularios. Soporta diferentes tamaños, variante full-screen, header con título y botón de cerrar, body con contenido scrollable y footer con botones de acción.
 
 \`\`\`html
 window.UBITS.Modal.create({

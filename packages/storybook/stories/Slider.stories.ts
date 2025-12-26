@@ -13,7 +13,7 @@ const meta: Meta<SliderOptions & {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Componente Slider UBITS con soporte para orientación horizontal/vertical, modo single/range, inputs opcionales, marcas, y todos los tamaños y estados.',
+        component: `Componente Slider UBITS con soporte para orientación horizontal/vertical, modo single/range, inputs opcionales, marcas, y todos los tamaños y estados.',
       },
     },
   },
@@ -184,7 +184,7 @@ export const Default: Story = {
   render: (args) => {
     // Crear contenedor principal
     const wrapper = document.createElement('div');
-    wrapper.style.cssText = `
+    wrapper.style.cssText = '
       max-width: ${args.orientation === 'vertical' ? '200px' : '800px'};
       margin: 20px auto;
       padding: 20px;
@@ -1188,7 +1188,7 @@ export const AllSizes: Story = {
         ...args,
         containerId: sliderId,
         size: size as SliderSize,
-        label: `Size ${size.toUpperCase()}`
+        label: 'Size ${size.toUpperCase()}'
       };
       const rendered = renderSliderStory(sliderOptions);
       wrapper.appendChild(rendered);

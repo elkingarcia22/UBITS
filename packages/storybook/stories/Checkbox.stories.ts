@@ -9,7 +9,7 @@ const meta: Meta<CheckboxOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Checkbox UBITS para selección múltiple. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.',
+        component: `Componente Checkbox UBITS para selección múltiple. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.',
       },
     },
     layout: 'centered',
@@ -547,7 +547,7 @@ export const OnChangeCallback: Story = {
     checked: false,
     onChange: (event: Event) => {
       const target = event.target as HTMLInputElement;
-      alert(`Checkbox cambiado: ${target.checked ? 'seleccionado' : 'no seleccionado'}`);
+      alert('Checkbox cambiado: ${target.checked ? 'seleccionado' : 'no seleccionado'}');
     }
   },
   render: (args) => renderCheckboxStory(args),

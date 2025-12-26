@@ -18,7 +18,7 @@ const meta: Meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Tokens específicos de componentes del sistema UBITS. Incluye tokens para botones (button-tone), scroll bar y toggle. Los tokens de button-tone usan modificadores con valores correctos.',
+        component: `Tokens específicos de componentes del sistema UBITS. Incluye tokens para botones (button-tone), scroll bar y toggle. Los tokens de button-tone usan modificadores con valores correctos.',
       },
     },
   },
@@ -30,7 +30,7 @@ type Story = StoryObj;
 // Tokens de componentes organizados por categoria
 // NOTA: Los tokens de button-tone usan los modificadores porque los tokens base tienen valores casi negros
 const COMPONENT_TOKENS = {
-  'button-tone': {
+  `button-tone': {
     brand: {
       primary: {
         light: [
@@ -433,7 +433,7 @@ export const TodosLosComponentes: Story = {
     scrollBarSection.style.marginBottom = '40px';
     
     const scrollBarTitle = document.createElement('h3');
-    scrollBarTitle.textContent = `Scroll Bar (${COMPONENT_TOKENS['scroll-bar'].length} tokens)`;
+    scrollBarTitle.textContent = `Scroll Bar (${COMPONENT_TOKENS['scroll-bar'].length} tokens)';
     scrollBarTitle.style.fontSize = '20px';
     scrollBarTitle.style.fontWeight = '600';
     scrollBarTitle.style.marginBottom = '16px';
@@ -451,7 +451,7 @@ export const TodosLosComponentes: Story = {
     toggleSection.style.marginBottom = '40px';
     
     const toggleTitle = document.createElement('h3');
-    toggleTitle.textContent = `Toggle (${COMPONENT_TOKENS['toggle'].length} tokens)`;
+    toggleTitle.textContent = `Toggle (${COMPONENT_TOKENS['toggle'].length} tokens)';
     toggleTitle.style.fontSize = '20px';
     toggleTitle.style.fontWeight = '600';
     toggleTitle.style.marginBottom = '16px';
@@ -580,7 +580,7 @@ export const AIButton: Story = {
     count.style.marginBottom = '16px';
     count.style.fontSize = '16px';
     count.style.fontWeight = '600';
-    count.textContent = `Total: ${aiButtonCount} tokens (${COMPONENT_TOKENS['ai-button'].light.length} Light + ${COMPONENT_TOKENS['ai-button'].dark.length} Dark)`;
+    count.textContent = `Total: ${aiButtonCount} tokens (${COMPONENT_TOKENS['ai-button'].light.length} Light + ${COMPONENT_TOKENS['ai-button'].dark.length} Dark)';
     container.appendChild(count);
 
     const aiButtonComparison = document.createElement('div');
@@ -648,7 +648,7 @@ export const ScrollBar: Story = {
     count.style.marginBottom = '16px';
     count.style.fontSize = '16px';
     count.style.fontWeight = '600';
-    count.textContent = `Total: ${COMPONENT_TOKENS['scroll-bar'].length} tokens`;
+    count.textContent = `Total: ${COMPONENT_TOKENS['scroll-bar'].length} tokens';
     container.appendChild(count);
 
     const comparison = createLightDarkComparison(COMPONENT_TOKENS['scroll-bar'], 'Scroll Bar');
@@ -678,7 +678,7 @@ export const Toggle: Story = {
     count.style.marginBottom = '16px';
     count.style.fontSize = '16px';
     count.style.fontWeight = '600';
-    count.textContent = `Total: ${COMPONENT_TOKENS['toggle'].length} tokens`;
+    count.textContent = `Total: ${COMPONENT_TOKENS['toggle'].length} tokens';
     container.appendChild(count);
 
     const comparison = createLightDarkComparison(COMPONENT_TOKENS['toggle'], 'Toggle');

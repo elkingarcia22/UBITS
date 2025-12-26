@@ -300,7 +300,7 @@ const statusTagHTML = window.UBITS.StatusTag.render({
   status: 'completed',
   clickable: false
 });
-document.getElementById('container').innerHTML = statusTagHTML;`,
+document.getElementById('container').innerHTML = statusTagHTML;',
       },
     },
   },

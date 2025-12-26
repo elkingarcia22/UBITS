@@ -519,7 +519,7 @@ export const Default: Story = {
     } catch (error) {
       console.error('❌ [SelectionCard Story] Error al crear card:', error);
       const errorDiv = document.createElement('div');
-      errorDiv.textContent = `Error: ${error instanceof Error ? error.message : 'Error desconocido'}`;
+      errorDiv.textContent = `Error: ${error instanceof Error ? error.message : 'Error desconocido'}';
       errorDiv.style.color = 'red';
       errorDiv.style.padding = '20px';
       container.appendChild(errorDiv);

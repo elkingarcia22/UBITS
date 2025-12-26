@@ -9,13 +9,13 @@ const meta: Meta<SpinnerOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Spinner/Loader UBITS para mostrar estados de carga. Soporta múltiples tamaños, variantes de color y puede mostrarse con o sin etiqueta.',
+        component: `Componente Spinner/Loader UBITS para mostrar estados de carga. Soporta múltiples tamaños, variantes de color y puede mostrarse con o sin etiqueta.',
       },
     },
   },
   argTypes: {
     size: {
-      control: { type: 'select' },
+      control: { type: `select' },
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
       description: 'Tamaño del spinner',
       table: {

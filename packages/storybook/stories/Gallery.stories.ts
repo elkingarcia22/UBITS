@@ -86,7 +86,7 @@ const meta: Meta<GalleryOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Gallery UBITS para mostrar imágenes en diferentes layouts (grid, masonry, list) con múltiples tamaños, soporte para lightbox, lazy loading y thumbnails.'
+        component: `Componente Gallery UBITS para mostrar imágenes en diferentes layouts (grid, masonry, list) con múltiples tamaños, soporte para lightbox, lazy loading y thumbnails.'
 }
 },
     layout: 'padded'
@@ -924,7 +924,7 @@ export const OnItemClick: Story = {
     lazyLoad: false,
     lightbox: false,
     onItemClick: (item: GalleryItem, index: number) => {
-      alert(`Item clicked: ${item.title || `Image ${index + 1}`}`);
+      alert('Item clicked: ${item.title || `Image ${index + 1}`}');
     },
   },
   render: (args) => renderGalleryStory(args),
@@ -1044,12 +1044,12 @@ export const ManyItems: Story = {
       ...sampleItems.map((item, index) => ({
         ...item,
         id: item.id + 10,
-        title: `${item.title} (${index + 10})`
+        title: '${item.title} (${index + 10})'
       })),
       ...sampleItems.map((item, index) => ({
         ...item,
         id: item.id + 20,
-        title: `${item.title} (${index + 20})`
+        title: '${item.title} (${index + 20})'
       }))
     ],
     layout: 'grid',

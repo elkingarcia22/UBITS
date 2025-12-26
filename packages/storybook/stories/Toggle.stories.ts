@@ -9,7 +9,7 @@ const meta: Meta<ToggleOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Toggle/Switch UBITS para activar/desactivar opciones. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.',
+        component: `Componente Toggle/Switch UBITS para activar/desactivar opciones. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.',
       },
     },
     layout: 'centered',
@@ -197,7 +197,7 @@ export const Default: Story = {
 // Helper para renderizar Toggle de manera consistente
 function renderToggleStory(options: ToggleOptions) {
   const container = document.createElement('div');
-  container.style.cssText = `
+  container.style.cssText = '
     padding: 20px;
     display: flex;
     align-items: center;
@@ -867,7 +867,7 @@ export const AllSizes: Story = {
 
     ['sm', 'md'].forEach((size) => {
       const toggleHTML = renderToggle({
-        label: `Toggle ${size.toUpperCase()}`,
+        label: 'Toggle ${size.toUpperCase()}',
         checked: false,
         size: size as 'sm' | 'md',
         state: 'default',
@@ -917,7 +917,7 @@ export const AllStates: Story = {
 
     ['default', 'hover', 'active', 'disabled'].forEach((state) => {
       const toggleHTML = renderToggle({
-        label: `Toggle ${state.charAt(0).toUpperCase() + state.slice(1)}`,
+        label: 'Toggle ${state.charAt(0).toUpperCase() + state.slice(1)}',
         checked: false,
         size: 'md',
         state: state as 'default' | 'hover' | 'active' | 'disabled',

@@ -19,7 +19,7 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Componente HeaderSection UBITS para encabezados de sección con título (heading h2, fg-1-high), botón de información con tooltip (sm), y acciones (botones md). Todos los elementos son apagables/prendibles con controladores.',
+        component: `Componente HeaderSection UBITS para encabezados de sección con título (heading h2, fg-1-high), botón de información con tooltip (sm), y acciones (botones md). Todos los elementos son apagables/prendibles con controladores.',
       },
     },
   },
@@ -305,7 +305,7 @@ export const Default: Story = {
 
     // Panel de información
     const infoPanel = document.createElement('div');
-    infoPanel.style.cssText = `
+    infoPanel.style.cssText = '
       margin-bottom: 24px;
       padding: 16px;
       background: var(--modifiers-normal-color-light-bg-2);

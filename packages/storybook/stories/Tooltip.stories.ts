@@ -11,7 +11,7 @@ const meta: Meta<TooltipOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Tooltip UBITS con tail (flecha) para mostrar información contextual. Similar al Popover pero más simple, con título, descripción y botones de acción (primario, secundario y terciario). El tooltip se adapta automáticamente al contenido usando min-width y max-width según el tamaño seleccionado (sm: 120-240px, md: 160-320px, lg: 200-400px). El ancho máximo se ajusta según la cantidad de botones visibles (3 botones: mínimo 420px, 2 botones: mínimo 360px), y el tamaño del tooltip determina el tamaño de los botones (sm→xs, md→sm, lg→md).',
+        component: `Componente Tooltip UBITS con tail (flecha) para mostrar información contextual. Similar al Popover pero más simple, con título, descripción y botones de acción (primario, secundario y terciario). El tooltip se adapta automáticamente al contenido usando min-width y max-width según el tamaño seleccionado (sm: 120-240px, md: 160-320px, lg: 200-400px). El ancho máximo se ajusta según la cantidad de botones visibles (3 botones: mínimo 420px, 2 botones: mínimo 360px), y el tamaño del tooltip determina el tamaño de los botones (sm→xs, md→sm, lg→md).',
       },
     },
     layout: 'fullscreen',

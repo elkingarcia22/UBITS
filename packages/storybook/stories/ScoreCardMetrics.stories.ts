@@ -10,7 +10,7 @@ const meta: Meta<ScoreCardMetricsOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente ScoreCardMetrics UBITS para mostrar métricas de calificación con estrellas. Incluye título, estadísticas (respuestas y promedio), gráfico de 5 estrellas, etiquetas y descripción. Usa tokens UBITS para colores, tipografía y espaciado.'
+        component: `Componente ScoreCardMetrics UBITS para mostrar métricas de calificación con estrellas. Incluye título, estadísticas (respuestas y promedio), gráfico de 5 estrellas, etiquetas y descripción. Usa tokens UBITS para colores, tipografía y espaciado.'
 }
 }
 },
@@ -172,7 +172,7 @@ export const Default: Story = {
 // Helper para renderizar Score Card Metrics de manera consistente
 function renderScoreCardMetricsStory(options: ScoreCardMetricsOptions) {
   const container = document.createElement('div');
-  container.style.cssText = `
+  container.style.cssText = '
     padding: 40px;
     background: var(--modifiers-normal-color-light-bg-2);
     border-radius: 8px;
@@ -1152,7 +1152,7 @@ export const AllSizes: Story = {
         color: var(--modifiers-normal-color-light-fg-1-high);
         font-weight: 600;
       `;
-      label.textContent = `Size: ${size?.toUpperCase() || 'default'}`;
+      label.textContent = `Size: ${size?.toUpperCase() || 'default'}';
       
       const cardHTML = renderScoreCardMetrics({
         ...args,

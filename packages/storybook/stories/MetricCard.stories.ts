@@ -10,7 +10,7 @@ const meta: Meta<MetricCardOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente MetricCard UBITS para mostrar métricas numéricas. Usa tokens UBITS para colores, tipografía y espaciado. Soporta iconos, tamaños y es completamente personalizable.'
+        component: `Componente MetricCard UBITS para mostrar métricas numéricas. Usa tokens UBITS para colores, tipografía y espaciado. Soporta iconos, tamaños y es completamente personalizable.'
 }
 }
 },
@@ -110,7 +110,7 @@ export const Default: Story = {
     container.style.justifyContent = 'center';
     container.style.alignItems = 'flex-start';
     container.style.background = 'var(--modifiers-normal-color-light-bg-2)';
-    container.style.border = `1px solid var(--modifiers-normal-color-light-border-1)`;
+    container.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
     
     // Crear wrapper para la card
     const wrapper = document.createElement('div');
@@ -704,7 +704,7 @@ export const AllSizes: Story = {
         margin-bottom: 12px;
         width: 100%;
       `;
-      label.textContent = `Size: ${size?.toUpperCase() || 'default'}`;
+      label.textContent = `Size: ${size?.toUpperCase() || 'default'}';
       
       const wrapper = document.createElement('div');
       wrapper.style.cssText = `
@@ -790,7 +790,7 @@ export const AllIconStyles: Story = {
         margin-bottom: 12px;
         width: 100%;
       `;
-      label.textContent = `Icon Style: ${iconStyle?.charAt(0).toUpperCase() + iconStyle?.slice(1) || 'default'}`;
+      label.textContent = `Icon Style: ${iconStyle?.charAt(0).toUpperCase() + iconStyle?.slice(1) || 'default'}';
       
       const wrapper = document.createElement('div');
       wrapper.style.cssText = `

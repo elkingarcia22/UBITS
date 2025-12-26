@@ -16,7 +16,7 @@ const meta: Meta<{
   parameters: {
     docs: {
       description: {
-        component: 'Página de bienvenida para tests de prototipos UBITS. Incluye múltiples variaciones de diseño con diferentes layouts, posiciones de imagen, alineaciones y estilos.'
+        component: `Página de bienvenida para tests de prototipos UBITS. Incluye múltiples variaciones de diseño con diferentes layouts, posiciones de imagen, alineaciones y estilos.'
       }
     },
     layout: 'fullscreen'
@@ -123,7 +123,7 @@ export const WelcomePage: Story = {
     selectedImage: '1'
   },
   render: (args) => {
-    const instanceId = `welcome-instance-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const instanceId = 'welcome-instance-${Date.now()}-${Math.random().toString(36).substr(2, 9)}';
     
     const container = document.createElement('div');
     container.id = 'welcome-story-container';

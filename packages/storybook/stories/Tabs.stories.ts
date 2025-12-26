@@ -17,7 +17,7 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: 'Componente Tabs UBITS de navegación horizontal con soporte para iconos opcionales. El tab activo muestra fondo blanco, icono oscuro, texto en negrita y una línea vertical rosa a la izquierda. Los tabs inactivos muestran icono y texto en gris claro sin fondo.',
+        component: `Componente Tabs UBITS de navegación horizontal con soporte para iconos opcionales. El tab activo muestra fondo blanco, icono oscuro, texto en negrita y una línea vertical rosa a la izquierda. Los tabs inactivos muestran icono y texto en gris claro sin fondo.',
       },
     },
   },
@@ -66,9 +66,9 @@ function generateTabs(count: number = 5, withIcons: boolean = true): TabItem[] {
   const labels = ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5', 'Label 6', 'Label 7', 'Label 8', 'Label 9', 'Label 10'];
   
   return Array.from({ length: count }, (_, i) => ({
-    id: `tab-${i + 1}`,
-    label: labels[i] || `Label ${i + 1}`,
-    icon: withIcons ? `far ${icons[i] || 'fa-th'}` : undefined,
+    id: 'tab-${i + 1}',
+    label: labels[i] || 'Label ${i + 1}',
+    icon: withIcons ? `far ${icons[i] || 'fa-th'}' : undefined,
     active: i === 0,
   }));
 }

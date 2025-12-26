@@ -15,7 +15,7 @@ const meta: Meta<PopoverOptions & {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Popover UBITS con tail (flecha) para mostrar información contextual. Similar al modal pero más pequeño y con tail. Se usa para mostrar información adicional, tooltips avanzados o acciones contextuales. Soporta diferentes tamaños, posiciones de tail, header opcional, body con scroll personalizado y footer con botones opcionales.',
+        component: `Componente Popover UBITS con tail (flecha) para mostrar información contextual. Similar al modal pero más pequeño y con tail. Se usa para mostrar información adicional, tooltips avanzados o acciones contextuales. Soporta diferentes tamaños, posiciones de tail, header opcional, body con scroll personalizado y footer con botones opcionales.',
       },
     },
     layout: 'fullscreen',
@@ -142,7 +142,7 @@ type Story = StoryObj<PopoverOptions & {
 export const Default: Story = {
   args: {
     title: 'Title',
-    bodyContent: `
+    bodyContent: '
       <p style="margin: 0; font-size: var(--font-body-sm-size, 13px); color: var(--modifiers-normal-color-light-fg-1-high-static-inverted, #edeeef); line-height: 19.5px);">
         Tooltips are used to describe or identify an element. In most scenarios, tooltips help the user understand the meaning, function or alt-text of an element.
       </p>

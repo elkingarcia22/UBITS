@@ -21,7 +21,7 @@ const meta: Meta<
       codePanel: true,
       description: {
         component:
-          'Componente Mask UBITS para onboarding. Crea un overlay oscuro con un "agujero" que destaca un elemento específico de la interfaz. Incluye un Popover integrado para mostrar información o instrucciones. Ideal para guías de usuario, tutoriales y flujos de onboarding.',
+          `Componente Mask UBITS para onboarding. Crea un overlay oscuro con un "agujero" que destaca un elemento específico de la interfaz. Incluye un Popover integrado para mostrar información o instrucciones. Ideal para guías de usuario, tutoriales y flujos de onboarding.',
       },
     },
     layout: 'fullscreen',
@@ -53,7 +53,7 @@ const meta: Meta<
       },
       // ⭐ CAMPOS EXTENDIDOS
       examples: {
-        canonical: `window.UBITSMask.createMask({
+        canonical: 'window.UBITSMask.createMask({
   targetElement: document.getElementById('target'),
   popover: {
     title: 'Título',
