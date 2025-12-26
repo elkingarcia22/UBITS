@@ -23,11 +23,10 @@ const config: StorybookConfig = {
     '../stories/Templates.stories.ts',
     '../stories/Stepper.stories.ts',
     '../stories/DataTable.stories.ts',
-    // Incluir historias en subdirectorios (components, TokensUBITS, Templates, recipes)
+    // Incluir historias en subdirectorios (components, TokensUBITS, Templates)
     '../stories/components/**/*.stories.@(js|jsx|mjs|ts|tsx)',
     '../stories/TokensUBITS/**/*.stories.@(js|jsx|mjs|ts|tsx)',
     '../stories/Templates/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-    '../stories/recipes/**/*.stories.@(js|jsx|mjs|ts|tsx)',
     // Excluir componentes específicos de components/ que tienen duplicados en la raíz
     '!../stories/components/Stepper/**/*.stories.@(js|jsx|mjs|ts|tsx)',
     '!../stories/components/SaveIndicator/**/*.stories.@(js|jsx|mjs|ts|tsx)',
