@@ -3112,7 +3112,7 @@ export const ColumnSortable: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona el ordenamiento de columnas. Cada columna ordenable muestra iconos de flecha (↑↓) en el header. Al hacer click en el header de una columna, se ordena ascendente (↑), y al hacer click nuevamente se ordena descendente (↓). El callback `onSort' se ejecuta cuando se ordena una columna, recibiendo el ID de la columna y la dirección del ordenamiento (asc/desc).'
+        story: 'Esta historia demuestra cómo funciona el ordenamiento de columnas. Cada columna ordenable muestra iconos de flecha (↑↓) en el header. Al hacer click en el header de una columna, se ordena ascendente (↑), y al hacer click nuevamente se ordena descendente (↓). El callback `onSort` se ejecuta cuando se ordena una columna, recibiendo el ID de la columna y la dirección del ordenamiento (asc/desc).'
       }
     }
   },
