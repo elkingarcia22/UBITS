@@ -116,7 +116,7 @@ function renderProduct(product: ProductData, index: number, options: DataViewOpt
               variant: 'secondary',
               size: 'sm',
               icon: wishlistIcon,
-              iconStyle: inWishlist ? 'solid' : 'regular',
+              iconStyle: 'solid', // Siempre solid para corazón relleno
               iconOnly: true,
               className: `ubits-data-view__wishlist-button ${inWishlist ? 'ubits-data-view__wishlist-button--active' : ''}`,
               attributes: {
@@ -162,7 +162,7 @@ export function renderDataView(options: DataViewOptions): string {
 
   const idAttr = containerId ? `id="${containerId}"` : '';
 
-  let html = `<div class="${containerClasses}" ${idAttr} ${containerAttrs}>`;
+  let html = `<div class="${containerClasses}" ${idAttr} ${containerAttrs} data-ubits-id="🧩-ux-data-view">`;
 
   products.forEach((product, index) => {
     html += renderProduct(product, index, options);
@@ -206,6 +206,11 @@ export function createDataView(options: DataViewOptions): HTMLElement {
   Object.entries(attributes).forEach(([key, value]) => {
     element.setAttribute(key, value);
   });
+
+  // Agregar data-ubits-id si no está presente
+  if (!element.hasAttribute('data-ubits-id')) {
+    element.setAttribute('data-ubits-id', '🧩-ux-data-view');
+  }
 
   // Renderizar productos
   element.innerHTML = renderDataView(options);

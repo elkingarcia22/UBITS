@@ -237,18 +237,46 @@
   color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
 }
 
+.ubits-data-view__wishlist-button i,
+.ubits-data-view__wishlist-button .fa-heart,
+.ubits-data-view__wishlist-button .fas {
+  color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+  fill: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+}
+
 .ubits-data-view__wishlist-button:hover {
   color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
   background-color: var(--modifiers-normal-color-light-feedback-bg-error-subtle-default);
+}
+
+.ubits-data-view__wishlist-button:hover i,
+.ubits-data-view__wishlist-button:hover .fa-heart,
+.ubits-data-view__wishlist-button:hover .fas {
+  color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+  fill: var(--modifiers-normal-color-light-feedback-accent-error) !important;
 }
 
 .ubits-data-view__wishlist-button--active {
   color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
 }
 
+.ubits-data-view__wishlist-button--active i,
+.ubits-data-view__wishlist-button--active .fa-heart,
+.ubits-data-view__wishlist-button--active .fas {
+  color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+  fill: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+}
+
 .ubits-data-view__wishlist-button--active:hover {
   color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
   background-color: var(--modifiers-normal-color-light-feedback-bg-error-subtle-default);
+}
+
+.ubits-data-view__wishlist-button--active:hover i,
+.ubits-data-view__wishlist-button--active:hover .fa-heart,
+.ubits-data-view__wishlist-button--active:hover .fas {
+  color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+  fill: var(--modifiers-normal-color-light-feedback-accent-error) !important;
 }
 
 .ubits-data-view__buy-button {
