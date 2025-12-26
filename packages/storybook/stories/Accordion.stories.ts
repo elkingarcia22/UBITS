@@ -9,13 +9,13 @@ const meta: Meta<AccordionOptions> = {
   parameters: {
     docs: {
       description: {
-        component: `Componente Accordion UBITS con múltiples variantes: lista simple, tipo caja, chevron izquierda/derecha, iconos opcionales y sub-headers.',
+        component: `Componente Accordion UBITS con múltiples variantes: lista simple, tipo caja, chevron izquierda/derecha, iconos opcionales y sub-headers.`,
       },
     },
   },
   argTypes: {
     variant: {
-      control: { type: `select' },
+      control: { type: `select` },
       options: ['list', 'boxed'],
       description: 'Variante del accordion',
       table: {

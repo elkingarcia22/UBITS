@@ -28,7 +28,7 @@ const meta: Meta<{
   parameters: {
     docs: {
       description: {
-        component: `Componente Timeline UBITS para mostrar secuencias de eventos o fases. Soporta avatar, fecha, título, descripción, iconos y alineación izquierda o centrada. Usa tokens UBITS.'
+        component: `Componente Timeline UBITS para mostrar secuencias de eventos o fases. Soporta avatar, fecha, título, descripción, iconos y alineación izquierda o centrada. Usa tokens UBITS.`
 }
 }
 },

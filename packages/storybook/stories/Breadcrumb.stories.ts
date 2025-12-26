@@ -16,7 +16,7 @@ const meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: `Componente Breadcrumb UBITS para navegación jerárquica. El último item muestra texto en bold (active), los demás en regular (default). Usa body-sm con tokens UBITS.',
+        component: `Componente Breadcrumb UBITS para navegación jerárquica. El último item muestra texto en bold (active), los demás en regular (default). Usa body-sm con tokens UBITS.`,
       },
     },
   },

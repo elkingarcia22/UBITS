@@ -41,7 +41,7 @@ const popoverInstance = window.UBITS.Popover.create({
   closeOnOutsideClick: true,
   open: true
 });
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'fullscreen',

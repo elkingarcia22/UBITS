@@ -9,7 +9,7 @@ const meta: Meta<CheckboxOptions> = {
   parameters: {
     docs: {
       description: {
-        component: `Componente Checkbox UBITS para selección múltiple. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.',
+        component: `Componente Checkbox UBITS para selección múltiple. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.`,
       },
     },
     layout: 'centered',

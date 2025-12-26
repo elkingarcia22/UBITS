@@ -10,7 +10,7 @@ const meta: Meta<ModalOptions> = {
   parameters: {
     docs: {
       description: {
-        component: `Componente Modal UBITS centrado con overlay. Ideal para diálogos, confirmaciones y formularios. Soporta diferentes tamaños, variante full-screen, header con título y botón de cerrar, body con contenido scrollable y footer con botones de acción.'
+        component: `Componente Modal UBITS centrado con overlay. Ideal para diálogos, confirmaciones y formularios. Soporta diferentes tamaños, variante full-screen, header con título y botón de cerrar, body con contenido scrollable y footer con botones de acción.`
 }
 },
     layout: 'fullscreen'

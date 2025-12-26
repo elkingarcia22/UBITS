@@ -14,7 +14,7 @@ const meta: Meta<ParticipantsMenuOptions> = {
   parameters: {
     docs: {
       description: {
-        component: `Componente de menú lateral UBITS para mostrar una lista de participantes. Incluye búsqueda, filtro y lista de participantes con avatar, nombre, rol y estado.'
+        component: `Componente de menú lateral UBITS para mostrar una lista de participantes. Incluye búsqueda, filtro y lista de participantes con avatar, nombre, rol y estado.`
 }
 },
     layout: 'fullscreen'

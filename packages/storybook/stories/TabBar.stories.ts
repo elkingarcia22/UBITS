@@ -231,7 +231,7 @@ const meta = {
     },
     docs: {
       description: {
-        component: `Componente TabBar UBITS de navegación inferior para móviles. Reemplaza al sidebar en pantallas pequeñas (< 1024px) con items personalizables con iconos o avatares, dark mode toggle, y callbacks personalizables por item. Incluye Floating Menu con accordions (se muestra al hacer click en "Módulos") y Profile Menu dropdown (se muestra al hacer click en "Mi perfil"). Soporta 2 variantes: colaborador y admin.',
+        component: `Componente TabBar UBITS de navegación inferior para móviles. Reemplaza al sidebar en pantallas pequeñas (< 1024px) con items personalizables con iconos o avatares, dark mode toggle, y callbacks personalizables por item. Incluye Floating Menu con accordions (se muestra al hacer click en "Módulos") y Profile Menu dropdown (se muestra al hacer click en "Mi perfil"). Soporta 2 variantes: colaborador y admin.`,
       },
     },
   },

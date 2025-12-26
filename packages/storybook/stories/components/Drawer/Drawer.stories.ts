@@ -46,7 +46,7 @@ window.UBITS.Drawer.create({
   closeOnOverlayClick: true,
   open: true
 });
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'fullscreen',

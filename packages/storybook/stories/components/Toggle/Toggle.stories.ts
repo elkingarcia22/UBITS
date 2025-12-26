@@ -37,7 +37,7 @@ window.UBITS.Toggle.create({
   state: 'default',
   disabled: false
 });
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'centered',

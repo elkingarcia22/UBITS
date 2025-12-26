@@ -10,7 +10,7 @@ const meta: Meta<AvatarOptions> = {
   parameters: {
     docs: {
       description: {
-        component: `Componente Avatar UBITS con soporte para imagen, iniciales e icono. Múltiples tamaños y badge opcional con contenido (texto/números). Usa tokens UBITS exclusivamente.',
+        component: `Componente Avatar UBITS con soporte para imagen, iniciales e icono. Múltiples tamaños y badge opcional con contenido (texto/números). Usa tokens UBITS exclusivamente.`,
       },
     },
     layout: 'centered',

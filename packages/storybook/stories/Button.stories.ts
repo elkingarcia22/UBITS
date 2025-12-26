@@ -11,7 +11,7 @@ const meta: Meta<ButtonOptions> = {
   parameters: {
     docs: {
       description: {
-        component: `Componente Button UBITS con múltiples variantes, tamaños y estados. Soporta iconos, badges y estado de carga.',
+        component: `Componente Button UBITS con múltiples variantes, tamaños y estados. Soporta iconos, badges y estado de carga.`,
       },
     },
   },

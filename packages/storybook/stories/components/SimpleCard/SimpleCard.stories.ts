@@ -101,7 +101,7 @@ const container = document.getElementById('card-container');
 if (container) {
   container.innerHTML = cardHTML;
 }
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'centered',

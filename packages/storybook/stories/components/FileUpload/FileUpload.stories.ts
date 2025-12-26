@@ -48,7 +48,7 @@ window.UBITS.FileUpload.create({
   showProgress: true,
   showActions: true
 });
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'fullscreen',

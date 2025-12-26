@@ -8,7 +8,7 @@ const meta: Meta<InputOptions> = {
   parameters: {
     docs: {
       description: {
-        component: `Componente Input UBITS con soporte para múltiples tipos (text, email, password, number, tel, url, select, textarea, search, autocomplete, calendar), 4 tamaños (xs, sm, md, lg), 6 estados (default, hover, focus, active, invalid, disabled), iconos, helpers, contadores, y opciones mandatory/optional.',
+        component: `Componente Input UBITS con soporte para múltiples tipos (text, email, password, number, tel, url, select, textarea, search, autocomplete, calendar), 4 tamaños (xs, sm, md, lg), 6 estados (default, hover, focus, active, invalid, disabled), iconos, helpers, contadores, y opciones mandatory/optional.`,
       },
     },
   },
@@ -1359,7 +1359,7 @@ export const AllTypes: Story = {
         containerId: 'input-type-${type}-${Date.now()}',
         type,
         label: 'Input ${typeLabels[type]}',
-        placeholder: type === 'select' ? 'Elige una opción' : type === 'textarea' ? 'Escribe aquí...' : `Placeholder ${type}',
+        placeholder: type === 'select' ? 'Elige una opción' : type === 'textarea' ? 'Escribe aquí...' : `Placeholder ${type}`,
         selectOptions: type === 'select' ? generateSelectOptions(20) : undefined,
         autocompleteOptions: type === 'autocomplete' ? generateAutocompleteOptions() : undefined
       };

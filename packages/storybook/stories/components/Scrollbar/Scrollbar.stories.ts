@@ -64,7 +64,7 @@ const scrollbarHorizontal = window.createScrollbar({
 // Nota: El scrollbar se sincroniza automáticamente con el elemento scrollable.
 // Aparece en hover y se adapta al tamaño del contenido.
 // Soporta arrastrar y clic para navegar.
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'fullscreen',

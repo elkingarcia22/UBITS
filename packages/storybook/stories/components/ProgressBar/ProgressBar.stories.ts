@@ -81,7 +81,7 @@ const container = document.getElementById('progress-bar-container');
 if (container) {
   container.innerHTML = progressBarHTML;
 }
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'fullscreen',

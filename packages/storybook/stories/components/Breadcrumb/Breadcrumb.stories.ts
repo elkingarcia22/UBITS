@@ -42,7 +42,7 @@ window.UBITS.Breadcrumb.create({
     console.log('Item clickeado:', itemId);
   }
 }, 'breadcrumb-implementation-container');
-\`\`\`',
+\`\`\``,
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

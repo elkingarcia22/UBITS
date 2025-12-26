@@ -92,7 +92,7 @@ function renderTreeMenu(options) {
 // Nota: renderTreeMenu retorna HTML string directamente
 // Los estilos se deben agregar manualmente o desde un archivo CSS
 // La funcionalidad de expandir/colapsar se debe inicializar manualmente
-\`\`\`',
+\`\`\``,
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN
@@ -842,7 +842,7 @@ export const Default: Story = {
 
     container.appendChild(treeContainer);
     container.setAttribute('data-ubits-component', 'TreeMenu');
-    container.setAttribute('data-ubits-id', `tree-menu-${Date.now()}');
+    container.setAttribute('data-ubits-id', `tree-menu-${Date.now()}`);
 
     return container;
   },
@@ -1145,7 +1145,7 @@ export const Implementation: Story = {
     }, 100);
 
     container.setAttribute('data-ubits-component', 'TreeMenu');
-    container.setAttribute('data-ubits-id', `tree-menu-${Date.now()}');
+    container.setAttribute('data-ubits-id', `tree-menu-${Date.now()}`);
 
     return container;
   },

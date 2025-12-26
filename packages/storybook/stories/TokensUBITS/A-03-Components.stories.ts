@@ -18,7 +18,7 @@ const meta: Meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: `Tokens específicos de componentes del sistema UBITS. Incluye tokens para botones (button-tone), scroll bar y toggle. Los tokens de button-tone usan modificadores con valores correctos.',
+        component: `Tokens específicos de componentes del sistema UBITS. Incluye tokens para botones (button-tone), scroll bar y toggle. Los tokens de button-tone usan modificadores con valores correctos.`,
       },
     },
   },
@@ -275,7 +275,7 @@ export const TodosLosComponentes: Story = {
       const secondaryCount = (toneData.secondary?.light.length || 0) + (toneData.secondary?.dark.length || 0);
       const tertiaryCount = (toneData.tertiary?.light.length || 0) + (toneData.tertiary?.dark.length || 0);
       return `${tone}: ${primaryCount + secondaryCount + tertiaryCount} (primary: ${primaryCount}, secondary: ${secondaryCount}, tertiary: ${tertiaryCount})`;
-    }).join(', ');
+    }).join(`, ');
     
     summary.innerHTML = `
       <strong>Resumen:</strong><br>

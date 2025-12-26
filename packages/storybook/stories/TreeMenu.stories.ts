@@ -19,7 +19,7 @@ const meta: Meta<{
   parameters: {
     docs: {
       description: {
-        component: `Componente Tree Menu UBITS para mostrar estructuras jerárquicas con expandir/colapsar. Soporta iconos opcionales, múltiples niveles, chevron opcional y modo cascada o vertical.',
+        component: `Componente Tree Menu UBITS para mostrar estructuras jerárquicas con expandir/colapsar. Soporta iconos opcionales, múltiples niveles, chevron opcional y modo cascada o vertical.`,
       },
     },
   },

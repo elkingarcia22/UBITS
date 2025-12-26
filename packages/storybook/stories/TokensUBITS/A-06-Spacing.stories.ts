@@ -15,7 +15,7 @@ const meta: Meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: `Tokens de espaciado del sistema UBITS. Incluye valores básicos (xs, sm, md, lg, xl, 2xl) y valores extendidos (numéricos).',
+        component: `Tokens de espaciado del sistema UBITS. Incluye valores básicos (xs, sm, md, lg, xl, 2xl) y valores extendidos (numéricos).`,
       },
     },
   },
@@ -26,7 +26,7 @@ type Story = StoryObj;
 
 // Tokens de espaciado básico (UBITS)
 const SPACING_BASIC_TOKENS = [
-  `--ubits-spacing-none',
+  `--ubits-spacing-none`,
   '--ubits-spacing-xs',
   '--ubits-spacing-sm',
   '--ubits-spacing-md',

@@ -172,7 +172,7 @@ const container = document.getElementById('data-view-container');
 if (container) {
   container.innerHTML = dataViewHTML;
 }
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'padded',
@@ -480,7 +480,7 @@ function generateProducts(
     const priceIndex = index % prices.length;
 
     return {
-      id: 'product-${index + 1}',
+      id: `product-${index + 1}`,
       image: availableImages[index % availableImages.length],
       imageAlt: names[nameIndex],
       category: categories[categoryIndex],

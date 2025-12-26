@@ -42,7 +42,7 @@ window.UBITS.Tabs.create({
 }, 'tabs-implementation-container');
 
 // Nota: El número de tabs se puede ajustar con el control 'tabCount' en Storybook
-\`\`\`',
+\`\`\``,
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

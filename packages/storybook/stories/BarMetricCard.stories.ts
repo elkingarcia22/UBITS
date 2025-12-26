@@ -21,7 +21,7 @@ const meta: Meta<BarMetricCardOptions & {
   parameters: {
     docs: {
       description: {
-        component: `Componente BarMetricCard UBITS para mostrar métricas con gráfico de barras y categorías. Soporta layout vertical y horizontal, múltiples tamaños y controles completos para personalización. Usa tokens UBITS para colores, tipografía y espaciado.',
+        component: `Componente BarMetricCard UBITS para mostrar métricas con gráfico de barras y categorías. Soporta layout vertical y horizontal, múltiples tamaños y controles completos para personalización. Usa tokens UBITS para colores, tipografía y espaciado.`,
       },
     },
   },

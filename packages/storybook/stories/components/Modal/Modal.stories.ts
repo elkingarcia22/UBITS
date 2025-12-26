@@ -46,7 +46,7 @@ window.UBITS.Modal.create({
   closeOnOverlayClick: true,
   open: true
 });
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'fullscreen',

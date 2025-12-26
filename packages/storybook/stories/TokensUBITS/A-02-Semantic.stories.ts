@@ -18,7 +18,7 @@ const meta: Meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: `Colores semánticos del sistema UBITS. Incluye colores de feedback (success, error, warning, info), colores de marca (brand) y colores para gráficos (chart).',
+        component: `Colores semánticos del sistema UBITS. Incluye colores de feedback (success, error, warning, info), colores de marca (brand) y colores para gráficos (chart).`,
       },
     },
   },
@@ -33,7 +33,7 @@ type Story = StoryObj;
  */
 export const TodosLosSemanticos: Story = {
   render: () => {
-    const container = document.createElement(`div');
+    const container = document.createElement(`div`);
     container.style.padding = '24px';
     container.style.maxWidth = '1400px';
 

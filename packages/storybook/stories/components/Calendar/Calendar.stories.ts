@@ -70,7 +70,7 @@ const calendarRange = window.UBITS.Calendar.create({
   }
 });
 container.appendChild(calendarRange.element);
-\`\`\`',
+\`\`\``,
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

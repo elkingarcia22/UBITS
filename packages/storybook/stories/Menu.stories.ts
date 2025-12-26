@@ -53,7 +53,7 @@ const meta: Meta<MenuStoryArgs> = {
   parameters: {
     docs: {
       description: {
-        component: `Componente Menu UBITS de navegación lateral con secciones, items, shortcuts, badges e información de usuario. Usa tokens UBITS para colores, tipografía y espaciado.'
+        component: `Componente Menu UBITS de navegación lateral con secciones, items, shortcuts, badges e información de usuario. Usa tokens UBITS para colores, tipografía y espaciado.`
 }
 },
     layout: 'padded'

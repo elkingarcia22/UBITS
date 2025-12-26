@@ -40,7 +40,7 @@ window.UBITS.RadioButton.create({
   state: 'default',
   disabled: false
 });
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'centered',

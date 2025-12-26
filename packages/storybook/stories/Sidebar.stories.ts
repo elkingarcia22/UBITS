@@ -12,7 +12,7 @@ const meta: Meta<SidebarOptions & {
   parameters: {
     docs: {
       description: {
-        component: `Componente Sidebar UBITS de navegación lateral con 2 variantes (colaborador y admin). Incluye tooltips, menú de perfil, dark mode toggle y ajuste dinámico de altura. Ancho fijo 96px, colores fijos (no cambian con tema).'
+        component: `Componente Sidebar UBITS de navegación lateral con 2 variantes (colaborador y admin). Incluye tooltips, menú de perfil, dark mode toggle y ajuste dinámico de altura. Ancho fijo 96px, colores fijos (no cambian con tema).`
 }
 },
     layout: 'fullscreen'

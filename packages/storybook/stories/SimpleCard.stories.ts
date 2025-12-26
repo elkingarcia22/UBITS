@@ -64,7 +64,7 @@ const meta: Meta<SimpleCardOptions & {
   parameters: {
     docs: {
       description: {
-        component: `Componente Simple Card UBITS con header decorativo, contenido y botones de acción. Usa tokens UBITS para colores, tipografía y espaciado. Incluye controladores completos para personalizar todos los aspectos del componente.'
+        component: `Componente Simple Card UBITS con header decorativo, contenido y botones de acción. Usa tokens UBITS para colores, tipografía y espaciado. Incluye controladores completos para personalizar todos los aspectos del componente.`
 }
 },
     layout: 'centered'

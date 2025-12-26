@@ -48,7 +48,7 @@ window.UBITS.SegmentControl.create({
 
 // Nota: Los iconos son opcionales. Si no se proporcionan, solo se mostrará el texto.
 // Para segmentos sin iconos, omitir la propiedad 'icon' o pasar undefined.
-\`\`\`',
+\`\`\``,
       },
     },
     // ⭐ CONTRATO UBITS para Autorun
@@ -221,9 +221,9 @@ function generateSegments(count: number = 5, withIcons: boolean = true): Segment
   ];
 
   return Array.from({ length: count }, (_, i) => ({
-    id: 'segment-${i + 1}',
+    id: `segment-${i + 1}`,
     label: labels[i] || `Label ${i + 1}`,
-    icon: withIcons ? `far ${icons[i] || 'fa-th'}' : undefined,
+    icon: withIcons ? `far ${icons[i] || 'fa-th'}` : undefined,
     active: i === 0,
   }));
 }

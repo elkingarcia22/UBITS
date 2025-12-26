@@ -57,7 +57,7 @@ const rectangleSkeleton = window.UBITS.Skeleton.create({
   height: 200,
   animated: true
 });
-\`\`\`',
+\`\`\``,
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

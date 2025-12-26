@@ -78,7 +78,7 @@ if (container) {
     cardElement.addEventListener('click', onClick);
   }
 }
-\`\`\`',
+\`\`\``,
       },
     },
     ubits: createUBITSContract({

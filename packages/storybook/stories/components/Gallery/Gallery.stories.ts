@@ -143,7 +143,7 @@ const galleryList = window.UBITS.Gallery.create({
   size: 'md',
   gap: 12
 });
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'padded',

@@ -44,7 +44,7 @@ const badgeHTML = window.UBITS.Badge.render({
   content: '5'
 });
 document.getElementById('container').innerHTML = badgeHTML;
-\`\`\`',
+\`\`\``,
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

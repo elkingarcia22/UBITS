@@ -954,7 +954,7 @@ window.UBITS.DataTable.create({
           id: i + 1,
           data: {
             [`nombre-col${1}`]: baseData.nombre + (i > 4 ? ` ${i + 1}` : ''),
-            [`email-col${2}`]: baseData.email.replace('@', `${i + 1}@'),
+            [`email-col${2}`]: baseData.email.replace('@', `${i + 1}@`),
             [`estado-col${3}`]: baseData.estado,
             [`nombre-col${4}`]: `Columna ${i + 1}`,
             [`nombre-col${5}`]: `Extra ${i + 1}`,
@@ -1315,7 +1315,7 @@ window.UBITS.DataTable.create({
       },
       onRowExpand: (rowId, expanded) => {
         // Callback para filas expandidas (igual que Default)
-        console.log(`🔄 [Implementation] Fila ${rowId} ${expanded ? 'expandida' : 'colapsada'}');
+        console.log(`🔄 [Implementation] Fila ${rowId} ${expanded ? `)expandida' : 'colapsada'}`);
       }
     };
 
@@ -1799,7 +1799,7 @@ export const Default: Story = {
           telefono: `+57 ${300 + rowData.id} ${Math.floor(Math.random() * 1000)} ${Math.floor(Math.random() * 10000)}`,
           ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][Math.floor(Math.random() * 5)],
           pais: 'Colombia',
-          fecha: `2024-${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')}',
+          fecha: `2024-${String(Math.floor(Math.random() * 12) + 1).padStart(2, `0`)}-${String(Math.floor(Math.random() * 28) + 1).padStart(2, '0')}',
           categoria: rowData.area,
           prioridad: ['Alta', 'Media', 'Baja'][Math.floor(Math.random() * 3)],
           'checkbox-2': false,
@@ -2710,7 +2710,7 @@ export const ColumnReorderable: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona el reordenamiento de columnas mediante drag & drop. Para reordenar una columna, arrastra el header de la columna y suéltala en la posición deseada. El callback `onColumnReorder' se ejecuta cuando se completa el reordenamiento.'
+        story: 'Esta historia demuestra cómo funciona el reordenamiento de columnas mediante drag & drop. Para reordenar una columna, arrastra el header de la columna y suéltala en la posición deseada. El callback `onColumnReorder` se ejecuta cuando se completa el reordenamiento.'
       }
     }
   },
@@ -2965,7 +2965,7 @@ export const RowExpandable: Story = {
         totalItems: rows.length
       },
       onRowExpand: (rowId: string | number, expanded: boolean) => {
-        console.log(`🔄 Fila ${rowId} ${expanded ? 'expandida' : 'colapsada'}');
+        console.log(`🔄 Fila ${rowId} ${expanded ? `)expandida' : 'colapsada'}');
       }
     };
     
@@ -2985,7 +2985,7 @@ export const RowExpandable: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funcionan las filas expandibles. Cada fila tiene un icono de expandir/colapsar (▶/▼) que permite mostrar contenido adicional. El contenido expandible se define mediante la función `renderExpandedContent` en cada fila. El callback `onRowExpand' se ejecuta cuando una fila se expande o colapsa, recibiendo el ID de la fila y el estado (expandida/colapsada).'
+        story: 'Esta historia demuestra cómo funcionan las filas expandibles. Cada fila tiene un icono de expandir/colapsar (▶/▼) que permite mostrar contenido adicional. El contenido expandible se define mediante la función `renderExpandedContent` en cada fila. El callback `onRowExpand` se ejecuta cuando una fila se expande o colapsa, recibiendo el ID de la fila y el estado (expandida/colapsada).'
       }
     }
   },
@@ -3092,7 +3092,7 @@ export const ColumnSortable: Story = {
         totalItems: rows.length
       },
       onSort: (columnId: string, direction: 'asc' | 'desc') => {
-        console.log(`🔄 Columna ${columnId} ordenada: ${direction === 'asc' ? 'ascendente' : 'descendente'}');
+        console.log(`🔄 Columna ${columnId} ordenada: ${direction === `)asc' ? 'ascendente' : 'descendente'}');
       }
     };
     
@@ -3229,7 +3229,7 @@ export const CheckboxSelection: Story = {
             checkbox.addEventListener('change', (e) => {
               const target = e.target as HTMLInputElement;
               const rowId = target.getAttribute('data-row-id');
-              console.log(`☑️ Checkbox de fila ${rowId} ${target.checked ? 'marcado' : 'desmarcado'}');
+              console.log(`☑️ Checkbox de fila ${rowId} ${target.checked ? `)marcado' : 'desmarcado'}');
             });
           });
           
@@ -3238,7 +3238,7 @@ export const CheckboxSelection: Story = {
           if (masterCheckbox) {
             masterCheckbox.addEventListener('change', (e) => {
               const target = e.target as HTMLInputElement;
-              console.log(`☑️ Checkbox maestro ${target.checked ? 'marcado - todas las filas seleccionadas' : 'desmarcado - todas las filas deseleccionadas'}');
+              console.log(`☑️ Checkbox maestro ${target.checked ? `)marcado - todas las filas seleccionadas' : 'desmarcado - todas las filas deseleccionadas'}');
             });
           }
         }, 100);
@@ -3436,7 +3436,7 @@ export const HorizontalScroll: Story = {
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, '0')}',
+            telefono: `+57 300 ${i.toString().padStart(7, `0`)}',
             ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][i % 5],
             departamento: ['Cundinamarca', 'Antioquia', 'Valle del Cauca', 'Atlántico', 'Bolívar'][i % 5],
             cargo: ['Desarrollador', 'Diseñador', 'Product Manager', 'QA', 'DevOps'][i % 5]
@@ -3565,7 +3565,7 @@ export const ColumnMenu: Story = {
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, '0')}',
+            telefono: `+57 300 ${i.toString().padStart(7, `0`)}',
             ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][i % 5]
           }
         });
@@ -3608,7 +3608,7 @@ export const ColumnMenu: Story = {
         totalItems: rows.length
       },
       onColumnPin: (columnId: string, pinned: boolean) => {
-        console.log(`📌 Columna ${columnId} ${pinned ? 'fijada' : 'desfijada'}');
+        console.log(`📌 Columna ${columnId} ${pinned ? `)fijada' : 'desfijada'}');
       }
     };
     
@@ -3822,7 +3822,7 @@ export const LazyLoad: Story = {
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, '0')}'
+            telefono: `+57 300 ${i.toString().padStart(7, `0`)}'
           }
         });
       }
@@ -3974,7 +3974,7 @@ export const Pagination: Story = {
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, '0')}'
+            telefono: `+57 300 ${i.toString().padStart(7, `0`)}'
           }
         });
       }
@@ -4083,7 +4083,7 @@ export const StickyControls: Story = {
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, '0')}',
+            telefono: `+57 300 ${i.toString().padStart(7, `0`)}',
             ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][i % 5],
             departamento: ['Cundinamarca', 'Antioquia', 'Valle del Cauca', 'Atlántico', 'Bolívar'][i % 5],
             cargo: ['Desarrollador', 'Diseñador', 'Product Manager', 'QA', 'DevOps'][i % 5],
@@ -4604,7 +4604,7 @@ export const ColumnSelector: Story = {
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, '0')}',
+            telefono: `+57 300 ${i.toString().padStart(7, `0`)}',
             ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][i % 5],
             departamento: ['Cundinamarca', 'Antioquia', 'Valle del Cauca', 'Atlántico', 'Bolívar'][i % 5]
           }
@@ -5060,7 +5060,7 @@ export const PinnedColumns: Story = {
             estado: i % 3 === 0 ? 'activo' : i % 3 === 1 ? 'pendiente' : 'inactivo',
             pais: ['Colombia', 'México', 'Argentina', 'Chile', 'Perú'][i % 5],
             fecha: new Date(2024, 0, i).toISOString().split('T')[0],
-            telefono: `+57 300 ${i.toString().padStart(7, '0')}',
+            telefono: `+57 300 ${i.toString().padStart(7, `0`)}',
             ciudad: ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena'][i % 5],
             departamento: ['Cundinamarca', 'Antioquia', 'Valle del Cauca', 'Atlántico', 'Bolívar'][i % 5],
             cargo: ['Desarrollador', 'Diseñador', 'Product Manager', 'QA', 'DevOps'][i % 5]
@@ -5107,7 +5107,7 @@ export const PinnedColumns: Story = {
         totalItems: rows.length
       },
       onColumnPin: (columnId: string, pinned: boolean) => {
-        console.log(`📌 Columna ${columnId} ${pinned ? 'fijada' : 'desfijada'}');
+        console.log(`📌 Columna ${columnId} ${pinned ? `)fijada' : 'desfijada'}');
       }
     };
     

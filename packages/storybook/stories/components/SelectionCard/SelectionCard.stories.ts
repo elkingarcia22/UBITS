@@ -97,7 +97,7 @@ if (container) {
 //     console.log('Card clickeada:', card);
 //   }
 // });
-\`\`\`',
+\`\`\``,
       },
     },
     ubits: createUBITSContract({

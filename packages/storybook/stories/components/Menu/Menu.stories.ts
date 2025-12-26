@@ -92,7 +92,7 @@ window.UBITS.Menu.create({
     console.log('Item activo cambiado:', itemId, sectionId);
   }
 });
-\`\`\`',
+\`\`\``,
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

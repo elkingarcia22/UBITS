@@ -18,7 +18,7 @@ const meta: Meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: `Tokens de tipografía del sistema UBITS. Incluye font-family, font-size, font-weight, line-height y letter-spacing.',
+        component: `Tokens de tipografía del sistema UBITS. Incluye font-family, font-size, font-weight, line-height y letter-spacing.`,
       },
     },
   },

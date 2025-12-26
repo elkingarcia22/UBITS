@@ -42,7 +42,7 @@ window.UBITS.SearchButton.create({
   value: '',
   width: 248
 });
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'centered',

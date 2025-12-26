@@ -138,7 +138,7 @@ const participantsMenu = window.UBITS.ParticipantsMenu.create({
 // - participantsMenu.update(newOptions): Método para actualizar el menú
 // - participantsMenu.updateParticipantsList(participants, selectedParticipantId?): Método para actualizar solo la lista
 // - participantsMenu.destroy(): Método para destruir el menú
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'fullscreen',

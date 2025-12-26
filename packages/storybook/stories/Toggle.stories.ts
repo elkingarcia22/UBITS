@@ -9,7 +9,7 @@ const meta: Meta<ToggleOptions> = {
   parameters: {
     docs: {
       description: {
-        component: `Componente Toggle/Switch UBITS para activar/desactivar opciones. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.',
+        component: `Componente Toggle/Switch UBITS para activar/desactivar opciones. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.`,
       },
     },
     layout: 'centered',

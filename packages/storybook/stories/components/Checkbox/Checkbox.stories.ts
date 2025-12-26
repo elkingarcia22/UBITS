@@ -38,7 +38,7 @@ window.UBITS.Checkbox.create({
   state: 'default',
   disabled: false
 });
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'centered',

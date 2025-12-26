@@ -10,7 +10,7 @@ const meta: Meta<ButtonAIOptions> = {
     layout: 'padded',
     docs: {
       description: {
-        component: `Componente Button AI UBITS con estilo redondeado y gradación. Basado en Button de UBITS pero con bordes más redondeados y gradientes. Solo incluye variantes primary y secondary.',
+        component: `Componente Button AI UBITS con estilo redondeado y gradación. Basado en Button de UBITS pero con bordes más redondeados y gradientes. Solo incluye variantes primary y secondary.`,
       },
     },
   },

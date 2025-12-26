@@ -9,7 +9,7 @@ const meta: Meta<AlertOptions> = {
   parameters: {
     docs: {
       description: {
-        component: `Componente Alert UBITS para mostrar notificaciones del sistema. Soporta múltiples variantes (success, info, warning, error), botón cerrar opcional y animaciones.',
+        component: `Componente Alert UBITS para mostrar notificaciones del sistema. Soporta múltiples variantes (success, info, warning, error), botón cerrar opcional y animaciones.`,
       },
     },
   },

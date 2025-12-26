@@ -41,7 +41,7 @@ const spinnerHTML = window.UBITS.Spinner.render({
   fullScreen: false
 });
 document.getElementById('container').innerHTML = spinnerHTML;
-\`\`\`',
+\`\`\``,
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

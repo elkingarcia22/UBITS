@@ -12,7 +12,7 @@ const meta: Meta<SearchButtonOptions> = {
   parameters: {
     docs: {
       description: {
-        component: `Componente Search Button UBITS con modo bot?n e input. Cuando est? activo, muestra un campo de b?squeda con icono. Cuando no est? activo, muestra solo un bot?n con icono de lupa. Usa tokens UBITS exclusivamente.',
+        component: `Componente Search Button UBITS con modo bot?n e input. Cuando est? activo, muestra un campo de b?squeda con icono. Cuando no est? activo, muestra solo un bot?n con icono de lupa. Usa tokens UBITS exclusivamente.`,
       },
     },
     layout: 'centered',

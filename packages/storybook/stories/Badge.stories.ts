@@ -9,13 +9,13 @@ const meta: Meta<BadgeOptions> = {
   parameters: {
     docs: {
       description: {
-        component: `Componente Badge UBITS para mostrar notificaciones, contadores o indicadores. Soporta solo bolita (dot) o con números, múltiples variantes de color y tamaños.',
+        component: `Componente Badge UBITS para mostrar notificaciones, contadores o indicadores. Soporta solo bolita (dot) o con números, múltiples variantes de color y tamaños.`,
       },
     },
   },
   argTypes: {
     type: {
-      control: { type: `select' },
+      control: { type: `select` },
       options: ['dot', 'number'],
       description: 'Tipo de badge: solo bolita o con número',
       table: {

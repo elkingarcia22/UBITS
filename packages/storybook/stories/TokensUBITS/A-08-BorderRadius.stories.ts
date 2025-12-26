@@ -13,7 +13,7 @@ const meta: Meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: `Tokens de border-radius del sistema UBITS. Incluye valores desde none hasta full (circulo completo).',
+        component: `Tokens de border-radius del sistema UBITS. Incluye valores desde none hasta full (circulo completo).`,
       },
     },
   },
@@ -23,7 +23,7 @@ export default meta;
 type Story = StoryObj;
 
 const BORDER_RADIUS_TOKENS = [
-  `--ubits-border-radius-none',
+  `--ubits-border-radius-none`,
   '--ubits-border-radius-xs',
   '--ubits-border-radius-sm',
   '--ubits-border-radius-md',

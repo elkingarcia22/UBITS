@@ -13,7 +13,7 @@ const meta: Meta<SliderOptions & {
     layout: 'padded',
     docs: {
       description: {
-        component: `Componente Slider UBITS con soporte para orientación horizontal/vertical, modo single/range, inputs opcionales, marcas, y todos los tamaños y estados.',
+        component: `Componente Slider UBITS con soporte para orientación horizontal/vertical, modo single/range, inputs opcionales, marcas, y todos los tamaños y estados.`,
       },
     },
   },

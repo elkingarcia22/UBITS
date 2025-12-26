@@ -90,7 +90,7 @@ const sliderWithMarks = window.UBITS.Slider.create({
   marks: [0, 25, 50, 75, 100],
   showInputs: true
 });
-\`\`\`',
+\`\`\``,
       },
     },
     ubits: createUBITSContract({

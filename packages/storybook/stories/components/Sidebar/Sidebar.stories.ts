@@ -58,7 +58,7 @@ window.UBITS.Sidebar.create({
   darkModeEnabled: true,
   height: 650
 });
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'fullscreen',

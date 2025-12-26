@@ -189,7 +189,7 @@ if (container) {
 
 // Nota: createCarousel retorna un HTMLElement directamente
 // Los items del carrusel son SimpleCards que pueden incluir Buttons opcionales
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'padded',

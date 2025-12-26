@@ -9,7 +9,7 @@ const meta: Meta<RadioButtonOptions> = {
   parameters: {
     docs: {
       description: {
-        component: `Componente Radio Button UBITS para selección única en grupos. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.',
+        component: `Componente Radio Button UBITS para selección única en grupos. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.`,
       },
     },
     layout: 'centered',

@@ -222,7 +222,7 @@ window.UBITS.TabBar.create({
     console.log('Dark mode toggled:', isDark);
   }
 });
-\`\`\`',
+\`\`\``,
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

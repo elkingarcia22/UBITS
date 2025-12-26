@@ -35,7 +35,7 @@ const tooltipInstance = window.UBITS.Tooltip.create({
   showPrimaryButton: false,
   open: true
 });
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'fullscreen',

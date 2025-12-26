@@ -12,7 +12,7 @@ const meta: Meta<ToastOptions> = {
   parameters: {
     docs: {
       description: {
-        component: `Componente Toast UBITS para mostrar notificaciones flotantes. Se posiciona en la parte superior central, tiene auto-cierre, pausa en hover, apilado máximo de 3, y soporta título, cuerpo y botón de acción opcional.',
+        component: `Componente Toast UBITS para mostrar notificaciones flotantes. Se posiciona en la parte superior central, tiene auto-cierre, pausa en hover, apilado máximo de 3, y soporta título, cuerpo y botón de acción opcional.`,
       },
     },
   },

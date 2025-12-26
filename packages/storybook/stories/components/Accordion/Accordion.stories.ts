@@ -55,7 +55,7 @@ window.UBITS.Accordion.create(
     showIcons: true
   }
 );
-\`\`\`',
+\`\`\``,
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

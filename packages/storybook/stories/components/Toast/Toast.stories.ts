@@ -43,7 +43,7 @@ const toastElement = window.UBITS.Toast.create({
 });
 const container = document.getElementById('ubits-toast-container') || document.body;
 container.appendChild(toastElement);
-\`\`\`',
+\`\`\``,
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

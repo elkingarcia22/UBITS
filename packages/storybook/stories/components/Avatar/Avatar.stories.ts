@@ -39,7 +39,7 @@ const avatarHTML = window.UBITS.Avatar.render({
   alt: 'Avatar'
 });
 document.getElementById('container').innerHTML = avatarHTML;
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'centered',

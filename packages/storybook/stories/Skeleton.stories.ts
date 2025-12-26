@@ -9,7 +9,7 @@ const meta: Meta<SkeletonOptions> = {
   parameters: {
     docs: {
       description: {
-        component: `Componente Skeleton UBITS para mostrar placeholders de carga. Soporta múltiples variantes (text, circle, rectangle, custom), tamaños y animaciones.'
+        component: `Componente Skeleton UBITS para mostrar placeholders de carga. Soporta múltiples variantes (text, circle, rectangle, custom), tamaños y animaciones.`
 }
 }
 },

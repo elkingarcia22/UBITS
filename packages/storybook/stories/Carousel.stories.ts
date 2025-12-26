@@ -195,7 +195,7 @@ const meta: Meta<CarouselOptions> = {
   parameters: {
     docs: {
       description: {
-        component: `Componente Carousel UBITS para mostrar Simple Cards en un carrusel navegable. Incluye navegación con flechas, indicadores de paginación, autoplay y soporte para diferentes tamaños de cards.',
+        component: `Componente Carousel UBITS para mostrar Simple Cards en un carrusel navegable. Incluye navegación con flechas, indicadores de paginación, autoplay y soporte para diferentes tamaños de cards.`,
       },
     },
     layout: 'padded',

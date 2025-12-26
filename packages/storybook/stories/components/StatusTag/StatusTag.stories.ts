@@ -43,7 +43,7 @@ const statusTagHTML = window.UBITS.StatusTag.render({
   clickable: false
 });
 document.getElementById('container').innerHTML = statusTagHTML;
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'centered',

@@ -10,7 +10,7 @@ const meta: Meta<SelectionCardData & { showDescription?: boolean; showIcon?: boo
   parameters: {
     docs: {
       description: {
-        component: `Componente Selection Card UBITS para mostrar opciones seleccionables. Soporta selección única o múltiple, estados (default, selected, disabled), y tamaños (sm, md, lg). Incluye un radio button visual a la derecha que refleja el estado de selección. La selección se realiza mediante click en toda la card.'
+        component: `Componente Selection Card UBITS para mostrar opciones seleccionables. Soporta selección única o múltiple, estados (default, selected, disabled), y tamaños (sm, md, lg). Incluye un radio button visual a la derecha que refleja el estado de selección. La selección se realiza mediante click en toda la card.`
 }
 }
 },
@@ -932,7 +932,7 @@ export const OnSelectionChange: Story = {
       multiple: true,
       selectedIds: [],
       onSelectionChange: (selectedCards, selectedIds) => {
-        alert(`onSelectionChange: ${selectedCards.length} card(s) seleccionada(s)\nIDs: ${selectedIds.join(', ')}');
+        alert(`onSelectionChange: ${selectedCards.length} card(s) seleccionada(s)\nIDs: ${selectedIds.join(`, ')}');
         console.log('Selected cards:', selectedCards);
         console.log('Selected IDs:', selectedIds);
       }

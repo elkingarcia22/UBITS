@@ -37,7 +37,7 @@ window.UBITS.SubNav.create({
     console.log('Tab cambiado:', tabId);
   }
 });
-\`\`\`',
+\`\`\``,
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

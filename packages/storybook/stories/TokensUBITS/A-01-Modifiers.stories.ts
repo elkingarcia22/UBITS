@@ -24,7 +24,7 @@ const meta: Meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: `Todos los colores del sistema organizados por modificador. Cada modificador (Normal, Inverted, Static, Static Inverted) contiene todos los colores (accent, fg, bg, border, feedback, chart, button) organizados por modo Light/Dark. Esta es la categoría principal con 1296 tokens totales.',
+        component: `Todos los colores del sistema organizados por modificador. Cada modificador (Normal, Inverted, Static, Static Inverted) contiene todos los colores (accent, fg, bg, border, feedback, chart, button) organizados por modo Light/Dark. Esta es la categoría principal con 1296 tokens totales.`,
       },
     },
   },

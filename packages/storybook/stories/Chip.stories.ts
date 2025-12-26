@@ -9,7 +9,7 @@ const meta: Meta<ChipOptions> = {
   parameters: {
     docs: {
       description: {
-        component: `Componente Chip UBITS para mostrar etiquetas o tags interactivas. Múltiples tamaños, estados y soporte para iconos izquierdo y derecho (botón de cerrar). Usa tokens UBITS exclusivamente.',
+        component: `Componente Chip UBITS para mostrar etiquetas o tags interactivas. Múltiples tamaños, estados y soporte para iconos izquierdo y derecho (botón de cerrar). Usa tokens UBITS exclusivamente.`,
       },
     },
     layout: 'centered',

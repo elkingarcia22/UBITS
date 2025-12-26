@@ -64,7 +64,7 @@ if (container) {
     buttonElement.addEventListener('click', onClick);
   }
 }
-\`\`\`',
+\`\`\``,
       },
     },
     ubits: createUBITSContract({

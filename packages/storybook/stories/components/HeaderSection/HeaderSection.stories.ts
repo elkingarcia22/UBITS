@@ -75,7 +75,7 @@ window.UBITS.HeaderSection.create({
   showActions: true,
   showBreadcrumb: false
 });
-\`\`\`',
+\`\`\``,
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

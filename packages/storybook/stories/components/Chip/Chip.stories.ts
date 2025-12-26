@@ -42,7 +42,7 @@ const chipHTML = window.UBITS.Chip.render({
   closable: false
 });
 document.getElementById('container').innerHTML = chipHTML;
-\`\`\`',
+\`\`\``,
       },
     },
     layout: 'centered',

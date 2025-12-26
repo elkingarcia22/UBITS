@@ -71,7 +71,7 @@ feedbackButtonInstance.close();
 
 // Ejemplo: Destruir el componente
 feedbackButtonInstance.destroy();
-\`\`\`',
+\`\`\``,
       },
     },
     ubits: createUBITSContract({

@@ -95,7 +95,7 @@ const avatarHTMLExample = window.UBITS.Avatar.render({
 // const markerWithAvatar = '<div class="ubits-timeline-marker ubits-timeline-marker--avatar">' + avatarHTMLExample + '</div>';
 
 // Nota: Timeline requiere CSS personalizado. Ver estilos en el archivo Timeline.stories.ts
-\`\`\`',
+\`\`\``,
       },
     },
     ubits: createUBITSContract({

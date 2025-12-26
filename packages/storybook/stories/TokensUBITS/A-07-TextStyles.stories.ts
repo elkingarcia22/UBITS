@@ -18,7 +18,7 @@ const meta: Meta = {
     layout: 'padded',
     docs: {
       description: {
-        component: `Estilos completos de texto del sistema UBITS. Cada estilo incluye todas las propiedades tipograficas: font-family, font-weight, letter-spacing, paragraph-indent, text-case y text-decoration. Incluye Display (D1-D4), Heading (H1-H2) y Body (lg, md, sm, xs).',
+        component: `Estilos completos de texto del sistema UBITS. Cada estilo incluye todas las propiedades tipograficas: font-family, font-weight, letter-spacing, paragraph-indent, text-case y text-decoration. Incluye Display (D1-D4), Heading (H1-H2) y Body (lg, md, sm, xs).`,
       },
     },
   },
@@ -33,7 +33,7 @@ type Story = StoryObj;
 function getTokenValue(token: string): string {
   const root = document.documentElement;
   const value = getComputedStyle(root).getPropertyValue(token).trim();
-  return value || `N/A';
+  return value || `N/A`;
 }
 
 /**

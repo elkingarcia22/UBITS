@@ -11,7 +11,7 @@ const meta: Meta<FileUploadOptions> = {
   parameters: {
     docs: {
       description: {
-        component: `Componente File Upload personalizado UBITS. Diseño moderno con dos vistas: Drop Zone (área de arrastrar y soltar con icono circular) y Files List (lista de archivos con progreso). Usa componentes UBITS (Button) y tokens UBITS exclusivamente.'
+        component: `Componente File Upload personalizado UBITS. Diseño moderno con dos vistas: Drop Zone (área de arrastrar y soltar con icono circular) y Files List (lista de archivos con progreso). Usa componentes UBITS (Button) y tokens UBITS exclusivamente.`
 }
 },
     layout: 'fullscreen'

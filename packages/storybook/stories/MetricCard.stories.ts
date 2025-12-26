@@ -10,7 +10,7 @@ const meta: Meta<MetricCardOptions> = {
   parameters: {
     docs: {
       description: {
-        component: `Componente MetricCard UBITS para mostrar métricas numéricas. Usa tokens UBITS para colores, tipografía y espaciado. Soporta iconos, tamaños y es completamente personalizable.'
+        component: `Componente MetricCard UBITS para mostrar métricas numéricas. Usa tokens UBITS para colores, tipografía y espaciado. Soporta iconos, tamaños y es completamente personalizable.`
 }
 }
 },
