@@ -14,157 +14,157 @@ import { createUBITSContract } from '../../_shared/ubitsContract';
 import '../../../components/sidebar/src/styles/sidebar.css';
 
 const meta: Meta<
-	SidebarOptions & {
-		variant?: SidebarVariant;
-		activeButton?: string;
-	}
+  SidebarOptions & {
+    variant?: SidebarVariant;
+    activeButton?: string;
+  }
 > = {
-	title: 'Navegación/Sidebar',
-	tags: ['autodocs'],
-	parameters: {
-		docs: {
-			codePanel: true,
-			description: {
-				component:
-					'Componente Sidebar UBITS de navegación lateral con 2 variantes (colaborador y admin). Incluye tooltips internos, menú de perfil interno, dark mode toggle y ajuste dinámico de altura. Ancho fijo 96px.',
-			},
-		},
-		layout: 'fullscreen',
-		// ⭐ CONTRATO UBITS PARA AUTORUN
-		ubits: createUBITSContract({
-			componentId: '🧩-ux-sidebar',
-			api: {
-				create: 'window.UBITS.Sidebar.create',
-				tag: '<ubits-sidebar>',
-			},
-			dependsOn: {
-				required: [], // Sidebar no depende de otros componentes
-				optional: [], // No hay componentes opcionales
-			},
-			internals: [
-				'⚙️-functional-tooltip', // Tooltips internos para botones
-				'⚙️-functional-profile-menu', // Menú de perfil interno
-				'⚙️-functional-dark-mode-toggle', // Toggle de dark mode interno
-			],
-			slots: {
-				header: [], // Logo es interno
-				body: [], // Botones de navegación son internos
-				footer: [], // Footer buttons y avatar son internos
-			},
-			tokensUsed: [
-				'--modifiers-normal-color-light-bg-1',
-				'--modifiers-normal-color-light-bg-2',
-				'--modifiers-normal-color-light-fg-1-high',
-				'--modifiers-normal-color-light-fg-1-medium',
-				'--modifiers-normal-color-light-border-1',
-				'--ubits-spacing-md',
-			],
-			rules: {
-				forbidHardcodedColors: true,
-				forbiddenPatterns: ['rgb(', 'rgba(', 'hsl(', 'hsla(', '#'],
-				requiredProps: ['containerId', 'bodyButtons'],
-			},
-			// ⭐ CAMPOS EXTENDIDOS
-			examples: {
-				canonical: `window.UBITS.Sidebar.create(document.getElementById('sidebar-container'), {
+  title: 'Navegación/Sidebar',
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      codePanel: true,
+      description: {
+        component:
+          'Componente Sidebar UBITS de navegación lateral con 2 variantes (colaborador y admin). Incluye tooltips internos, menú de perfil interno, dark mode toggle y ajuste dinámico de altura. Ancho fijo 96px.',
+      },
+    },
+    layout: 'fullscreen',
+    // ⭐ CONTRATO UBITS PARA AUTORUN
+    ubits: createUBITSContract({
+      componentId: '🧩-ux-sidebar',
+      api: {
+        create: 'window.UBITS.Sidebar.create',
+        tag: '<ubits-sidebar>',
+      },
+      dependsOn: {
+        required: [], // Sidebar no depende de otros componentes
+        optional: [], // No hay componentes opcionales
+      },
+      internals: [
+        '⚙️-functional-tooltip', // Tooltips internos para botones
+        '⚙️-functional-profile-menu', // Menú de perfil interno
+        '⚙️-functional-dark-mode-toggle', // Toggle de dark mode interno
+      ],
+      slots: {
+        header: [], // Logo es interno
+        body: [], // Botones de navegación son internos
+        footer: [], // Footer buttons y avatar son internos
+      },
+      tokensUsed: [
+        '--modifiers-normal-color-light-bg-1',
+        '--modifiers-normal-color-light-bg-2',
+        '--modifiers-normal-color-light-fg-1-high',
+        '--modifiers-normal-color-light-fg-1-medium',
+        '--modifiers-normal-color-light-border-1',
+        '--ubits-spacing-md',
+      ],
+      rules: {
+        forbidHardcodedColors: true,
+        forbiddenPatterns: ['rgb(', 'rgba(', 'hsl(', 'hsla(', '#'],
+        requiredProps: ['containerId', 'bodyButtons'],
+      },
+      // ⭐ CAMPOS EXTENDIDOS
+      examples: {
+        canonical: `window.UBITS.Sidebar.create(document.getElementById('sidebar-container'), {
   containerId: 'sidebar-container',
   variant: 'colaborador',
   bodyButtons: [],
   onButtonClick: function(buttonId) {}
 });`,
-				basic: `window.UBITS.Sidebar.create(document.getElementById('sidebar-container'), {
+        basic: `window.UBITS.Sidebar.create(document.getElementById('sidebar-container'), {
   containerId: 'sidebar-container',
   variant: 'colaborador',
   bodyButtons: []
 });`,
-				admin: `window.UBITS.Sidebar.create(document.getElementById('sidebar-container'), {
+        admin: `window.UBITS.Sidebar.create(document.getElementById('sidebar-container'), {
   containerId: 'sidebar-container',
   variant: 'admin',
   bodyButtons: []
 });`,
-				withDarkMode: `window.UBITS.Sidebar.create(document.getElementById('sidebar-container'), {
+        withDarkMode: `window.UBITS.Sidebar.create(document.getElementById('sidebar-container'), {
   containerId: 'sidebar-container',
   variant: 'colaborador',
   darkModeEnabled: true,
   bodyButtons: []
 });`,
-			},
-			variants: {
-				variant: ['colaborador', 'admin'],
-				darkModeEnabled: [true, false],
-			},
-			events: {
-				onButtonClick: {
-					type: 'Event',
-					description: 'Emitted when a sidebar button is clicked',
-				},
-			},
-			// ⭐ CAMPOS ADICIONALES PARA PERFECCIÓN AUTORUN
-			storybook: {
-				canonicalStoryId: 'navegacion-sidebar--implementation',
-				storiesByExample: {
-					canonical: 'navegacion-sidebar--implementation',
-					basic: 'navegacion-sidebar--default',
-					admin: 'navegacion-sidebar--admin',
-					withDarkMode: 'navegacion-sidebar--with-dark-mode',
-				},
-			},
-			intents: {
-				'sidebar.navigation': 'canonical',
-				'sidebar.menu': 'canonical',
-				'sidebar.colaborador': 'canonical',
-				'sidebar.admin': 'admin',
-				'sidebar.dark-mode': 'withDarkMode',
-			},
-		}),
-	},
-	args: {
-		containerId: 'sidebar-story-container',
-		variant: 'colaborador',
-		activeButton: '',
-		darkModeEnabled: true,
-		logoImage: '/images/Ubits-logo.svg',
-		avatarImage: '/images/Profile-image.jpg',
-	} as SidebarOptions & { variant?: SidebarVariant; activeButton?: string },
-	argTypes: {
-		variant: {
-			control: { type: 'select' },
-			options: ['colaborador', 'admin'],
-			description: 'Variante del sidebar: colaborador o admin',
-			table: {
-				defaultValue: { summary: 'colaborador' },
-				type: { summary: 'colaborador | admin' },
-			},
-		},
-		activeButton: {
-			control: { type: 'select' },
-			options: [
-				'',
-				'admin',
-				'aprendizaje',
-				'diagnóstico',
-				'desempeño',
-				'encuestas',
-				'reclutamiento',
-				'tareas',
-				'ubits-ai',
-				'inicio',
-				'empresa',
-			],
-			description: 'Sección activa del sidebar (depende de la variante)',
-			table: {
-				defaultValue: { summary: '' },
-				type: { summary: 'string' },
-			},
-		},
-		darkModeEnabled: {
-			control: { type: 'boolean' },
-			description: 'Si el dark mode toggle está habilitado',
-			table: {
-				defaultValue: { summary: 'true' },
-			},
-		},
-	},
+      },
+      variants: {
+        variant: ['colaborador', 'admin'],
+        darkModeEnabled: [true, false],
+      },
+      events: {
+        onButtonClick: {
+          type: 'Event',
+          description: 'Emitted when a sidebar button is clicked',
+        },
+      },
+      // ⭐ CAMPOS ADICIONALES PARA PERFECCIÓN AUTORUN
+      storybook: {
+        canonicalStoryId: 'navegacion-sidebar--implementation',
+        storiesByExample: {
+          canonical: 'navegacion-sidebar--implementation',
+          basic: 'navegacion-sidebar--default',
+          admin: 'navegacion-sidebar--admin',
+          withDarkMode: 'navegacion-sidebar--with-dark-mode',
+        },
+      },
+      intents: {
+        'sidebar.navigation': 'canonical',
+        'sidebar.menu': 'canonical',
+        'sidebar.colaborador': 'canonical',
+        'sidebar.admin': 'admin',
+        'sidebar.dark-mode': 'withDarkMode',
+      },
+    }),
+  },
+  args: {
+    containerId: 'sidebar-story-container',
+    variant: 'colaborador',
+    activeButton: '',
+    darkModeEnabled: true,
+    logoImage: '/images/Ubits-logo.svg',
+    avatarImage: '/images/Profile-image.jpg',
+  } as SidebarOptions & { variant?: SidebarVariant; activeButton?: string },
+  argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: ['colaborador', 'admin'],
+      description: 'Variante del sidebar: colaborador o admin',
+      table: {
+        defaultValue: { summary: 'colaborador' },
+        type: { summary: 'colaborador | admin' },
+      },
+    },
+    activeButton: {
+      control: { type: 'select' },
+      options: [
+        '',
+        'admin',
+        'aprendizaje',
+        'diagnóstico',
+        'desempeño',
+        'encuestas',
+        'reclutamiento',
+        'tareas',
+        'ubits-ai',
+        'inicio',
+        'empresa',
+      ],
+      description: 'Sección activa del sidebar (depende de la variante)',
+      table: {
+        defaultValue: { summary: '' },
+        type: { summary: 'string' },
+      },
+    },
+    darkModeEnabled: {
+      control: { type: 'boolean' },
+      description: 'Si el dark mode toggle está habilitado',
+      table: {
+        defaultValue: { summary: 'true' },
+      },
+    },
+  },
 };
 
 export default meta;
@@ -172,20 +172,20 @@ type Story = StoryObj<SidebarOptions & { variant?: SidebarVariant; activeButton?
 
 // Función helper para obtener configuración según variante
 function getSidebarButtons(variant: SidebarVariant) {
-	const config = getSidebarConfig(variant);
-	return {
-		bodyButtons: config.bodyButtons,
-		footerButtons: config.footerButtons,
-		profileMenuItems: config.profileMenuItems,
-	};
+  const config = getSidebarConfig(variant);
+  return {
+    bodyButtons: config.bodyButtons,
+    footerButtons: config.footerButtons,
+    profileMenuItems: config.profileMenuItems,
+  };
 }
 
 // Función para actualizar botón activo
 function updateActiveButton(buttons: any[], activeButton: string) {
-	return buttons.map((btn) => ({
-		...btn,
-		state: btn.section === activeButton ? ('active' as const) : ('default' as const),
-	}));
+  return buttons.map((btn) => ({
+    ...btn,
+    state: btn.section === activeButton ? ('active' as const) : ('default' as const),
+  }));
 }
 
 /**
@@ -197,17 +197,17 @@ function updateActiveButton(buttons: any[], activeButton: string) {
  * - Snippet exacto controlado
  */
 export const Implementation: Story = {
-	name: 'Implementation (Copy/Paste)',
-	args: {
-		containerId: 'sidebar-implementation-container',
-		variant: 'colaborador',
-		activeButton: '',
-		darkModeEnabled: true,
-		logoImage: '/images/Ubits-logo.svg',
-		avatarImage: '/images/Profile-image.jpg',
-	} as SidebarOptions & { variant?: SidebarVariant; activeButton?: string },
-	parameters: {
-		docs: {
+  name: 'Implementation (Copy/Paste)',
+  args: {
+    containerId: 'sidebar-implementation-container',
+    variant: 'colaborador',
+    activeButton: '',
+    darkModeEnabled: true,
+    logoImage: '/images/Ubits-logo.svg',
+    avatarImage: '/images/Profile-image.jpg',
+  } as SidebarOptions & { variant?: SidebarVariant; activeButton?: string },
+  parameters: {
+    docs: {
       source: {
         // ⭐ SNIPPET EXACTO para Autorun
         
@@ -244,15 +244,15 @@ window.UBITS.Sidebar.create({
 });`,
       },
     },
-	},
-	render: (args) => {
-		console.log('🔵 [Sidebar Implementation] Render iniciado', { containerId: args.containerId, variant: args.variant });
-		
-		// Crear wrapper principal
-		const wrapper = document.createElement('div');
-		wrapper.setAttribute('data-ubits-id', '🧩-ux-sidebar');
-		wrapper.setAttribute('data-ubits-component', 'Sidebar');
-		wrapper.style.cssText = `
+  },
+  render: (args) => {
+    console.log('🔵 [Sidebar Implementation] Render iniciado', { containerId: args.containerId, variant: args.variant });
+    
+    // Crear wrapper principal
+    const wrapper = document.createElement('div');
+    wrapper.setAttribute('data-ubits-id', '🧩-ux-sidebar');
+    wrapper.setAttribute('data-ubits-component', 'Sidebar');
+    wrapper.style.cssText = `
       display: flex;
       flex-direction: row;
       align-items: flex-start;
@@ -263,11 +263,11 @@ window.UBITS.Sidebar.create({
       padding: 24px;
     `;
 
-		// Contenedor solo para el sidebar
-		const container = document.createElement('div');
-		const containerId = args.containerId || `sidebar-implementation-container-${Date.now()}`;
-		container.id = containerId;
-		container.style.cssText = `
+    // Contenedor solo para el sidebar
+    const container = document.createElement('div');
+    const containerId = args.containerId || `sidebar-implementation-container-${Date.now()}`;
+    container.id = containerId;
+    container.style.cssText = `
       position: relative;
       width: 96px;
       height: 650px;
@@ -275,133 +275,133 @@ window.UBITS.Sidebar.create({
       background: var(--modifiers-normal-color-light-bg-2);
     `;
 
-		console.log('🟢 [Sidebar Implementation] Contenedor creado con ID:', containerId);
+    console.log('🟢 [Sidebar Implementation] Contenedor creado con ID:', containerId);
 
-		// Agregar el contenedor al wrapper ANTES de crear el sidebar (igual que Default)
-		wrapper.appendChild(container);
-		console.log('🟢 [Sidebar Implementation] Contenedor agregado al wrapper');
+    // Agregar el contenedor al wrapper ANTES de crear el sidebar (igual que Default)
+    wrapper.appendChild(container);
+    console.log('🟢 [Sidebar Implementation] Contenedor agregado al wrapper');
 
-		const variant = args.variant || 'colaborador';
-		const activeButton = args.activeButton || '';
-		const config = getSidebarButtons(variant);
+    const variant = args.variant || 'colaborador';
+    const activeButton = args.activeButton || '';
+    const config = getSidebarButtons(variant);
 
-		// Actualizar botones con estado activo
-		const bodyButtons = updateActiveButton(config.bodyButtons, activeButton);
-		const footerButtons = activeButton
-			? updateActiveButton(config.footerButtons || [], activeButton)
-			: config.footerButtons || [];
+    // Actualizar botones con estado activo
+    const bodyButtons = updateActiveButton(config.bodyButtons, activeButton);
+    const footerButtons = activeButton
+      ? updateActiveButton(config.footerButtons || [], activeButton)
+      : config.footerButtons || [];
 
-		const sidebarOptions: SidebarOptions = {
-			containerId: containerId,
-			variant: variant,
-			bodyButtons: bodyButtons,
-			footerButtons: footerButtons,
-			profileMenuItems: config.profileMenuItems,
-			logoHref: variant === 'admin' ? 'admin.html' : 'index.html',
-			logoImage: args.logoImage || '/images/Ubits-logo.svg',
-			avatarImage: args.avatarImage || '/images/Profile-image.jpg',
-			darkModeEnabled: args.darkModeEnabled !== false,
-			height: 650,
-			onActiveButtonChange: (section) => {
-				// Active button changed
-			},
-			onDarkModeToggle: (isDark) => {
-				// Dark mode toggled
-			},
-			onAvatarClick: () => {
-				// Avatar clicked
-			},
-		};
+    const sidebarOptions: SidebarOptions = {
+      containerId: containerId,
+      variant: variant,
+      bodyButtons: bodyButtons,
+      footerButtons: footerButtons,
+      profileMenuItems: config.profileMenuItems,
+      logoHref: variant === 'admin' ? 'admin.html' : 'index.html',
+      logoImage: args.logoImage || '/images/Ubits-logo.svg',
+      avatarImage: args.avatarImage || '/images/Profile-image.jpg',
+      darkModeEnabled: args.darkModeEnabled !== false,
+      height: 650,
+      onActiveButtonChange: (section) => {
+        // Active button changed
+      },
+      onDarkModeToggle: (isDark) => {
+        // Dark mode toggled
+      },
+      onAvatarClick: () => {
+        // Avatar clicked
+      },
+    };
 
-		console.log('🟢 [Sidebar Implementation] SidebarOptions creado:', { containerId, variant, bodyButtonsCount: bodyButtons.length });
+    console.log('🟢 [Sidebar Implementation] SidebarOptions creado:', { containerId, variant, bodyButtonsCount: bodyButtons.length });
 
-		// Crear Sidebar usando requestAnimationFrame doble para asegurar que el DOM esté completamente listo
-		requestAnimationFrame(() => {
-			console.log('🟡 [Sidebar Implementation] Primer requestAnimationFrame ejecutado');
-			requestAnimationFrame(() => {
-				console.log('🟡 [Sidebar Implementation] Segundo requestAnimationFrame ejecutado');
-				// Verificar que el contenedor esté en el DOM
-				const containerInDOM = document.getElementById(containerId);
-				console.log('🟡 [Sidebar Implementation] Buscando contenedor en DOM:', containerId, 'Encontrado:', !!containerInDOM);
-				
-				if (!containerInDOM) {
-					console.warn(`⚠️ [Sidebar Implementation] Contenedor ${containerId} no encontrado en DOM, reintentando...`);
-					setTimeout(() => {
-						const retryContainer = document.getElementById(containerId);
-						console.log('🟡 [Sidebar Implementation] Retry - Buscando contenedor:', containerId, 'Encontrado:', !!retryContainer);
-						if (retryContainer) {
-							try {
-								console.log('🟢 [Sidebar Implementation] Creando sidebar en retry...');
-								createSidebar(sidebarOptions);
-								console.log('🟢 [Sidebar Implementation] Sidebar creado exitosamente en retry');
-							} catch (error) {
-								console.error('❌ [Sidebar Implementation] Error creating sidebar en retry:', error);
-								const sidebarHTML = renderSidebar(sidebarOptions);
-								container.innerHTML = sidebarHTML;
-							}
-						} else {
-							console.error(`❌ [Sidebar Implementation] Contenedor ${containerId} no encontrado después de retry`);
-							const sidebarHTML = renderSidebar(sidebarOptions);
-							container.innerHTML = sidebarHTML;
-						}
-					}, 100);
-					return;
-				}
+    // Crear Sidebar usando requestAnimationFrame doble para asegurar que el DOM esté completamente listo
+    requestAnimationFrame(() => {
+      console.log('🟡 [Sidebar Implementation] Primer requestAnimationFrame ejecutado');
+      requestAnimationFrame(() => {
+        console.log('🟡 [Sidebar Implementation] Segundo requestAnimationFrame ejecutado');
+        // Verificar que el contenedor esté en el DOM
+        const containerInDOM = document.getElementById(containerId);
+        console.log('🟡 [Sidebar Implementation] Buscando contenedor en DOM:', containerId, 'Encontrado:', !!containerInDOM);
+        
+        if (!containerInDOM) {
+          console.warn(`⚠️ [Sidebar Implementation] Contenedor ${containerId} no encontrado en DOM, reintentando...`);
+          setTimeout(() => {
+            const retryContainer = document.getElementById(containerId);
+            console.log('🟡 [Sidebar Implementation] Retry - Buscando contenedor:', containerId, 'Encontrado:', !!retryContainer);
+            if (retryContainer) {
+              try {
+                console.log('🟢 [Sidebar Implementation] Creando sidebar en retry...');
+                createSidebar(sidebarOptions);
+                console.log('🟢 [Sidebar Implementation] Sidebar creado exitosamente en retry');
+              } catch (error) {
+                console.error('❌ [Sidebar Implementation] Error creating sidebar en retry:', error);
+                const sidebarHTML = renderSidebar(sidebarOptions);
+                container.innerHTML = sidebarHTML;
+              }
+            } else {
+              console.error(`❌ [Sidebar Implementation] Contenedor ${containerId} no encontrado después de retry`);
+              const sidebarHTML = renderSidebar(sidebarOptions);
+              container.innerHTML = sidebarHTML;
+            }
+          }, 100);
+          return;
+        }
 
-				try {
-					console.log('🟢 [Sidebar Implementation] Creando sidebar...');
-					const sidebarElement = createSidebar(sidebarOptions);
-					console.log('🟢 [Sidebar Implementation] Sidebar creado exitosamente');
-					console.log('🟡 [Sidebar Implementation] Sidebar element info:', {
-						hasSidebar: !!sidebarElement,
-						sidebarDisplay: window.getComputedStyle(sidebarElement).display,
-						sidebarVisibility: window.getComputedStyle(sidebarElement).visibility,
-						sidebarOpacity: window.getComputedStyle(sidebarElement).opacity,
-						sidebarWidth: window.getComputedStyle(sidebarElement).width,
-						sidebarHeight: window.getComputedStyle(sidebarElement).height,
-						containerHasContent: container.innerHTML.length > 0,
-						containerChildren: container.children.length
-					});
-				} catch (error) {
-					console.error('❌ [Sidebar Implementation] Error creating sidebar:', error);
-					const sidebarHTML = renderSidebar(sidebarOptions);
-					container.innerHTML = sidebarHTML;
-				}
-			});
-		});
+        try {
+          console.log('🟢 [Sidebar Implementation] Creando sidebar...');
+          const sidebarElement = createSidebar(sidebarOptions);
+          console.log('🟢 [Sidebar Implementation] Sidebar creado exitosamente');
+          console.log('🟡 [Sidebar Implementation] Sidebar element info:', {
+            hasSidebar: !!sidebarElement,
+            sidebarDisplay: window.getComputedStyle(sidebarElement).display,
+            sidebarVisibility: window.getComputedStyle(sidebarElement).visibility,
+            sidebarOpacity: window.getComputedStyle(sidebarElement).opacity,
+            sidebarWidth: window.getComputedStyle(sidebarElement).width,
+            sidebarHeight: window.getComputedStyle(sidebarElement).height,
+            containerHasContent: container.innerHTML.length > 0,
+            containerChildren: container.children.length
+          });
+        } catch (error) {
+          console.error('❌ [Sidebar Implementation] Error creating sidebar:', error);
+          const sidebarHTML = renderSidebar(sidebarOptions);
+          container.innerHTML = sidebarHTML;
+        }
+      });
+    });
 
-		console.log('🟢 [Sidebar Implementation] Retornando wrapper');
-		console.log('🟡 [Sidebar Implementation] Wrapper info:', {
-			hasWrapper: !!wrapper,
-			wrapperChildren: wrapper.children.length,
-			wrapperInnerHTML: wrapper.innerHTML.substring(0, 200),
-			wrapperStyle: window.getComputedStyle(wrapper).display,
-			wrapperVisibility: window.getComputedStyle(wrapper).visibility,
-			wrapperOpacity: window.getComputedStyle(wrapper).opacity,
-			containerInWrapper: !!wrapper.querySelector(`#${containerId}`),
-			sidebarInContainer: !!wrapper.querySelector('.ubits-sidebar')
-		});
-		return wrapper;
-	},
+    console.log('🟢 [Sidebar Implementation] Retornando wrapper');
+    console.log('🟡 [Sidebar Implementation] Wrapper info:', {
+      hasWrapper: !!wrapper,
+      wrapperChildren: wrapper.children.length,
+      wrapperInnerHTML: wrapper.innerHTML.substring(0, 200),
+      wrapperStyle: window.getComputedStyle(wrapper).display,
+      wrapperVisibility: window.getComputedStyle(wrapper).visibility,
+      wrapperOpacity: window.getComputedStyle(wrapper).opacity,
+      containerInWrapper: !!wrapper.querySelector(`#${containerId}`),
+      sidebarInContainer: !!wrapper.querySelector('.ubits-sidebar')
+    });
+    return wrapper;
+  },
 };
 
 // Story con todos los controles (para desarrollo)
 export const Default: Story = {
-	args: {
-		containerId: 'sidebar-story-container',
-		variant: 'colaborador',
-		activeButton: '',
-		darkModeEnabled: true,
-		logoImage: '/images/Ubits-logo.svg',
-		avatarImage: '/images/Profile-image.jpg',
-	} as SidebarOptions & { variant?: SidebarVariant; activeButton?: string },
-	render: (args) => {
-		// Crear un wrapper más amplio para el sidebar y la info (horizontal)
-		let wrapper = document.getElementById('sidebar-story-wrapper');
-		if (!wrapper) {
-			wrapper = document.createElement('div');
-			wrapper.id = 'sidebar-story-wrapper';
-			wrapper.style.cssText = `
+  args: {
+    containerId: 'sidebar-story-container',
+    variant: 'colaborador',
+    activeButton: '',
+    darkModeEnabled: true,
+    logoImage: '/images/Ubits-logo.svg',
+    avatarImage: '/images/Profile-image.jpg',
+  } as SidebarOptions & { variant?: SidebarVariant; activeButton?: string },
+  render: (args) => {
+    // Crear un wrapper más amplio para el sidebar y la info (horizontal)
+    let wrapper = document.getElementById('sidebar-story-wrapper');
+    if (!wrapper) {
+      wrapper = document.createElement('div');
+      wrapper.id = 'sidebar-story-wrapper';
+      wrapper.style.cssText = `
         display: flex;
         flex-direction: row;
         align-items: flex-start;
@@ -411,10 +411,10 @@ export const Default: Story = {
         background: var(--modifiers-normal-color-light-bg-2);
         padding: 24px;
       `;
-			document.body.appendChild(wrapper);
-		} else {
-			wrapper.innerHTML = '';
-			wrapper.style.cssText = `
+      document.body.appendChild(wrapper);
+    } else {
+      wrapper.innerHTML = '';
+      wrapper.style.cssText = `
         display: flex;
         flex-direction: row;
         align-items: flex-start;
@@ -424,12 +424,12 @@ export const Default: Story = {
         background: var(--modifiers-normal-color-light-bg-2);
         padding: 24px;
       `;
-		}
+    }
 
-		// Contenedor solo para el sidebar
-		const container = document.createElement('div');
-		container.id = args.containerId || 'sidebar-story-container';
-		container.style.cssText = `
+    // Contenedor solo para el sidebar
+    const container = document.createElement('div');
+    container.id = args.containerId || 'sidebar-story-container';
+    container.style.cssText = `
       position: relative;
       width: 96px;
       height: 650px;
@@ -437,52 +437,52 @@ export const Default: Story = {
       background: var(--modifiers-normal-color-light-bg-2);
     `;
 
-		// Agregar el contenedor al wrapper ANTES de crear el sidebar
-		wrapper.appendChild(container);
+    // Agregar el contenedor al wrapper ANTES de crear el sidebar
+    wrapper.appendChild(container);
 
-		const variant = args.variant || 'colaborador';
-		const activeButton = args.activeButton || '';
-		const config = getSidebarButtons(variant);
+    const variant = args.variant || 'colaborador';
+    const activeButton = args.activeButton || '';
+    const config = getSidebarButtons(variant);
 
-		// Actualizar botones con estado activo
-		const bodyButtons = updateActiveButton(config.bodyButtons, activeButton);
-		const footerButtons = activeButton
-			? updateActiveButton(config.footerButtons || [], activeButton)
-			: config.footerButtons || [];
+    // Actualizar botones con estado activo
+    const bodyButtons = updateActiveButton(config.bodyButtons, activeButton);
+    const footerButtons = activeButton
+      ? updateActiveButton(config.footerButtons || [], activeButton)
+      : config.footerButtons || [];
 
-		const sidebarOptions: SidebarOptions = {
-			containerId: container.id,
-			variant: variant,
-			bodyButtons: bodyButtons,
-			footerButtons: footerButtons,
-			profileMenuItems: config.profileMenuItems,
-			logoHref: variant === 'admin' ? 'admin.html' : 'index.html',
-			logoImage: args.logoImage || '/images/Ubits-logo.svg',
-			avatarImage: args.avatarImage || '/images/Profile-image.jpg',
-			darkModeEnabled: args.darkModeEnabled !== false,
-			height: 650,
-			onActiveButtonChange: (section) => {
-				// Active button changed
-			},
-			onDarkModeToggle: (isDark) => {
-				// Dark mode toggled
-			},
-			onAvatarClick: () => {
-				// Avatar clicked
-			},
-		};
+    const sidebarOptions: SidebarOptions = {
+      containerId: container.id,
+      variant: variant,
+      bodyButtons: bodyButtons,
+      footerButtons: footerButtons,
+      profileMenuItems: config.profileMenuItems,
+      logoHref: variant === 'admin' ? 'admin.html' : 'index.html',
+      logoImage: args.logoImage || '/images/Ubits-logo.svg',
+      avatarImage: args.avatarImage || '/images/Profile-image.jpg',
+      darkModeEnabled: args.darkModeEnabled !== false,
+      height: 650,
+      onActiveButtonChange: (section) => {
+        // Active button changed
+      },
+      onDarkModeToggle: (isDark) => {
+        // Dark mode toggled
+      },
+      onAvatarClick: () => {
+        // Avatar clicked
+      },
+    };
 
-		try {
-			createSidebar(sidebarOptions);
-		} catch (error) {
-			console.error('Error creating sidebar:', error);
-			const sidebarHTML = renderSidebar(sidebarOptions);
-			container.innerHTML = sidebarHTML;
-		}
+    try {
+      createSidebar(sidebarOptions);
+    } catch (error) {
+      console.error('Error creating sidebar:', error);
+      const sidebarHTML = renderSidebar(sidebarOptions);
+      container.innerHTML = sidebarHTML;
+    }
 
-		// Agregar información del sidebar (formato horizontal con CSS Grid) - AL LADO del sidebar
-		const info = document.createElement('div');
-		info.style.cssText = `
+    // Agregar información del sidebar (formato horizontal con CSS Grid) - AL LADO del sidebar
+    const info = document.createElement('div');
+    info.style.cssText = `
       background: var(--modifiers-normal-color-light-bg-2);
       font-size: var(--modifiers-normal-body-sm-regular-fontsize);
       color: var(--modifiers-normal-color-light-fg-1-medium);
@@ -495,9 +495,9 @@ export const Default: Story = {
       margin-top: 80px;
     `;
 
-		// Crear el contenedor de información usando CSS Grid
-		const infoGrid = document.createElement('div');
-		infoGrid.style.cssText = `
+    // Crear el contenedor de información usando CSS Grid
+    const infoGrid = document.createElement('div');
+    infoGrid.style.cssText = `
       display: grid;
       grid-template-columns: repeat(3, auto);
       gap: 12px 32px;
@@ -505,26 +505,26 @@ export const Default: Story = {
       align-items: baseline;
     `;
 
-		infoGrid.innerHTML = `
+    infoGrid.innerHTML = `
       <div style="white-space: nowrap;"><strong>Variante:</strong> <span style="font-weight: 400;">${variant === 'colaborador' ? 'Colaborador' : 'Admin'}</span></div>
       <div style="white-space: nowrap;"><strong>Botón activo:</strong> <span style="font-weight: 400;">${activeButton || 'Ninguno'}</span></div>
       <div style="white-space: nowrap;"><strong>Dark mode:</strong> <span style="font-weight: 400;">${args.darkModeEnabled !== false ? 'Habilitado' : 'Deshabilitado'}</span></div>
     `;
 
-		info.appendChild(infoGrid);
+    info.appendChild(infoGrid);
 
-		// Agregar el texto de instrucciones
-		const instructions = document.createElement('div');
-		instructions.style.cssText = `
+    // Agregar el texto de instrucciones
+    const instructions = document.createElement('div');
+    instructions.style.cssText = `
       border-top: 1px solid var(--modifiers-normal-color-light-border-1);
       font-style: italic;
     `;
-		instructions.textContent =
-			'Haz hover sobre los botones para ver los tooltips. Haz hover sobre el avatar para ver el menú de perfil. Haz clic en el botón de dark mode para cambiar el tema.';
-		info.appendChild(instructions);
+    instructions.textContent =
+      'Haz hover sobre los botones para ver los tooltips. Haz hover sobre el avatar para ver el menú de perfil. Haz clic en el botón de dark mode para cambiar el tema.';
+    info.appendChild(instructions);
 
-		wrapper.appendChild(info);
+    wrapper.appendChild(info);
 
-		return wrapper;
-	},
+    return wrapper;
+  },
 };

@@ -9,8 +9,8 @@ const meta: Meta<DataTableOptions & { columnsCount?: number }> = {
   tags: ['autodocs'],
   parameters: {
     docs: {
-			codePanel: true,
-			description: {
+      codePanel: true,
+      description: {
         component: 'Tabla de datos UBITS con soporte para columnas fijadas, reordenamiento, ordenamiento, selección múltiple, filas expandibles y menú de columnas.'
       }
     },

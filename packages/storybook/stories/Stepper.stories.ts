@@ -30,8 +30,8 @@ const meta: Meta<ExtendedStepperOptions> = {
   tags: ['autodocs'],
   parameters: {
     docs: {
-			codePanel: true,
-			description: {
+      codePanel: true,
+      description: {
         component: 'Componente Stepper UBITS para mostrar el progreso de un proceso multi-paso. Soporta orientación horizontal y vertical, con estados: default, completado, activo, error y warning. Cada paso puede tener número, título y descripción.',
       },
     },

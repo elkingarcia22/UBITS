@@ -11,170 +11,170 @@ import '../../../components/skeleton/src/styles/skeleton.css';
  * Soporta múltiples variantes (text, circle, rectangle, custom), tamaños y animaciones.
  */
 const meta = {
-	title: 'Básicos/Skeleton',
-	tags: ['autodocs'],
-	parameters: {
-		layout: 'padded',
-		docs: {
-			codePanel: true,
-			description: {
-				component:
-					'Componente Skeleton UBITS para mostrar placeholders de carga. Soporta múltiples variantes (text, circle, rectangle, custom), tamaños y animaciones.',
-			},
-		},
-		// ⭐ CONTRATO UBITS para Autorun
-		ubits: createUBITSContract({
-			componentId: '🧩-ux-skeleton',
-			api: {
-				create: 'window.UBITS.Skeleton.create',
-				tag: '<ubits-skeleton>',
-			},
-			dependsOn: {
-				required: [], // Skeleton no requiere otros componentes UBITS
-				optional: [], // No tiene dependencias opcionales
-			},
-			internals: [], // Skeleton no tiene componentes internos privados
-			slots: {}, // Skeleton no tiene slots
-			tokensUsed: [
-				'--modifiers-normal-color-light-bg-1',
-				'--modifiers-normal-color-light-bg-2',
-				'--modifiers-normal-body-md-regular-lineheight',
-				'--modifiers-normal-body-lg-regular-lineheight',
-				'--ubits-border-radius-sm',
-				'--ubits-spacing-xs',
-			],
-			rules: {
-				forbidHardcodedColors: true,
-				forbiddenPatterns: ['rgb(', 'hsl(', '#'],
-				requiredProps: [], // Skeleton no tiene props requeridas (todos son opcionales)
-			},
-			// ⭐ CAMPOS EXTENDIDOS
-			examples: {
-				canonical: `window.UBITS.Skeleton.create({
+  title: 'Básicos/Skeleton',
+  tags: ['autodocs'],
+  parameters: {
+    layout: 'padded',
+    docs: {
+      codePanel: true,
+      description: {
+        component:
+          'Componente Skeleton UBITS para mostrar placeholders de carga. Soporta múltiples variantes (text, circle, rectangle, custom), tamaños y animaciones.',
+      },
+    },
+    // ⭐ CONTRATO UBITS para Autorun
+    ubits: createUBITSContract({
+      componentId: '🧩-ux-skeleton',
+      api: {
+        create: 'window.UBITS.Skeleton.create',
+        tag: '<ubits-skeleton>',
+      },
+      dependsOn: {
+        required: [], // Skeleton no requiere otros componentes UBITS
+        optional: [], // No tiene dependencias opcionales
+      },
+      internals: [], // Skeleton no tiene componentes internos privados
+      slots: {}, // Skeleton no tiene slots
+      tokensUsed: [
+        '--modifiers-normal-color-light-bg-1',
+        '--modifiers-normal-color-light-bg-2',
+        '--modifiers-normal-body-md-regular-lineheight',
+        '--modifiers-normal-body-lg-regular-lineheight',
+        '--ubits-border-radius-sm',
+        '--ubits-spacing-xs',
+      ],
+      rules: {
+        forbidHardcodedColors: true,
+        forbiddenPatterns: ['rgb(', 'hsl(', '#'],
+        requiredProps: [], // Skeleton no tiene props requeridas (todos son opcionales)
+      },
+      // ⭐ CAMPOS EXTENDIDOS
+      examples: {
+        canonical: `window.UBITS.Skeleton.create({
   variant: 'text',
   size: 'md',
   width: 'full',
   lines: 3,
   animated: true
 });`,
-				basic: `window.UBITS.Skeleton.create({
+        basic: `window.UBITS.Skeleton.create({
   variant: 'text',
   size: 'md',
   width: 'full',
   lines: 3,
   animated: true
 });`,
-				circle: `window.UBITS.Skeleton.create({
+        circle: `window.UBITS.Skeleton.create({
   variant: 'circle',
   size: 'md',
   animated: true
 });`,
-				rectangle: `window.UBITS.Skeleton.create({
+        rectangle: `window.UBITS.Skeleton.create({
   variant: 'rectangle',
   size: 'md',
   width: 300,
   height: 200,
   animated: true
 });`,
-				custom: `window.UBITS.Skeleton.create({
+        custom: `window.UBITS.Skeleton.create({
   variant: 'custom',
   size: 'md',
   width: 200,
   height: 100,
   animated: true
 });`,
-			},
-			variants: {
-				variant: ['text', 'circle', 'rectangle', 'custom'],
-				size: ['xs', 'sm', 'md', 'lg', 'xl'],
-				animated: [true, false],
-			},
-			events: {
-				// Skeleton no emite eventos, es un componente de solo visualización
-			},
-			// ⭐ CAMPOS ADICIONALES PARA PERFECCIÓN AUTORUN
-			storybook: {
-				canonicalStoryId: 'basicos-skeleton--implementation',
-				storiesByExample: {
-					canonical: 'basicos-skeleton--implementation',
-					basic: 'basicos-skeleton--default',
-					circle: 'basicos-skeleton--circle',
-					rectangle: 'basicos-skeleton--rectangle',
-					custom: 'basicos-skeleton--custom',
-				},
-			},
-			intents: {
-				'skeleton.loading': 'canonical',
-				'skeleton.placeholder': 'canonical',
-				'skeleton.text': 'canonical',
-				'skeleton.circle': 'circle',
-				'skeleton.rectangle': 'rectangle',
-				'skeleton.custom': 'custom',
-			},
-		}),
-	},
-	argTypes: {
-		variant: {
-			control: { type: 'select' },
-			options: ['text', 'circle', 'rectangle', 'custom'],
-			description: 'Variante del skeleton',
-			table: {
-				defaultValue: { summary: 'text' },
-				type: { summary: 'text | circle | rectangle | custom' },
-			},
-		},
-		size: {
-			control: { type: 'select' },
-			options: ['xs', 'sm', 'md', 'lg', 'xl'],
-			description: 'Tamaño del skeleton',
-			table: {
-				defaultValue: { summary: 'md' },
-				type: { summary: 'xs | sm | md | lg | xl' },
-			},
-		},
-		width: {
-			control: { type: 'text' },
-			description: 'Ancho del skeleton (número en px, porcentaje, o "full")',
-			table: {
-				defaultValue: { summary: 'full' },
-			},
-		},
-		height: {
-			control: { type: 'text' },
-			description: 'Alto del skeleton (número en px o porcentaje)',
-			table: {
-				type: { summary: 'number | string' },
-			},
-		},
-		lines: {
-			control: { type: 'number', min: 1, max: 10 },
-			description: 'Número de líneas de texto (solo para variant="text")',
-			table: {
-				defaultValue: { summary: '1' },
-			},
-		},
-		animated: {
-			control: { type: 'boolean' },
-			description: 'Si el skeleton debe tener animación de pulso',
-			table: {
-				defaultValue: { summary: 'true' },
-			},
-		},
-		className: {
-			control: { type: 'text' },
-			description: 'Clases CSS adicionales',
-			table: {
-				type: { summary: 'string' },
-			},
-		},
-		style: {
-			control: { type: 'text' },
-			description: 'Estilos inline adicionales',
-			table: {
-				type: { summary: 'string' },
-			},
-		},
-	},
+      },
+      variants: {
+        variant: ['text', 'circle', 'rectangle', 'custom'],
+        size: ['xs', 'sm', 'md', 'lg', 'xl'],
+        animated: [true, false],
+      },
+      events: {
+        // Skeleton no emite eventos, es un componente de solo visualización
+      },
+      // ⭐ CAMPOS ADICIONALES PARA PERFECCIÓN AUTORUN
+      storybook: {
+        canonicalStoryId: 'basicos-skeleton--implementation',
+        storiesByExample: {
+          canonical: 'basicos-skeleton--implementation',
+          basic: 'basicos-skeleton--default',
+          circle: 'basicos-skeleton--circle',
+          rectangle: 'basicos-skeleton--rectangle',
+          custom: 'basicos-skeleton--custom',
+        },
+      },
+      intents: {
+        'skeleton.loading': 'canonical',
+        'skeleton.placeholder': 'canonical',
+        'skeleton.text': 'canonical',
+        'skeleton.circle': 'circle',
+        'skeleton.rectangle': 'rectangle',
+        'skeleton.custom': 'custom',
+      },
+    }),
+  },
+  argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: ['text', 'circle', 'rectangle', 'custom'],
+      description: 'Variante del skeleton',
+      table: {
+        defaultValue: { summary: 'text' },
+        type: { summary: 'text | circle | rectangle | custom' },
+      },
+    },
+    size: {
+      control: { type: 'select' },
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
+      description: 'Tamaño del skeleton',
+      table: {
+        defaultValue: { summary: 'md' },
+        type: { summary: 'xs | sm | md | lg | xl' },
+      },
+    },
+    width: {
+      control: { type: 'text' },
+      description: 'Ancho del skeleton (número en px, porcentaje, o "full")',
+      table: {
+        defaultValue: { summary: 'full' },
+      },
+    },
+    height: {
+      control: { type: 'text' },
+      description: 'Alto del skeleton (número en px o porcentaje)',
+      table: {
+        type: { summary: 'number | string' },
+      },
+    },
+    lines: {
+      control: { type: 'number', min: 1, max: 10 },
+      description: 'Número de líneas de texto (solo para variant="text")',
+      table: {
+        defaultValue: { summary: '1' },
+      },
+    },
+    animated: {
+      control: { type: 'boolean' },
+      description: 'Si el skeleton debe tener animación de pulso',
+      table: {
+        defaultValue: { summary: 'true' },
+      },
+    },
+    className: {
+      control: { type: 'text' },
+      description: 'Clases CSS adicionales',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+    style: {
+      control: { type: 'text' },
+      description: 'Estilos inline adicionales',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+  },
 } satisfies Meta<SkeletonOptions>;
 
 export default meta;
@@ -185,17 +185,17 @@ type Story = StoryObj<SkeletonOptions>;
  * Esta story proporciona un snippet exacto y funcional que Autorun puede copiar/pegar
  */
 export const Implementation: Story = {
-	name: 'Implementation (Copy/Paste)',
-	args: {
-		variant: 'text',
-		size: 'md',
-		width: 'full',
-		height: '',
-		lines: 3,
-		animated: true,
-	},
-	parameters: {
-		docs: {
+  name: 'Implementation (Copy/Paste)',
+  args: {
+    variant: 'text',
+    size: 'md',
+    width: 'full',
+    height: '',
+    lines: 3,
+    animated: true,
+  },
+  parameters: {
+    docs: {
       source: {
         // ⭐ SNIPPET EXACTO para Autorun
         
@@ -238,93 +238,93 @@ const rectangleSkeleton = window.UBITS.Skeleton.create({
 });`,
       },
     },
-	},
-	render: (args) => {
-		const container = document.createElement('div');
-		container.setAttribute('data-ubits-id', '🧩-ux-skeleton');
-		container.setAttribute('data-ubits-component', 'Skeleton');
-		container.style.padding = '40px';
-		container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
-		container.style.width = '100%';
-		container.style.minHeight = '300px';
-		container.style.boxSizing = 'border-box';
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.setAttribute('data-ubits-id', '🧩-ux-skeleton');
+    container.setAttribute('data-ubits-component', 'Skeleton');
+    container.style.padding = '40px';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
+    container.style.width = '100%';
+    container.style.minHeight = '300px';
+    container.style.boxSizing = 'border-box';
 
-		// Contenedor interno con width 100%
-		const innerContainer = document.createElement('div');
-		innerContainer.style.width = '100%';
-		innerContainer.style.boxSizing = 'border-box';
-		innerContainer.style.display = 'flex';
-		innerContainer.style.alignItems = 'center';
-		innerContainer.style.justifyContent = 'center';
-		innerContainer.style.minHeight = '200px';
+    // Contenedor interno con width 100%
+    const innerContainer = document.createElement('div');
+    innerContainer.style.width = '100%';
+    innerContainer.style.boxSizing = 'border-box';
+    innerContainer.style.display = 'flex';
+    innerContainer.style.alignItems = 'center';
+    innerContainer.style.justifyContent = 'center';
+    innerContainer.style.minHeight = '200px';
 
-		// Crear Skeleton
-		try {
-			const skeletonElement = createSkeleton({
-				variant: args.variant || 'text',
-				size: args.size || 'md',
-				width: args.width,
-				height: args.height,
-				lines: args.lines || 1,
-				animated: args.animated !== undefined ? args.animated : true,
-				className: args.className,
-				style: args.style,
-			});
-			innerContainer.appendChild(skeletonElement);
-		} catch (error) {
-			console.error('Error creando Skeleton:', error);
-			innerContainer.innerHTML = `<p style="color: var(--modifiers-normal-color-light-feedback-border-error); padding: 16px;">Error: ${error}</p>`;
-		}
+    // Crear Skeleton
+    try {
+      const skeletonElement = createSkeleton({
+        variant: args.variant || 'text',
+        size: args.size || 'md',
+        width: args.width,
+        height: args.height,
+        lines: args.lines || 1,
+        animated: args.animated !== undefined ? args.animated : true,
+        className: args.className,
+        style: args.style,
+      });
+      innerContainer.appendChild(skeletonElement);
+    } catch (error) {
+      console.error('Error creando Skeleton:', error);
+      innerContainer.innerHTML = `<p style="color: var(--modifiers-normal-color-light-feedback-border-error); padding: 16px;">Error: ${error}</p>`;
+    }
 
-		container.appendChild(innerContainer);
-		return container;
-	},
+    container.appendChild(innerContainer);
+    return container;
+  },
 };
 
 /**
  * Story por defecto con todos los controles
  */
 export const Default: Story = {
-	args: {
-		variant: 'text',
-		size: 'md',
-		width: 'full',
-		height: '',
-		lines: 3,
-		animated: true,
-	},
-	render: (args) => {
-		const container = document.createElement('div');
-		container.style.padding = '40px';
-		container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
-		container.style.width = '100%';
-		container.style.minHeight = '300px';
-		container.style.boxSizing = 'border-box';
+  args: {
+    variant: 'text',
+    size: 'md',
+    width: 'full',
+    height: '',
+    lines: 3,
+    animated: true,
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.padding = '40px';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
+    container.style.width = '100%';
+    container.style.minHeight = '300px';
+    container.style.boxSizing = 'border-box';
 
-		// Contenedor de preview
-		const preview = document.createElement('div');
-		preview.style.background = 'var(--modifiers-normal-color-light-bg-1)';
-		preview.style.padding = '48px';
-		preview.style.border = 'none';
-		preview.style.marginBottom = '24px';
-		preview.style.minHeight = '200px';
-		preview.style.display = 'flex';
-		preview.style.alignItems = 'center';
-		preview.style.justifyContent = 'center';
-		preview.style.boxSizing = 'border-box';
+    // Contenedor de preview
+    const preview = document.createElement('div');
+    preview.style.background = 'var(--modifiers-normal-color-light-bg-1)';
+    preview.style.padding = '48px';
+    preview.style.border = 'none';
+    preview.style.marginBottom = '24px';
+    preview.style.minHeight = '200px';
+    preview.style.display = 'flex';
+    preview.style.alignItems = 'center';
+    preview.style.justifyContent = 'center';
+    preview.style.boxSizing = 'border-box';
 
-		// Contenedor interno con width 100%
-		const innerContainer = document.createElement('div');
-		innerContainer.style.width = '100%';
-		innerContainer.style.boxSizing = 'border-box';
+    // Contenedor interno con width 100%
+    const innerContainer = document.createElement('div');
+    innerContainer.style.width = '100%';
+    innerContainer.style.boxSizing = 'border-box';
 
-		// Renderizar el skeleton
-		const skeletonHTML = renderSkeleton(args);
-		innerContainer.innerHTML = skeletonHTML;
+    // Renderizar el skeleton
+    const skeletonHTML = renderSkeleton(args);
+    innerContainer.innerHTML = skeletonHTML;
 
-		preview.appendChild(innerContainer);
-		container.appendChild(preview);
+    preview.appendChild(innerContainer);
+    container.appendChild(preview);
 
-		return container;
-	},
+    return container;
+  },
 };

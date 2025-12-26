@@ -5,222 +5,222 @@ import { createUBITSContract } from '../../_shared/ubitsContract';
 import '../../../components/button-ai/src/styles/button-ai.css';
 
 const meta: Meta<ButtonAIOptions> = {
-	title: 'Básicos/ButtonAI',
-	tags: ['autodocs'],
-	parameters: {
-		layout: 'padded',
-		docs: {
-			codePanel: true,
-			description: {
-				component:
-					'Componente Button AI UBITS con estilo redondeado y gradación. Basado en Button de UBITS pero con bordes más redondeados (pill shape) y gradientes. Solo incluye variantes primary y secondary.',
-			},
-		},
-		ubits: createUBITSContract({
-			componentId: '🧩-ux-button-ai',
-			api: {
-				create: 'createButtonAI', // Función importada directamente
-				render: 'renderButtonAI', // Función importada directamente
-			},
-			dependsOn: {
-				required: [],
-				optional: [],
-			},
-			internals: [],
-			slots: {},
-			tokensUsed: [
-				'--modifiers-normal-color-light-bg-1',
-				'--modifiers-normal-color-light-bg-active',
-				'--modifiers-normal-color-light-bg-disabled',
-				'--modifiers-normal-color-light-fg-bold',
-				'--modifiers-normal-color-light-fg-on-disabled',
-				'--modifiers-normal-color-light-border-disabled',
-				'--modifiers-normal-color-light-accent-brand',
-				'--modifiers-normal-ai-button-primary-color-bg',
-				'--modifiers-normal-ai-button-color-light-secondary-accent-gradient-end',
-				'--modifiers-normal-button-color-light-brand-primary-bg-default',
-				'--modifiers-normal-button-color-light-brand-primary-bg-hover',
-				'--modifiers-normal-button-color-light-brand-primary-bg-pressed',
-				'--modifiers-static-color-light-accent-brand',
-				'--modifiers-normal-body-md-regular-fontsize',
-				'--modifiers-normal-body-md-regular-lineheight',
-				'--modifiers-normal-body-xs-regular-fontsize',
-				'--modifiers-normal-body-xs-regular-lineheight',
-				'--font-family-noto-sans-font-family',
-				'--weight-semibold',
-			],
-			rules: {
-				forbidHardcodedColors: true,
-				forbiddenPatterns: ['rgb(', 'hsl(', '#'],
-				requiredProps: [],
-			},
-			// ⭐ CAMPOS EXTENDIDOS
-			examples: {
-				canonical: `createButtonAI({
+  title: 'Básicos/ButtonAI',
+  tags: ['autodocs'],
+  parameters: {
+    layout: 'padded',
+    docs: {
+      codePanel: true,
+      description: {
+        component:
+          'Componente Button AI UBITS con estilo redondeado y gradación. Basado en Button de UBITS pero con bordes más redondeados (pill shape) y gradientes. Solo incluye variantes primary y secondary.',
+      },
+    },
+    ubits: createUBITSContract({
+      componentId: '🧩-ux-button-ai',
+      api: {
+        create: 'createButtonAI', // Función importada directamente
+        render: 'renderButtonAI', // Función importada directamente
+      },
+      dependsOn: {
+        required: [],
+        optional: [],
+      },
+      internals: [],
+      slots: {},
+      tokensUsed: [
+        '--modifiers-normal-color-light-bg-1',
+        '--modifiers-normal-color-light-bg-active',
+        '--modifiers-normal-color-light-bg-disabled',
+        '--modifiers-normal-color-light-fg-bold',
+        '--modifiers-normal-color-light-fg-on-disabled',
+        '--modifiers-normal-color-light-border-disabled',
+        '--modifiers-normal-color-light-accent-brand',
+        '--modifiers-normal-ai-button-primary-color-bg',
+        '--modifiers-normal-ai-button-color-light-secondary-accent-gradient-end',
+        '--modifiers-normal-button-color-light-brand-primary-bg-default',
+        '--modifiers-normal-button-color-light-brand-primary-bg-hover',
+        '--modifiers-normal-button-color-light-brand-primary-bg-pressed',
+        '--modifiers-static-color-light-accent-brand',
+        '--modifiers-normal-body-md-regular-fontsize',
+        '--modifiers-normal-body-md-regular-lineheight',
+        '--modifiers-normal-body-xs-regular-fontsize',
+        '--modifiers-normal-body-xs-regular-lineheight',
+        '--font-family-noto-sans-font-family',
+        '--weight-semibold',
+      ],
+      rules: {
+        forbidHardcodedColors: true,
+        forbiddenPatterns: ['rgb(', 'hsl(', '#'],
+        requiredProps: [],
+      },
+      // ⭐ CAMPOS EXTENDIDOS
+      examples: {
+        canonical: `createButtonAI({
   variant: 'primary',
   size: 'md',
   text: 'Button text',
   onClick: function() {}
 });`,
-				basic: `createButtonAI({
+        basic: `createButtonAI({
   variant: 'primary',
   size: 'md',
   text: 'Button text'
 });`,
-				withIcon: `createButtonAI({
+        withIcon: `createButtonAI({
   variant: 'primary',
   size: 'md',
   text: 'Button text',
   icon: 'sparkles',
   iconStyle: 'regular'
 });`,
-				secondary: `createButtonAI({
+        secondary: `createButtonAI({
   variant: 'secondary',
   size: 'md',
   text: 'Button text'
 });`,
-				disabled: `createButtonAI({
+        disabled: `createButtonAI({
   variant: 'primary',
   size: 'md',
   text: 'Button text',
   disabled: true
 });`,
-			},
-			variants: {
-				variant: ['primary', 'secondary'],
-				size: ['xs', 'sm', 'md', 'lg', 'xl'],
-				iconStyle: ['regular', 'solid'],
-				disabled: [true, false],
-			},
-			events: {
-				onClick: {
-					type: 'MouseEvent',
-					description: 'Emitted when button is clicked',
-				},
-			},
-			// ⭐ CAMPOS ADICIONALES PARA PERFECCIÓN AUTORUN
-			storybook: {
-				canonicalStoryId: 'basicos-buttonai--implementation',
-				storiesByExample: {
-					canonical: 'basicos-buttonai--implementation',
-					basic: 'basicos-buttonai--default',
-					withIcon: 'basicos-buttonai--with-icon',
-					secondary: 'basicos-buttonai--secondary',
-					disabled: 'basicos-buttonai--disabled',
-				},
-			},
-			intents: {
-				'button.ai': 'canonical',
-				'button.gradient': 'canonical',
-				'button.basic': 'canonical',
-				'button.with-icon': 'withIcon',
-				'button.secondary': 'secondary',
-				'button.disabled': 'disabled',
-			},
-		}),
-	},
-	argTypes: {
-		variant: {
-			control: { type: 'select' },
-			options: ['primary', 'secondary'],
-			description: 'Variante del botón AI',
-			table: {
-				type: { summary: 'primary | secondary' },
-				defaultValue: { summary: 'primary' },
-				category: 'Apariencia',
-			},
-		},
-		size: {
-			control: { type: 'select' },
-			options: ['xs', 'sm', 'md', 'lg', 'xl'],
-			description: 'Tamaño del botón',
-			table: {
-				type: { summary: 'xs | sm | md | lg | xl' },
-				defaultValue: { summary: 'md' },
-				category: 'Apariencia',
-			},
-		},
-		text: {
-			control: { type: 'text' },
-			description: 'Texto del botón',
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'Button text' },
-				category: 'Contenido',
-			},
-		},
-		icon: {
-			control: { type: 'text' },
-			description: 'Nombre del icono FontAwesome (sin prefijo fa-)',
-			table: {
-				type: { summary: 'string' },
-				example: { summary: 'sparkles, check, plus, etc.' },
-				category: 'Contenido',
-			},
-		},
-		iconStyle: {
-			control: { type: 'select' },
-			options: ['regular', 'solid'],
-			description: 'Estilo del icono FontAwesome',
-			table: {
-				type: { summary: 'regular | solid' },
-				defaultValue: { summary: 'regular' },
-				category: 'Contenido',
-			},
-		},
-		iconOnly: {
-			control: { type: 'boolean' },
-			description: 'Mostrar solo el icono, sin texto',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: 'false' },
-				category: 'Apariencia',
-			},
-		},
-		disabled: {
-			control: { type: 'boolean' },
-			description: 'Deshabilitar el botón',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: 'false' },
-				category: 'Estado',
-			},
-		},
-		badge: {
-			control: { type: 'boolean' },
-			description: 'Mostrar badge de notificación',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: 'false' },
-				category: 'Apariencia',
-			},
-		},
-		active: {
-			control: { type: 'boolean' },
-			description: 'Modificador active/outline',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: 'false' },
-				category: 'Estado',
-			},
-		},
-		className: {
-			control: { type: 'text' },
-			description: 'Clase CSS adicional',
-			table: {
-				type: { summary: 'string' },
-				category: 'Configuración',
-			},
-		},
-		onClick: {
-			control: false,
-			description: 'Handler de click',
-			table: {
-				type: { summary: '(event: MouseEvent) => void' },
-				category: 'Eventos',
-			},
-		},
-	},
+      },
+      variants: {
+        variant: ['primary', 'secondary'],
+        size: ['xs', 'sm', 'md', 'lg', 'xl'],
+        iconStyle: ['regular', 'solid'],
+        disabled: [true, false],
+      },
+      events: {
+        onClick: {
+          type: 'MouseEvent',
+          description: 'Emitted when button is clicked',
+        },
+      },
+      // ⭐ CAMPOS ADICIONALES PARA PERFECCIÓN AUTORUN
+      storybook: {
+        canonicalStoryId: 'basicos-buttonai--implementation',
+        storiesByExample: {
+          canonical: 'basicos-buttonai--implementation',
+          basic: 'basicos-buttonai--default',
+          withIcon: 'basicos-buttonai--with-icon',
+          secondary: 'basicos-buttonai--secondary',
+          disabled: 'basicos-buttonai--disabled',
+        },
+      },
+      intents: {
+        'button.ai': 'canonical',
+        'button.gradient': 'canonical',
+        'button.basic': 'canonical',
+        'button.with-icon': 'withIcon',
+        'button.secondary': 'secondary',
+        'button.disabled': 'disabled',
+      },
+    }),
+  },
+  argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: ['primary', 'secondary'],
+      description: 'Variante del botón AI',
+      table: {
+        type: { summary: 'primary | secondary' },
+        defaultValue: { summary: 'primary' },
+        category: 'Apariencia',
+      },
+    },
+    size: {
+      control: { type: 'select' },
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
+      description: 'Tamaño del botón',
+      table: {
+        type: { summary: 'xs | sm | md | lg | xl' },
+        defaultValue: { summary: 'md' },
+        category: 'Apariencia',
+      },
+    },
+    text: {
+      control: { type: 'text' },
+      description: 'Texto del botón',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'Button text' },
+        category: 'Contenido',
+      },
+    },
+    icon: {
+      control: { type: 'text' },
+      description: 'Nombre del icono FontAwesome (sin prefijo fa-)',
+      table: {
+        type: { summary: 'string' },
+        example: { summary: 'sparkles, check, plus, etc.' },
+        category: 'Contenido',
+      },
+    },
+    iconStyle: {
+      control: { type: 'select' },
+      options: ['regular', 'solid'],
+      description: 'Estilo del icono FontAwesome',
+      table: {
+        type: { summary: 'regular | solid' },
+        defaultValue: { summary: 'regular' },
+        category: 'Contenido',
+      },
+    },
+    iconOnly: {
+      control: { type: 'boolean' },
+      description: 'Mostrar solo el icono, sin texto',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+        category: 'Apariencia',
+      },
+    },
+    disabled: {
+      control: { type: 'boolean' },
+      description: 'Deshabilitar el botón',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+        category: 'Estado',
+      },
+    },
+    badge: {
+      control: { type: 'boolean' },
+      description: 'Mostrar badge de notificación',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+        category: 'Apariencia',
+      },
+    },
+    active: {
+      control: { type: 'boolean' },
+      description: 'Modificador active/outline',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+        category: 'Estado',
+      },
+    },
+    className: {
+      control: { type: 'text' },
+      description: 'Clase CSS adicional',
+      table: {
+        type: { summary: 'string' },
+        category: 'Configuración',
+      },
+    },
+    onClick: {
+      control: false,
+      description: 'Handler de click',
+      table: {
+        type: { summary: '(event: MouseEvent) => void' },
+        category: 'Eventos',
+      },
+    },
+  },
 };
 
 export default meta;
@@ -231,20 +231,20 @@ type Story = StoryObj<ButtonAIOptions>;
  * Esta story proporciona un snippet exacto y funcional que Autorun puede copiar/pegar
  */
 export const Implementation: Story = {
-	name: 'Implementation (Copy/Paste)',
-	args: {
-		variant: 'primary',
-		size: 'md',
-		text: 'AI button',
-		icon: 'sparkles',
-		iconStyle: 'regular',
-		iconOnly: false,
-		disabled: false,
-		badge: false,
-		active: false,
-	},
-	parameters: {
-		docs: {
+  name: 'Implementation (Copy/Paste)',
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'AI button',
+    icon: 'sparkles',
+    iconStyle: 'regular',
+    iconOnly: false,
+    disabled: false,
+    badge: false,
+    active: false,
+  },
+  parameters: {
+    docs: {
       source: {
         // ⭐ SNIPPET EXACTO para Autorun
         
@@ -300,12 +300,12 @@ if (container) {
 }`,
       },
     },
-	},
-	render: (args) => {
-		const container = document.createElement('div');
-		container.setAttribute('data-ubits-id', '🧩-ux-button-ai');
-		container.setAttribute('data-ubits-component', 'ButtonAI');
-		container.style.cssText = `
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.setAttribute('data-ubits-id', '🧩-ux-button-ai');
+    container.setAttribute('data-ubits-component', 'ButtonAI');
+    container.style.cssText = `
       display: flex;
       align-items: center;
       justify-content: center;
@@ -315,50 +315,50 @@ if (container) {
       border-radius: 8px;
     `;
 
-		requestAnimationFrame(() => {
-			try {
-				const button = createButtonAI({
-					...args,
-					onClick: args.onClick || (() => {
-						console.log('Button AI clicked');
-					}),
-				});
+    requestAnimationFrame(() => {
+      try {
+        const button = createButtonAI({
+          ...args,
+          onClick: args.onClick || (() => {
+            console.log('Button AI clicked');
+          }),
+        });
 
-				if (button) {
-					container.appendChild(button);
-				} else {
-					// Fallback: usar renderButtonAI
-					const buttonHTML = renderButtonAI(args);
-					container.innerHTML = buttonHTML;
-				}
-			} catch (error) {
-				console.error('Error creando ButtonAI:', error);
-				const errorDiv = document.createElement('div');
-				errorDiv.textContent = `Error: ${error}`;
-				errorDiv.style.color = 'red';
-				container.appendChild(errorDiv);
-			}
-		});
+        if (button) {
+          container.appendChild(button);
+        } else {
+          // Fallback: usar renderButtonAI
+          const buttonHTML = renderButtonAI(args);
+          container.innerHTML = buttonHTML;
+        }
+      } catch (error) {
+        console.error('Error creando ButtonAI:', error);
+        const errorDiv = document.createElement('div');
+        errorDiv.textContent = `Error: ${error}`;
+        errorDiv.style.color = 'red';
+        container.appendChild(errorDiv);
+      }
+    });
 
-		return container;
-	},
+    return container;
+  },
 };
 
 export const Default: Story = {
-	args: {
-		variant: 'primary',
-		size: 'md',
-		text: 'AI button',
-		icon: 'sparkles',
-		iconStyle: 'regular',
-		iconOnly: false,
-		disabled: false,
-		badge: false,
-		active: false,
-	},
-	render: (args) => {
-		const container = document.createElement('div');
-		container.style.cssText = `
+  args: {
+    variant: 'primary',
+    size: 'md',
+    text: 'AI button',
+    icon: 'sparkles',
+    iconStyle: 'regular',
+    iconOnly: false,
+    disabled: false,
+    badge: false,
+    active: false,
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.cssText = `
       display: flex;
       align-items: center;
       justify-content: center;
@@ -368,24 +368,24 @@ export const Default: Story = {
       border-radius: 8px;
     `;
 
-		requestAnimationFrame(() => {
-			try {
-				const button = createButtonAI({
-					...args,
-					onClick: (e) => {
-						// Button AI clicked
-					},
-				});
+    requestAnimationFrame(() => {
+      try {
+        const button = createButtonAI({
+          ...args,
+          onClick: (e) => {
+            // Button AI clicked
+          },
+        });
 
-				if (button) {
-					container.appendChild(button);
-				}
-			} catch (error) {
-				console.error('Error creating ButtonAI:', error);
-				container.innerHTML = `<div style="color: var(--modifiers-normal-color-light-feedback-fg-error-subtle-default); padding: 16px;">Error: ${error instanceof Error ? error.message : String(error)}</div>`;
-			}
-		});
+        if (button) {
+          container.appendChild(button);
+        }
+      } catch (error) {
+        console.error('Error creating ButtonAI:', error);
+        container.innerHTML = `<div style="color: var(--modifiers-normal-color-light-feedback-fg-error-subtle-default); padding: 16px;">Error: ${error instanceof Error ? error.message : String(error)}</div>`;
+      }
+    });
 
-		return container;
-	},
+    return container;
+  },
 };

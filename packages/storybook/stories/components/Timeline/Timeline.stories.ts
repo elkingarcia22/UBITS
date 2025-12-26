@@ -6,163 +6,163 @@ import { createUBITSContract } from '../../_shared/ubitsContract';
 import '../../../components/avatar/src/styles/avatar.css';
 
 interface TimelineItem {
-	date?: string;
-	title: string;
-	description?: string;
-	state: 'default' | 'filled';
-	avatar?: {
-		imageUrl?: string;
-		initials?: string;
-		icon?: string;
-	};
-	icon?: string;
+  date?: string;
+  title: string;
+  description?: string;
+  state: 'default' | 'filled';
+  avatar?: {
+    imageUrl?: string;
+    initials?: string;
+    icon?: string;
+  };
+  icon?: string;
 }
 
 const meta: Meta<{
-	showAvatar?: boolean;
-	showDate?: boolean;
-	showDescription?: boolean;
-	showIcon?: boolean;
-	alignment?: 'left' | 'center';
-	filledItems?: number;
+  showAvatar?: boolean;
+  showDate?: boolean;
+  showDescription?: boolean;
+  showIcon?: boolean;
+  alignment?: 'left' | 'center';
+  filledItems?: number;
 }> = {
-	title: 'Layout/Timeline',
-	tags: ['autodocs'],
-	parameters: {
-		docs: {
-			codePanel: true,
-			description: {
-				component:
-					'Componente Timeline UBITS para mostrar secuencias de eventos o fases. Soporta avatar, fecha, título, descripción, iconos y alineación izquierda o centrada. Usa tokens UBITS.',
-			},
-		},
-		ubits: createUBITSContract({
-			componentId: '🧩-ux-timeline',
-			api: {
-				create: 'window.UBITS.Timeline.create',
-				tag: '<ubits-timeline>',
-			},
-			dependsOn: {
-				required: [],
-				optional: [
-					'🧩-ux-avatar', // Avatar opcional cuando showAvatar es true
-				],
-			},
-			internals: [],
-			slots: {},
-			tokensUsed: [
-				'--modifiers-normal-color-light-bg-1',
-				'--modifiers-normal-color-light-bg-2',
-				'--modifiers-normal-color-light-fg-1-high',
-				'--modifiers-normal-color-light-fg-1-medium',
-				'--modifiers-normal-color-light-fg-bold',
-				'--modifiers-static-color-light-fg-1-medium',
-				'--modifiers-normal-color-light-border-1',
-				'--modifiers-normal-body-md-regular-fontsize',
-				'--modifiers-normal-body-md-regular-lineheight',
-				'--modifiers-normal-body-md-semibold-fontweight',
-				'--modifiers-normal-body-sm-regular-fontsize',
-				'--modifiers-normal-body-sm-regular-lineheight',
-				'--ubits-border-radius-full',
-				'--ubits-border-radius-md',
-				'--font-family-noto-sans-font-family',
-				'--weight-regular',
-				'--weight-semibold',
-				'--p-spacing-mode-1-sm',
-				'--p-spacing-mode-1-md',
-				'--p-spacing-mode-1-lg',
-				'--p-spacing-mode-1-xl',
-			],
-			rules: {
-				forbidHardcodedColors: true,
-				forbiddenPatterns: ['rgb(', 'hsl(', '#'],
-				requiredProps: [],
-			},
-			// ⭐ CAMPOS EXTENDIDOS
-			examples: {
-				canonical: "window.UBITS.Timeline.create({\n  items: [\n    {\n      date: 'Mar 15, 2024',\n      title: 'Project Kickoff',\n      description: 'Initial team meeting and project scope definition.',\n      state: 'filled',\n      icon: 'circle'\n    },\n    {\n      date: 'Mar 22, 2024',\n      title: 'Design Phase',\n      description: 'Completed wireframes and user interface mockups.',\n      state: 'filled',\n      icon: 'paint-brush'\n    }\n  ],\n  alignment: 'left',\n  showAvatar: false,\n  showDate: true,\n  showDescription: true,\n  showIcon: true\n});",
-				basic: "window.UBITS.Timeline.create({\n  items: [\n    {\n      title: 'Event Title',\n      description: 'Event description',\n      state: 'default'\n    }\n  ],\n  alignment: 'left'\n});",
-			},
-			variants: {
-				alignment: ['left', 'center'],
-				showAvatar: [true, false],
-				showDate: [true, false],
-				showDescription: [true, false],
-				showIcon: [true, false],
-			},
-			events: {},
-			// ⭐ CAMPOS ADICIONALES PARA PERFECCIÓN AUTORUN
-			storybook: {
-				canonicalStoryId: 'layout-timeline--implementation',
-				storiesByExample: {
-					canonical: 'layout-timeline--implementation',
-					basic: 'layout-timeline--default',
-				},
-			},
-			intents: {
-				'timeline.events': 'canonical',
-				'timeline.sequence': 'canonical',
-				'timeline.basic': 'canonical',
-			},
-		}),
-	},
-	argTypes: {
-		showAvatar: {
-			control: { type: 'boolean' },
-			description: 'Mostrar avatar en cada item del timeline (mutuamente excluyente con icono)',
-			table: {
-				defaultValue: { summary: 'false' },
-				type: { summary: 'boolean' },
-				category: 'Apariencia',
-			},
-		},
-		showDate: {
-			control: { type: 'boolean' },
-			description: 'Mostrar fecha en cada item',
-			table: {
-				defaultValue: { summary: 'true' },
-				type: { summary: 'boolean' },
-				category: 'Contenido',
-			},
-		},
-		showDescription: {
-			control: { type: 'boolean' },
-			description: 'Mostrar descripción en cada item',
-			table: {
-				defaultValue: { summary: 'true' },
-				type: { summary: 'boolean' },
-				category: 'Contenido',
-			},
-		},
-		showIcon: {
-			control: { type: 'boolean' },
-			description: 'Mostrar icono en el marcador del timeline (mutuamente excluyente con avatar)',
-			table: {
-				defaultValue: { summary: 'true' },
-				type: { summary: 'boolean' },
-				category: 'Apariencia',
-			},
-		},
-		alignment: {
-			control: { type: 'select' },
-			options: ['left', 'center'],
-			description: 'Alineación del contenido del texto (la línea siempre está a la izquierda)',
-			table: {
-				defaultValue: { summary: 'left' },
-				type: { summary: 'left | center' },
-				category: 'Layout',
-			},
-		},
-		filledItems: {
-			control: { type: 'number', min: 0, max: 4, step: 1 },
-			description: 'Cantidad de items con círculo relleno (0-4)',
-			table: {
-				defaultValue: { summary: '2' },
-				type: { summary: 'number' },
-				category: 'Estado',
-			},
-		},
-	},
+  title: 'Layout/Timeline',
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      codePanel: true,
+      description: {
+        component:
+          'Componente Timeline UBITS para mostrar secuencias de eventos o fases. Soporta avatar, fecha, título, descripción, iconos y alineación izquierda o centrada. Usa tokens UBITS.',
+      },
+    },
+    ubits: createUBITSContract({
+      componentId: '🧩-ux-timeline',
+      api: {
+        create: 'window.UBITS.Timeline.create',
+        tag: '<ubits-timeline>',
+      },
+      dependsOn: {
+        required: [],
+        optional: [
+          '🧩-ux-avatar', // Avatar opcional cuando showAvatar es true
+        ],
+      },
+      internals: [],
+      slots: {},
+      tokensUsed: [
+        '--modifiers-normal-color-light-bg-1',
+        '--modifiers-normal-color-light-bg-2',
+        '--modifiers-normal-color-light-fg-1-high',
+        '--modifiers-normal-color-light-fg-1-medium',
+        '--modifiers-normal-color-light-fg-bold',
+        '--modifiers-static-color-light-fg-1-medium',
+        '--modifiers-normal-color-light-border-1',
+        '--modifiers-normal-body-md-regular-fontsize',
+        '--modifiers-normal-body-md-regular-lineheight',
+        '--modifiers-normal-body-md-semibold-fontweight',
+        '--modifiers-normal-body-sm-regular-fontsize',
+        '--modifiers-normal-body-sm-regular-lineheight',
+        '--ubits-border-radius-full',
+        '--ubits-border-radius-md',
+        '--font-family-noto-sans-font-family',
+        '--weight-regular',
+        '--weight-semibold',
+        '--p-spacing-mode-1-sm',
+        '--p-spacing-mode-1-md',
+        '--p-spacing-mode-1-lg',
+        '--p-spacing-mode-1-xl',
+      ],
+      rules: {
+        forbidHardcodedColors: true,
+        forbiddenPatterns: ['rgb(', 'hsl(', '#'],
+        requiredProps: [],
+      },
+      // ⭐ CAMPOS EXTENDIDOS
+      examples: {
+        canonical: "window.UBITS.Timeline.create({\n  items: [\n    {\n      date: 'Mar 15, 2024',\n      title: 'Project Kickoff',\n      description: 'Initial team meeting and project scope definition.',\n      state: 'filled',\n      icon: 'circle'\n    },\n    {\n      date: 'Mar 22, 2024',\n      title: 'Design Phase',\n      description: 'Completed wireframes and user interface mockups.',\n      state: 'filled',\n      icon: 'paint-brush'\n    }\n  ],\n  alignment: 'left',\n  showAvatar: false,\n  showDate: true,\n  showDescription: true,\n  showIcon: true\n});",
+        basic: "window.UBITS.Timeline.create({\n  items: [\n    {\n      title: 'Event Title',\n      description: 'Event description',\n      state: 'default'\n    }\n  ],\n  alignment: 'left'\n});",
+      },
+      variants: {
+        alignment: ['left', 'center'],
+        showAvatar: [true, false],
+        showDate: [true, false],
+        showDescription: [true, false],
+        showIcon: [true, false],
+      },
+      events: {},
+      // ⭐ CAMPOS ADICIONALES PARA PERFECCIÓN AUTORUN
+      storybook: {
+        canonicalStoryId: 'layout-timeline--implementation',
+        storiesByExample: {
+          canonical: 'layout-timeline--implementation',
+          basic: 'layout-timeline--default',
+        },
+      },
+      intents: {
+        'timeline.events': 'canonical',
+        'timeline.sequence': 'canonical',
+        'timeline.basic': 'canonical',
+      },
+    }),
+  },
+  argTypes: {
+    showAvatar: {
+      control: { type: 'boolean' },
+      description: 'Mostrar avatar en cada item del timeline (mutuamente excluyente con icono)',
+      table: {
+        defaultValue: { summary: 'false' },
+        type: { summary: 'boolean' },
+        category: 'Apariencia',
+      },
+    },
+    showDate: {
+      control: { type: 'boolean' },
+      description: 'Mostrar fecha en cada item',
+      table: {
+        defaultValue: { summary: 'true' },
+        type: { summary: 'boolean' },
+        category: 'Contenido',
+      },
+    },
+    showDescription: {
+      control: { type: 'boolean' },
+      description: 'Mostrar descripción en cada item',
+      table: {
+        defaultValue: { summary: 'true' },
+        type: { summary: 'boolean' },
+        category: 'Contenido',
+      },
+    },
+    showIcon: {
+      control: { type: 'boolean' },
+      description: 'Mostrar icono en el marcador del timeline (mutuamente excluyente con avatar)',
+      table: {
+        defaultValue: { summary: 'true' },
+        type: { summary: 'boolean' },
+        category: 'Apariencia',
+      },
+    },
+    alignment: {
+      control: { type: 'select' },
+      options: ['left', 'center'],
+      description: 'Alineación del contenido del texto (la línea siempre está a la izquierda)',
+      table: {
+        defaultValue: { summary: 'left' },
+        type: { summary: 'left | center' },
+        category: 'Layout',
+      },
+    },
+    filledItems: {
+      control: { type: 'number', min: 0, max: 4, step: 1 },
+      description: 'Cantidad de items con círculo relleno (0-4)',
+      table: {
+        defaultValue: { summary: '2' },
+        type: { summary: 'number' },
+        category: 'Estado',
+      },
+    },
+  },
 };
 
 export default meta;
@@ -170,176 +170,176 @@ type Story = StoryObj<typeof meta>;
 
 // Función para renderizar icono FontAwesome
 function renderIcon(iconName: string, style: 'regular' | 'solid' = 'regular'): string {
-	const iconClass = style === 'solid' ? 'fas' : 'far';
-	return `<i class="${iconClass} fa-${iconName}"></i>`;
+  const iconClass = style === 'solid' ? 'fas' : 'far';
+  return `<i class="${iconClass} fa-${iconName}"></i>`;
 }
 
 // Función para generar datos de ejemplo
 function generateTimelineData(filledItems: number = 2): TimelineItem[] {
-	return [
-		{
-			date: 'Mar 15, 2024',
-			title: 'Project Kickoff',
-			description:
-				'Initial team meeting and project scope definition. Established key milestones and resource allocation.',
-			state: filledItems > 0 ? 'filled' : 'default',
-			avatar: {
-				imageUrl: '/images/Profile-image.jpg',
-			},
-			icon: 'circle',
-		},
-		{
-			date: 'Mar 22, 2024',
-			title: 'Design Phase',
-			description:
-				'Completed wireframes and user interface mockups. Stakeholder review and feedback incorporated.',
-			state: filledItems > 1 ? 'filled' : 'default',
-			avatar: {
-				imageUrl: '/images/Profile-image.jpg',
-			},
-			icon: 'paint-brush',
-		},
-		{
-			date: 'Apr 5, 2024',
-			title: 'Development Sprint',
-			description: 'Backend API implementation and frontend component development in progress.',
-			state: filledItems > 2 ? 'filled' : 'default',
-			avatar: {
-				imageUrl: '/images/Profile-image.jpg',
-			},
-			icon: 'code',
-		},
-		{
-			date: 'Apr 19, 2024',
-			title: 'Testing & Deployment',
-			description:
-				'Quality assurance testing, performance optimization, and production deployment preparation.',
-			state: filledItems > 3 ? 'filled' : 'default',
-			avatar: {
-				imageUrl: '/images/Profile-image.jpg',
-			},
-			icon: 'rocket',
-		},
-	];
+  return [
+    {
+      date: 'Mar 15, 2024',
+      title: 'Project Kickoff',
+      description:
+        'Initial team meeting and project scope definition. Established key milestones and resource allocation.',
+      state: filledItems > 0 ? 'filled' : 'default',
+      avatar: {
+        imageUrl: '/images/Profile-image.jpg',
+      },
+      icon: 'circle',
+    },
+    {
+      date: 'Mar 22, 2024',
+      title: 'Design Phase',
+      description:
+        'Completed wireframes and user interface mockups. Stakeholder review and feedback incorporated.',
+      state: filledItems > 1 ? 'filled' : 'default',
+      avatar: {
+        imageUrl: '/images/Profile-image.jpg',
+      },
+      icon: 'paint-brush',
+    },
+    {
+      date: 'Apr 5, 2024',
+      title: 'Development Sprint',
+      description: 'Backend API implementation and frontend component development in progress.',
+      state: filledItems > 2 ? 'filled' : 'default',
+      avatar: {
+        imageUrl: '/images/Profile-image.jpg',
+      },
+      icon: 'code',
+    },
+    {
+      date: 'Apr 19, 2024',
+      title: 'Testing & Deployment',
+      description:
+        'Quality assurance testing, performance optimization, and production deployment preparation.',
+      state: filledItems > 3 ? 'filled' : 'default',
+      avatar: {
+        imageUrl: '/images/Profile-image.jpg',
+      },
+      icon: 'rocket',
+    },
+  ];
 }
 
 // Función para renderizar un item del timeline
 function renderTimelineItem(
-	item: TimelineItem,
-	index: number,
-	isLast: boolean,
-	args: {
-		showAvatar?: boolean;
-		showDate?: boolean;
-		showDescription?: boolean;
-		showIcon?: boolean;
-		alignment?: 'left' | 'center';
-	},
+  item: TimelineItem,
+  index: number,
+  isLast: boolean,
+  args: {
+    showAvatar?: boolean;
+    showDate?: boolean;
+    showDescription?: boolean;
+    showIcon?: boolean;
+    alignment?: 'left' | 'center';
+  },
 ): string {
-	const {
-		showAvatar = false,
-		showDate = true,
-		showDescription = true,
-		showIcon = true,
-		alignment = 'left',
-	} = args;
+  const {
+    showAvatar = false,
+    showDate = true,
+    showDescription = true,
+    showIcon = true,
+    alignment = 'left',
+  } = args;
 
-	// Avatar e icono son mutuamente excluyentes
-	// Si showAvatar está activo, desactivar showIcon
-	// Si showIcon está activo, desactivar showAvatar
-	const useAvatar = showAvatar === true && showIcon !== true;
-	const useIcon = showIcon === true && showAvatar !== true;
+  // Avatar e icono son mutuamente excluyentes
+  // Si showAvatar está activo, desactivar showIcon
+  // Si showIcon está activo, desactivar showAvatar
+  const useAvatar = showAvatar === true && showIcon !== true;
+  const useIcon = showIcon === true && showAvatar !== true;
 
-	const isFilled = item.state === 'filled';
-	const isDefault = item.state === 'default';
+  const isFilled = item.state === 'filled';
+  const isDefault = item.state === 'default';
 
-	// Clases y estilos según estado
-	const markerClass = isFilled ? 'ubits-timeline-marker--filled' : 'ubits-timeline-marker--default';
+  // Clases y estilos según estado
+  const markerClass = isFilled ? 'ubits-timeline-marker--filled' : 'ubits-timeline-marker--default';
 
-	const markerColor = isFilled
-		? 'var(--modifiers-static-color-light-fg-1-medium)'
-		: 'var(--modifiers-normal-color-light-border-1)';
+  const markerColor = isFilled
+    ? 'var(--modifiers-static-color-light-fg-1-medium)'
+    : 'var(--modifiers-normal-color-light-border-1)';
 
-	// Avatar HTML (solo si showAvatar está activo y showIcon está desactivado)
-	let avatarHTML = '';
-	if (useAvatar && item.avatar) {
-		const avatarOptions: AvatarOptions = {
-			size: 'xs', // xs = 20px, pero el marcador es 24px, se ajustará con CSS
-			alt: item.title,
-		};
+  // Avatar HTML (solo si showAvatar está activo y showIcon está desactivado)
+  let avatarHTML = '';
+  if (useAvatar && item.avatar) {
+    const avatarOptions: AvatarOptions = {
+      size: 'xs', // xs = 20px, pero el marcador es 24px, se ajustará con CSS
+      alt: item.title,
+    };
 
-		if (item.avatar.imageUrl) {
-			avatarOptions.imageUrl = item.avatar.imageUrl;
-		} else if (item.avatar.initials) {
-			avatarOptions.initials = item.avatar.initials;
-		} else {
-			avatarOptions.icon = item.avatar.icon || 'user';
-		}
+    if (item.avatar.imageUrl) {
+      avatarOptions.imageUrl = item.avatar.imageUrl;
+    } else if (item.avatar.initials) {
+      avatarOptions.initials = item.avatar.initials;
+    } else {
+      avatarOptions.icon = item.avatar.icon || 'user';
+    }
 
-		avatarHTML = renderAvatar(avatarOptions);
-	}
+    avatarHTML = renderAvatar(avatarOptions);
+  }
 
-	// Icono del marcador (solo si showIcon está activo y showAvatar está desactivado)
-	let markerIconHTML = '';
-	if (useIcon) {
-		// Si el item tiene un icono específico, usarlo; si no, usar un icono por defecto
-		const iconName = item.icon || 'circle';
-		// El color se maneja con CSS según el estado del marcador
-		markerIconHTML = `
+  // Icono del marcador (solo si showIcon está activo y showAvatar está desactivado)
+  let markerIconHTML = '';
+  if (useIcon) {
+    // Si el item tiene un icono específico, usarlo; si no, usar un icono por defecto
+    const iconName = item.icon || 'circle';
+    // El color se maneja con CSS según el estado del marcador
+    markerIconHTML = `
       <span class="ubits-timeline-marker__icon">
         ${renderIcon(iconName, 'solid')}
       </span>
     `;
-	}
+  }
 
-	// Contenido del item
-	const isCentered = alignment === 'center';
-	const isEven = index % 2 === 0;
-	const contentSide = isCentered ? (isEven ? 'left' : 'right') : 'left';
-	const contentAlignment = isCentered ? 'flex-start' : 'flex-start';
-	const textAlignment = 'left';
+  // Contenido del item
+  const isCentered = alignment === 'center';
+  const isEven = index % 2 === 0;
+  const contentSide = isCentered ? (isEven ? 'left' : 'right') : 'left';
+  const contentAlignment = isCentered ? 'flex-start' : 'flex-start';
+  const textAlignment = 'left';
 
-	// Si usa avatar, el avatar va en el marcador, no en el contenido
-	if (useAvatar && avatarHTML) {
-		const lineHTML = !isLast
-			? `
+  // Si usa avatar, el avatar va en el marcador, no en el contenido
+  if (useAvatar && avatarHTML) {
+    const lineHTML = !isLast
+      ? `
         <div class="ubits-timeline-line"></div>
       `
-			: '';
+      : '';
 
-		return `
+    return `
       <div class="ubits-timeline-item ${isCentered ? `ubits-timeline-item--${contentSide}` : ''}" data-index="${index}" data-state="${item.state}">
         ${
-					isCentered && contentSide === 'right'
-						? `
+          isCentered && contentSide === 'right'
+            ? `
           <div class="ubits-timeline-item__content">
             <div class="ubits-timeline-item__text">
               ${
-								showDate && item.date
-									? `
+                showDate && item.date
+                  ? `
                 <div class="ubits-timeline-item__date ubits-body-sm-regular">
                   ${item.date}
                 </div>
               `
-									: ''
-							}
+                  : ''
+              }
               <div class="ubits-timeline-item__title ubits-body-md-semibold">
                 ${item.title}
               </div>
               ${
-								showDescription && item.description
-									? `
+                showDescription && item.description
+                  ? `
                 <div class="ubits-timeline-item__description ubits-body-sm-regular">
                   ${item.description}
                 </div>
               `
-									: ''
-							}
+                  : ''
+              }
             </div>
           </div>
         `
-						: ''
-				}
+            : ''
+        }
         <div class="ubits-timeline-item__marker-container">
           <div class="ubits-timeline-marker ubits-timeline-marker--avatar">
             ${avatarHTML}
@@ -347,110 +347,110 @@ function renderTimelineItem(
         </div>
         ${lineHTML}
         ${
-					isCentered && contentSide === 'left'
-						? `
+          isCentered && contentSide === 'left'
+            ? `
           <div class="ubits-timeline-item__content">
             <div class="ubits-timeline-item__text">
               ${
-								showDate && item.date
-									? `
+                showDate && item.date
+                  ? `
                 <div class="ubits-timeline-item__date ubits-body-sm-regular">
                   ${item.date}
                 </div>
               `
-									: ''
-							}
+                  : ''
+              }
               <div class="ubits-timeline-item__title ubits-body-md-semibold">
                 ${item.title}
               </div>
               ${
-								showDescription && item.description
-									? `
+                showDescription && item.description
+                  ? `
                 <div class="ubits-timeline-item__description ubits-body-sm-regular">
                   ${item.description}
                 </div>
               `
-									: ''
-							}
+                  : ''
+              }
             </div>
           </div>
         `
-						: !isCentered
-							? `
+            : !isCentered
+              ? `
           <div class="ubits-timeline-item__content">
             <div class="ubits-timeline-item__text">
               ${
-								showDate && item.date
-									? `
+                showDate && item.date
+                  ? `
                 <div class="ubits-timeline-item__date ubits-body-sm-regular">
                   ${item.date}
                 </div>
               `
-									: ''
-							}
+                  : ''
+              }
               <div class="ubits-timeline-item__title ubits-body-md-semibold">
                 ${item.title}
               </div>
               ${
-								showDescription && item.description
-									? `
+                showDescription && item.description
+                  ? `
                 <div class="ubits-timeline-item__description ubits-body-sm-regular">
                   ${item.description}
                 </div>
               `
-									: ''
-							}
+                  : ''
+              }
             </div>
           </div>
         `
-							: ''
-				}
+              : ''
+        }
       </div>
     `;
-	}
+  }
 
-	// Si usa icono, el icono va en el marcador
-	const markerBackground = isFilled ? markerColor : 'var(--modifiers-normal-color-light-bg-1)';
+  // Si usa icono, el icono va en el marcador
+  const markerBackground = isFilled ? markerColor : 'var(--modifiers-normal-color-light-bg-1)';
 
-	const lineHTML = !isLast
-		? `
+  const lineHTML = !isLast
+    ? `
         <div class="ubits-timeline-line"></div>
       `
-		: '';
+    : '';
 
-	return `
+  return `
     <div class="ubits-timeline-item ${isCentered ? `ubits-timeline-item--${contentSide}` : ''}" data-index="${index}" data-state="${item.state}">
       ${
-				isCentered && contentSide === 'right'
-					? `
+        isCentered && contentSide === 'right'
+          ? `
         <div class="ubits-timeline-item__content">
           <div class="ubits-timeline-item__text">
             ${
-							showDate && item.date
-								? `
+              showDate && item.date
+                ? `
               <div class="ubits-timeline-item__date ubits-body-sm-regular">
                 ${item.date}
               </div>
             `
-								: ''
-						}
+                : ''
+            }
             <div class="ubits-timeline-item__title ubits-body-md-semibold">
               ${item.title}
             </div>
             ${
-							showDescription && item.description
-								? `
+              showDescription && item.description
+                ? `
               <div class="ubits-timeline-item__description ubits-body-sm-regular">
                 ${item.description}
               </div>
             `
-								: ''
-						}
+                : ''
+            }
           </div>
         </div>
       `
-					: ''
-			}
+          : ''
+      }
       <div class="ubits-timeline-item__marker-container">
         <div class="ubits-timeline-marker ${markerClass}" style="border-color: ${markerColor}; background-color: ${markerBackground}; border-radius: var(--ubits-border-radius-full, 50%) !important;">
           ${markerIconHTML}
@@ -458,102 +458,102 @@ function renderTimelineItem(
       </div>
       ${lineHTML}
       ${
-				isCentered && contentSide === 'left'
-					? `
+        isCentered && contentSide === 'left'
+          ? `
         <div class="ubits-timeline-item__content">
           <div class="ubits-timeline-item__text">
             ${
-							showDate && item.date
-								? `
+              showDate && item.date
+                ? `
               <div class="ubits-timeline-item__date ubits-body-sm-regular">
                 ${item.date}
               </div>
             `
-								: ''
-						}
+                : ''
+            }
             <div class="ubits-timeline-item__title ubits-body-md-semibold">
               ${item.title}
             </div>
             ${
-							showDescription && item.description
-								? `
+              showDescription && item.description
+                ? `
               <div class="ubits-timeline-item__description ubits-body-sm-regular">
                 ${item.description}
               </div>
             `
-								: ''
-						}
+                : ''
+            }
           </div>
         </div>
       `
-					: !isCentered
-						? `
+          : !isCentered
+            ? `
         <div class="ubits-timeline-item__content">
           <div class="ubits-timeline-item__text">
             ${
-							showDate && item.date
-								? `
+              showDate && item.date
+                ? `
               <div class="ubits-timeline-item__date ubits-body-sm-regular">
                 ${item.date}
               </div>
             `
-								: ''
-						}
+                : ''
+            }
             <div class="ubits-timeline-item__title ubits-body-md-semibold">
               ${item.title}
             </div>
             ${
-							showDescription && item.description
-								? `
+              showDescription && item.description
+                ? `
               <div class="ubits-timeline-item__description ubits-body-sm-regular">
                 ${item.description}
               </div>
             `
-								: ''
-						}
+                : ''
+            }
           </div>
         </div>
       `
-						: ''
-			}
+            : ''
+      }
     </div>
   `;
 }
 
 // Función para renderizar el timeline completo
 function renderTimeline(args: {
-	showAvatar?: boolean;
-	showDate?: boolean;
-	showDescription?: boolean;
-	showIcon?: boolean;
-	alignment?: 'left' | 'center';
-	filledItems?: number;
+  showAvatar?: boolean;
+  showDate?: boolean;
+  showDescription?: boolean;
+  showIcon?: boolean;
+  alignment?: 'left' | 'center';
+  filledItems?: number;
 }): string {
-	const {
-		showAvatar = false,
-		showDate = true,
-		showDescription = true,
-		showIcon = true,
-		alignment = 'left',
-		filledItems = 2,
-	} = args;
+  const {
+    showAvatar = false,
+    showDate = true,
+    showDescription = true,
+    showIcon = true,
+    alignment = 'left',
+    filledItems = 2,
+  } = args;
 
-	const timelineData = generateTimelineData(filledItems);
-	const uniqueId = `timeline-${Date.now()}`;
+  const timelineData = generateTimelineData(filledItems);
+  const uniqueId = `timeline-${Date.now()}`;
 
-	const alignmentClass = alignment === 'center' ? 'ubits-timeline--center' : 'ubits-timeline--left';
+  const alignmentClass = alignment === 'center' ? 'ubits-timeline--center' : 'ubits-timeline--left';
 
-	const timelineHTML = `
+  const timelineHTML = `
     <div class="ubits-timeline ${alignmentClass}" id="${uniqueId}" data-ubits-id="🧩-ux-timeline">
       ${timelineData
-				.map((item, index) =>
-					renderTimelineItem(item, index, index === timelineData.length - 1, args),
-				)
-				.join('')}
+        .map((item, index) =>
+          renderTimelineItem(item, index, index === timelineData.length - 1, args),
+        )
+        .join('')}
     </div>
   `;
 
-	return timelineHTML;
+  return timelineHTML;
 }
 
 /**
@@ -564,17 +564,17 @@ function renderTimeline(args: {
  * Este snippet muestra cómo implementar Timeline usando Avatar como dependencia opcional.
  */
 export const Implementation: Story = {
-	name: 'Implementation (Copy/Paste)',
-	args: {
-		showAvatar: false,
-		showDate: true,
-		showDescription: true,
-		showIcon: true,
-		alignment: 'left',
-		filledItems: 2,
-	},
-	parameters: {
-		docs: {
+  name: 'Implementation (Copy/Paste)',
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 2,
+  },
+  parameters: {
+    docs: {
       source: {
         // ⭐ SNIPPET EXACTO para Autorun
         
@@ -641,44 +641,44 @@ const avatarHTMLExample = window.UBITS.Avatar.render({
 // Nota: Timeline requiere CSS personalizado. Ver estilos en el archivo Timeline.stories.ts`,
       },
     },
-	},
-	render: (args) => {
-		// Asegurar que avatar e icono sean mutuamente excluyentes
-		if (args.showAvatar === true) {
-			args.showIcon = false;
-		}
-		if (args.showIcon === true) {
-			args.showAvatar = false;
-		}
+  },
+  render: (args) => {
+    // Asegurar que avatar e icono sean mutuamente excluyentes
+    if (args.showAvatar === true) {
+      args.showIcon = false;
+    }
+    if (args.showIcon === true) {
+      args.showAvatar = false;
+    }
 
-		const container = document.createElement('div');
-		container.setAttribute('data-ubits-id', '🧩-ux-timeline');
-		container.setAttribute('data-ubits-component', 'Timeline');
-		container.style.cssText = `
+    const container = document.createElement('div');
+    container.setAttribute('data-ubits-id', '🧩-ux-timeline');
+    container.setAttribute('data-ubits-component', 'Timeline');
+    container.style.cssText = `
       padding: var(--p-spacing-mode-1-lg, 16px);
       background: var(--modifiers-normal-color-light-bg-2);
       border-radius: var(--ubits-border-radius-md, 8px);
       max-width: 800px;
     `;
 
-		// Contenedor del timeline
-		const timelineContainer = document.createElement('div');
-		timelineContainer.style.cssText = `
+    // Contenedor del timeline
+    const timelineContainer = document.createElement('div');
+    timelineContainer.style.cssText = `
       background: var(--modifiers-normal-color-light-bg-1);
       border-radius: var(--ubits-border-radius-md, 8px);
       padding: var(--p-spacing-mode-1-lg, 16px);
     `;
 
-		// Renderizar el timeline
-		const timelineHTML = renderTimeline(args);
-		timelineContainer.innerHTML = timelineHTML;
+    // Renderizar el timeline
+    const timelineHTML = renderTimeline(args);
+    timelineContainer.innerHTML = timelineHTML;
 
-		// Agregar estilos CSS para el Timeline (mismo código que en Default)
-		const styleId = 'ubits-timeline-styles';
-		if (!document.getElementById(styleId)) {
-			const style = document.createElement('style');
-			style.id = styleId;
-			style.textContent = `
+    // Agregar estilos CSS para el Timeline (mismo código que en Default)
+    const styleId = 'ubits-timeline-styles';
+    if (!document.getElementById(styleId)) {
+      const style = document.createElement('style');
+      style.id = styleId;
+      style.textContent = `
         .ubits-timeline {
           position: relative;
           display: flex;
@@ -1071,51 +1071,51 @@ const avatarHTMLExample = window.UBITS.Avatar.render({
           color: var(--modifiers-normal-color-dark-fg-1-medium);
         }
       `;
-			document.head.appendChild(style);
-		}
+      document.head.appendChild(style);
+    }
 
-		container.appendChild(timelineContainer);
-		return container;
-	},
+    container.appendChild(timelineContainer);
+    return container;
+  },
 };
 
 export const Default: Story = {
-	args: {
-		showAvatar: false,
-		showDate: true,
-		showDescription: true,
-		showIcon: true,
-		alignment: 'left',
-		filledItems: 2,
-	},
-	render: (args) => {
-		// Asegurar que avatar e icono sean mutuamente excluyentes
-		if (args.showAvatar === true) {
-			args.showIcon = false;
-		}
-		if (args.showIcon === true) {
-			args.showAvatar = false;
-		}
+  args: {
+    showAvatar: false,
+    showDate: true,
+    showDescription: true,
+    showIcon: true,
+    alignment: 'left',
+    filledItems: 2,
+  },
+  render: (args) => {
+    // Asegurar que avatar e icono sean mutuamente excluyentes
+    if (args.showAvatar === true) {
+      args.showIcon = false;
+    }
+    if (args.showIcon === true) {
+      args.showAvatar = false;
+    }
 
-		// Crear contenedor principal
-		const container = document.createElement('div');
-		container.style.cssText = `
+    // Crear contenedor principal
+    const container = document.createElement('div');
+    container.style.cssText = `
       padding: var(--p-spacing-mode-1-lg, 16px);
       background: var(--modifiers-normal-color-light-bg-2);
       border-radius: var(--ubits-border-radius-md, 8px);
       max-width: 800px;
     `;
 
-		// Panel de información
-		const infoPanel = document.createElement('div');
-		infoPanel.style.cssText = `
+    // Panel de información
+    const infoPanel = document.createElement('div');
+    infoPanel.style.cssText = `
       padding: var(--p-spacing-mode-1-md, 12px);
       background: var(--modifiers-normal-color-light-bg-2);
       border-radius: var(--ubits-border-radius-md, 8px);
       border: 1px solid var(--modifiers-normal-color-light-border-1);
       margin-bottom: var(--p-spacing-mode-1-lg, 16px);
     `;
-		infoPanel.innerHTML = `
+    infoPanel.innerHTML = `
         <div style="margin-bottom: var(--p-spacing-mode-1-sm, 8px);">
         <strong class="ubits-body-md-semibold" style="color: var(--modifiers-normal-color-light-fg-1-high);">Configuración:</strong>
       </div>
@@ -1129,24 +1129,24 @@ export const Default: Story = {
       </div>
     `;
 
-		// Contenedor del timeline
-		const timelineContainer = document.createElement('div');
-		timelineContainer.style.cssText = `
+    // Contenedor del timeline
+    const timelineContainer = document.createElement('div');
+    timelineContainer.style.cssText = `
       background: var(--modifiers-normal-color-light-bg-1);
       border-radius: var(--ubits-border-radius-md, 8px);
       padding: var(--p-spacing-mode-1-lg, 16px);
     `;
 
-		// Renderizar el timeline
-		const timelineHTML = renderTimeline(args);
-		timelineContainer.innerHTML = timelineHTML;
+    // Renderizar el timeline
+    const timelineHTML = renderTimeline(args);
+    timelineContainer.innerHTML = timelineHTML;
 
-		// Agregar estilos CSS para el Timeline
-		const styleId = 'ubits-timeline-styles';
-		if (!document.getElementById(styleId)) {
-			const style = document.createElement('style');
-			style.id = styleId;
-			style.textContent = `
+    // Agregar estilos CSS para el Timeline
+    const styleId = 'ubits-timeline-styles';
+    if (!document.getElementById(styleId)) {
+      const style = document.createElement('style');
+      style.id = styleId;
+      style.textContent = `
         .ubits-timeline {
           position: relative;
           display: flex;
@@ -1539,176 +1539,176 @@ export const Default: Story = {
           color: var(--modifiers-normal-color-dark-fg-1-medium);
         }
       `;
-			document.head.appendChild(style);
-		}
+      document.head.appendChild(style);
+    }
 
-		// El CSS del avatar ya está cargado globalmente en preview.ts
-		container.appendChild(infoPanel);
-		container.appendChild(timelineContainer);
+    // El CSS del avatar ya está cargado globalmente en preview.ts
+    container.appendChild(infoPanel);
+    container.appendChild(timelineContainer);
 
-		return container;
-	},
+    return container;
+  },
 };
 
 // ⭐ API Helper para Autorun
 // Exponer función create para que pueda ser usada como window.UBITS.Timeline.create
 if (typeof window !== 'undefined' && window.UBITS) {
-	if (!window.UBITS.Timeline) {
-		window.UBITS.Timeline = {};
-	}
-	
-	/**
-	 * Crea un elemento Timeline
-	 * @param options Opciones del Timeline
-	 * @returns HTMLElement con el Timeline renderizado
-	 */
-	window.UBITS.Timeline.create = function(options: {
-		items: Array<{
-			date?: string;
-			title: string;
-			description?: string;
-			state?: 'default' | 'filled';
-			icon?: string;
-			avatar?: {
-				imageUrl?: string;
-				initials?: string;
-				icon?: string;
-			};
-		}>;
-		alignment?: 'left' | 'center';
-		showAvatar?: boolean;
-		showDate?: boolean;
-		showDescription?: boolean;
-		showIcon?: boolean;
-	}): HTMLElement {
-		const container = document.createElement('div');
-		container.setAttribute('data-ubits-id', '🧩-ux-timeline');
-		
-		const alignment = options.alignment || 'left';
-		const alignmentClass = alignment === 'center' ? 'ubits-timeline--center' : 'ubits-timeline--left';
-		const uniqueId = `timeline-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-		
-		// Convertir items a TimelineItem[]
-		const timelineItems: TimelineItem[] = options.items.map(item => ({
-			date: item.date,
-			title: item.title,
-			description: item.description,
-			state: item.state || 'default',
-			icon: item.icon,
-			avatar: item.avatar,
-		}));
-		
-		// Renderizar cada item
-		const itemsHTML = timelineItems.map((item, index) => {
-			return renderTimelineItem(item, index, index === timelineItems.length - 1, {
-				showAvatar: options.showAvatar ?? false,
-				showDate: options.showDate ?? true,
-				showDescription: options.showDescription ?? true,
-				showIcon: options.showIcon ?? true,
-				alignment: alignment,
-			});
-		}).join('');
-		
-		const timelineHTML = `
-			<div class="ubits-timeline ${alignmentClass}" id="${uniqueId}" data-ubits-id="🧩-ux-timeline">
-				${itemsHTML}
-			</div>
-		`;
-		
-		container.innerHTML = timelineHTML;
-		
-		// Agregar estilos CSS si no existen
-		const styleId = 'ubits-timeline-styles';
-		if (!document.getElementById(styleId)) {
-			const style = document.createElement('style');
-			style.id = styleId;
-			style.textContent = `
-				.ubits-timeline {
-					display: flex;
-					flex-direction: column;
-					gap: 0;
-					position: relative;
-				}
-				.ubits-timeline--left {
-					align-items: flex-start;
-				}
-				.ubits-timeline--center {
-					align-items: center;
-				}
-				.ubits-timeline-item {
-					display: flex;
-					align-items: flex-start;
-					position: relative;
-					width: 100%;
-				}
-				.ubits-timeline-item__marker-container {
-					position: relative;
-					z-index: 2;
-					flex-shrink: 0;
-				}
-				.ubits-timeline-marker {
-					width: 24px;
-					height: 24px;
-					border-radius: var(--ubits-border-radius-full, 50%);
-					border: 2px solid var(--modifiers-normal-color-light-border-1);
-					background-color: var(--modifiers-normal-color-light-bg-1);
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					position: relative;
-				}
-				.ubits-timeline-marker--filled {
-					border-color: var(--modifiers-static-color-light-fg-1-medium);
-					background-color: var(--modifiers-static-color-light-fg-1-medium);
-				}
-				.ubits-timeline-marker__icon {
-					font-size: 10px;
-					color: var(--modifiers-normal-color-light-fg-1-high);
-				}
-				.ubits-timeline-line {
-					position: absolute;
-					left: 11px;
-					top: 24px;
-					width: 2px;
-					height: calc(100% - 24px);
-					background-color: var(--modifiers-normal-color-light-border-1);
-				}
-				.ubits-timeline-item:last-child .ubits-timeline-line {
-					display: none;
-				}
-				.ubits-timeline-item__content {
-					margin-left: var(--p-spacing-mode-1-md, 12px);
-					flex: 1;
-					padding-bottom: var(--p-spacing-mode-1-lg, 16px);
-				}
-				.ubits-timeline-item__text {
-					display: flex;
-					flex-direction: column;
-					gap: var(--p-spacing-mode-1-sm, 4px);
-				}
-				.ubits-timeline-item__date {
-					font-size: var(--modifiers-normal-body-sm-regular-fontsize, 12px);
-					line-height: var(--modifiers-normal-body-sm-regular-lineheight, 16px);
-					color: var(--modifiers-normal-color-light-fg-1-medium);
-					font-weight: var(--weight-regular, 400);
-				}
-				.ubits-timeline-item__title {
-					font-size: var(--modifiers-normal-body-md-regular-fontsize, 14px);
-					line-height: var(--modifiers-normal-body-md-regular-lineheight, 20px);
-					font-weight: var(--modifiers-normal-body-md-semibold-fontweight, 600);
-					color: var(--modifiers-normal-color-light-fg-1-high);
-				}
-				.ubits-timeline-item__description {
-					font-size: var(--modifiers-normal-body-sm-regular-fontsize, 12px);
-					line-height: var(--modifiers-normal-body-sm-regular-lineheight, 16px);
-					color: var(--modifiers-normal-color-light-fg-1-medium);
-					font-weight: var(--weight-regular, 400);
-				}
-			`;
-			document.head.appendChild(style);
-		}
-		
-		return container;
-	};
+  if (!window.UBITS.Timeline) {
+    window.UBITS.Timeline = {};
+  }
+  
+  /**
+   * Crea un elemento Timeline
+   * @param options Opciones del Timeline
+   * @returns HTMLElement con el Timeline renderizado
+   */
+  window.UBITS.Timeline.create = function(options: {
+    items: Array<{
+      date?: string;
+      title: string;
+      description?: string;
+      state?: 'default' | 'filled';
+      icon?: string;
+      avatar?: {
+        imageUrl?: string;
+        initials?: string;
+        icon?: string;
+      };
+    }>;
+    alignment?: 'left' | 'center';
+    showAvatar?: boolean;
+    showDate?: boolean;
+    showDescription?: boolean;
+    showIcon?: boolean;
+  }): HTMLElement {
+    const container = document.createElement('div');
+    container.setAttribute('data-ubits-id', '🧩-ux-timeline');
+    
+    const alignment = options.alignment || 'left';
+    const alignmentClass = alignment === 'center' ? 'ubits-timeline--center' : 'ubits-timeline--left';
+    const uniqueId = `timeline-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    
+    // Convertir items a TimelineItem[]
+    const timelineItems: TimelineItem[] = options.items.map(item => ({
+      date: item.date,
+      title: item.title,
+      description: item.description,
+      state: item.state || 'default',
+      icon: item.icon,
+      avatar: item.avatar,
+    }));
+    
+    // Renderizar cada item
+    const itemsHTML = timelineItems.map((item, index) => {
+      return renderTimelineItem(item, index, index === timelineItems.length - 1, {
+        showAvatar: options.showAvatar ?? false,
+        showDate: options.showDate ?? true,
+        showDescription: options.showDescription ?? true,
+        showIcon: options.showIcon ?? true,
+        alignment: alignment,
+      });
+    }).join('');
+    
+    const timelineHTML = `
+      <div class="ubits-timeline ${alignmentClass}" id="${uniqueId}" data-ubits-id="🧩-ux-timeline">
+        ${itemsHTML}
+      </div>
+    `;
+    
+    container.innerHTML = timelineHTML;
+    
+    // Agregar estilos CSS si no existen
+    const styleId = 'ubits-timeline-styles';
+    if (!document.getElementById(styleId)) {
+      const style = document.createElement('style');
+      style.id = styleId;
+      style.textContent = `
+        .ubits-timeline {
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+          position: relative;
+        }
+        .ubits-timeline--left {
+          align-items: flex-start;
+        }
+        .ubits-timeline--center {
+          align-items: center;
+        }
+        .ubits-timeline-item {
+          display: flex;
+          align-items: flex-start;
+          position: relative;
+          width: 100%;
+        }
+        .ubits-timeline-item__marker-container {
+          position: relative;
+          z-index: 2;
+          flex-shrink: 0;
+        }
+        .ubits-timeline-marker {
+          width: 24px;
+          height: 24px;
+          border-radius: var(--ubits-border-radius-full, 50%);
+          border: 2px solid var(--modifiers-normal-color-light-border-1);
+          background-color: var(--modifiers-normal-color-light-bg-1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+        }
+        .ubits-timeline-marker--filled {
+          border-color: var(--modifiers-static-color-light-fg-1-medium);
+          background-color: var(--modifiers-static-color-light-fg-1-medium);
+        }
+        .ubits-timeline-marker__icon {
+          font-size: 10px;
+          color: var(--modifiers-normal-color-light-fg-1-high);
+        }
+        .ubits-timeline-line {
+          position: absolute;
+          left: 11px;
+          top: 24px;
+          width: 2px;
+          height: calc(100% - 24px);
+          background-color: var(--modifiers-normal-color-light-border-1);
+        }
+        .ubits-timeline-item:last-child .ubits-timeline-line {
+          display: none;
+        }
+        .ubits-timeline-item__content {
+          margin-left: var(--p-spacing-mode-1-md, 12px);
+          flex: 1;
+          padding-bottom: var(--p-spacing-mode-1-lg, 16px);
+        }
+        .ubits-timeline-item__text {
+          display: flex;
+          flex-direction: column;
+          gap: var(--p-spacing-mode-1-sm, 4px);
+        }
+        .ubits-timeline-item__date {
+          font-size: var(--modifiers-normal-body-sm-regular-fontsize, 12px);
+          line-height: var(--modifiers-normal-body-sm-regular-lineheight, 16px);
+          color: var(--modifiers-normal-color-light-fg-1-medium);
+          font-weight: var(--weight-regular, 400);
+        }
+        .ubits-timeline-item__title {
+          font-size: var(--modifiers-normal-body-md-regular-fontsize, 14px);
+          line-height: var(--modifiers-normal-body-md-regular-lineheight, 20px);
+          font-weight: var(--modifiers-normal-body-md-semibold-fontweight, 600);
+          color: var(--modifiers-normal-color-light-fg-1-high);
+        }
+        .ubits-timeline-item__description {
+          font-size: var(--modifiers-normal-body-sm-regular-fontsize, 12px);
+          line-height: var(--modifiers-normal-body-sm-regular-lineheight, 16px);
+          color: var(--modifiers-normal-color-light-fg-1-medium);
+          font-weight: var(--weight-regular, 400);
+        }
+      `;
+      document.head.appendChild(style);
+    }
+    
+    return container;
+  };
 }
 

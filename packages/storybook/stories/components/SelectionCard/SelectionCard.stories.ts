@@ -1,241 +1,241 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import {
-	renderSelectionCard,
-	createSelectionCard,
-	loadSelectionCards,
+  renderSelectionCard,
+  createSelectionCard,
+  loadSelectionCards,
 } from '../../../components/selection-card/src/SelectionCardProvider';
 import type {
-	SelectionCardData,
-	SelectionCardOptions,
+  SelectionCardData,
+  SelectionCardOptions,
 } from '../../../components/selection-card/src/types/SelectionCardOptions';
 import { createUBITSContract } from '../../_shared/ubitsContract';
 import '../../../components/selection-card/src/styles/selection-card.css';
 import '../../../components/radio-button/src/styles/radio-button.css';
 
 const meta: Meta<SelectionCardData & { showDescription?: boolean; showIcon?: boolean }> = {
-	title: 'Layout/Selection Card',
-	tags: ['autodocs'],
-	parameters: {
-		docs: {
-			codePanel: true,
-			description: {
-				component:
-					'Componente Selection Card UBITS para mostrar opciones seleccionables. Soporta selección única o múltiple, estados (default, selected, disabled), y tamaños (sm, md, lg). Incluye un radio button visual a la derecha que refleja el estado de selección. La selección se realiza mediante click en toda la card.',
-			},
-		},
-		ubits: createUBITSContract({
-			componentId: '🧩-ux-selection-card',
-			api: {
-				create: 'createSelectionCard', // Función importada directamente
-				render: 'renderSelectionCard', // Función importada directamente
-			},
-			dependsOn: {
-				required: [],
-				optional: [
-					'🧩-ux-radio-button', // Radio button visual a la derecha
-				],
-			},
-			internals: [],
-			slots: {},
-			tokensUsed: [
-				'--modifiers-normal-color-light-bg-1',
-				'--modifiers-normal-color-light-bg-2',
-				'--modifiers-normal-color-light-fg-1-high',
-				'--modifiers-normal-color-light-fg-1-medium',
-				'--modifiers-normal-color-light-border-1',
-				'--modifiers-normal-color-light-border-2',
-				'--modifiers-normal-color-light-accent-brand',
-				'--ubits-spacing-xs',
-				'--ubits-spacing-sm',
-				'--ubits-spacing-lg',
-				'--ubits-border-radius-md',
-				'--ubits-effects-elevation-1',
-				'--font-family-noto-sans-font-family',
-				'--weight-regular',
-				'--weight-semibold',
-			],
-			rules: {
-				forbidHardcodedColors: true,
-				forbiddenPatterns: ['rgb(', 'hsl(', '#'],
-				requiredProps: ['id', 'title'],
-			},
-			// ⭐ CAMPOS EXTENDIDOS
-			examples: {
-				canonical: `createSelectionCard({
+  title: 'Layout/Selection Card',
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      codePanel: true,
+      description: {
+        component:
+          'Componente Selection Card UBITS para mostrar opciones seleccionables. Soporta selección única o múltiple, estados (default, selected, disabled), y tamaños (sm, md, lg). Incluye un radio button visual a la derecha que refleja el estado de selección. La selección se realiza mediante click en toda la card.',
+      },
+    },
+    ubits: createUBITSContract({
+      componentId: '🧩-ux-selection-card',
+      api: {
+        create: 'createSelectionCard', // Función importada directamente
+        render: 'renderSelectionCard', // Función importada directamente
+      },
+      dependsOn: {
+        required: [],
+        optional: [
+          '🧩-ux-radio-button', // Radio button visual a la derecha
+        ],
+      },
+      internals: [],
+      slots: {},
+      tokensUsed: [
+        '--modifiers-normal-color-light-bg-1',
+        '--modifiers-normal-color-light-bg-2',
+        '--modifiers-normal-color-light-fg-1-high',
+        '--modifiers-normal-color-light-fg-1-medium',
+        '--modifiers-normal-color-light-border-1',
+        '--modifiers-normal-color-light-border-2',
+        '--modifiers-normal-color-light-accent-brand',
+        '--ubits-spacing-xs',
+        '--ubits-spacing-sm',
+        '--ubits-spacing-lg',
+        '--ubits-border-radius-md',
+        '--ubits-effects-elevation-1',
+        '--font-family-noto-sans-font-family',
+        '--weight-regular',
+        '--weight-semibold',
+      ],
+      rules: {
+        forbidHardcodedColors: true,
+        forbiddenPatterns: ['rgb(', 'hsl(', '#'],
+        requiredProps: ['id', 'title'],
+      },
+      // ⭐ CAMPOS EXTENDIDOS
+      examples: {
+        canonical: `createSelectionCard({
   id: 'card-1',
   title: 'Asignar toda la empresa',
   size: 'md'
 });`,
-				basic: `createSelectionCard({
+        basic: `createSelectionCard({
   id: 'card-1',
   title: 'Asignar toda la empresa',
   size: 'md'
 });`,
-				selected: `createSelectionCard({
+        selected: `createSelectionCard({
   id: 'card-1',
   title: 'Asignar toda la empresa',
   selected: true,
   size: 'md'
 });`,
-				withDescription: `createSelectionCard({
+        withDescription: `createSelectionCard({
   id: 'card-1',
   title: 'Asignar toda la empresa',
   description: 'Agregaras a todos los colaboradores...',
   size: 'md'
 });`,
-				disabled: `createSelectionCard({
+        disabled: `createSelectionCard({
   id: 'card-1',
   title: 'Asignar toda la empresa',
   disabled: true,
   size: 'md'
 });`,
-			},
-			variants: {
-				size: ['sm', 'md', 'lg'],
-				selected: [true, false],
-				disabled: [true, false],
-				showDescription: [true, false],
-			},
-			events: {
-				onClick: {
-					type: 'Event',
-					description: 'Emitted when selection card is clicked',
-				},
-			},
-			// ⭐ CAMPOS ADICIONALES PARA PERFECCIÓN AUTORUN
-			storybook: {
-				canonicalStoryId: 'layout-selection-card--implementation',
-				storiesByExample: {
-					canonical: 'layout-selection-card--implementation',
-					basic: 'layout-selection-card--default',
-					selected: 'layout-selection-card--selected',
-					withDescription: 'layout-selection-card--with-description',
-					disabled: 'layout-selection-card--disabled',
-				},
-			},
-			intents: {
-				'card.selection': 'canonical',
-				'card.selectable': 'canonical',
-				'card.basic': 'canonical',
-				'card.selected': 'selected',
-				'card.with-description': 'withDescription',
-				'card.disabled': 'disabled',
-			},
-		}),
-	},
-	argTypes: {
-		id: {
-			control: { type: 'text' },
-			description: 'ID único de la card',
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'card-1' },
-				category: 'Contenido',
-			},
-		},
-		title: {
-			control: { type: 'text' },
-			description: 'Título de la card',
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'Asignar toda la empresa' },
-				category: 'Contenido',
-			},
-		},
-		description: {
-			control: { type: 'text' },
-			description: 'Descripción opcional de la card (body-sm-regular)',
-			table: {
-				type: { summary: 'string | undefined' },
-				defaultValue: { summary: 'Agregaras a todos los colaboradores...' },
-				category: 'Contenido',
-			},
-		},
-		showDescription: {
-			control: { type: 'boolean' },
-			description: 'Mostrar u ocultar la descripción',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: 'true' },
-				category: 'Apariencia',
-			},
-		},
-		icon: {
-			control: { type: 'text' },
-			description: 'Nombre del icono FontAwesome (sin prefijo fa-)',
-			table: {
-				type: { summary: 'string | undefined' },
-				example: { summary: 'building, user, users, etc.' },
-				defaultValue: { summary: 'building' },
-				category: 'Contenido',
-			},
-		},
-		showIcon: {
-			control: { type: 'boolean' },
-			description: 'Mostrar u ocultar el icono',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: 'true' },
-				category: 'Apariencia',
-			},
-		},
-		iconStyle: {
-			control: { type: 'select' },
-			options: ['regular', 'solid'],
-			description: 'Estilo del icono FontAwesome',
-			table: {
-				type: { summary: 'regular | solid' },
-				defaultValue: { summary: 'regular' },
-				category: 'Contenido',
-			},
-		},
-		'selectionCount.current': {
-			control: { type: 'number', min: 0, max: 1000, step: 1 },
-			description: 'Número actual de seleccionados',
-			table: {
-				type: { summary: 'number' },
-				defaultValue: { summary: '0' },
-				category: 'Contenido',
-			},
-		},
-		'selectionCount.total': {
-			control: { type: 'number', min: 0, max: 1000, step: 1 },
-			description: 'Número total disponible',
-			table: {
-				type: { summary: 'number' },
-				defaultValue: { summary: '290' },
-				category: 'Contenido',
-			},
-		},
-		state: {
-			control: { type: 'select' },
-			options: ['default', 'selected', 'disabled'],
-			description: 'Estado de la card',
-			table: {
-				type: { summary: 'default | selected | disabled' },
-				defaultValue: { summary: 'default' },
-				category: 'Estado',
-			},
-		},
-		size: {
-			control: { type: 'select' },
-			options: ['sm', 'md', 'lg'],
-			description: 'Tamaño de la card',
-			table: {
-				type: { summary: 'sm | md | lg' },
-				defaultValue: { summary: 'md' },
-				category: 'Apariencia',
-			},
-		},
-		value: {
-			control: { type: 'text' },
-			description: 'Valor asociado a la card',
-			table: {
-				type: { summary: 'string | number' },
-				category: 'Contenido',
-			},
-		},
-	},
+      },
+      variants: {
+        size: ['sm', 'md', 'lg'],
+        selected: [true, false],
+        disabled: [true, false],
+        showDescription: [true, false],
+      },
+      events: {
+        onClick: {
+          type: 'Event',
+          description: 'Emitted when selection card is clicked',
+        },
+      },
+      // ⭐ CAMPOS ADICIONALES PARA PERFECCIÓN AUTORUN
+      storybook: {
+        canonicalStoryId: 'layout-selection-card--implementation',
+        storiesByExample: {
+          canonical: 'layout-selection-card--implementation',
+          basic: 'layout-selection-card--default',
+          selected: 'layout-selection-card--selected',
+          withDescription: 'layout-selection-card--with-description',
+          disabled: 'layout-selection-card--disabled',
+        },
+      },
+      intents: {
+        'card.selection': 'canonical',
+        'card.selectable': 'canonical',
+        'card.basic': 'canonical',
+        'card.selected': 'selected',
+        'card.with-description': 'withDescription',
+        'card.disabled': 'disabled',
+      },
+    }),
+  },
+  argTypes: {
+    id: {
+      control: { type: 'text' },
+      description: 'ID único de la card',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'card-1' },
+        category: 'Contenido',
+      },
+    },
+    title: {
+      control: { type: 'text' },
+      description: 'Título de la card',
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: 'Asignar toda la empresa' },
+        category: 'Contenido',
+      },
+    },
+    description: {
+      control: { type: 'text' },
+      description: 'Descripción opcional de la card (body-sm-regular)',
+      table: {
+        type: { summary: 'string | undefined' },
+        defaultValue: { summary: 'Agregaras a todos los colaboradores...' },
+        category: 'Contenido',
+      },
+    },
+    showDescription: {
+      control: { type: 'boolean' },
+      description: 'Mostrar u ocultar la descripción',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
+        category: 'Apariencia',
+      },
+    },
+    icon: {
+      control: { type: 'text' },
+      description: 'Nombre del icono FontAwesome (sin prefijo fa-)',
+      table: {
+        type: { summary: 'string | undefined' },
+        example: { summary: 'building, user, users, etc.' },
+        defaultValue: { summary: 'building' },
+        category: 'Contenido',
+      },
+    },
+    showIcon: {
+      control: { type: 'boolean' },
+      description: 'Mostrar u ocultar el icono',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
+        category: 'Apariencia',
+      },
+    },
+    iconStyle: {
+      control: { type: 'select' },
+      options: ['regular', 'solid'],
+      description: 'Estilo del icono FontAwesome',
+      table: {
+        type: { summary: 'regular | solid' },
+        defaultValue: { summary: 'regular' },
+        category: 'Contenido',
+      },
+    },
+    'selectionCount.current': {
+      control: { type: 'number', min: 0, max: 1000, step: 1 },
+      description: 'Número actual de seleccionados',
+      table: {
+        type: { summary: 'number' },
+        defaultValue: { summary: '0' },
+        category: 'Contenido',
+      },
+    },
+    'selectionCount.total': {
+      control: { type: 'number', min: 0, max: 1000, step: 1 },
+      description: 'Número total disponible',
+      table: {
+        type: { summary: 'number' },
+        defaultValue: { summary: '290' },
+        category: 'Contenido',
+      },
+    },
+    state: {
+      control: { type: 'select' },
+      options: ['default', 'selected', 'disabled'],
+      description: 'Estado de la card',
+      table: {
+        type: { summary: 'default | selected | disabled' },
+        defaultValue: { summary: 'default' },
+        category: 'Estado',
+      },
+    },
+    size: {
+      control: { type: 'select' },
+      options: ['sm', 'md', 'lg'],
+      description: 'Tamaño de la card',
+      table: {
+        type: { summary: 'sm | md | lg' },
+        defaultValue: { summary: 'md' },
+        category: 'Apariencia',
+      },
+    },
+    value: {
+      control: { type: 'text' },
+      description: 'Valor asociado a la card',
+      table: {
+        type: { summary: 'string | number' },
+        category: 'Contenido',
+      },
+    },
+  },
 };
 
 export default meta;
@@ -246,21 +246,21 @@ type Story = StoryObj<SelectionCardData & { showDescription?: boolean; showIcon?
  * Esta story proporciona un snippet exacto y funcional que Autorun puede copiar/pegar
  */
 export const Implementation: Story = {
-	name: 'Implementation (Copy/Paste)',
-	args: {
-		id: 'card-1',
-		title: 'Asignar toda la empresa',
-		description: 'Agregaras a todos los colaboradores de la empresa que tengas en la plataforma.',
-		showDescription: true,
-		icon: 'building',
-		showIcon: true,
-		iconStyle: 'regular',
-		selectionCount: { current: 0, total: 290 },
-		state: 'default',
-		size: 'md',
-	},
-	parameters: {
-		docs: {
+  name: 'Implementation (Copy/Paste)',
+  args: {
+    id: 'card-1',
+    title: 'Asignar toda la empresa',
+    description: 'Agregaras a todos los colaboradores de la empresa que tengas en la plataforma.',
+    showDescription: true,
+    icon: 'building',
+    showIcon: true,
+    iconStyle: 'regular',
+    selectionCount: { current: 0, total: 290 },
+    state: 'default',
+    size: 'md',
+  },
+  parameters: {
+    docs: {
       source: {
         // ⭐ SNIPPET EXACTO para Autorun
         
@@ -342,12 +342,12 @@ if (container) {
 // });`,
       },
     },
-	},
-	render: (args) => {
-		const container = document.createElement('div');
-		container.setAttribute('data-ubits-id', '🧩-ux-selection-card');
-		container.setAttribute('data-ubits-component', 'SelectionCard');
-		container.style.cssText = `
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.setAttribute('data-ubits-id', '🧩-ux-selection-card');
+    container.setAttribute('data-ubits-component', 'SelectionCard');
+    container.style.cssText = `
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -357,98 +357,98 @@ if (container) {
       padding: 24px;
     `;
 
-		// Crear wrapper para la card (max-width 500px)
-		const wrapper = document.createElement('div');
-		wrapper.style.maxWidth = '500px';
-		wrapper.style.width = '100%';
+    // Crear wrapper para la card (max-width 500px)
+    const wrapper = document.createElement('div');
+    wrapper.style.maxWidth = '500px';
+    wrapper.style.width = '100%';
 
-		// Preparar datos de la card con los controladores
-		const cardData: SelectionCardData = {
-			id: args.id || 'card-1',
-			title: args.title || 'Asignar toda la empresa',
-			description: args.showDescription !== false ? args.description : undefined,
-			icon: args.showIcon !== false ? args.icon : undefined,
-			iconStyle: args.iconStyle || 'regular',
-			selectionCount: args.selectionCount,
-			state: args.state || 'default',
-			size: args.size || 'md',
-			value: args.value,
-		};
+    // Preparar datos de la card con los controladores
+    const cardData: SelectionCardData = {
+      id: args.id || 'card-1',
+      title: args.title || 'Asignar toda la empresa',
+      description: args.showDescription !== false ? args.description : undefined,
+      icon: args.showIcon !== false ? args.icon : undefined,
+      iconStyle: args.iconStyle || 'regular',
+      selectionCount: args.selectionCount,
+      state: args.state || 'default',
+      size: args.size || 'md',
+      value: args.value,
+    };
 
-		// Crear card
-		try {
-			const cardElement = createSelectionCard(cardData);
-			wrapper.appendChild(cardElement);
-		} catch (error) {
-			console.error('Error creando SelectionCard:', error);
-			const errorDiv = document.createElement('div');
-			errorDiv.textContent = `Error: ${error}`;
-			errorDiv.style.color = 'red';
-			wrapper.appendChild(errorDiv);
-		}
+    // Crear card
+    try {
+      const cardElement = createSelectionCard(cardData);
+      wrapper.appendChild(cardElement);
+    } catch (error) {
+      console.error('Error creando SelectionCard:', error);
+      const errorDiv = document.createElement('div');
+      errorDiv.textContent = `Error: ${error}`;
+      errorDiv.style.color = 'red';
+      wrapper.appendChild(errorDiv);
+    }
 
-		container.appendChild(wrapper);
-		return container;
-	},
+    container.appendChild(wrapper);
+    return container;
+  },
 };
 
 // Story única con todos los controladores
 export const Default: Story = {
-	args: {
-		id: 'card-1',
-		title: 'Asignar toda la empresa',
-		description: 'Agregaras a todos los colaboradores de la empresa que tengas en la plataforma.',
-		showDescription: true,
-		icon: 'building',
-		showIcon: true,
-		iconStyle: 'regular',
-		selectionCount: { current: 0, total: 290 },
-		state: 'default',
-		size: 'md',
-	},
-	render: (args) => {
-		const container = document.createElement('div');
-		container.style.display = 'flex';
-		container.style.justifyContent = 'center';
-		container.style.alignItems = 'flex-start';
-		container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
-		container.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
-		container.style.minHeight = '200px';
-		container.style.padding = '24px';
+  args: {
+    id: 'card-1',
+    title: 'Asignar toda la empresa',
+    description: 'Agregaras a todos los colaboradores de la empresa que tengas en la plataforma.',
+    showDescription: true,
+    icon: 'building',
+    showIcon: true,
+    iconStyle: 'regular',
+    selectionCount: { current: 0, total: 290 },
+    state: 'default',
+    size: 'md',
+  },
+  render: (args) => {
+    const container = document.createElement('div');
+    container.style.display = 'flex';
+    container.style.justifyContent = 'center';
+    container.style.alignItems = 'flex-start';
+    container.style.background = 'var(--modifiers-normal-color-light-bg-1)';
+    container.style.border = '1px solid var(--modifiers-normal-color-light-border-1)';
+    container.style.minHeight = '200px';
+    container.style.padding = '24px';
 
-		// Crear wrapper para la card (max-width 500px)
-		const wrapper = document.createElement('div');
-		wrapper.style.maxWidth = '500px';
-		wrapper.style.width = '100%';
+    // Crear wrapper para la card (max-width 500px)
+    const wrapper = document.createElement('div');
+    wrapper.style.maxWidth = '500px';
+    wrapper.style.width = '100%';
 
-		// Preparar datos de la card con los controladores
-		const cardData: SelectionCardData = {
-			id: args.id,
-			title: args.title,
-			description: args.showDescription ? args.description : undefined,
-			icon: args.showIcon ? args.icon : undefined,
-			iconStyle: args.iconStyle,
-			selectionCount: args.selectionCount,
-			state: args.state,
-			size: args.size,
-			value: args.value,
-		};
+    // Preparar datos de la card con los controladores
+    const cardData: SelectionCardData = {
+      id: args.id,
+      title: args.title,
+      description: args.showDescription ? args.description : undefined,
+      icon: args.showIcon ? args.icon : undefined,
+      iconStyle: args.iconStyle,
+      selectionCount: args.selectionCount,
+      state: args.state,
+      size: args.size,
+      value: args.value,
+    };
 
-		// Crear card
-		try {
-			const cardElement = createSelectionCard(cardData);
-			wrapper.appendChild(cardElement);
-			container.appendChild(wrapper);
-		} catch (error) {
-			console.error('❌ [SelectionCard Story] Error al crear card:', error);
-			const errorDiv = document.createElement('div');
-			errorDiv.textContent = `Error: ${error instanceof Error ? error.message : 'Error desconocido'}`;
-			errorDiv.style.color = 'red';
-			errorDiv.style.padding = '20px';
-			container.appendChild(errorDiv);
-		}
+    // Crear card
+    try {
+      const cardElement = createSelectionCard(cardData);
+      wrapper.appendChild(cardElement);
+      container.appendChild(wrapper);
+    } catch (error) {
+      console.error('❌ [SelectionCard Story] Error al crear card:', error);
+      const errorDiv = document.createElement('div');
+      errorDiv.textContent = `Error: ${error instanceof Error ? error.message : 'Error desconocido'}`;
+      errorDiv.style.color = 'red';
+      errorDiv.style.padding = '20px';
+      container.appendChild(errorDiv);
+    }
 
-		return container;
-	},
+    return container;
+  },
 };
 
