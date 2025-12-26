@@ -130,7 +130,7 @@ export function renderMenu(options: MenuOptions): string {
   const userInfoHTML = renderUserInfo(userInfo);
 
   return `
-    <aside class="${containerClasses}" ${containerAttrs} style="${widthStyle}">
+    <aside class="${containerClasses}" ${containerAttrs} style="${widthStyle}" data-ubits-id="🧩-ux-menu">
       ${logoHTML}
       <div class="ubits-menu-body">
         ${sectionsHTML}
@@ -226,6 +226,11 @@ export function createMenu(options: MenuOptions): HTMLElement {
   const menuElement = container.querySelector('.ubits-menu') as HTMLElement;
   if (!menuElement) {
     throw new Error('Failed to create menu element');
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!menuElement.hasAttribute('data-ubits-id')) {
+    menuElement.setAttribute('data-ubits-id', '🧩-ux-menu');
   }
 
   // Inicializar eventos

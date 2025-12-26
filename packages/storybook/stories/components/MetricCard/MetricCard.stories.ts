@@ -60,9 +60,7 @@ const meta: Meta<MetricCardOptions> = {
 				canonical: `createMetricCard({
   title: 'Net confidence score',
   value: '200 / 204',
-  label: 'Colaboradores',
-  onInfoClick: function() {},
-  onActionClick: function() {}
+  label: 'Colaboradores'
 });`,
 				basic: `createMetricCard({
   title: 'Net confidence score',

@@ -390,6 +390,11 @@ export function createButtonFeedback(options: ButtonFeedbackOptions): {
 
   const button = createButton(buttonOptions);
 
+  // Agregar data-ubits-id si no está presente
+  if (!button.hasAttribute('data-ubits-id')) {
+    button.setAttribute('data-ubits-id', '🧩-ux-button-feedback');
+  }
+
   // Agregar la clase floating manualmente si no está presente
   if (buttonOptions.floating && !button.classList.contains('ubits-button--floating')) {
     button.classList.add('ubits-button--floating');

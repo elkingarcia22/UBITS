@@ -77,10 +77,33 @@ const meta: Meta<TreeMenuOptions> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: "renderTreeMenu({\\n  nodes: [\\n    { label: 'Node 1', children: [{ label: 'Child 1' }] }\\n  ],\\n  size: 'md',\\n  onNodeClick: function(nodeId) {}\\n});",
-				basic: "renderTreeMenu({\\n  nodes: [\\n    { label: 'Node 1', children: [{ label: 'Child 1' }] }\\n  ],\\n  size: 'md'\\n});",
-				withIcons: "renderTreeMenu({\\n  nodes: [\\n    { label: 'Node 1', icon: 'folder', children: [{ label: 'Child 1', icon: 'file' }] }\\n  ],\\n  showIcons: true,\\n  size: 'md'\\n});",
-				cascade: "renderTreeMenu({\\n  nodes: [\\n    { label: 'Node 1', children: [{ label: 'Child 1' }] }\\n  ],\\n  cascade: true,\\n  size: 'md'\\n});",
+				canonical: `renderTreeMenu({
+  nodes: [
+    { label: 'Node 1', children: [{ label: 'Child 1' }] }
+  ],
+  size: 'md',
+  onNodeClick: function(nodeId) {}
+});`,
+				basic: `renderTreeMenu({
+  nodes: [
+    { label: 'Node 1', children: [{ label: 'Child 1' }] }
+  ],
+  size: 'md'
+});`,
+				withIcons: `renderTreeMenu({
+  nodes: [
+    { label: 'Node 1', icon: 'folder', children: [{ label: 'Child 1', icon: 'file' }] }
+  ],
+  showIcons: true,
+  size: 'md'
+});`,
+				cascade: `renderTreeMenu({
+  nodes: [
+    { label: 'Node 1', children: [{ label: 'Child 1' }] }
+  ],
+  cascade: true,
+  size: 'md'
+});`,
 			},
 			variants: {
 				size: ['xs', 'sm', 'md', 'lg'],
@@ -467,7 +490,7 @@ function renderTreeMenu(args: TreeMenuOptions): string {
 	const treeData = nodes || generateTreeData(maxLevels, showIcons || false);
 
 	const treeHTML = `
-    <div class="ubits-tree-menu ${cascade ? 'ubits-tree-menu--cascade' : 'ubits-tree-menu--vertical'}" id="${uniqueId}" role="tree">
+    <div class="ubits-tree-menu ${cascade ? 'ubits-tree-menu--cascade' : 'ubits-tree-menu--vertical'}" id="${uniqueId}" role="tree" data-ubits-id="🧩-ux-tree-menu">
       ${treeData
 				.map((node) =>
 					renderTreeNode(
@@ -920,8 +943,12 @@ export const Implementation: Story = {
 
 		// Inicializar funcionalidad y agregar logs detallados
 		setTimeout(() => {
-			const treeElement = container.querySelector('.ubits-tree-menu');
+			const treeElement = container.querySelector('.ubits-tree-menu') as HTMLElement;
 			if (treeElement) {
+				// Agregar data-ubits-id si no está presente
+				if (!treeElement.hasAttribute('data-ubits-id')) {
+					treeElement.setAttribute('data-ubits-id', '🧩-ux-tree-menu');
+				}
 				// Logs detallados para verificar tokens CSS
 				const root = document.documentElement;
 				const computedStyle = getComputedStyle(root);

@@ -88,25 +88,43 @@ export function renderFileUpload(options: FileUploadOptions = {}): string {
 
   // Determinar si mostrar vista de lista o drop zone
   const hasFiles = files && files.length > 0;
-  const actualState = hasFiles && state !== 'files-list' ? 'files-list' : state;
+  
+  // Determinar el estado actual:
+  // - Si el estado es 'files-list', mantener 'files-list' (incluso sin archivos)
+  // - Si hay archivos en el array y el estado no es explícitamente 'files-list', cambiar a 'files-list'
+  // - De lo contrario, usar el estado solicitado
+  let actualState = state;
+  if (state === 'files-list') {
+    actualState = 'files-list';
+  } else if (hasFiles && state !== 'files-list') {
+    actualState = 'files-list';
+  }
+  
+  console.log('[FileUpload] Rendering with state:', {
+    requestedState: state,
+    actualState,
+    hasFiles,
+    filesCount: files?.length || 0
+  });
   
   // Generar texto de restricciones si no se proporciona
   const finalConstraintsText = constraintsText || `Máx. ${maxFiles} archivos · Hasta ${formatFileSize(maxSize)}`;
 
   // Vista de lista de archivos
-  if (actualState === 'files-list' && hasFiles) {
+  if (actualState === 'files-list') {
+    // Mostrar lista incluso si está vacía (para que el usuario vea la estructura)
+    const filesToShow = hasFiles ? (maxFiles === 1 ? files.slice(0, 1) : files) : [];
     const isSingleMode = maxFiles === 1;
-    // En modo single, solo mostrar el primer archivo
-    const filesToShow = isSingleMode ? files.slice(0, 1) : files;
-    const filesListHtml = filesToShow.map((file, index) => {
+    
+    const filesListHtml = filesToShow.length > 0 ? filesToShow.map((file, index) => {
       const fileId = file.id || `file-${index}`;
       const fileProgress = file.progress !== undefined ? file.progress : 0;
-      const fileStatusClass = file.status || 'pending';
-      const showFileProgress = showProgress && file.status === 'uploading' && fileProgress > 0;
+      const fileStatus = file.status || 'pending';
+      // Mostrar progreso solo si está en estado 'uploading' y tiene progreso > 0
+      const shouldShowProgress = showProgress && fileStatus === 'uploading' && fileProgress > 0;
       
       // Evaluar condiciones explícitamente para asegurar que funcionen correctamente
       const shouldShowFileSize = showFileSize === true;
-      const shouldShowProgress = showFileProgress === true;
       return `
         <div class="ubits-file-upload__file-item" data-file-id="${fileId}">
           <div class="ubits-file-upload__file-icon">
@@ -143,7 +161,11 @@ export function renderFileUpload(options: FileUploadOptions = {}): string {
           </button>
         </div>
       `;
-    }).join('');
+    }).join('') : `
+      <div class="ubits-file-upload__empty-state">
+        <div class="ubits-file-upload__empty-text">No hay archivos seleccionados</div>
+      </div>
+    `;
 
     // En modo single, no mostrar título con contador ni botones Add/Remove all
     const headerHtml = isSingleMode ? '' : `
@@ -160,7 +182,7 @@ export function renderFileUpload(options: FileUploadOptions = {}): string {
                 'aria-label': 'Agregar archivos'
               }
             })}
-            ${renderButton({
+            ${filesToShow.length > 0 ? renderButton({
               variant: 'error',
               size: 'sm',
               text: 'Eliminar todos',
@@ -169,13 +191,13 @@ export function renderFileUpload(options: FileUploadOptions = {}): string {
               attributes: {
                 'aria-label': 'Eliminar todos'
               }
-            })}
+            }) : ''}
         </div>
       </div>
     `;
 
     return `
-      <div class="ubits-file-upload ubits-file-upload--files-list ${isSingleMode ? 'ubits-file-upload--single-mode' : ''} ${className}">
+      <div class="ubits-file-upload ubits-file-upload--files-list ${isSingleMode ? 'ubits-file-upload--single-mode' : ''} ${className}" data-ubits-id="🧩-ux-file-upload">
         ${headerHtml}
         <div class="ubits-file-upload__files-list">
           ${filesListHtml}
@@ -230,7 +252,8 @@ export function renderFileUpload(options: FileUploadOptions = {}): string {
          style="background-color: ${backgroundColor}; border-color: ${borderColor};"
          tabindex="${actualState === 'disabled' ? '-1' : '0'}"
          role="button"
-         aria-disabled="${actualState === 'disabled' ? 'true' : 'false'}">
+         aria-disabled="${actualState === 'disabled' ? 'true' : 'false'}"
+         data-ubits-id="🧩-ux-file-upload">
       <div class="ubits-file-upload__drop-zone">
         ${iconHtml}
         <div class="ubits-file-upload__drop-content">
@@ -251,6 +274,14 @@ export function createFileUpload(options: FileUploadOptions = {}): {
   update: (newOptions: Partial<FileUploadOptions>) => void;
   destroy: () => void;
 } {
+  console.log('[FileUpload] createFileUpload called with options:', {
+    state: options.state,
+    files: options.files,
+    filesLength: options.files?.length || 0,
+    containerId: options.containerId,
+    hasContainer: !!options.container
+  });
+  
   const {
     containerId,
     onClick,
@@ -262,195 +293,252 @@ export function createFileUpload(options: FileUploadOptions = {}): {
     onDrop,
     ...restOptions
   } = options;
+  
+  // Preservar callbacks para que estén disponibles en update
+  const callbacks = {
+    onClick,
+    onAddFiles,
+    onRemoveAll,
+    onReupload,
+    onRemove,
+    onDragOver,
+    onDrop
+  };
+  
+  console.log('[FileUpload] restOptions after destructuring:', {
+    state: restOptions.state,
+    files: restOptions.files,
+    filesLength: restOptions.files?.length || 0
+  });
+
+  /**
+   * Función helper para agregar todos los event listeners
+   */
+  const attachEventListeners = (element: HTMLElement, opts: FileUploadOptions) => {
+    // Limpiar listeners previos si existen (aunque no es necesario si reemplazamos el elemento)
+    console.log('[FileUpload] Attaching event listeners to:', element);
+    
+    // Click handler en el área principal
+    if (opts.onClick && opts.state !== 'disabled' && opts.state !== 'files-list') {
+      element.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        // No ejecutar si se hizo clic en los botones de acción
+        if (!target.closest('.ubits-file-upload__actions') && 
+            !target.closest('.ubits-file-upload__select-button') &&
+            !target.closest('.ubits-file-upload__add-button') &&
+            !target.closest('.ubits-file-upload__remove-all-button') &&
+            !target.closest('.ubits-file-upload__file-remove')) {
+          opts.onClick?.();
+        }
+      });
+    }
+
+    // Drag & drop handlers
+    if (opts.state !== 'disabled' && opts.state !== 'files-list') {
+      element.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (opts.onDragOver) {
+          opts.onDragOver(e as DragEvent);
+        } else {
+          element.classList.add('ubits-file-upload--dragging');
+        }
+      });
+
+      element.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        element.classList.remove('ubits-file-upload--dragging');
+      });
+
+      element.addEventListener('drop', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        element.classList.remove('ubits-file-upload--dragging');
+        if (opts.onDrop) {
+          opts.onDrop(e as DragEvent);
+        }
+      });
+    }
+
+    // Botón de re-subir (legacy)
+    const reuploadButton = element.querySelector('.ubits-file-upload__action--reupload');
+    if (reuploadButton && opts.onReupload) {
+      reuploadButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        opts.onReupload?.();
+      });
+    }
+
+    // Botón de eliminar (legacy)
+    const removeButton = element.querySelector('.ubits-file-upload__action--remove');
+    if (removeButton && opts.onRemove) {
+      removeButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        opts.onRemove?.();
+      });
+    }
+
+    // Botón de agregar archivos (nuevo diseño)
+    const addFilesButton = element.querySelector('.ubits-file-upload__add-button');
+    if (addFilesButton && opts.onAddFiles) {
+      addFilesButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        opts.onAddFiles?.();
+      });
+    } else if (addFilesButton && opts.onClick) {
+      // Fallback a onClick si no hay onAddFiles
+      addFilesButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        opts.onClick?.();
+      });
+    }
+
+    // Botón de eliminar todos (nuevo diseño)
+    const removeAllButton = element.querySelector('.ubits-file-upload__remove-all-button');
+    console.log('[FileUpload] Remove all button found:', !!removeAllButton, 'onRemoveAll callback:', !!opts.onRemoveAll);
+    if (removeAllButton) {
+      removeAllButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        console.log('[FileUpload] Remove all button clicked');
+        if (opts.onRemoveAll) {
+          console.log('[FileUpload] Calling onRemoveAll callback');
+          opts.onRemoveAll();
+        } else {
+          console.warn('[FileUpload] onRemoveAll callback not provided');
+        }
+      });
+    }
+
+    // Botones de eliminar archivos individuales (nuevo diseño)
+    const fileRemoveButtons = element.querySelectorAll('.ubits-file-upload__file-remove');
+    console.log('[FileUpload] Found file remove buttons:', fileRemoveButtons.length);
+    fileRemoveButtons.forEach((button, index) => {
+      const fileId = button.getAttribute('data-file-id');
+      console.log(`[FileUpload] Attaching remove listener to button ${index}, fileId: ${fileId}`);
+      button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        console.log('[FileUpload] File remove button clicked, fileId:', fileId);
+        if (opts.onRemove) {
+          console.log('[FileUpload] Calling onRemove callback with fileId:', fileId);
+          opts.onRemove(fileId);
+        } else {
+          console.warn('[FileUpload] onRemove callback not provided');
+        }
+      });
+    });
+
+    // Botón de selección en drop zone
+    const selectButton = element.querySelector('.ubits-file-upload__select-button');
+    if (selectButton && opts.onClick) {
+      selectButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        opts.onClick?.();
+      });
+    }
+  };
 
   const wrapper = document.createElement('div');
   wrapper.innerHTML = renderFileUpload(restOptions);
-  const fileUploadElement = wrapper.firstElementChild as HTMLElement;
+  let fileUploadElement = wrapper.firstElementChild as HTMLElement;
 
   if (!fileUploadElement) {
     throw new Error('No se pudo crear el file upload');
   }
 
-  // Determinar contenedor
+  // Agregar data-ubits-id si no está presente
+  if (!fileUploadElement.hasAttribute('data-ubits-id')) {
+    fileUploadElement.setAttribute('data-ubits-id', '🧩-ux-file-upload');
+  }
+
+  console.log('[FileUpload] Creating file upload element:', fileUploadElement);
+
+  // Determinar contenedor - priorizar container directo, luego containerId, luego document.body
   let container: HTMLElement;
-  if (containerId) {
+  if (options.container) {
+    container = options.container;
+  } else if (containerId) {
     container = document.getElementById(containerId) || document.body;
   } else {
     container = document.body;
   }
 
+  // Verificar si ya existe un file upload en el contenedor
+  const existingUpload = container.querySelector('.ubits-file-upload');
+  if (existingUpload) {
+    console.warn('[FileUpload] Warning: Found existing file upload in container, removing it');
+    existingUpload.remove();
+  }
+
   container.appendChild(fileUploadElement);
 
-  // Agregar event listeners
-  if (onClick && options.state !== 'disabled' && options.state !== 'filled') {
-    fileUploadElement.addEventListener('click', (e) => {
-      const target = e.target as HTMLElement;
-      // No ejecutar si se hizo clic en los botones de acción
-      if (!target.closest('.ubits-file-upload__actions')) {
-        onClick();
-      }
-    });
-  }
-
-  // Drag & drop handlers
-  if (options.state !== 'disabled' && options.state !== 'filled') {
-    fileUploadElement.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (onDragOver) {
-        onDragOver(e as DragEvent);
-      } else {
-        fileUploadElement.classList.add('ubits-file-upload--dragging');
-      }
-    });
-
-    fileUploadElement.addEventListener('dragleave', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      fileUploadElement.classList.remove('ubits-file-upload--dragging');
-    });
-
-    fileUploadElement.addEventListener('drop', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      fileUploadElement.classList.remove('ubits-file-upload--dragging');
-      if (onDrop) {
-        onDrop(e as DragEvent);
-      }
-    });
-  }
-
-  // Botón de re-subir
-  const reuploadButton = fileUploadElement.querySelector('.ubits-file-upload__action--reupload');
-  if (reuploadButton && onReupload) {
-    reuploadButton.addEventListener('click', (e) => {
-      e.stopPropagation();
-      onReupload();
-    });
-  }
-
-  // Botón de eliminar (legacy)
-  const removeButton = fileUploadElement.querySelector('.ubits-file-upload__action--remove');
-  if (removeButton && onRemove) {
-    removeButton.addEventListener('click', (e) => {
-      e.stopPropagation();
-      onRemove();
-    });
-  }
-
-  // Botón de agregar archivos (nuevo diseño)
-  const addFilesButton = fileUploadElement.querySelector('.ubits-file-upload__add-button');
-  if (addFilesButton && onAddFiles) {
-    addFilesButton.addEventListener('click', (e) => {
-      e.stopPropagation();
-      onAddFiles();
-    });
-  } else if (addFilesButton && onClick) {
-    // Fallback a onClick si no hay onAddFiles
-    addFilesButton.addEventListener('click', (e) => {
-      e.stopPropagation();
-      onClick();
-    });
-  }
-
-  // Botón de eliminar todos (nuevo diseño)
-  const removeAllButton = fileUploadElement.querySelector('.ubits-file-upload__remove-all-button');
-  if (removeAllButton && onRemoveAll) {
-    removeAllButton.addEventListener('click', (e) => {
-      e.stopPropagation();
-      onRemoveAll();
-    });
-  }
-
-  // Botones de eliminar archivos individuales (nuevo diseño)
-  const fileRemoveButtons = fileUploadElement.querySelectorAll('.ubits-file-upload__file-remove');
-  fileRemoveButtons.forEach(button => {
-    button.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const fileId = button.getAttribute('data-file-id');
-      if (onRemove) {
-        onRemove(fileId);
-      }
-    });
-  });
-
-  // Botón de selección en drop zone
-  const selectButton = fileUploadElement.querySelector('.ubits-file-upload__select-button');
-  if (selectButton && onClick) {
-    selectButton.addEventListener('click', (e) => {
-      e.stopPropagation();
-      onClick();
-    });
-  }
+  // Agregar todos los event listeners usando la función helper
+  attachEventListeners(fileUploadElement, options);
 
   /**
    * Actualiza el file upload con nuevas opciones
    */
   const update = (newOptions: Partial<FileUploadOptions>) => {
-    const updatedOptions = { ...restOptions, ...newOptions };
+    console.log('[FileUpload] Updating with options:', newOptions);
+    
+    // Extraer callbacks de newOptions si existen (para permitir actualizarlos)
+    const {
+      onClick: newOnClick,
+      onAddFiles: newOnAddFiles,
+      onRemoveAll: newOnRemoveAll,
+      onReupload: newOnReupload,
+      onRemove: newOnRemove,
+      onDragOver: newOnDragOver,
+      onDrop: newOnDrop,
+      ...restNewOptions
+    } = newOptions;
+    
+    // Actualizar callbacks si se proporcionan nuevos
+    if (newOnClick !== undefined) callbacks.onClick = newOnClick;
+    if (newOnAddFiles !== undefined) callbacks.onAddFiles = newOnAddFiles;
+    if (newOnRemoveAll !== undefined) callbacks.onRemoveAll = newOnRemoveAll;
+    if (newOnReupload !== undefined) callbacks.onReupload = newOnReupload;
+    if (newOnRemove !== undefined) callbacks.onRemove = newOnRemove;
+    if (newOnDragOver !== undefined) callbacks.onDragOver = newOnDragOver;
+    if (newOnDrop !== undefined) callbacks.onDrop = newOnDrop;
+    
+    // Combinar opciones con callbacks actualizados
+    const updatedOptions = { 
+      ...restOptions, 
+      ...restNewOptions,
+      ...callbacks
+    };
+    
     const newHtml = renderFileUpload(updatedOptions);
     const newWrapper = document.createElement('div');
     newWrapper.innerHTML = newHtml;
     const newElement = newWrapper.firstElementChild as HTMLElement;
     
     if (newElement && fileUploadElement.parentNode) {
-      // Reemplazar elemento manteniendo event listeners
-      fileUploadElement.parentNode.replaceChild(newElement, fileUploadElement);
+      // Guardar referencia al parent antes de reemplazar
+      const parentNode = fileUploadElement.parentNode;
       
-      // Recrear event listeners en el nuevo elemento
-      if (updatedOptions.onClick && updatedOptions.state !== 'disabled' && updatedOptions.state !== 'filled') {
-        newElement.addEventListener('click', (e) => {
-          const target = e.target as HTMLElement;
-          if (!target.closest('.ubits-file-upload__actions')) {
-            updatedOptions.onClick?.();
-          }
-        });
+      // Reemplazar elemento
+      parentNode.replaceChild(newElement, fileUploadElement);
+      
+      // ⚠️ CRÍTICO: Actualizar la referencia del elemento
+      // Esto es necesario para que destroy() y otras funciones funcionen
+      fileUploadElement = newElement;
+      
+      // Agregar data-ubits-id si no está presente
+      if (!fileUploadElement.hasAttribute('data-ubits-id')) {
+        fileUploadElement.setAttribute('data-ubits-id', '🧩-ux-file-upload');
       }
-
-      // Actualizar drag & drop handlers
-      if (updatedOptions.state !== 'disabled' && updatedOptions.state !== 'filled') {
-        newElement.addEventListener('dragover', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          if (updatedOptions.onDragOver) {
-            updatedOptions.onDragOver(e as DragEvent);
-          } else {
-            newElement.classList.add('ubits-file-upload--dragging');
-          }
-        });
-
-        newElement.addEventListener('dragleave', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          newElement.classList.remove('ubits-file-upload--dragging');
-        });
-
-        newElement.addEventListener('drop', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          newElement.classList.remove('ubits-file-upload--dragging');
-          if (updatedOptions.onDrop) {
-            updatedOptions.onDrop(e as DragEvent);
-          }
-        });
-      }
-
-      // Actualizar botones de acción
-      const newReuploadButton = newElement.querySelector('.ubits-file-upload__action--reupload');
-      if (newReuploadButton && updatedOptions.onReupload) {
-        newReuploadButton.addEventListener('click', (e) => {
-          e.stopPropagation();
-          updatedOptions.onReupload?.();
-        });
-      }
-
-      const newRemoveButton = newElement.querySelector('.ubits-file-upload__action--remove');
-      if (newRemoveButton && updatedOptions.onRemove) {
-        newRemoveButton.addEventListener('click', (e) => {
-          e.stopPropagation();
-          updatedOptions.onRemove?.();
-        });
-      }
+      
+      // Actualizar restOptions para futuras actualizaciones
+      Object.assign(restOptions, restNewOptions);
+      
+      // Recrear todos los event listeners en el nuevo elemento con callbacks actualizados
+      attachEventListeners(newElement, updatedOptions);
+      
+      console.log('[FileUpload] Update completed. New element:', newElement);
+    } else {
+      console.error('[FileUpload] Failed to update - element or parent not found');
     }
   };
 
@@ -458,15 +546,21 @@ export function createFileUpload(options: FileUploadOptions = {}): {
    * Destruye el file upload removiéndolo del DOM
    */
   const destroy = () => {
-    if (fileUploadElement.parentNode) {
+    console.log('[FileUpload] Destroying file upload:', fileUploadElement);
+    if (fileUploadElement && fileUploadElement.parentNode) {
       fileUploadElement.parentNode.removeChild(fileUploadElement);
     }
   };
 
-  return {
-    element: fileUploadElement,
+  // Retornar objeto con getter para que siempre devuelva la referencia actualizada
+  const returnObject = {
+    get element() {
+      return fileUploadElement;
+    },
     update,
     destroy
   };
+
+  return returnObject;
 }
 

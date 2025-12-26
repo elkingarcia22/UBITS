@@ -49,11 +49,39 @@ const meta = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: 'window.UBITS.Skeleton.create({\\n  variant: \'text\',\\n  size: \'md\',\\n  width: \'full\',\\n  lines: 3,\\n  animated: true\\n});',
-				basic: 'window.UBITS.Skeleton.create({\\n  variant: \'text\',\\n  size: \'md\',\\n  width: \'full\',\\n  lines: 3,\\n  animated: true\\n});',
-				circle: 'window.UBITS.Skeleton.create({\\n  variant: \'circle\',\\n  size: \'md\',\\n  animated: true\\n});',
-				rectangle: 'window.UBITS.Skeleton.create({\\n  variant: \'rectangle\',\\n  size: \'md\',\\n  width: 300,\\n  height: 200,\\n  animated: true\\n});',
-				custom: 'window.UBITS.Skeleton.create({\\n  variant: \'custom\',\\n  size: \'md\',\\n  width: 200,\\n  height: 100,\\n  animated: true\\n});',
+				canonical: `window.UBITS.Skeleton.create({
+  variant: 'text',
+  size: 'md',
+  width: 'full',
+  lines: 3,
+  animated: true
+});`,
+				basic: `window.UBITS.Skeleton.create({
+  variant: 'text',
+  size: 'md',
+  width: 'full',
+  lines: 3,
+  animated: true
+});`,
+				circle: `window.UBITS.Skeleton.create({
+  variant: 'circle',
+  size: 'md',
+  animated: true
+});`,
+				rectangle: `window.UBITS.Skeleton.create({
+  variant: 'rectangle',
+  size: 'md',
+  width: 300,
+  height: 200,
+  animated: true
+});`,
+				custom: `window.UBITS.Skeleton.create({
+  variant: 'custom',
+  size: 'md',
+  width: 200,
+  height: 100,
+  animated: true
+});`,
 			},
 			variants: {
 				variant: ['text', 'circle', 'rectangle', 'custom'],

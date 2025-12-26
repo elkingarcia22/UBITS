@@ -107,7 +107,7 @@ export function renderModal(options: ModalOptions): string {
   // Modal container HTML
   const modalHTML = `
     <div class="ubits-modal-overlay">
-      <div class="${classes}" style="max-width: ${modalWidth};">
+      <div class="${classes}" style="max-width: ${modalWidth};" data-ubits-id="⚙️-functional-modal">
         ${headerHTML}
         ${bodyHTML}
         ${footerHTML}
@@ -156,6 +156,11 @@ export function createModal(options: ModalOptions): {
   const modal = modalOverlay.querySelector('.ubits-modal') as HTMLElement;
   const closeButton = modalOverlay.querySelector('.ubits-modal__close') as HTMLButtonElement;
   const overlay = modalOverlay as HTMLElement;
+
+  // Agregar data-ubits-id al modal si no está presente
+  if (modal && !modal.hasAttribute('data-ubits-id')) {
+    modal.setAttribute('data-ubits-id', '⚙️-functional-modal');
+  }
   
   // Funciones de control
   const openModal = () => {

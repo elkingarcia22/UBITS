@@ -323,19 +323,6 @@ export const Default: Story = {
     // Crear contenido inicial
     createScrollbarContent(args.orientation);
 
-    // Observar cambios en args
-    const observer = new MutationObserver(() => {
-      if (args.orientation && currentWrapper) {
-        const currentOrientation = currentWrapper.querySelector('[id*="scrollbar-target-vertical"]') 
-          ? 'vertical' 
-          : 'horizontal';
-        
-        if (currentOrientation !== args.orientation) {
-          createScrollbarContent(args.orientation);
-        }
-      }
-    });
-
     // Usar un intervalo para verificar cambios en args (debido a limitaciones de Storybook HTML)
     let lastOrientation = args.orientation;
     const checkInterval = setInterval(() => {
@@ -345,13 +332,17 @@ export const Default: Story = {
       }
     }, 100);
 
-    // Limpiar al desmontar
-    container.addEventListener('DOMNodeRemoved', () => {
-      clearInterval(checkInterval);
-      if (scrollbarInstance) {
-        scrollbarInstance.destroy();
+    // Limpiar al desmontar usando MutationObserver (reemplazo de DOMNodeRemoved deprecado)
+    const cleanupObserver = new MutationObserver(() => {
+      if (!document.body.contains(container)) {
+        clearInterval(checkInterval);
+        if (scrollbarInstance) {
+          scrollbarInstance.destroy();
+        }
+        cleanupObserver.disconnect();
       }
     });
+    cleanupObserver.observe(document.body, { childList: true, subtree: true });
 
     container.appendChild(wrapper);
     return container;

@@ -54,11 +54,37 @@ const meta: Meta<PopoverOptions> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: 'window.UBITS.Popover.create({\\n  targetElement: document.getElementById(\'target\'),\\n  bodyContent: \'<p>Contenido del popover</p>\',\\n  tailPosition: \'top\',\\n  onClose: function() {}\\n});',
-				basic: 'window.UBITS.Popover.create({\\n  targetElement: document.getElementById(\'target\'),\\n  bodyContent: \'<p>Contenido del popover</p>\',\\n  tailPosition: \'top\'\\n});',
-				withTitle: 'window.UBITS.Popover.create({\\n  targetElement: document.getElementById(\'target\'),\\n  title: \'Título del popover\',\\n  bodyContent: \'<p>Contenido del popover</p>\',\\n  tailPosition: \'top\'\\n});',
-				withButtons: 'window.UBITS.Popover.create({\\n  targetElement: document.getElementById(\'target\'),\\n  bodyContent: \'<p>Contenido del popover</p>\',\\n  footerButtons: {\\n    primary: { label: \'Aceptar\', onClick: function() {} },\\n    secondary: { label: \'Cancelar\', onClick: function() {} }\\n  },\\n  tailPosition: \'top\'\\n});',
-				differentPosition: 'window.UBITS.Popover.create({\\n  targetElement: document.getElementById(\'target\'),\\n  bodyContent: \'<p>Contenido del popover</p>\',\\n  tailPosition: \'bottom\'\\n});',
+				canonical: `window.UBITS.Popover.create({
+  targetElement: document.getElementById('target'),
+  bodyContent: '<p>Contenido del popover</p>',
+  tailPosition: 'top',
+  onClose: function() {}
+});`,
+				basic: `window.UBITS.Popover.create({
+  targetElement: document.getElementById('target'),
+  bodyContent: '<p>Contenido del popover</p>',
+  tailPosition: 'top'
+});`,
+				withTitle: `window.UBITS.Popover.create({
+  targetElement: document.getElementById('target'),
+  title: 'Título del popover',
+  bodyContent: '<p>Contenido del popover</p>',
+  tailPosition: 'top'
+});`,
+				withButtons: `window.UBITS.Popover.create({
+  targetElement: document.getElementById('target'),
+  bodyContent: '<p>Contenido del popover</p>',
+  footerButtons: {
+    primary: { label: 'Aceptar', onClick: function() {} },
+    secondary: { label: 'Cancelar', onClick: function() {} }
+  },
+  tailPosition: 'top'
+});`,
+				differentPosition: `window.UBITS.Popover.create({
+  targetElement: document.getElementById('target'),
+  bodyContent: '<p>Contenido del popover</p>',
+  tailPosition: 'bottom'
+});`,
 			},
 			variants: {
 				width: ['xs', 'sm', 'md', 'lg', 'xl'],

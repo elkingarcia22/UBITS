@@ -336,7 +336,14 @@ export const Default: Story = {
       }
     };
     
-    container.addEventListener('DOMNodeRemoved', cleanup);
+    // Limpiar al desmontar usando MutationObserver (reemplazo de DOMNodeRemoved deprecado)
+    const observer = new MutationObserver(() => {
+      if (!document.body.contains(container)) {
+        cleanup();
+        observer.disconnect();
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
 
     wrapper.appendChild(title);
     wrapper.appendChild(description);

@@ -45,7 +45,7 @@ export function renderAlert(options: AlertOptions = {}): string {
 
   // Generar HTML del alert
   return `
-    <div class="${classes}" role="alert" aria-live="polite">
+    <div class="${classes}" role="alert" aria-live="polite" data-ubits-id="🧩-ux-alert">
       <div class="ubits-alert__icon">
         ${renderIconHelper(iconClass, 'regular')}
       </div>
@@ -67,10 +67,15 @@ export function renderAlert(options: AlertOptions = {}): string {
 export function createAlert(options: AlertOptions = {}): HTMLDivElement {
   const div = document.createElement('div');
   div.innerHTML = renderAlert(options);
-  const alert = div.querySelector('.ubits-alert');
+  const alert = div.querySelector('.ubits-alert') as HTMLDivElement;
   
   if (!alert) {
     throw new Error('Failed to create alert element');
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!alert.hasAttribute('data-ubits-id')) {
+    alert.setAttribute('data-ubits-id', '🧩-ux-alert');
   }
 
   // Agregar event listener para el botón cerrar

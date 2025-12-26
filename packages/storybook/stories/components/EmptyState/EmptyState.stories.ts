@@ -38,6 +38,7 @@ const meta: Meta<EmptyStateOptions> = {
 				optional: ['🧩-ux-button'], // Botones de acción son opcionales
 			},
 			internals: [], // EmptyState no tiene componentes internos privados
+			slots: {}, // EmptyState no tiene slots públicos
 			tokensUsed: [
 				'--modifiers-normal-color-light-bg-1',
 				'--modifiers-normal-color-light-fg-1-high',
@@ -51,11 +52,33 @@ const meta: Meta<EmptyStateOptions> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: 'window.UBITS.EmptyState.create({\\n  title: \'No hay elementos\',\\n  description: \'No se encontraron elementos para mostrar.\',\\n  onPrimaryAction: function() {}\\n});',
-				basic: 'window.UBITS.EmptyState.create({\\n  title: \'No hay elementos\',\\n  description: \'No se encontraron elementos para mostrar.\'\\n});',
-				withIcon: 'window.UBITS.EmptyState.create({\\n  title: \'No hay elementos\',\\n  description: \'No se encontraron elementos para mostrar.\',\\n  icon: \'inbox\',\\n  iconSize: \'md\'\\n});',
-				withImage: 'window.UBITS.EmptyState.create({\\n  title: \'No hay elementos\',\\n  description: \'No se encontraron elementos para mostrar.\',\\n  imageUrl: \'https://example.com/empty-state.png\'\\n});',
-				withButton: 'window.UBITS.EmptyState.create({\\n  title: \'No hay elementos\',\\n  description: \'No se encontraron elementos para mostrar.\',\\n  showPrimaryButton: true,\\n  actionLabel: \'Crear elemento\',\\n  onPrimaryAction: function() {}\\n});',
+				canonical: `window.UBITS.EmptyState.create({
+  title: 'No hay elementos',
+  description: 'No se encontraron elementos para mostrar.',
+  onPrimaryAction: () => {}
+});`,
+				basic: `window.UBITS.EmptyState.create({
+  title: 'No hay elementos',
+  description: 'No se encontraron elementos para mostrar.'
+});`,
+				withIcon: `window.UBITS.EmptyState.create({
+  title: 'No hay elementos',
+  description: 'No se encontraron elementos para mostrar.',
+  icon: 'inbox',
+  iconSize: 'md'
+});`,
+				withImage: `window.UBITS.EmptyState.create({
+  title: 'No hay elementos',
+  description: 'No se encontraron elementos para mostrar.',
+  imageUrl: 'https://example.com/empty-state.png'
+});`,
+				withButton: `window.UBITS.EmptyState.create({
+  title: 'No hay elementos',
+  description: 'No se encontraron elementos para mostrar.',
+  showPrimaryButton: true,
+  actionLabel: 'Crear elemento',
+  onPrimaryAction: () => {}
+});`,
 			},
 			variants: {
 				iconSize: ['xs', 'sm', 'md', 'lg', 'xl'],

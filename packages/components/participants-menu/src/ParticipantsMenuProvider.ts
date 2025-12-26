@@ -234,7 +234,7 @@ export function renderParticipantsMenu(options: ParticipantsMenuOptions): string
     iconStyle: 'regular',
     iconOnly: true,
     active: activeFiltersCount > 0,
-    badge: activeFiltersCount > 0, // Solo mostrar badge si hay filtros activos
+    badge: true, // Siempre crear el badge (vacío si no hay filtros), se actualizará dinámicamente
     className: 'ubits-participants-menu__filter-button'
   };
   let filterButtonHtml = renderButton(filterButtonOptions);
@@ -246,13 +246,8 @@ export function renderParticipantsMenu(options: ParticipantsMenuOptions): string
       '<span class="ubits-button__badge"></span>', 
       badgeHTML
     );
-  } else {
-    // Si no hay filtros activos, eliminar completamente el badge del HTML inicial
-    filterButtonHtml = filterButtonHtml.replace(
-      /<span class="ubits-button__badge"><\/span>/g, 
-      ''
-    );
   }
+  // Si no hay filtros activos, dejar el badge genérico vacío (se eliminará dinámicamente en updateFilterBadge)
   
   // Detectar si debemos mostrar empty state
   const hasNoResults = participantsToShow.length === 0;
@@ -292,7 +287,7 @@ export function renderParticipantsMenu(options: ParticipantsMenuOptions): string
   }
 
   return `
-    <div class="${classes}">
+    <div class="${classes}" data-ubits-id="🧩-ux-participants-menu">
       <div class="ubits-participants-menu__header">
         <h2 class="ubits-participants-menu__title ubits-body-md-bold" style="
           margin: 0;
@@ -402,6 +397,11 @@ export function createParticipantsMenu(options: ParticipantsMenuOptions): {
   if (!menuElement) {
     console.error('❌ [ParticipantsMenu] No se pudo crear el elemento del menú');
     throw new Error('No se pudo crear el menú de participantes');
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!menuElement.hasAttribute('data-ubits-id')) {
+    menuElement.setAttribute('data-ubits-id', '🧩-ux-participants-menu');
   }
 
   // Función para insertar el menú en el contenedor
@@ -618,15 +618,30 @@ export function createParticipantsMenu(options: ParticipantsMenuOptions): {
         drawerInstance.open();
         
         // Crear los checkboxes después de abrir el drawer
-        setTimeout(() => {
-          createFilterCheckboxes();
-        }, 300);
+        // Usar requestAnimationFrame para asegurar que el drawer esté completamente renderizado
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            // Verificar que el drawer esté visible y los contenedores existan
+            const firstContainer = drawerInstance?.element.querySelector('#filter-role-0') as HTMLElement;
+            if (!firstContainer) {
+              console.warn('⚠️ [ParticipantsMenu] Contenedores de filtros no encontrados, reintentando...');
+              setTimeout(() => {
+                createFilterCheckboxes();
+              }, 100);
+              return;
+            }
+            createFilterCheckboxes();
+          });
+        });
       }
     };
 
     // Función para crear los checkboxes de filtros
     const createFilterCheckboxes = () => {
-      if (!drawerInstance) return;
+      if (!drawerInstance) {
+        console.warn('⚠️ [ParticipantsMenu] drawerInstance no disponible para crear checkboxes');
+        return;
+      }
       
       // Limpiar instancias anteriores
       checkboxInstances.forEach(instance => {
@@ -641,12 +656,17 @@ export function createParticipantsMenu(options: ParticipantsMenuOptions): {
       // Crear checkboxes de roles
       allRoles.forEach((role, index) => {
         const containerId = `filter-role-${index}`;
-        const inputContainer = drawerInstance.element.querySelector(`#${containerId}`) as HTMLElement;
-        if (inputContainer) {
-          inputContainer.innerHTML = '';
-          const isChecked = activeFilters.roles.includes(role);
-          
-          // Crear checkbox directamente en el contenedor usando renderCheckbox
+        const inputContainer = drawerInstance!.element.querySelector(`#${containerId}`) as HTMLElement;
+        if (!inputContainer) {
+          console.warn(`⚠️ [ParticipantsMenu] Contenedor ${containerId} no encontrado para checkbox de rol`);
+          return;
+        }
+        
+        inputContainer.innerHTML = '';
+        const isChecked = activeFilters.roles.includes(role);
+        
+        // Crear checkbox usando renderCheckbox
+        try {
           const checkboxHTML = renderCheckbox({
             label: role,
             name: 'filter-role',
@@ -707,6 +727,8 @@ export function createParticipantsMenu(options: ParticipantsMenuOptions): {
               update: () => {}
             });
           }
+        } catch (error) {
+          console.error(`❌ [ParticipantsMenu] Error creando checkbox para rol ${role}:`, error);
         }
       });
       
@@ -720,12 +742,17 @@ export function createParticipantsMenu(options: ParticipantsMenuOptions): {
       
       allStatuses.forEach((status, index) => {
         const containerId = `filter-status-${index}`;
-        const inputContainer = drawerInstance.element.querySelector(`#${containerId}`) as HTMLElement;
-        if (inputContainer) {
-          inputContainer.innerHTML = '';
-          const isChecked = activeFilters.statuses.includes(status);
-          
-          // Crear checkbox directamente en el contenedor usando renderCheckbox
+        const inputContainer = drawerInstance!.element.querySelector(`#${containerId}`) as HTMLElement;
+        if (!inputContainer) {
+          console.warn(`⚠️ [ParticipantsMenu] Contenedor ${containerId} no encontrado para checkbox de estado`);
+          return;
+        }
+        
+        inputContainer.innerHTML = '';
+        const isChecked = activeFilters.statuses.includes(status);
+        
+        // Crear checkbox usando renderCheckbox
+        try {
           const checkboxHTML = renderCheckbox({
             label: statusLabels[status],
             name: 'filter-status',
@@ -786,6 +813,8 @@ export function createParticipantsMenu(options: ParticipantsMenuOptions): {
               update: () => {}
             });
           }
+        } catch (error) {
+          console.error(`❌ [ParticipantsMenu] Error creando checkbox para estado ${status}:`, error);
         }
       });
     };
@@ -891,26 +920,56 @@ export function createParticipantsMenu(options: ParticipantsMenuOptions): {
   // Función para actualizar el badge del botón de filtro
   const updateFilterBadge = () => {
     const filterButton = menuElement.querySelector('.ubits-participants-menu__filter-button') as HTMLElement;
-    if (!filterButton) return;
+    if (!filterButton) {
+      console.warn('⚠️ [ParticipantsMenu] Botón de filtro no encontrado para actualizar badge');
+      return;
+    }
     
     const activeFiltersCount = (activeFilters.roles?.length || 0) + (activeFilters.statuses?.length || 0);
     const badgeElement = filterButton.querySelector('.ubits-button__badge') as HTMLElement;
     
+    console.log('🔵 [ParticipantsMenu] updateFilterBadge', { activeFiltersCount, hasBadgeElement: !!badgeElement, activeFilters });
+    
     if (activeFiltersCount > 0) {
       // Reemplazar el badge genérico con el badge personalizado que muestra el número
       if (badgeElement) {
-        // Si ya es un badge con número, solo actualizar el texto
+        // Si ya es un badge con número, solo actualizar el texto y asegurar que sea circular
         if (badgeElement.classList.contains('ubits-badge--number')) {
           badgeElement.textContent = `${activeFiltersCount}`;
+          // Asegurar que sea circular
+          badgeElement.style.cssText = `
+            min-width: 18px !important;
+            width: auto !important;
+            height: 18px !important;
+            padding: 0 4px !important;
+            border-radius: var(--ubits-border-radius-full, 999px) !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+          `;
+          console.log('🟢 [ParticipantsMenu] Badge actualizado con número:', activeFiltersCount);
         } else {
-        // Reemplazar el badge genérico con el badge personalizado
-        const newBadgeHTML = `<span class="ubits-badge ubits-badge--sm ubits-badge--number ubits-badge--error ubits-button__badge">${activeFiltersCount}</span>`;
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = newBadgeHTML;
-        const newBadge = tempDiv.firstElementChild as HTMLElement;
-        
-        if (newBadge && badgeElement.parentNode) {
-          badgeElement.parentNode.replaceChild(newBadge, badgeElement);
+          // Reemplazar el badge genérico con el badge personalizado
+          const newBadge = document.createElement('span');
+          newBadge.className = 'ubits-badge ubits-badge--sm ubits-badge--number ubits-badge--error ubits-button__badge';
+          newBadge.textContent = `${activeFiltersCount}`;
+          // Asegurar que sea circular: width y height iguales, border-radius 50%
+          newBadge.style.cssText = `
+            min-width: 18px !important;
+            width: auto !important;
+            height: 18px !important;
+            padding: 0 4px !important;
+            border-radius: var(--ubits-border-radius-full, 999px) !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+          `;
+          
+          if (badgeElement.parentNode) {
+            badgeElement.parentNode.replaceChild(newBadge, badgeElement);
+            console.log('🟢 [ParticipantsMenu] Badge genérico reemplazado con badge personalizado');
           }
         }
       } else {
@@ -918,7 +977,20 @@ export function createParticipantsMenu(options: ParticipantsMenuOptions): {
         const newBadge = document.createElement('span');
         newBadge.className = 'ubits-badge ubits-badge--sm ubits-badge--number ubits-badge--error ubits-button__badge';
         newBadge.textContent = `${activeFiltersCount}`;
+        // Asegurar que sea circular: width y height iguales, border-radius 50%
+        newBadge.style.cssText = `
+          min-width: 18px !important;
+          width: auto !important;
+          height: 18px !important;
+          padding: 0 4px !important;
+          border-radius: var(--ubits-border-radius-full, 999px) !important;
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          box-sizing: border-box !important;
+        `;
         filterButton.appendChild(newBadge);
+        console.log('🟢 [ParticipantsMenu] Badge personalizado creado');
       }
       // Activar el botón
       filterButton.classList.add('ubits-button--active');
@@ -927,6 +999,7 @@ export function createParticipantsMenu(options: ParticipantsMenuOptions): {
       if (badgeElement) {
         // Eliminar el badge del DOM completamente
         badgeElement.remove();
+        console.log('🟡 [ParticipantsMenu] Badge removido (sin filtros activos)');
       }
       // Desactivar el botón
       filterButton.classList.remove('ubits-button--active');
@@ -935,46 +1008,74 @@ export function createParticipantsMenu(options: ParticipantsMenuOptions): {
 
   // Función para inicializar el input de búsqueda
   const initializeInput = () => {
-    setTimeout(() => {
+    // Verificar que el menuElement esté en el DOM
+    if (!menuElement.parentNode) {
+      console.warn(`⚠️ [ParticipantsMenu] menuElement no está en el DOM aún, esperando...`);
+      setTimeout(() => {
+        initializeInput();
+      }, 50);
+      return;
+    }
+    
+    // Usar requestAnimationFrame para asegurar que el DOM esté listo
+    requestAnimationFrame(() => {
       const searchInputContainer = menuElement.querySelector(`#${searchInputId}`) as HTMLElement;
       
-      if (searchInputContainer) {
-        const placeholder = searchInputContainer.getAttribute('data-search-placeholder') || options.searchPlaceholder || 'Buscar participan...';
-        const preservedValue = (options as any).preservedSearchValue || '';
-        
-        const inputOptions: InputOptions = {
-          containerId: searchInputId,
-          type: 'search',
-          size: 'md',
-          placeholder: placeholder,
-          showLabel: false,
-          className: 'ubits-participants-menu__search-input',
-          value: preservedValue,
-          onChange: (value: string, event?: Event) => {
-            if (isRestoringValue) {
-              return;
-            }
-            
-            currentSearchTerm = value || '';
-            if (onSearchChange) {
-              try {
-                onSearchChange(value);
-              } catch (error) {
-                console.error('[ParticipantsMenu] Error en onSearchChange:', error);
-              }
-            }
-            // Actualizar badge (solo muestra filtros activos, no búsqueda)
-            updateFilterBadge();
+      if (!searchInputContainer) {
+        console.warn(`⚠️ [ParticipantsMenu] Contenedor de búsqueda ${searchInputId} no encontrado, reintentando...`);
+        // Reintentar después de un pequeño delay
+        setTimeout(() => {
+          initializeInput();
+        }, 50);
+        return;
+      }
+      
+      console.log('🟢 [ParticipantsMenu] Contenedor de búsqueda encontrado:', searchInputId);
+      
+      const placeholder = searchInputContainer.getAttribute('data-search-placeholder') || options.searchPlaceholder || 'Buscar participan...';
+      const preservedValue = (options as any).preservedSearchValue || '';
+      
+      const inputOptions: InputOptions = {
+        containerId: searchInputId,
+        type: 'search',
+        size: 'md',
+        placeholder: placeholder,
+        showLabel: false,
+        className: 'ubits-participants-menu__search-input',
+        value: preservedValue,
+        onChange: (value: string, event?: Event) => {
+          if (isRestoringValue) {
+            console.log('🟡 [ParticipantsMenu] Ignorando onChange durante restauración de valor');
+            return;
           }
-        };
-        
-        if (preservedValue) {
-          isRestoringValue = true;
+          
+          console.log('🔵 [ParticipantsMenu] onChange llamado con valor:', value);
+          currentSearchTerm = value || '';
+          
+          if (onSearchChange) {
+            console.log('🟢 [ParticipantsMenu] Llamando onSearchChange callback');
+            try {
+              onSearchChange(value);
+            } catch (error) {
+              console.error('❌ [ParticipantsMenu] Error en onSearchChange:', error);
+            }
+          } else {
+            console.warn('⚠️ [ParticipantsMenu] onSearchChange no está definido');
+          }
+          // Actualizar badge (solo muestra filtros activos, no búsqueda)
+          updateFilterBadge();
         }
-        
+      };
+      
+      if (preservedValue) {
+        isRestoringValue = true;
+      }
+      
+      try {
         inputInstance = createInput(inputOptions);
         
         if (inputInstance?.inputElement) {
+          console.log('🟢 [ParticipantsMenu] Input creado correctamente');
           if (preservedValue && inputInstance.inputElement.value !== preservedValue) {
             inputInstance.setValue(preservedValue);
           }
@@ -983,10 +1084,13 @@ export function createParticipantsMenu(options: ParticipantsMenuOptions): {
           }, 150);
         } else {
           isRestoringValue = false;
-          console.error('[ParticipantsMenu] No se pudo crear input');
+          console.error('❌ [ParticipantsMenu] No se pudo crear input - inputInstance o inputElement es null');
         }
+      } catch (error) {
+        isRestoringValue = false;
+        console.error('❌ [ParticipantsMenu] Error al crear input:', error);
       }
-    }, 0);
+    });
   };
 
   // Usar requestAnimationFrame para asegurar que el DOM esté listo

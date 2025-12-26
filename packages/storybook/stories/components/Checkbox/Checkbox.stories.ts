@@ -35,6 +35,7 @@ const meta: Meta<CheckboxOptions> = {
 				optional: [], // No hay componentes opcionales
 			},
 			internals: [], // Checkbox no tiene componentes internos privados
+			slots: {}, // Checkbox no tiene slots públicos
 			tokensUsed: [
 				'--modifiers-normal-color-light-bg-1',
 				'--modifiers-normal-color-light-border-1',
@@ -49,12 +50,43 @@ const meta: Meta<CheckboxOptions> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: 'window.UBITS.Checkbox.create({\\n  label: \'Label\',\\n  checked: false,\\n  size: \'md\',\\n  state: \'default\',\\n  onChange: function() {}\\n});',
-				basic: 'window.UBITS.Checkbox.create({\\n  label: \'Label\',\\n  checked: false,\\n  size: \'md\',\\n  state: \'default\'\n});',
-				checked: 'window.UBITS.Checkbox.create({\\n  label: \'Label\',\\n  checked: true,\\n  size: \'md\',\\n  state: \'default\'\n});',
-				withComplementaryText: 'window.UBITS.Checkbox.create({\\n  label: \'Label\',\\n  complementaryText: \'Texto complementario\',\\n  checked: false,\\n  size: \'md\'\n});',
-				indeterminate: 'window.UBITS.Checkbox.create({\\n  label: \'Label\',\\n  checked: false,\\n  indeterminate: true,\\n  size: \'md\'\n});',
-				disabled: 'window.UBITS.Checkbox.create({\\n  label: \'Label\',\\n  checked: false,\\n  disabled: true,\\n  size: \'md\'\n});',
+				canonical: `window.UBITS.Checkbox.create({
+  label: 'Label',
+  checked: false,
+  size: 'md',
+  state: 'default',
+  onChange: () => {}
+});`,
+				basic: `window.UBITS.Checkbox.create({
+  label: 'Label',
+  checked: false,
+  size: 'md',
+  state: 'default'
+});`,
+				checked: `window.UBITS.Checkbox.create({
+  label: 'Label',
+  checked: true,
+  size: 'md',
+  state: 'default'
+});`,
+				withComplementaryText: `window.UBITS.Checkbox.create({
+  label: 'Label',
+  complementaryText: 'Texto complementario',
+  checked: false,
+  size: 'md'
+});`,
+				indeterminate: `window.UBITS.Checkbox.create({
+  label: 'Label',
+  checked: false,
+  indeterminate: true,
+  size: 'md'
+});`,
+				disabled: `window.UBITS.Checkbox.create({
+  label: 'Label',
+  checked: false,
+  disabled: true,
+  size: 'md'
+});`,
 			},
 			variants: {
 				size: ['xs', 'sm', 'md', 'lg'],

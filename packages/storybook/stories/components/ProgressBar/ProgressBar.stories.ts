@@ -65,10 +65,31 @@ const meta: Meta<ExtendedProgressOptions> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: "createProgressBar({\\n  value: 50,\\n  size: 'md',\\n  variant: 'default'\\n});",
-				basic: "createProgressBar({\\n  value: 50,\\n  size: 'md',\\n  variant: 'default'\\n});",
-				withLabel: "createProgressBar({\\n  value: 75,\\n  size: 'md',\\n  variant: 'default',\\n  showLabel: true,\\n  label: '75%'\\n});",
-				multiColor: "createProgressBar({\\n  segments: [\\n    { value: 30, color: 'green' },\\n    { value: 20, color: 'yellow' }\\n  ],\\n  size: 'md',\\n  variant: 'multi-color'\\n});",
+				canonical: `createProgressBar({
+  value: 50,
+  size: 'md',
+  variant: 'default'
+});`,
+				basic: `createProgressBar({
+  value: 50,
+  size: 'md',
+  variant: 'default'
+});`,
+				withLabel: `createProgressBar({
+  value: 75,
+  size: 'md',
+  variant: 'default',
+  showLabel: true,
+  label: '75%'
+});`,
+				multiColor: `createProgressBar({
+  segments: [
+    { value: 30, color: 'green' },
+    { value: 20, color: 'yellow' }
+  ],
+  size: 'md',
+  variant: 'multi-color'
+});`,
 			},
 			variants: {
 				size: ['xs', 'sm', 'md', 'lg'],

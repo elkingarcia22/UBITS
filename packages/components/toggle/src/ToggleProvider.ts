@@ -72,7 +72,7 @@ export function renderToggle(options: ToggleOptions): string {
 
   // Si hay texto, ponerlo primero (a la izquierda), luego el toggle
   return `
-    <${wrapperTag} class="${wrapperClass}">
+    <${wrapperTag} class="${wrapperClass}" data-ubits-id="🧩-ux-toggle">
       ${toggleInput}
       ${textContentHTML}
       ${toggleTrack}
@@ -105,12 +105,53 @@ export function createToggle(options: ToggleOptions): {
     throw new Error('Failed to create toggle element');
   }
 
+  // Agregar data-ubits-id si no está presente
+  if (!element.hasAttribute('data-ubits-id')) {
+    element.setAttribute('data-ubits-id', '🧩-ux-toggle');
+  }
+
   container.appendChild(element);
 
-  // Agregar event listener para cambio
+  // Obtener el input element
   const inputElement = element.querySelector('.ubits-toggle__input') as HTMLInputElement;
-  if (inputElement && options.onChange) {
-    inputElement.addEventListener('change', options.onChange);
+  
+  if (inputElement) {
+    // Función para actualizar el estado visual
+    const updateVisualState = () => {
+      if (inputElement.checked) {
+        element.classList.add('ubits-toggle--checked');
+        inputElement.setAttribute('aria-checked', 'true');
+      } else {
+        element.classList.remove('ubits-toggle--checked');
+        inputElement.setAttribute('aria-checked', 'false');
+      }
+    };
+
+    // Agregar event listener para cambio del checkbox
+    inputElement.addEventListener('change', (event) => {
+      updateVisualState();
+      if (options.onChange) {
+        options.onChange(event);
+      }
+    });
+
+    // Si el wrapper es un div (sin label), agregar click handler al elemento
+    if (element.tagName === 'DIV') {
+      element.addEventListener('click', (event) => {
+        // Evitar doble toggle si se hace click directamente en el input
+        if (event.target === inputElement) {
+          return;
+        }
+        // Toggle el checkbox
+        inputElement.checked = !inputElement.checked;
+        // Disparar evento change manualmente
+        const changeEvent = new Event('change', { bubbles: true });
+        inputElement.dispatchEvent(changeEvent);
+      });
+    }
+
+    // Inicializar estado visual
+    updateVisualState();
   }
 
   const destroy = () => {
@@ -128,10 +169,44 @@ export function createToggle(options: ToggleOptions): {
     
     if (newElement && element.parentNode) {
       element.parentNode.replaceChild(newElement, element);
-      // Actualizar referencias
+      
+      // Configurar event listeners en el nuevo elemento (igual que en createToggle)
       const newInputElement = newElement.querySelector('.ubits-toggle__input') as HTMLInputElement;
-      if (newInputElement && updatedOptions.onChange) {
-        newInputElement.addEventListener('change', updatedOptions.onChange);
+      
+      if (newInputElement) {
+        // Función para actualizar el estado visual
+        const updateVisualState = () => {
+          if (newInputElement.checked) {
+            newElement.classList.add('ubits-toggle--checked');
+            newInputElement.setAttribute('aria-checked', 'true');
+          } else {
+            newElement.classList.remove('ubits-toggle--checked');
+            newInputElement.setAttribute('aria-checked', 'false');
+          }
+        };
+
+        // Agregar event listener para cambio del checkbox
+        newInputElement.addEventListener('change', (event) => {
+          updateVisualState();
+          if (updatedOptions.onChange) {
+            updatedOptions.onChange(event);
+          }
+        });
+
+        // Si el wrapper es un div (sin label), agregar click handler
+        if (newElement.tagName === 'DIV') {
+          newElement.addEventListener('click', (event) => {
+            if (event.target === newInputElement) {
+              return;
+            }
+            newInputElement.checked = !newInputElement.checked;
+            const changeEvent = new Event('change', { bubbles: true });
+            newInputElement.dispatchEvent(changeEvent);
+          });
+        }
+
+        // Inicializar estado visual
+        updateVisualState();
       }
     }
   };

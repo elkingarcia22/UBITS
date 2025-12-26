@@ -67,7 +67,7 @@ export function renderRadioButton(options: RadioButtonOptions): string {
   `;
 
   return `
-    <label class="${classes}">
+    <label class="${classes}" data-ubits-id="🧩-ux-radio-button">
       ${radioInput}
       ${radioCircle}
       ${textContentHTML}
@@ -97,10 +97,96 @@ export function createRadioButton(options: RadioButtonOptions): {
     throw new Error('No se pudo crear el radio button');
   }
 
+  // Agregar data-ubits-id si no está presente
+  if (!radioButton.hasAttribute('data-ubits-id')) {
+    radioButton.setAttribute('data-ubits-id', '🧩-ux-radio-button');
+  }
+
   // Event listener para cambio
   const inputElement = radioButton.querySelector('.ubits-radio-button__input') as HTMLInputElement;
-  if (inputElement && onChange) {
-    inputElement.addEventListener('change', onChange);
+  
+  console.log('[RadioButton] createRadioButton:', {
+    radioButton: !!radioButton,
+    inputElement: !!inputElement,
+    inputElementId: inputElement?.id,
+    hasOnChange: !!onChange,
+    containerId
+  });
+  
+  // Variable para guardar el handler del grupo
+  let groupChangeHandler: ((e: Event) => void) | null = null;
+  
+  // Función para actualizar el estado visual
+  const updateVisualState = () => {
+    if (!inputElement) return;
+    
+    const circle = radioButton.querySelector('.ubits-radio-button__circle');
+    const dot = radioButton.querySelector('.ubits-radio-button__dot');
+    
+    console.log('[RadioButton] Updating visual state:', {
+      checked: inputElement.checked,
+      hasCircle: !!circle,
+      hasDot: !!dot
+    });
+    
+    if (inputElement.checked) {
+      radioButton.classList.add('ubits-radio-button--checked');
+      // Asegurar que el dot existe y está visible
+      if (circle && !dot) {
+        const newDot = document.createElement('span');
+        newDot.className = 'ubits-radio-button__dot';
+        circle.appendChild(newDot);
+      }
+    } else {
+      radioButton.classList.remove('ubits-radio-button--checked');
+      // Remover el dot si existe
+      if (dot) {
+        dot.remove();
+      }
+    }
+  };
+  
+  if (inputElement) {
+    // Agregar listener de cambio
+    if (onChange) {
+      inputElement.addEventListener('change', (e) => {
+        console.log('[RadioButton] Input changed:', {
+          checked: inputElement.checked,
+          value: inputElement.value,
+          name: inputElement.name
+        });
+        updateVisualState();
+        onChange(e);
+      });
+    } else {
+      // Si no hay onChange, aún necesitamos actualizar el estado visual
+      inputElement.addEventListener('change', () => {
+        updateVisualState();
+      });
+    }
+    
+    // Agregar listener de click para logs
+    inputElement.addEventListener('click', (e) => {
+      console.log('[RadioButton] Input clicked:', {
+        checked: inputElement.checked,
+        value: inputElement.value,
+        name: inputElement.name
+      });
+    });
+    
+    // Actualizar estado visual inicial
+    updateVisualState();
+    
+    // Escuchar cambios en otros radio buttons del mismo grupo
+    groupChangeHandler = (e: Event) => {
+      const target = e.target as HTMLInputElement;
+      if (target.type === 'radio' && target.name === inputElement.name && target !== inputElement) {
+        console.log('[RadioButton] Another radio in group changed, updating visual state');
+        updateVisualState();
+      }
+    };
+    
+    document.addEventListener('change', groupChangeHandler);
   }
 
   // Agregar al DOM
@@ -110,11 +196,29 @@ export function createRadioButton(options: RadioButtonOptions): {
   } else {
     container = document.body;
   }
+  
+  // Limpiar cualquier radio button existente en el contenedor antes de agregar uno nuevo
+  const existingRadio = container.querySelector('.ubits-radio-button');
+  if (existingRadio) {
+    console.log('[RadioButton] Removing existing radio button from container');
+    existingRadio.remove();
+  }
 
   container.appendChild(radioButton);
+  
+  console.log('[RadioButton] Radio button appended to container:', {
+    containerId: container.id || 'body',
+    containerTagName: container.tagName,
+    radioButtonInDOM: document.body.contains(radioButton)
+  });
 
   // Métodos
   const destroy = () => {
+    // Limpiar listener de grupo si existe
+    if (groupChangeHandler) {
+      document.removeEventListener('change', groupChangeHandler);
+    }
+    
     if (radioButton.parentElement) {
       radioButton.parentElement.removeChild(radioButton);
     }

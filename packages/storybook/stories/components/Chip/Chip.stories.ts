@@ -35,6 +35,7 @@ const meta: Meta<ChipOptions> = {
 				optional: ['🧩-ux-icon'], // Iconos son opcionales
 			},
 			internals: [], // Chip no tiene componentes internos privados
+			slots: {}, // Chip no tiene slots públicos
 			tokensUsed: [
 				'--modifiers-normal-color-light-bg-1',
 				'--modifiers-normal-color-light-bg-2',
@@ -49,11 +50,38 @@ const meta: Meta<ChipOptions> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: 'window.UBITS.Chip.create({\\n  label: \'Etiqueta\',\\n  size: \'md\',\\n  state: \'default\',\\n  onClick: function() {}\\n});',
-				basic: 'window.UBITS.Chip.create({\\n  label: \'Etiqueta\',\\n  size: \'md\',\\n  state: \'default\'\n});',
-				withLeftIcon: 'window.UBITS.Chip.create({\\n  label: \'Etiqueta\',\\n  size: \'md\',\\n  state: \'default\',\\n  leftIcon: \'tag\'\n});',
-				closable: 'window.UBITS.Chip.create({\\n  label: \'Etiqueta\',\\n  size: \'md\',\\n  state: \'default\',\\n  closable: true,\\n  rightIcon: \'xmark\',\\n  onClose: function() {}\n});',
-				clickable: 'window.UBITS.Chip.create({\\n  label: \'Etiqueta\',\\n  size: \'md\',\\n  state: \'default\',\\n  clickable: true,\\n  onClick: function() {}\n});',
+				canonical: `window.UBITS.Chip.create({
+  label: 'Etiqueta',
+  size: 'md',
+  state: 'default',
+  onClick: () => {}
+});`,
+				basic: `window.UBITS.Chip.create({
+  label: 'Etiqueta',
+  size: 'md',
+  state: 'default'
+});`,
+				withLeftIcon: `window.UBITS.Chip.create({
+  label: 'Etiqueta',
+  size: 'md',
+  state: 'default',
+  leftIcon: 'tag'
+});`,
+				closable: `window.UBITS.Chip.create({
+  label: 'Etiqueta',
+  size: 'md',
+  state: 'default',
+  closable: true,
+  rightIcon: 'xmark',
+  onClose: () => {}
+});`,
+				clickable: `window.UBITS.Chip.create({
+  label: 'Etiqueta',
+  size: 'md',
+  state: 'default',
+  clickable: true,
+  onClick: () => {}
+});`,
 			},
 			variants: {
 				size: ['xs', 'sm', 'md', 'lg'],

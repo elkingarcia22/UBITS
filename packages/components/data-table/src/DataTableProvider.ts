@@ -889,8 +889,6 @@ function renderRow(row: TableRow, columns: TableColumn[], rowIndex: number, pinn
         </td>
       </tr>
     `;
-  } else if (isExpanded && !row.renderExpandedContent) {
-    console.warn('📋 [ROW RENDER] ⚠️ Fila marcada como expandida pero no tiene renderExpandedContent - rowId:', row.id);
   }
 
   return rowHTML;
@@ -1065,7 +1063,6 @@ function renderDataTableHeader(options: DataTableOptions, activeFilters: Record<
   const hasAnyElement = !!(titleSection || primaryButtonHTML || secondaryButtonsHTML || searchButtonHTML || filterButtonHTML || columnSelectorButtonHTML);
   
   if (!hasAnyElement) {
-    console.warn('⚠️ [DATA TABLE HEADER] No hay elementos para renderizar, retornando vacío');
     return '';
   }
   
@@ -1453,7 +1450,6 @@ export function renderDataTable(
         className: 'ubits-data-table__pagination'
       });
     } catch (error) {
-      console.error('❌ [PAGINATION] ERROR:', error);
       paginationHTML = '';
     }
   } else if (isLazyLoadEnabled) {
@@ -1605,7 +1601,7 @@ export function renderDataTable(
   let html: string;
   if (showPagination && paginationHTML) {
     // El paginador siempre va FUERA del contenedor de la tabla, en un wrapper separado
-    html = `<div class="ubits-data-table__container">
+    html = `<div class="ubits-data-table__container" data-ubits-id="🧩-ux-data-table">
       ${headerHTML}
       ${tableContainerHTML}
       <div class="ubits-data-table__pagination-wrapper">${paginationHTML}</div>
@@ -1613,12 +1609,19 @@ export function renderDataTable(
   } else {
     // Si hay header, envolver todo en un contenedor
     if (headerHTML) {
-      html = `<div class="ubits-data-table__container">
+      html = `<div class="ubits-data-table__container" data-ubits-id="🧩-ux-data-table">
         ${headerHTML}
         ${tableContainerHTML}
       </div>`;
     } else {
-      html = tableContainerHTML;
+      // Si no hay container, agregar data-ubits-id al tableContainerHTML
+      // tableContainerHTML puede ser un div con scrollable-container o directamente tableHTML
+      if (tableContainerHTML.startsWith('<div class="ubits-data-table__scrollable-container')) {
+        html = tableContainerHTML.replace('<div class="ubits-data-table__scrollable-container', '<div class="ubits-data-table__scrollable-container" data-ubits-id="🧩-ux-data-table"');
+      } else {
+        // Si es directamente tableHTML, envolverlo
+        html = `<div data-ubits-id="🧩-ux-data-table">${tableContainerHTML}</div>`;
+      }
     }
   }
 
@@ -1660,7 +1663,7 @@ export function createDataTable(options: DataTableOptions): {
             instance.destroy();
           }
         } catch (e) {
-          console.warn('Error destroying previous table instance:', e);
+          // Error destroying previous table instance
         }
       }
     }
@@ -1674,7 +1677,6 @@ export function createDataTable(options: DataTableOptions): {
           instance.destroy();
         }
       } catch (e) {
-        console.warn('Error destroying previous table instance:', e);
       }
     }
     existingTable.remove();
@@ -1696,6 +1698,22 @@ export function createDataTable(options: DataTableOptions): {
 
   if (!element) {
     throw new Error('Failed to create data table 3 element');
+  }
+
+  // Agregar data-ubits-id si no está presente
+  // Buscar el container o scrollable-container o directamente la tabla
+  const containerElement = element.querySelector('.ubits-data-table__container') as HTMLElement;
+  const scrollableContainer = element.querySelector('.ubits-data-table__scrollable-container') as HTMLElement;
+  const tableElement = element.querySelector('.ubits-data-table') as HTMLElement;
+  
+  if (containerElement && !containerElement.hasAttribute('data-ubits-id')) {
+    containerElement.setAttribute('data-ubits-id', '🧩-ux-data-table');
+  } else if (scrollableContainer && !scrollableContainer.hasAttribute('data-ubits-id')) {
+    scrollableContainer.setAttribute('data-ubits-id', '🧩-ux-data-table');
+  } else if (tableElement && !element.hasAttribute('data-ubits-id')) {
+    element.setAttribute('data-ubits-id', '🧩-ux-data-table');
+  } else if (!element.hasAttribute('data-ubits-id')) {
+    element.setAttribute('data-ubits-id', '🧩-ux-data-table');
   }
 
   container.appendChild(element);
@@ -1862,12 +1880,6 @@ export function createDataTable(options: DataTableOptions): {
 
   // Función para configurar lazy load (infinite scroll)
   const setupLazyLoad = () => {
-    console.log('🔵 [LAZY LOAD SETUP] Iniciando setupLazyLoad...');
-    console.log('  - isLazyLoadEnabled:', isLazyLoadEnabled);
-    console.log('  - lazyLoadCurrentItems:', lazyLoadCurrentItems);
-    console.log('  - lazyLoadItemsPerBatch:', lazyLoadItemsPerBatch);
-    console.log('  - totalRows:', currentOptions.rows.length);
-    
     // Remover listener anterior si existe
     if (lazyLoadScrollListener) {
       const scrollableContainer = element.querySelector('.ubits-data-table__scrollable-container') as HTMLElement;
@@ -1880,7 +1892,6 @@ export function createDataTable(options: DataTableOptions): {
     
     // Buscar el contenedor scrollable
     const scrollableContainer = element.querySelector('.ubits-data-table__scrollable-container') as HTMLElement;
-    console.log('  - scrollableContainer encontrado:', !!scrollableContainer);
     
     // Función para verificar si está cerca del final
     const checkScroll = () => {
@@ -1961,29 +1972,17 @@ export function createDataTable(options: DataTableOptions): {
     // CRÍTICO: Cuando el lazy load está activo, siempre debe haber un contenedor scrollable
     // Si no existe, esperar un momento para que se renderice (puede tardar un frame)
     if (!scrollableContainer) {
-      console.warn('⚠️ [LAZY LOAD] No se encontró contenedor scrollable, esperando renderizado...');
       setTimeout(() => {
         const retryScrollableContainer = element.querySelector('.ubits-data-table__scrollable-container') as HTMLElement;
         if (retryScrollableContainer) {
           lazyLoadScrollListener = checkScroll;
           retryScrollableContainer.addEventListener('scroll', lazyLoadScrollListener, { passive: true });
-        } else {
-          console.error('❌ [LAZY LOAD] No se pudo encontrar contenedor scrollable. El lazy load requiere scroll vertical activo.');
         }
       }, 100);
     } else {
       // Agregar listener al contenedor scrollable
-      console.log('  - Agregando listener de scroll al contenedor');
-      console.log('  - scrollableContainer dimensions:', {
-        scrollHeight: scrollableContainer.scrollHeight,
-        clientHeight: scrollableContainer.clientHeight,
-        offsetHeight: scrollableContainer.offsetHeight,
-        hasScroll: scrollableContainer.scrollHeight > scrollableContainer.clientHeight
-      });
-      
       lazyLoadScrollListener = checkScroll;
       scrollableContainer.addEventListener('scroll', lazyLoadScrollListener, { passive: true });
-      console.log('✅ [LAZY LOAD SETUP] Listener de scroll agregado');
       
       // Marcar que tiene listener
       scrollableContainer.setAttribute('data-lazy-load-listener', 'true');
@@ -1999,8 +1998,10 @@ export function createDataTable(options: DataTableOptions): {
       const faIcon = waIcon.nextElementSibling as HTMLElement;
       const parent = waIcon.parentElement;
       
-      // Solo aplicar estilos especiales si está dentro de un drag handle
-      const isDragHandle = parent && parent.classList.contains('ubits-data-table__column-drag-handle');
+      // Solo aplicar estilos especiales si está dentro de un drag handle (columna o fila)
+      const isColumnDragHandle = parent && parent.classList.contains('ubits-data-table__column-drag-handle');
+      const isRowDragHandle = parent && parent.classList.contains('ubits-data-table__row-drag-handle');
+      const isDragHandle = isColumnDragHandle || isRowDragHandle;
       
       if (faIcon && faIcon.tagName === 'I') {
         if (customElements.get('wa-icon')) {
@@ -2195,9 +2196,7 @@ export function createDataTable(options: DataTableOptions): {
         }
         
         // Verificar que searchButton existe antes de crear el componente
-        if (!currentOptions.header?.searchButton) {
-          console.warn('🔍 [DATA TABLE] searchButton no está definido, saltando creación del componente');
-        } else {
+        if (currentOptions.header?.searchButton) {
           // Crear contenedor temporal para el componente SearchButton
           const tempContainer = document.createElement('div');
           tempContainer.style.display = 'none';
@@ -2258,30 +2257,125 @@ export function createDataTable(options: DataTableOptions): {
           
           // Mover el elemento del componente al lugar del placeholder
           const searchButtonElement = searchButtonInstance.element;
+          
+          // Cuando está activo, aplicar estilos base ANTES de agregar al DOM para evitar salto visual
+          if (isSearchActive) {
+            const searchBtnEl = searchButtonElement as HTMLElement;
+            
+            // Aplicar estilos base inmediatamente (antes de agregar al DOM)
+            searchBtnEl.style.setProperty('position', 'absolute', 'important');
+            searchBtnEl.style.setProperty('width', '248px', 'important');
+            searchBtnEl.style.setProperty('min-width', '248px', 'important');
+            searchBtnEl.style.setProperty('max-width', '248px', 'important');
+            searchBtnEl.style.setProperty('transform', 'translateY(-50%)', 'important');
+            searchBtnEl.style.setProperty('top', '50%', 'important');
+            searchBtnEl.style.setProperty('z-index', '3', 'important');
+            searchBtnEl.style.setProperty('transform-origin', 'right center', 'important');
+            searchBtnEl.classList.remove('ubits-search-button--animating');
+            
+            // Aplicar un right temporal para evitar que se renderice en right: 0
+            // Se actualizará inmediatamente después de agregar al DOM
+            searchBtnEl.style.setProperty('right', '196px', 'important');
+          }
+          
+          // Reemplazar placeholder en el DOM
           searchButtonPlaceholder.parentNode?.replaceChild(searchButtonElement, searchButtonPlaceholder);
           
-          // Remover el width inline que viene del componente SearchButton
-          // Esto permite que el componente se expanda naturalmente sin forzar un ancho fijo
-          if (isSearchActive && (searchButtonElement as HTMLElement).style.width) {
-            (searchButtonElement as HTMLElement).style.width = '';
+          // Si está activo, calcular y aplicar posición correcta INMEDIATAMENTE después de agregar al DOM
+          // (en el mismo frame, antes de que el navegador pinte)
+          if (isSearchActive) {
+            const searchBtnEl = searchButtonElement as HTMLElement;
+            const headerEl = element.querySelector('.ubits-data-table__header');
+            const filterButton = headerEl?.querySelector('.ubits-data-table__header-filter-button') as HTMLElement;
+            const actionsContainer = headerEl?.querySelector('.ubits-data-table__header-actions') as HTMLElement;
+            
+            if (filterButton && actionsContainer) {
+              // Forzar reflow para obtener medidas correctas
+              void actionsContainer.offsetHeight;
+              
+              const containerRect = actionsContainer.getBoundingClientRect();
+              const filterRect = filterButton.getBoundingClientRect();
+              const gap = 8;
+              const containerRight = containerRect.right;
+              const filterLeft = filterRect.left;
+              const searchButtonRightEdge = filterLeft - gap;
+              const rightPosition = containerRight - searchButtonRightEdge;
+              
+              // Aplicar posición correcta INMEDIATAMENTE (síncrono, antes del siguiente frame)
+              searchBtnEl.style.setProperty('right', `${rightPosition}px`, 'important');
+            }
           }
           
           // Limpiar contenedor temporal
           document.body.removeChild(tempContainer);
         }
         
-        // Logs específicos para diagnosticar el posicionamiento
-        setTimeout(() => {
-          const activeSearchBtn = element.querySelector('.ubits-data-table__header-search-button.ubits-search-button--active');
-          const prevButton = activeSearchBtn?.previousElementSibling;
+        // Función para calcular y aplicar posición del SearchButton cuando está activo
+        // Esta función se llama después de que el elemento ya está en el DOM
+        const updateSearchButtonPosition = () => {
+          const headerEl = element.querySelector('.ubits-data-table__header');
+          const activeSearchBtn = headerEl?.querySelector('.ubits-data-table__header-search-button.ubits-search-button--active') as HTMLElement;
           
+          if (activeSearchBtn && headerEl && isSearchActive) {
+            // Encontrar el filter button que está justo después del search button
+            const filterButton = headerEl.querySelector('.ubits-data-table__header-filter-button') as HTMLElement;
+            const actionsContainer = headerEl.querySelector('.ubits-data-table__header-actions') as HTMLElement;
+            
+            if (filterButton && actionsContainer) {
+              const containerRect = actionsContainer.getBoundingClientRect();
+              const filterRect = filterButton.getBoundingClientRect();
+              
+              // Calcular posición: el SearchButton debe estar justo a la izquierda del filter button
+              // con el gap correcto (var(--ubits-spacing-xs) = 8px)
+              const gap = 8; // var(--ubits-spacing-xs)
+              const searchButtonWidth = 248; // Ancho del search button cuando está activo
+              
+              // Posición desde la derecha del contenedor
+              const containerRight = containerRect.right;
+              const filterLeft = filterRect.left;
+              
+              // El borde derecho del search button debe estar en: filterLeft - gap
+              // Entonces right position = containerRight - (filterLeft - gap)
+              const searchButtonRightEdge = filterLeft - gap;
+              const rightPosition = containerRight - searchButtonRightEdge;
+              
+              // Aplicar posición absoluta
+              // IMPORTANTE: Usar !important en inline style para sobrescribir el right: 0 !important del SearchButton base
+              activeSearchBtn.style.setProperty('position', 'absolute', 'important');
+              activeSearchBtn.style.setProperty('right', `${rightPosition}px`, 'important');
+              activeSearchBtn.style.setProperty('top', '50%', 'important');
+              activeSearchBtn.style.setProperty('transform', 'translateY(-50%)', 'important');
+              activeSearchBtn.style.setProperty('z-index', '3', 'important');
+              // Asegurar que el elemento crezca hacia la izquierda desde su posición right fija
+              activeSearchBtn.style.setProperty('width', '248px', 'important');
+              activeSearchBtn.style.setProperty('min-width', '248px', 'important');
+              activeSearchBtn.style.setProperty('max-width', '248px', 'important');
+              // Desactivar scaleX, usar solo ancho real
+              activeSearchBtn.style.setProperty('transform', 'translateY(-50%)', 'important');
+              activeSearchBtn.classList.remove('ubits-search-button--animating');
+            }
+          }
+        };
+        
+        // Calcular posición después de que se renderice
+        setTimeout(() => {
+          // Usar requestAnimationFrame para aplicar en el mismo frame y evitar salto visual
+          requestAnimationFrame(() => {
+            updateSearchButtonPosition();
+          });
+          
+          // Logs específicos para diagnosticar el posicionamiento
+          const headerEl = element.querySelector('.ubits-data-table__header');
+          const activeSearchBtn = headerEl?.querySelector('.ubits-data-table__header-search-button.ubits-search-button--active') as HTMLElement;
+          const prevButton = activeSearchBtn?.previousElementSibling;
+
           if (activeSearchBtn && prevButton) {
             const searchRect = activeSearchBtn.getBoundingClientRect();
             const prevRect = prevButton.getBoundingClientRect();
             const computedStyle = window.getComputedStyle(activeSearchBtn);
             const inputWrapper = activeSearchBtn.querySelector('.ubits-search-button__input-wrapper');
             const inputWrapperStyle = inputWrapper ? window.getComputedStyle(inputWrapper as HTMLElement) : null;
-            
+
             const gapInfo = {
               actualGap: searchRect.left - prevRect.right,
               expectedGap: 8,
@@ -2304,8 +2398,8 @@ export function createDataTable(options: DataTableOptions): {
                 computedWidth: inputWrapperStyle?.width || 'N/A'
               }
             };
-            
-            
+
+
             // Si el gap no es 8px, calcular el margin-left correcto
             if (Math.abs(gapInfo.actualGap - 8) > 1) {
               const buttonWidth = 32; // Ancho del botón cuando no está activo
@@ -2490,7 +2584,7 @@ export function createDataTable(options: DataTableOptions): {
         }
         
       } catch (error) {
-        console.error('📄 [SPACING] ❌ Error verificando espaciado:', error);
+        // Error verificando espaciado
       }
     };
     
@@ -2670,15 +2764,20 @@ export function createDataTable(options: DataTableOptions): {
         element.addEventListener('dragstart', (e) => {
           const target = e.target as HTMLElement;
           const dragHandle = target.closest('.ubits-data-table__row-drag-handle');
-          if (!dragHandle) return;
+          
+          if (!dragHandle) {
+            return;
+          }
           
           const rowIdStr = dragHandle.getAttribute('data-row-id');
+          
           if (rowIdStr) {
             const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
             draggedRowId = rowId;
             e.dataTransfer!.effectAllowed = 'move';
             e.dataTransfer!.setData('text/plain', String(rowId));
             const row = dragHandle.closest('.ubits-data-table__row');
+            
             if (row) {
               row.classList.add('ubits-data-table__row--dragging');
             }
@@ -2688,25 +2787,49 @@ export function createDataTable(options: DataTableOptions): {
         element.addEventListener('dragend', (e) => {
           const target = e.target as HTMLElement;
           const dragHandle = target.closest('.ubits-data-table__row-drag-handle');
+          
           if (dragHandle) {
             const row = dragHandle.closest('.ubits-data-table__row');
+            
             if (row) {
               row.classList.remove('ubits-data-table__row--dragging');
             }
           }
+          
+          // Limpiar todas las clases drag-over de todas las filas
+          const allRows = element.querySelectorAll('.ubits-data-table__row--drag-over');
+          
+          allRows.forEach((r) => {
+            const rowElement = r as HTMLElement;
+            rowElement.classList.remove('ubits-data-table__row--drag-over');
+          });
+          
           draggedRowId = null;
         }, true);
         
         element.addEventListener('dragover', (e) => {
           const target = e.target as HTMLElement;
           const row = target.closest('.ubits-data-table__row');
+          
           if (row && draggedRowId !== null) {
             const rowIdStr = row.getAttribute('data-row-id');
+            
             if (rowIdStr) {
               const rowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
+              
               if (rowId !== draggedRowId) {
                 e.preventDefault();
                 e.dataTransfer!.dropEffect = 'move';
+                
+                // Limpiar todas las clases drag-over de otras filas primero
+                const allRows = element.querySelectorAll('.ubits-data-table__row--drag-over');
+                
+                allRows.forEach((r) => {
+                  const rowElement = r as HTMLElement;
+                  rowElement.classList.remove('ubits-data-table__row--drag-over');
+                });
+                
+                // Agregar la clase a la fila objetivo
                 row.classList.add('ubits-data-table__row--drag-over');
               }
             }
@@ -2715,21 +2838,33 @@ export function createDataTable(options: DataTableOptions): {
         
         element.addEventListener('dragleave', (e) => {
           const target = e.target as HTMLElement;
-          const row = target.closest('.ubits-data-table__row');
-          if (row) {
-            row.classList.remove('ubits-data-table__row--drag-over');
+          const relatedTarget = e.relatedTarget as HTMLElement;
+          
+          const closestRow = target.closest('.ubits-data-table__row');
+          
+          // Solo remover la clase si realmente salimos de la fila (no solo de un elemento hijo)
+          if (relatedTarget && !closestRow?.contains(relatedTarget)) {
+            const row = closestRow;
+            
+            if (row) {
+              row.classList.remove('ubits-data-table__row--drag-over');
+            }
           }
         }, true);
         
         element.addEventListener('drop', (e) => {
           const target = e.target as HTMLElement;
           const row = target.closest('.ubits-data-table__row');
+          
           if (row) {
             e.preventDefault();
             row.classList.remove('ubits-data-table__row--drag-over');
             
             const rowIdStr = row.getAttribute('data-row-id');
-            if (!rowIdStr || !draggedRowId) return;
+            
+            if (!rowIdStr || !draggedRowId) {
+              return;
+            }
             
             const targetRowId = isNaN(Number(rowIdStr)) ? rowIdStr : Number(rowIdStr);
             const droppedRowId = e.dataTransfer!.getData('text/plain');
@@ -3052,7 +3187,7 @@ export function createDataTable(options: DataTableOptions): {
             try {
               optionsWithSelectAll.onSelectAll(isChecked);
             } catch (error) {
-              console.error(`☑️ [SELECT ALL] ❌ Error en onSelectAll callback:`, error);
+              // Error en onSelectAll callback
             }
             
             // Verificar si el callback causó un render (comparando scroll y DOM)
@@ -3067,18 +3202,6 @@ export function createDataTable(options: DataTableOptions): {
                                      Math.abs(clientHeightAfterCallback - clientHeightBeforeCallback) > 1;
             
             if (scrollChanged || dimensionsChanged) {
-              console.warn(`☑️ [SELECT ALL] ⚠️ El callback onSelectAll parece haber causado cambios:`, {
-                scrollCambió: scrollChanged,
-                scrollAntes: scrollBeforeCallback,
-                scrollDespues: scrollAfterCallback,
-                diferenciaScroll: scrollAfterCallback - scrollBeforeCallback,
-                dimensionesCambiaron: dimensionsChanged,
-                scrollHeightAntes: scrollHeightBeforeCallback,
-                scrollHeightDespues: scrollHeightAfterCallback,
-                clientHeightAntes: clientHeightBeforeCallback,
-                clientHeightDespues: clientHeightAfterCallback
-              });
-              
               // Si el scroll cambió, intentar restaurarlo
               if (scrollChanged && savedScrollBeforeSelectAll > 0 && scrollableContainerAfterCallback) {
                 scrollableContainerAfterCallback.scrollTop = savedScrollBeforeSelectAll;
@@ -3499,38 +3622,18 @@ export function createDataTable(options: DataTableOptions): {
         
         if (row) {
           const wasExpanded = row.expanded || false;
+          // Permitir múltiples filas expandidas simultáneamente - solo cambiar el estado de esta fila
           row.expanded = !wasExpanded;
           
           if (currentOptions.onRowExpand) {
             currentOptions.onRowExpand(rowId, row.expanded);
           }
           
+          // Re-renderizar sin hacer scroll automático para mantener la posición
           render();
           
-          // Si la fila se expandió, hacer scroll para mostrar el contenido expandido
-          if (row.expanded) {
-            requestAnimationFrame(() => {
-              const rowElement = element.querySelector(`[data-row-id="${rowId}"]`) as HTMLElement;
-              if (rowElement) {
-                const expandedRow = rowElement.nextElementSibling as HTMLElement;
-                if (expandedRow && expandedRow.classList.contains('ubits-data-table__row-expanded-row')) {
-                  
-                  // Buscar el contenedor scrollable
-                  const scrollableContainer = element.querySelector('.ubits-data-table__scrollable-container--vertical') as HTMLElement;
-                  if (scrollableContainer) {
-                    // Hacer scroll para que la fila expandida sea visible
-                    const rowTop = rowElement.offsetTop;
-                    scrollableContainer.scrollTop = rowTop - 50; // 50px de margen superior
-                  } else {
-                    // Si no hay contenedor scrollable, hacer scroll en el window
-                    rowElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                  }
-                }
-              }
-            });
-          }
-        } else {
-          console.warn('🔘 [EXPAND] ⚠️ Fila no encontrada para rowId:', rowId);
+          // NO hacer scroll automático - las filas deben mantener su posición al expandirse
+          // El usuario puede hacer scroll manualmente si necesita ver el contenido expandido
         }
       });
     });
@@ -3581,7 +3684,6 @@ export function createDataTable(options: DataTableOptions): {
       // Crear contenedor para el dropdown del menú de columna
       const headerCell = btn.closest('th');
       if (!headerCell) {
-        console.warn('⚠️ [MENU BUTTON] No se encontró el header cell');
         return;
       }
       
@@ -3675,7 +3777,6 @@ export function createDataTable(options: DataTableOptions): {
         // Re-obtener la columna para asegurar que está actualizada
         const currentColumn = currentOptions.columns.find(col => col.id === columnId);
         if (!currentColumn) {
-          console.error('❌ [COLUMN MENU] Columna no encontrada:', columnId);
           return;
         }
         
@@ -3739,15 +3840,12 @@ export function createDataTable(options: DataTableOptions): {
                   
                   // Re-renderizar
                   render();
-                } else {
-                  console.error('❌ [COLUMN MENU] Columna no encontrada al intentar fijar:', columnId);
                 }
               }
               closeDropdown();
             }
           });
         } catch (error) {
-          console.error('❌ [COLUMN MENU] Error al crear lista con createList:', error);
           // Fallback: usar renderList
           const listHTML = renderList({
             items: listItems,
@@ -3831,15 +3929,17 @@ export function createDataTable(options: DataTableOptions): {
     
     // Botones de acciones en las filas (columnas de tipo 'acciones')
     const actionButtons = element.querySelectorAll('.ubits-data-table__action-button');
-    actionButtons.forEach((button) => {
+    // También buscar botones en la action bar
+    const actionBarDeleteButtons = element.querySelectorAll('#action-btn-delete');
+    const allActionButtons = Array.from(actionButtons).concat(Array.from(actionBarDeleteButtons));
+    
+    allActionButtons.forEach((button) => {
       const btn = button as HTMLElement;
       
       // Obtener rowId y columnId directamente de los atributos del botón
       const rowIdStr = btn.getAttribute('data-row-id');
-      const columnId = btn.getAttribute('data-column-id');
       
       if (!rowIdStr) {
-        console.warn('⚠️ [ACTION BUTTONS] No se encontró el data-row-id en el botón');
         return;
       }
       
@@ -3862,8 +3962,6 @@ export function createDataTable(options: DataTableOptions): {
             // Fallback: mostrar alerta
             alert(`Acción ejecutada para fila: ${rowId}`);
           }
-        } else {
-          console.warn('⚠️ [ACTION BUTTONS] Fila no encontrada para rowId:', rowId);
         }
       });
     });
@@ -3876,18 +3974,16 @@ export function createDataTable(options: DataTableOptions): {
       const tableRows = element.querySelectorAll('tr.ubits-data-table__row[data-row-id]');
       
       if (tableRows.length === 0) {
-        console.warn('🖱️ [CONTEXT MENU] ⚠️ No se encontraron filas con selector: tr.ubits-data-table__row[data-row-id]');
         // Intentar con selector alternativo
         const altRows = element.querySelectorAll('[data-row-id]');
         
         if (altRows.length > 0) {
           // Usar el selector alternativo
-          altRows.forEach((rowElement, index) => {
+          altRows.forEach((rowElement) => {
             const row = rowElement as HTMLElement;
             const rowIdStr = row.getAttribute('data-row-id');
             
             if (!rowIdStr) {
-              console.warn('🖱️ [CONTEXT MENU] ⚠️ Fila sin data-row-id en índice:', index);
               return;
             }
             
@@ -3965,7 +4061,6 @@ export function createDataTable(options: DataTableOptions): {
         const rowIdStr = row.getAttribute('data-row-id');
         
         if (!rowIdStr) {
-          console.warn('🖱️ [CONTEXT MENU] ⚠️ Fila sin data-row-id en índice:', index);
           return;
         }
         
@@ -3978,7 +4073,6 @@ export function createDataTable(options: DataTableOptions): {
         
         const rowData = currentOptions.rows.find(r => r.id === rowId);
         if (!rowData) {
-          console.warn('🖱️ [CONTEXT MENU] ⚠️ Fila no encontrada en currentOptions.rows:', rowId);
           return;
         }
         
@@ -4075,7 +4169,6 @@ export function createDataTable(options: DataTableOptions): {
         
         // Verificar que el contenedor existe
         if (!contextMenuContainer) {
-          console.error('🖱️ [CONTEXT MENU] ❌ contextMenuContainer es null!');
           return;
         }
         
@@ -4132,8 +4225,6 @@ export function createDataTable(options: DataTableOptions): {
             document.addEventListener('contextmenu', handleContextMenuOutsideClick!);
           }, 0);
         } catch (error) {
-          console.error('🖱️ [CONTEXT MENU] ❌ Error al crear menú contextual:', error);
-          console.error('🖱️ [CONTEXT MENU] Stack:', error instanceof Error ? error.stack : 'N/A');
           // Fallback: usar renderList
           const listHTML = renderList({
             items: menuItems,
@@ -5065,7 +5156,7 @@ export function createDataTable(options: DataTableOptions): {
           // Agregar listeners
           addCalendarListeners();
         } catch (error) {
-          console.error('❌ [CALENDAR] Error cargando Calendar UBITS:', error);
+          // Error cargando Calendar UBITS
         }
       };
       
@@ -5256,22 +5347,55 @@ export function createDataTable(options: DataTableOptions): {
                 // Re-renderizar para mostrar el input
                 render();
                 
-                // Enfocar el input después de renderizar
+                // Calcular y aplicar posición del SearchButton después de renderizar
                 setTimeout(() => {
-                  const newSearchBtn = element.querySelector('.ubits-data-table__header-search-button');
+                  const newSearchBtn = element.querySelector('.ubits-data-table__header-search-button.ubits-search-button--active') as HTMLElement;
+                  const headerElement = element.querySelector('.ubits-data-table__header');
                   
+                  if (newSearchBtn && headerElement) {
+                    const filterButton = headerElement.querySelector('.ubits-data-table__header-filter-button') as HTMLElement;
+                    const actionsContainer = headerElement.querySelector('.ubits-data-table__header-actions') as HTMLElement;
+                    
+                    if (filterButton && actionsContainer) {
+                      const containerRect = actionsContainer.getBoundingClientRect();
+                      const filterRect = filterButton.getBoundingClientRect();
+                      
+                      // Calcular posición: el SearchButton debe estar justo a la izquierda del filter button
+                      const gap = 8; // var(--ubits-spacing-xs)
+                      const searchButtonWidth = 248; // Ancho del search button cuando está activo
+                      const containerRight = containerRect.right;
+                      const filterLeft = filterRect.left;
+                      
+                      // El borde derecho del search button debe estar en: filterLeft - gap
+                      // Entonces right position = containerRight - (filterLeft - gap)
+                      const searchButtonRightEdge = filterLeft - gap;
+                      const rightPosition = containerRight - searchButtonRightEdge;
+                      
+                      // Aplicar posición absoluta
+                      // IMPORTANTE: Usar !important en inline style para sobrescribir el right: 0 !important del SearchButton base
+                      newSearchBtn.style.setProperty('position', 'absolute', 'important');
+                      newSearchBtn.style.setProperty('right', `${rightPosition}px`, 'important');
+                      newSearchBtn.style.setProperty('top', '50%', 'important');
+                      newSearchBtn.style.setProperty('transform', 'translateY(-50%)', 'important');
+                      newSearchBtn.style.setProperty('z-index', '3', 'important');
+                      // Asegurar que el elemento crezca hacia la izquierda desde su posición right fija
+                      newSearchBtn.style.setProperty('width', '248px', 'important');
+                      newSearchBtn.style.setProperty('min-width', '248px', 'important');
+                      newSearchBtn.style.setProperty('max-width', '248px', 'important');
+                      // Desactivar scaleX, usar solo ancho real
+                      newSearchBtn.style.setProperty('transform', 'translateY(-50%)', 'important');
+                      newSearchBtn.classList.remove('ubits-search-button--animating');
+                    }
+                  }
+                  
+                  // Enfocar el input después de posicionar
                   if (newSearchBtn) {
                     const input = newSearchBtn.querySelector('.ubits-search-button__input') as HTMLInputElement;
                     if (input) {
-                      // Establecer el flag de focusing antes de hacer focus
-                      // Esto se manejará en el listener de blur
                       input.focus();
-                      // Pequeño delay adicional para asegurar que el focus se complete
                       setTimeout(() => {
                         input.setSelectionRange(0, input.value.length);
                       }, 10);
-                    } else {
-                      console.warn('🔍 [DATA TABLE] Input no encontrado después de renderizar');
                     }
                   }
                 }, 150);
@@ -5295,6 +5419,45 @@ export function createDataTable(options: DataTableOptions): {
                 
                 // Re-renderizar la tabla con las filas filtradas
                 render();
+                
+                // Re-calcular posición del SearchButton después de renderizar
+                setTimeout(() => {
+                  const newSearchBtn = element.querySelector('.ubits-data-table__header-search-button.ubits-search-button--active') as HTMLElement;
+                  const headerEl = element.querySelector('.ubits-data-table__header');
+                  
+                  if (newSearchBtn && headerEl) {
+                    const filterButton = headerEl.querySelector('.ubits-data-table__header-filter-button') as HTMLElement;
+                    const actionsContainer = headerEl.querySelector('.ubits-data-table__header-actions') as HTMLElement;
+                    
+                    if (filterButton && actionsContainer) {
+                      const containerRect = actionsContainer.getBoundingClientRect();
+                      const filterRect = filterButton.getBoundingClientRect();
+                      
+                      const gap = 8;
+                      const searchButtonWidth = 248;
+                      const containerRight = containerRect.right;
+                      const filterLeft = filterRect.left;
+                      
+                      // El borde derecho del search button debe estar en: filterLeft - gap
+                      const searchButtonRightEdge = filterLeft - gap;
+                      const rightPosition = containerRight - searchButtonRightEdge;
+                      
+                      // IMPORTANTE: Usar !important en inline style para sobrescribir el right: 0 !important del SearchButton base
+                      newSearchBtn.style.setProperty('position', 'absolute', 'important');
+                      newSearchBtn.style.setProperty('right', `${rightPosition}px`, 'important');
+                      newSearchBtn.style.setProperty('top', '50%', 'important');
+                      newSearchBtn.style.setProperty('transform', 'translateY(-50%)', 'important');
+                      newSearchBtn.style.setProperty('z-index', '3', 'important');
+                      // Asegurar que el elemento crezca hacia la izquierda desde su posición right fija
+                      newSearchBtn.style.setProperty('width', '248px', 'important');
+                      newSearchBtn.style.setProperty('min-width', '248px', 'important');
+                      newSearchBtn.style.setProperty('max-width', '248px', 'important');
+                      // Desactivar scaleX, usar solo ancho real
+                      newSearchBtn.style.setProperty('transform', 'translateY(-50%)', 'important');
+                      newSearchBtn.classList.remove('ubits-search-button--animating');
+                    }
+                  }
+                }, 50);
                 
                 // Re-enfocar el input después de renderizar (solo si hay contenido)
                 if (value) {
@@ -5448,6 +5611,15 @@ export function createDataTable(options: DataTableOptions): {
                         }
                       });
                       options = Array.from(uniqueValues).map(val => ({ value: val, label: val }));
+                      
+                      // Si no hay valores únicos en las filas, usar valores por defecto comunes
+                      if (options.length === 0) {
+                        options = [
+                          { value: 'Activo', label: 'Activo' },
+                          { value: 'Inactivo', label: 'Inactivo' },
+                          { value: 'Pendiente', label: 'Pendiente' }
+                        ];
+                      }
                     } else if (col.type === 'fecha') {
                       filterType = 'date';
                     } else if (col.type === 'progreso') {
@@ -5467,7 +5639,6 @@ export function createDataTable(options: DataTableOptions): {
               }
               
               if (filters.length === 0) {
-                console.warn('🔍 [DATA TABLE] No hay columnas disponibles para filtrar');
                 // Si no hay filtros disponibles, llamar onClick si existe como fallback
                 if (currentOptions.header.filterButton.onClick) {
                   currentOptions.header.filterButton.onClick(e);
@@ -5593,7 +5764,6 @@ export function createDataTable(options: DataTableOptions): {
                     closeOnOverlayClick: true
                   });
                 } catch (error) {
-                  console.error('🔍 [DATA TABLE] Error al crear drawer:', error);
                   // Si hay error, llamar onClick si existe como fallback
                   if (currentOptions.header.filterButton.onClick) {
                     currentOptions.header.filterButton.onClick(e);
@@ -5605,7 +5775,6 @@ export function createDataTable(options: DataTableOptions): {
                 try {
                   drawerInstance.updateContent(renderFiltersContent);
                 } catch (error) {
-                  console.error('🔍 [DATA TABLE] Error al actualizar drawer:', error);
                   // Si hay error, recrear el drawer
                   drawerInstance = createDrawer({
                     title: 'Filtros',
@@ -5712,8 +5881,11 @@ export function createDataTable(options: DataTableOptions): {
                         inputOptions.type = filter.type;
                       }
                       
+                      // Verificar que el contenedor existe antes de crear el input
+                      const containerCheck = document.getElementById(containerId);
+                      
                       // Crear el input
-                      createInput(inputOptions);
+                      const inputResult = createInput(inputOptions);
                     }
                   });
                 }, 300);
@@ -5821,13 +5993,12 @@ export function createDataTable(options: DataTableOptions): {
               const afterCleanInnerHTML = dropdownElement.innerHTML.length;
               
               if (afterCleanChildren > 0 || afterCleanInnerHTML > 0) {
-                console.error('🔍 [COLUMN SELECTOR] ❌ ERROR: Dropdown no está completamente limpio!');
                 // Forzar limpieza adicional
                 dropdownElement.innerHTML = '';
                 // Esperar un frame para que el DOM se actualice
                 requestAnimationFrame(() => {
                   if (dropdownElement.children.length > 0 || dropdownElement.innerHTML.length > 0) {
-                    console.error('🔍 [COLUMN SELECTOR] ❌ ERROR: Dropdown sigue sin estar limpio después de limpieza adicional!');
+                    dropdownElement.innerHTML = '';
                   }
                 });
               }
@@ -5928,11 +6099,8 @@ export function createDataTable(options: DataTableOptions): {
                   if (createdList) {
                     const listElement = createdList.querySelector('.ubits-list');
                     const listItems = listElement?.querySelectorAll('.ubits-list-item') || [];
-                  } else {
-                    console.error('🔍 [COLUMN SELECTOR] ❌ Lista no encontrada después de createList');
                   }
                 } catch (error) {
-                  console.error('🔍 [COLUMN SELECTOR] ❌ Error en createList:', error);
                   // Fallback: usar renderList
                   listContainer.innerHTML = renderList({
                     containerId: listContainerId,
@@ -5942,8 +6110,6 @@ export function createDataTable(options: DataTableOptions): {
                     className: 'ubits-data-table__column-selector-list'
                   });
                 }
-              } else {
-                console.error('🔍 [COLUMN SELECTOR] ❌ listContainer no existe');
               }
               
               // Función helper para actualizar el contenido del dropdown
@@ -6042,11 +6208,8 @@ export function createDataTable(options: DataTableOptions): {
                   if (createdList) {
                     const listElement = createdList.querySelector('.ubits-list');
                     const items = listElement?.querySelectorAll('.ubits-list-item') || [];
-                  } else {
-                    console.error('🔍 [COLUMN SELECTOR UPDATE] ❌ Lista no encontrada');
                   }
                 } catch (error) {
-                  console.error('🔍 [COLUMN SELECTOR UPDATE] ❌ Error en createList:', error);
                   listContainer.innerHTML = renderList({
                     containerId: listContainerId,
                     items: uniqueListItems,
@@ -6121,7 +6284,6 @@ export function createDataTable(options: DataTableOptions): {
                         if (wouldBeVisible.length === 0) {
                           // Revertir el checkbox
                           newInput.checked = true;
-                          console.warn('⚠️ No se pueden ocultar todas las columnas. Debe quedar al menos una columna visible.');
                           return;
                         }
                       }
@@ -6251,12 +6413,11 @@ export function createDataTable(options: DataTableOptions): {
         }
       }
     } catch (error) {
-      console.error(`📎 [ATTACH] ❌ Error agregando listeners de empty state:`, error);
+      // Error agregando listeners de empty state
     }
     
     } catch (error) {
       // Error en attachEventListeners
-      console.error(`📎 [ATTACH] ❌ Error en attachEventListeners:`, error);
     }
   };
 

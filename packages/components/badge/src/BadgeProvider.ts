@@ -18,6 +18,21 @@ export function renderBadge(options: BadgeOptions = {}): string {
     labelTypography = 'ubits-body-md-regular'
   } = options;
 
+  console.log('🔵 [BadgeProvider] renderBadge llamado', {
+    content,
+    size,
+    type,
+    variant,
+    style,
+    label,
+    showLabel,
+    labelTypography,
+    labelType: typeof label,
+    labelValue: label,
+    labelTruthy: !!label,
+    showLabelTruthy: !!showLabel
+  });
+
   // Determinar tipo: si type está definido, usarlo; si no, inferir de content
   const badgeType = type || (content !== undefined && content !== null && content !== '' ? 'number' : 'dot');
 
@@ -100,23 +115,39 @@ export function renderBadge(options: BadgeOptions = {}): string {
     badgeInnerContent = badgeType === 'dot' ? '' : badgeContent;
   }
 
-  const badgeHtml = `<span class="${classes}">${badgeInnerContent}</span>`;
+  const badgeHtml = `<span class="${classes}" data-ubits-id="🧩-ux-badge">${badgeInnerContent}</span>`;
 
   // Para estilos light, neutral y bold, siempre usar wrapper (con o sin label)
   // El wrapper tiene el borde, fondo y padding
   if (style && ['light', 'neutral', 'bold'].includes(style)) {
-    if (showLabel) {
-      const labelText = label || badgeContent || '';
-      if (labelText) {
-        // Para bold, el label debe ser blanco
-        const labelColor = style === 'bold' ? 'style="color: var(--ubits-fg-on-accent, #ffffff) !important;"' : '';
-        const finalHtml = `<div class="ubits-badge-wrapper">
-          ${badgeHtml}
-          <span class="${labelTypography}" ${labelColor}>${labelText}</span>
-        </div>`;
-        return finalHtml;
-      }
+    console.log('🟡 [BadgeProvider] Tiene style (light/neutral/bold)', {
+      style,
+      showLabel,
+      label,
+      labelTruthy: !!label,
+      showLabelAndLabel: showLabel && label
+    });
+    
+    if (showLabel && label) {
+      console.log('🟢 [BadgeProvider] Mostrando label con style', {
+        label,
+        labelTypography,
+        style
+      });
+      // Para bold, el label debe ser blanco
+      const labelColor = style === 'bold' ? 'style="color: var(--ubits-fg-on-accent, #ffffff) !important;"' : '';
+      const finalHtml = `<div class="ubits-badge-wrapper" data-ubits-id="🧩-ux-badge">
+        ${badgeHtml}
+        <span class="${labelTypography}" ${labelColor}>${label}</span>
+      </div>`;
+      console.log('🟢 [BadgeProvider] HTML generado con label:', finalHtml.substring(0, 200));
+      return finalHtml;
     }
+    console.log('🟡 [BadgeProvider] NO mostrando label (sin showLabel o sin label)', {
+      showLabel,
+      label,
+      labelTruthy: !!label
+    });
     // Incluso sin label, usar wrapper para que tenga el borde y padding
     const finalHtml = `<div class="ubits-badge-wrapper">
       ${badgeHtml}
@@ -124,13 +155,30 @@ export function renderBadge(options: BadgeOptions = {}): string {
     return finalHtml;
   }
 
-  // Para otros casos, usar la lógica original
-  if (label && showLabel) {
-    return `<div class="ubits-badge-wrapper">
+  // Para otros casos (sin style), usar la lógica original
+  console.log('🟡 [BadgeProvider] Sin style, verificando label', {
+    showLabel,
+    label,
+    labelTruthy: !!label,
+    showLabelAndLabel: showLabel && label
+  });
+  
+  if (showLabel && label) {
+    console.log('🟢 [BadgeProvider] Mostrando label sin style', {
+      label,
+      labelTypography
+    });
+    return `<div class="ubits-badge-wrapper" data-ubits-id="🧩-ux-badge">
       ${badgeHtml}
       <span class="${labelTypography}">${label}</span>
     </div>`;
   }
+  
+  console.log('🟡 [BadgeProvider] NO mostrando label (sin showLabel o sin label)', {
+    showLabel,
+    label,
+    labelTruthy: !!label
+  });
 
   return badgeHtml;
 }
@@ -145,8 +193,44 @@ export function renderButtonBadge(): string {
 /**
  * Crea un elemento badge programáticamente
  */
-export function createBadge(options: BadgeOptions = {}): HTMLSpanElement {
+export function createBadge(options: BadgeOptions = {}): HTMLElement {
+  console.log('🔵 [BadgeProvider] createBadge llamado', {
+    options: JSON.stringify(options),
+    label: options.label,
+    showLabel: options.showLabel
+  });
+  
   const div = document.createElement('div');
-  div.innerHTML = renderBadge(options);
-  return div.querySelector('.ubits-badge') as HTMLSpanElement;
+  const html = renderBadge(options);
+  console.log('🟢 [BadgeProvider] HTML generado:', html.substring(0, 300));
+  
+  div.innerHTML = html;
+  
+  // Buscar el badge o el wrapper
+  const badgeElement = div.querySelector('.ubits-badge') as HTMLSpanElement;
+  const wrapperElement = div.querySelector('.ubits-badge-wrapper') as HTMLDivElement;
+  
+  console.log('🟢 [BadgeProvider] Elementos encontrados', {
+    badgeElement: !!badgeElement,
+    wrapperElement: !!wrapperElement,
+    wrapperHTML: wrapperElement ? wrapperElement.outerHTML.substring(0, 200) : 'N/A',
+    divHTML: div.innerHTML.substring(0, 300)
+  });
+  
+  // Si hay wrapper, retornar el wrapper (clonado para que no esté dentro de div);
+  // si no, retornar el badge (clonado)
+  if (wrapperElement) {
+    const clonedWrapper = wrapperElement.cloneNode(true) as HTMLElement;
+    console.log('🟢 [BadgeProvider] Retornando wrapper clonado');
+    return clonedWrapper;
+  } else if (badgeElement) {
+    const clonedBadge = badgeElement.cloneNode(true) as HTMLElement;
+    console.log('🟢 [BadgeProvider] Retornando badge clonado');
+    return clonedBadge;
+  }
+  
+  // Fallback: retornar el div completo si no se encuentra nada
+  console.warn('⚠️ [BadgeProvider] No se encontró badge ni wrapper, retornando div');
+  div.setAttribute('data-ubits-id', '🧩-ux-badge');
+  return div;
 }

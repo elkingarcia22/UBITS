@@ -24,7 +24,7 @@ export function renderScrollbar(options: ScrollOptions): string {
   ].filter(Boolean).join(' ');
 
   return `
-    <div class="${classes}">
+    <div class="${classes}" data-ubits-id="⚙️-functional-scroll">
       <div class="ubits-scrollbar__bar"></div>
     </div>
   `.trim();
@@ -63,6 +63,11 @@ export function createScrollbar(options: ScrollOptions): {
     throw new Error('No se pudo crear el scrollbar');
   }
 
+  // Agregar data-ubits-id si no está presente
+  if (!scrollbarElement.hasAttribute('data-ubits-id')) {
+    scrollbarElement.setAttribute('data-ubits-id', '⚙️-functional-scroll');
+  }
+
   const barElement = scrollbarElement.querySelector('.ubits-scrollbar__bar') as HTMLElement;
 
   if (!barElement) {
@@ -83,7 +88,13 @@ export function createScrollbar(options: ScrollOptions): {
 
   // Función para actualizar el scrollbar basado en el scroll del target
   const updateScrollbar = () => {
-    if (!targetElement || !barElement) return;
+    if (!targetElement || !barElement) {
+      console.warn('⚠️ [ScrollProvider] updateScrollbar: targetElement o barElement no encontrado', {
+        targetElement: !!targetElement,
+        barElement: !!barElement
+      });
+      return;
+    }
 
     const isVertical = orientation === 'vertical';
     const scrollProperty = isVertical ? 'scrollTop' : 'scrollLeft';
@@ -94,8 +105,17 @@ export function createScrollbar(options: ScrollOptions): {
     const clientSize = targetElement[clientProperty];
     const scrollSize = targetElement[scrollSizeProperty];
 
+    console.log(`🟡 [ScrollProvider] updateScrollbar (${orientation})`, {
+      scroll,
+      clientSize,
+      scrollSize,
+      needsScroll: scrollSize > clientSize,
+      scrollbarSize: isVertical ? scrollbarElement.clientHeight : scrollbarElement.clientWidth
+    });
+
     if (scrollSize <= clientSize) {
       // No hay scroll necesario
+      console.log('🟡 [ScrollProvider] No hay scroll necesario, ocultando scrollbar');
       barElement.style.opacity = '0';
       return;
     }
@@ -115,6 +135,12 @@ export function createScrollbar(options: ScrollOptions): {
     }
 
     barElement.style.opacity = '1';
+    console.log('🟢 [ScrollProvider] Scrollbar actualizado', {
+      thumbSize,
+      thumbPosition,
+      scrollbarSize,
+      opacity: barElement.style.opacity
+    });
   };
 
   // Función para hacer scroll al hacer clic en el scrollbar

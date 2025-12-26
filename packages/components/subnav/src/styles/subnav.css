@@ -64,9 +64,22 @@
     flex-shrink: 0; /* Evitar que el tab se encoja */
 }
 
-/* Nav Tab Icon - OCULTO */
+/* Nav Tab Icon - OCULTO por defecto */
 .ubits-sub-nav-tab i {
-    display: none !important; /* Ocultar iconos completamente */
+    display: none !important; /* Ocultar iconos completamente por defecto */
+}
+
+/* Mostrar iconos cuando la clase --with-icons está presente */
+.ubits-sub-nav--with-icons .ubits-sub-nav-tab i {
+    display: inline-block !important; /* Mostrar iconos cuando showIcons es true */
+    margin-right: var(--p-spacing-mode-1-xs, 4px); /* Espacio entre icono y texto */
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    color: inherit;
+}
+
+/* Ajustar gap cuando hay iconos */
+.ubits-sub-nav--with-icons .ubits-sub-nav-tab {
+    gap: var(--p-spacing-mode-1-xs, 4px); /* Gap entre icono y texto cuando hay iconos */
 }
 
 /* Nav Tab Text */

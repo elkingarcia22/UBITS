@@ -58,11 +58,33 @@ const meta = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: 'window.UBITS.Spinner.create({\\n  size: \'md\',\\n  variant: \'primary\',\\n  animated: true\\n});',
-				basic: 'window.UBITS.Spinner.create({\\n  size: \'md\',\\n  variant: \'primary\',\\n  animated: true\\n});',
-				withLabel: 'window.UBITS.Spinner.create({\\n  size: \'md\',\\n  variant: \'primary\',\\n  animated: true,\\n  label: \'Cargando...\'\\n});',
-				fullScreen: 'window.UBITS.Spinner.create({\\n  size: \'md\',\\n  variant: \'primary\',\\n  animated: true,\\n  fullScreen: true\\n});',
-				differentVariant: 'window.UBITS.Spinner.create({\\n  size: \'md\',\\n  variant: \'success\',\\n  animated: true\\n});',
+				canonical: `window.UBITS.Spinner.create({
+  size: 'md',
+  variant: 'primary',
+  animated: true
+});`,
+				basic: `window.UBITS.Spinner.create({
+  size: 'md',
+  variant: 'primary',
+  animated: true
+});`,
+				withLabel: `window.UBITS.Spinner.create({
+  size: 'md',
+  variant: 'primary',
+  animated: true,
+  label: 'Cargando...'
+});`,
+				fullScreen: `window.UBITS.Spinner.create({
+  size: 'md',
+  variant: 'primary',
+  animated: true,
+  fullScreen: true
+});`,
+				differentVariant: `window.UBITS.Spinner.create({
+  size: 'md',
+  variant: 'success',
+  animated: true
+});`,
 			},
 			variants: {
 				size: ['xs', 'sm', 'md', 'lg', 'xl'],

@@ -65,10 +65,28 @@ const meta: Meta<
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: "window.UBITS.Sidebar.create(document.getElementById('sidebar-container'), {\\n  containerId: 'sidebar-container',\\n  variant: 'colaborador',\\n  bodyButtons: [],\\n  onButtonClick: function(buttonId) {}\\n});",
-				basic: "window.UBITS.Sidebar.create(document.getElementById('sidebar-container'), {\\n  containerId: 'sidebar-container',\\n  variant: 'colaborador',\\n  bodyButtons: []\\n});",
-				admin: "window.UBITS.Sidebar.create(document.getElementById('sidebar-container'), {\\n  containerId: 'sidebar-container',\\n  variant: 'admin',\\n  bodyButtons: []\\n});",
-				withDarkMode: "window.UBITS.Sidebar.create(document.getElementById('sidebar-container'), {\\n  containerId: 'sidebar-container',\\n  variant: 'colaborador',\\n  darkModeEnabled: true,\\n  bodyButtons: []\\n});",
+				canonical: `window.UBITS.Sidebar.create(document.getElementById('sidebar-container'), {
+  containerId: 'sidebar-container',
+  variant: 'colaborador',
+  bodyButtons: [],
+  onButtonClick: function(buttonId) {}
+});`,
+				basic: `window.UBITS.Sidebar.create(document.getElementById('sidebar-container'), {
+  containerId: 'sidebar-container',
+  variant: 'colaborador',
+  bodyButtons: []
+});`,
+				admin: `window.UBITS.Sidebar.create(document.getElementById('sidebar-container'), {
+  containerId: 'sidebar-container',
+  variant: 'admin',
+  bodyButtons: []
+});`,
+				withDarkMode: `window.UBITS.Sidebar.create(document.getElementById('sidebar-container'), {
+  containerId: 'sidebar-container',
+  variant: 'colaborador',
+  darkModeEnabled: true,
+  bodyButtons: []
+});`,
 			},
 			variants: {
 				variant: ['colaborador', 'admin'],

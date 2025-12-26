@@ -64,19 +64,19 @@ export function renderSkeleton(options: SkeletonOptions = {}): string {
       return `<span class="ubits-skeleton__line" style="width: ${lineWidth}"></span>`;
     }).join('');
     
-    return `<div class="${classes}"${styleAttr}>${lineElements}</div>`;
+    return `<div class="${classes}"${styleAttr} data-ubits-id="🧩-ux-skeleton">${lineElements}</div>`;
   }
   
   if (variant === 'circle') {
-    return `<div class="${classes}"${styleAttr}></div>`;
+    return `<div class="${classes}"${styleAttr} data-ubits-id="🧩-ux-skeleton"></div>`;
   }
   
   if (variant === 'rectangle') {
-    return `<div class="${classes}"${styleAttr}></div>`;
+    return `<div class="${classes}"${styleAttr} data-ubits-id="🧩-ux-skeleton"></div>`;
   }
   
   // Custom: sin restricciones de forma
-  return `<div class="${classes}"${styleAttr}></div>`;
+  return `<div class="${classes}"${styleAttr} data-ubits-id="🧩-ux-skeleton"></div>`;
 }
 
 /**
@@ -85,6 +85,17 @@ export function renderSkeleton(options: SkeletonOptions = {}): string {
 export function createSkeleton(options: SkeletonOptions = {}): HTMLDivElement {
   const div = document.createElement('div');
   div.innerHTML = renderSkeleton(options);
-  return div.querySelector('.ubits-skeleton') as HTMLDivElement;
+  const skeleton = div.querySelector('.ubits-skeleton') as HTMLDivElement;
+  
+  if (!skeleton) {
+    throw new Error('Failed to create skeleton element');
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!skeleton.hasAttribute('data-ubits-id')) {
+    skeleton.setAttribute('data-ubits-id', '🧩-ux-skeleton');
+  }
+
+  return skeleton;
 }
 

@@ -186,6 +186,19 @@
   display: inline-block;
 }
 
+/* Estilos para el Input Select dentro de Pagination */
+.ubits-pagination__select-wrapper .ubits-pagination__select-input {
+  width: auto !important;
+  min-width: 60px !important;
+  max-width: 100px !important;
+}
+
+.ubits-pagination__select-wrapper .ubits-input {
+  width: auto !important;
+  min-width: 60px !important;
+  max-width: 100px !important;
+}
+
 .ubits-pagination__select-button {
   padding: var(--ubits-spacing-xs) var(--ubits-spacing-sm);
   border: var(--ubits-spacing-xs) solid var(--modifiers-normal-color-light-border-1);

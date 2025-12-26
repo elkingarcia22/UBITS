@@ -217,7 +217,7 @@ export function renderHeaderSection(options: HeaderSectionOptions): string {
 
   // HTML completo
   const html = `
-    <div class="${classes}">
+    <div class="${classes}" data-ubits-id="🧩-ux-header-section">
       <div class="ubits-header-section__content">
         ${titleHTML}
         ${actionsHTML}
@@ -276,10 +276,15 @@ export function createHeaderSection(options: HeaderSectionOptions): HTMLElement 
   });
   container.innerHTML = html;
 
-  const headerElement = container.querySelector('.ubits-header-section');
+  const headerElement = container.querySelector('.ubits-header-section') as HTMLElement;
   if (!headerElement) {
     console.error('HeaderSection: Elemento no encontrado después de renderizar');
     return null;
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!headerElement.hasAttribute('data-ubits-id')) {
+    headerElement.setAttribute('data-ubits-id', '🧩-ux-header-section');
   }
 
   // Inicializar botón de atrás

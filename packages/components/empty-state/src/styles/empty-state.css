@@ -25,10 +25,9 @@
    EMPTY STATE VARIANTS
    ======================================== */
 
-/* Default variant - espaciado completo */
+/* Default variant - usa el tamaño lg por defecto */
 .ubits-empty-state--default {
-    padding: var(--ubits-spacing-2xl) var(--ubits-spacing-lg);
-    gap: var(--ubits-spacing-lg);
+    /* Los estilos se aplican desde .ubits-empty-state--lg */
 }
 
 /* ========================================
@@ -58,8 +57,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: var(--ubits-spacing-10);
-    height: var(--ubits-spacing-10);
     padding: var(--ubits-spacing-sm);
     background: var(--modifiers-normal-color-light-bg-2);
     border-radius: var(--ubits-border-radius-md);
@@ -70,8 +67,135 @@
 }
 
 .ubits-empty-state__icon i {
-    font-size: var(--modifiers-normal-body-md-regular-fontsize);
     line-height: 1;
+}
+
+/* ========================================
+   EMPTY STATE SIZES
+   ======================================== */
+
+/* Tamaño SM */
+.ubits-empty-state--sm {
+    padding: var(--ubits-spacing-lg) var(--ubits-spacing-md);
+    gap: var(--ubits-spacing-md);
+}
+
+.ubits-empty-state--sm .ubits-empty-state__icon {
+    width: var(--ubits-spacing-8);
+    height: var(--ubits-spacing-8);
+    padding: var(--ubits-spacing-xs);
+}
+
+.ubits-empty-state--sm .ubits-empty-state__icon i {
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+}
+
+.ubits-empty-state--sm .ubits-empty-state__title {
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+    font-weight: var(--weight-semibold);
+    line-height: var(--modifiers-normal-body-sm-regular-lineheight);
+}
+
+.ubits-empty-state--sm .ubits-empty-state__description {
+    font-size: var(--modifiers-normal-body-xs-regular-fontsize);
+    line-height: var(--modifiers-normal-body-xs-regular-lineheight);
+}
+
+.ubits-empty-state--sm .ubits-empty-state__content {
+    gap: var(--ubits-spacing-xs);
+}
+
+/* Tamaño MD */
+.ubits-empty-state--md {
+    padding: var(--ubits-spacing-xl) var(--ubits-spacing-lg);
+    gap: var(--ubits-spacing-lg);
+}
+
+.ubits-empty-state--md .ubits-empty-state__icon {
+    width: var(--ubits-spacing-10);
+    height: var(--ubits-spacing-10);
+    padding: var(--ubits-spacing-sm);
+}
+
+.ubits-empty-state--md .ubits-empty-state__icon i {
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+}
+
+.ubits-empty-state--md .ubits-empty-state__title {
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    font-weight: var(--weight-semibold);
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+}
+
+.ubits-empty-state--md .ubits-empty-state__description {
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+    line-height: var(--modifiers-normal-body-sm-regular-lineheight);
+}
+
+.ubits-empty-state--md .ubits-empty-state__content {
+    gap: var(--ubits-spacing-sm);
+}
+
+/* Tamaño LG (default) */
+.ubits-empty-state--lg {
+    padding: var(--ubits-spacing-2xl) var(--ubits-spacing-lg);
+    gap: var(--ubits-spacing-lg);
+}
+
+.ubits-empty-state--lg .ubits-empty-state__icon {
+    width: var(--ubits-spacing-12);
+    height: var(--ubits-spacing-12);
+    padding: var(--ubits-spacing-md);
+}
+
+.ubits-empty-state--lg .ubits-empty-state__icon i {
+    font-size: var(--modifiers-normal-body-lg-regular-fontsize);
+}
+
+.ubits-empty-state--lg .ubits-empty-state__title {
+    font-size: var(--modifiers-normal-body-lg-regular-fontsize);
+    font-weight: var(--weight-semibold);
+    line-height: var(--modifiers-normal-body-lg-regular-lineheight);
+}
+
+.ubits-empty-state--lg .ubits-empty-state__description {
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+}
+
+.ubits-empty-state--lg .ubits-empty-state__content {
+    gap: var(--ubits-spacing-sm);
+}
+
+/* Tamaño XL */
+.ubits-empty-state--xl {
+    padding: var(--ubits-spacing-3xl) var(--ubits-spacing-xl);
+    gap: var(--ubits-spacing-xl);
+}
+
+.ubits-empty-state--xl .ubits-empty-state__icon {
+    width: var(--ubits-spacing-16);
+    height: var(--ubits-spacing-16);
+    padding: var(--ubits-spacing-lg);
+}
+
+.ubits-empty-state--xl .ubits-empty-state__icon i {
+    font-size: var(--modifiers-normal-body-xl-regular-fontsize, var(--modifiers-normal-heading-h1-fontsize, 24px));
+}
+
+.ubits-empty-state--xl .ubits-empty-state__title {
+    font-size: var(--modifiers-normal-heading-h2-fontsize, 20px);
+    font-weight: var(--weight-semibold);
+    line-height: var(--modifiers-normal-heading-h2-lineheight, 30px);
+}
+
+.ubits-empty-state--xl .ubits-empty-state__description {
+    font-size: var(--modifiers-normal-body-lg-regular-fontsize);
+    line-height: var(--modifiers-normal-body-lg-regular-lineheight);
+}
+
+.ubits-empty-state--xl .ubits-empty-state__content {
+    gap: var(--ubits-spacing-md);
 }
 
 /* ========================================
@@ -156,14 +280,7 @@
         padding: var(--ubits-spacing-xl) var(--ubits-spacing-md);
     }
     
-    .ubits-empty-state__icon {
-        width: var(--ubits-spacing-10);
-        height: var(--ubits-spacing-10);
-    }
-    
-    .ubits-empty-state__icon i {
-        font-size: var(--modifiers-normal-body-md-regular-fontsize);
-    }
+    /* Los tamaños de icono se mantienen según la clase aplicada */
     
     .ubits-empty-state__title {
         font-size: var(--modifiers-normal-body-md-regular-fontsize);

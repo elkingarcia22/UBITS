@@ -73,9 +73,29 @@ const meta = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: "window.UBITS.Menu.create(document.getElementById('menu-container'), {\\n  containerId: 'menu-container',\\n  sections: [\\n    { id: 'section1', title: 'Section 1', items: [] }\\n  ],\\n  onItemClick: function(itemId) {}\\n});",
-				basic: "window.UBITS.Menu.create(document.getElementById('menu-container'), {\\n  containerId: 'menu-container',\\n  sections: [\\n    { id: 'section1', title: 'Section 1', items: [] }\\n  ]\\n});",
-				withUserInfo: "window.UBITS.Menu.create(document.getElementById('menu-container'), {\\n  containerId: 'menu-container',\\n  sections: [\\n    { id: 'section1', title: 'Section 1', items: [] }\\n  ],\\n  userInfo: {\\n    name: 'John Doe',\\n    email: 'john@example.com'\\n  }\\n});",
+				canonical: `window.UBITS.Menu.create(document.getElementById('menu-container'), {
+  containerId: 'menu-container',
+  sections: [
+    { id: 'section1', title: 'Section 1', items: [] }
+  ],
+  onItemClick: function(itemId) {}
+});`,
+				basic: `window.UBITS.Menu.create(document.getElementById('menu-container'), {
+  containerId: 'menu-container',
+  sections: [
+    { id: 'section1', title: 'Section 1', items: [] }
+  ]
+});`,
+				withUserInfo: `window.UBITS.Menu.create(document.getElementById('menu-container'), {
+  containerId: 'menu-container',
+  sections: [
+    { id: 'section1', title: 'Section 1', items: [] }
+  ],
+  userInfo: {
+    name: 'John Doe',
+    email: 'john@example.com'
+  }
+});`,
 			},
 			variants: {},
 			events: {

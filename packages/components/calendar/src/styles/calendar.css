@@ -21,7 +21,7 @@
     padding: calc(var(--p-spacing-mode-1-space-0) * 1px); /* Sin padding para que el header use todo el ancho */
     font-family: var(--font-family-noto-sans-font-family);
     box-sizing: border-box;
-    overflow: visible; /* Permite que los dropdowns se muestren fuera del contenedor */
+    overflow: visible !important; /* Permite que los dropdowns se muestren fuera del contenedor */
     position: relative; /* Contexto de posicionamiento para dropdowns */
     min-width: 352px; /* Asegurar ancho mínimo para que el header tenga espacio */
 }
@@ -121,14 +121,39 @@
 /* Dropdowns de mes y año - deben estar dentro del contenedor */
 .ubits-calendar__month-dropdown,
 .ubits-calendar__year-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    margin-top: calc(var(--p-spacing-mode-1-space-1) * 1px);
-    max-width: 100%;
-    box-sizing: border-box;
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    right: auto !important;
+    width: 100% !important;
+    min-width: 120px !important;
+    z-index: 10000 !important; /* Aumentar z-index para asegurar que esté por encima */
+    margin-top: calc(var(--p-spacing-mode-1-space-1) * 1px) !important;
+    box-sizing: border-box !important;
+    /* Asegurar que no se corte */
+    max-width: calc(100vw - 20px) !important;
+    /* Permitir que el contenido se desborde si es necesario */
+    overflow: visible !important;
+}
+
+/* Asegurar que el contenedor padre también permita overflow */
+.ubits-calendar__month-year {
+    overflow: visible !important;
+    position: relative !important;
+    z-index: 1;
+}
+
+.ubits-calendar__month-year .ubits-input-container {
+    overflow: visible !important;
+    position: relative !important;
+    z-index: 1;
+}
+
+/* Asegurar que el header también permita overflow */
+.ubits-calendar__header {
+    overflow: visible !important;
+    position: relative !important;
+    z-index: 1;
 }
 
 /* ========================================

@@ -53,10 +53,38 @@ const meta: Meta<CardData> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: "createCard({\\n  type: 'Curso',\\n  title: 'Segmenta la experiencia del cliente',\\n  provider: 'UBITS',\\n  image: '/images/card.jpg',\\n  competency: 'Marketing',\\n  onClick: function() {}\\n});",
-				basic: "createCard({\\n  type: 'Curso',\\n  title: 'Segmenta la experiencia del cliente',\\n  provider: 'UBITS',\\n  image: '/images/card.jpg',\\n  competency: 'Marketing'\\n});",
-				withProgress: "createCard({\\n  type: 'Curso',\\n  title: 'Segmenta la experiencia del cliente',\\n  provider: 'UBITS',\\n  image: '/images/card.jpg',\\n  competency: 'Marketing',\\n  state: 'progress',\\n  progress: 50\\n});",
-				completed: "createCard({\\n  type: 'Curso',\\n  title: 'Segmenta la experiencia del cliente',\\n  provider: 'UBITS',\\n  image: '/images/card.jpg',\\n  competency: 'Marketing',\\n  state: 'completed'\\n});",
+				canonical: `createCard({
+  type: 'Curso',
+  title: 'Segmenta la experiencia del cliente',
+  provider: 'UBITS',
+  image: '/images/card.jpg',
+  competency: 'Marketing',
+  onClick: function() {}
+});`,
+				basic: `createCard({
+  type: 'Curso',
+  title: 'Segmenta la experiencia del cliente',
+  provider: 'UBITS',
+  image: '/images/card.jpg',
+  competency: 'Marketing'
+});`,
+				withProgress: `createCard({
+  type: 'Curso',
+  title: 'Segmenta la experiencia del cliente',
+  provider: 'UBITS',
+  image: '/images/card.jpg',
+  competency: 'Marketing',
+  state: 'progress',
+  progress: 50
+});`,
+				completed: `createCard({
+  type: 'Curso',
+  title: 'Segmenta la experiencia del cliente',
+  provider: 'UBITS',
+  image: '/images/card.jpg',
+  competency: 'Marketing',
+  state: 'completed'
+});`,
 			},
 			variants: {
 				type: CONTENT_TYPES,

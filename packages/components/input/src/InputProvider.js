@@ -179,8 +179,10 @@ export function renderInput(options) {
         }
         inputHTML += `<input type="text" class="${inputClasses.join(' ')}" style="${autocompleteStyle}" placeholder="${placeholder}" value="${value}" autocomplete="off"${disabledAttr}${maxLengthAttr}>`;
     }
-    else if (type === 'calendar') {
-        // CALENDAR - input con date picker
+    else if (type === 'calendar' || type === 'date') {
+        // CALENDAR/DATE - input con date picker UBITS (NO usar type="date" nativo del sistema)
+        console.log('📅 [Input renderInput JS] ========== RENDERING DATE/CALENDAR INPUT ==========');
+        console.log('📅 [Input renderInput JS] Type:', type, 'ContainerId:', containerId, 'Value:', value);
         let calendarPaddingLeft = paddingLeft;
         let calendarPaddingRight = paddingRight;
         // Agregar rightIcon de calendario solo si no hay rightIcon personalizado
@@ -193,7 +195,11 @@ export function renderInput(options) {
         if (state === 'disabled') {
             calendarStyle += `; background: var(--ubits-bg-3) !important; color: var(--ubits-fg-1-low) !important; border-color: var(--ubits-border-2) !important;`;
         }
-        inputHTML += `<input type="text" class="${inputClasses.join(' ')}" style="${calendarStyle}" placeholder="${placeholder}" value="${value}" readonly${disabledAttr}>`;
+        // IMPORTANTE: Usar type="text" con readonly para evitar el calendario nativo del sistema
+        const inputTag = `<input type="text" class="${inputClasses.join(' ')}" style="${calendarStyle}" placeholder="${placeholder}" value="${value}" readonly${disabledAttr}>`;
+        console.log('📅 [Input renderInput JS] Generated input HTML:', inputTag);
+        console.log('📅 [Input renderInput JS] ✅ Using type="text" with readonly to avoid native calendar');
+        inputHTML += inputTag;
     }
     else if (type === 'password') {
         // PASSWORD - input con toggle de mostrar/ocultar
@@ -212,8 +218,17 @@ export function renderInput(options) {
         inputHTML += `<input type="password" class="${inputClasses.join(' ')}" style="${passwordStyle}" placeholder="${placeholder}" value="${value}"${disabledAttr}${maxLengthAttr}>`;
     }
     else {
-        // INPUT normal (text, email, number, tel, url)
-        inputHTML += `<input type="${type}" class="${inputClasses.join(' ')}" style="width: 100%; ${paddingLeft} ${paddingRight}" placeholder="${placeholder}" value="${value}"${disabledAttr}${maxLengthAttr}>`;
+        // INPUT normal (text, email, number, tel, url, date)
+        console.log('📅 [Input renderInput JS] ⚠️ Type is not calendar/date, falling to else block. Type:', type);
+        if (type === 'date') {
+            console.log('📅 [Input renderInput JS] ⚠️⚠️⚠️ Type is "date" but falling to else block! This is wrong!');
+            console.log('📅 [Input renderInput JS] ⚠️⚠️⚠️ Should have been caught by calendar/date condition above!');
+            // Forzar type="text" con readonly para evitar calendario nativo
+            inputHTML += `<input type="text" class="${inputClasses.join(' ')}" style="width: 100%; ${paddingLeft} ${paddingRight}" placeholder="${placeholder}" value="${value}" readonly${disabledAttr}${maxLengthAttr}>`;
+            console.log('📅 [Input renderInput JS] ✅ Fixed: Using type="text" with readonly instead of type="date"');
+        } else {
+            inputHTML += `<input type="${type}" class="${inputClasses.join(' ')}" style="width: 100%; ${paddingLeft} ${paddingRight}" placeholder="${placeholder}" value="${value}"${disabledAttr}${maxLengthAttr}>`;
+        }
     }
     // Icono izquierdo con posicionamiento absoluto
     if (finalHasLeftIcon) {
@@ -277,6 +292,11 @@ export function createInput(options) {
     if (getComputedStyle(container).position === 'static') {
         container.style.position = 'relative';
     }
+    console.log('🟢 [Input createInput JS] ========== CREATE INPUT CALLED ==========');
+    console.log('🟢 [Input createInput JS] Options:', options);
+    console.log('🟢 [Input createInput JS] Type:', type);
+    console.log('🟢 [Input createInput JS] ContainerId:', containerId);
+    
     // Funcionalidades especiales según el tipo
     if (type === 'select') {
         createSelectDropdown(container, inputElement, selectOptions, value, options.placeholder || '', onChange, options.size || 'md');
@@ -287,8 +307,25 @@ export function createInput(options) {
     if (type === 'autocomplete') {
         createAutocompleteDropdown(container, inputElement, autocompleteOptions, onChange, options.size || 'md');
     }
-    if (type === 'calendar') {
+    if (type === 'calendar' || type === 'date') {
+        console.log('🟢 [Input createInput JS] ========== INITIALIZING DATE/CALENDAR INPUT ==========');
+        console.log('🟢 [Input createInput JS] Input element:', inputElement);
+        console.log('🟢 [Input createInput JS] Input element type (before):', inputElement.type);
+        
+        // Asegurar que el input tenga type="text" y readonly para evitar el calendario nativo
+        if (inputElement.type === 'date') {
+            console.log('🟢 [Input createInput JS] ⚠️ Input has type="date", changing to type="text"');
+            inputElement.type = 'text';
+            inputElement.setAttribute('readonly', 'readonly');
+            console.log('🟢 [Input createInput JS] ✅ Changed to type="text" with readonly');
+        } else {
+            console.log('🟢 [Input createInput JS] ✅ Input already has correct type:', inputElement.type);
+        }
+        console.log('🟢 [Input createInput JS] Input element type (after):', inputElement.type);
+        console.log('🟢 [Input createInput JS] Input readonly:', inputElement.hasAttribute('readonly'));
+        console.log('🟢 [Input createInput JS] Calling createCalendarPicker...');
         createCalendarPicker(container, inputElement, onChange);
+        console.log('🟢 [Input createInput JS] ✅ createCalendarPicker called');
     }
     if (type === 'password') {
         createPasswordToggle(container, inputElement);
@@ -575,34 +612,136 @@ function createAutocompleteDropdown(container, inputElement, autocompleteOptions
     });
 }
 function createSelectDropdown(container, inputElement, selectOptions, value, placeholder, onChange, inputSize = 'md') {
+    console.log('🔵 [Select Dropdown] ========== CREATE SELECT DROPDOWN START ==========');
+    console.log('🔵 [Select Dropdown] Container:', container);
+    console.log('🔵 [Select Dropdown] Input element:', inputElement);
+    console.log('🔵 [Select Dropdown] Select options:', selectOptions);
+    console.log('🔵 [Select Dropdown] Select options length:', selectOptions ? selectOptions.length : 0);
+    console.log('🔵 [Select Dropdown] Value:', value);
+    console.log('🔵 [Select Dropdown] Placeholder:', placeholder);
+    
+    if (!selectOptions || selectOptions.length === 0) {
+        console.warn('🔵 [Select Dropdown] ⚠️ No hay opciones disponibles para el select');
+        return;
+    }
+    
     inputElement.style.cursor = 'pointer';
     // Obtener el tamaño del List basado en el tamaño del Input
     const listSize = inputSize === 'xs' ? 'xs' : inputSize === 'sm' ? 'sm' : inputSize === 'md' ? 'md' : 'lg';
     // Crear contenedor para el List
     const listContainer = document.createElement('div');
     listContainer.className = 'ubits-select-list-container';
-    listContainer.style.cssText = `
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    margin-top: 4px;
-    display: none;
-  `;
-    container.appendChild(listContainer);
+    
+    // Calcular posición del input relativo a la ventana para usar position: fixed
+    const updateListPosition = () => {
+        const inputRect = inputElement.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+        
+        // Dimensiones del viewport
+        const viewportHeight = window.innerHeight;
+        const viewportWidth = window.innerWidth;
+        
+        // Altura estimada del dropdown (máximo 300px)
+        const dropdownMaxHeight = 300;
+        const dropdownMinHeight = 100;
+        
+        // Espacio disponible debajo y arriba del input
+        const spaceBelow = viewportHeight - inputRect.bottom;
+        const spaceAbove = inputRect.top;
+        
+        // Determinar si mostrar arriba o abajo
+        const showAbove = spaceBelow < dropdownMinHeight && spaceAbove > spaceBelow;
+        
+        // Calcular posición vertical
+        let topPosition;
+        if (showAbove) {
+            // Mostrar arriba del input
+            topPosition = inputRect.top + scrollTop - dropdownMaxHeight - 4; // 4px de margen
+            // Asegurar que no se salga por arriba
+            if (topPosition < scrollTop) {
+                topPosition = scrollTop + 4;
+            }
+        } else {
+            // Mostrar debajo del input
+            topPosition = inputRect.bottom + scrollTop + 4; // 4px de margen
+        }
+        
+        // Calcular posición horizontal (ajustar si se sale por la derecha)
+        let leftPosition = inputRect.left + scrollLeft;
+        const dropdownWidth = Math.max(inputRect.width, 200);
+        
+        // Si se sale por la derecha, ajustar
+        if (leftPosition + dropdownWidth > scrollLeft + viewportWidth) {
+            leftPosition = scrollLeft + viewportWidth - dropdownWidth - 4;
+        }
+        
+        // Si se sale por la izquierda, ajustar
+        if (leftPosition < scrollLeft) {
+            leftPosition = scrollLeft + 4;
+        }
+        
+        // Calcular altura máxima disponible
+        let maxHeight = showAbove 
+            ? Math.min(dropdownMaxHeight, spaceAbove - 8)
+            : Math.min(dropdownMaxHeight, spaceBelow - 8);
+        
+        // Asegurar altura mínima
+        maxHeight = Math.max(maxHeight, dropdownMinHeight);
+        
+        listContainer.style.cssText = `
+            position: fixed;
+            top: ${topPosition}px;
+            left: ${leftPosition}px;
+            width: ${dropdownWidth}px;
+            min-width: 200px;
+            max-width: ${viewportWidth - 8}px;
+            z-index: 9998;
+            display: none;
+            background: var(--ubits-bg-1, #ffffff);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-radius: var(--ubits-border-radius-lg, 8px);
+            border: 1px solid var(--ubits-border-1, #e0e0e0);
+            max-height: ${maxHeight}px;
+            overflow-y: auto;
+            padding: 4px 0;
+        `;
+    };
+    
+    // Inicializar posición
+    updateListPosition();
+    
+    // Agregar al body en lugar del contenedor para evitar problemas de overflow
+    document.body.appendChild(listContainer);
+    
+    // Actualizar posición cuando se hace scroll o resize
+    window.addEventListener('scroll', updateListPosition, true);
+    window.addEventListener('resize', updateListPosition);
+    
+    // Guardar función de actualización
+    listContainer._updatePosition = updateListPosition;
     const itemsPerPage = 50; // Más items por página ya que List tiene scroll
     let currentPage = 0;
     let allLoadedItems = [];
     let isLoading = false;
     const loadOptions = (page = 0) => {
-        if (isLoading)
+        console.log('🔵 [Select Dropdown loadOptions] Called with page:', page);
+        console.log('🔵 [Select Dropdown loadOptions] Select options length:', selectOptions.length);
+        if (isLoading) {
+            console.log('🔵 [Select Dropdown loadOptions] Already loading, skipping');
             return;
+        }
+        if (!selectOptions || selectOptions.length === 0) {
+            console.warn('🔵 [Select Dropdown loadOptions] ⚠️ No options available');
+            isLoading = false;
+            return;
+        }
         isLoading = true;
         setTimeout(() => {
             const startIndex = page * itemsPerPage;
             const endIndex = Math.min(startIndex + itemsPerPage, selectOptions.length);
             const pageOptions = selectOptions.slice(startIndex, endIndex);
+            console.log('🔵 [Select Dropdown loadOptions] Page options:', pageOptions.length);
             // Convertir opciones a items de List
             const newItems = pageOptions.map(option => ({
                 label: option.text,
@@ -622,6 +761,8 @@ function createSelectDropdown(container, inputElement, selectOptions, value, pla
             const listId = `ubits-select-list-${container.id}`;
             listContainer.id = listId;
             listContainer.innerHTML = '';
+            console.log('🔵 [Select Dropdown loadOptions] Creating list with items:', allLoadedItems.length);
+            console.log('🔵 [Select Dropdown loadOptions] List ID:', listId);
             try {
                 createList({
                     containerId: listId,
@@ -629,17 +770,25 @@ function createSelectDropdown(container, inputElement, selectOptions, value, pla
                     size: listSize,
                     maxHeight: '200px',
                     onSelectionChange: (selectedItem, index) => {
+                        console.log('🔵 [Select Dropdown] Item selected:', selectedItem);
                         if (selectedItem && selectedItem.value) {
                             inputElement.value = selectedItem.label;
                             listContainer.style.display = 'none';
                             if (onChange)
                                 onChange(selectedItem.value);
+                            // Limpiar listeners cuando se cierra
+                            if (listContainer._updatePosition) {
+                                window.removeEventListener('scroll', listContainer._updatePosition, true);
+                                window.removeEventListener('resize', listContainer._updatePosition);
+                            }
                         }
                     },
                 });
+                console.log('🔵 [Select Dropdown loadOptions] ✅ List created successfully');
             }
             catch (error) {
                 // Fallback: usar renderList si createList falla
+                console.error('🔵 [Select Dropdown loadOptions] ❌ Error creating list:', error);
                 console.warn('Using renderList fallback for select:', error);
                 const listHTML = renderList({
                     containerId: listId,
@@ -658,6 +807,11 @@ function createSelectDropdown(container, inputElement, selectOptions, value, pla
                             listContainer.style.display = 'none';
                             if (onChange)
                                 onChange(item.value || '');
+                            // Limpiar listeners cuando se cierra
+                            if (listContainer._updatePosition) {
+                                window.removeEventListener('scroll', listContainer._updatePosition, true);
+                                window.removeEventListener('resize', listContainer._updatePosition);
+                            }
                         });
                     }
                 });
@@ -683,24 +837,49 @@ function createSelectDropdown(container, inputElement, selectOptions, value, pla
         }, 150);
     };
     inputElement.addEventListener('click', () => {
+        console.log('🔵 [Select Dropdown] Input clicked');
+        console.log('🔵 [Select Dropdown] Select options available:', selectOptions.length);
         const isVisible = listContainer.style.display === 'block';
+        console.log('🔵 [Select Dropdown] Is visible:', isVisible);
         if (!isVisible) {
+            // Actualizar posición antes de mostrar
+            updateListPosition();
+            console.log('🔵 [Select Dropdown] Position updated');
             currentPage = 0;
             allLoadedItems = [];
+            console.log('🔵 [Select Dropdown] Loading options...');
             loadOptions(0);
-            listContainer.style.display = 'block';
+            // Esperar a que la lista se cree antes de mostrar
+            setTimeout(() => {
+                listContainer.style.display = 'block';
+                console.log('🔵 [Select Dropdown] ✅ Dropdown displayed');
+                console.log('🔵 [Select Dropdown] Container style:', listContainer.style.cssText);
+                console.log('🔵 [Select Dropdown] Container rect:', listContainer.getBoundingClientRect());
+                console.log('🔵 [Select Dropdown] Container children:', listContainer.children.length);
+            }, 200);
         }
         else {
             listContainer.style.display = 'none';
+            console.log('🔵 [Select Dropdown] Dropdown hidden');
         }
     });
     document.addEventListener('click', (e) => {
-        if (!container.contains(e.target)) {
+        const target = e.target;
+        if (!container.contains(target) && !listContainer.contains(target)) {
             listContainer.style.display = 'none';
         }
     });
 }
 function createCalendarPicker(container, inputElement, onChange) {
+    console.log('📅 [Calendar Picker JS] ========== CREATE CALENDAR PICKER START ==========');
+    console.log('📅 [Calendar Picker JS] Container:', container);
+    console.log('📅 [Calendar Picker JS] Container ID:', container.id);
+    console.log('📅 [Calendar Picker JS] Input element:', inputElement);
+    console.log('📅 [Calendar Picker JS] Input element type:', inputElement.type);
+    console.log('📅 [Calendar Picker JS] Input element readonly:', inputElement.hasAttribute('readonly'));
+    console.log('📅 [Calendar Picker JS] Input element value:', inputElement.value);
+    console.log('📅 [Calendar Picker JS] onChange function:', !!onChange);
+    
     // Importar dinámicamente el CalendarProvider usando ruta relativa
     let calendarInstance = null;
     let calendarContainer = null;
@@ -720,11 +899,22 @@ function createCalendarPicker(container, inputElement, onChange) {
         return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
     };
     const showCalendar = async () => {
+        console.log('📅 [Calendar Picker JS showCalendar] ========== SHOW CALENDAR CALLED ==========');
+        console.log('📅 [Calendar Picker JS showCalendar] Input element type (before):', inputElement.type);
+        console.log('📅 [Calendar Picker JS showCalendar] Input element readonly (before):', inputElement.hasAttribute('readonly'));
+        
         // Asegurar que el input no tenga type="date" (que mostraría el calendario nativo)
         if (inputElement.type === 'date') {
+            console.log('📅 [Calendar Picker JS showCalendar] ⚠️ Input has type="date", changing to type="text"');
             inputElement.type = 'text';
             inputElement.setAttribute('readonly', 'readonly');
+            console.log('📅 [Calendar Picker JS showCalendar] ✅ Changed to type="text" with readonly');
+        } else {
+            console.log('📅 [Calendar Picker JS showCalendar] ✅ Input already has correct type:', inputElement.type);
         }
+        
+        console.log('📅 [Calendar Picker JS showCalendar] Input element type (after):', inputElement.type);
+        console.log('📅 [Calendar Picker JS showCalendar] Input element readonly (after):', inputElement.hasAttribute('readonly'));
         // Si el calendario ya está visible, ocultarlo
         if (calendarContainer && calendarContainer.style.display !== 'none') {
             calendarContainer.style.display = 'none';
@@ -734,16 +924,130 @@ function createCalendarPicker(container, inputElement, onChange) {
         if (isCreatingCalendar) {
             return;
         }
+        // Función para calcular posición inteligente del calendario
+        const calculateCalendarPosition = () => {
+            const inputRect = inputElement.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+            
+            // Dimensiones del viewport
+            const viewportHeight = window.innerHeight;
+            const viewportWidth = window.innerWidth;
+            
+            // Altura estimada del calendario (típicamente ~300-350px)
+            const calendarEstimatedHeight = 350;
+            const calendarMinHeight = 250;
+            
+            // Espacio disponible debajo y arriba del input
+            const spaceBelow = viewportHeight - inputRect.bottom;
+            const spaceAbove = inputRect.top;
+            
+            // Determinar si mostrar arriba o abajo
+            const showAbove = spaceBelow < calendarMinHeight && spaceAbove > spaceBelow;
+            
+            // Calcular posición vertical
+            let topPosition;
+            if (showAbove) {
+                // Mostrar arriba del input
+                topPosition = inputRect.top + scrollTop - calendarEstimatedHeight - 4; // 4px de margen
+                // Asegurar que no se salga por arriba
+                if (topPosition < scrollTop) {
+                    topPosition = scrollTop + 4;
+                }
+            } else {
+                // Mostrar debajo del input
+                topPosition = inputRect.bottom + scrollTop + 4; // 4px de margen
+            }
+            
+            // Calcular posición horizontal (ajustar si se sale por la derecha)
+            let leftPosition = inputRect.left + scrollLeft;
+            const calendarWidth = Math.max(inputRect.width, 300); // Ancho mínimo del calendario
+            
+            // Si se sale por la derecha, ajustar
+            if (leftPosition + calendarWidth > scrollLeft + viewportWidth) {
+                leftPosition = scrollLeft + viewportWidth - calendarWidth - 4;
+            }
+            
+            // Si se sale por la izquierda, ajustar
+            if (leftPosition < scrollLeft) {
+                leftPosition = scrollLeft + 4;
+            }
+            
+            return {
+                top: topPosition,
+                left: leftPosition,
+                width: Math.min(calendarWidth, viewportWidth - 8)
+            };
+        };
+        
         // Crear contenedor para el calendario si no existe
         if (!calendarContainer) {
             calendarContainer = document.createElement('div');
             calendarContainer.className = 'ubits-calendar-picker-container';
-            calendarContainer.style.cssText = 'position: absolute; top: 100%; left: 0; right: 0; z-index: 1000; margin-top: 4px; display: none;';
-            container.style.position = 'relative';
-            container.appendChild(calendarContainer);
+            
+            // Calcular posición inicial
+            const position = calculateCalendarPosition();
+            
+            calendarContainer.style.cssText = `
+                position: fixed;
+                top: ${position.top}px;
+                left: ${position.left}px;
+                width: ${position.width}px;
+                z-index: 9999;
+                display: none;
+                background: var(--ubits-bg-1, #ffffff);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                border-radius: var(--ubits-border-radius-lg, 8px);
+                border: 1px solid var(--ubits-border-1, #e0e0e0);
+            `;
+            
+            // Agregar al body en lugar del contenedor para evitar problemas de overflow
+            document.body.appendChild(calendarContainer);
+            
+            // Actualizar posición cuando se hace scroll o resize
+            const updatePosition = () => {
+                const position = calculateCalendarPosition();
+                calendarContainer.style.top = `${position.top}px`;
+                calendarContainer.style.left = `${position.left}px`;
+                calendarContainer.style.width = `${position.width}px`;
+            };
+            
+            window.addEventListener('scroll', updatePosition, true);
+            window.addEventListener('resize', updatePosition);
+            
+            // Guardar función de actualización
+            calendarContainer._updatePosition = updatePosition;
+        } else {
+            // Si el contenedor ya existe, actualizar su posición
+            const position = calculateCalendarPosition();
+            calendarContainer.style.top = `${position.top}px`;
+            calendarContainer.style.left = `${position.left}px`;
+            calendarContainer.style.width = `${position.width}px`;
         }
         // Si el calendario ya existe, solo mostrarlo
         if (calendarInstance) {
+            // Actualizar posición antes de mostrar usando la función de cálculo inteligente
+            if (calendarContainer._updatePosition) {
+                calendarContainer._updatePosition();
+            } else {
+                // Fallback si no existe la función
+                const inputRect = inputElement.getBoundingClientRect();
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+                const viewportHeight = window.innerHeight;
+                const spaceBelow = viewportHeight - inputRect.bottom;
+                const spaceAbove = inputRect.top;
+                const showAbove = spaceBelow < 250 && spaceAbove > spaceBelow;
+                
+                if (showAbove) {
+                    calendarContainer.style.top = `${inputRect.top + scrollTop - 350 - 4}px`;
+                } else {
+                    calendarContainer.style.top = `${inputRect.bottom + scrollTop + 4}px`;
+                }
+                calendarContainer.style.left = `${inputRect.left + scrollLeft}px`;
+                calendarContainer.style.width = `${Math.max(inputRect.width, 300)}px`;
+            }
+            
             // Verificar si el elemento ya está en el contenedor
             if (calendarContainer.contains(calendarInstance.element)) {
                 calendarContainer.style.display = 'block';
@@ -758,19 +1062,28 @@ function createCalendarPicker(container, inputElement, onChange) {
         // Marcar que se está creando el calendario
         isCreatingCalendar = true;
         // Cargar el módulo de calendar dinámicamente
+        console.log('📅 [Calendar Picker JS showCalendar] Loading CalendarProvider module...');
         try {
             const calendarModule = await import('../../calendar/src/CalendarProvider');
+            console.log('📅 [Calendar Picker JS showCalendar] ✅ CalendarProvider module loaded:', calendarModule);
             const { createCalendar } = calendarModule;
+            console.log('📅 [Calendar Picker JS showCalendar] createCalendar function:', !!createCalendar);
             // Obtener fecha inicial del input si existe
             const currentValue = inputElement.value;
             const initialDate = parseDate(currentValue) || new Date();
             // Crear instancia del calendario UBITS
+            console.log('📅 [Calendar Picker JS showCalendar] Creating Calendar instance...');
+            console.log('📅 [Calendar Picker JS showCalendar] Initial date:', initialDate);
+            console.log('📅 [Calendar Picker JS showCalendar] Selected date:', parseDate(currentValue));
+            
             calendarInstance = createCalendar({
                 mode: 'single',
                 selectedDate: parseDate(currentValue),
                 initialDate: initialDate,
                 onDateSelect: (date) => {
+                    console.log('📅 [Calendar Picker JS] Date selected:', date);
                     const formattedDate = formatDate(date);
+                    console.log('📅 [Calendar Picker JS] Formatted date:', formattedDate);
                     inputElement.value = formattedDate;
                     if (calendarContainer) {
                         calendarContainer.style.display = 'none';
@@ -780,18 +1093,51 @@ function createCalendarPicker(container, inputElement, onChange) {
                     }
                 }
             });
+            
+            console.log('📅 [Calendar Picker JS showCalendar] ✅ Calendar instance created:', calendarInstance);
             // Limpiar el contenedor antes de agregar el calendario (por si acaso hay contenido previo)
             calendarContainer.innerHTML = '';
             
+            // Actualizar posición antes de mostrar usando la función de cálculo inteligente
+            if (calendarContainer._updatePosition) {
+                calendarContainer._updatePosition();
+            } else {
+                // Fallback si no existe la función
+                const inputRect = inputElement.getBoundingClientRect();
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+                const viewportHeight = window.innerHeight;
+                const spaceBelow = viewportHeight - inputRect.bottom;
+                const spaceAbove = inputRect.top;
+                const showAbove = spaceBelow < 250 && spaceAbove > spaceBelow;
+                
+                if (showAbove) {
+                    calendarContainer.style.top = `${inputRect.top + scrollTop - 350 - 4}px`;
+                } else {
+                    calendarContainer.style.top = `${inputRect.bottom + scrollTop + 4}px`;
+                }
+                calendarContainer.style.left = `${inputRect.left + scrollLeft}px`;
+                calendarContainer.style.width = `${Math.max(inputRect.width, 300)}px`;
+            }
+            
             // Agregar el calendario al contenedor
+            console.log('📅 [Calendar Picker JS showCalendar] Appending calendar to container...');
             calendarContainer.appendChild(calendarInstance.element);
             calendarContainer.style.display = 'block';
+            console.log('📅 [Calendar Picker JS showCalendar] ✅ Calendar displayed');
+            console.log('📅 [Calendar Picker JS showCalendar] Calendar container:', calendarContainer);
+            console.log('📅 [Calendar Picker JS showCalendar] Calendar element:', calendarInstance.element);
             
             // Resetear el flag
             isCreatingCalendar = false;
         }
         catch (error) {
-            console.error('❌ [Calendar Picker] Error cargando Calendar UBITS:', error);
+            console.error('❌ [Calendar Picker JS showCalendar] Error cargando Calendar UBITS:', error);
+            console.error('❌ [Calendar Picker JS showCalendar] Error details:', {
+                message: error instanceof Error ? error.message : String(error),
+                stack: error instanceof Error ? error.stack : undefined,
+                error
+            });
             // Fallback: mostrar mensaje de error
             if (calendarContainer) {
                 calendarContainer.innerHTML = `<div style="padding: var(--ubits-spacing-lg, 16px); background: var(--ubits-bg-1); border: 1px solid var(--ubits-border-1); border-radius: var(--ubits-border-radius-lg, 8px); color: var(--ubits-fg-1-high);">Error al cargar el calendario</div>`;
@@ -805,15 +1151,21 @@ function createCalendarPicker(container, inputElement, onChange) {
     // Usar click para inputs readonly (focus puede dispararse también, pero lo manejamos con un pequeño delay)
     let clickTimeout = null;
     
+    console.log('📅 [Calendar Picker JS] Attaching click event listener to input...');
     inputElement.addEventListener('click', (e) => {
+        console.log('📅 [Calendar Picker JS] ========== INPUT CLICK EVENT ==========');
+        console.log('📅 [Calendar Picker JS] Click event:', e);
+        console.log('📅 [Calendar Picker JS] Input element type:', inputElement.type);
         e.preventDefault();
         e.stopPropagation();
         // Limpiar timeout si existe
         if (clickTimeout) {
             clearTimeout(clickTimeout);
         }
+        console.log('📅 [Calendar Picker JS] Calling showCalendar()...');
         showCalendar();
     });
+    console.log('📅 [Calendar Picker JS] ✅ Click event listener attached');
     inputElement.addEventListener('focus', (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -835,7 +1187,8 @@ function createCalendarPicker(container, inputElement, onChange) {
     }
     // Cerrar calendario al hacer clic fuera
     document.addEventListener('click', (e) => {
-        if (calendarContainer && !container.contains(e.target)) {
+        const target = e.target;
+        if (calendarContainer && !container.contains(target) && !calendarContainer.contains(target)) {
             calendarContainer.style.display = 'none';
         }
     });

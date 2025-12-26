@@ -173,7 +173,7 @@ export function renderMask(options: MaskOptions): string {
   ].filter(Boolean).join(' ');
 
   return `
-    <div class="${classes}">
+    <div class="${classes}" data-ubits-id="🧩-ux-mask">
       <div class="ubits-mask-layer ubits-mask-layer--top"></div>
       <div class="ubits-mask-layer ubits-mask-layer--bottom"></div>
       <div class="ubits-mask-layer ubits-mask-layer--left"></div>
@@ -221,6 +221,11 @@ export function createMask(options: MaskOptions): {
 
   if (!overlay) {
     throw new Error('No se pudo crear la máscara');
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!overlay.hasAttribute('data-ubits-id')) {
+    overlay.setAttribute('data-ubits-id', '🧩-ux-mask');
   }
 
   // Función para obtener el elemento objetivo

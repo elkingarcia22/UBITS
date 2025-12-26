@@ -114,7 +114,7 @@ export function renderSimpleCard(options: SimpleCardOptions): string {
 
   // Template completo
   return `
-    <div class="${cardClasses}" style="${cardStyles}">
+    <div class="${cardClasses}" style="${cardStyles}" data-ubits-id="🧩-ux-simple-card">
       ${headerHTML}
       <div class="ubits-simple-card__body">
         ${titleHTML}
@@ -137,6 +137,11 @@ export function createSimpleCard(options: SimpleCardOptions): HTMLElement {
 
   if (!cardElement) {
     throw new Error('Failed to create simple card element');
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!cardElement.hasAttribute('data-ubits-id')) {
+    cardElement.setAttribute('data-ubits-id', '🧩-ux-simple-card');
   }
 
   // Agregar event listeners a los botones si se proporcionan

@@ -54,9 +54,28 @@ const meta: Meta<ModalOptions> = {
 			},
 			// ⭐ NUEVOS CAMPOS EXTENDIDOS
 			examples: {
-				canonical: 'const modal = window.UBITS.Modal.create({\\n  title: "Confirmar acción",\\n  bodyContent: "<p>¿Estás seguro de realizar esta acción?</p>",\\n  footerButtons: {\\n    primary: { label: "Confirmar", onClick: function() {} },\\n    secondary: { label: "Cancelar", onClick: function() { modal.close(); } }\\n  }\\n});\\nmodal.open();',
-				basic: 'const modal = window.UBITS.Modal.create({\n  title: "Confirmar acción",\n  bodyContent: "<p>¿Estás seguro de realizar esta acción?</p>",\n  footerButtons: {\n    primary: { label: "Confirmar", onClick: () => {} },\n    secondary: { label: "Cancelar", onClick: () => modal.close() }\n  }\n});',
-				withContent: 'const modal = window.UBITS.Modal.create({\n  title: "Título del modal",\n  size: "lg",\n  bodyContent: "<p>Contenido del modal</p>"\n});',
+				canonical: `const modal = window.UBITS.Modal.create({
+  title: "Confirmar acción",
+  bodyContent: "<p>¿Estás seguro de realizar esta acción?</p>",
+  footerButtons: {
+    primary: { label: "Confirmar", onClick: function() {} },
+    secondary: { label: "Cancelar", onClick: function() { modal.close(); } }
+  }
+});
+modal.open();`,
+				basic: `const modal = window.UBITS.Modal.create({
+  title: "Confirmar acción",
+  bodyContent: "<p>¿Estás seguro de realizar esta acción?</p>",
+  footerButtons: {
+    primary: { label: "Confirmar", onClick: () => {} },
+    secondary: { label: "Cancelar", onClick: () => modal.close() }
+  }
+});`,
+				withContent: `const modal = window.UBITS.Modal.create({
+  title: "Título del modal",
+  size: "lg",
+  bodyContent: "<p>Contenido del modal</p>"
+});`,
 			},
 			variants: {
 				size: ['sm', 'md', 'lg', 'xl', 'full'],

@@ -22,13 +22,15 @@
     box-sizing: border-box;
 }
 
-.ubits-input:hover {
+/* Hover pseudo-selector - solo si NO tiene clase de estado */
+.ubits-input:hover:not(.ubits-input--hover):not(.ubits-input--focus):not(.ubits-input--active):not(.ubits-input--invalid):not(.ubits-input--disabled) {
     border-color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
-.ubits-input:focus {
+/* Focus pseudo-selector - solo si NO tiene clase de estado */
+.ubits-input:focus:not(.ubits-input--hover):not(.ubits-input--focus):not(.ubits-input--active):not(.ubits-input--invalid):not(.ubits-input--disabled) {
     border-color: var(--modifiers-normal-color-light-accent-brand) !important;
-    box-shadow: 0 0 0 2px var(--modifiers-normal-focus-color, rgba(12, 91, 239, 0.1));
+    box-shadow: 0 0 0 2px var(--modifiers-normal-focus-color, rgba(12, 91, 239, 0.1)) !important;
 }
 
 .ubits-input:disabled {
@@ -83,27 +85,44 @@
    INPUT STATES
    ======================================== */
 
+/* Hover state - debe sobrescribir el border base */
+.ubits-input.ubits-input--hover,
 .ubits-input--hover {
     border-color: var(--modifiers-normal-color-light-accent-brand) !important;
+    border: 1px solid var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
+/* Focus state - debe tener box-shadow y borde azul */
+.ubits-input.ubits-input--focus,
 .ubits-input--focus {
     border-color: var(--modifiers-normal-color-light-accent-brand) !important;
-    box-shadow: 0 0 0 2px var(--modifiers-normal-focus-color, rgba(12, 91, 239, 0.1));
+    border: 1px solid var(--modifiers-normal-color-light-accent-brand) !important;
+    box-shadow: 0 0 0 2px var(--modifiers-normal-focus-color, rgba(12, 91, 239, 0.1)) !important;
+    outline: none !important;
 }
 
+/* Active state - borde azul y background bg-2 */
+.ubits-input.ubits-input--active,
 .ubits-input--active {
     border-color: var(--modifiers-normal-color-light-accent-brand) !important;
+    border: 1px solid var(--modifiers-normal-color-light-accent-brand) !important;
     background: var(--modifiers-normal-color-light-bg-2) !important;
 }
 
+/* Invalid state - borde rojo */
+.ubits-input.ubits-input--invalid,
 .ubits-input--invalid {
     border-color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+    border: 1px solid var(--modifiers-normal-color-light-feedback-accent-error) !important;
 }
 
+/* Invalid + Focus - borde rojo con box-shadow rojo */
+.ubits-input.ubits-input--invalid.ubits-input--focus,
 .ubits-input--invalid.ubits-input--focus {
     border-color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
-    box-shadow: 0 0 0 2px var(--modifiers-normal-focus-color, rgba(233, 52, 60, 0.1)); /* Error focus - usar focus-color con opacidad similar */
+    border: 1px solid var(--modifiers-normal-color-light-feedback-accent-error) !important;
+    box-shadow: 0 0 0 2px rgba(233, 52, 60, 0.1) !important; /* Error focus - usar focus-color con opacidad similar */
+    outline: none !important;
 }
 
 .ubits-input--disabled {
@@ -221,6 +240,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-family: var(--font-family-noto-sans-font-family, var(--font-sans, 'Noto Sans', sans-serif));
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize, var(--font-body-sm-size, 13px));
+    font-weight: var(--weight-regular, 400);
+    line-height: var(--modifiers-normal-body-sm-regular-lineheight, var(--font-body-sm-line, 19.5px));
+}
+
+.ubits-input-helper-text {
+    color: var(--modifiers-normal-color-light-fg-1-medium) !important;
     font-family: var(--font-family-noto-sans-font-family, var(--font-sans, 'Noto Sans', sans-serif));
     font-size: var(--modifiers-normal-body-sm-regular-fontsize, var(--font-body-sm-size, 13px));
     font-weight: var(--weight-regular, 400);

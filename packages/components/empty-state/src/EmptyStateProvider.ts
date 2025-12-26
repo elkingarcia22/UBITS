@@ -31,10 +31,12 @@ export function renderEmptyState(options: EmptyStateOptions): string {
     style = ''
   } = options;
 
-  // Construir clases base (solo default)
+  // Construir clases base con tamaño
+  const sizeClass = `ubits-empty-state--${iconSize}`;
   const classes = [
     'ubits-empty-state',
     'ubits-empty-state--default',
+    sizeClass,
     className
   ].filter(Boolean).join(' ');
 
@@ -57,12 +59,15 @@ export function renderEmptyState(options: EmptyStateOptions): string {
   }
 
   // Renderizar botones de acción
+  // El tamaño del botón debe coincidir con el iconSize del EmptyState
+  const buttonSize = iconSize as 'sm' | 'md' | 'lg' | 'xl';
+  
   let actionsHTML = '';
   
   const primaryButton = (showPrimaryButton && actionLabel)
     ? renderButton({
         variant: 'primary',
-        size: 'sm',
+        size: buttonSize,
         text: actionLabel,
         icon: showPrimaryButtonIcon && primaryButtonIcon ? primaryButtonIcon : undefined,
         className: '',
@@ -75,7 +80,7 @@ export function renderEmptyState(options: EmptyStateOptions): string {
   const secondaryButton = (showSecondaryButton && secondaryActionLabel)
     ? renderButton({
         variant: 'secondary',
-        size: 'sm',
+        size: buttonSize,
         text: secondaryActionLabel,
         icon: showSecondaryButtonIcon && secondaryButtonIcon ? secondaryButtonIcon : undefined,
         className: '',
@@ -96,7 +101,7 @@ export function renderEmptyState(options: EmptyStateOptions): string {
 
   // Construir el HTML completo
   const emptyStateHTML = `
-    <div class="${classes}"${styleAttr}>
+    <div class="${classes}"${styleAttr} data-ubits-id="🧩-ux-empty-state">
       ${visualElement}
       <div class="ubits-empty-state__content">
         <h3 class="ubits-empty-state__title">${title}</h3>
@@ -118,6 +123,16 @@ export function createEmptyState(options: EmptyStateOptions): HTMLDivElement {
   
   // Adjuntar event listeners si existen
   const emptyState = div.querySelector('.ubits-empty-state') as HTMLDivElement;
+  
+  if (!emptyState) {
+    throw new Error('Failed to create empty state element');
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!emptyState.hasAttribute('data-ubits-id')) {
+    emptyState.setAttribute('data-ubits-id', '🧩-ux-empty-state');
+  }
+
   if (options.onAction) {
     const actionButton = emptyState.querySelector('[data-action="primary"]');
     if (actionButton) {

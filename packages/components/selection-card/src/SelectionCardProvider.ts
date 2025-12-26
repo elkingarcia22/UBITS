@@ -85,7 +85,7 @@ export function renderSelectionCard(cardData: SelectionCardData): string {
   });
 
   const html = `
-    <div class="${classes}" data-card-id="${id}" ${isDisabled ? 'aria-disabled="true"' : ''} ${!isDisabled ? 'tabindex="0"' : ''}>
+    <div class="${classes}" data-card-id="${id}" ${isDisabled ? 'aria-disabled="true"' : ''} ${!isDisabled ? 'tabindex="0"' : ''} data-ubits-id="🧩-ux-selection-card">
       ${imageHTML}
       <div class="ubits-selection-card__content">
         <h3 class="ubits-selection-card__title ubits-body-md-semibold">
@@ -261,7 +261,10 @@ export function loadSelectionCards(options: SelectionCardOptions): void {
 /**
  * Crea un elemento selection-card programáticamente
  */
-export function createSelectionCard(cardData: SelectionCardData): HTMLElement {
+export function createSelectionCard(cardData: SelectionCardData, options?: {
+  onClick?: (card: SelectionCardData, element: HTMLElement) => void;
+  allowToggle?: boolean;
+}): HTMLElement {
   const cardHTML = renderSelectionCard(cardData);
   
   // Crear un contenedor temporal para parsear el HTML
@@ -276,9 +279,80 @@ export function createSelectionCard(cardData: SelectionCardData): HTMLElement {
     throw new Error('No se pudo crear el elemento selection-card. Verifica que el HTML sea válido.');
   }
 
+  // Agregar data-ubits-id si no está presente
+  if (!cardElement.hasAttribute('data-ubits-id')) {
+    cardElement.setAttribute('data-ubits-id', '🧩-ux-selection-card');
+  }
+
   // Verificar que tenga la clase base
   if (!cardElement.classList.contains('ubits-selection-card')) {
     console.warn('⚠️ [SelectionCard] El elemento no tiene la clase base ubits-selection-card');
+  }
+
+  // Agregar event listener para manejar clics si no está disabled
+  if (cardData.state !== 'disabled') {
+    const allowToggle = options?.allowToggle !== false; // Por defecto true
+    
+    cardElement.addEventListener('click', () => {
+      if (cardData.state === 'disabled') return;
+
+      // Toggle del estado selected
+      if (allowToggle) {
+        const isSelected = cardElement.classList.contains('ubits-selection-card--selected');
+        
+        if (isSelected) {
+          // Deseleccionar
+          cardElement.classList.remove('ubits-selection-card--selected');
+          cardData.state = 'default';
+          cardElement.setAttribute('aria-pressed', 'false');
+          
+          // Actualizar radio button
+          const radioInput = cardElement.querySelector('.ubits-selection-card__radio-button input[type="radio"]') as HTMLInputElement;
+          const radioButton = cardElement.querySelector('.ubits-selection-card__radio-button');
+          if (radioInput) radioInput.checked = false;
+          if (radioButton) {
+            radioButton.classList.remove('ubits-radio-button--checked');
+            const dot = radioButton.querySelector('.ubits-radio-button__dot');
+            if (dot) dot.remove();
+          }
+        } else {
+          // Seleccionar
+          cardElement.classList.add('ubits-selection-card--selected');
+          cardData.state = 'selected';
+          cardElement.setAttribute('aria-pressed', 'true');
+          
+          // Actualizar radio button
+          const radioInput = cardElement.querySelector('.ubits-selection-card__radio-button input[type="radio"]') as HTMLInputElement;
+          const radioButton = cardElement.querySelector('.ubits-selection-card__radio-button');
+          if (radioInput) radioInput.checked = true;
+          if (radioButton) {
+            radioButton.classList.add('ubits-radio-button--checked');
+            const circle = radioButton.querySelector('.ubits-radio-button__circle');
+            if (circle && !circle.querySelector('.ubits-radio-button__dot')) {
+              const dot = document.createElement('span');
+              dot.className = 'ubits-radio-button__dot';
+              circle.appendChild(dot);
+            }
+          }
+        }
+      }
+
+      // Llamar callback si existe
+      options?.onClick?.(cardData, cardElement);
+    });
+
+    // Soporte para teclado
+    cardElement.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        cardElement.click();
+      }
+    });
+
+    // Hacer la card focusable para accesibilidad
+    cardElement.setAttribute('tabindex', '0');
+    cardElement.setAttribute('role', 'button');
+    cardElement.setAttribute('aria-pressed', cardData.state === 'selected' ? 'true' : 'false');
   }
 
   // Logs especializados para debugging de estilos UBITS

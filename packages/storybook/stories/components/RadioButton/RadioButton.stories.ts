@@ -38,6 +38,7 @@ const meta: Meta<RadioButtonOptions> = {
 				optional: [], // No hay componentes opcionales
 			},
 			internals: [], // RadioButton no tiene componentes internos privados
+			slots: {}, // RadioButton no tiene slots públicos
 			tokensUsed: [
 				'--modifiers-normal-color-light-bg-1',
 				'--modifiers-normal-color-light-border-1',
@@ -52,11 +53,47 @@ const meta: Meta<RadioButtonOptions> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: 'window.UBITS.RadioButton.create({\\n  label: \'Label\',\\n  value: \'option1\',\\n  name: \'group\',\\n  checked: false,\\n  size: \'md\',\\n  state: \'default\',\\n  onChange: function() {}\\n});',
-				basic: 'window.UBITS.RadioButton.create({\\n  label: \'Label\',\\n  value: \'option1\',\\n  name: \'group\',\\n  checked: false,\\n  size: \'md\',\\n  state: \'default\'\n});',
-				checked: 'window.UBITS.RadioButton.create({\\n  label: \'Label\',\\n  value: \'option1\',\\n  name: \'group\',\\n  checked: true,\\n  size: \'md\',\\n  state: \'default\'\n});',
-				withComplementaryText: 'window.UBITS.RadioButton.create({\\n  label: \'Label\',\\n  value: \'option1\',\\n  name: \'group\',\\n  complementaryText: \'Texto complementario\',\\n  checked: false,\\n  size: \'md\'\n});',
-				disabled: 'window.UBITS.RadioButton.create({\\n  label: \'Label\',\\n  value: \'option1\',\\n  name: \'group\',\\n  checked: false,\\n  disabled: true,\\n  size: \'md\'\n});',
+				canonical: `window.UBITS.RadioButton.create({
+  label: 'Label',
+  value: 'option1',
+  name: 'group',
+  checked: false,
+  size: 'md',
+  state: 'default',
+  onChange: () => {}
+});`,
+				basic: `window.UBITS.RadioButton.create({
+  label: 'Label',
+  value: 'option1',
+  name: 'group',
+  checked: false,
+  size: 'md',
+  state: 'default'
+});`,
+				checked: `window.UBITS.RadioButton.create({
+  label: 'Label',
+  value: 'option1',
+  name: 'group',
+  checked: true,
+  size: 'md',
+  state: 'default'
+});`,
+				withComplementaryText: `window.UBITS.RadioButton.create({
+  label: 'Label',
+  value: 'option1',
+  name: 'group',
+  complementaryText: 'Texto complementario',
+  checked: false,
+  size: 'md'
+});`,
+				disabled: `window.UBITS.RadioButton.create({
+  label: 'Label',
+  value: 'option1',
+  name: 'group',
+  checked: false,
+  disabled: true,
+  size: 'md'
+});`,
 			},
 			variants: {
 				size: ['sm', 'md'],

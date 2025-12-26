@@ -164,7 +164,7 @@ export function renderToast(options: ToastOptions): string {
     : '';
 
   return `
-    <div class="${classes}" role="${role}" aria-live="${ariaLive}" ${attrs}>
+    <div class="${classes}" role="${role}" aria-live="${ariaLive}" ${attrs} data-ubits-id="🧩-ux-toast">
       <div class="ubits-toast__content">
         ${headerHTML}
         <div class="ubits-toast__body">${message}</div>
@@ -184,6 +184,11 @@ export function createToast(options: ToastOptions): HTMLDivElement {
   
   if (!toast) {
     throw new Error('Failed to create toast element');
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!toast.hasAttribute('data-ubits-id')) {
+    toast.setAttribute('data-ubits-id', '🧩-ux-toast');
   }
 
   // Remover el toast del div temporal antes de agregar event listeners

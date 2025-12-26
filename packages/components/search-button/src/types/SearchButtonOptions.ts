@@ -66,5 +66,31 @@ export interface SearchButtonOptions {
    * ID del contenedor donde se renderizará el botón
    */
   containerId?: string;
+  
+  /**
+   * Contenedor directo (HTMLElement) donde se renderizar? el bot?n
+   * Tiene prioridad sobre containerId
+   */
+  container?: HTMLElement;
+
+  /**
+   * Mostrar bot?n de filtro al lado derecho del SearchButton
+   */
+  showFilterButton?: boolean;
+
+  /**
+   * Callback cuando se hace click en el bot?n de filtro
+   */
+  onFilterClick?: (event: MouseEvent) => void;
+
+  /**
+   * Mostrar bot?n de crear al lado derecho del SearchButton
+   */
+  showCreateButton?: boolean;
+
+  /**
+   * Callback cuando se hace click en el bot?n de crear
+   */
+  onCreateClick?: (event: MouseEvent) => void;
 }
 

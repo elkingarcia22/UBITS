@@ -461,11 +461,15 @@ export const Default: Story = {
       }
     }, 100);
 
-    // Limpiar interval al desmontar
-    container.addEventListener('DOMNodeRemoved', () => {
-      clearInterval(checkInterval);
-      destroyTooltip();
+    // Limpiar interval al desmontar usando MutationObserver (reemplazo de DOMNodeRemoved deprecado)
+    const observer = new MutationObserver(() => {
+      if (!document.body.contains(container)) {
+        clearInterval(checkInterval);
+        destroyTooltip();
+        observer.disconnect();
+      }
     });
+    observer.observe(document.body, { childList: true, subtree: true });
 
     return container;
   },

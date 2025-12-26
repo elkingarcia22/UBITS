@@ -692,7 +692,7 @@ export function renderBarMetricCard(options: BarMetricCardOptions): string {
     : '';
 
   return `
-    <div class="${classes}" ${attrs}>
+    <div class="${classes}" ${attrs} data-ubits-id="🧩-ux-bar-metric-card">
       ${titleHTML}
       <div class="ubits-bar-metric-card__content">
         ${barChartHTML}
@@ -730,6 +730,11 @@ export function createBarMetricCard(
   if (!cardElement) {
     console.error('❌ [BarMetricCard] No se pudo crear el elemento de la tarjeta');
     return null;
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!cardElement.hasAttribute('data-ubits-id')) {
+    cardElement.setAttribute('data-ubits-id', '🧩-ux-bar-metric-card');
   }
   
   // Agregar event listeners

@@ -57,9 +57,31 @@ const meta = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: "window.UBITS.Breadcrumb.create(document.getElementById('breadcrumb-container'), {\\n  containerId: 'breadcrumb-container',\\n  items: [\\n    { id: 'home', label: 'Home', url: '/' },\\n    { id: 'section', label: 'Section', url: '/section' },\\n    { id: 'page', label: 'Page' }\\n  ],\\n  onItemClick: function(itemId) {}\\n});",
-				basic: "window.UBITS.Breadcrumb.create(document.getElementById('breadcrumb-container'), {\\n  containerId: 'breadcrumb-container',\\n  items: [\\n    { id: 'home', label: 'Home', url: '/' },\\n    { id: 'section', label: 'Section', url: '/section' },\\n    { id: 'page', label: 'Page' }\\n  ]\\n});",
-				withCustomSeparator: "window.UBITS.Breadcrumb.create(document.getElementById('breadcrumb-container'), {\\n  containerId: 'breadcrumb-container',\\n  items: [\\n    { id: 'home', label: 'Home', url: '/' },\\n    { id: 'section', label: 'Section', url: '/section' }\\n  ],\\n  separator: '/'\\n});",
+				canonical: `window.UBITS.Breadcrumb.create(document.getElementById('breadcrumb-container'), {
+  containerId: 'breadcrumb-container',
+  items: [
+    { id: 'home', label: 'Home', url: '/' },
+    { id: 'section', label: 'Section', url: '/section' },
+    { id: 'page', label: 'Page' }
+  ],
+  onItemClick: function(itemId) {}
+});`,
+				basic: `window.UBITS.Breadcrumb.create(document.getElementById('breadcrumb-container'), {
+  containerId: 'breadcrumb-container',
+  items: [
+    { id: 'home', label: 'Home', url: '/' },
+    { id: 'section', label: 'Section', url: '/section' },
+    { id: 'page', label: 'Page' }
+  ]
+});`,
+				withCustomSeparator: `window.UBITS.Breadcrumb.create(document.getElementById('breadcrumb-container'), {
+  containerId: 'breadcrumb-container',
+  items: [
+    { id: 'home', label: 'Home', url: '/' },
+    { id: 'section', label: 'Section', url: '/section' }
+  ],
+  separator: '/'
+});`,
 			},
 			variants: {},
 			events: {

@@ -28,7 +28,7 @@ export function renderCardContent(cardData: CardData): string {
 
   // Template de la card
   return `
-    <div class="course-card" data-progress="${cardData.progress}" data-status="${cardData.status}">
+    <div class="course-card" data-progress="${cardData.progress}" data-status="${cardData.status}" data-ubits-id="🧩-ux-card-content">
       <div class="course-thumbnail-wrapper">
         <div class="course-thumbnail">
           <img src="${cardData.image}" alt="${cardData.title}" class="course-image">

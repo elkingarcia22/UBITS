@@ -10,6 +10,15 @@ import './styles/subnav.css';
 
 // Helper para renderizar iconos (compatible con FontAwesome)
 function renderIconHelper(iconName: string, iconStyle: 'regular' | 'solid' = 'regular'): string {
+  // Si el iconName ya incluye 'far' o 'fas', usar directamente
+  if (iconName.includes('far ') || iconName.includes('fas ')) {
+    const parts = iconName.split(' ');
+    const styleClass = parts[0]; // 'far' o 'fas'
+    const iconClass = parts.slice(1).join(' '); // resto de las clases
+    return `<i class="${styleClass} ${iconClass}"></i>`;
+  }
+  
+  // Si no, construir la clase normalmente
   const iconClass = iconStyle === 'regular' ? 'far' : 'fas';
   const name = iconName.startsWith('fa-') ? iconName : `fa-${iconName}`;
   return `<i class="${iconClass} ${name}"></i>`;
@@ -26,11 +35,15 @@ export function renderSubNav(options: SubNavOptions): string {
     showIcons = false
   } = options;
 
+  console.log('🔵 [SubNavProvider] renderSubNav llamado', { variant, showIcons, activeTabId });
+
   // Obtener configuración de la variante o usar tabs personalizados
   const config = getSubNavConfig(variant);
   const tabs = (variant === 'template' && customTabs && customTabs.length > 0) 
     ? customTabs 
     : config.tabs;
+
+  console.log('🟢 [SubNavProvider] Tabs obtenidos:', tabs.length, 'showIcons:', showIcons);
 
   // Determinar tab activo
   const activeId = activeTabId || (tabs.length > 0 ? tabs[0].id : '');
@@ -42,6 +55,12 @@ export function renderSubNav(options: SubNavOptions): string {
     
     // Renderizar icono solo si showIcons es true
     const iconHTML = showIcons ? renderIconHelper(tab.icon) : '';
+    
+    console.log(`🟡 [SubNavProvider] Renderizando tab ${tab.id}:`, {
+      showIcons,
+      hasIcon: !!tab.icon,
+      iconHTML: iconHTML ? iconHTML.substring(0, 50) : 'vacío'
+    });
     
     return `
       <button 
@@ -56,8 +75,11 @@ export function renderSubNav(options: SubNavOptions): string {
     `;
   }).join('');
 
+  // Agregar clase para mostrar iconos si showIcons es true
+  const navClass = showIcons ? 'ubits-sub-nav ubits-sub-nav--with-icons' : 'ubits-sub-nav';
+  
   return `
-    <nav class="ubits-sub-nav" data-variant="${variant}">
+    <nav class="${navClass}" data-variant="${variant}" data-ubits-id="🧩-ux-subnav">
       <div class="ubits-sub-nav-tabs">
         ${tabsHTML}
       </div>
@@ -123,20 +145,45 @@ function initTabListeners(subNavElement: HTMLElement, options: SubNavOptions): v
  * Crea un SubNav interactivo en el DOM
  */
 export function createSubNav(options: SubNavOptions): HTMLElement {
+  console.log('🔵 [SubNavProvider] createSubNav llamado', { containerId: options.containerId, showIcons: options.showIcons });
+  
   const { containerId } = options;
 
   const container = document.getElementById(containerId);
   if (!container) {
+    console.error(`❌ [SubNavProvider] Contenedor ${containerId} no encontrado`);
     throw new Error(`Container with id "${containerId}" not found`);
   }
 
+  console.log('🟢 [SubNavProvider] Contenedor encontrado:', containerId);
+
   const subNavHTML = renderSubNav(options);
+  console.log('🟢 [SubNavProvider] HTML generado, longitud:', subNavHTML.length);
   container.innerHTML = subNavHTML;
+  console.log('🟢 [SubNavProvider] HTML insertado en contenedor');
 
   const subNavElement = container.querySelector('.ubits-sub-nav') as HTMLElement;
   if (!subNavElement) {
+    console.error('❌ [SubNavProvider] No se encontró .ubits-sub-nav después de insertar HTML');
     throw new Error('Failed to create sub-nav element');
   }
+
+  // Agregar data-ubits-id si no está presente
+  if (!subNavElement.hasAttribute('data-ubits-id')) {
+    subNavElement.setAttribute('data-ubits-id', '🧩-ux-subnav');
+  }
+
+  console.log('🟢 [SubNavProvider] SubNav element encontrado');
+
+  // Verificar iconos en el HTML generado
+  const tabs = subNavElement.querySelectorAll('.ubits-sub-nav-tab');
+  tabs.forEach((tab, index) => {
+    const icon = tab.querySelector('i');
+    console.log(`🟡 [SubNavProvider] Tab ${index} después de crear:`, {
+      hasIcon: !!icon,
+      showIcons: options.showIcons
+    });
+  });
 
   // Inicializar funcionalidades
   initTabListeners(subNavElement, options);

@@ -184,9 +184,22 @@ const meta: Meta<
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: "createTabBar(document.getElementById('tabbar-container'), {\\n  containerId: 'tabbar-container',\\n  variant: 'colaborador',\\n  items: [],\\n  onTabChange: function(tabId) {}\\n});",
-				basic: "createTabBar(document.getElementById('tabbar-container'), {\\n  containerId: 'tabbar-container',\\n  variant: 'colaborador',\\n  items: []\\n});",
-				admin: "createTabBar(document.getElementById('tabbar-container'), {\\n  containerId: 'tabbar-container',\\n  variant: 'admin',\\n  items: []\\n});",
+				canonical: `createTabBar(document.getElementById('tabbar-container'), {
+  containerId: 'tabbar-container',
+  variant: 'colaborador',
+  items: [],
+  onTabChange: function(tabId) {}
+});`,
+				basic: `createTabBar(document.getElementById('tabbar-container'), {
+  containerId: 'tabbar-container',
+  variant: 'colaborador',
+  items: []
+});`,
+				admin: `createTabBar(document.getElementById('tabbar-container'), {
+  containerId: 'tabbar-container',
+  variant: 'admin',
+  items: []
+});`,
 			},
 			variants: {
 				variant: ['colaborador', 'admin'],

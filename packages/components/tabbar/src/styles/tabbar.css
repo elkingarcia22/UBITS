@@ -708,38 +708,40 @@
 }
 
 /* Hover state - matching TreeMenu Storybook exactly */
+/* En hover solo cambia el fondo, NO el color del texto */
 .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) {
-    background: #0E1825 !important; /* Dark mode bg-2 - siempre usar dark */
+    background: var(--modifiers-normal-color-light-bg-2) !important;
 }
 
+/* El texto, iconos y chevron mantienen su color en hover - FORZAR color original */
 .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-chevron i {
-    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
+    color: var(--modifiers-normal-color-light-fg-1-medium) !important;
 }
 
 .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-icon i {
-    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
+    color: var(--modifiers-normal-color-light-fg-1-medium) !important;
 }
 
 .ubits-tree-menu-header:hover:not(.ubits-tree-menu-header--active) .ubits-tree-menu-text {
-    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
+    color: var(--modifiers-normal-color-light-fg-1-high) !important;
 }
 
 /* Active state - matching TreeMenu Storybook exactly */
 .ubits-tree-menu-header--active {
-    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
-    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.2)) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
+    background: var(--modifiers-normal-color-light-bg-active) !important;
 }
 
 .ubits-tree-menu-header--active .ubits-tree-menu-chevron i {
-    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 .ubits-tree-menu-header--active .ubits-tree-menu-icon i {
-    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 .ubits-tree-menu-header--active .ubits-tree-menu-text {
-    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
     font-weight: var(--weight-semibold, 600) !important;
 }
 
@@ -759,14 +761,14 @@
 }
 
 [data-theme="dark"] .ubits-tree-menu-header--active {
-    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
-    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.2)) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
+    background: var(--modifiers-normal-color-light-bg-active) !important;
 }
 
 [data-theme="dark"] .ubits-tree-menu-header--active .ubits-tree-menu-chevron i,
 [data-theme="dark"] .ubits-tree-menu-header--active .ubits-tree-menu-icon i,
 [data-theme="dark"] .ubits-tree-menu-header--active .ubits-tree-menu-text {
-    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 /* No border-left in active state - matching TreeMenu Storybook */
@@ -834,39 +836,42 @@
 }
 
 /* Hover state - matching TreeMenu Storybook exactly */
+/* Hover state - matching TreeMenu Storybook exactly */
+/* En hover solo cambia el fondo, NO el color del texto */
 .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) {
-    background: #0E1825 !important; /* Dark mode bg-2 - siempre usar dark */
+    background: var(--modifiers-normal-color-light-bg-2) !important;
 }
 
+/* El texto, iconos y chevron mantienen su color en hover - FORZAR color original */
 .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-chevron i {
-    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
+    color: var(--modifiers-normal-color-light-fg-1-medium) !important;
 }
 
 .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-icon i {
-    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
+    color: var(--modifiers-normal-color-light-fg-1-medium) !important;
 }
 
 .ubits-tree-menu-link:hover:not(.ubits-tree-menu-link--active) .ubits-tree-menu-text {
-    color: #edeeef !important; /* Dark mode fg-1-high - siempre usar dark */
+    color: var(--modifiers-normal-color-light-fg-1-high) !important;
 }
 
 /* Active state - matching TreeMenu Storybook exactly */
 .ubits-tree-menu-link--active,
 .ubits-tree-menu-link.ubits-tree-menu-link--active {
-    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
-    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.2)) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
+    background: var(--modifiers-normal-color-light-bg-active) !important;
 }
 
 .ubits-tree-menu-link--active .ubits-tree-menu-chevron i {
-    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 .ubits-tree-menu-link--active .ubits-tree-menu-icon i {
-    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 .ubits-tree-menu-link--active .ubits-tree-menu-text {
-    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
     font-weight: var(--weight-semibold, 600) !important;
 }
 
@@ -886,14 +891,14 @@
 }
 
 [data-theme="dark"] .ubits-tree-menu-link--active {
-    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
-    background: rgba(12, 91, 239, 0.2) !important; /* Dark mode bg-active - siempre usar dark */
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
+    background: var(--modifiers-normal-color-light-bg-active) !important;
 }
 
 [data-theme="dark"] .ubits-tree-menu-link--active .ubits-tree-menu-chevron i,
 [data-theme="dark"] .ubits-tree-menu-link--active .ubits-tree-menu-icon i,
 [data-theme="dark"] .ubits-tree-menu-link--active .ubits-tree-menu-text {
-    color: #3865f5 !important; /* Usar directamente el valor del token para evitar problemas de resolución */
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 /* No border-left in active state - matching TreeMenu Storybook */
@@ -1108,8 +1113,8 @@
 /* Active state */
 .ubits-tree-node__content--active,
 .ubits-tree-node__content[aria-selected="true"] {
-    color: var(--modifiers-static-inverted-color-dark-accent-blue, #8c91fa);
-    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.2));
+    color: var(--modifiers-normal-color-light-accent-brand);
+    background: var(--modifiers-normal-color-light-bg-active);
 }
 
 .ubits-tree-node__content--active .ubits-tree-node__chevron,
@@ -1206,8 +1211,8 @@
 
 .ubits-floating-menu .ubits-tree-node__content--active,
 .ubits-floating-menu .ubits-tree-node__content[aria-selected="true"] {
-    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.2)) !important;
-    color: var(--modifiers-static-inverted-color-dark-accent-blue, #8c91fa) !important;
+    background: var(--modifiers-normal-color-light-bg-active) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 .ubits-floating-menu .ubits-tree-node__content--active .ubits-tree-node__chevron,
@@ -1342,20 +1347,20 @@
 
 /* Active state - matching TreeMenu Storybook exactly */
 .ubits-profile-tree-header--active {
-    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
-    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.2)) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
+    background: var(--modifiers-normal-color-light-bg-active) !important;
 }
 
 .ubits-profile-tree-header--active .ubits-profile-tree-chevron i {
-    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 .ubits-profile-tree-header--active .ubits-profile-tree-icon i {
-    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 .ubits-profile-tree-header--active .ubits-profile-tree-text {
-    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
     font-weight: var(--weight-semibold, 600) !important;
 }
 
@@ -1438,20 +1443,20 @@
 
 /* Active state - matching TreeMenu Storybook exactly */
 .ubits-profile-tree-link--active {
-    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
-    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.2)) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
+    background: var(--modifiers-normal-color-light-bg-active) !important;
 }
 
 .ubits-profile-tree-link--active .ubits-profile-tree-chevron i {
-    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 .ubits-profile-tree-link--active .ubits-profile-tree-icon i {
-    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 .ubits-profile-tree-link--active .ubits-profile-tree-text {
-    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
     font-weight: var(--weight-semibold, 600) !important;
 }
 
@@ -1553,8 +1558,8 @@
 .ubits-tabbar .ubits-profile-menu .ubits-profile-tree-link--active,
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-header--active,
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link--active {
-    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
-    background: var(--ubits-bg-active, rgba(12, 91, 239, 0.2)) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
+    background: var(--modifiers-normal-color-light-bg-active) !important;
 }
 
 .ubits-profile-menu .ubits-profile-tree-header--active .ubits-profile-tree-chevron i,
@@ -1575,7 +1580,7 @@
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link--active .ubits-profile-tree-icon i,
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-header--active .ubits-profile-tree-text,
 [data-theme="light"] .ubits-profile-menu .ubits-profile-tree-link--active .ubits-profile-tree-text {
-    color: var(--ubits-accent-brand-static-inverted, var(--ubits-accent-brand-inverted, #3865f5)) !important;
+    color: var(--modifiers-normal-color-light-accent-brand) !important;
 }
 
 .ubits-profile-menu .ubits-profile-tree-icon i,

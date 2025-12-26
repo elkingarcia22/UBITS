@@ -63,8 +63,7 @@ const meta: Meta<SelectionCardData & { showDescription?: boolean; showIcon?: boo
 				canonical: `createSelectionCard({
   id: 'card-1',
   title: 'Asignar toda la empresa',
-  size: 'md',
-  onClick: function(cardId) {}
+  size: 'md'
 });`,
 				basic: `createSelectionCard({
   id: 'card-1',

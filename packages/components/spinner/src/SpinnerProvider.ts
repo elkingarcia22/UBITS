@@ -34,7 +34,7 @@ export function renderSpinner(options: SpinnerOptions = {}): string {
 
   // Renderizar el spinner con su círculo
   const spinnerHTML = `
-    <div class="${classes}"${styleAttr}>
+    <div class="${classes}"${styleAttr} data-ubits-id="🧩-ux-spinner">
       <div class="ubits-spinner__circle">
         <div class="ubits-spinner__segment"></div>
         <div class="ubits-spinner__segment"></div>
@@ -54,6 +54,17 @@ export function renderSpinner(options: SpinnerOptions = {}): string {
 export function createSpinner(options: SpinnerOptions = {}): HTMLDivElement {
   const div = document.createElement('div');
   div.innerHTML = renderSpinner(options);
-  return div.querySelector('.ubits-spinner') as HTMLDivElement;
+  const spinner = div.querySelector('.ubits-spinner') as HTMLDivElement;
+  
+  if (!spinner) {
+    throw new Error('Failed to create spinner element');
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!spinner.hasAttribute('data-ubits-id')) {
+    spinner.setAttribute('data-ubits-id', '🧩-ux-spinner');
+  }
+
+  return spinner;
 }
 

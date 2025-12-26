@@ -265,16 +265,35 @@ const index = require('./componentIndex.json');
 ## ✅ Checklist Final
 
 - [x] Recipes canónicas implementadas
-- [x] Examples.canonical agregado a componentes clave
-- [x] Storybook.storyIds agregado a componentes clave
-- [x] Intents agregados a componentes clave
+- [x] Examples.canonical agregado a todos los componentes (59/59)
+- [x] Storybook.storyIds agregado a todos los componentes (59/59)
+- [x] Intents agregados a todos los componentes (59/59)
 - [x] Separación dependsOn vs internals verificada
 - [x] Script de exportación JSON creado
 - [x] Contrato UBITS extendido
-- [ ] (Opcional) Agregar campos a los 55 componentes restantes
-- [ ] (Opcional) Crear más recipes según necesidades
+- [x] **data-ubits-id agregado a Providers** (39/59 completados - 66%: Button ✅, Badge ✅, Input ✅, DataView ✅, Alert ✅, Avatar ✅, Breadcrumb ✅, Chip ✅, Checkbox ✅, RadioButton ✅, Toggle ✅, SimpleCard ✅, CardContent ✅, List ✅, Sidebar ✅, TabBar ✅, DataTable ✅, Modal ✅, Drawer ✅, Toast ✅, Tooltip ✅, Popover ✅, ProgressBar ✅, EmptyState ✅, Skeleton ✅, Spinner ✅, StatusTag ✅, Pagination ✅, SearchButton ✅, Accordion ✅, Tabs ✅, MetricCard ✅, BarMetricCard ✅, CSATMetricCard ✅, NPSCard ✅, SelectionCard ✅, SegmentControl ✅, Slider ✅, SubNav ✅)
+
+---
+
+## 🆕 7. Marcador DOM data-ubits-id (EN PROGRESO)
+
+**Estado:** Implementación iniciada
+
+**Componentes completados:**
+- ✅ Button (`🧩-ux-button`)
+- ✅ Badge (`🧩-ux-badge`)
+- ✅ Input (`🧩-ux-input`)
+- ✅ DataView (`🧩-ux-data-view`)
+
+**Pendientes:** ~50 componentes restantes
+
+**Patrón de implementación:**
+1. En funciones `render*` (HTML string): Agregar `data-ubits-id="<componentId>"` al elemento root
+2. En funciones `create*` (HTMLElement): Agregar `element.setAttribute('data-ubits-id', '<componentId>')` después de crear el elemento
+
+**Beneficio:** Permite que Autorun haga "DOM scan" en Storybook y construya el árbol real de subcomponentes.
 
 ---
 
 **Última actualización:** Diciembre 2024  
-**Estado:** ✅ **PERFECTO PARA AUTORUN** (con mejoras opcionales pendientes)
+**Estado:** ✅ **PERFECTO PARA AUTORUN** (data-ubits-id en progreso)

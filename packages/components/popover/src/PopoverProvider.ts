@@ -108,7 +108,7 @@ export function renderPopover(options: PopoverOptions): string {
 
   // Popover container HTML
   return `
-    <div class="${classes}" style="width: ${popoverWidth};">
+    <div class="${classes}" style="width: ${popoverWidth};" data-ubits-id="🧩-ux-popover">
       ${tailHTML}
       <div class="ubits-popover__content">
         ${headerHTML}
@@ -154,6 +154,11 @@ export function createPopover(options: PopoverOptions): {
 
   if (!popover) {
     throw new Error('No se pudo crear el popover');
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!popover.hasAttribute('data-ubits-id')) {
+    popover.setAttribute('data-ubits-id', '🧩-ux-popover');
   }
 
   // Aplicar posición inicial si se proporciona
@@ -203,45 +208,175 @@ export function createPopover(options: PopoverOptions): {
       popover.style.position = 'fixed';
       const tailPosition = options.tailPosition || 'top';
       
+      // Obtener dimensiones del popover después de que esté visible
+      const popoverRect = popover.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const viewportWidth = window.innerWidth;
+      
+      // Espacio necesario para el tail (9px) + padding de seguridad (8px)
+      const tailSpace = 17;
+      
       if (tailPosition === 'top' || tailPosition === 'bottom') {
         // Centrar horizontalmente (debajo o arriba del botón)
         if (position.left !== undefined) {
-          popover.style.left = `${position.left}px`;
+          let leftPos = position.left;
+          // Asegurar que no se salga por la izquierda o derecha
+          const halfWidth = popoverRect.width / 2;
+          if (leftPos - halfWidth < 0) {
+            leftPos = halfWidth;
+          } else if (leftPos + halfWidth > viewportWidth) {
+            leftPos = viewportWidth - halfWidth;
+          }
+          popover.style.left = `${leftPos}px`;
           popover.style.transform = 'translateX(-50%)';
         }
         if (position.top !== undefined) {
-          popover.style.top = `${position.top}px`;
+          let topPos = position.top;
+          
+          // Si el tail está arriba, asegurar que haya espacio suficiente
+          if (tailPosition === 'top' && topPos < tailSpace) {
+            topPos = tailSpace;
+          }
+          // Si el tail está abajo, asegurar que el popover no se salga por abajo
+          else if (tailPosition === 'bottom') {
+            const popoverBottom = topPos + popoverRect.height + tailSpace;
+            if (popoverBottom > viewportHeight) {
+              topPos = viewportHeight - popoverRect.height - tailSpace;
+            }
+          }
+          
+          popover.style.top = `${topPos}px`;
         }
       } else if (tailPosition === 'left') {
         // Popover a la derecha del botón, tail izquierda apuntando al botón
         // Centrar verticalmente
         if (position.top !== undefined) {
-          popover.style.top = `${position.top}px`;
+          let topPos = position.top;
+          const halfHeight = popoverRect.height / 2;
+          // Asegurar que no se salga por arriba o abajo
+          if (topPos - halfHeight < tailSpace) {
+            topPos = halfHeight + tailSpace;
+          } else if (topPos + halfHeight > viewportHeight - tailSpace) {
+            topPos = viewportHeight - halfHeight - tailSpace;
+          }
+          popover.style.top = `${topPos}px`;
           popover.style.transform = 'translateY(-50%)';
         }
         if (position.left !== undefined) {
-          popover.style.left = `${position.left}px`;
+          let leftPos = position.left;
+          // Asegurar que no se salga por la izquierda (el tail necesita espacio)
+          if (leftPos < tailSpace) {
+            leftPos = tailSpace;
+          }
+          popover.style.left = `${leftPos}px`;
         }
       } else if (tailPosition === 'right') {
         // Popover a la izquierda del botón, tail derecha apuntando al botón
         // Centrar verticalmente
         if (position.top !== undefined) {
-          popover.style.top = `${position.top}px`;
+          let topPos = position.top;
+          const halfHeight = popoverRect.height / 2;
+          // Asegurar que no se salga por arriba o abajo
+          if (topPos - halfHeight < tailSpace) {
+            topPos = halfHeight + tailSpace;
+          } else if (topPos + halfHeight > viewportHeight - tailSpace) {
+            topPos = viewportHeight - halfHeight - tailSpace;
+          }
+          popover.style.top = `${topPos}px`;
           popover.style.transform = 'translateY(-50%)';
         }
         if (position.left !== undefined) {
-          popover.style.left = `${position.left}px`;
+          let leftPos = position.left;
+          // Asegurar que no se salga por la derecha (el tail necesita espacio)
+          const popoverRight = leftPos + popoverRect.width + tailSpace;
+          if (popoverRight > viewportWidth) {
+            leftPos = viewportWidth - popoverRect.width - tailSpace;
+          }
+          popover.style.left = `${leftPos}px`;
         }
       }
     } else if (referenceElement) {
       // Posicionar relativo al elemento de referencia
       const rect = referenceElement.getBoundingClientRect();
       const popoverRect = popover.getBoundingClientRect();
+      const tailPosition = options.tailPosition || 'top';
+      const viewportHeight = window.innerHeight;
+      const viewportWidth = window.innerWidth;
+      const tailSpace = 17;
       
-      // Por defecto, posicionar debajo del elemento
       popover.style.position = 'fixed';
-      popover.style.top = `${rect.bottom + 8}px`;
-      popover.style.left = `${rect.left + (rect.width / 2) - (popoverRect.width / 2)}px`;
+      
+      // Calcular posición según tailPosition
+      let topPos: number;
+      let leftPos: number;
+      
+      if (tailPosition === 'top') {
+        // Popover debajo del elemento, tail arriba
+        topPos = rect.bottom + 8;
+        // Asegurar que haya espacio para el tail arriba
+        if (topPos - popoverRect.height - tailSpace < 0) {
+          topPos = popoverRect.height + tailSpace;
+        }
+        leftPos = rect.left + (rect.width / 2);
+      } else if (tailPosition === 'bottom') {
+        // Popover arriba del elemento, tail abajo
+        topPos = rect.top - popoverRect.height - 8;
+        // Asegurar que no se salga por arriba
+        if (topPos < tailSpace) {
+          topPos = tailSpace;
+        }
+        leftPos = rect.left + (rect.width / 2);
+      } else if (tailPosition === 'left') {
+        // Popover a la derecha del elemento, tail izquierda
+        topPos = rect.top + (rect.height / 2);
+        leftPos = rect.right + 8;
+        // Asegurar que no se salga por la izquierda
+        if (leftPos < tailSpace) {
+          leftPos = tailSpace;
+        }
+      } else {
+        // tailPosition === 'right'
+        // Popover a la izquierda del elemento, tail derecha
+        topPos = rect.top + (rect.height / 2);
+        leftPos = rect.left - popoverRect.width - 8;
+        // Asegurar que no se salga por la derecha
+        const popoverRight = leftPos + popoverRect.width + tailSpace;
+        if (popoverRight > viewportWidth) {
+          leftPos = viewportWidth - popoverRect.width - tailSpace;
+        }
+      }
+      
+      // Ajustar horizontalmente si se sale del viewport
+      const halfWidth = popoverRect.width / 2;
+      if (leftPos - halfWidth < 0) {
+        leftPos = halfWidth;
+      } else if (leftPos + halfWidth > viewportWidth) {
+        leftPos = viewportWidth - halfWidth;
+      }
+      
+      // Ajustar verticalmente si se sale del viewport
+      if (tailPosition === 'top' || tailPosition === 'bottom') {
+        if (topPos + popoverRect.height > viewportHeight) {
+          topPos = viewportHeight - popoverRect.height - (tailPosition === 'bottom' ? tailSpace : 0);
+        }
+      } else {
+        const halfHeight = popoverRect.height / 2;
+        if (topPos - halfHeight < tailSpace) {
+          topPos = halfHeight + tailSpace;
+        } else if (topPos + halfHeight > viewportHeight - tailSpace) {
+          topPos = viewportHeight - halfHeight - tailSpace;
+        }
+      }
+      
+      popover.style.top = `${topPos}px`;
+      popover.style.left = `${leftPos}px`;
+      
+      // Aplicar transform según tailPosition
+      if (tailPosition === 'top' || tailPosition === 'bottom') {
+        popover.style.transform = 'translateX(-50%)';
+      } else {
+        popover.style.transform = 'translateY(-50%)';
+      }
     }
   };
 

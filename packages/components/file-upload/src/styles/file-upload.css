@@ -182,6 +182,17 @@
     flex-wrap: wrap;
 }
 
+/* Botón Eliminar todos - solo modificar hover para que sea rojo */
+.ubits-file-upload__header-actions .ubits-file-upload__remove-all-button.ubits-button:hover:not(:disabled):not(.ubits-button--loading),
+.ubits-file-upload__header-actions .ubits-file-upload__remove-all-button.ubits-button--error:hover:not(:disabled):not(.ubits-button--loading),
+.ubits-file-upload__header-actions .ubits-file-upload__remove-all-button.ubits-button--primary:hover:not(:disabled):not(.ubits-button--loading),
+.ubits-file-upload__header-actions .ubits-file-upload__remove-all-button.ubits-button--secondary:hover:not(:disabled):not(.ubits-button--loading) {
+    background: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+    background-color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+    border-color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+    color: var(--modifiers-normal-color-light-fg-bold) !important;
+}
+
 /* Files List */
 .ubits-file-upload__files-list {
     display: flex;
@@ -285,6 +296,36 @@
 
 .ubits-file-upload__file-remove i {
     font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+}
+
+/* Empty State */
+.ubits-file-upload__empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--ubits-spacing-lg);
+    min-height: 100px;
+}
+
+.ubits-file-upload__empty-text {
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: var(--modifiers-normal-body-md-regular-fontsize);
+    font-weight: var(--weight-regular);
+    line-height: var(--modifiers-normal-body-md-regular-lineheight);
+    color: var(--modifiers-normal-color-light-fg-1-medium);
+    text-align: center;
+}
+
+/* Status Tag */
+.ubits-file-upload__status-tag {
+    display: inline-block;
+    padding: var(--ubits-spacing-xs) var(--ubits-spacing-sm);
+    border-radius: var(--ubits-border-radius-sm);
+    border: 1px solid;
+    font-family: var(--font-family-noto-sans-font-family);
+    font-size: var(--modifiers-normal-body-sm-regular-fontsize);
+    font-weight: var(--weight-medium);
+    line-height: var(--modifiers-normal-body-sm-regular-lineheight);
 }
 
 /* ========================================

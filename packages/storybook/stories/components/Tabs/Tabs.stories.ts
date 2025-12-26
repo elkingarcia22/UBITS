@@ -61,9 +61,31 @@ const meta = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: "window.UBITS.Tabs.create(document.getElementById('tabs-container'), {\\n  containerId: 'tabs-container',\\n  tabs: [\\n    { id: 'tab1', label: 'Tab 1', icon: 'home' },\\n    { id: 'tab2', label: 'Tab 2', icon: 'user' }\\n  ],\\n  activeTabId: 'tab1',\\n  onTabChange: function(tabId) {}\\n});",
-				basic: "window.UBITS.Tabs.create(document.getElementById('tabs-container'), {\\n  containerId: 'tabs-container',\\n  tabs: [\\n    { id: 'tab1', label: 'Tab 1', icon: 'home' },\\n    { id: 'tab2', label: 'Tab 2', icon: 'user' }\\n  ],\\n  activeTabId: 'tab1'\\n});",
-				withoutIcons: "window.UBITS.Tabs.create(document.getElementById('tabs-container'), {\\n  containerId: 'tabs-container',\\n  tabs: [\\n    { id: 'tab1', label: 'Tab 1' },\\n    { id: 'tab2', label: 'Tab 2' }\\n  ],\\n  activeTabId: 'tab1'\\n});",
+				canonical: `window.UBITS.Tabs.create(document.getElementById('tabs-container'), {
+  containerId: 'tabs-container',
+  tabs: [
+    { id: 'tab1', label: 'Tab 1', icon: 'home' },
+    { id: 'tab2', label: 'Tab 2', icon: 'user' }
+  ],
+  activeTabId: 'tab1',
+  onTabChange: function(tabId) {}
+});`,
+				basic: `window.UBITS.Tabs.create(document.getElementById('tabs-container'), {
+  containerId: 'tabs-container',
+  tabs: [
+    { id: 'tab1', label: 'Tab 1', icon: 'home' },
+    { id: 'tab2', label: 'Tab 2', icon: 'user' }
+  ],
+  activeTabId: 'tab1'
+});`,
+				withoutIcons: `window.UBITS.Tabs.create(document.getElementById('tabs-container'), {
+  containerId: 'tabs-container',
+  tabs: [
+    { id: 'tab1', label: 'Tab 1' },
+    { id: 'tab2', label: 'Tab 2' }
+  ],
+  activeTabId: 'tab1'
+});`,
 			},
 			variants: {
 				showIcons: [true, false],

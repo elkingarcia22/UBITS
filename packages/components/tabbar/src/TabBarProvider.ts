@@ -66,7 +66,7 @@ export function renderTabBar(options: TabBarOptions): string {
   }).join('\n');
 
   return `
-    <div class="${containerClasses}" id="ubits-tabbar">
+    <div class="${containerClasses}" id="ubits-tabbar" data-ubits-id="🧩-ux-tabbar">
       <div class="ubits-tabbar-content">
         ${itemsHTML}
       </div>
@@ -121,10 +121,15 @@ export function createTabBar(options: TabBarOptions): HTMLElement | null {
     }
   }
 
-  const tabBarElement = container.querySelector('.ubits-tabbar');
+  const tabBarElement = container.querySelector('.ubits-tabbar') as HTMLElement;
   if (!tabBarElement) {
     console.error('TabBar: Elemento no encontrado después de renderizar');
     return null;
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!tabBarElement.hasAttribute('data-ubits-id')) {
+    tabBarElement.setAttribute('data-ubits-id', '🧩-ux-tabbar');
   }
 
   // Inicializar event listeners

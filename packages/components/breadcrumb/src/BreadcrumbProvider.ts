@@ -66,7 +66,7 @@ export function renderBreadcrumb(options: BreadcrumbOptions): string {
   const containerClasses = ['ubits-breadcrumb', className].filter(Boolean).join(' ');
 
   return `
-    <nav class="${containerClasses}" aria-label="Breadcrumb">
+    <nav class="${containerClasses}" aria-label="Breadcrumb" data-ubits-id="🧩-ux-breadcrumb">
       <ol class="ubits-breadcrumb__list">
         ${itemsHTML}
       </ol>
@@ -139,9 +139,14 @@ export function createBreadcrumb(options: BreadcrumbOptions, containerId?: strin
   
   container.innerHTML = renderBreadcrumb(options);
   
+  // Agregar data-ubits-id al breadcrumb si existe
+  const breadcrumbElement = container.querySelector('.ubits-breadcrumb') as HTMLElement;
+  if (breadcrumbElement && !breadcrumbElement.hasAttribute('data-ubits-id')) {
+    breadcrumbElement.setAttribute('data-ubits-id', '🧩-ux-breadcrumb');
+  }
+  
   // Inicializar listeners
   requestAnimationFrame(() => {
-    const breadcrumbElement = container.querySelector('.ubits-breadcrumb') as HTMLElement;
     if (breadcrumbElement) {
       initBreadcrumbListeners(breadcrumbElement, options);
     } else {

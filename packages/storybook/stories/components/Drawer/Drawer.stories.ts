@@ -54,10 +54,32 @@ const meta: Meta<DrawerOptions> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: "window.UBITS.Drawer.create({\\n  title: 'Crear dato demográfico',\\n  bodyContent: '<p>Contenido del drawer</p>',\\n  width: 40,\\n  onClose: function() {}\\n});",
-				basic: "window.UBITS.Drawer.create({\\n  title: 'Crear dato demográfico',\\n  bodyContent: '<p>Contenido del drawer</p>',\\n  width: 40\\n});",
-				withComplementaryText: "window.UBITS.Drawer.create({\\n  title: 'Crear dato demográfico',\\n  complementaryText: 'Texto complementario',\\n  bodyContent: '<p>Contenido del drawer</p>',\\n  width: 40\\n});",
-				withButtons: "window.UBITS.Drawer.create({\\n  title: 'Crear dato demográfico',\\n  bodyContent: '<p>Contenido del drawer</p>',\\n  footerButtons: {\\n    primary: { label: 'Guardar', onClick: function() {} },\\n    secondary: { label: 'Cancelar', onClick: function() {} }\\n  },\\n  width: 40\\n});",
+				canonical: `window.UBITS.Drawer.create({
+  title: 'Crear dato demográfico',
+  bodyContent: '<p>Contenido del drawer</p>',
+  width: 40,
+  onClose: function() {}
+});`,
+				basic: `window.UBITS.Drawer.create({
+  title: 'Crear dato demográfico',
+  bodyContent: '<p>Contenido del drawer</p>',
+  width: 40
+});`,
+				withComplementaryText: `window.UBITS.Drawer.create({
+  title: 'Crear dato demográfico',
+  complementaryText: 'Texto complementario',
+  bodyContent: '<p>Contenido del drawer</p>',
+  width: 40
+});`,
+				withButtons: `window.UBITS.Drawer.create({
+  title: 'Crear dato demográfico',
+  bodyContent: '<p>Contenido del drawer</p>',
+  footerButtons: {
+    primary: { label: 'Guardar', onClick: function() {} },
+    secondary: { label: 'Cancelar', onClick: function() {} }
+  },
+  width: 40
+});`,
 			},
 			variants: {
 				width: [20, 30, 40, 50, 60],

@@ -36,6 +36,7 @@ const meta: Meta<AvatarOptions> = {
 				optional: ['🧩-ux-badge'], // Badge es opcional
 			},
 			internals: [], // Avatar no tiene componentes internos privados
+			slots: {}, // Avatar no tiene slots públicos
 			tokensUsed: [
 				'--modifiers-normal-color-light-bg-1',
 				'--modifiers-normal-color-light-fg-1-high',
@@ -48,11 +49,34 @@ const meta: Meta<AvatarOptions> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: 'window.UBITS.Avatar.create({\\n  icon: \'user\',\\n  size: \'md\',\\n  alt: \'Avatar\',\\n  onClick: function() {}\\n});',
-				basic: 'window.UBITS.Avatar.create({\\n  icon: \'user\',\\n  size: \'md\',\\n  alt: \'Avatar\'\\n});',
-				withInitials: 'window.UBITS.Avatar.create({\\n  initials: \'JD\',\\n  size: \'md\',\\n  alt: \'Avatar\'\\n});',
-				withImage: 'window.UBITS.Avatar.create({\\n  imageUrl: \'https://example.com/avatar.jpg\',\\n  size: \'md\',\\n  alt: \'Avatar\'\\n});',
-				withBadge: 'window.UBITS.Avatar.create({\\n  icon: \'user\',\\n  size: \'md\',\\n  badgeColor: \'error\',\\n  badgeContent: \'5\',\\n  alt: \'Avatar\'\\n});',
+				canonical: `window.UBITS.Avatar.create({
+  icon: 'user',
+  size: 'md',
+  alt: 'Avatar',
+  onClick: () => {}
+});`,
+				basic: `window.UBITS.Avatar.create({
+  icon: 'user',
+  size: 'md',
+  alt: 'Avatar'
+});`,
+				withInitials: `window.UBITS.Avatar.create({
+  initials: 'JD',
+  size: 'md',
+  alt: 'Avatar'
+});`,
+				withImage: `window.UBITS.Avatar.create({
+  imageUrl: 'https://example.com/avatar.jpg',
+  size: 'md',
+  alt: 'Avatar'
+});`,
+				withBadge: `window.UBITS.Avatar.create({
+  icon: 'user',
+  size: 'md',
+  badgeColor: 'error',
+  badgeContent: '5',
+  alt: 'Avatar'
+});`,
 			},
 			variants: {
 				size: ['xs', 'sm', 'md', 'lg'],

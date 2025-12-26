@@ -1,7 +1,7 @@
 /**
  * Estados del componente File Upload
  */
-export type FileUploadState = 'default' | 'dragging' | 'error' | 'disabled' | 'filled' | 'files-list';
+export type FileUploadState = 'default' | 'dragging' | 'error' | 'disabled' | 'files-list';
 
 /**
  * Información de un archivo individual
@@ -161,6 +161,11 @@ export interface FileUploadOptions {
    * ID del contenedor donde se insertará el componente
    */
   containerId?: string;
+  
+  /**
+   * Elemento contenedor donde se insertará el componente (alternativa a containerId)
+   */
+  container?: HTMLElement;
 
   /**
    * Clases CSS adicionales
@@ -168,7 +173,7 @@ export interface FileUploadOptions {
   className?: string;
 
   /**
-   * Estado del archivo subido (para estado filled) (legacy)
+   * Estado del archivo subido (legacy, no usado actualmente)
    * @default 'pending'
    */
   fileStatus?: 'pending' | 'completed' | 'error' | 'uploading';

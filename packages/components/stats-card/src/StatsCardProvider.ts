@@ -129,7 +129,7 @@ export function renderStatsCard(options: StatsCardOptions): string {
   const containerClass = layout === 'grid' ? gridClass : 'ubits-stats-card__list';
 
   return `
-    <div class="${classes}" ${attrs}>
+    <div class="${classes}" ${attrs} data-ubits-id="🧩-ux-stats-card">
       ${titleHTML}
       <div class="ubits-stats-card__body">
         <div class="${containerClass}">
@@ -166,6 +166,11 @@ export function createStatsCard(options: StatsCardOptions & { containerId?: stri
   if (!cardElement) {
     console.error('❌ [StatsCard] No se pudo crear el elemento de la tarjeta');
     return null;
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!cardElement.hasAttribute('data-ubits-id')) {
+    cardElement.setAttribute('data-ubits-id', '🧩-ux-stats-card');
   }
   
   // Agregar event listeners

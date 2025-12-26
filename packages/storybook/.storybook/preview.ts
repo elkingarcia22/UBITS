@@ -41,13 +41,48 @@ import '../../addons/status-tag/src/styles/status-tag.css'
 import '../../components/button-ai/src/styles/button-ai.css'
 import '../docs-site/.storybook/fontawesome-icons.css'
 
+// ⭐ INTERCEPTAR ERRORES DE ADDONS NO INSTALADOS (simplificado)
+// Solo interceptamos errores de promesas rechazadas para evitar bloquear la carga
+if (typeof window !== 'undefined') {
+  window.addEventListener('unhandledrejection', (event) => {
+    try {
+      const reason = event.reason;
+      if (reason && typeof reason === 'object') {
+        const message = String(reason.message || reason);
+        if (
+          message.includes('No existing state found for follower with id') &&
+          (message.includes('storybook/checklist') ||
+           message.includes('storybook/status') ||
+           message.includes('storybook/test-provider'))
+        ) {
+          event.preventDefault();
+        }
+      }
+    } catch {
+      // Ignorar errores en la interceptación
+    }
+  });
+}
+
 // Script para limpiar caché de Storybook y redirigir IDs antiguos
 if (typeof window !== 'undefined') {
   // Suprimir errores de extensiones del navegador que no afectan la funcionalidad
   window.addEventListener('error', (event) => {
+    const errorMessage = event.message || '';
+    const errorName = event.error?.name || '';
+    
     if (
-      event.message?.includes('message channel closed') ||
-      event.message?.includes('asynchronous response')
+      errorMessage.includes('message channel closed') ||
+      errorMessage.includes('asynchronous response') ||
+      // Suprimir AbortError relacionados con waitForAnimations de Storybook
+      (errorName === 'AbortError' && 
+       (errorMessage.includes('aborted a request') ||
+        errorMessage.includes('user aborted'))) ||
+      // ⭐ Suprimir errores de addons no instalados (checklist, status, test-provider)
+      (errorMessage.includes('No existing state found for follower with id') &&
+       (errorMessage.includes('storybook/checklist') ||
+        errorMessage.includes('storybook/status') ||
+        errorMessage.includes('storybook/test-provider')))
     ) {
       event.preventDefault();
       event.stopPropagation();
@@ -57,14 +92,27 @@ if (typeof window !== 'undefined') {
 
   // Suprimir errores de promesas rechazadas relacionadas con extensiones
   window.addEventListener('unhandledrejection', (event) => {
+    const reasonMessage = event.reason?.message || '';
+    const reasonName = event.reason?.name || '';
+    
     if (
-      event.reason?.message?.includes('message channel closed') ||
-      event.reason?.message?.includes('asynchronous response')
+      reasonMessage.includes('message channel closed') ||
+      reasonMessage.includes('asynchronous response') ||
+      // Suprimir AbortError relacionados con waitForAnimations de Storybook
+      (reasonName === 'AbortError' && 
+       (reasonMessage.includes('aborted a request') ||
+        reasonMessage.includes('user aborted'))) ||
+      // ⭐ Suprimir errores de addons no instalados (checklist, status, test-provider)
+      (reasonMessage.includes('No existing state found for follower with id') &&
+       (reasonMessage.includes('storybook/checklist') ||
+        reasonMessage.includes('storybook/status') ||
+        reasonMessage.includes('storybook/test-provider')))
     ) {
       event.preventDefault();
       return false;
     }
   });
+  
   // Limpiar localStorage y sessionStorage de Storybook que pueden tener IDs antiguos
   const clearStorybookCache = () => {
     try {
@@ -163,6 +211,76 @@ if (typeof window !== 'undefined') {
 
 const preview: Preview = {
   parameters: {
+    // Configurar timeouts para evitar AbortError en waitForAnimations
+    test: {
+      timeout: 10000, // 10 segundos
+    },
+    // Deshabilitar la espera de animaciones si causa problemas
+    // Esto puede ayudar a evitar los AbortError
+    docs: {
+      source: {
+        type: 'code',
+      },
+    },
+    // ⭐ CONFIGURACIÓN DE ADDONS
+    // Actions: Ya integrado en Storybook 10, no requiere configuración adicional
+    // Viewport: Configuración de breakpoints UBITS
+    viewport: {
+      viewports: {
+        mobile: {
+          name: 'Mobile',
+          styles: {
+            width: '375px',
+            height: '667px',
+          },
+        },
+        tablet: {
+          name: 'Tablet',
+          styles: {
+            width: '768px',
+            height: '1024px',
+          },
+        },
+        desktop: {
+          name: 'Desktop',
+          styles: {
+            width: '1024px',
+            height: '768px',
+          },
+        },
+        desktopLarge: {
+          name: 'Desktop Large',
+          styles: {
+            width: '1440px',
+            height: '900px',
+          },
+        },
+      },
+      defaultViewport: 'desktop',
+    },
+    // A11y: Configuración de accesibilidad
+    a11y: {
+      config: {
+        rules: [
+          {
+            id: 'color-contrast',
+            enabled: true,
+          },
+          {
+            id: 'keyboard-navigation',
+            enabled: true,
+          },
+          {
+            id: 'aria-required-attr',
+            enabled: true,
+          },
+        ],
+      },
+      options: {
+        checks: { 'color-contrast': { options: { noScroll: true } } },
+        restoreScroll: true,
+      },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -222,22 +340,87 @@ const preview: Preview = {
       const isButtonFeedbackStory = storyId.includes('button-feedback')
       const isModalStory = storyId.includes('modal')
       const isDrawerStory = storyId.includes('drawer')
+      const isProgressStory = storyId.includes('progress')
       const isToastStory = storyId.includes('toast')
       const isAlertStory = storyId.includes('alert')
       const isMaskStory = storyId.includes('mask')
       
-      // Limpiar tooltips si no es la historia de tooltip
-      if (!isTooltipStory) {
-        const tooltips = document.querySelectorAll('.ubits-tooltip')
+      // Limpiar tooltips de otras stories (no de la story actual)
+      // Esto permite que los tooltips se muestren en Docs y durante re-renders
+      // Solo limpiar tooltips que no pertenezcan a la story actual
+      const tooltips = document.querySelectorAll('.ubits-tooltip')
+      if (tooltips.length > 0) {
+        // Determinar el tipo de story actual
+        const currentStoryId = storyId.toLowerCase()
+        const isImplementationStory = currentStoryId.includes('implementation')
+        const isDefaultStory = currentStoryId.includes('default') && !currentStoryId.includes('implementation')
+        
+        let cleanedCount = 0
         tooltips.forEach((tooltip) => {
-          try {
-            if (tooltip.parentElement) {
-              tooltip.parentElement.removeChild(tooltip)
+          const tooltipStoryId = tooltip.getAttribute('data-story-instance-id') || ''
+          // Si es una story de tooltip, solo limpiar tooltips de otras stories de tooltip
+          if (isTooltipStory) {
+            // Verificar si el tooltip pertenece a otra story de tooltip
+            // Los identificadores tienen formato: "tooltip-implementation-..." o "tooltip-default-..."
+            const isTooltipFromImplementation = tooltipStoryId.includes('implementation')
+            const isTooltipFromDefault = tooltipStoryId.includes('default')
+            
+            const shouldClean = 
+              // Si no tiene identificador, limpiarlo
+              !tooltipStoryId ||
+              // Si estamos en Implementation y el tooltip es de Default
+              (isImplementationStory && isTooltipFromDefault) ||
+              // Si estamos en Default y el tooltip es de Implementation
+              (isDefaultStory && isTooltipFromImplementation)
+            
+            if (shouldClean) {
+              try {
+                // Intentar destruir usando el método destroy si existe
+                const tooltipElement = tooltip as any
+                if (tooltipElement.__tooltipInstance?.destroy) {
+                  try {
+                    tooltipElement.__tooltipInstance.destroy()
+                  } catch (e) {
+                    // Ignorar errores al destruir
+                  }
+                }
+                // Remover del DOM
+                if (tooltip.parentElement) {
+                  tooltip.parentElement.removeChild(tooltip)
+                } else {
+                  tooltip.remove()
+                }
+                cleanedCount++
+              } catch (e) {
+                // Ignorar errores
+              }
             }
-          } catch (e) {
-            // Ignorar errores
+          } else {
+            // Si NO es una story de tooltip, limpiar todos los tooltips
+            try {
+              const tooltipElement = tooltip as any
+              if (tooltipElement.__tooltipInstance?.destroy) {
+                try {
+                  tooltipElement.__tooltipInstance.destroy()
+                } catch (e) {
+                  // Ignorar errores al destruir
+                }
+              }
+              if (tooltip.parentElement) {
+                tooltip.parentElement.removeChild(tooltip)
+              } else {
+                tooltip.remove()
+              }
+              cleanedCount++
+            } catch (e) {
+              // Ignorar errores
+            }
           }
         })
+        
+        if (cleanedCount > 0) {
+          console.log(`🧹 [Preview] Limpiando ${cleanedCount} tooltip(s) de otras stories`)
+        }
       }
       
       // Limpiar popovers si no es la historia de popover
@@ -255,12 +438,15 @@ const preview: Preview = {
       }
       
       // Limpiar modales si no es la historia de modal
-      if (!isModalStory) {
-        const modalOverlays = document.querySelectorAll('.ubits-modal-overlay')
+      // También limpiar antes de renderizar para evitar duplicados cuando Storybook re-renderiza
+      const modalOverlays = document.querySelectorAll('.ubits-modal-overlay')
+      if (modalOverlays.length > 0 && !isModalStory) {
         modalOverlays.forEach((overlay) => {
           try {
             if (overlay.parentElement) {
               overlay.parentElement.removeChild(overlay)
+            } else {
+              overlay.remove()
             }
           } catch (e) {
             // Ignorar errores
@@ -269,12 +455,15 @@ const preview: Preview = {
       }
       
       // Limpiar drawers si no es la historia de drawer
-      if (!isDrawerStory) {
-        const drawerOverlays = document.querySelectorAll('.ubits-drawer-overlay')
+      // También limpiar antes de renderizar para evitar duplicados cuando Storybook re-renderiza
+      const drawerOverlays = document.querySelectorAll('.ubits-drawer-overlay')
+      if (drawerOverlays.length > 0 && !isDrawerStory) {
         drawerOverlays.forEach((overlay) => {
           try {
             if (overlay.parentElement) {
               overlay.parentElement.removeChild(overlay)
+            } else {
+              overlay.remove()
             }
           } catch (e) {
             // Ignorar errores
@@ -326,15 +515,39 @@ const preview: Preview = {
           try {
             // Cerrar la máscara antes de eliminarla para restaurar el body
             overlay.classList.remove('ubits-mask-overlay--open')
-            document.body.style.overflow = ''
-            document.body.style.position = ''
-            document.body.style.top = ''
-            document.body.style.left = ''
-            document.body.style.width = ''
-            document.body.style.paddingRight = ''
+            // Solo restaurar estilos si la máscara estaba abierta
+            if (overlay.classList.contains('ubits-mask-overlay--open')) {
+              document.body.style.overflow = ''
+              document.body.style.position = ''
+              document.body.style.top = ''
+              document.body.style.left = ''
+              document.body.style.width = ''
+              document.body.style.paddingRight = ''
+            }
             
             if (overlay.parentElement) {
               overlay.parentElement.removeChild(overlay)
+            }
+          } catch (e) {
+            // Ignorar errores
+          }
+        })
+      }
+      
+      // Limpiar progress bars si no es la historia de progress
+      // También limpiar antes de renderizar para evitar duplicados cuando Storybook re-renderiza
+      const progressBars = document.querySelectorAll('.ubits-progress-bar')
+      if (progressBars.length > 0 && !isProgressStory) {
+        progressBars.forEach((bar) => {
+          try {
+            // Solo limpiar si no está dentro de un contenedor de story válido
+            const isInStoryContainer = bar.closest('[data-ubits-component="Progress"]') ||
+                                       bar.closest('.sbdocs-preview') ||
+                                       bar.closest('.docs-story')
+            if (!isInStoryContainer && bar.parentElement) {
+              bar.parentElement.removeChild(bar)
+            } else if (!isInStoryContainer) {
+              bar.remove()
             }
           } catch (e) {
             // Ignorar errores
@@ -408,6 +621,20 @@ const preview: Preview = {
         }
         .os-host {
           background: ${theme === 'dark' ? 'var(--modifiers-normal-color-dark-bg-2)' : 'var(--modifiers-normal-color-light-bg-2)'} !important;
+        }
+        /* Asegurar que el scroll funcione en los docs */
+        .sbdocs-wrapper,
+        .sbdocs-content,
+        .os-viewport,
+        .os-content {
+          overflow: auto !important;
+          overflow-x: hidden !important;
+          height: auto !important;
+          max-height: none !important;
+        }
+        body {
+          overflow: auto !important;
+          overflow-x: hidden !important;
         }
       `
       

@@ -38,6 +38,7 @@ const meta: Meta<StatusTagOptions> = {
 				optional: ['🧩-ux-icon'], // Iconos son opcionales
 			},
 			internals: [], // StatusTag no tiene componentes internos privados
+			slots: {}, // StatusTag no tiene slots públicos
 			tokensUsed: [
 				'--modifiers-normal-color-light-bg-1',
 				'--modifiers-normal-color-light-fg-1-high',
@@ -50,11 +51,36 @@ const meta: Meta<StatusTagOptions> = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: 'window.UBITS.StatusTag.create({\\n  label: \'Completado\',\\n  size: \'md\',\\n  status: \'completed\',\\n  onClick: function() {}\\n});',
-				basic: 'window.UBITS.StatusTag.create({\\n  label: \'Completado\',\\n  size: \'md\',\\n  status: \'completed\'\\n});',
-				withLeftIcon: 'window.UBITS.StatusTag.create({\\n  label: \'En progreso\',\\n  size: \'md\',\\n  status: \'in-progress\',\\n  leftIcon: \'spinner\'\\n});',
-				withRightIcon: 'window.UBITS.StatusTag.create({\\n  label: \'Pendiente\',\\n  size: \'md\',\\n  status: \'pending\',\\n  rightIcon: \'clock\'\\n});',
-				clickable: 'window.UBITS.StatusTag.create({\\n  label: \'Activo\',\\n  size: \'md\',\\n  status: \'active\',\\n  clickable: true,\\n  onClick: function() {}\\n});',
+				canonical: `window.UBITS.StatusTag.create({
+  label: 'Completado',
+  size: 'md',
+  status: 'completed',
+  onClick: () => {}
+});`,
+				basic: `window.UBITS.StatusTag.create({
+  label: 'Completado',
+  size: 'md',
+  status: 'completed'
+});`,
+				withLeftIcon: `window.UBITS.StatusTag.create({
+  label: 'En progreso',
+  size: 'md',
+  status: 'in-progress',
+  leftIcon: 'spinner'
+});`,
+				withRightIcon: `window.UBITS.StatusTag.create({
+  label: 'Pendiente',
+  size: 'md',
+  status: 'pending',
+  rightIcon: 'clock'
+});`,
+				clickable: `window.UBITS.StatusTag.create({
+  label: 'Activo',
+  size: 'md',
+  status: 'active',
+  clickable: true,
+  onClick: () => {}
+});`,
 			},
 			variants: {
 				size: ['xs', 'sm', 'md'],

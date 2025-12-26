@@ -43,7 +43,7 @@ export function renderChip(options: ChipOptions = {} as ChipOptions): string {
   const ariaDisabled = state === 'disabled' ? 'true' : 'false';
 
   return `
-    <span class="${classes}" role="${role}" tabindex="${tabIndex}" aria-disabled="${ariaDisabled}">
+    <span class="${classes}" role="${role}" tabindex="${tabIndex}" aria-disabled="${ariaDisabled}" data-ubits-id="🧩-ux-chip">
       ${leftIconHTML}
       <span class="ubits-chip__label">${label}</span>
       ${rightIconHTML}
@@ -72,6 +72,11 @@ export function createChip(options: ChipOptions = {} as ChipOptions): {
 
   if (!chip) {
     throw new Error('No se pudo crear el chip');
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!chip.hasAttribute('data-ubits-id')) {
+    chip.setAttribute('data-ubits-id', '🧩-ux-chip');
   }
 
   // Event listeners

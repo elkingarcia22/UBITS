@@ -6,9 +6,9 @@
 
 import { PaginationOptions } from './types/PaginationOptions';
 import { renderButton } from '../../button/src/ButtonProvider';
-import { createList, renderList } from '../../list/src/ListProvider';
-import type { ListOptions, ListItem } from '../../list/src/types/ListOptions';
-import '../../list/src/styles/list.css';
+import { renderInput, createInput } from '../../input/src/InputProvider';
+import type { SelectOption } from '../../input/src/types/InputOptions';
+import '../../input/src/styles/input.css';
 
 // Helper para renderizar iconos FontAwesome
 function renderIconHelper(iconName: string, iconStyle: 'regular' | 'solid' = 'solid'): string {
@@ -64,6 +64,9 @@ function renderPageButton(
     text: String(page),
     active: isActive,
     className: 'ubits-pagination__page-button',
+    attributes: {
+      'data-page': String(page)
+    },
     onClick: onClick ? () => onClick(page) : undefined
   });
 }
@@ -71,7 +74,7 @@ function renderPageButton(
 /**
  * Renderiza el componente Pagination como HTML string
  */
-export function renderPagination(options: PaginationOptions): string {
+export function renderPagination(options: PaginationOptions & { containerId?: string }): string {
   const {
     currentPage = 1,
     totalPages,
@@ -88,7 +91,8 @@ export function renderPagination(options: PaginationOptions): string {
     itemsPerPageOptions = [10, 20, 50, 100],
     className = '',
     attributes = {},
-    labels = {}
+    labels = {},
+    containerId
   } = options;
 
   // Validar página actual
@@ -135,34 +139,46 @@ export function renderPagination(options: PaginationOptions): string {
   // Renderizar selector de items por página si está habilitado
   let itemsPerPageHTML = '';
   if (showItemsPerPage) {
-    const selectId = `ubits-pagination-items-per-page-${Date.now()}`;
-    const listId = `ubits-pagination-list-${Date.now()}`;
+    // Usar un ID basado en el containerId si está disponible, o generar uno único
+    // El ID se guardará en un data attribute para que createPagination pueda encontrarlo
+    const selectContainerId = options.containerId 
+      ? `${options.containerId}-items-per-page-select`
+      : `ubits-pagination-items-per-page-${Date.now()}`;
     const currentValue = itemsPerPage || itemsPerPageOptions[0];
     
-    // Convertir opciones a ListItems
-    const listItems: ListItem[] = itemsPerPageOptions.map(opt => ({
-      label: String(opt),
+    // Convertir opciones a SelectOption para el Input Select
+    const selectOptions: SelectOption[] = itemsPerPageOptions.map(opt => ({
       value: String(opt),
-      state: 'default',
-      selected: opt === currentValue
+      text: String(opt)
     }));
     
+    // Mapear tamaño del paginador al tamaño del Input
+    const paginationSize = size || 'md';
+    const inputSize = paginationSize === 'sm' ? 'sm' : paginationSize === 'lg' ? 'lg' : 'md';
+    
+    // Renderizar Input Select de UBITS
+    const selectInputHTML = renderInput({
+      containerId: selectContainerId,
+      type: 'select',
+      size: inputSize,
+      showLabel: false,
+      showHelper: false,
+      value: String(currentValue),
+      selectOptions: selectOptions,
+      placeholder: String(itemsPerPageOptions[0]),
+      className: 'ubits-pagination__select-input',
+      attributes: {
+        'style': 'width: auto; min-width: 60px; max-width: 100px;'
+      }
+    });
+    
+    // El renderInput devuelve el HTML completo del input (label, input, helper, etc.)
+    // Necesitamos insertarlo en un contenedor con el ID especificado
     itemsPerPageHTML = `
       <div class="ubits-pagination__items-per-page">
         <label class="ubits-body-sm">${defaultLabels.itemsPerPage}:</label>
         <div class="ubits-pagination__select-wrapper" style="position: relative; display: inline-block;">
-          <button 
-            type="button" 
-            class="ubits-pagination__select-button ubits-body-sm" 
-            id="${selectId}"
-            data-list-id="${listId}"
-            aria-haspopup="listbox"
-            aria-expanded="false"
-          >
-            ${currentValue}
-            <i class="fas fa-chevron-down" style="margin-left: var(--ubits-spacing-xs); font-size: var(--modifiers-normal-body-xs-regular-fontsize);"></i>
-          </button>
-          <div id="${listId}" class="ubits-pagination__list-container" style="display: none;"></div>
+          <div id="${selectContainerId}">${selectInputHTML}</div>
         </div>
       </div>
     `;
@@ -271,7 +287,7 @@ export function renderPagination(options: PaginationOptions): string {
   }
 
   return `
-    <div class="${classes}" ${attrs} data-current-page="${validCurrentPage}" data-total-pages="${totalPages}">
+    <div class="${classes}" ${attrs} data-current-page="${validCurrentPage}" data-total-pages="${totalPages}" data-items-per-page-container-id="${showItemsPerPage && containerId ? `${containerId}-items-per-page-select` : ''}" data-ubits-id="🧩-ux-pagination">
       ${infoHTML}
       ${itemsPerPageHTML}
       <div class="ubits-pagination__controls">
@@ -295,6 +311,13 @@ export function createPagination(options: PaginationOptions & { containerId?: st
   const container = document.getElementById(containerId);
   if (!container) {
     console.error(`❌ [Pagination] Contenedor con ID "${containerId}" no encontrado`);
+    console.error(`❌ [Pagination] Contenedores disponibles en el documento:`, 
+      Array.from(document.querySelectorAll('[id*="pagination"]')).map(el => ({
+        id: el.id,
+        tagName: el.tagName,
+        className: el.className
+      }))
+    );
     return null;
   }
   
@@ -308,16 +331,40 @@ export function createPagination(options: PaginationOptions & { containerId?: st
     console.error('❌ [Pagination] No se pudo crear el elemento de paginación');
     return null;
   }
+
+  // Agregar data-ubits-id si no está presente
+  if (!paginationElement.hasAttribute('data-ubits-id')) {
+    paginationElement.setAttribute('data-ubits-id', '🧩-ux-pagination');
+  }
   
   // Agregar event listeners para botones de página
   const pageButtons = paginationElement.querySelectorAll('.ubits-pagination__page-button');
-  pageButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const page = parseInt(button.textContent || '1');
-      if (paginationOptions.onPageChange) {
+  console.log(`[Pagination] Encontrados ${pageButtons.length} botones de página`);
+  
+  pageButtons.forEach((button, index) => {
+    // Obtener el número de página del data attribute o del texto
+    const pageAttr = button.getAttribute('data-page');
+    const textContent = button.textContent?.trim() || '';
+    const page = pageAttr ? parseInt(pageAttr) : parseInt(textContent || '1');
+    
+    console.log(`[Pagination] Botón ${index}: data-page="${pageAttr}", textContent="${textContent}", page=${page}`);
+    
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      console.log(`[Pagination] Click en botón de página: ${page}`);
+      
+      if (!isNaN(page) && page > 0 && paginationOptions.onPageChange) {
         paginationOptions.onPageChange(page);
+      } else {
+        console.warn(`[Pagination] Página inválida: ${page}`);
       }
     });
+    
+    // Asegurar que el botón sea clickeable
+    (button as HTMLElement).style.cursor = 'pointer';
+    (button as HTMLElement).style.pointerEvents = 'auto';
   });
   
   // Agregar event listeners para botones de navegación
@@ -346,134 +393,94 @@ export function createPagination(options: PaginationOptions & { containerId?: st
     });
   });
   
-  // Agregar event listener para selector de items por página (usando List de UBITS)
-  
-  const selectButton = paginationElement.querySelector('.ubits-pagination__select-button') as HTMLButtonElement;
-  const listContainer = paginationElement.querySelector('.ubits-pagination__list-container') as HTMLElement;
-  
-  
-  if (selectButton) {
-    // Button found
-  }
-  
-  if (listContainer) {
-    // Container found
-  }
-  
-  if (selectButton && listContainer) {
-    const listId = selectButton.getAttribute('data-list-id') || `ubits-pagination-list-${Date.now()}`;
-    const currentValue = paginationOptions.itemsPerPage || paginationOptions.itemsPerPageOptions?.[0] || 10;
+  // Agregar event listener para selector de items por página (usando Input Select de UBITS)
+  // Solo buscar estos elementos si showItemsPerPage está habilitado
+  if (paginationOptions.showItemsPerPage) {
+    // Obtener el ID del contenedor del data attribute o generarlo
+    const selectContainerIdFromData = paginationElement.getAttribute('data-items-per-page-container-id');
+    const selectContainerId = selectContainerIdFromData || 
+      (paginationOptions.containerId 
+        ? `${paginationOptions.containerId}-items-per-page-select`
+        : `ubits-pagination-items-per-page-${Date.now()}`);
     
-    // Asegurar que el contenedor tenga el ID antes de usarlo
-    listContainer.id = listId;
+    // Buscar el contenedor dentro del paginationElement
+    const selectWrapper = paginationElement.querySelector('.ubits-pagination__select-wrapper') as HTMLElement;
+    let selectContainer: HTMLElement | null = null;
     
-    // Convertir opciones a ListItems
-    const listItems: ListItem[] = (paginationOptions.itemsPerPageOptions || [10, 20, 50, 100]).map(opt => ({
-      label: String(opt),
-      value: String(opt),
-      state: 'default',
-      selected: opt === currentValue
-    }));
+    if (selectContainerIdFromData) {
+      selectContainer = document.getElementById(selectContainerIdFromData);
+    }
     
-    
-    let isOpen = false;
-    
-    const toggleDropdown = () => {
-      if (isOpen) {
-        listContainer.style.display = 'none';
-        selectButton.setAttribute('aria-expanded', 'false');
-        isOpen = false;
-        return;
+    // Si no se encontró, buscar dentro del wrapper usando el patrón del ID
+    if (!selectContainer && selectWrapper) {
+      // Buscar cualquier div con ID que contenga "ubits-pagination-items-per-page"
+      const allDivs = selectWrapper.querySelectorAll('div[id*="ubits-pagination-items-per-page"]');
+      if (allDivs.length > 0) {
+        selectContainer = allDivs[0] as HTMLElement;
+      } else {
+        // Si aún no se encuentra, buscar el primer div hijo del wrapper
+        const firstDiv = selectWrapper.querySelector('div[id]');
+        if (firstDiv) {
+          selectContainer = firstDiv as HTMLElement;
+        }
       }
+    }
+    
+    if (selectContainer) {
+      const actualContainerId = selectContainer.id;
+      const currentValue = paginationOptions.itemsPerPage || paginationOptions.itemsPerPageOptions?.[0] || 10;
       
+      // Convertir opciones a SelectOption para el Input Select
+      const selectOptions: SelectOption[] = (paginationOptions.itemsPerPageOptions || [10, 20, 50, 100]).map(opt => ({
+        value: String(opt),
+        text: String(opt)
+      }));
       
-      // Limpiar contenido previo
-      listContainer.innerHTML = '';
-      
-      // Mapear tamaño del paginador al tamaño del List
+      // Mapear tamaño del paginador al tamaño del Input
       const paginationSize = paginationOptions.size || 'md';
-      const listSize: 'sm' | 'md' | 'lg' = paginationSize === 'sm' ? 'sm' : paginationSize === 'lg' ? 'lg' : 'md';
+      const inputSize = paginationSize === 'sm' ? 'sm' : paginationSize === 'lg' ? 'lg' : 'md';
       
-      // Verificar que el contenedor existe antes de crear la lista
-      const container = document.getElementById(listId);
-      if (!container) {
-        console.error('❌ [Pagination] Container not found:', listId);
-        console.error('❌ [Pagination] Buscando en todo el documento...');
-        const allContainers = document.querySelectorAll('[id*="pagination"]');
-        console.error('❌ [Pagination] Contenedores encontrados:', Array.from(allContainers).map(el => ({
-          id: el.id,
-          tagName: el.tagName,
-          className: el.className
-        })));
-        return;
-      }
-      
-      try {
-        
-        const listElement = createList({
-          containerId: listId,
-          items: listItems,
-          size: listSize,
-          maxHeight: 'none', // Altura dinámica según número de items
-          onSelectionChange: (selectedItem, index) => {
+      // Crear Input Select de UBITS después de que el DOM esté listo
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          try {
+            const inputInstance = createInput({
+              containerId: actualContainerId,
+              type: 'select',
+              size: inputSize,
+              showLabel: false,
+              showHelper: false,
+              value: String(currentValue),
+              selectOptions: selectOptions,
+              placeholder: String(paginationOptions.itemsPerPageOptions?.[0] || 10),
+              className: 'ubits-pagination__select-input',
+              onChange: (value: string) => {
+                const numericValue = parseInt(value);
+                if (paginationOptions.onItemsPerPageChange) {
+                  paginationOptions.onItemsPerPageChange(numericValue);
+                }
+              }
+            });
             
-            if (selectedItem && paginationOptions.itemsPerPageOptions && paginationOptions.itemsPerPageOptions[index] !== undefined) {
-              const value = paginationOptions.itemsPerPageOptions[index];
-              
-              // Actualizar el texto del botón manteniendo el ícono
-              const icon = selectButton.querySelector('i');
-              if (icon) {
-                selectButton.innerHTML = `${value} ${icon.outerHTML}`;
-              } else {
-                selectButton.textContent = String(value);
-              }
-              
-              listContainer.style.display = 'none';
-              selectButton.setAttribute('aria-expanded', 'false');
-              isOpen = false;
-              
-              if (paginationOptions.onItemsPerPageChange) {
-                paginationOptions.onItemsPerPageChange(value);
-              } else {
-                console.warn('⚠️ [Pagination] onItemsPerPageChange no está definido');
-              }
-            } else {
-              console.warn('⚠️ [Pagination] selectedItem o itemsPerPageOptions no válidos');
+            // Aplicar estilos de ancho al input después de crearlo
+            if (inputInstance && inputInstance.inputElement) {
+              inputInstance.inputElement.style.width = 'auto';
+              inputInstance.inputElement.style.minWidth = '60px';
+              inputInstance.inputElement.style.maxWidth = '100px';
             }
-          },
+          } catch (error) {
+            console.error('❌ [Pagination] Error creating items per page input select:', error);
+            console.error('❌ [Pagination] Error stack:', error instanceof Error ? error.stack : 'N/A');
+          }
         });
-        
-        // Verificar que el List se creó dentro del contenedor
-        const createdList = container.querySelector('.ubits-list');
-        
-        listContainer.style.display = 'block';
-        selectButton.setAttribute('aria-expanded', 'true');
-        isOpen = true;
-      } catch (error) {
-        console.error('❌ [Pagination] Error creating items per page list:', error);
-        console.error('❌ [Pagination] Error stack:', error instanceof Error ? error.stack : 'N/A');
-      }
-    };
-    
-    selectButton.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleDropdown();
-    });
-    
-    // Cerrar al hacer clic fuera
-    document.addEventListener('click', (e) => {
-      if (isOpen && !listContainer.contains(e.target as Node) && !selectButton.contains(e.target as Node)) {
-        listContainer.style.display = 'none';
-        selectButton.setAttribute('aria-expanded', 'false');
-        isOpen = false;
-      }
-    });
-    
-  } else {
-    console.error('❌ [Pagination] Select button or list container not found');
-    console.error('❌ [Pagination] selectButton:', selectButton);
-    console.error('❌ [Pagination] listContainer:', listContainer);
-    console.error('❌ [Pagination] paginationElement HTML:', paginationElement.innerHTML.substring(0, 500));
+      });
+    } else if (paginationOptions.showItemsPerPage) {
+      // Solo mostrar error si showItemsPerPage está habilitado pero no se encontraron los elementos
+      console.error('❌ [Pagination] Select container not found');
+      console.error('❌ [Pagination] selectContainer:', selectContainer);
+      console.error('❌ [Pagination] selectWrapper:', selectWrapper);
+      console.error('❌ [Pagination] paginationElement HTML:', paginationElement.innerHTML.substring(0, 500));
+    }
   }
   
   return paginationElement;

@@ -86,5 +86,10 @@ export interface CSATMetricCardOptions {
    * Handler de click en la tarjeta
    */
   onClick?: (event: MouseEvent) => void;
+  
+  /**
+   * Handler de click en una carita (recibe el índice 0-4 y el score 1-5)
+   */
+  onFaceClick?: (faceIndex: number, score: number) => void;
 }
 

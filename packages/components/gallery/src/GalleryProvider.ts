@@ -62,7 +62,7 @@ export function renderGallery(options: GalleryOptions): string {
   const style = `--gallery-gap: ${gap}px; --gallery-columns: ${columns};`;
 
   return `
-    <div class="${classes}" ${dataAttrs} style="${style}">
+    <div class="${classes}" ${dataAttrs} style="${style}" data-ubits-id="🧩-ux-gallery">
       <div class="ubits-gallery__container">
         ${itemsHTML}
       </div>
@@ -128,6 +128,11 @@ export function createGallery(options: GalleryOptions): HTMLElement {
   const gallery = container.firstElementChild as HTMLElement;
 
   if (gallery) {
+    // Agregar data-ubits-id si no está presente
+    if (!gallery.hasAttribute('data-ubits-id')) {
+      gallery.setAttribute('data-ubits-id', '🧩-ux-gallery');
+    }
+    
     // Usar setTimeout para asegurar que el DOM esté listo
     setTimeout(() => {
       initializeGallery(gallery, options);

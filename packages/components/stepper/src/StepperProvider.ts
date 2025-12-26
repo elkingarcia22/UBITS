@@ -36,7 +36,7 @@ export function renderStepper(options: StepperOptions): string {
   }).join('');
 
   return `
-    <div class="${classes}">
+    <div class="${classes}" data-ubits-id="🧩-ux-stepper">
       ${stepsHtml}
     </div>
   `.trim();
@@ -207,6 +207,11 @@ export function createStepper(options: StepperOptions): {
 
   if (!stepperElement) {
     throw new Error('No se pudo crear el stepper');
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!stepperElement.hasAttribute('data-ubits-id')) {
+    stepperElement.setAttribute('data-ubits-id', '🧩-ux-stepper');
   }
 
   let container: HTMLElement;

@@ -380,7 +380,7 @@ export function renderNPSCard(options: NPSCardOptions): string {
   const puntoMasAlto = textCenterY - textRadius;
   
   return `
-    <div class="${classes}" ${attrs}>
+    <div class="${classes}" ${attrs} data-ubits-id="🧩-ux-nps-card">
       ${headerHTML}
       <div class="ubits-nps-card__content" style="${contentStyle}">
         ${gaugeHTML}
@@ -418,6 +418,11 @@ export function createNPSCard(
   if (!cardElement) {
     console.error('❌ [NPSCard] No se pudo crear el elemento de la tarjeta');
     return null;
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!cardElement.hasAttribute('data-ubits-id')) {
+    cardElement.setAttribute('data-ubits-id', '🧩-ux-nps-card');
   }
   
   // Agregar event listeners

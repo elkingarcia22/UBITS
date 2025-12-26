@@ -134,7 +134,7 @@ export function renderScoreCardMetrics(options: ScoreCardMetricsOptions): string
   const starsHTML = renderStarRating(score);
 
   return `
-    <div class="${classes}" ${attrs}>
+    <div class="${classes}" ${attrs} data-ubits-id="🧩-ux-score-card-metrics">
       <div class="ubits-score-card-metrics__header">
         ${titleIconHTML}
         <div class="ubits-score-card-metrics__title-group">
@@ -184,6 +184,11 @@ export function createScoreCardMetrics(options: ScoreCardMetricsOptions & { cont
   if (!cardElement) {
     console.error('❌ [ScoreCardMetrics] No se pudo crear el elemento de la tarjeta');
     return null;
+  }
+  
+  // Agregar data-ubits-id si no está presente
+  if (!cardElement.hasAttribute('data-ubits-id')) {
+    cardElement.setAttribute('data-ubits-id', '🧩-ux-score-card-metrics');
   }
   
   // Agregar event listeners

@@ -91,7 +91,7 @@ export function renderAccordion(options: AccordionOptions): string {
     .map(item => renderAccordionItem(item, options, item.id))
     .join('');
 
-  return `<div class="${accordionClasses}" data-allow-multiple="${options.allowMultiple || false}">
+  return `<div class="${accordionClasses}" data-allow-multiple="${options.allowMultiple || false}" data-ubits-id="🧩-ux-accordion">
     ${itemsHTML}
   </div>`;
 }
@@ -120,6 +120,11 @@ export function createAccordion(
   if (!accordionElement) {
     console.error('❌ [createAccordion] Accordion no se renderizó correctamente');
     return null;
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!accordionElement.hasAttribute('data-ubits-id')) {
+    accordionElement.setAttribute('data-ubits-id', '🧩-ux-accordion');
   }
 
   // Inicializar funcionalidad

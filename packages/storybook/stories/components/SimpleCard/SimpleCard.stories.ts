@@ -82,9 +82,7 @@ const meta: Meta<
 				canonical: `createSimpleCard({
   title: 'Advanced Card',
   subtitle: 'Card subtitle',
-  content: '<p>Card content</p>',
-  onButton1Click: function() {},
-  onButton2Click: function() {}
+  content: '<p>Card content</p>'
 });`,
 				basic: `createSimpleCard({
   title: 'Advanced Card',

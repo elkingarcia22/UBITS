@@ -41,6 +41,19 @@ export function renderSlider(options: SliderOptions): string {
   const isDisabled = state === 'disabled';
   const isVertical = orientation === 'vertical';
   const isRange = mode === 'range';
+  
+  console.log('[Slider renderSlider] Starting render:', {
+    containerId,
+    orientation,
+    isVertical,
+    mode,
+    min,
+    max,
+    step,
+    value,
+    values,
+    currentValue: isRange ? values[0] : value
+  });
   const currentValue = isRange ? values[0] : value;
   const currentValue2 = isRange ? values[1] : null;
 
@@ -51,7 +64,7 @@ export function renderSlider(options: SliderOptions): string {
   if (isDisabled) sliderClasses.push('ubits-slider--disabled');
   if (className) sliderClasses.push(className);
 
-  let sliderHTML = `<div class="${sliderClasses.join(' ')}" id="${containerId}">`;
+  let sliderHTML = `<div class="${sliderClasses.join(' ')}" id="${containerId}" data-ubits-id="🧩-ux-slider">`;
 
   // Label
   if (showLabel && label) {
@@ -76,12 +89,20 @@ export function renderSlider(options: SliderOptions): string {
   // Track fill (para modo single)
   if (!isRange) {
     const percentage = ((currentValue - min) / (max - min)) * 100;
+    console.log('[Slider Render] Track Fill - Single Mode:', {
+      isVertical,
+      currentValue,
+      min,
+      max,
+      percentage,
+      calculatedHeight: isVertical ? `${percentage}%` : 'N/A',
+      calculatedWidth: !isVertical ? `${percentage}%` : 'N/A'
+    });
     if (isVertical) {
-      // En vertical, el thumb está en top: ${100 - percentage}% con transform: translate(-50%, 50%)
-      // El transform mueve el thumb 50% de su altura hacia abajo, así que el centro está en:
-      // top position (${100 - percentage}%) + 50% de altura del thumb
-      // El fill debe ir hasta el centro del thumb, que está ligeramente más abajo que ${100 - percentage}%
-      // Para simplificar, usamos el porcentaje directamente ya que el offset del transform es pequeño
+      // En vertical, el thumb está en top: ${100 - percentage}% con transform: translate(-50%, -50%)
+      // El transform centra el thumb, así que el centro está exactamente en top: ${100 - percentage}%
+      // El fill debe ir desde abajo (bottom: 0) hasta el centro del thumb
+      // Como el thumb está en ${100 - percentage}% desde arriba, el fill debe tener height: ${percentage}%
       sliderHTML += `<div class="ubits-slider-track-fill" style="height: ${percentage}%; bottom: 0;"></div>`;
     } else {
       sliderHTML += `<div class="ubits-slider-track-fill" style="width: ${percentage}%;"></div>`;
@@ -115,10 +136,22 @@ export function renderSlider(options: SliderOptions): string {
   // Thumb(s)
   if (!isRange) {
     const thumbPercentage = ((currentValue - min) / (max - min)) * 100;
+    const thumbTop = isVertical ? `${100 - thumbPercentage}%` : '50%';
+    const thumbLeft = isVertical ? '50%' : `${thumbPercentage}%`;
+    console.log('[Slider Render] Thumb - Single Mode:', {
+      isVertical,
+      currentValue,
+      min,
+      max,
+      thumbPercentage,
+      thumbTop,
+      thumbLeft,
+      style: isVertical ? `top: ${thumbTop}; left: ${thumbLeft}` : `left: ${thumbLeft}; top: ${thumbTop}`
+    });
     if (isVertical) {
-      sliderHTML += `<div class="ubits-slider-thumb" style="top: ${100 - thumbPercentage}%; left: 50%;" data-value="${currentValue}" tabindex="0" ${isDisabled ? 'disabled' : ''}></div>`;
+      sliderHTML += `<div class="ubits-slider-thumb" style="top: ${thumbTop}; left: ${thumbLeft};" data-value="${currentValue}" tabindex="0" ${isDisabled ? 'disabled' : ''}></div>`;
     } else {
-      sliderHTML += `<div class="ubits-slider-thumb" style="left: ${thumbPercentage}%; top: 50%;" data-value="${currentValue}" tabindex="0" ${isDisabled ? 'disabled' : ''}></div>`;
+      sliderHTML += `<div class="ubits-slider-thumb" style="left: ${thumbLeft}; top: ${thumbTop};" data-value="${currentValue}" tabindex="0" ${isDisabled ? 'disabled' : ''}></div>`;
     }
   } else {
     const minPercentage = ((values[0] - min) / (max - min)) * 100;
@@ -261,6 +294,11 @@ export function createSlider(options: SliderOptions): {
   if (!sliderElement) {
     console.error('UBITS Slider: No se encontró el elemento slider');
     return null;
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!sliderElement.hasAttribute('data-ubits-id')) {
+    sliderElement.setAttribute('data-ubits-id', '🧩-ux-slider');
   }
   
   // Obtener elementos después de asegurar que el slider existe
@@ -473,6 +511,14 @@ export function createSlider(options: SliderOptions): {
     if (isVertical) {
       const y = clientY - rect.top;
       percentage = 1 - (y / rect.height);
+      console.log('[Slider getValueFromPosition] Vertical:', {
+        clientY,
+        rectTop: rect.top,
+        rectHeight: rect.height,
+        y,
+        percentage,
+        rect: { top: rect.top, bottom: rect.bottom, height: rect.height, width: rect.width }
+      });
     } else {
       const x = clientX - rect.left;
       percentage = x / rect.width;
@@ -481,7 +527,20 @@ export function createSlider(options: SliderOptions): {
     percentage = Math.max(0, Math.min(1, percentage));
     const rawValue = min + percentage * (max - min);
     const steppedValue = Math.round(rawValue / step) * step;
-    return Math.max(min, Math.min(max, steppedValue));
+    const finalValue = Math.max(min, Math.min(max, steppedValue));
+    
+    if (isVertical) {
+      console.log('[Slider getValueFromPosition] Final:', {
+        percentage,
+        rawValue,
+        steppedValue,
+        finalValue,
+        min,
+        max
+      });
+    }
+    
+    return finalValue;
   };
 
   // Función para actualizar la posición del thumb
@@ -489,10 +548,53 @@ export function createSlider(options: SliderOptions): {
     const percentage = ((val - min) / (max - min)) * 100;
     if (isVertical) {
       // En vertical, el thumb se posiciona desde arriba
-      // El transform: translate(-50%, 50%) centra el thumb, moviendo 50% de su altura hacia abajo
-      // El centro del thumb está en: top + (50% de altura) = ${100 - percentage}% + offset
-      thumb.style.top = `${100 - percentage}%`;
+      // El transform: translate(-50%, -50%) centra el thumb
+      // Valor mínimo (0%) = thumb abajo (100% - 0% = 100%)
+      // Valor máximo (100%) = thumb arriba (100% - 100% = 0%)
+      const topValue = `${100 - percentage}%`;
+      thumb.style.top = topValue;
       thumb.style.left = '50%';
+      const thumbRect = thumb.getBoundingClientRect();
+      const trackRect = track.getBoundingClientRect();
+      const computedTop = window.getComputedStyle(thumb).top;
+      const computedTransform = window.getComputedStyle(thumb).transform;
+      
+      // Calcular posición relativa del centro del thumb
+      const thumbCenterY = thumbRect.top + thumbRect.height / 2;
+      const thumbCenterRelativeToTrack = thumbCenterY - trackRect.top;
+      const thumbCenterPercentage = (thumbCenterRelativeToTrack / trackRect.height) * 100;
+      
+      // Log simple y directo
+      console.log(`[Thumb Vertical] val=${val}, percentage=${percentage.toFixed(1)}%, top=${topValue}, center=${thumbCenterPercentage.toFixed(1)}% desde arriba`);
+      
+      console.log('[Slider updateThumbPosition] Vertical:', {
+        val,
+        min,
+        max,
+        percentage,
+        topValue,
+        thumbRect: {
+          top: thumbRect.top.toFixed(2),
+          bottom: thumbRect.bottom.toFixed(2),
+          height: thumbRect.height.toFixed(2),
+          width: thumbRect.width.toFixed(2),
+          centerY: thumbCenterY.toFixed(2)
+        },
+        trackRect: {
+          top: trackRect.top.toFixed(2),
+          bottom: trackRect.bottom.toFixed(2),
+          height: trackRect.height.toFixed(2),
+          width: trackRect.width.toFixed(2)
+        },
+        thumbCenterRelativeToTrack: thumbCenterRelativeToTrack.toFixed(2),
+        thumbCenterPercentage: thumbCenterPercentage.toFixed(2),
+        expectedPercentageFromBottom: percentage.toFixed(2),
+        computedStyle: {
+          top: computedTop,
+          left: window.getComputedStyle(thumb).left,
+          transform: computedTransform
+        }
+      });
     } else {
       thumb.style.left = `${percentage}%`;
       thumb.style.top = '50%';
@@ -504,6 +606,7 @@ export function createSlider(options: SliderOptions): {
   const updateTrackFill = () => {
     const trackFill = container.querySelector('.ubits-slider-track-fill') as HTMLDivElement;
     const trackRange = container.querySelector('.ubits-slider-track-range') as HTMLDivElement;
+    const trackRect = track.getBoundingClientRect();
 
     if (isRange) {
       if (trackRange) {
@@ -512,35 +615,97 @@ export function createSlider(options: SliderOptions): {
         const minPercentage = ((minVal - min) / (max - min)) * 100;
         const maxPercentage = ((maxVal - min) / (max - min)) * 100;
         if (isVertical) {
-          // En vertical, necesitamos ajustar para que el range termine en los centros de los thumbs
-          const trackRect = track.getBoundingClientRect();
-          const thumbElements = container.querySelectorAll('.ubits-slider-thumb') as NodeListOf<HTMLDivElement>;
-          if (thumbElements.length >= 2 && trackRect.height > 0) {
-            const minThumb = Array.from(thumbElements).find(t => t.classList.contains('ubits-slider-thumb--min'));
-            const maxThumb = Array.from(thumbElements).find(t => t.classList.contains('ubits-slider-thumb--max'));
-            if (minThumb && maxThumb) {
-              const minThumbRect = minThumb.getBoundingClientRect();
-              const maxThumbRect = maxThumb.getBoundingClientRect();
-              const thumbHeightPercent = (minThumbRect.height / trackRect.height) * 100;
-              
-              // Ajustar el bottom para que termine en el centro del thumb min
-              const adjustedMinPercentage = Math.max(0, minPercentage - (thumbHeightPercent / 2));
-              // Ajustar la altura para que termine en el centro del thumb max
-              const adjustedMaxPercentage = Math.max(0, maxPercentage - (thumbHeightPercent / 2));
-              const adjustedRangeWidth = adjustedMaxPercentage - adjustedMinPercentage;
-              
-              trackRange.style.bottom = `${adjustedMinPercentage}%`;
-              trackRange.style.height = `${adjustedRangeWidth}%`;
-            } else {
-              // Fallback
-              trackRange.style.bottom = `${minPercentage}%`;
-              trackRange.style.height = `${maxPercentage - minPercentage}%`;
-            }
-          } else {
-            // Fallback
-            trackRange.style.bottom = `${minPercentage}%`;
-            trackRange.style.height = `${maxPercentage - minPercentage}%`;
+          // En vertical, el range va desde el thumb min hasta el thumb max
+          // Los thumbs están en top: ${100 - minPercentage}% y top: ${100 - maxPercentage}%
+          // El fill debe ir desde abajo (bottom: minPercentage%) hasta maxPercentage%
+          const rangeHeight = maxPercentage - minPercentage;
+          trackRange.style.bottom = `${minPercentage}%`;
+          trackRange.style.height = `${rangeHeight}%`;
+          
+          // Obtener los thumbs para comparar posiciones
+          const minThumb = container.querySelector('.ubits-slider-thumb--min') as HTMLDivElement;
+          const maxThumb = container.querySelector('.ubits-slider-thumb--max') as HTMLDivElement;
+          const minThumbRect = minThumb?.getBoundingClientRect();
+          const maxThumbRect = maxThumb?.getBoundingClientRect();
+          
+          const trackRangeRect = trackRange.getBoundingClientRect();
+          const minThumbCenterY = minThumbRect ? minThumbRect.top + minThumbRect.height / 2 : null;
+          const maxThumbCenterY = maxThumbRect ? maxThumbRect.top + maxThumbRect.height / 2 : null;
+          
+          // Calcular posiciones relativas al track
+          const minThumbCenterRelative = minThumbCenterY ? minThumbCenterY - trackRect.top : null;
+          const maxThumbCenterRelative = maxThumbCenterY ? maxThumbCenterY - trackRect.top : null;
+          const minThumbCenterPercent = minThumbCenterRelative ? (minThumbCenterRelative / trackRect.height) * 100 : null;
+          const maxThumbCenterPercent = maxThumbCenterRelative ? (maxThumbCenterRelative / trackRect.height) * 100 : null;
+          
+          // Calcular posición del range
+          const rangeBottomRelative = trackRangeRect.bottom - trackRect.bottom;
+          const rangeTopRelative = trackRangeRect.top - trackRect.top;
+          const rangeBottomPercent = (rangeBottomRelative / trackRect.height) * 100;
+          const rangeTopPercent = (rangeTopRelative / trackRect.height) * 100;
+          
+          // Logs simples y directos
+          console.log('=== SLIDER VERTICAL RANGE DEBUG ===');
+          console.log(`Valores: min=${minVal}, max=${maxVal} | Porcentajes: min=${minPercentage.toFixed(1)}%, max=${maxPercentage.toFixed(1)}%`);
+          console.log(`Track: height=${trackRect.height.toFixed(1)}px`);
+          console.log(`Range: bottom=${rangeBottomPercent.toFixed(1)}%, top=${rangeTopPercent.toFixed(1)}%, height=${trackRangeRect.height.toFixed(1)}px`);
+          if (minThumbCenterPercent !== null) {
+            console.log(`Min Thumb: center=${minThumbCenterPercent.toFixed(1)}% desde arriba (esperado: ${(100 - minPercentage).toFixed(1)}%)`);
+            console.log(`  Diferencia range-bottom vs min-thumb-center: ${Math.abs(rangeBottomPercent - minThumbCenterPercent).toFixed(1)}%`);
           }
+          if (maxThumbCenterPercent !== null) {
+            console.log(`Max Thumb: center=${maxThumbCenterPercent.toFixed(1)}% desde arriba (esperado: ${(100 - maxPercentage).toFixed(1)}%)`);
+            console.log(`  Diferencia range-top vs max-thumb-center: ${Math.abs(rangeTopPercent - maxThumbCenterPercent).toFixed(1)}%`);
+          }
+          console.log('===================================');
+          
+          console.log('[Slider updateTrackFill] Range Vertical - DETAILED:', {
+            values: { minVal, maxVal, min, max },
+            percentages: { minPercentage, maxPercentage, rangeHeight },
+            styles: { bottom: `${minPercentage}%`, height: `${rangeHeight}%` },
+            trackDimensions: {
+              height: trackRect.height.toFixed(2),
+              width: trackRect.width.toFixed(2),
+              top: trackRect.top.toFixed(2),
+              bottom: trackRect.bottom.toFixed(2)
+            },
+            rangeDimensions: {
+              height: trackRangeRect.height.toFixed(2),
+              width: trackRangeRect.width.toFixed(2),
+              top: trackRangeRect.top.toFixed(2),
+              bottom: trackRangeRect.bottom.toFixed(2)
+            },
+            rangePositionRelative: {
+              bottomPx: rangeBottomRelative.toFixed(2),
+              topPx: rangeTopRelative.toFixed(2),
+              bottomPercent: rangeBottomPercent.toFixed(2),
+              topPercent: rangeTopPercent.toFixed(2)
+            },
+            minThumb: minThumbRect ? {
+              top: minThumbRect.top.toFixed(2),
+              bottom: minThumbRect.bottom.toFixed(2),
+              height: minThumbRect.height.toFixed(2),
+              centerY: minThumbCenterY?.toFixed(2),
+              centerRelativePx: minThumbCenterRelative?.toFixed(2),
+              centerPercent: minThumbCenterPercent?.toFixed(2),
+              expectedPercentFromBottom: minPercentage.toFixed(2),
+              computedTop: window.getComputedStyle(minThumb).top
+            } : null,
+            maxThumb: maxThumbRect ? {
+              top: maxThumbRect.top.toFixed(2),
+              bottom: maxThumbRect.bottom.toFixed(2),
+              height: maxThumbRect.height.toFixed(2),
+              centerY: maxThumbCenterY?.toFixed(2),
+              centerRelativePx: maxThumbCenterRelative?.toFixed(2),
+              centerPercent: maxThumbCenterPercent?.toFixed(2),
+              expectedPercentFromBottom: maxPercentage.toFixed(2),
+              computedTop: window.getComputedStyle(maxThumb).top
+            } : null,
+            alignment: {
+              rangeBottomShouldMatchMinThumb: minThumbCenterPercent ? Math.abs(rangeBottomPercent - minThumbCenterPercent).toFixed(2) : 'N/A',
+              rangeTopShouldMatchMaxThumb: maxThumbCenterPercent ? Math.abs(rangeTopPercent - maxThumbCenterPercent).toFixed(2) : 'N/A'
+            }
+          });
         } else {
           const rangeWidth = maxPercentage - minPercentage;
           trackRange.style.left = `${minPercentage}%`;
@@ -551,25 +716,55 @@ export function createSlider(options: SliderOptions): {
       if (trackFill) {
         const percentage = ((currentValue as number - min) / (max - min)) * 100;
         if (isVertical) {
-          // En vertical, el thumb está en top: ${100 - percentage}% con transform: translate(-50%, 50%)
-          // El transform mueve el thumb 50% de su altura hacia abajo, así que el centro está más abajo
-          // Para calcular la posición exacta del centro, necesitamos la altura del thumb y del track
-          const trackRect = track.getBoundingClientRect();
+          // En vertical, el thumb está en top: ${100 - percentage}% con transform: translate(-50%, -50%)
+          // El transform centra el thumb, así que el centro está exactamente en top: ${100 - percentage}%
+          // El fill debe ir desde abajo (bottom: 0) hasta el centro del thumb
+          // Como el thumb está en ${100 - percentage}% desde arriba, el fill debe tener height: ${percentage}%
+          trackFill.style.height = `${percentage}%`;
+          trackFill.style.bottom = '0';
+          
+          // Obtener el thumb para comparar posiciones
           const thumbElement = container.querySelector('.ubits-slider-thumb') as HTMLDivElement;
-          if (thumbElement && trackRect.height > 0) {
-            const thumbRect = thumbElement.getBoundingClientRect();
-            const thumbHeightPercent = (thumbRect.height / trackRect.height) * 100;
-            // El centro del thumb está en: top + (50% de altura del thumb)
-            // top = ${100 - percentage}%, así que el centro está en ${100 - percentage + thumbHeightPercent/2}%
-            // Desde abajo, eso es ${percentage - thumbHeightPercent/2}%
-            const adjustedPercentage = Math.max(0, percentage - (thumbHeightPercent / 2));
-            trackFill.style.height = `${adjustedPercentage}%`;
-            trackFill.style.bottom = '0';
-          } else {
-            // Fallback: usar el porcentaje directamente
-            trackFill.style.height = `${percentage}%`;
-            trackFill.style.bottom = '0';
-          }
+          const thumbRect = thumbElement?.getBoundingClientRect();
+          const thumbComputedTop = thumbElement ? window.getComputedStyle(thumbElement).top : 'N/A';
+          
+          console.log('[Slider updateTrackFill] Single Vertical:', {
+            currentValue,
+            min,
+            max,
+            percentage,
+            fillHeight: `${percentage}%`,
+            fillBottom: '0',
+            trackRect: { 
+              top: trackRect.top, 
+              bottom: trackRect.bottom, 
+              height: trackRect.height, 
+              width: trackRect.width 
+            },
+            trackFillRect: {
+              top: trackFill.getBoundingClientRect().top,
+              bottom: trackFill.getBoundingClientRect().bottom,
+              height: trackFill.getBoundingClientRect().height,
+              width: trackFill.getBoundingClientRect().width
+            },
+            thumbRect: thumbRect ? {
+              top: thumbRect.top,
+              bottom: thumbRect.bottom,
+              height: thumbRect.height,
+              width: thumbRect.width
+            } : null,
+            computedStyles: {
+              fillHeight: window.getComputedStyle(trackFill).height,
+              fillBottom: window.getComputedStyle(trackFill).bottom,
+              fillTop: window.getComputedStyle(trackFill).top,
+              thumbTop: thumbComputedTop
+            },
+            // Calcular posiciones relativas
+            fillBottomPx: trackFill.getBoundingClientRect().bottom - trackRect.bottom,
+            fillTopPx: trackFill.getBoundingClientRect().top - trackRect.top,
+            thumbCenterPx: thumbRect ? (thumbRect.top + thumbRect.height / 2) - trackRect.top : null,
+            trackHeightPx: trackRect.height
+          });
         } else {
           trackFill.style.width = `${percentage}%`;
         }
@@ -628,18 +823,40 @@ export function createSlider(options: SliderOptions): {
 
   // Función para actualizar todo
   const updateSlider = () => {
+    console.log('[Slider updateSlider] Starting update:', {
+      isVertical,
+      isRange,
+      currentValue,
+      thumbsCount: thumbs.length,
+      trackExists: !!track,
+      trackRect: track?.getBoundingClientRect()
+    });
+    
     if (isRange) {
       const [minVal, maxVal] = currentValue as [number, number];
       const minThumb = container.querySelector('.ubits-slider-thumb--min') as HTMLDivElement;
       const maxThumb = container.querySelector('.ubits-slider-thumb--max') as HTMLDivElement;
+      console.log('[Slider updateSlider] Range mode:', {
+        minVal,
+        maxVal,
+        minThumbExists: !!minThumb,
+        maxThumbExists: !!maxThumb
+      });
       if (minThumb) updateThumbPosition(minThumb, minVal);
       if (maxThumb) updateThumbPosition(maxThumb, maxVal);
     } else {
       const thumb = thumbs[0];
+      console.log('[Slider updateSlider] Single mode:', {
+        currentValue: currentValue as number,
+        thumbExists: !!thumb,
+        thumbRect: thumb?.getBoundingClientRect()
+      });
       if (thumb) updateThumbPosition(thumb, currentValue as number);
     }
     updateTrackFill();
     updateInputs();
+    
+    console.log('[Slider updateSlider] Update completed');
   };
 
   // Event listeners para thumbs
@@ -906,6 +1123,19 @@ export function createSlider(options: SliderOptions): {
   });
 
   // Inicializar posiciones
+  console.log('[Slider createSlider] Initialization:', {
+    containerId,
+    isVertical,
+    isRange,
+    min,
+    max,
+    step,
+    currentValue,
+    orientation,
+    mode,
+    trackRect: track.getBoundingClientRect(),
+    containerRect: container.getBoundingClientRect()
+  });
   updateSlider();
 
   // Métodos
@@ -956,17 +1186,33 @@ export function createSlider(options: SliderOptions): {
     },
     setState: (newState: 'default' | 'disabled') => {
       if (newState === 'disabled') {
-        // Llamar a disable
-        const instance = createSlider({ ...options, state: 'disabled' });
-        if (instance) {
-          instance.disable();
-        }
+        // Llamar a disable directamente
+        sliderElement.classList.add('ubits-slider--disabled');
+        thumbs.forEach((thumb) => {
+          thumb.classList.add('ubits-slider-thumb--disabled');
+          thumb.setAttribute('disabled', '');
+        });
+        inputElements.forEach((input) => {
+          input.disabled = true;
+        });
+        // Deshabilitar inputs UBITS
+        if (inputMinInstance) inputMinInstance.disable();
+        if (inputMaxInstance) inputMaxInstance.disable();
+        if (inputValueInstance) inputValueInstance.disable();
       } else {
-        // Llamar a enable
-        const instance = createSlider({ ...options, state: 'default' });
-        if (instance) {
-          instance.enable();
-        }
+        // Llamar a enable directamente
+        sliderElement.classList.remove('ubits-slider--disabled');
+        thumbs.forEach((thumb) => {
+          thumb.classList.remove('ubits-slider-thumb--disabled');
+          thumb.removeAttribute('disabled');
+        });
+        inputElements.forEach((input) => {
+          input.disabled = false;
+        });
+        // Habilitar inputs UBITS
+        if (inputMinInstance) inputMinInstance.enable();
+        if (inputMaxInstance) inputMaxInstance.enable();
+        if (inputValueInstance) inputValueInstance.enable();
       }
     }
   };

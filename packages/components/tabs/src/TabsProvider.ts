@@ -73,7 +73,7 @@ export function renderTabs(options: TabsOptions): string {
   const containerClasses = ['ubits-tabs', className].filter(Boolean).join(' ');
 
   return `
-    <div class="${containerClasses}">
+    <div class="${containerClasses}" data-ubits-id="🧩-ux-tabs">
       ${tabsHTML}
     </div>
   `.trim();
@@ -153,9 +153,14 @@ export function createTabs(options: TabsOptions, containerId?: string): HTMLElem
   
   container.innerHTML = renderTabs(options);
   
+  // Agregar data-ubits-id al tabs si existe
+  const tabsElement = container.querySelector('.ubits-tabs') as HTMLElement;
+  if (tabsElement && !tabsElement.hasAttribute('data-ubits-id')) {
+    tabsElement.setAttribute('data-ubits-id', '🧩-ux-tabs');
+  }
+  
   // Inicializar listeners - buscar el elemento .ubits-tabs dentro del contenedor
   requestAnimationFrame(() => {
-    const tabsElement = container.querySelector('.ubits-tabs') as HTMLElement;
     if (tabsElement) {
       initTabListeners(tabsElement, options);
     } else {

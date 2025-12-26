@@ -175,7 +175,7 @@ export function renderAvatar(options: AvatarOptions = {} as AvatarOptions): stri
 
   // Construir el HTML completo
   return `
-    <div class="${classes}" style="${avatarStyles}" ${onClick ? 'role="button" tabindex="0"' : ''} data-variant="${variant}">
+    <div class="${classes}" style="${avatarStyles}" ${onClick ? 'role="button" tabindex="0"' : ''} data-variant="${variant}" data-ubits-id="🧩-ux-avatar">
       ${avatarContent}
       ${badgeHTML}
     </div>
@@ -189,6 +189,15 @@ export function createAvatar(options: AvatarOptions = {} as AvatarOptions): HTML
   const div = document.createElement('div');
   div.innerHTML = renderAvatar(options);
   const avatar = div.querySelector('.ubits-avatar') as HTMLDivElement;
+
+  if (!avatar) {
+    throw new Error('Failed to create avatar element');
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!avatar.hasAttribute('data-ubits-id')) {
+    avatar.setAttribute('data-ubits-id', '🧩-ux-avatar');
+  }
 
   // Agregar event listener si hay onClick
   if (options.onClick && avatar) {

@@ -61,5 +61,10 @@ export interface CheckboxOptions {
    * ID del contenedor donde se renderizará el checkbox
    */
   containerId?: string;
+  
+  /**
+   * Elemento contenedor donde se renderizará el checkbox (alternativa a containerId)
+   */
+  container?: HTMLElement;
 }
 

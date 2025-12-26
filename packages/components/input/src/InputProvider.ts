@@ -21,6 +21,9 @@ function renderIconHelper(iconName: string, iconStyle: 'regular' | 'solid' = 're
  * Renderiza un input UBITS como HTML string
  */
 export function renderInput(options: InputOptions): string {
+  console.log('🔵 [Input renderInput] ========== RENDER INPUT CALLED ==========');
+  console.log('🔵 [Input renderInput] Options:', options);
+  
   const {
     containerId,
     label = '',
@@ -42,6 +45,9 @@ export function renderInput(options: InputOptions): string {
     attributes = {},
     showRichTextToolbar = false
   } = options;
+  
+  console.log('🔵 [Input renderInput] Extracted type:', type);
+  console.log('🔵 [Input renderInput] Extracted containerId:', containerId);
 
   let inputHTML = '';
 
@@ -59,7 +65,7 @@ export function renderInput(options: InputOptions): string {
   const leftIconClass = hasLeftIcon && leftIcon.startsWith('fa-') ? `far ${leftIcon}` : (hasLeftIcon ? `far fa-${leftIcon}` : '');
   const rightIconClass = hasRightIcon && rightIcon.startsWith('fa-') ? `far ${rightIcon}` : (hasRightIcon ? `far fa-${rightIcon}` : '');
 
-  inputHTML += `<div style="position: relative; display: inline-block; width: 100%;">`;
+  inputHTML += `<div style="position: relative; display: inline-block; width: 100%;" data-ubits-id="🧩-ux-input">`;
 
   // Variables temporales para iconos (pueden cambiar según el tipo)
   let finalRightIcon = rightIcon;
@@ -82,6 +88,11 @@ export function renderInput(options: InputOptions): string {
   const paddingRight = hasRightIcon ? 'padding-right: 40px;' : 'padding-right: 12px;';
 
   // Renderizar input según el tipo
+  console.log('🔵 [Input renderInput] Checking input type, current type:', type);
+  console.log('🔵 [Input renderInput] Type === "date"?', type === 'date');
+  console.log('🔵 [Input renderInput] Type === "calendar"?', type === 'calendar');
+  console.log('🔵 [Input renderInput] Type === "date" || type === "calendar"?', type === 'date' || type === 'calendar');
+  
   if (type === 'select') {
     // SELECT - usar input normal pero readonly
     const selectOptions = options.selectOptions || [];
@@ -219,8 +230,10 @@ export function renderInput(options: InputOptions): string {
       autocompleteStyle += `; background: var(--modifiers-normal-color-light-bg-3) !important; color: var(--modifiers-normal-color-light-fg-1-low) !important; border-color: var(--modifiers-normal-color-light-border-2) !important;`;
     }
     inputHTML += `<input type="text" class="${inputClasses.join(' ')}" style="${autocompleteStyle}" placeholder="${placeholder}" value="${value}" autocomplete="off"${disabledAttr}${maxLengthAttr}>`;
-  } else if (type === 'calendar') {
-    // CALENDAR - input con date picker
+  } else if (type === 'calendar' || type === 'date') {
+    console.log('📅 [Input renderInput] ========== RENDERING DATE/CALENDAR INPUT ==========');
+    console.log('📅 [Input renderInput] Type:', type, 'ContainerId:', containerId, 'Value:', value);
+    // CALENDAR/DATE - input con date picker UBITS (NO usar type="date" nativo del sistema)
     let calendarPaddingLeft = paddingLeft;
     let calendarPaddingRight = paddingRight;
 
@@ -235,7 +248,11 @@ export function renderInput(options: InputOptions): string {
     if (state === 'disabled') {
       calendarStyle += `; background: var(--modifiers-normal-color-light-bg-3) !important; color: var(--modifiers-normal-color-light-fg-1-low) !important; border-color: var(--modifiers-normal-color-light-border-2) !important;`;
     }
-    inputHTML += `<input type="text" class="${inputClasses.join(' ')}" style="${calendarStyle}" placeholder="${placeholder}" value="${value}" readonly${disabledAttr}>`;
+    // IMPORTANTE: Usar type="text" con readonly para evitar el calendario nativo del sistema
+    const inputTag = `<input type="text" class="${inputClasses.join(' ')}" style="${calendarStyle}" placeholder="${placeholder}" value="${value}" readonly${disabledAttr}>`;
+    console.log('📅 [Input renderInput] Generated input HTML:', inputTag);
+    console.log('📅 [Input renderInput] ✅ Using type="text" with readonly to avoid native calendar');
+    inputHTML += inputTag;
   } else if (type === 'password') {
     // PASSWORD - input con toggle de mostrar/ocultar
     let passwordPaddingLeft = paddingLeft;
@@ -254,12 +271,25 @@ export function renderInput(options: InputOptions): string {
     }
     inputHTML += `<input type="password" class="${inputClasses.join(' ')}" style="${passwordStyle}" placeholder="${placeholder}" value="${value}"${disabledAttr}${maxLengthAttr}>`;
   } else {
-    // INPUT normal (text, email, number, tel, url)
+    // INPUT normal (text, email, number, tel, url, date)
+    console.log('🔵 [Input renderInput] ⚠️ Type is not calendar/date, falling to else block. Type:', type);
+    console.log('🔵 [Input renderInput] ⚠️ This will render type="' + type + '" which may show native calendar!');
+    
     const step = type === 'number' ? (attributes as any).step || '1' : '';
     const min = type === 'number' ? (attributes as any).min || '' : '';
     const max = type === 'number' ? (attributes as any).max || '' : '';
     const numberAttrs = type === 'number' ? ` step="${step}"${min ? ` min="${min}"` : ''}${max ? ` max="${max}"` : ''}` : '';
-    inputHTML += `<input type="${type}" class="${inputClasses.join(' ')}" style="width: 100%; ${paddingLeft} ${paddingRight}" placeholder="${placeholder}" value="${value}"${numberAttrs}${disabledAttr}${maxLengthAttr}>`;
+    
+    // IMPORTANTE: Si el tipo es 'date', NO usar type="date" (calendario nativo)
+    if (type === 'date') {
+      console.log('🔵 [Input renderInput] ⚠️⚠️⚠️ Type is "date" but falling to else block! This is wrong!');
+      console.log('🔵 [Input renderInput] ⚠️⚠️⚠️ Should have been caught by calendar/date condition above!');
+      // Forzar type="text" con readonly para evitar calendario nativo
+      inputHTML += `<input type="text" class="${inputClasses.join(' ')}" style="width: 100%; ${paddingLeft} ${paddingRight}" placeholder="${placeholder}" value="${value}" readonly${disabledAttr}${maxLengthAttr}>`;
+      console.log('🔵 [Input renderInput] ✅ Fixed: Using type="text" with readonly instead of type="date"');
+    } else {
+      inputHTML += `<input type="${type}" class="${inputClasses.join(' ')}" style="width: 100%; ${paddingLeft} ${paddingRight}" placeholder="${placeholder}" value="${value}"${numberAttrs}${disabledAttr}${maxLengthAttr}>`;
+    }
   }
 
   // Icono izquierdo con posicionamiento absoluto
@@ -277,18 +307,35 @@ export function renderInput(options: InputOptions): string {
   inputHTML += '</div>';
 
   // Helper text y character counter (independientes)
+  console.log('[Input] Rendering helper:', {
+    showHelper,
+    helperText,
+    helperTextLength: helperText?.length || 0,
+    showCounter,
+    maxLength,
+    willShowHelper: showHelper || showCounter,
+    willShowHelperText: showHelper && helperText && helperText.trim().length > 0
+  });
+  
   if (showHelper || showCounter) {
     inputHTML += '<div class="ubits-input-helper">';
 
-    if (showHelper && helperText) {
-      inputHTML += `<span>${helperText}</span>`;
+    if (showHelper && helperText && helperText.trim().length > 0) {
+      inputHTML += `<span class="ubits-input-helper-text">${helperText}</span>`;
+      console.log('[Input] ✅ Added helper text:', helperText);
+    } else if (showHelper) {
+      console.log('[Input] ⚠️ showHelper is true but helperText is empty or whitespace');
     }
 
     if (showCounter) {
       inputHTML += `<span class="ubits-input-counter">0/${maxLength}</span>`;
+      console.log('[Input] Added counter');
     }
 
     inputHTML += '</div>';
+    console.log('[Input] Helper container added');
+  } else {
+    console.log('[Input] No helper container (showHelper=false, showCounter=false)');
   }
 
   // Agregar atributos adicionales como data attributes
@@ -298,7 +345,7 @@ export function renderInput(options: InputOptions): string {
 
   if (attrs) {
     // Los atributos se aplicarán al contenedor externo
-    return `<div ${attrs}>${inputHTML}</div>`;
+    return `<div ${attrs} data-ubits-id="🧩-ux-input">${inputHTML}</div>`;
   }
 
   return inputHTML;
@@ -318,6 +365,9 @@ export function createInput(options: InputOptions): {
   enable: () => void;
   setState: (newState: string) => void;
 } | null {
+  console.log('🟢 [Input createInput] ========== CREATE INPUT CALLED ==========');
+  console.log('🟢 [Input createInput] Options:', options);
+  
   const {
     containerId,
     onChange,
@@ -330,27 +380,52 @@ export function createInput(options: InputOptions): {
     autocompleteOptions = [],
     value = ''
   } = options;
+  
+  console.log('🟢 [Input createInput] Extracted type:', type);
+  console.log('🟢 [Input createInput] Extracted containerId:', containerId);
 
   // Validar parámetros requeridos
   if (!containerId) {
-    console.error('UBITS Input: containerId es requerido');
+    console.error('🟢 [Input createInput] ❌ containerId es requerido');
     return null;
   }
 
   const container = document.getElementById(containerId);
   if (!container) {
-    console.error(`UBITS Input: No se encontró el contenedor con ID "${containerId}"`);
+    console.error(`🟢 [Input createInput] ❌ No se encontró el contenedor con ID "${containerId}"`);
     return null;
   }
+  
+  console.log('🟢 [Input createInput] ✅ Container found:', container);
 
   // Renderizar HTML
+  console.log('🟢 [Input createInput] Calling renderInput...');
   const inputHTML = renderInput(options);
+  console.log('🟢 [Input createInput] renderInput returned HTML length:', inputHTML.length);
   container.innerHTML = inputHTML;
+  console.log('🟢 [Input createInput] ✅ HTML inserted into container');
 
   // Obtener elementos del DOM
   const wrapper = container.querySelector('div[style*="position: relative"]') as HTMLDivElement;
   const inputElement = (container.querySelector('.ubits-input') as HTMLInputElement | HTMLTextAreaElement);
   const counterElement = container.querySelector('.ubits-input-counter') as HTMLElement;
+
+  // Agregar data-ubits-id al wrapper si existe
+  if (wrapper && !wrapper.hasAttribute('data-ubits-id')) {
+    wrapper.setAttribute('data-ubits-id', '🧩-ux-input');
+  }
+  // Si no hay wrapper pero hay container, agregar al container
+  if (!wrapper && container && !container.hasAttribute('data-ubits-id')) {
+    container.setAttribute('data-ubits-id', '🧩-ux-input');
+  }
+
+  console.log('[Input] createInput - DOM elements:', {
+    wrapper: !!wrapper,
+    inputElement: !!inputElement,
+    counterElement: !!counterElement,
+    containerId,
+    type
+  });
 
   if (!inputElement || !wrapper) {
     console.error('UBITS Input: No se pudo crear el elemento input');
@@ -358,12 +433,26 @@ export function createInput(options: InputOptions): {
   }
 
   // Asegurar que el contenedor tenga position: relative (para dropdowns)
-  if (getComputedStyle(container).position === 'static') {
+  const containerComputedStyle = getComputedStyle(container);
+  console.log('[Input] Container position:', containerComputedStyle.position);
+  if (containerComputedStyle.position === 'static') {
     container.style.position = 'relative';
+    console.log('[Input] Set container position to relative');
   }
 
   // Funcionalidades especiales según el tipo
   if (type === 'select') {
+    console.log('[Input] createInput - Setting up select dropdown:', {
+      selectOptionsCount: selectOptions.length,
+      selectOptions,
+      containerId,
+      hasOnChange: !!onChange
+    });
+    
+    if (selectOptions.length === 0) {
+      console.warn('[Input] ⚠️ Select type but no selectOptions provided!');
+    }
+    
     createSelectDropdown(container, inputElement as HTMLInputElement, selectOptions, value, options.placeholder || '', onChange, options.size || 'md');
   }
 
@@ -375,8 +464,29 @@ export function createInput(options: InputOptions): {
     createAutocompleteDropdown(container, inputElement as HTMLInputElement, autocompleteOptions, onChange, options.size || 'md');
   }
 
-  if (type === 'calendar') {
+  if (type === 'calendar' || type === 'date') {
+    console.log('📅 [Input createInput] ========== INITIALIZING DATE/CALENDAR INPUT ==========');
+    console.log('📅 [Input createInput] Type:', type, 'ContainerId:', containerId);
+    console.log('📅 [Input createInput] Input element:', inputElement);
+    console.log('📅 [Input createInput] Input element type (before):', inputElement instanceof HTMLInputElement ? inputElement.type : 'N/A');
+    
+    // Asegurar que el input tenga type="text" y readonly para evitar el calendario nativo
+    if (inputElement instanceof HTMLInputElement) {
+      if (inputElement.type === 'date') {
+        console.log('📅 [Input createInput] ⚠️ Input has type="date", changing to type="text"');
+        inputElement.type = 'text';
+        inputElement.setAttribute('readonly', 'readonly');
+        console.log('📅 [Input createInput] ✅ Changed to type="text" with readonly');
+      } else {
+        console.log('📅 [Input createInput] ✅ Input already has correct type:', inputElement.type);
+      }
+      console.log('📅 [Input createInput] Input element type (after):', inputElement.type);
+      console.log('📅 [Input createInput] Input readonly:', inputElement.hasAttribute('readonly'));
+    }
+    
+    console.log('📅 [Input createInput] Calling createCalendarPicker...');
     createCalendarPicker(container, inputElement as HTMLInputElement, onChange);
+    console.log('📅 [Input createInput] ✅ createCalendarPicker called');
   }
 
   if (type === 'password') {
@@ -416,6 +526,37 @@ export function createInput(options: InputOptions): {
     });
   }
 
+  // Aplicar estado inicial si no es 'default'
+  const initialState = options.state || 'default';
+  console.log('[Input] Applying initial state:', initialState);
+  if (initialState !== 'default') {
+    // Usar setTimeout para asegurar que el DOM esté completamente renderizado
+    setTimeout(() => {
+      const stateClasses = ['ubits-input--hover', 'ubits-input--focus', 'ubits-input--active', 'ubits-input--invalid', 'ubits-input--disabled'];
+      stateClasses.forEach(cls => inputElement.classList.remove(cls));
+      
+      if (initialState !== 'default') {
+        inputElement.classList.add(`ubits-input--${initialState}`);
+        console.log('[Input] ✅ Initial state class added:', `ubits-input--${initialState}`);
+      }
+      
+      if (initialState === 'disabled') {
+        inputElement.disabled = true;
+      }
+      
+      // Verificar estilos después de aplicar estado inicial
+      requestAnimationFrame(() => {
+        const computedStyle = window.getComputedStyle(inputElement);
+        console.log('[Input] Initial state applied - computed styles:', {
+          borderColor: computedStyle.borderColor,
+          backgroundColor: computedStyle.backgroundColor,
+          boxShadow: computedStyle.boxShadow,
+          classes: Array.from(inputElement.classList)
+        });
+      });
+    }, 0);
+  }
+
   // Métodos
   return {
     element: wrapper,
@@ -438,18 +579,89 @@ export function createInput(options: InputOptions): {
       inputElement.classList.remove('ubits-input--disabled');
     },
     setState: (newState: string) => {
+      console.log('[Input] ========== SET STATE START ==========');
+      console.log('[Input] setState called:', {
+        newState,
+        currentClasses: Array.from(inputElement.classList),
+        inputType: inputElement.tagName,
+        inputId: inputElement.id || 'no-id',
+        containerId,
+        currentBorderColor: window.getComputedStyle(inputElement).borderColor,
+        currentBackgroundColor: window.getComputedStyle(inputElement).backgroundColor
+      });
+
       const stateClasses = ['ubits-input--hover', 'ubits-input--focus', 'ubits-input--active', 'ubits-input--invalid', 'ubits-input--disabled'];
-      stateClasses.forEach(cls => inputElement.classList.remove(cls));
+      console.log('[Input] Removing state classes:', stateClasses);
+      stateClasses.forEach(cls => {
+        const hadClass = inputElement.classList.contains(cls);
+        inputElement.classList.remove(cls);
+        if (hadClass) {
+          console.log('[Input] ✅ Removed class:', cls);
+        }
+      });
 
       if (newState !== 'default') {
-        inputElement.classList.add(`ubits-input--${newState}`);
+        const newClass = `ubits-input--${newState}`;
+        inputElement.classList.add(newClass);
+        console.log('[Input] ✅ Added class:', newClass);
+        console.log('[Input] Current classes after add:', Array.from(inputElement.classList));
+      } else {
+        console.log('[Input] State is default, no class added');
       }
 
       if (newState === 'disabled') {
         inputElement.disabled = true;
+        console.log('[Input] Input disabled set to true');
       } else {
         inputElement.disabled = false;
+        console.log('[Input] Input disabled set to false');
       }
+
+      // Verificar estilos computados después del cambio
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const computedStyle = window.getComputedStyle(inputElement);
+          const borderColor = computedStyle.borderColor;
+          const backgroundColor = computedStyle.backgroundColor;
+          const boxShadow = computedStyle.boxShadow;
+          
+          console.log('[Input] Computed styles after setState:', {
+            borderColor,
+            backgroundColor,
+            color: computedStyle.color,
+            boxShadow,
+            classes: Array.from(inputElement.classList),
+            borderWidth: computedStyle.borderWidth,
+            borderStyle: computedStyle.borderStyle
+          });
+          
+          // Verificar que los estilos se aplicaron correctamente según el estado
+          if (newState === 'hover') {
+            const expectedColor = getComputedStyle(document.documentElement).getPropertyValue('--modifiers-normal-color-light-accent-brand').trim();
+            console.log('[Input] Hover state check:', {
+              expectedColor,
+              actualBorderColor: borderColor,
+              matches: borderColor.includes('rgb(12, 91, 239)') || borderColor.includes('rgb(12,91,239)')
+            });
+          } else if (newState === 'focus') {
+            const hasBoxShadow = boxShadow && boxShadow !== 'none';
+            console.log('[Input] Focus state check:', {
+              hasBoxShadow,
+              boxShadow,
+              borderColor
+            });
+          } else if (newState === 'invalid') {
+            const isRed = borderColor.includes('233') || borderColor.includes('rgb(233');
+            console.log('[Input] Invalid state check:', {
+              isRed,
+              borderColor,
+              expectedRed: 'rgb(233, 52, 60) or similar'
+            });
+          }
+          
+          console.log('[Input] ========== SET STATE COMPLETE ==========');
+        });
+      });
 
       // Si es textarea con rich text toolbar, verificar y remover línea divisoria
       if (type === 'textarea' && options.showRichTextToolbar) {
@@ -690,24 +902,184 @@ function createAutocompleteDropdown(container: HTMLElement, inputElement: HTMLIn
 }
 
 function createSelectDropdown(container: HTMLElement, inputElement: HTMLInputElement, selectOptions: SelectOption[], value: string, placeholder: string, onChange?: (value: string) => void, inputSize: InputSize = 'md'): void {
+  console.log('[Input] ========== CREATE SELECT DROPDOWN START ==========');
+  console.log('[Input] Parameters:', {
+    containerId: container.id,
+    containerElement: container,
+    containerTagName: container.tagName,
+    containerClasses: Array.from(container.classList),
+    selectOptionsCount: selectOptions.length,
+    selectOptions: selectOptions,
+    value,
+    placeholder,
+    inputSize,
+    inputElement: inputElement,
+    inputElementId: inputElement.id || 'no-id',
+    inputElementClasses: Array.from(inputElement.classList),
+    onChangeExists: !!onChange
+  });
+  
+  // Verificar estilos del contenedor ANTES de modificar
+  const containerStyleBefore = window.getComputedStyle(container);
+  console.log('[Input] Container styles BEFORE:', {
+    position: containerStyleBefore.position,
+    display: containerStyleBefore.display,
+    width: containerStyleBefore.width,
+    height: containerStyleBefore.height,
+    zIndex: containerStyleBefore.zIndex
+  });
+  
   inputElement.style.cursor = 'pointer';
+  console.log('[Input] Set input cursor to pointer');
+
+  // Asegurar que el contenedor tenga position: relative
+  const containerStyle = window.getComputedStyle(container);
+  console.log('[Input] Container computed position:', containerStyle.position);
+  if (containerStyle.position === 'static') {
+    container.style.position = 'relative';
+    console.log('[Input] ✅ Set container position to relative');
+  } else {
+    console.log('[Input] Container already has position:', containerStyle.position);
+  }
+  
+  // Verificar estilos del contenedor DESPUÉS de modificar
+  const containerStyleAfter = window.getComputedStyle(container);
+  console.log('[Input] Container styles AFTER:', {
+    position: containerStyleAfter.position,
+    display: containerStyleAfter.display,
+    width: containerStyleAfter.width,
+    height: containerStyleAfter.height
+  });
 
   // Obtener el tamaño del List basado en el tamaño del Input
   const listSize: ListSize = inputSize === 'xs' ? 'xs' : inputSize === 'sm' ? 'sm' : inputSize === 'md' ? 'md' : 'lg';
+  console.log('[Input] List size determined:', listSize);
 
   // Crear contenedor para el List
   const listContainer = document.createElement('div');
   listContainer.className = 'ubits-select-list-container';
-  listContainer.style.cssText = `
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    margin-top: 4px;
-    display: none;
-  `;
-  container.appendChild(listContainer);
+  
+  // Calcular posición del input relativo a la ventana para usar position: fixed
+  const updateListPosition = () => {
+    const inputRect = inputElement.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+    
+    // Dimensiones del viewport
+    const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth;
+    
+    // Altura estimada del dropdown (máximo 300px)
+    const dropdownMaxHeight = 300;
+    const dropdownMinHeight = 100;
+    
+    // Espacio disponible debajo y arriba del input
+    const spaceBelow = viewportHeight - inputRect.bottom;
+    const spaceAbove = inputRect.top;
+    
+    // Determinar si mostrar arriba o abajo
+    const showAbove = spaceBelow < dropdownMinHeight && spaceAbove > spaceBelow;
+    
+    // Calcular posición vertical
+    let topPosition: number;
+    if (showAbove) {
+      // Mostrar arriba del input
+      topPosition = inputRect.top + scrollTop - dropdownMaxHeight - 4; // 4px de margen
+      // Asegurar que no se salga por arriba
+      if (topPosition < scrollTop) {
+        topPosition = scrollTop + 4;
+      }
+    } else {
+      // Mostrar debajo del input
+      topPosition = inputRect.bottom + scrollTop + 4; // 4px de margen
+    }
+    
+    // Calcular posición horizontal (ajustar si se sale por la derecha)
+    let leftPosition = inputRect.left + scrollLeft;
+    const dropdownWidth = Math.max(inputRect.width, 200);
+    
+    // Si se sale por la derecha, ajustar
+    if (leftPosition + dropdownWidth > scrollLeft + viewportWidth) {
+      leftPosition = scrollLeft + viewportWidth - dropdownWidth - 4;
+    }
+    
+    // Si se sale por la izquierda, ajustar
+    if (leftPosition < scrollLeft) {
+      leftPosition = scrollLeft + 4;
+    }
+    
+    // Calcular altura máxima disponible
+    let maxHeight = showAbove 
+      ? Math.min(dropdownMaxHeight, spaceAbove - 8)
+      : Math.min(dropdownMaxHeight, spaceBelow - 8);
+    
+    // Asegurar altura mínima
+    maxHeight = Math.max(maxHeight, dropdownMinHeight);
+    
+    listContainer.style.cssText = `
+      position: fixed;
+      top: ${topPosition}px;
+      left: ${leftPosition}px;
+      width: ${dropdownWidth}px;
+      min-width: 200px;
+      max-width: ${viewportWidth - 8}px;
+      z-index: 9998;
+      display: none;
+      background: var(--ubits-bg-1, #ffffff);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border-radius: var(--ubits-border-radius-lg, 8px);
+      border: 1px solid var(--ubits-border-1, #e0e0e0);
+      max-height: ${maxHeight}px;
+      overflow-y: auto;
+      padding: 4px 0;
+    `;
+  };
+  
+  // Inicializar posición
+  updateListPosition();
+  
+  console.log('[Input] List container created:', {
+    element: listContainer,
+    className: listContainer.className,
+    style: listContainer.style.cssText,
+    parentBeforeAppend: container
+  });
+  
+  // Agregar al body en lugar del contenedor para evitar problemas de overflow
+  document.body.appendChild(listContainer);
+  
+  // Actualizar posición cuando se hace scroll o resize
+  window.addEventListener('scroll', updateListPosition, true);
+  window.addEventListener('resize', updateListPosition);
+  
+  // Guardar función de actualización
+  (listContainer as any)._updatePosition = updateListPosition;
+  
+  console.log('[Input] List container appended to container:', {
+    containerChildren: Array.from(container.children),
+    listContainerParent: listContainer.parentElement,
+    listContainerInDOM: document.body.contains(listContainer)
+  });
+  
+  // Verificar posición del contenedor después de agregar el listContainer
+  const containerRect = container.getBoundingClientRect();
+  const inputRect = inputElement.getBoundingClientRect();
+  console.log('[Input] Bounding rects:', {
+    containerRect: {
+      top: containerRect.top,
+      left: containerRect.left,
+      width: containerRect.width,
+      height: containerRect.height
+    },
+    inputRect: {
+      top: inputRect.top,
+      left: inputRect.left,
+      width: inputRect.width,
+      height: inputRect.height
+    }
+  });
+  
+  console.log('[Input] ========== CREATE SELECT DROPDOWN - CONTAINER SETUP COMPLETE ==========');
 
   const itemsPerPage = 50; // Más items por página ya que List tiene scroll
   let currentPage = 0;
@@ -715,13 +1087,33 @@ function createSelectDropdown(container: HTMLElement, inputElement: HTMLInputEle
   let isLoading = false;
 
   const loadOptions = (page = 0) => {
-    if (isLoading) return;
+    console.log('[Input] ========== LOAD OPTIONS START ==========');
+    console.log('[Input] loadOptions called:', {
+      page,
+      isLoading,
+      itemsPerPage,
+      totalOptions: selectOptions.length
+    });
+    
+    if (isLoading) {
+      console.log('[Input] ⚠️ Already loading, returning');
+      return;
+    }
     isLoading = true;
+    console.log('[Input] Set isLoading to true');
 
     setTimeout(() => {
+      console.log('[Input] setTimeout callback executing');
       const startIndex = page * itemsPerPage;
       const endIndex = Math.min(startIndex + itemsPerPage, selectOptions.length);
       const pageOptions = selectOptions.slice(startIndex, endIndex);
+      
+      console.log('[Input] Page options:', {
+        startIndex,
+        endIndex,
+        pageOptionsCount: pageOptions.length,
+        pageOptions
+      });
 
       // Convertir opciones a items de List
       const newItems: ListItem[] = pageOptions.map(option => ({
@@ -730,37 +1122,96 @@ function createSelectDropdown(container: HTMLElement, inputElement: HTMLInputEle
         value: option.value,
         selected: value === option.value,
       }));
+      
+      console.log('[Input] Converted to ListItems:', {
+        newItemsCount: newItems.length,
+        newItems
+      });
 
       // Si es la primera página, reemplazar todos los items
       if (page === 0) {
         allLoadedItems = newItems;
+        console.log('[Input] First page - replaced allLoadedItems:', allLoadedItems);
       } else {
         // Agregar items nuevos
         allLoadedItems = [...allLoadedItems, ...newItems];
+        console.log('[Input] Subsequent page - appended to allLoadedItems:', allLoadedItems);
       }
 
       // Crear o actualizar la lista
       const listId = `ubits-select-list-${container.id}`;
+      console.log('[Input] List ID:', listId);
+      
       listContainer.id = listId;
       listContainer.innerHTML = '';
+      
+      console.log('[Input] List container prepared:', {
+        listId,
+        listContainerId: listContainer.id,
+        listContainerInDOM: document.body.contains(listContainer),
+        listContainerParent: listContainer.parentElement,
+        listContainerDisplay: window.getComputedStyle(listContainer).display,
+        listContainerPosition: window.getComputedStyle(listContainer).position,
+        listContainerZIndex: window.getComputedStyle(listContainer).zIndex
+      });
 
       try {
+        console.log('[Input] Attempting to create list with createList:', {
+          listId,
+          itemsCount: allLoadedItems.length,
+          listSize,
+          containerExists: !!document.getElementById(listId),
+          listContainerExists: !!listContainer
+        });
+        
         createList({
           containerId: listId,
           items: allLoadedItems,
           size: listSize,
           maxHeight: '200px',
           onSelectionChange: (selectedItem, index) => {
+            console.log('[Input] ========== LIST ITEM SELECTED ==========');
+            console.log('[Input] Selection callback:', {
+              selectedItem,
+              index,
+              hasValue: !!(selectedItem && selectedItem.value)
+            });
             if (selectedItem && selectedItem.value) {
               inputElement.value = selectedItem.label;
               listContainer.style.display = 'none';
-              if (onChange) onChange(selectedItem.value);
+              console.log('[Input] Updated input value and hid list');
+              if (onChange) {
+                console.log('[Input] Calling onChange callback');
+                onChange(selectedItem.value);
+              }
+              // Limpiar listeners cuando se cierra
+              if ((listContainer as any)._updatePosition) {
+                window.removeEventListener('scroll', (listContainer as any)._updatePosition, true);
+                window.removeEventListener('resize', (listContainer as any)._updatePosition);
+              }
             }
           },
         });
+        
+        console.log('[Input] ✅ List created successfully');
+        
+        // Verificar que la lista se creó correctamente
+        requestAnimationFrame(() => {
+          const listElement = listContainer.querySelector('.ubits-list');
+          const listItems = listContainer.querySelectorAll('.ubits-list-item');
+          console.log('[Input] List verification after creation:', {
+            listElementExists: !!listElement,
+            listItemsCount: listItems.length,
+            listContainerHTML: listContainer.innerHTML.substring(0, 200)
+          });
+        });
       } catch (error) {
         // Fallback: usar renderList si createList falla
-        console.warn('Using renderList fallback for select:', error);
+        console.error('[Input] ❌ Error creating list, using fallback:', error);
+        console.error('[Input] Error details:', {
+          errorMessage: error instanceof Error ? error.message : String(error),
+          errorStack: error instanceof Error ? error.stack : undefined
+        });
         const listHTML = renderList({
           containerId: listId,
           items: allLoadedItems,
@@ -806,26 +1257,165 @@ function createSelectDropdown(container: HTMLElement, inputElement: HTMLInputEle
     }, 150);
   };
 
-  inputElement.addEventListener('click', () => {
-    const isVisible = listContainer.style.display === 'block';
+  inputElement.addEventListener('click', (e) => {
+    console.log('[Input] ========== INPUT CLICK EVENT ==========');
+    console.log('[Input] Click event details:', {
+      target: e.target,
+      currentTarget: e.currentTarget,
+      type: e.type,
+      bubbles: e.bubbles,
+      cancelable: e.cancelable,
+      defaultPrevented: e.defaultPrevented
+    });
+    
+    e.stopPropagation();
+    console.log('[Input] stopPropagation called');
+    
+    const computedDisplay = window.getComputedStyle(listContainer).display;
+    const inlineDisplay = listContainer.style.display;
+    const isVisible = inlineDisplay === 'block' || computedDisplay === 'block';
+    
+    console.log('[Input] List container visibility check:', {
+      inlineDisplay,
+      computedDisplay,
+      isVisible,
+      listContainerExists: !!listContainer,
+      listContainerInDOM: document.body.contains(listContainer),
+      listContainerParent: listContainer.parentElement,
+      listContainerRect: listContainer.getBoundingClientRect()
+    });
+    
     if (!isVisible) {
+      console.log('[Input] List is hidden, showing it');
+      // Actualizar posición antes de mostrar
+      if ((listContainer as any)._updatePosition) {
+        (listContainer as any)._updatePosition();
+      }
       currentPage = 0;
       allLoadedItems = [];
+      console.log('[Input] Reset pagination, loading options:', {
+        selectOptionsCount: selectOptions.length,
+        selectOptions
+      });
+      
       loadOptions(0);
-      listContainer.style.display = 'block';
+      
+      // Esperar un frame para que la lista se cree antes de mostrar
+      requestAnimationFrame(() => {
+        // Actualizar posición antes de mostrar
+        if ((listContainer as any)._updatePosition) {
+          (listContainer as any)._updatePosition();
+        }
+        listContainer.style.display = 'block';
+        console.log('[Input] ✅ List container display set to block');
+        
+        // Verificar después de mostrar
+        setTimeout(() => {
+          const finalDisplay = window.getComputedStyle(listContainer).display;
+          const finalRect = listContainer.getBoundingClientRect();
+          console.log('[Input] List container after display block:', {
+            display: finalDisplay,
+            rect: finalRect,
+            visible: finalDisplay !== 'none' && finalRect.width > 0 && finalRect.height > 0,
+            zIndex: window.getComputedStyle(listContainer).zIndex
+          });
+        }, 100);
+      });
     } else {
+      console.log('[Input] List is visible, hiding it');
       listContainer.style.display = 'none';
+      console.log('[Input] ✅ List container display set to none');
     }
   });
+  
+  console.log('[Input] Input click listener attached');
+  
+  // También escuchar clicks en el icono chevron-down si existe
+  const chevronIcon = container.querySelector('.ubits-input-icon-right');
+  console.log('[Input] Looking for chevron icon:', {
+    found: !!chevronIcon,
+    iconElement: chevronIcon,
+    iconClasses: chevronIcon ? Array.from(chevronIcon.classList) : []
+  });
+  
+  if (chevronIcon) {
+    chevronIcon.addEventListener('click', (e) => {
+      console.log('[Input] ========== CHEVRON ICON CLICK EVENT ==========');
+      console.log('[Input] Chevron icon click:', {
+        target: e.target,
+        currentTarget: e.currentTarget
+      });
+      
+      e.stopPropagation();
+      e.preventDefault();
+      
+      const computedDisplay = window.getComputedStyle(listContainer).display;
+      const inlineDisplay = listContainer.style.display;
+      const isVisible = inlineDisplay === 'block' || computedDisplay === 'block';
+      
+      console.log('[Input] Chevron click - visibility:', {
+        inlineDisplay,
+        computedDisplay,
+        isVisible
+      });
+      
+      if (!isVisible) {
+        console.log('[Input] Chevron click - showing list');
+        currentPage = 0;
+        allLoadedItems = [];
+        loadOptions(0);
+        
+        requestAnimationFrame(() => {
+          // Actualizar posición antes de mostrar
+        if ((listContainer as any)._updatePosition) {
+          (listContainer as any)._updatePosition();
+        }
+        listContainer.style.display = 'block';
+          console.log('[Input] ✅ Chevron click - list displayed');
+        });
+      } else {
+        console.log('[Input] Chevron click - hiding list');
+        listContainer.style.display = 'none';
+        console.log('[Input] ✅ Chevron click - list hidden');
+      }
+    });
+    console.log('[Input] Chevron icon click listener attached');
+  } else {
+    console.log('[Input] ⚠️ Chevron icon not found');
+  }
 
   document.addEventListener('click', (e) => {
-    if (!container.contains(e.target as Node)) {
+    const target = e.target as Node;
+    const containsTarget = container.contains(target);
+    const isListContainer = listContainer.contains(target);
+    
+    console.log('[Input] Document click event:', {
+      target,
+      containerContainsTarget: containsTarget,
+      isListContainer,
+      listContainerDisplay: window.getComputedStyle(listContainer).display
+    });
+    
+    if (!containsTarget && !isListContainer) {
+      console.log('[Input] Click outside container, hiding list');
       listContainer.style.display = 'none';
     }
   });
+  
+  console.log('[Input] Document click listener attached');
+  console.log('[Input] ========== CREATE SELECT DROPDOWN COMPLETE ==========');
 }
 
 function createCalendarPicker(container: HTMLElement, inputElement: HTMLInputElement, onChange?: (value: string) => void): void {
+  console.log('📅 [Calendar Picker] ========== CREATE CALENDAR PICKER START ==========');
+  console.log('📅 [Calendar Picker] Container:', container);
+  console.log('📅 [Calendar Picker] Container ID:', container.id);
+  console.log('📅 [Calendar Picker] Input element:', inputElement);
+  console.log('📅 [Calendar Picker] Input element type:', inputElement.type);
+  console.log('📅 [Calendar Picker] Input element readonly:', inputElement.hasAttribute('readonly'));
+  console.log('📅 [Calendar Picker] Input element value:', inputElement.value);
+  console.log('📅 [Calendar Picker] onChange function:', !!onChange);
+  
   // Importar dinámicamente el CalendarProvider usando ruta relativa
   let calendarInstance: ReturnType<typeof import('../../calendar/src/CalendarProvider').createCalendar> | null = null;
   let calendarContainer: HTMLElement | null = null;
@@ -846,11 +1436,22 @@ function createCalendarPicker(container: HTMLElement, inputElement: HTMLInputEle
   };
 
   const showCalendar = async () => {
+    console.log('📅 [Calendar Picker showCalendar] ========== SHOW CALENDAR CALLED ==========');
+    console.log('📅 [Calendar Picker showCalendar] Input element type (before):', inputElement.type);
+    console.log('📅 [Calendar Picker showCalendar] Input element readonly (before):', inputElement.hasAttribute('readonly'));
+    
     // Asegurar que el input no tenga type="date" (que mostraría el calendario nativo)
     if (inputElement.type === 'date') {
+      console.log('📅 [Calendar Picker showCalendar] ⚠️ Input has type="date", changing to type="text"');
       inputElement.type = 'text';
       inputElement.setAttribute('readonly', 'readonly');
+      console.log('📅 [Calendar Picker showCalendar] ✅ Changed to type="text" with readonly');
+    } else {
+      console.log('📅 [Calendar Picker showCalendar] ✅ Input already has correct type:', inputElement.type);
     }
+    
+    console.log('📅 [Calendar Picker showCalendar] Input element type (after):', inputElement.type);
+    console.log('📅 [Calendar Picker showCalendar] Input element readonly (after):', inputElement.hasAttribute('readonly'));
 
     // Si el calendario ya está visible, ocultarlo
     if (calendarContainer && calendarContainer.style.display !== 'none') {
@@ -863,17 +1464,131 @@ function createCalendarPicker(container: HTMLElement, inputElement: HTMLInputEle
       return;
     }
 
+    // Función para calcular posición inteligente del calendario
+    const calculateCalendarPosition = () => {
+      const inputRect = inputElement.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+      
+      // Dimensiones del viewport
+      const viewportHeight = window.innerHeight;
+      const viewportWidth = window.innerWidth;
+      
+      // Altura estimada del calendario (típicamente ~300-350px)
+      const calendarEstimatedHeight = 350;
+      const calendarMinHeight = 250;
+      
+      // Espacio disponible debajo y arriba del input
+      const spaceBelow = viewportHeight - inputRect.bottom;
+      const spaceAbove = inputRect.top;
+      
+      // Determinar si mostrar arriba o abajo
+      const showAbove = spaceBelow < calendarMinHeight && spaceAbove > spaceBelow;
+      
+      // Calcular posición vertical
+      let topPosition: number;
+      if (showAbove) {
+        // Mostrar arriba del input
+        topPosition = inputRect.top + scrollTop - calendarEstimatedHeight - 4; // 4px de margen
+        // Asegurar que no se salga por arriba
+        if (topPosition < scrollTop) {
+          topPosition = scrollTop + 4;
+        }
+      } else {
+        // Mostrar debajo del input
+        topPosition = inputRect.bottom + scrollTop + 4; // 4px de margen
+      }
+      
+      // Calcular posición horizontal (ajustar si se sale por la derecha)
+      let leftPosition = inputRect.left + scrollLeft;
+      const calendarWidth = Math.max(inputRect.width, 300); // Ancho mínimo del calendario
+      
+      // Si se sale por la derecha, ajustar
+      if (leftPosition + calendarWidth > scrollLeft + viewportWidth) {
+        leftPosition = scrollLeft + viewportWidth - calendarWidth - 4;
+      }
+      
+      // Si se sale por la izquierda, ajustar
+      if (leftPosition < scrollLeft) {
+        leftPosition = scrollLeft + 4;
+      }
+      
+      return {
+        top: topPosition,
+        left: leftPosition,
+        width: Math.min(calendarWidth, viewportWidth - 8)
+      };
+    };
+    
     // Crear contenedor para el calendario si no existe
     if (!calendarContainer) {
       calendarContainer = document.createElement('div');
       calendarContainer.className = 'ubits-calendar-picker-container';
-      calendarContainer.style.cssText = 'position: absolute; top: 100%; left: 0; right: 0; z-index: 1000; margin-top: 4px; display: none;';
-      container.style.position = 'relative';
-      container.appendChild(calendarContainer);
+      
+      // Calcular posición inicial
+      const position = calculateCalendarPosition();
+      
+      calendarContainer.style.cssText = `
+        position: fixed;
+        top: ${position.top}px;
+        left: ${position.left}px;
+        width: ${position.width}px;
+        z-index: 9999;
+        display: none;
+        background: var(--ubits-bg-1, #ffffff);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: var(--ubits-border-radius-lg, 8px);
+        border: 1px solid var(--ubits-border-1, #e0e0e0);
+      `;
+      
+      // Agregar al body en lugar del contenedor para evitar problemas de overflow
+      document.body.appendChild(calendarContainer);
+      
+      // Actualizar posición cuando se hace scroll o resize
+      const updatePosition = () => {
+        const position = calculateCalendarPosition();
+        calendarContainer!.style.top = `${position.top}px`;
+        calendarContainer!.style.left = `${position.left}px`;
+        calendarContainer!.style.width = `${position.width}px`;
+      };
+      
+      window.addEventListener('scroll', updatePosition, true);
+      window.addEventListener('resize', updatePosition);
+      
+      // Guardar función de actualización
+      (calendarContainer as any)._updatePosition = updatePosition;
+    } else {
+      // Si el contenedor ya existe, actualizar su posición
+      const position = calculateCalendarPosition();
+      calendarContainer.style.top = `${position.top}px`;
+      calendarContainer.style.left = `${position.left}px`;
+      calendarContainer.style.width = `${position.width}px`;
     }
 
     // Si el calendario ya existe, solo mostrarlo
     if (calendarInstance) {
+      // Actualizar posición antes de mostrar usando la función de cálculo inteligente
+      if ((calendarContainer as any)._updatePosition) {
+        (calendarContainer as any)._updatePosition();
+      } else {
+        // Fallback si no existe la función
+        const inputRect = inputElement.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+        const viewportHeight = window.innerHeight;
+        const spaceBelow = viewportHeight - inputRect.bottom;
+        const spaceAbove = inputRect.top;
+        const showAbove = spaceBelow < 250 && spaceAbove > spaceBelow;
+        
+        if (showAbove) {
+          calendarContainer.style.top = `${inputRect.top + scrollTop - 350 - 4}px`;
+        } else {
+          calendarContainer.style.top = `${inputRect.bottom + scrollTop + 4}px`;
+        }
+        calendarContainer.style.left = `${inputRect.left + scrollLeft}px`;
+        calendarContainer.style.width = `${Math.max(inputRect.width, 300)}px`;
+      }
+      
       // Verificar si el elemento ya está en el contenedor
       if (calendarContainer.contains(calendarInstance.element)) {
         calendarContainer.style.display = 'block';
@@ -890,21 +1605,30 @@ function createCalendarPicker(container: HTMLElement, inputElement: HTMLInputEle
     isCreatingCalendar = true;
 
     // Cargar el módulo de calendar dinámicamente
+    console.log('📅 [Calendar Picker showCalendar] Loading CalendarProvider module...');
     try {
       const calendarModule = await import('../../calendar/src/CalendarProvider');
+      console.log('📅 [Calendar Picker showCalendar] ✅ CalendarProvider module loaded:', calendarModule);
       const { createCalendar } = calendarModule;
+      console.log('📅 [Calendar Picker showCalendar] createCalendar function:', !!createCalendar);
 
       // Obtener fecha inicial del input si existe
       const currentValue = inputElement.value;
       const initialDate = parseDate(currentValue) || new Date();
 
       // Crear instancia del calendario UBITS
+      console.log('📅 [Calendar Picker showCalendar] Creating Calendar instance...');
+      console.log('📅 [Calendar Picker showCalendar] Initial date:', initialDate);
+      console.log('📅 [Calendar Picker showCalendar] Selected date:', parseDate(currentValue));
+      
       calendarInstance = createCalendar({
         mode: 'single',
         selectedDate: parseDate(currentValue),
         initialDate: initialDate,
         onDateSelect: (date: Date) => {
+          console.log('📅 [Calendar Picker] Date selected:', date);
           const formattedDate = formatDate(date);
+          console.log('📅 [Calendar Picker] Formatted date:', formattedDate);
           inputElement.value = formattedDate;
           if (calendarContainer) {
             calendarContainer.style.display = 'none';
@@ -914,18 +1638,51 @@ function createCalendarPicker(container: HTMLElement, inputElement: HTMLInputEle
           }
         }
       });
+      
+      console.log('📅 [Calendar Picker showCalendar] ✅ Calendar instance created:', calendarInstance);
 
       // Limpiar el contenedor antes de agregar el calendario (por si acaso hay contenido previo)
       calendarContainer.innerHTML = '';
       
+      // Actualizar posición antes de mostrar usando la función de cálculo inteligente
+      if ((calendarContainer as any)._updatePosition) {
+        (calendarContainer as any)._updatePosition();
+      } else {
+        // Fallback si no existe la función
+        const inputRect = inputElement.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+        const viewportHeight = window.innerHeight;
+        const spaceBelow = viewportHeight - inputRect.bottom;
+        const spaceAbove = inputRect.top;
+        const showAbove = spaceBelow < 250 && spaceAbove > spaceBelow;
+        
+        if (showAbove) {
+          calendarContainer.style.top = `${inputRect.top + scrollTop - 350 - 4}px`;
+        } else {
+          calendarContainer.style.top = `${inputRect.bottom + scrollTop + 4}px`;
+        }
+        calendarContainer.style.left = `${inputRect.left + scrollLeft}px`;
+        calendarContainer.style.width = `${Math.max(inputRect.width, 300)}px`;
+      }
+      
       // Agregar el calendario al contenedor
+      console.log('📅 [Calendar Picker showCalendar] Appending calendar to container...');
       calendarContainer.appendChild(calendarInstance.element);
       calendarContainer.style.display = 'block';
+      console.log('📅 [Calendar Picker showCalendar] ✅ Calendar displayed');
+      console.log('📅 [Calendar Picker showCalendar] Calendar container:', calendarContainer);
+      console.log('📅 [Calendar Picker showCalendar] Calendar element:', calendarInstance.element);
       
       // Resetear el flag
       isCreatingCalendar = false;
     } catch (error) {
-      console.error('❌ [Calendar Picker] Error cargando Calendar UBITS:', error);
+      console.error('❌ [Calendar Picker showCalendar] Error cargando Calendar UBITS:', error);
+      console.error('❌ [Calendar Picker showCalendar] Error details:', {
+        message: error instanceof Error ? error.message : String(error),
+        stack: error instanceof Error ? error.stack : undefined,
+        error
+      });
       // Fallback: mostrar mensaje de error
       if (calendarContainer) {
         calendarContainer.innerHTML = `<div style="padding: var(--ubits-spacing-lg, 16px); background: var(--modifiers-normal-color-light-bg-1); border: 1px solid var(--modifiers-normal-color-light-border-1); border-radius: var(--ubits-border-radius-lg, 8px); color: var(--modifiers-normal-color-light-fg-1-high);">Error al cargar el calendario</div>`;
@@ -935,20 +1692,28 @@ function createCalendarPicker(container: HTMLElement, inputElement: HTMLInputEle
       isCreatingCalendar = false;
     }
   };
+  
+  console.log('📅 [Calendar Picker] ✅ createCalendarPicker function initialized');
 
   // Event listeners para mostrar/ocultar el calendario
   // Usar click para inputs readonly (focus puede dispararse también, pero lo manejamos con un pequeño delay)
   let clickTimeout: ReturnType<typeof setTimeout> | null = null;
   
+  console.log('📅 [Calendar Picker] Attaching click event listener to input...');
   inputElement.addEventListener('click', (e) => {
+    console.log('📅 [Calendar Picker] ========== INPUT CLICK EVENT ==========');
+    console.log('📅 [Calendar Picker] Click event:', e);
+    console.log('📅 [Calendar Picker] Input element type:', inputElement.type);
     e.preventDefault();
     e.stopPropagation();
     // Limpiar timeout si existe
     if (clickTimeout) {
       clearTimeout(clickTimeout);
     }
+    console.log('📅 [Calendar Picker] Calling showCalendar()...');
     showCalendar();
   });
+  console.log('📅 [Calendar Picker] ✅ Click event listener attached');
 
   inputElement.addEventListener('focus', (e) => {
     e.preventDefault();
@@ -973,7 +1738,8 @@ function createCalendarPicker(container: HTMLElement, inputElement: HTMLInputEle
 
   // Cerrar calendario al hacer clic fuera
   document.addEventListener('click', (e) => {
-    if (calendarContainer && !container.contains(e.target as Node)) {
+    const target = e.target as Node;
+    if (calendarContainer && !container.contains(target) && !calendarContainer.contains(target)) {
       calendarContainer.style.display = 'none';
     }
   });

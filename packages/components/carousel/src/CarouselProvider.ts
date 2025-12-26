@@ -55,7 +55,7 @@ export function renderCarousel(options: CarouselOptions): string {
   ].filter(Boolean).join(' ');
 
   return `
-    <div class="${classes}" ${dataAttrs} style="--carousel-gap: ${gap}px;">
+    <div class="${classes}" ${dataAttrs} style="--carousel-gap: ${gap}px;" data-ubits-id="🧩-ux-carousel">
       <div class="ubits-carousel__content-wrapper">
         ${showArrows ? renderPrevArrow() : ''}
         <div class="ubits-carousel__container">
@@ -154,6 +154,11 @@ export function createCarousel(options: CarouselOptions): HTMLElement {
   const carousel = container.firstElementChild as HTMLElement;
 
   if (carousel) {
+    // Agregar data-ubits-id si no está presente
+    if (!carousel.hasAttribute('data-ubits-id')) {
+      carousel.setAttribute('data-ubits-id', '🧩-ux-carousel');
+    }
+    
     // Usar requestAnimationFrame para asegurar que el DOM esté listo
     // Esto es más compatible con Storybook que setTimeout
     requestAnimationFrame(() => {

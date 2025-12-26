@@ -17,28 +17,42 @@
     width: 100%;
     max-height: 400px;
     font-family: var(--font-family-noto-sans-font-family, var(--font-sans, 'Noto Sans', sans-serif));
-    /* Scrollbar styling */
+    box-sizing: border-box;
+    padding: 0; /* Asegurar que no haya padding por defecto */
+    margin: 0; /* Asegurar que no haya margin por defecto */
+    /* Scrollbar styling - por defecto oculto, se mostrará solo si no se usa scrollbar UBITS */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE y Edge */
+}
+
+/* Ocultar scrollbar nativo en WebKit (Chrome, Safari, Edge) */
+.ubits-list::-webkit-scrollbar {
+    display: none;
+}
+
+/* Clase para mostrar scrollbar nativo cuando showScrollbar es false */
+.ubits-list--show-native-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: var(--modifiers-normal-color-light-fg-2-medium) var(--modifiers-normal-color-light-bg-3);
 }
 
-/* WebKit scrollbar (Chrome, Safari, Edge) */
-.ubits-list::-webkit-scrollbar {
+.ubits-list--show-native-scrollbar::-webkit-scrollbar {
+    display: block;
     width: 8px;
 }
 
-.ubits-list::-webkit-scrollbar-track {
+.ubits-list--show-native-scrollbar::-webkit-scrollbar-track {
     background: var(--modifiers-normal-color-light-bg-3) !important;
     border-radius: var(--ubits-border-radius-xs, 6px);
 }
 
-.ubits-list::-webkit-scrollbar-thumb {
+.ubits-list--show-native-scrollbar::-webkit-scrollbar-thumb {
     background: var(--modifiers-normal-color-light-fg-2-medium) !important;
     border-radius: var(--ubits-border-radius-xs, 6px);
     transition: background 0.2s ease;
 }
 
-.ubits-list::-webkit-scrollbar-thumb:hover {
+.ubits-list--show-native-scrollbar::-webkit-scrollbar-thumb:hover {
     background: var(--modifiers-normal-color-light-fg-2-high) !important;
 }
 

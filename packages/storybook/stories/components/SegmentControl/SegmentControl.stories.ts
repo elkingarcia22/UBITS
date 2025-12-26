@@ -64,9 +64,31 @@ const meta = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: "window.UBITS.SegmentControl.create(document.getElementById('segment-control-container'), {\\n  containerId: 'segment-control-container',\\n  segments: [\\n    { id: 'segment1', label: 'Segment 1', icon: 'home' },\\n    { id: 'segment2', label: 'Segment 2', icon: 'user' }\\n  ],\\n  activeSegmentId: 'segment1',\\n  onSegmentChange: function(segmentId) {}\\n});",
-				basic: "window.UBITS.SegmentControl.create(document.getElementById('segment-control-container'), {\\n  containerId: 'segment-control-container',\\n  segments: [\\n    { id: 'segment1', label: 'Segment 1', icon: 'home' },\\n    { id: 'segment2', label: 'Segment 2', icon: 'user' }\\n  ],\\n  activeSegmentId: 'segment1'\\n});",
-				withoutIcons: "window.UBITS.SegmentControl.create(document.getElementById('segment-control-container'), {\\n  containerId: 'segment-control-container',\\n  segments: [\\n    { id: 'segment1', label: 'Segment 1' },\\n    { id: 'segment2', label: 'Segment 2' }\\n  ],\\n  activeSegmentId: 'segment1'\\n});",
+				canonical: `window.UBITS.SegmentControl.create(document.getElementById('segment-control-container'), {
+  containerId: 'segment-control-container',
+  segments: [
+    { id: 'segment1', label: 'Segment 1', icon: 'home' },
+    { id: 'segment2', label: 'Segment 2', icon: 'user' }
+  ],
+  activeSegmentId: 'segment1',
+  onSegmentChange: function(segmentId) {}
+});`,
+				basic: `window.UBITS.SegmentControl.create(document.getElementById('segment-control-container'), {
+  containerId: 'segment-control-container',
+  segments: [
+    { id: 'segment1', label: 'Segment 1', icon: 'home' },
+    { id: 'segment2', label: 'Segment 2', icon: 'user' }
+  ],
+  activeSegmentId: 'segment1'
+});`,
+				withoutIcons: `window.UBITS.SegmentControl.create(document.getElementById('segment-control-container'), {
+  containerId: 'segment-control-container',
+  segments: [
+    { id: 'segment1', label: 'Segment 1' },
+    { id: 'segment2', label: 'Segment 2' }
+  ],
+  activeSegmentId: 'segment1'
+});`,
 			},
 			variants: {
 				showIcons: [true, false],

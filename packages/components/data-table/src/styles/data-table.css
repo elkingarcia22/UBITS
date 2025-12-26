@@ -27,6 +27,40 @@
   background-color: var(--modifiers-normal-color-light-bg-1);
 }
 
+/* Botón Eliminar en DataTable - hover rojo (igual que FileUpload) */
+/* Aplica a todos los botones de acción, tanto en action bar como en filas */
+/* Mayor especificidad para sobrescribir estilos del botón base */
+
+/* Botones de acción en las filas (columnas de tipo 'acciones') */
+.ubits-data-table .ubits-data-table__action-button.ubits-button:hover:not(:disabled):not(.ubits-button--loading),
+.ubits-data-table .ubits-data-table__action-button.ubits-button--error:hover:not(:disabled):not(.ubits-button--loading),
+.ubits-data-table .ubits-data-table__action-button.ubits-button--primary:hover:not(:disabled):not(.ubits-button--loading),
+.ubits-data-table .ubits-data-table__action-button.ubits-button--secondary:hover:not(:disabled):not(.ubits-button--loading),
+.ubits-data-table__action-bar .ubits-data-table__action-button.ubits-button:hover:not(:disabled):not(.ubits-button--loading),
+.ubits-data-table__action-bar .ubits-data-table__action-button.ubits-button--error:hover:not(:disabled):not(.ubits-button--loading),
+.ubits-data-table__action-bar .ubits-data-table__action-button.ubits-button--primary:hover:not(:disabled):not(.ubits-button--loading),
+.ubits-data-table__action-bar .ubits-data-table__action-button.ubits-button--secondary:hover:not(:disabled):not(.ubits-button--loading),
+table .ubits-data-table__action-button.ubits-button:hover:not(:disabled):not(.ubits-button--loading),
+table .ubits-data-table__action-button.ubits-button--error:hover:not(:disabled):not(.ubits-button--loading),
+table .ubits-data-table__action-button.ubits-button--primary:hover:not(:disabled):not(.ubits-button--loading),
+table .ubits-data-table__action-button.ubits-button--secondary:hover:not(:disabled):not(.ubits-button--loading) {
+  background: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+  background-color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+  border-color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+  color: var(--modifiers-normal-color-light-fg-bold) !important;
+}
+
+/* Botón Eliminar en action bar (tiene ID action-btn-delete) */
+.ubits-data-table__action-bar #action-btn-delete.ubits-button:hover:not(:disabled):not(.ubits-button--loading),
+.ubits-data-table__action-bar #action-btn-delete.ubits-button--error:hover:not(:disabled):not(.ubits-button--loading),
+.ubits-data-table__action-bar #action-btn-delete.ubits-button--primary:hover:not(:disabled):not(.ubits-button--loading),
+.ubits-data-table__action-bar #action-btn-delete.ubits-button--secondary:hover:not(:disabled):not(.ubits-button--loading) {
+  background: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+  background-color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+  border-color: var(--modifiers-normal-color-light-feedback-accent-error) !important;
+  color: var(--modifiers-normal-color-light-fg-bold) !important;
+}
+
 /* ========================================
    DATA TABLE HEADER (título, contador, botones)
    ======================================== */
@@ -76,48 +110,79 @@
   gap: var(--ubits-spacing-xs);
   flex-shrink: 0;
   position: relative;
-  /* Permitir que el SearchButton se expanda hacia la izquierda */
   flex-wrap: nowrap;
-  padding-left: 0; /* Sin padding - pegado al borde izquierdo del contenedor azul */
-  padding-right: var(--ubits-spacing-md); /* Mantener padding derecho para alineación con el borde derecho */
+  padding-left: 0;
+  padding-right: var(--ubits-spacing-md);
+  /* Asegurar que los botones mantengan su posición */
+  justify-content: flex-end;
+  /* Espacio para el SearchButton cuando está activo (248px + gap) */
+  min-height: 40px;
 }
 
 .ubits-data-table__header-primary-button,
 .ubits-data-table__header-secondary-button {
   flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  /* Mantener posición fija, no se mueven */
 }
 
-.ubits-data-table__header-search-button {
+.ubits-data-table__header-filter-button,
+.ubits-data-table__header-column-selector-button {
   flex-shrink: 0;
   position: relative;
-  display: inline-flex;
-  align-items: center;
-  vertical-align: middle;
+  z-index: 2;
+  /* Mantener posición fija, no se mueven */
 }
 
-/* Cuando el SearchButton está activo, mantener posición relativa y expandir hacia la izquierda */
-.ubits-data-table__header-search-button.ubits-search-button--active {
+/* Contenedor del SearchButton - posicionado a la izquierda del botón de filtros */
+.ubits-data-table__header-search-button {
   position: relative;
-  /* El input se expandirá hacia la izquierda desde su posición original */
-  /* NO aplicar width fijo, dejar que el componente SearchButton maneje su propio ancho */
-  /* Usar margin-left negativo para compensar el ancho extra y mantener solo 8px de gap */
-  /* El cálculo debe basarse en el ancho real del componente cuando está activo */
-  margin-left: calc((248px - 32px - var(--ubits-spacing-xs)) * -1);
-  margin-right: 0;
-  /* Asegurar que el wrapper mantenga su posición relativa */
-  z-index: 1;
+  flex-shrink: 0;
+  z-index: 3;
+  /* Cuando no está activo, está en el flujo normal, justo antes del filter button */
 }
 
-/* Remover el width inline que viene del componente SearchButton */
+/* Cuando el SearchButton está activo, usar position absolute para no mover otros elementos */
 .ubits-data-table__header-search-button.ubits-search-button--active {
-  width: auto !important;
+  position: absolute !important;
+  /* La posición se calculará dinámicamente con JavaScript */
+  /* IMPORTANTE: right se establece dinámicamente con JavaScript, no usar right: 0 del SearchButton base */
+  /* right se sobrescribe con inline style desde JavaScript */
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 3;
+  /* El elemento crece hacia la izquierda desde su posición right fija */
+  /* No afecta el layout de otros elementos */
+  width: 248px !important;
+  min-width: 248px !important;
+  max-width: 248px !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  /* Desactivar scaleX para usar ancho real */
+  transform: translateY(-50%) !important;
+  /* El elemento está anclado desde la derecha, así que cuando crece, crece hacia la izquierda */
 }
 
-/* El input-wrapper debe tener el ancho deseado */
+/* Desactivar la animación scaleX del SearchButton cuando está en DataTable */
+.ubits-data-table__header-search-button.ubits-search-button--active.ubits-search-button--animating {
+  transform: translateY(-50%) !important;
+  opacity: 1 !important;
+  width: 248px !important;
+  /* No usar scaleX, solo ancho real */
+}
+
+/* Asegurar que el SearchButton no use scaleX cuando está en DataTable */
+.ubits-data-table__header-search-button.ubits-search-button--active {
+  /* Sobrescribir cualquier transform que incluya scaleX */
+  transform: translateY(-50%) !important;
+}
+
+/* El input-wrapper debe tener el ancho completo */
 .ubits-data-table__header-search-button.ubits-search-button--active .ubits-search-button__input-wrapper {
-  width: 248px;
-  min-width: 248px;
-  max-width: 248px;
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
 }
 
 .ubits-data-table__header-filter-button,
@@ -203,6 +268,16 @@
   .ubits-data-table__header-actions {
     width: 100%;
     flex-wrap: wrap;
+    position: relative;
+    min-height: 40px;
+  }
+  
+  /* En móvil, el SearchButton también debe mantenerse absoluto */
+  .ubits-data-table__header-search-button {
+    position: absolute !important;
+    right: var(--ubits-spacing-md) !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
   }
 }
 
@@ -385,22 +460,37 @@
     justify-content: center;
     width: 28px;
     height: 28px;
+    min-width: 28px;
+    min-height: 28px;
     cursor: grab;
     color: var(--modifiers-normal-button-color-light-brand-tertiary-fg);
-    padding: 8px;
+    padding: 0;
+    margin: 0;
     border-radius: var(--ubits-border-radius-sm);
     transition: background-color 0.2s ease, color 0.2s ease;
     user-select: none;
     flex-shrink: 0;
     box-sizing: border-box;
+    position: relative;
 }
 
 .ubits-data-table__row-drag-handle wa-icon,
 .ubits-data-table__row-drag-handle i {
-    font-size: 12px;
-    display: inline-block;
-    width: 12px;
-    height: 12px;
+    font-size: 14px !important;
+    display: block !important;
+    width: 14px !important;
+    height: 14px !important;
+    color: inherit !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    box-sizing: border-box !important;
+    text-align: center !important;
+    vertical-align: middle !important;
 }
 
 .ubits-data-table__row-drag-handle:active {
@@ -412,11 +502,6 @@
 .ubits-data-table__row-drag-handle:hover {
     background-color: var(--modifiers-normal-button-color-light-brand-tertiary-bg-hover);
     color: var(--modifiers-normal-button-color-light-brand-tertiary-fg);
-}
-
-.ubits-data-table__row-drag-handle wa-icon,
-.ubits-data-table__row-drag-handle i {
-    font-size: 14px;
 }
 
 /* Botón de expandir */
@@ -609,23 +694,183 @@
     border-left: 2px solid var(--modifiers-normal-color-light-accent-brand);
 }
 
+/* Fila que se está arrastrando - solo opacidad reducida, sin shadow ni otros efectos */
 .ubits-data-table__row--dragging {
-    opacity: 0.5;
+    opacity: 0.5 !important;
+    box-shadow: none !important;
+    background: inherit !important;
+    background-color: inherit !important;
+    transform: none !important;
+    transition: none !important;
+    filter: none !important;
+    border: inherit !important;
+    border-color: inherit !important;
+    outline: none !important;
 }
 
-.ubits-data-table__row--drag-over {
-    background: var(--modifiers-normal-color-light-bg-active), var(--modifiers-normal-color-light-bg-1) !important;
-    border-top: 2px solid var(--modifiers-normal-color-light-accent-brand);
+/* Desactivar hover cuando se está arrastrando */
+.ubits-data-table__row--dragging:hover {
+    background: inherit !important;
+    background-color: inherit !important;
+    box-shadow: none !important;
+    transform: none !important;
+    filter: none !important;
+    opacity: 0.5 !important;
 }
+
+/* Desactivar TODOS los efectos en las celdas cuando se está arrastrando */
+.ubits-data-table__row--dragging .ubits-data-table__cell,
+.ubits-data-table__row--dragging:hover .ubits-data-table__cell,
+.ubits-data-table__row--dragging .ubits-data-table__cell--checkbox,
+.ubits-data-table__row--dragging:hover .ubits-data-table__cell--checkbox,
+.ubits-data-table__row--dragging .ubits-data-table__cell--drag-handle,
+.ubits-data-table__row--dragging:hover .ubits-data-table__cell--drag-handle,
+.ubits-data-table__row--dragging .ubits-data-table__cell--expand,
+.ubits-data-table__row--dragging:hover .ubits-data-table__cell--expand,
+.ubits-data-table__row--dragging .ubits-data-table__controls-column,
+.ubits-data-table__row--dragging:hover .ubits-data-table__controls-column,
+.ubits-data-table__row--dragging .ubits-data-table__controls-wrapper,
+.ubits-data-table__row--dragging:hover .ubits-data-table__controls-wrapper {
+    background: inherit !important;
+    background-color: inherit !important;
+    box-shadow: none !important;
+    transform: none !important;
+    transition: none !important;
+    filter: none !important;
+}
+
+/* Fila objetivo donde se va a insertar - solo mostrar línea guía azul (igual que columnas) */
+.ubits-data-table__row--drag-over {
+    background: inherit !important;
+    background-color: inherit !important;
+    box-shadow: none !important;
+    transform: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    /* Asegurar que no haya efectos visuales adicionales */
+    border-left: inherit !important;
+    border-right: inherit !important;
+    border-top: inherit !important;
+    border-bottom: inherit !important;
+    border-color: inherit !important;
+    outline: none !important;
+    /* Prevenir cualquier desplazamiento físico */
+    margin: 0 !important;
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+    padding: inherit !important;
+    position: relative !important; /* Necesario para posicionar el ::before */
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+/* Desactivar TODOS los efectos visuales cuando es fila objetivo (hover, shadow, etc.) */
+.ubits-data-table__row--drag-over:hover {
+    background: inherit !important;
+    background-color: inherit !important;
+    box-shadow: none !important;
+    transform: none !important;
+    filter: none !important;
+    border-left: inherit !important;
+    border-right: inherit !important;
+    border-top: inherit !important;
+    border-bottom: inherit !important;
+    border-color: inherit !important;
+    /* Prevenir desplazamiento en hover también */
+    margin: 0 !important;
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+    padding: inherit !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+}
+
+/* Mantener la línea guía azul en hover también */
+.ubits-data-table__row--drag-over:hover::before {
+    content: '' !important;
+    display: block !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 2px !important;
+    background-color: var(--modifiers-normal-color-light-accent-brand) !important;
+    z-index: 10 !important;
+    pointer-events: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Desactivar efectos en todas las celdas y elementos hijos (pero NO en ::before) */
+.ubits-data-table__row--drag-over .ubits-data-table__cell,
+.ubits-data-table__row--drag-over:hover .ubits-data-table__cell,
+.ubits-data-table__row--drag-over .ubits-data-table__cell--checkbox,
+.ubits-data-table__row--drag-over:hover .ubits-data-table__cell--checkbox,
+.ubits-data-table__row--drag-over .ubits-data-table__cell--drag-handle,
+.ubits-data-table__row--drag-over:hover .ubits-data-table__cell--drag-handle,
+.ubits-data-table__row--drag-over .ubits-data-table__cell--expand,
+.ubits-data-table__row--drag-over:hover .ubits-data-table__cell--expand,
+.ubits-data-table__row--drag-over .ubits-data-table__controls-column,
+.ubits-data-table__row--drag-over:hover .ubits-data-table__controls-column,
+.ubits-data-table__row--drag-over .ubits-data-table__controls-wrapper,
+.ubits-data-table__row--drag-over:hover .ubits-data-table__controls-wrapper {
+    background: inherit !important;
+    background-color: inherit !important;
+    box-shadow: none !important;
+    transform: none !important;
+    transition: none !important;
+    filter: none !important;
+    /* Prevenir desplazamiento en celdas */
+    margin: 0 !important;
+    padding: inherit !important;
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+/* Línea guía azul usando pseudo-elemento ::before (no se ve afectado por border-collapse) */
+.ubits-data-table__row--drag-over::before {
+    content: '' !important;
+    display: block !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 2px !important;
+    background-color: var(--modifiers-normal-color-light-accent-brand) !important;
+    z-index: 10 !important;
+    pointer-events: none !important;
+    /* Asegurar que esté por encima de todo */
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* La línea guía azul ya está definida arriba con !important */
 
 /* Fallback para iconos */
 /* El botón de ordenar ahora tiene ambas clases (column-drag-handle y column-sort), así que hereda los estilos del drag handle */
-.ubits-data-table__column-drag-handle wa-icon,
-.ubits-data-table__row-drag-handle wa-icon {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
+/* NOTA: Los estilos de posicionamiento absoluto ya están definidos arriba para wa-icon e i dentro de los drag handles */
 
 .ubits-data-table__column-drag-handle i,
 .ubits-data-table__row-drag-handle i {
@@ -661,6 +906,81 @@
     background-color: var(--modifiers-normal-color-light-bg-2);
 }
 
+/* Desactivar transición y hover cuando tiene drag-over - mayor especificidad */
+.ubits-data-table__row.ubits-data-table__row--drag-over {
+    transition: none !important;
+    background: inherit !important;
+    background-color: inherit !important;
+    box-shadow: none !important;
+    transform: none !important;
+    filter: none !important;
+    border-left: inherit !important;
+    border-right: inherit !important;
+    border-top: inherit !important;
+    border-bottom: inherit !important;
+    border-color: inherit !important;
+    outline: none !important;
+    opacity: 1 !important;
+    /* Prevenir cualquier desplazamiento físico - mayor especificidad */
+    margin: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: inherit !important;
+    position: relative !important; /* Necesario para posicionar el ::before */
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+.ubits-data-table__row.ubits-data-table__row--drag-over:hover {
+    background: inherit !important;
+    background-color: inherit !important;
+    box-shadow: none !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+    border-left: inherit !important;
+    border-right: inherit !important;
+    border-top: inherit !important;
+    border-bottom: inherit !important;
+    border-color: inherit !important;
+    /* Prevenir desplazamiento en hover también */
+    margin: 0 !important;
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+    padding: inherit !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+}
+
+/* Mantener la línea guía azul en hover también */
+.ubits-data-table__row.ubits-data-table__row--drag-over:hover::before {
+    content: '' !important;
+    display: block !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 2px !important;
+    background-color: var(--modifiers-normal-color-light-accent-brand) !important;
+    z-index: 10 !important;
+    pointer-events: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
 /* Asegurar que todas las celdas cambien de color simultáneamente al hacer hover en la fila */
 .ubits-data-table__row:hover .ubits-data-table__cell,
 .ubits-data-table__row:hover .ubits-data-table__cell--checkbox,
@@ -669,6 +989,37 @@
 .ubits-data-table__row:hover .ubits-data-table__controls-column {
     background-color: var(--modifiers-normal-color-light-bg-2) !important;
     transition: background-color 0.2s ease;
+}
+
+/* Desactivar hover en celdas cuando la fila tiene drag-over - mayor especificidad */
+.ubits-data-table__row.ubits-data-table__row--drag-over .ubits-data-table__cell,
+.ubits-data-table__row.ubits-data-table__row--drag-over:hover .ubits-data-table__cell,
+.ubits-data-table__row.ubits-data-table__row--drag-over .ubits-data-table__cell--checkbox,
+.ubits-data-table__row.ubits-data-table__row--drag-over:hover .ubits-data-table__cell--checkbox,
+.ubits-data-table__row.ubits-data-table__row--drag-over .ubits-data-table__cell--drag-handle,
+.ubits-data-table__row.ubits-data-table__row--drag-over:hover .ubits-data-table__cell--drag-handle,
+.ubits-data-table__row.ubits-data-table__row--drag-over .ubits-data-table__cell--expand,
+.ubits-data-table__row.ubits-data-table__row--drag-over:hover .ubits-data-table__cell--expand,
+.ubits-data-table__row.ubits-data-table__row--drag-over .ubits-data-table__controls-column,
+.ubits-data-table__row.ubits-data-table__row--drag-over:hover .ubits-data-table__controls-column,
+.ubits-data-table__row.ubits-data-table__row--drag-over .ubits-data-table__controls-wrapper,
+.ubits-data-table__row.ubits-data-table__row--drag-over:hover .ubits-data-table__controls-wrapper {
+    background: inherit !important;
+    background-color: inherit !important;
+    box-shadow: none !important;
+    transform: none !important;
+    transition: none !important;
+    filter: none !important;
+    /* Prevenir desplazamiento en celdas - mayor especificidad */
+    margin: 0 !important;
+    padding: inherit !important;
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: auto !important;
+    height: auto !important;
 }
 
 /* Forzar limpieza del hover cuando la fila tiene la clase de limpieza */
@@ -1490,8 +1841,10 @@
 
 /* El contenedor del dropdown no debe tener fondo ni sombra, el List lo maneja */
 /* IMPORTANTE: Asegurar que el List también tenga z-index alto para quedar por encima de columnas fijadas */
+/* CRÍTICO: NO usar overflow: hidden aquí porque corta el box-shadow del List */
 .ubits-data-table__column-menu-dropdown {
-    overflow: hidden !important; /* Prevenir que el contenido se salga */
+    overflow: visible !important; /* Permitir que el shadow sea visible */
+    padding: 2px !important; /* Agregar padding para que el shadow no se corte */
 }
 
 .ubits-data-table__column-menu-dropdown .ubits-list {
@@ -1506,6 +1859,8 @@
     box-sizing: border-box !important;
     overflow-x: hidden !important; /* Prevenir scroll horizontal */
     overflow-y: auto !important; /* Permitir scroll vertical si es necesario */
+    /* Asegurar que el shadow sea visible */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* Asegurar que los items de la lista no se salgan del contenedor */

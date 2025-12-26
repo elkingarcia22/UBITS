@@ -109,8 +109,9 @@
 .ubits-slider--vertical .ubits-slider-track {
   width: 4px; /* MANTENER MEDIDA ORIGINAL */
   min-width: 4px; /* MANTENER MEDIDA ORIGINAL */
-  min-height: 100px; /* MANTENER MEDIDA ORIGINAL */
+  min-height: 200px; /* MANTENER MEDIDA ORIGINAL - aumentar para que sea visible */
   height: 100%;
+  flex: 1;
 }
 
 /* Sizes */
@@ -207,17 +208,17 @@
 }
 
 .ubits-slider--vertical .ubits-slider-thumb {
-  top: 100%;
+  top: 0%;
   left: 50%;
-  transform: translate(-50%, 50%);
+  transform: translate(-50%, -50%);
 }
 
 .ubits-slider--vertical .ubits-slider-thumb:hover:not(:disabled) {
-  transform: translate(-50%, 50%) scale(1.1);
+  transform: translate(-50%, -50%) scale(1.1);
 }
 
 .ubits-slider--vertical .ubits-slider-thumb:active:not(:disabled) {
-  transform: translate(-50%, 50%) scale(1.05);
+  transform: translate(-50%, -50%) scale(1.05);
 }
 
 .ubits-slider-thumb--disabled {
@@ -340,6 +341,13 @@
   flex: 1 1 auto;
   min-width: 0; /* Permite que flex funcione correctamente */
   position: relative;
+}
+
+/* En vertical, el track-container debe tener altura */
+.ubits-slider--vertical .ubits-slider-track-container {
+  height: 100%;
+  min-height: 200px;
+  flex: 1;
 }
 
 /* El track debe tener el mismo tamaño independientemente del modo */

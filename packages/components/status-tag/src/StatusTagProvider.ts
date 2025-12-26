@@ -154,7 +154,7 @@ export function renderStatusTag(options: StatusTagOptions = {} as StatusTagOptio
   `.trim();
 
   return `
-    <span class="${classes}" style="${inlineStyles}" data-status="${status}">
+    <span class="${classes}" style="${inlineStyles}" data-status="${status}" data-ubits-id="🧩-ux-status-tag">
       ${leftIconHTML}
       <span class="ubits-status-tag-label">${label}</span>
       ${rightIconHTML}
@@ -169,6 +169,15 @@ export function createStatusTag(options: StatusTagOptions = {} as StatusTagOptio
   const div = document.createElement('div');
   div.innerHTML = renderStatusTag(options);
   const tag = div.querySelector('.ubits-status-tag') as HTMLSpanElement;
+  
+  if (!tag) {
+    throw new Error('Failed to create status tag element');
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!tag.hasAttribute('data-ubits-id')) {
+    tag.setAttribute('data-ubits-id', '🧩-ux-status-tag');
+  }
   
   // Agregar event listener si es clickeable
   if (options.clickable && options.onClick) {

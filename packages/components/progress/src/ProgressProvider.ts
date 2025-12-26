@@ -88,7 +88,7 @@ export function renderProgressBar(options: ProgressOptions): string {
   }
 
   return `
-    <div class="${classes}" style="height: ${sizeConfig.height}px;">
+    <div class="${classes}" style="height: ${sizeConfig.height}px;" data-ubits-id="🧩-ux-progress-bar">
       <div class="ubits-progress-bar__container">
         ${progressIndicatorHtml}
       </div>
@@ -116,6 +116,11 @@ export function createProgressBar(options: ProgressOptions): {
 
   if (!progressBarElement) {
     throw new Error('No se pudo crear el progress bar');
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!progressBarElement.hasAttribute('data-ubits-id')) {
+    progressBarElement.setAttribute('data-ubits-id', '🧩-ux-progress-bar');
   }
 
   let container: HTMLElement;

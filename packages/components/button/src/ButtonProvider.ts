@@ -176,7 +176,7 @@ export function renderButton(options: ButtonOptions): string {
 
   // Renderizar HTML completo
   return `
-    <button class="${classes}" ${attrs} ${titleAttr}>
+    <button class="${classes}" ${attrs} ${titleAttr} data-ubits-id="🧩-ux-button">
       ${content}
       ${badgeHTML}
     </button>
@@ -196,6 +196,11 @@ export function createButton(options: ButtonOptions): HTMLButtonElement {
   
   if (!button) {
     throw new Error('Failed to create button element');
+  }
+
+  // Agregar data-ubits-id si no está presente (por si acaso)
+  if (!button.hasAttribute('data-ubits-id')) {
+    button.setAttribute('data-ubits-id', '🧩-ux-button');
   }
 
   // Adjuntar event listeners si existe onClick

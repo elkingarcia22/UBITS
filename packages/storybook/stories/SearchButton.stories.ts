@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { renderSearchButton } from '../../components/search-button/src/SearchButtonProvider';
+import { renderSearchButton, createSearchButton } from '../../components/search-button/src/SearchButtonProvider';
 import type { SearchButtonOptions } from '../../components/search-button/src/types/SearchButtonOptions';
-// Importar CSS del botón UBITS (necesario para el modo botón)
+// Importar CSS del bot?n UBITS (necesario para el modo bot?n)
 import '../../components/button/src/styles/button.css';
 // Importar CSS del Search Button (necesario para el modo input)
 import '../../components/search-button/src/styles/search-button.css';
@@ -12,7 +12,7 @@ const meta: Meta<SearchButtonOptions> = {
   parameters: {
     docs: {
       description: {
-        component: 'Componente Search Button UBITS con modo botón e input. Cuando está activo, muestra un campo de búsqueda con icono. Cuando no está activo, muestra solo un botón con icono de lupa. Usa tokens UBITS exclusivamente.',
+        component: 'Componente Search Button UBITS con modo bot?n e input. Cuando est? activo, muestra un campo de b?squeda con icono. Cuando no est? activo, muestra solo un bot?n con icono de lupa. Usa tokens UBITS exclusivamente.',
       },
     },
     layout: 'centered',
@@ -20,7 +20,7 @@ const meta: Meta<SearchButtonOptions> = {
   argTypes: {
     active: {
       control: { type: 'boolean' },
-      description: 'Si el botón está en modo activo (muestra input)',
+      description: 'Si el bot?n est? en modo activo (muestra input)',
       table: {
         defaultValue: { summary: 'false' },
         category: 'Estado',
@@ -29,7 +29,7 @@ const meta: Meta<SearchButtonOptions> = {
     size: {
       control: { type: 'select' },
       options: ['sm', 'md'],
-      description: 'Tamaño del botón (sm: 32px, md: 40px)',
+      description: 'Tama?o del bot?n (sm: 32px, md: 40px)',
       table: {
         defaultValue: { summary: 'md' },
         type: { summary: 'sm | md' },
@@ -39,7 +39,7 @@ const meta: Meta<SearchButtonOptions> = {
     state: {
       control: { type: 'select' },
       options: ['default', 'hover', 'active', 'disabled'],
-      description: 'Estado del botón',
+      description: 'Estado del bot?n',
       table: {
         defaultValue: { summary: 'default' },
         type: { summary: 'default | hover | active | disabled' },
@@ -48,7 +48,7 @@ const meta: Meta<SearchButtonOptions> = {
     },
     disabled: {
       control: { type: 'boolean' },
-      description: 'Si el botón está deshabilitado',
+      description: 'Si el bot?n est? deshabilitado',
       table: {
         defaultValue: { summary: 'false' },
         category: 'Estado',
@@ -56,7 +56,7 @@ const meta: Meta<SearchButtonOptions> = {
     },
     placeholder: {
       control: { type: 'text' },
-      description: 'Placeholder del input cuando está activo',
+      description: 'Placeholder del input cuando est? activo',
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: '' },
@@ -65,7 +65,7 @@ const meta: Meta<SearchButtonOptions> = {
     },
     value: {
       control: { type: 'text' },
-      description: 'Valor del input cuando está activo',
+      description: 'Valor del input cuando est? activo',
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: '' },
@@ -74,7 +74,7 @@ const meta: Meta<SearchButtonOptions> = {
     },
     width: {
       control: { type: 'number' },
-      description: 'Ancho del input cuando está activo (en px)',
+      description: 'Ancho del input cuando est? activo (en px)',
       table: {
         type: { summary: 'number' },
         defaultValue: { summary: '248' },
@@ -83,28 +83,28 @@ const meta: Meta<SearchButtonOptions> = {
     },
     onChange: {
       action: 'changed',
-      description: 'Función a ejecutar cuando cambia el valor del input',
+      description: 'Funci?n a ejecutar cuando cambia el valor del input',
       table: {
         disable: true,
       },
     },
     onClick: {
       action: 'clicked',
-      description: 'Función a ejecutar cuando se hace click en el botón',
+      description: 'Funci?n a ejecutar cuando se hace click en el bot?n',
       table: {
         disable: true,
       },
     },
     onFocus: {
       action: 'focused',
-      description: 'Función a ejecutar cuando el input recibe focus',
+      description: 'Funci?n a ejecutar cuando el input recibe focus',
       table: {
         disable: true,
       },
     },
     onBlur: {
       action: 'blurred',
-      description: 'Función a ejecutar cuando el input pierde focus',
+      description: 'Funci?n a ejecutar cuando el input pierde focus',
       table: {
         disable: true,
       },
@@ -118,6 +118,38 @@ const meta: Meta<SearchButtonOptions> = {
         category: 'Avanzado',
       },
     },
+    showFilterButton: {
+      control: { type: 'boolean' },
+      description: 'Mostrar botón de filtro al lado derecho del SearchButton',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+        category: 'Acciones',
+      },
+    },
+    showCreateButton: {
+      control: { type: 'boolean' },
+      description: 'Mostrar botón de crear al lado derecho del SearchButton',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+        category: 'Acciones',
+      },
+    },
+    onFilterClick: {
+      action: 'filter-clicked',
+      description: 'Callback cuando se hace click en el botón de filtro',
+      table: {
+        disable: true,
+      },
+    },
+    onCreateClick: {
+      action: 'create-clicked',
+      description: 'Callback cuando se hace click en el botón de crear',
+      table: {
+        disable: true,
+      },
+    },
   },
 };
 
@@ -126,133 +158,235 @@ type Story = StoryObj<SearchButtonOptions>;
 
 export const Default: Story = {
   args: {
-    active: false,
+    active: true,
     size: 'md',
-    state: 'default',
+    state: 'active',
     disabled: false,
-    placeholder: '',
+    placeholder: 'Buscar...',
     value: '',
     width: 248,
     className: '',
+    showFilterButton: false,
+    showCreateButton: false,
   },
   render: (args) => {
+    // SIMPLIFICAR: Crear contenedor y agregar botones directamente
     const container = document.createElement('div');
     container.style.padding = '20px';
     container.style.display = 'flex';
     container.style.alignItems = 'center';
-    container.style.justifyContent = 'center';
+    container.style.justifyContent = 'flex-end';
+    container.style.gap = '12px';
     container.style.minHeight = '100px';
+    container.style.width = '100%';
+    container.style.position = 'relative';
+    container.style.boxSizing = 'border-box';
+    container.style.overflow = 'visible';
 
-      // Estado interno para manejar el toggle
-      let isActive = args.active !== undefined ? args.active : false;
-      let currentValue = args.value || '';
-      let currentState = args.state || 'default';
+    // Estado interno para manejar el toggle
+    let isActive = args.active !== undefined ? args.active : false;
+    let currentValue = args.value || '';
+    let currentState = args.state || 'default';
 
-      const renderSearchComponent = () => {
+    // Crear contenedor para el SearchButton
+    const searchButtonContainer = document.createElement('div');
+    searchButtonContainer.id = 'searchbutton-container';
+    searchButtonContainer.style.display = 'flex';
+    searchButtonContainer.style.justifyContent = 'flex-end';
+    searchButtonContainer.style.alignItems = 'center';
+    searchButtonContainer.style.position = 'relative';
+    searchButtonContainer.style.width = 'auto';
+    searchButtonContainer.style.minWidth = '40px'; // Ancho mínimo para el botón (md)
+    searchButtonContainer.style.flexShrink = '0';
+    searchButtonContainer.style.flexGrow = '0';
+
+    // Crear botones de filtro secundarios al lado izquierdo del SearchButton
+    const filterButton1 = document.createElement('button');
+    filterButton1.className = 'ubits-button ubits-button--secondary ubits-button--md';
+    filterButton1.innerHTML = '<i class="far fa-filter"></i>';
+    filterButton1.setAttribute('aria-label', 'Filtro');
+    filterButton1.style.marginRight = '8px';
+    filterButton1.style.flexShrink = '0';
+    filterButton1.style.display = 'inline-flex';
+    filterButton1.style.alignItems = 'center';
+    filterButton1.style.justifyContent = 'center';
+    
+    const filterButton2 = document.createElement('button');
+    filterButton2.className = 'ubits-button ubits-button--secondary ubits-button--md';
+    filterButton2.innerHTML = '<i class="far fa-sliders-h"></i>';
+    filterButton2.setAttribute('aria-label', 'Opciones');
+    filterButton2.style.marginRight = '8px';
+    filterButton2.style.flexShrink = '0';
+    filterButton2.style.display = 'inline-flex';
+    filterButton2.style.alignItems = 'center';
+    filterButton2.style.justifyContent = 'center';
+    
+    // Crear icono al lado derecho del SearchButton
+    const rightIcon = document.createElement('button');
+    rightIcon.className = 'ubits-button ubits-button--secondary ubits-button--md ubits-button--icon-only';
+    rightIcon.innerHTML = '<i class="far fa-bell"></i>';
+    rightIcon.setAttribute('aria-label', 'Notificaciones');
+    rightIcon.style.marginLeft = '8px';
+    rightIcon.style.flexShrink = '0';
+    rightIcon.style.display = 'inline-flex';
+    rightIcon.style.alignItems = 'center';
+    rightIcon.style.justifyContent = 'center';
+
+    // Variable para mantener la instancia del SearchButton
+    let searchButtonInstance: { element: HTMLElement; destroy: () => void; update: (options: Partial<SearchButtonOptions>) => void } | null = null;
+
+    const renderSearchComponent = () => {
       // Si state es 'active', el buscador está desplegado
       const isSearchActive = isActive || currentState === 'active';
       
-      const searchHTML = renderSearchButton({
-        active: isSearchActive,
-        size: args.size || 'md',
-        state: currentState,
-        disabled: args.disabled !== undefined ? args.disabled : false,
-        placeholder: args.placeholder || '',
-        value: currentValue,
-        width: args.width || 248,
-        className: args.className || '',
-      });
+      // VERIFICACIÓN: Verificar que los botones estén en el contenedor ANTES de renderizar
+      console.log('[Story] 🔵🔵🔵 renderSearchComponent CALLED 🔵🔵🔵');
+      console.log('[Story] 🔵 Container children BEFORE render:', container.children.length);
+      console.log('[Story] 🔵 Container children list:', Array.from(container.children).map((c, i) => ({
+        index: i,
+        tag: c.tagName,
+        id: c.id || 'no-id',
+        className: c.className || 'no-class'
+      })));
+      
+      // Limpiar instancia anterior si existe
+      if (searchButtonInstance) {
+        searchButtonInstance.destroy();
+        searchButtonInstance = null;
+      }
 
-      container.innerHTML = searchHTML;
-
-      // Agregar interactividad: click en botón para desplegar input
-      if (!isSearchActive) {
-        const buttonElement = container.querySelector('button') as HTMLButtonElement;
-        if (buttonElement) {
-          buttonElement.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            isActive = true;
-            currentState = 'active';
+      // Limpiar solo el contenedor del SearchButton
+      searchButtonContainer.innerHTML = '';
+      
+      // Crear el SearchButton usando createSearchButton para que el posicionamiento funcione correctamente
+      try {
+        searchButtonInstance = createSearchButton({
+          active: isSearchActive,
+          size: args.size || 'md',
+          state: currentState,
+          disabled: args.disabled !== undefined ? args.disabled : false,
+          placeholder: args.placeholder || '',
+          value: currentValue,
+          width: args.width || 248,
+          className: args.className || '',
+          showFilterButton: args.showFilterButton !== undefined ? args.showFilterButton : false,
+          showCreateButton: args.showCreateButton !== undefined ? args.showCreateButton : false,
+          container: searchButtonContainer,
+          onChange: (e) => {
+            const target = e.target as HTMLInputElement;
+            currentValue = target.value;
+            if (args.onChange) {
+              args.onChange(e);
+            }
+          },
+          onClick: (e) => {
             if (args.onClick) {
               args.onClick(e);
             }
-            renderSearchComponent();
-            // Focus en el input después de un pequeño delay
-            setTimeout(() => {
-              const inputElement = container.querySelector('.ubits-search-button__input') as HTMLInputElement;
-              if (inputElement) {
-                inputElement.focus();
-              }
-            }, 50);
-          });
-        }
-      } else {
-        // Si está activo, agregar listeners para contraer y limpiar
-        const inputElement = container.querySelector('.ubits-search-button__input') as HTMLInputElement;
-        const clearButton = container.querySelector('.ubits-search-button__clear') as HTMLButtonElement;
-        
-        if (inputElement) {
-          // Listener para mostrar/ocultar botón de limpiar cuando se escribe
-          inputElement.addEventListener('input', (e) => {
-            currentValue = inputElement.value;
-            if (args.onChange) {
-              args.onChange(e);
+          },
+          onFocus: (e) => {
+            if (args.onFocus) {
+              args.onFocus(e);
             }
-            // Solo actualizar el botón de limpiar sin regenerar todo el HTML
-            const clearButton = container.querySelector('.ubits-search-button__clear') as HTMLButtonElement;
-            if (currentValue && currentValue.trim().length > 0) {
-              // Mostrar botón de limpiar si no existe
-              if (!clearButton) {
-                const clearButtonHTML = `
-                  <button
-                    type="button"
-                    class="ubits-search-button__clear"
-                    aria-label="Limpiar búsqueda"
-                    tabindex="0"
-                  >
-                    <i class="far fa-times ubits-search-button__clear-icon" aria-hidden="true"></i>
-                  </button>
-                `;
-                const inputWrapper = container.querySelector('.ubits-search-button__input-wrapper');
-                if (inputWrapper) {
-                  inputWrapper.insertAdjacentHTML('beforeend', clearButtonHTML);
-                  const newClearButton = container.querySelector('.ubits-search-button__clear') as HTMLButtonElement;
-                  if (newClearButton) {
-                    newClearButton.addEventListener('click', (e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      currentValue = '';
-                      if (inputElement) {
-                        inputElement.value = '';
-                        inputElement.focus();
-                        if (args.onChange) {
-                          const event = new Event('input', { bubbles: true });
-                          inputElement.dispatchEvent(event);
-                        }
-                      }
-                      // Ocultar botón de limpiar
-                      if (newClearButton) {
-                        newClearButton.remove();
-                      }
-                    });
-                  }
-                }
+          },
+          onBlur: (e) => {
+            if (args.onBlur) {
+              args.onBlur(e);
+            }
+          },
+          onFilterClick: (e) => {
+            if (args.onFilterClick) {
+              args.onFilterClick(e);
+            }
+          },
+          onCreateClick: (e) => {
+            if (args.onCreateClick) {
+              args.onCreateClick(e);
+            }
+          },
+          onFilterClick: (e) => {
+            if (args.onFilterClick) {
+              args.onFilterClick(e);
+            }
+          },
+          onCreateClick: (e) => {
+            if (args.onCreateClick) {
+              args.onCreateClick(e);
+            }
+          }
+        });
+        
+        console.log('[Story] Implementation render - args:', args);
+        console.log('[Story] Implementation - Search button instance created:', {
+          element: searchButtonInstance.element,
+          destroy: searchButtonInstance.destroy,
+          update: searchButtonInstance.update
+        });
+        
+        // LOG SIMPLE para verificar que el código continúa ejecutándose
+        console.log('[Story] ✅ LOG AFTER createSearchButton - CODE CONTINUES');
+        
+        // VERIFICACIÓN CRÍTICA: Verificar botones DESPUÉS de crear SearchButton
+        try {
+          console.log('[Story] ✅✅✅ CHECKING BUTTONS AFTER createSearchButton ✅✅✅');
+          const parentContainer = searchButtonContainer.parentElement;
+          console.log('[Story] ✅ parentContainer:', parentContainer ? 'exists' : 'null');
+          
+          if (parentContainer) {
+            console.log('[Story] ✅ Parent container exists, has', parentContainer.children.length, 'children');
+            console.log('[Story] ✅ Parent children:', Array.from(parentContainer.children).map((c, i) => ({
+              index: i,
+              tag: c.tagName,
+              id: c.id || 'no-id',
+              className: c.className || 'no-class'
+            })));
+            
+            // Verificar botones - verificar que las variables existan primero
+            console.log('[Story] ✅ Checking if button variables exist:', {
+              filterButton1: typeof filterButton1 !== 'undefined',
+              filterButton2: typeof filterButton2 !== 'undefined',
+              rightIcon: typeof rightIcon !== 'undefined'
+            });
+            
+            if (typeof filterButton1 !== 'undefined' && typeof filterButton2 !== 'undefined' && typeof rightIcon !== 'undefined') {
+              const hasFilter1 = Array.from(parentContainer.children).includes(filterButton1);
+              const hasFilter2 = Array.from(parentContainer.children).includes(filterButton2);
+              const hasRightIcon = Array.from(parentContainer.children).includes(rightIcon);
+              const hasSearchContainer = Array.from(parentContainer.children).includes(searchButtonContainer);
+              
+              console.log('[Story] ✅ Button presence:', {
+                filter1: hasFilter1,
+                filter2: hasFilter2,
+                rightIcon: hasRightIcon,
+                searchContainer: hasSearchContainer,
+                totalChildren: parentContainer.children.length
+              });
+              
+              if (!hasFilter1 || !hasFilter2 || !hasRightIcon) {
+                console.error('[Story] ❌❌❌ ERROR: Buttons missing! filter1:', hasFilter1, 'filter2:', hasFilter2, 'rightIcon:', hasRightIcon);
+              } else {
+                console.log('[Story] ✅✅✅ ALL BUTTONS PRESENT IN CONTAINER ✅✅✅');
               }
             } else {
-              // Ocultar botón de limpiar si existe
-              if (clearButton) {
-                clearButton.remove();
-              }
+              console.error('[Story] ❌ ERROR: Button variables not defined in scope!');
             }
-          });
-          
-          inputElement.addEventListener('change', (e) => {
-            if (args.onChange) {
-              args.onChange(e);
-            }
-          });
-          
+          } else {
+            console.error('[Story] ❌ searchButtonContainer has no parent!');
+          }
+        } catch (err) {
+          console.error('[Story] ❌❌❌ ERROR checking buttons:', err);
+          console.error('[Story] ❌ Error stack:', err instanceof Error ? err.stack : 'No stack');
+        }
+      } catch (error) {
+        console.error('[Story] Error creating search button:', error);
+      }
+
+      // Agregar interactividad usando la instancia del SearchButton
+      // El SearchButton ya maneja los clicks y eventos internamente
+      // Solo necesitamos agregar l?gica adicional para ESC y blur
+      if (searchButtonInstance && isSearchActive) {
+        const inputElement = searchButtonContainer.querySelector('.ubits-search-button__input') as HTMLInputElement;
+        if (inputElement) {
           // ESC para contraer
           inputElement.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
@@ -264,12 +398,9 @@ export const Default: Story = {
             }
           });
           
-          // Blur para contraer cuando se hace click fuera (si el input está vacío)
+          // Blur para contraer cuando se hace click fuera (si el input est? vac?o)
           inputElement.addEventListener('blur', (e) => {
-            if (args.onBlur) {
-              args.onBlur(e);
-            }
-            // Solo contraer si el input está vacío
+            // Solo contraer si el input est? vac?o
             if (!inputElement.value.trim()) {
               setTimeout(() => {
                 if (document.activeElement !== inputElement && !inputElement.value.trim()) {
@@ -280,80 +411,172 @@ export const Default: Story = {
               }, 200);
             }
           });
-          
-          if (args.onFocus) {
-            inputElement.addEventListener('focus', (e) => {
-              if (args.onFocus) {
-                args.onFocus(e);
-              }
-            });
-          }
-        }
-        
-        // Botón de limpiar (X)
-        if (clearButton) {
-          clearButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            currentValue = '';
-            if (inputElement) {
-              inputElement.value = '';
-              inputElement.focus();
-              if (args.onChange) {
-                const event = new Event('input', { bubbles: true });
-                inputElement.dispatchEvent(event);
-              }
-            }
-            // Re-renderizar para ocultar el botón X
-            renderSearchComponent();
-          });
         }
       }
     };
+
+    // Agregar elementos al contenedor principal en orden: filtros -> SearchButton -> icono
+    // IMPORTANTE: Agregar los botones ANTES de llamar a renderSearchComponent
+    container.appendChild(filterButton1);
+    container.appendChild(filterButton2);
+    container.appendChild(searchButtonContainer);
+    container.appendChild(rightIcon);
+    
+    // LOG SIMPLE después de agregar botones
+    console.log('[Story] ✅ BUTTONS APPENDED - Container has', container.children.length, 'children');
 
     // Renderizar inicialmente
     renderSearchComponent();
-
-    // Actualizar cuando cambian los args
-    let lastArgs = JSON.stringify(args);
-    const checkArgs = setInterval(() => {
-      const currentArgs = JSON.stringify(args);
-      if (currentArgs !== lastArgs) {
-        lastArgs = currentArgs;
-        // Sincronizar el estado interno con los args
-        if (args.active !== undefined) {
-          isActive = args.active;
-        }
-        if (args.state !== undefined) {
-          currentState = args.state;
-        }
-        if (args.value !== undefined) {
-          currentValue = args.value;
-        }
-        renderSearchComponent();
-      }
-    }, 100);
-
-    // Limpiar interval cuando se destruye el componente
-    const cleanup = () => {
-      clearInterval(checkArgs);
-    };
     
-    // Usar MutationObserver para detectar cuando el container se elimina
-    const observer = new MutationObserver(() => {
-      if (!document.body.contains(container)) {
-        cleanup();
-        observer.disconnect();
+    // Logs para debug
+    console.log('[Story] Container children:', container.children.length);
+    console.log('[Story] Container state after render:', {
+      containerChildren: container.children.length,
+      containerChildrenDetails: Array.from(container.children).map((child, index) => ({
+        index: index,
+        tagName: child.tagName,
+        className: child.className,
+        id: child.id,
+        innerHTML: child.innerHTML.substring(0, 100),
+        isVisible: {
+          display: window.getComputedStyle(child as HTMLElement).display !== 'none',
+          visibility: window.getComputedStyle(child as HTMLElement).visibility !== 'hidden',
+          opacity: window.getComputedStyle(child as HTMLElement).opacity !== '0',
+          width: window.getComputedStyle(child as HTMLElement).width,
+          height: window.getComputedStyle(child as HTMLElement).height
+        },
+        computedStyles: {
+          display: window.getComputedStyle(child as HTMLElement).display,
+          visibility: window.getComputedStyle(child as HTMLElement).visibility,
+          opacity: window.getComputedStyle(child as HTMLElement).opacity,
+          width: window.getComputedStyle(child as HTMLElement).width,
+          height: window.getComputedStyle(child as HTMLElement).height,
+          marginLeft: window.getComputedStyle(child as HTMLElement).marginLeft,
+          marginRight: window.getComputedStyle(child as HTMLElement).marginRight,
+          position: window.getComputedStyle(child as HTMLElement).position
+        }
+      })),
+      searchButtonContainerChildren: searchButtonContainer.children.length,
+      searchButtonContainerDetails: {
+        tagName: searchButtonContainer.tagName,
+        className: searchButtonContainer.className,
+        id: searchButtonContainer.id,
+        children: Array.from(searchButtonContainer.children).map(child => ({
+          tagName: child.tagName,
+          className: child.className
+        }))
+      },
+      filterButton1State: {
+        parent: filterButton1.parentElement,
+        inDOM: document.body.contains(filterButton1),
+        display: window.getComputedStyle(filterButton1).display,
+        visibility: window.getComputedStyle(filterButton1).visibility,
+        opacity: window.getComputedStyle(filterButton1).opacity
+      },
+      filterButton2State: {
+        parent: filterButton2.parentElement,
+        inDOM: document.body.contains(filterButton2),
+        display: window.getComputedStyle(filterButton2).display,
+        visibility: window.getComputedStyle(filterButton2).visibility,
+        opacity: window.getComputedStyle(filterButton2).opacity
+      },
+      rightIconState: {
+        parent: rightIcon.parentElement,
+        inDOM: document.body.contains(rightIcon),
+        display: window.getComputedStyle(rightIcon).display,
+        visibility: window.getComputedStyle(rightIcon).visibility,
+        opacity: window.getComputedStyle(rightIcon).opacity
       }
     });
     
+    // Verificar después de un pequeño delay para asegurar que el DOM se haya actualizado
+    setTimeout(() => {
+      console.log('[Story] ========== DELAYED CHECK (100ms) ==========');
+      console.log('[Story] Delayed container check:', {
+        containerInDOM: document.body.contains(container),
+        containerChildren: container.children.length,
+        allChildrenVisible: Array.from(container.children).every(child => {
+          const styles = window.getComputedStyle(child as HTMLElement);
+          return styles.display !== 'none' && 
+                 styles.visibility !== 'hidden' && 
+                 styles.opacity !== '0' &&
+                 parseFloat(styles.width) > 0 &&
+                 parseFloat(styles.height) > 0;
+        }),
+        childrenDetails: Array.from(container.children).map((child, index) => {
+          const styles = window.getComputedStyle(child as HTMLElement);
+          const rect = child.getBoundingClientRect();
+          return {
+            index: index,
+            tagName: child.tagName,
+            className: child.className,
+            id: child.id,
+            innerHTML: child.innerHTML.substring(0, 50),
+            visible: styles.display !== 'none' && 
+                     styles.visibility !== 'hidden' && 
+                     styles.opacity !== '0',
+            rect: {
+              width: rect.width,
+              height: rect.height,
+              top: rect.top,
+              left: rect.left,
+              right: rect.right,
+              bottom: rect.bottom
+            },
+            styles: {
+              display: styles.display,
+              visibility: styles.visibility,
+              opacity: styles.opacity,
+              width: styles.width,
+              height: styles.height,
+              marginLeft: styles.marginLeft,
+              marginRight: styles.marginRight
+            }
+          };
+        })
+      });
+    }, 100);
+    
+    // Actualizar cuando cambian los args
+      let lastArgs = JSON.stringify(args);
+      const checkArgs = setInterval(() => {
+        const currentArgs = JSON.stringify(args);
+        if (currentArgs !== lastArgs) {
+          lastArgs = currentArgs;
+          // Sincronizar el estado interno con los args
+          if (args.active !== undefined) {
+            isActive = args.active;
+          }
+          if (args.state !== undefined) {
+            currentState = args.state;
+          }
+          if (args.value !== undefined) {
+            currentValue = args.value;
+          }
+          renderSearchComponent();
+        }
+      }, 100);
+
+      // Limpiar interval cuando se destruye el componente
+      const cleanup = () => {
+        clearInterval(checkArgs);
+      };
+      
+      // Usar MutationObserver para detectar cuando el container se elimina
+      const observer = new MutationObserver(() => {
+        if (!document.body.contains(container)) {
+          cleanup();
+          observer.disconnect();
+        }
+      });
+      
     observer.observe(document.body, { childList: true, subtree: true });
 
     return container;
   },
 };
 
-// Helper para renderizar Search Button de manera consistente (versión simplificada para historias estáticas)
+// Helper para renderizar Search Button de manera consistente (versi?n simplificada para historias est?ticas)
 function renderSearchButtonStory(options: SearchButtonOptions) {
   const container = document.createElement('div');
   container.style.cssText = `
@@ -379,7 +602,7 @@ function renderSearchButtonStory(options: SearchButtonOptions) {
 
   container.innerHTML = searchHTML;
 
-  // Agregar event listeners básicos
+  // Agregar event listeners b?sicos
   const buttonElement = container.querySelector('button') as HTMLButtonElement;
   const inputElement = container.querySelector('.ubits-search-button__input') as HTMLInputElement;
   const clearButton = container.querySelector('.ubits-search-button__clear') as HTMLButtonElement;
@@ -421,7 +644,7 @@ function renderSearchButtonStory(options: SearchButtonOptions) {
 
 /**
  * ModeButton
- * Modo botón (no activo)
+ * Modo bot?n (no activo)
  */
 export const ModeButton: Story = {
   name: 'Mode - Button',
@@ -438,7 +661,7 @@ export const ModeButton: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Search button en modo botón (no activo, muestra solo el botón con icono de lupa).',
+        story: 'Search button en modo bot?n (no activo, muestra solo el bot?n con icono de lupa).',
       },
     },
   },
@@ -463,7 +686,7 @@ export const ModeInput: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Search button en modo input (activo, muestra el campo de búsqueda).',
+        story: 'Search button en modo input (activo, muestra el campo de b?squeda).',
       },
     },
   },
@@ -471,7 +694,7 @@ export const ModeInput: Story = {
 
 /**
  * SizeSM
- * Tamaño sm
+ * Tama?o sm
  */
 export const SizeSM: Story = {
   name: 'Size - SM',
@@ -488,7 +711,7 @@ export const SizeSM: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Search button con tamaño sm (32px).',
+        story: 'Search button con tama?o sm (32px).',
       },
     },
   },
@@ -496,7 +719,7 @@ export const SizeSM: Story = {
 
 /**
  * SizeMD
- * Tamaño md (default)
+ * Tama?o md (default)
  */
 export const SizeMD: Story = {
   name: 'Size - MD',
@@ -513,7 +736,7 @@ export const SizeMD: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Search button con tamaño md (40px, default).',
+        story: 'Search button con tama?o md (40px, default).',
       },
     },
   },
@@ -588,7 +811,7 @@ export const StateActive: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Search button en estado active (despliega el input automáticamente).',
+        story: 'Search button en estado active (despliega el input autom?ticamente).',
       },
     },
   },
@@ -631,14 +854,14 @@ export const ActiveWithValue: Story = {
     state: 'active',
     disabled: false,
     placeholder: 'Buscar...',
-    value: 'Texto de búsqueda',
+    value: 'Texto de b?squeda',
     width: 248
   },
   render: (args) => renderSearchButtonStory(args),
   parameters: {
     docs: {
       description: {
-        story: 'Search button activo con valor en el input (muestra botón de limpiar).',
+        story: 'Search button activo con valor en el input (muestra bot?n de limpiar).',
       },
     },
   },
@@ -663,7 +886,7 @@ export const ActiveWithoutValue: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Search button activo sin valor en el input (no muestra botón de limpiar).',
+        story: 'Search button activo sin valor en el input (no muestra bot?n de limpiar).',
       },
     },
   },
@@ -671,7 +894,7 @@ export const ActiveWithoutValue: Story = {
 
 /**
  * ActiveWithClearButton
- * Activo con botón de limpiar visible
+ * Activo con bot?n de limpiar visible
  */
 export const ActiveWithClearButton: Story = {
   name: 'Active - With Clear Button',
@@ -688,7 +911,7 @@ export const ActiveWithClearButton: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Search button activo con botón de limpiar visible (cuando hay texto en el input).',
+        story: 'Search button activo con bot?n de limpiar visible (cuando hay texto en el input).',
       },
     },
   },
@@ -838,14 +1061,14 @@ export const OnClickCallback: Story = {
     value: '',
     width: 248,
     onClick: (event: MouseEvent) => {
-      console.log('Botón clickeado:', event);
+      console.log('Bot?n clickeado:', event);
     }
   },
   render: (args) => renderSearchButtonStory(args),
   parameters: {
     docs: {
       description: {
-        story: 'Search button en modo botón con callback onClick cuando se hace click.',
+        story: 'Search button en modo bot?n con callback onClick cuando se hace click.',
       },
     },
   },
@@ -909,7 +1132,7 @@ export const OnBlurCallback: Story = {
 
 /**
  * AllSizes
- * Todos los tamaños
+ * Todos los tama?os
  */
 export const AllSizes: Story = {
   name: 'All Sizes',
@@ -960,7 +1183,7 @@ export const AllSizes: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Search buttons en todos los tamaños disponibles (sm, md).',
+        story: 'Search buttons en todos los tama?os disponibles (sm, md).',
       },
     },
   },
@@ -1037,14 +1260,14 @@ export const CompleteExample: Story = {
     state: 'active',
     disabled: false,
     placeholder: 'Buscar usuarios, productos...',
-    value: 'Texto de búsqueda',
+    value: 'Texto de b?squeda',
     width: 300,
     onChange: (event: Event) => {
       const target = event.target as HTMLInputElement;
       console.log('Valor cambiado:', target.value);
     },
     onClick: (event: MouseEvent) => {
-      console.log('Botón clickeado:', event);
+      console.log('Bot?n clickeado:', event);
     },
     onFocus: (event: FocusEvent) => {
       console.log('Input enfocado:', event);
@@ -1065,7 +1288,7 @@ export const CompleteExample: Story = {
 
 /**
  * MinimalExample
- * Ejemplo mínimo
+ * Ejemplo m?nimo
  */
 export const MinimalExample: Story = {
   name: 'Minimal Example',
@@ -1082,7 +1305,7 @@ export const MinimalExample: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Search button mínimo con solo las opciones esenciales (modo botón, tamaño md, estado default).',
+        story: 'Search button m?nimo con solo las opciones esenciales (modo bot?n, tama?o md, estado default).',
       },
     },
   },

@@ -261,7 +261,7 @@ export function renderProgressGeneralCard(options: ProgressGeneralCardOptions): 
     : '';
 
   return `
-    <div class="${classes}" ${attrs}>
+    <div class="${classes}" ${attrs} data-ubits-id="🧩-ux-progress-general-card">
       ${titleHTML}
       <div class="ubits-progress-general-card__content">
         ${circularProgressHTML}
@@ -299,6 +299,11 @@ export function createProgressGeneralCard(
   if (!cardElement) {
     console.error('❌ [ProgressGeneralCard] No se pudo crear el elemento de la tarjeta');
     return null;
+  }
+  
+  // Agregar data-ubits-id si no está presente
+  if (!cardElement.hasAttribute('data-ubits-id')) {
+    cardElement.setAttribute('data-ubits-id', '🧩-ux-progress-general-card');
   }
   
   // Agregar event listeners

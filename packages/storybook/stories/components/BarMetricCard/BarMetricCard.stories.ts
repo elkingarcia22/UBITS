@@ -72,7 +72,7 @@ const meta: Meta<
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: `createBarMetricCard(document.getElementById('bar-metric-card-container'), {
+				canonical: `createBarMetricCard({
   containerId: 'bar-metric-card-container',
   title: 'Metricas',
   barData: [10, 20, 30],
@@ -80,7 +80,7 @@ const meta: Meta<
     { label: 'Category 1', current: 10, total: 100 }
   ]
 });`,
-				basic: `createBarMetricCard(document.getElementById('bar-metric-card-container'), {
+				basic: `createBarMetricCard({
   containerId: 'bar-metric-card-container',
   title: 'Metricas',
   barData: [10, 20, 30],
@@ -88,7 +88,7 @@ const meta: Meta<
     { label: 'Category 1', current: 10, total: 100 }
   ]
 });`,
-				horizontal: `createBarMetricCard(document.getElementById('bar-metric-card-container'), {
+				horizontal: `createBarMetricCard({
   containerId: 'bar-metric-card-container',
   title: 'Metricas',
   barData: [10, 20, 30],
@@ -97,7 +97,7 @@ const meta: Meta<
   ],
   layout: 'horizontal'
 });`,
-				withResponseCount: `createBarMetricCard(document.getElementById('bar-metric-card-container'), {
+				withResponseCount: `createBarMetricCard({
   containerId: 'bar-metric-card-container',
   title: 'Metricas',
   barData: [10, 20, 30],

@@ -138,7 +138,7 @@ export function renderSidebar(options: SidebarOptions): string {
   ` : '';
 
   return `
-    <aside class="${containerClasses}" id="ubits-sidebar" ${containerAttrs}>
+    <aside class="${containerClasses}" id="ubits-sidebar" ${containerAttrs} data-ubits-id="🧩-ux-sidebar">
       <div class="ubits-sidebar-main">
         <div class="ubits-sidebar-header">
           <div class="ubits-sidebar-logo" data-href="${finalLogoHref}">
@@ -420,6 +420,8 @@ function initDarkModeToggle(sidebarElement: HTMLElement, options: SidebarOptions
  * Crea un sidebar interactivo en el DOM
  */
 export function createSidebar(options: SidebarOptions): HTMLElement {
+  console.log('🔵 [SidebarProvider] createSidebar llamado', { containerId: options.containerId });
+  
   const {
     containerId,
     bodyButtons,
@@ -428,8 +430,11 @@ export function createSidebar(options: SidebarOptions): HTMLElement {
 
   const container = document.getElementById(containerId);
   if (!container) {
+    console.error(`❌ [SidebarProvider] Contenedor ${containerId} no encontrado`);
     throw new Error(`Container with id "${containerId}" not found`);
   }
+
+  console.log('🟢 [SidebarProvider] Contenedor encontrado:', containerId, 'Element:', container);
 
   // Asegurar que el contenedor tenga position relative para el menú de perfil
   const containerStyle = window.getComputedStyle(container);
@@ -438,9 +443,12 @@ export function createSidebar(options: SidebarOptions): HTMLElement {
   }
 
   const sidebarHTML = renderSidebar(options);
+  console.log('🟢 [SidebarProvider] HTML generado, longitud:', sidebarHTML.length);
   container.innerHTML = sidebarHTML;
+  console.log('🟢 [SidebarProvider] HTML insertado en contenedor, innerHTML length:', container.innerHTML.length);
 
   const sidebarElement = container.querySelector('.ubits-sidebar') as HTMLElement;
+  console.log('🟡 [SidebarProvider] Buscando .ubits-sidebar en contenedor, encontrado:', !!sidebarElement);
   
   // Asegurar que el menú de perfil esté dentro del contenedor si existe
   const menuElement = document.getElementById('ubits-sidebar-profile-menu');
@@ -455,8 +463,31 @@ export function createSidebar(options: SidebarOptions): HTMLElement {
   }
   
   if (!sidebarElement) {
+    console.error('❌ [SidebarProvider] No se encontró .ubits-sidebar después de insertar HTML');
+    console.error('❌ [SidebarProvider] Contenedor innerHTML:', container.innerHTML.substring(0, 200));
     throw new Error('Failed to create sidebar element');
   }
+
+  // Agregar data-ubits-id si no está presente
+  if (!sidebarElement.hasAttribute('data-ubits-id')) {
+    sidebarElement.setAttribute('data-ubits-id', '🧩-ux-sidebar');
+  }
+  
+  console.log('🟢 [SidebarProvider] Sidebar element encontrado:', sidebarElement);
+
+  // Forzar display: flex para sobrescribir media queries que puedan ocultarlo
+  sidebarElement.style.display = 'flex';
+  // Cambiar position de fixed a relative para que funcione dentro del contenedor en Storybook
+  sidebarElement.style.position = 'relative';
+  sidebarElement.style.left = 'auto';
+  sidebarElement.style.top = 'auto';
+  
+  console.log('🟢 [SidebarProvider] Estilos aplicados al sidebar:', {
+    display: sidebarElement.style.display,
+    position: sidebarElement.style.position,
+    left: sidebarElement.style.left,
+    top: sidebarElement.style.top
+  });
 
   // Ajustar altura
   if (height) {

@@ -124,7 +124,7 @@ export function renderDrawer(options: DrawerOptions): string {
   // Overlay + Drawer HTML completo
   return `
     <div class="ubits-drawer-overlay">
-      <div class="${classes}">
+      <div class="${classes}" data-ubits-id="⚙️-functional-drawer">
         ${headerHTML}
         ${bodyHTML}
         ${footerHTML}
@@ -169,6 +169,11 @@ export function createDrawer(options: DrawerOptions): {
   const drawer = drawerOverlay.querySelector('.ubits-drawer') as HTMLElement;
   const closeButton = drawerOverlay.querySelector('.ubits-drawer__close') as HTMLButtonElement;
   const overlay = drawerOverlay as HTMLElement;
+
+  // Agregar data-ubits-id al drawer si no está presente
+  if (drawer && !drawer.hasAttribute('data-ubits-id')) {
+    drawer.setAttribute('data-ubits-id', '⚙️-functional-drawer');
+  }
 
   // Funciones de control
   const openDrawer = () => {

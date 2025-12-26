@@ -76,7 +76,7 @@ export function renderButtonAI(options: ButtonAIOptions): string {
   }
 
   const html = `
-    <button class="${classes}" ${attrs}>
+    <button class="${classes}" ${attrs} data-ubits-id="🧩-ux-button-ai">
       ${contentHTML}
       ${badgeHTML}
     </button>
@@ -96,6 +96,11 @@ export function createButtonAI(options: ButtonAIOptions): HTMLButtonElement | nu
   if (!button) {
     console.error('ButtonAI: No se pudo crear el botón');
     return null;
+  }
+
+  // Agregar data-ubits-id si no está presente
+  if (!button.hasAttribute('data-ubits-id')) {
+    button.setAttribute('data-ubits-id', '🧩-ux-button-ai');
   }
 
   // Agregar event listener si existe

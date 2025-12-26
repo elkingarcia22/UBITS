@@ -73,7 +73,7 @@ export function renderCheckbox(options: CheckboxOptions): string {
   `;
 
   return `
-    <label class="${classes}">
+    <label class="${classes}" data-ubits-id="🧩-ux-checkbox">
       ${checkboxInput}
       ${checkboxSquare}
       ${textContentHTML}
@@ -89,12 +89,22 @@ export function createCheckbox(options: CheckboxOptions): {
   destroy: () => void;
   update: (newOptions: Partial<CheckboxOptions>) => void;
 } {
-  const container = options.containerId 
-    ? document.getElementById(options.containerId)
-    : document.body;
+  // Priorizar container directo, luego containerId, luego document.body
+  let container: HTMLElement | null = null;
+  
+  if (options.container) {
+    container = options.container;
+  } else if (options.containerId) {
+    container = document.getElementById(options.containerId);
+    if (!container) {
+      throw new Error(`Container with id "${options.containerId}" not found`);
+    }
+  } else {
+    container = document.body;
+  }
 
   if (!container) {
-    throw new Error(`Container with id "${options.containerId}" not found`);
+    throw new Error('Container not found');
   }
 
   const checkboxHTML = renderCheckbox(options);
@@ -106,18 +116,153 @@ export function createCheckbox(options: CheckboxOptions): {
     throw new Error('Failed to create checkbox element');
   }
 
+  // Agregar data-ubits-id si no está presente
+  if (!element.hasAttribute('data-ubits-id')) {
+    element.setAttribute('data-ubits-id', '🧩-ux-checkbox');
+  }
+
   container.appendChild(element);
+
+  // Esperar un frame para que los estilos se apliquen
+  requestAnimationFrame(() => {
+    console.log('[Checkbox] Element created:', element);
+    console.log('[Checkbox] Element classes:', element.className);
+    console.log('[Checkbox] Element HTML:', element.outerHTML);
+    console.log('[Checkbox] Element computed styles:', {
+      position: window.getComputedStyle(element).position,
+      display: window.getComputedStyle(element).display,
+      width: window.getComputedStyle(element).width,
+      height: window.getComputedStyle(element).height
+    });
+  });
 
   // Agregar event listener para cambio
   const inputElement = element.querySelector('.ubits-checkbox__input') as HTMLInputElement;
+  console.log('[Checkbox] Input element found:', inputElement);
+  
   if (inputElement) {
+    console.log('[Checkbox] Input element details:', {
+      id: inputElement.id,
+      type: inputElement.type,
+      checked: inputElement.checked,
+      disabled: inputElement.disabled,
+      style: inputElement.style.cssText,
+      computedStyle: window.getComputedStyle(inputElement),
+      offsetWidth: inputElement.offsetWidth,
+      offsetHeight: inputElement.offsetHeight,
+      clientWidth: inputElement.clientWidth,
+      clientHeight: inputElement.clientHeight
+    });
+    
     // Aplicar estado indeterminado al input nativo si es necesario
     if (options.indeterminate) {
       inputElement.indeterminate = true;
     }
-    if (options.onChange) {
-      inputElement.addEventListener('change', options.onChange);
-    }
+    
+    // Agregar listener de click para debug
+    inputElement.addEventListener('click', (e) => {
+      console.log('[Checkbox] Input clicked!', {
+        checked: inputElement.checked,
+        event: e,
+        target: e.target
+      });
+    });
+    
+    // Función para actualizar el estado visual del checkbox
+    const updateVisualState = () => {
+      const square = element.querySelector('.ubits-checkbox__square') as HTMLElement;
+      const checkmark = square?.querySelector('.ubits-checkbox__checkmark');
+      const indeterminate = square?.querySelector('.ubits-checkbox__indeterminate');
+      
+      console.log('[Checkbox] Updating visual state:', {
+        checked: inputElement.checked,
+        indeterminate: inputElement.indeterminate,
+        hasCheckmark: !!checkmark,
+        hasIndeterminate: !!indeterminate
+      });
+      
+      if (!square) {
+        console.error('[Checkbox] Square element not found!');
+        return;
+      }
+      
+      // Actualizar clases
+      if (inputElement.checked) {
+        element.classList.add('ubits-checkbox--checked');
+        element.classList.remove('ubits-checkbox--indeterminate');
+      } else if (inputElement.indeterminate) {
+        element.classList.add('ubits-checkbox--indeterminate');
+        element.classList.remove('ubits-checkbox--checked');
+      } else {
+        element.classList.remove('ubits-checkbox--checked');
+        element.classList.remove('ubits-checkbox--indeterminate');
+      }
+      
+      // Actualizar HTML del checkmark/indeterminate
+      if (inputElement.indeterminate) {
+        // Remover checkmark si existe
+        if (checkmark) {
+          checkmark.remove();
+        }
+        // Agregar indeterminate si no existe
+        if (!indeterminate) {
+          const indeterminateEl = document.createElement('span');
+          indeterminateEl.className = 'ubits-checkbox__indeterminate';
+          square.appendChild(indeterminateEl);
+        }
+      } else if (inputElement.checked) {
+        // Remover indeterminate si existe
+        if (indeterminate) {
+          indeterminate.remove();
+        }
+        // Agregar checkmark si no existe
+        if (!checkmark) {
+          const checkmarkEl = document.createElement('span');
+          checkmarkEl.className = 'ubits-checkbox__checkmark';
+          square.appendChild(checkmarkEl);
+        }
+      } else {
+        // Remover ambos si no está checked ni indeterminate
+        if (checkmark) {
+          checkmark.remove();
+        }
+        if (indeterminate) {
+          indeterminate.remove();
+        }
+      }
+      
+      console.log('[Checkbox] Visual state updated. Square HTML:', square.innerHTML);
+    };
+    
+    // Agregar listener de change
+    inputElement.addEventListener('change', (e) => {
+      console.log('[Checkbox] Input changed!', {
+        checked: inputElement.checked,
+        indeterminate: inputElement.indeterminate,
+        event: e,
+        target: e.target
+      });
+      
+      updateVisualState();
+      
+      if (options.onChange) {
+        options.onChange(e);
+      }
+    });
+    
+    // Actualizar estado visual inicial
+    updateVisualState();
+    
+    // Agregar listener en el label también
+    element.addEventListener('click', (e) => {
+      console.log('[Checkbox] Label clicked!', {
+        target: e.target,
+        currentTarget: e.currentTarget,
+        inputChecked: inputElement.checked
+      });
+    });
+  } else {
+    console.error('[Checkbox] Input element NOT found!');
   }
 
   const destroy = () => {

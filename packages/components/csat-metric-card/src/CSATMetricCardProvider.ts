@@ -30,7 +30,7 @@ const FACES = [
  * Renderiza el gráfico de caritas (0-4, solo una seleccionada)
  * Score 1-5 se mapea a índices 0-4
  */
-function renderFacesRating(score: number): string {
+function renderFacesRating(score: number, clickable: boolean = false): string {
   const totalFaces = 5;
   // Mapear score 1-5 a índice 0-4
   const roundedScore = Math.round(score);
@@ -46,9 +46,10 @@ function renderFacesRating(score: number): string {
       ? 'ubits-csat-metric-card__face ubits-csat-metric-card__face--selected'
       : 'ubits-csat-metric-card__face ubits-csat-metric-card__face--empty';
     const faceColor = isSelected ? face.color : 'var(--modifiers-normal-color-light-border-1)';
+    const clickableClass = clickable ? 'ubits-csat-metric-card__face-wrapper--clickable' : '';
     
     facesHTML += `
-      <div class="ubits-csat-metric-card__face-wrapper">
+      <div class="ubits-csat-metric-card__face-wrapper ${clickableClass}" data-face-index="${i}" data-face-score="${i + 1}">
         <i class="far fa-${face.icon} ${faceClass}" style="color: ${faceColor};"></i>
         <span class="ubits-csat-metric-card__face-label">${face.label}</span>
       </div>
@@ -76,7 +77,8 @@ export function renderCSATMetricCard(options: CSATMetricCardOptions): string {
     showActionButton = false,
     size = 'md',
     className = '',
-    attributes = {}
+    attributes = {},
+    onFaceClick
   } = options;
 
   // Construir clases CSS
@@ -134,8 +136,8 @@ export function renderCSATMetricCard(options: CSATMetricCardOptions): string {
   // Formatear promedio con 2 decimales
   const formattedAverage = average.toFixed(2);
 
-  // Renderizar gráfico de caritas
-  const facesHTML = renderFacesRating(score);
+  // Renderizar gráfico de caritas (clickeable si hay onFaceClick)
+  const facesHTML = renderFacesRating(score, !!onFaceClick);
 
   return `
     <div class="${classes}" ${attrs}>
@@ -189,10 +191,55 @@ export function createCSATMetricCard(options: CSATMetricCardOptions & { containe
     console.error('❌ [CSATMetricCard] No se pudo crear el elemento de la tarjeta');
     return null;
   }
+
+  // Agregar data-ubits-id si no está presente
+  if (!cardElement.hasAttribute('data-ubits-id')) {
+    cardElement.setAttribute('data-ubits-id', '🧩-ux-csat-metric-card');
+  }
   
   // Agregar event listeners
   if (cardOptions.onClick) {
     cardElement.addEventListener('click', cardOptions.onClick);
+  }
+  
+  // Agregar event listeners a las caritas si hay onFaceClick
+  if (cardOptions.onFaceClick) {
+    const faceWrappers = cardElement.querySelectorAll('.ubits-csat-metric-card__face-wrapper');
+    
+    // Función para actualizar la selección visual
+    const updateFaceSelection = (selectedIndex: number) => {
+      faceWrappers.forEach((wrapper, i) => {
+        const faceIcon = wrapper.querySelector('i') as HTMLElement;
+        const face = FACES[i];
+        const isSelected = i === selectedIndex;
+        
+        // Actualizar clases
+        if (isSelected) {
+          faceIcon.className = `far fa-${face.icon} ubits-csat-metric-card__face ubits-csat-metric-card__face--selected`;
+          faceIcon.style.color = face.color;
+        } else {
+          faceIcon.className = `far fa-${face.icon} ubits-csat-metric-card__face ubits-csat-metric-card__face--empty`;
+          faceIcon.style.color = 'var(--modifiers-normal-color-light-border-1)';
+        }
+      });
+    };
+    
+    faceWrappers.forEach((wrapper) => {
+      const faceIndex = parseInt(wrapper.getAttribute('data-face-index') || '0', 10);
+      const faceScore = parseInt(wrapper.getAttribute('data-face-score') || '1', 10);
+      
+      wrapper.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('🟢 [CSATMetricCard] Carita clickeada', { faceIndex, faceScore });
+        
+        // Actualizar selección visual
+        updateFaceSelection(faceIndex);
+        
+        // Llamar al callback
+        cardOptions.onFaceClick!(faceIndex, faceScore);
+      });
+    });
   }
   
   console.log('✅ [CSATMetricCard] Tarjeta creada exitosamente');

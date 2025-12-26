@@ -63,6 +63,12 @@ export interface ListOptions {
   maxHeight?: string;
 
   /**
+   * Si se debe mostrar el scrollbar UBITS personalizado
+   * @default false
+   */
+  showScrollbar?: boolean;
+
+  /**
    * Callback cuando cambia la selección
    */
   onSelectionChange?: (selectedItem: ListItem | null, index: number | null) => void;

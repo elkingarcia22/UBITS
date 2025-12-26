@@ -73,7 +73,7 @@ export function renderSegmentControl(options: SegmentControlOptions): string {
   const containerClasses = ['ubits-segment-control', className].filter(Boolean).join(' ');
 
   return `
-    <div class="${containerClasses}">
+    <div class="${containerClasses}" data-ubits-id="🧩-ux-segment-control">
       ${segmentsHTML}
     </div>
   `.trim();
@@ -164,9 +164,14 @@ export function createSegmentControl(options: SegmentControlOptions, containerId
   
   container.innerHTML = renderSegmentControl(options);
   
+  // Agregar data-ubits-id al segment-control si existe
+  const segmentsElement = container.querySelector('.ubits-segment-control') as HTMLElement;
+  if (segmentsElement && !segmentsElement.hasAttribute('data-ubits-id')) {
+    segmentsElement.setAttribute('data-ubits-id', '🧩-ux-segment-control');
+  }
+  
   // Inicializar listeners - buscar el elemento .ubits-segment-control dentro del contenedor
   requestAnimationFrame(() => {
-    const segmentsElement = container.querySelector('.ubits-segment-control') as HTMLElement;
     if (segmentsElement) {
       initSegmentListeners(segmentsElement, options);
     } else {

@@ -11,11 +11,56 @@
    ======================================== */
 
 .ubits-search-button {
-    position: relative;
+    position: absolute !important;
+    right: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
     display: inline-flex;
     align-items: center;
-    transition: width 0.2s ease, opacity 0.2s ease;
+    justify-content: flex-end;
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     vertical-align: middle;
+    overflow: visible;
+    z-index: 10;
+    margin: 0 !important;
+    /* El SearchButton siempre usa position absolute para no afectar el layout */
+}
+
+/* Asegurar que el contenedor padre tenga flex y position relative */
+#searchbutton-container,
+[id*="searchbutton"] {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    position: relative !important; /* Necesario para que position absolute del SearchButton funcione */
+    width: auto !important; /* Ancho automático, no afecta el layout */
+    min-width: 40px !important; /* Ancho mínimo para el botón (md) */
+    flex-shrink: 0 !important; /* No se encoge */
+    flex-grow: 0 !important; /* No crece */
+    overflow: visible !important; /* Permitir que el SearchButton se expanda fuera del contenedor */
+}
+
+/* Cuando está activo, mantener position absolute (ya está definido en .ubits-search-button) */
+.ubits-search-button--active {
+    overflow: hidden;
+    transform-origin: right center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Estado inicial antes de la animación - oculto con scaleX(0) */
+.ubits-search-button--active.ubits-search-button--animating {
+    opacity: 0;
+    transform: translateY(-50%) scaleX(0) !important;
+    transform-origin: right center;
+    overflow: hidden;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* Asegurar que el wrapper interno no se distorsione durante la animación */
+.ubits-search-button--active .ubits-search-button__input-wrapper {
+    /* El wrapper interno se mantiene normal, solo el contenedor se anima */
+    width: 100%; /* Ocupar todo el ancho del contenedor animado */
 }
 
 /* ========================================
@@ -73,6 +118,19 @@
     /* Mantener alineación vertical consistente */
     vertical-align: middle;
     align-items: center;
+    gap: var(--ubits-spacing-xs);
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* Asegurar que el contenedor principal no tenga estilos de focus */
+.ubits-search-button--active:focus,
+.ubits-search-button--active:focus-within,
+.ubits-search-button--active:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
 }
 
 .ubits-search-button__input-wrapper {
@@ -91,18 +149,86 @@
     box-sizing: border-box;
     transition: all 0.2s ease;
     position: relative;
+    outline: none !important;
+    /* ELIMINAR COMPLETAMENTE el box-shadow - NUNCA debe tenerlo */
+    box-shadow: none !important;
 }
 
-.ubits-search-button__input-wrapper:focus-within {
-    outline: none;
-    box-shadow: 0px 0px 0px 4px var(--modifiers-normal-focus-color);
+/* ELIMINAR COMPLETAMENTE el box-shadow en TODOS los estados posibles */
+.ubits-search-button__input-wrapper:focus-within,
+.ubits-search-button__input-wrapper:focus,
+.ubits-search-button__input-wrapper:focus-visible,
+.ubits-search-button__input-wrapper:active,
+.ubits-search-button__input-wrapper:hover,
+.ubits-search-button__input-wrapper:not(:focus-within),
+.ubits-search-button__input-wrapper:not(:focus),
+.ubits-search-button__input-wrapper:not(:focus-visible) {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Reglas adicionales con mayor especificidad para asegurar que NO haya box-shadow */
+.ubits-search-button--active .ubits-search-button__input-wrapper,
+.ubits-search-button--active .ubits-search-button__input-wrapper:focus-within,
+.ubits-search-button--active .ubits-search-button__input-wrapper:focus,
+.ubits-search-button--active .ubits-search-button__input-wrapper:focus-visible,
+.ubits-search-button--active .ubits-search-button__input-wrapper:active,
+.ubits-search-button--active .ubits-search-button__input-wrapper:hover {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Asegurar que el contenedor principal NUNCA tenga box-shadow */
+.ubits-search-button--active {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.ubits-search-button--active:focus,
+.ubits-search-button--active:focus-within,
+.ubits-search-button--active:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* Remover cualquier box-shadow del contenedor principal cuando el wrapper está en focus */
+.ubits-search-button--active:has(.ubits-search-button__input-wrapper:focus-within) {
+    box-shadow: none !important;
+    outline: none !important;
+    border: none !important;
+}
+
+/* Asegurar que el wrapper NO tenga box-shadow cuando el contenedor NO está en focus */
+.ubits-search-button--active:not(:focus-within) .ubits-search-button__input-wrapper {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Asegurar que el wrapper NO tenga box-shadow cuando el input NO está en focus */
+.ubits-search-button--active .ubits-search-button__input-wrapper:not(:focus-within) {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Remover cualquier pseudo-elemento que pueda estar causando efectos visuales */
+.ubits-search-button--active::before,
+.ubits-search-button--active::after,
+.ubits-search-button__input-wrapper::before,
+.ubits-search-button__input-wrapper::after {
+    display: none !important;
+    content: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border: none !important;
 }
 
 .ubits-search-button__input {
     flex: 1;
     border: none !important;
     border-radius: 0 !important;
-    outline: none;
+    outline: none !important;
     background: transparent !important;
     font-family: var(--font-family-noto-sans-font-family);
     font-size: var(--modifiers-normal-body-md-regular-fontsize);
@@ -115,10 +241,85 @@
 }
 
 .ubits-search-button__input:hover,
-.ubits-search-button__input:focus {
+.ubits-search-button__input:focus,
+.ubits-search-button__input:focus-visible,
+.ubits-search-button__input:active,
+.ubits-search-button__input:focus-within {
     border: none !important;
     box-shadow: none !important;
     background: transparent !important;
+    outline: none !important;
+}
+
+/* Remover cualquier outline o box-shadow del input wrapper interno */
+.ubits-search-button__input-wrapper .ubits-input,
+.ubits-search-button__input-wrapper input,
+.ubits-search-button__input-wrapper .ubits-input.ubits-search-button__input {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.ubits-search-button__input-wrapper .ubits-input:hover,
+.ubits-search-button__input-wrapper .ubits-input:focus,
+.ubits-search-button__input-wrapper .ubits-input:focus-visible,
+.ubits-search-button__input-wrapper .ubits-input:active,
+.ubits-search-button__input-wrapper input:hover,
+.ubits-search-button__input-wrapper input:focus,
+.ubits-search-button__input-wrapper input:focus-visible,
+.ubits-search-button__input-wrapper input:active,
+.ubits-search-button__input-wrapper .ubits-input.ubits-search-button__input:hover,
+.ubits-search-button__input-wrapper .ubits-input.ubits-search-button__input:focus,
+.ubits-search-button__input-wrapper .ubits-input.ubits-search-button__input:focus-visible,
+.ubits-search-button__input-wrapper .ubits-input.ubits-search-button__input:active {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+}
+
+/* Sobrescribir cualquier estilo del componente Input base que pueda estar aplicándose */
+/* Especificidad máxima para sobrescribir los estilos del componente Input base */
+.ubits-search-button__input-wrapper .ubits-input.ubits-search-button__input.ubits-input--focus,
+.ubits-search-button__input-wrapper .ubits-input.ubits-search-button__input.ubits-input--hover,
+.ubits-search-button__input-wrapper .ubits-input.ubits-search-button__input.ubits-input--active,
+.ubits-search-button__input-wrapper .ubits-input.ubits-search-button__input:hover,
+.ubits-search-button__input-wrapper .ubits-input.ubits-search-button__input:focus,
+.ubits-search-button__input-wrapper .ubits-input.ubits-search-button__input:focus-visible,
+.ubits-search-button__input-wrapper .ubits-input.ubits-search-button__input:active,
+.ubits-search-button__input-wrapper input.ubits-search-button__input:hover,
+.ubits-search-button__input-wrapper input.ubits-search-button__input:focus,
+.ubits-search-button__input-wrapper input.ubits-search-button__input:focus-visible,
+.ubits-search-button__input-wrapper input.ubits-search-button__input:active {
+    box-shadow: none !important;
+    outline: none !important;
+    border: none !important;
+    background: transparent !important;
+}
+
+/* Sobrescribir específicamente el selector :focus del componente Input base */
+/* Este selector debe tener mayor especificidad que .ubits-input:focus:not(...) del componente Input */
+.ubits-search-button__input-wrapper .ubits-input.ubits-search-button__input:focus:not(.ubits-input--hover):not(.ubits-input--focus):not(.ubits-input--active):not(.ubits-input--invalid):not(.ubits-input--disabled),
+.ubits-search-button__input-wrapper input.ubits-search-button__input:focus:not(.ubits-input--hover):not(.ubits-input--focus):not(.ubits-input--active):not(.ubits-input--invalid):not(.ubits-input--disabled),
+.ubits-search-button__input-wrapper .ubits-input.ubits-search-button__input.ubits-input--md:focus:not(.ubits-input--hover):not(.ubits-input--focus):not(.ubits-input--active):not(.ubits-input--invalid):not(.ubits-input--disabled),
+.ubits-search-button__input-wrapper input.ubits-search-button__input.ubits-input--md:focus:not(.ubits-input--hover):not(.ubits-input--focus):not(.ubits-input--active):not(.ubits-input--invalid):not(.ubits-input--disabled) {
+    box-shadow: none !important;
+    outline: none !important;
+    border: none !important;
+    background: transparent !important;
+    border-color: transparent !important;
+}
+
+/* Asegurar que el input nunca tenga box-shadow, incluso cuando está enfocado y escribiendo */
+.ubits-search-button__input-wrapper .ubits-input.ubits-search-button__input,
+.ubits-search-button__input-wrapper input.ubits-search-button__input {
+    box-shadow: none !important;
+}
+
+/* Sobrescribir cualquier estado del componente Input que pueda aplicar box-shadow */
+.ubits-search-button__input-wrapper .ubits-input.ubits-search-button__input.ubits-input--focus,
+.ubits-search-button__input-wrapper input.ubits-search-button__input.ubits-input--focus {
+    box-shadow: none !important;
 }
 
 .ubits-search-button__input::placeholder {
@@ -135,7 +336,7 @@
    ======================================== */
 
 .ubits-search-button__clear {
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
     background: transparent;
@@ -148,6 +349,9 @@
     flex-shrink: 0;
     transition: all 0.2s ease;
     color: var(--modifiers-normal-color-light-fg-1-medium);
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 10;
 }
 
 .ubits-search-button__clear:hover {
@@ -176,6 +380,44 @@
 /* Ocultar botón de limpiar cuando está disabled */
 .ubits-search-button--disabled .ubits-search-button__clear {
     display: none;
+}
+
+/* ========================================
+   ACTION BUTTONS (filtro y crear)
+   ======================================== */
+
+.ubits-search-button__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--ubits-spacing-xs);
+    flex-shrink: 0;
+}
+
+/* Cuando está activo, los botones están al lado del input wrapper */
+.ubits-search-button--active .ubits-search-button__actions {
+    margin-left: var(--ubits-spacing-xs);
+}
+
+/* Cuando está en modo botón, los botones están al lado del botón de búsqueda */
+.ubits-search-button:not(.ubits-search-button--active) .ubits-search-button__actions {
+    margin-left: var(--ubits-spacing-xs);
+}
+
+.ubits-search-button__action-button {
+    flex-shrink: 0;
+}
+
+/* Asegurar que los botones de acción tengan el mismo tamaño que el input wrapper cuando está activo */
+.ubits-search-button--active .ubits-search-button__action-button {
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
+}
+
+.ubits-search-button--sm.ubits-search-button--active .ubits-search-button__action-button {
+    height: 32px;
+    min-height: 32px;
+    max-height: 32px;
 }
 
 /* Active Mode - Disabled State */

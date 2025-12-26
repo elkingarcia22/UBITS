@@ -58,6 +58,13 @@ export interface UBITSContract {
 	examples?: ComponentExamples; // Ejemplos de código canónicos
 	variants?: ComponentVariants; // Variantes disponibles para cada propiedad
 	events?: Record<string, ComponentEvent>; // Eventos que emite el componente
+	// ⭐ CAMPOS ADICIONALES PARA PERFECCIÓN AUTORUN
+	storybook?: {
+		canonicalStoryId?: string;
+		storiesByExample?: Record<string, string>;
+	};
+	intents?: Record<string, string>; // Mapeo de intents a ejemplos
+	recipeIntent?: string[]; // Para recipes: intents que resuelve
 }
 
 /**

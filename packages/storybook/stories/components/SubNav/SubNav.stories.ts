@@ -66,10 +66,23 @@ const meta = {
 			},
 			// ⭐ CAMPOS EXTENDIDOS
 			examples: {
-				canonical: "window.UBITS.SubNav.create(document.getElementById('subnav-container'), {\\n  containerId: 'subnav-container',\\n  variant: 'template',\\n  onTabChange: function(tabId) {}\\n});",
-				basic: "window.UBITS.SubNav.create(document.getElementById('subnav-container'), {\\n  containerId: 'subnav-container',\\n  variant: 'template'\\n});",
-				aprendizaje: "window.UBITS.SubNav.create(document.getElementById('subnav-container'), {\\n  containerId: 'subnav-container',\\n  variant: 'aprendizaje'\\n});",
-				desempeno: "window.UBITS.SubNav.create(document.getElementById('subnav-container'), {\\n  containerId: 'subnav-container',\\n  variant: 'desempeno'\\n});",
+				canonical: `window.UBITS.SubNav.create(document.getElementById('subnav-container'), {
+  containerId: 'subnav-container',
+  variant: 'template',
+  onTabChange: function(tabId) {}
+});`,
+				basic: `window.UBITS.SubNav.create(document.getElementById('subnav-container'), {
+  containerId: 'subnav-container',
+  variant: 'template'
+});`,
+				aprendizaje: `window.UBITS.SubNav.create(document.getElementById('subnav-container'), {
+  containerId: 'subnav-container',
+  variant: 'aprendizaje'
+});`,
+				desempeno: `window.UBITS.SubNav.create(document.getElementById('subnav-container'), {
+  containerId: 'subnav-container',
+  variant: 'desempeno'
+});`,
 			},
 			variants: {
 				variant: ['template', 'aprendizaje', 'desempeno', 'encuestas', 'tareas', 'empresa', 'admin-aprendizaje', 'admin-desempeno'],
