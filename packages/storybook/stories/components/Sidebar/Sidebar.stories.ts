@@ -22,7 +22,8 @@ const meta: Meta<
 	title: 'Navegación/Sidebar',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente Sidebar UBITS de navegación lateral con 2 variantes (colaborador y admin). Incluye tooltips internos, menú de perfil interno, dark mode toggle y ajuste dinámico de altura. Ancho fijo 96px.',
@@ -209,6 +210,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// 1. Crear contenedor HTML
 <div id="sidebar-implementation-container" style="position: relative; width: 96px; height: 650px;"></div>
 

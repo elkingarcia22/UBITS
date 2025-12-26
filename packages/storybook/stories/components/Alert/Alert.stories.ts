@@ -16,7 +16,8 @@ const meta: Meta<AlertOptions> = {
 	title: 'Feedback/Alert',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente Alert UBITS para mostrar notificaciones del sistema. Soporta múltiples variantes (success, info, warning, error), botón cerrar opcional y animaciones.',
@@ -188,6 +189,8 @@ export const Implementation: Story = {
 	parameters: {
 		docs: {
 			source: {
+				type: 'code',
+				state: 'open', // Mostrar código automáticamente
 				// ⭐ SNIPPET EXACTO para Autorun
 				code: `// 1. Crear contenedor HTML
 <div id="alert-implementation-container"></div>
@@ -203,6 +206,7 @@ const alertElement = window.UBITS.Alert.create({
 // 3. Agregar al contenedor
 document.getElementById('alert-implementation-container').appendChild(alertElement);`,
 			},
+			codePanel: true, // Panel de código siempre visible
 		},
 	},
 	render: (args) => {

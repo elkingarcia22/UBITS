@@ -19,7 +19,8 @@ const meta: Meta<StatusTagOptions> = {
 	title: 'Básicos/Status Tag',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente Status Tag UBITS para mostrar estados con icono izquierdo opcional, texto y icono derecho opcional. Múltiples estados con colores diferenciados usando tokens UBITS.',
@@ -260,6 +261,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// Opción 1: Usar createStatusTag (retorna elemento)
 const statusTagElement = window.UBITS.StatusTag.create({
   label: 'Completado',

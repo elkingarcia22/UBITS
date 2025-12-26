@@ -16,7 +16,8 @@ const meta: Meta<CheckboxOptions> = {
 	title: 'Formularios/Checkbox',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente Checkbox UBITS para selección múltiple. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.',
@@ -268,6 +269,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// 1. Crear contenedor HTML
 <div id="checkbox-implementation-container"></div>
 

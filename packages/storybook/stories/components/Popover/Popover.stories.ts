@@ -17,7 +17,8 @@ const meta: Meta<PopoverOptions> = {
 	title: 'Feedback/Popover',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente Popover UBITS con tail (flecha) para mostrar información contextual. Similar al modal pero más pequeño y con tail. Se usa para mostrar información adicional, tooltips avanzados o acciones contextuales.',
@@ -241,6 +242,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `const popoverInstance = window.UBITS.Popover.create({
   title: 'Información adicional',
   bodyContent: '<p>Este es el contenido del popover con información contextual.</p>',

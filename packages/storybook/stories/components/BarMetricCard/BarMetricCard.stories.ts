@@ -28,7 +28,8 @@ const meta: Meta<
 	title: 'Charts/Bar Metric Card',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente BarMetricCard UBITS para mostrar métricas con gráfico de barras y categorías. Soporta layout vertical y horizontal, múltiples tamaños y controles completos para personalización. Usa tokens UBITS para colores, tipografía y espaciado.',
@@ -458,6 +459,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// 1. Importar funciones (si usas módulos)
 // import { createBarMetricCard, renderBarMetricCard } from '@ubits/bar-metric-card';
 

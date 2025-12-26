@@ -19,7 +19,8 @@ const meta: Meta<RadioButtonOptions> = {
 	title: 'Formularios/Radio Button',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente Radio Button UBITS para selección única en grupos. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.',
@@ -260,6 +261,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// 1. Crear contenedor HTML
 <div id="radiobutton-implementation-container"></div>
 

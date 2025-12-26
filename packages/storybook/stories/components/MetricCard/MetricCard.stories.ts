@@ -12,7 +12,8 @@ const meta: Meta<MetricCardOptions> = {
 	title: 'Charts/Text Metric Card',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente MetricCard UBITS para mostrar métricas numéricas. Usa tokens UBITS para colores, tipografía y espaciado. Soporta iconos, tamaños y es completamente personalizable.',
@@ -243,6 +244,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// 1. Importar funciones (si usas módulos)
 // import { createMetricCard, renderMetricCard } from '@ubits/metric-card';
 

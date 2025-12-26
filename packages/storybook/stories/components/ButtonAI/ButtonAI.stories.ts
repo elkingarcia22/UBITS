@@ -9,7 +9,8 @@ const meta: Meta<ButtonAIOptions> = {
 	tags: ['autodocs'],
 	parameters: {
 		layout: 'padded',
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente Button AI UBITS con estilo redondeado y gradación. Basado en Button de UBITS pero con bordes más redondeados (pill shape) y gradientes. Solo incluye variantes primary y secondary.',
@@ -246,6 +247,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// 1. Importar funciones (si usas módulos)
 // import { createButtonAI, renderButtonAI } from '@ubits/button-ai';
 

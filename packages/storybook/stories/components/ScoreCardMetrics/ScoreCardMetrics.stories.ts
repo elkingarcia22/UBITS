@@ -12,7 +12,8 @@ const meta: Meta<ScoreCardMetricsOptions> = {
 	title: 'Charts/Score Card Metrics',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente ScoreCardMetrics UBITS para mostrar métricas de calificación con estrellas. Incluye título, estadísticas (respuestas y promedio), gráfico de 5 estrellas, etiquetas y descripción. Usa tokens UBITS para colores, tipografía y espaciado.',
@@ -299,6 +300,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// 1. Importar funciones (si usas módulos)
 // import { createScoreCardMetrics, renderScoreCardMetrics } from '@ubits/score-card-metrics';
 

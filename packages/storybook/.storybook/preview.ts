@@ -220,7 +220,9 @@ const preview: Preview = {
     docs: {
       source: {
         type: 'code',
+        state: 'open', // Mostrar código automáticamente (siempre visible)
       },
+      codePanel: true, // Habilitar panel de código automáticamente
     },
     // ⭐ CONFIGURACIÓN DE ADDONS
     // Actions: Ya integrado en Storybook 10, no requiere configuración adicional

@@ -16,7 +16,8 @@ const meta: Meta<SelectionCardData & { showDescription?: boolean; showIcon?: boo
 	title: 'Layout/Selection Card',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente Selection Card UBITS para mostrar opciones seleccionables. Soporta selección única o múltiple, estados (default, selected, disabled), y tamaños (sm, md, lg). Incluye un radio button visual a la derecha que refleja el estado de selección. La selección se realiza mediante click en toda la card.',
@@ -262,6 +263,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// 1. Importar funciones (si usas módulos)
 // import { createSelectionCard, renderSelectionCard, loadSelectionCards } from '@ubits/selection-card';
 

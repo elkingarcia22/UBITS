@@ -15,7 +15,8 @@ const meta = {
 	tags: ['autodocs'],
 	parameters: {
 		layout: 'padded',
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente Spinner/Loader UBITS para mostrar estados de carga. Soporta múltiples tamaños, variantes de color y puede mostrarse con o sin etiqueta.',
@@ -193,6 +194,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// Opción 1: Usar createSpinner (retorna elemento)
 const spinnerElement = window.UBITS.Spinner.create({
   size: 'md',

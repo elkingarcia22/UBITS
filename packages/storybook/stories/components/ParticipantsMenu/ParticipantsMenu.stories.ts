@@ -24,7 +24,8 @@ const meta: Meta<ParticipantsMenuOptions> = {
 	title: 'Navegación/Menu de Participantes',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente de menú lateral UBITS para mostrar una lista de participantes. Incluye búsqueda, filtro y lista de participantes con avatar, nombre, rol y estado.',
@@ -340,6 +341,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// 1. Crear contenedor HTML
 <div id="participants-menu-implementation-container"></div>
 

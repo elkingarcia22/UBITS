@@ -15,7 +15,8 @@ const meta = {
 	tags: ['autodocs'],
 	parameters: {
 		layout: 'padded',
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente Skeleton UBITS para mostrar placeholders de carga. Soporta múltiples variantes (text, circle, rectangle, custom), tamaños y animaciones.',
@@ -197,6 +198,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// Opción 1: Usar createSkeleton (retorna elemento)
 const skeletonElement = window.UBITS.Skeleton.create({
   variant: 'text',

@@ -17,7 +17,8 @@ const meta: Meta<ToastOptions> = {
 	title: 'Feedback/Toast',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente Toast UBITS para mostrar notificaciones flotantes. Se posiciona en la parte superior central, tiene auto-cierre, pausa en hover, apilado máximo de 3, y soporta título, cuerpo y botón de acción opcional.',
@@ -217,6 +218,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// Opción 1: Usar showToast (recomendado - maneja contenedor automáticamente)
 window.UBITS.Toast.show('success', 'Los cambios se han guardado correctamente.', {
   title: 'Operación completada',

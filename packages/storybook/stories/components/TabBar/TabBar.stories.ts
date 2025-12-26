@@ -142,7 +142,8 @@ const meta: Meta<
 	tags: ['autodocs'],
 	parameters: {
 		layout: 'padded',
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente TabBar UBITS de navegación inferior para móviles. Reemplaza al sidebar en pantallas pequeñas (< 1024px) con items personalizables con iconos o avatares, dark mode toggle, Floating Menu (accordions) y Profile Menu (dropdown). Soporta 2 variantes: colaborador y admin.',
@@ -359,6 +360,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// 1. Crear contenedor HTML
 <div id="tabbar-implementation-container" style="position: relative; width: 100%; min-height: 576px;"></div>
 

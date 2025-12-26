@@ -16,7 +16,8 @@ const meta: Meta<BadgeOptions> = {
 	title: 'Básicos/Badge',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente Badge UBITS para mostrar notificaciones, contadores o indicadores. Soporta solo bolita (dot) o con números, múltiples variantes de color y tamaños.',
@@ -234,6 +235,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// Opción 1: Usar createBadge (retorna elemento)
 const badgeElement = window.UBITS.Badge.create({
   type: 'number',

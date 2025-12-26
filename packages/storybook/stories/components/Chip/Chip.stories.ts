@@ -16,7 +16,8 @@ const meta: Meta<ChipOptions> = {
 	title: 'Básicos/Chip',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente Chip UBITS para mostrar etiquetas o tags interactivas. Múltiples tamaños, estados y soporte para iconos izquierdo y derecho (botón de cerrar). Usa tokens UBITS exclusivamente.',
@@ -246,6 +247,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// Opción 1: Usar createChip (retorna elemento)
 const chipElement = window.UBITS.Chip.create({
   label: 'Etiqueta',

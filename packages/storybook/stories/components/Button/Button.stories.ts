@@ -17,7 +17,8 @@ const meta: Meta<ButtonOptions> = {
 	title: 'Básicos/Button',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente Button UBITS con múltiples variantes, tamaños y estados. Soporta iconos, badges y estado de carga.',
@@ -218,6 +219,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `window.UBITS.Button.create({
   variant: 'secondary',
   size: 'md',

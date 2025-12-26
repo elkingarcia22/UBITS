@@ -20,7 +20,8 @@ const meta: Meta<EmptyStateOptions> = {
 	title: 'Feedback/Empty State',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente Empty State UBITS para mostrar estados vacíos en la interfaz. Soporta imagen o icono, título, descripción y botones de acción.',
@@ -301,6 +302,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// Opción 1: Usar createEmptyState (retorna elemento)
 const emptyStateElement = window.UBITS.EmptyState.create({
   title: 'No hay elementos',

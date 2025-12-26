@@ -23,7 +23,8 @@ const meta = {
 			default: 'transparent',
 			disable: true,
 		},
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente Calendar UBITS con selección única y por rango de fechas. Usa tokens UBITS, componentes Button, Input y List para una experiencia consistente.',
@@ -228,6 +229,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// 1. Crear contenedor HTML
 <div id="calendar-implementation-container"></div>
 

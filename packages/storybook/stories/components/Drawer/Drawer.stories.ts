@@ -17,7 +17,8 @@ const meta: Meta<DrawerOptions> = {
 	title: 'Feedback/Drawer Navigation',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente Drawer Navigation UBITS que se desliza desde la derecha de la pantalla. Ideal para formularios, filtros o vistas de detalle. Soporta diferentes anchos, un header con título y texto complementario, un body con contenido scrollable y un footer con botones de acción.',
@@ -235,6 +236,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `window.UBITS.Drawer.create({
   title: 'Filtros',
   complementaryText: 'Aplica filtros para refinar los resultados',

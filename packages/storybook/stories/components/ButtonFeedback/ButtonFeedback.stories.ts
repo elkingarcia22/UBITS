@@ -11,7 +11,8 @@ const meta: Meta<ButtonFeedbackOptions> = {
 	title: 'Feedback/Button Feedback',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Botón flotante para obtener feedback de clientes. Al hacer clic, abre un modal con un formulario que permite seleccionar la sección actual y dejar un comentario. El feedback se puede enviar a un webhook de n8n.',
@@ -252,6 +253,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// 1. Importar función (si usas módulos)
 // import { createButtonFeedback } from '@ubits/button-feedback';
 

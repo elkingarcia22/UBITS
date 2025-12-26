@@ -29,7 +29,8 @@ const meta: Meta<{
 	title: 'Layout/Timeline',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente Timeline UBITS para mostrar secuencias de eventos o fases. Soporta avatar, fecha, título, descripción, iconos y alineación izquierda o centrada. Usa tokens UBITS.',
@@ -576,6 +577,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `// Timeline no tiene un componente separado, se implementa directamente
 // Este es un ejemplo de cómo implementar Timeline usando HTML y CSS con tokens UBITS
 

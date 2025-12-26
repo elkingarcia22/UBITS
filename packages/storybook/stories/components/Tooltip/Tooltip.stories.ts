@@ -17,7 +17,8 @@ const meta: Meta<TooltipOptions> = {
 	title: 'Feedback/Tooltip',
 	tags: ['autodocs'],
 	parameters: {
-		docs: {
+		docs: {codePanel: true,
+				
 			description: {
 				component:
 					'Componente Tooltip UBITS con tail (flecha) para mostrar información contextual. Similar al Popover pero más simple, con título, descripción y botones de acción.',
@@ -257,6 +258,9 @@ export const Implementation: Story = {
 		docs: {
 			source: {
 				// ⭐ SNIPPET EXACTO para Autorun
+				
+				type: 'code',
+				state: 'open',
 				code: `const tooltipInstance = window.UBITS.Tooltip.create({
   title: 'Información útil',
   showTitle: true,
