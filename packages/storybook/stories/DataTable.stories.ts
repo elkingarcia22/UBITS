@@ -959,7 +959,7 @@ window.UBITS.DataTable.create({
             [`nombre-col${4}`]: `Columna ${i + 1}`,
             [`nombre-col${5}`]: `Extra ${i + 1}`,
             [`pais-col${6}`]: 'Colombia',
-            [`fecha-col${7}`]: `2024-${String((i % 12) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}',
+            [`fecha-col${7}`]: `2024-${String((i % 12) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}`,
             'checkbox-2': false,
           },
           expanded: false,
@@ -3374,7 +3374,7 @@ export const VerticalScroll: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona el scroll vertical en la tabla. Cuando `showVerticalScrollbar' está habilitado, la tabla muestra un scrollbar vertical que permite navegar por todas las filas cuando el contenido excede la altura disponible. El contenedor de la tabla tiene una altura limitada (500px en este ejemplo) y el scroll vertical permite ver todas las 50 filas sin que la tabla ocupe todo el espacio disponible.'
+        story: 'Esta historia demuestra cómo funciona el scroll vertical en la tabla. Cuando `showVerticalScrollbar` está habilitado, la tabla muestra un scrollbar vertical que permite navegar por todas las filas cuando el contenido excede la altura disponible. El contenedor de la tabla tiene una altura limitada (500px en este ejemplo) y el scroll vertical permite ver todas las 50 filas sin que la tabla ocupe todo el espacio disponible.'
       }
     }
   },
@@ -3628,7 +3628,7 @@ export const ColumnMenu: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funciona el menú de columnas. Cada header de columna tiene un botón de menú (3 puntos) que al hacer click muestra un dropdown con la opción de fijar/desfijar la columna. Cuando una columna está fijada (pinned), permanece visible al hacer scroll horizontal. El callback `onColumnPin' se ejecuta cuando se fija o desfija una columna, recibiendo el ID de la columna y el estado (pinned: true/false).'
+        story: 'Esta historia demuestra cómo funciona el menú de columnas. Cada header de columna tiene un botón de menú (3 puntos) que al hacer click muestra un dropdown con la opción de fijar/desfijar la columna. Cuando una columna está fijada (pinned), permanece visible al hacer scroll horizontal. El callback `onColumnPin` se ejecuta cuando se fija o desfija una columna, recibiendo el ID de la columna y el estado (pinned: true/false).'
       }
     }
   },
@@ -5127,7 +5127,7 @@ export const PinnedColumns: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Esta historia demuestra cómo funcionan las columnas fijadas (pinned). Las columnas con `pinned: true' permanecen visibles al hacer scroll horizontal, lo que es útil para mantener información importante (como nombre o email) siempre visible mientras navegas por otras columnas. En este ejemplo, las columnas "Nombre" y "Email" están fijadas inicialmente. Puedes hacer click en el botón de menú (3 puntos) en cualquier header de columna para fijar/desfijar columnas dinámicamente. También puedes hacer scroll horizontal para ver cómo las columnas fijadas permanecen visibles mientras las demás columnas se desplazan.'
+        story: 'Esta historia demuestra cómo funcionan las columnas fijadas (pinned). Las columnas con `pinned: true` permanecen visibles al hacer scroll horizontal, lo que es útil para mantener información importante (como nombre o email) siempre visible mientras navegas por otras columnas. En este ejemplo, las columnas "Nombre" y "Email" están fijadas inicialmente. Puedes hacer click en el botón de menú (3 puntos) en cualquier header de columna para fijar/desfijar columnas dinámicamente. También puedes hacer scroll horizontal para ver cómo las columnas fijadas permanecen visibles mientras las demás columnas se desplazan.'
       }
     }
   },
@@ -5819,7 +5819,7 @@ export const EmptyState: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Demuestra los diferentes tipos de empty state (estado vacío) en el DataTable. El empty state se muestra cuando no hay datos o no hay resultados después de aplicar búsqueda o filtros. Hay tres variantes: `noData` (cuando no hay datos en absoluto), `noSearchResults` (cuando no hay resultados de búsqueda) y `noFilterResults' (cuando no hay resultados de filtros). Cada variante puede tener título, descripción, icono, imagen, y botones de acción primarios y secundarios con callbacks personalizados.'
+        story: 'Demuestra los diferentes tipos de empty state (estado vacío) en el DataTable. El empty state se muestra cuando no hay datos o no hay resultados después de aplicar búsqueda o filtros. Hay tres variantes: `noData` (cuando no hay datos en absoluto), `noSearchResults` (cuando no hay resultados de búsqueda) y `noFilterResults` (cuando no hay resultados de filtros). Cada variante puede tener título, descripción, icono, imagen, y botones de acción primarios y secundarios con callbacks personalizados.'
       }
     }
   }
