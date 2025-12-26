@@ -84,7 +84,95 @@ const meta: Meta<
       codePanel: true,
       description: {
         component:
-          'Componente DataView UBITS para mostrar listas de productos con imagen, categoría, nombre, rating, precio, botón de favoritos y botón de compra. Usa tokens UBITS para colores, tipografía y espaciado.',
+          'Componente DataView UBITS para mostrar listas de productos con imagen, categoría, nombre, rating, precio, botón de favoritos y botón de compra. Usa tokens UBITS para colores, tipografía y espaciado.
+
+```html
+// 1. Importar funciones (si usas módulos)
+// import { createDataView, renderDataView } from '@ubits/data-view';
+
+// 2. Crear DataView
+const dataViewElement = createDataView({
+  products: [
+    {
+      id: '1',
+      image: '/images/cards-learn/administracion-efectiva-del-tiempo.jpg',
+      imageAlt: 'Bamboo Watch',
+      category: 'Accessories',
+      name: 'Bamboo Watch',
+      rating: 5,
+      price: 65,
+      stockStatus: 'INSTOCK',
+      inWishlist: false
+    },
+    {
+      id: '2',
+      image: '/images/cards-learn/segmenta-la-experiencia-del-cliente.jpg',
+      imageAlt: 'Black Watch',
+      category: 'Accessories',
+      name: 'Black Watch',
+      rating: 4,
+      price: 72,
+      stockStatus: 'INSTOCK',
+      inWishlist: false
+    },
+    {
+      id: '3',
+      image: '/images/cards-learn/introduccion-al-backend-node-js.jpeg',
+      imageAlt: 'Blue Band',
+      category: 'Fitness',
+      name: 'Blue Band',
+      rating: 3,
+      price: 79,
+      stockStatus: 'LOWSTOCK',
+      inWishlist: false
+    }
+  ],
+  size: 'md', // 'sm' | 'md' | 'lg'
+  showCategory: true,
+  showRating: true,
+  showPrice: true,
+  showWishlist: true,
+  showBuyButton: true,
+  buyButtonText: 'Buy Now',
+  buyButtonIcon: 'shopping-cart',
+  wishlistIcon: 'heart',
+  onProductClick: (product, index, element) => {
+    console.log('Producto clickeado:', product);
+  },
+  onBuyClick: (product, index, element) => {
+    console.log('Comprar:', product);
+  },
+  onWishlistClick: (product, index, element) => {
+    product.inWishlist = !product.inWishlist;
+    // Re-renderizar si es necesario
+    console.log('Wishlist actualizado:', product);
+  }
+});
+
+// 3. Insertar en el DOM
+const container = document.getElementById('data-view-container');
+if (container) {
+  container.appendChild(dataViewElement);
+}
+
+// Nota: createDataView retorna un HTMLElement directamente
+// Los event listeners se configuran automáticamente
+
+// Alternativa: Usar renderDataView para obtener HTML string
+const dataViewHTML = renderDataView({
+  products: sampleProducts,
+  size: 'md',
+  showCategory: true,
+  showRating: true,
+  showPrice: true
+});
+
+// Insertar HTML
+const container = document.getElementById('data-view-container');
+if (container) {
+  container.innerHTML = dataViewHTML;
+}
+```',
       },
     },
     layout: 'padded',

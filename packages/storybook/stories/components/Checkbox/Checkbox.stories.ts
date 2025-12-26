@@ -20,7 +20,25 @@ const meta: Meta<CheckboxOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Checkbox UBITS para selección múltiple. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.',
+          'Componente Checkbox UBITS para selección múltiple. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.
+
+```html
+// 1. Crear contenedor HTML
+<div id="checkbox-implementation-container"></div>
+
+// 2. Crear checkbox
+window.UBITS.Checkbox.create({
+  containerId: 'checkbox-implementation-container',
+  label: 'Acepto los términos y condiciones',
+  value: 'terms',
+  name: 'agreement',
+  checked: false,
+  indeterminate: false,
+  size: 'md',
+  state: 'default',
+  disabled: false
+});
+```',
       },
     },
     layout: 'centered',

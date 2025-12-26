@@ -13,7 +13,58 @@ const meta: Meta<ScrollOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Scrollbar personalizado UBITS. Se usa para crear scrollbars personalizados en elementos scrollable. Soporta orientación vertical y horizontal. Se sincroniza automáticamente con el elemento scrollable asociado. Aparece en hover y se adapta al tamaño del contenido. Soporta arrastrar y clic para navegar.',
+          'Componente Scrollbar personalizado UBITS. Se usa para crear scrollbars personalizados en elementos scrollable. Soporta orientación vertical y horizontal. Se sincroniza automáticamente con el elemento scrollable asociado. Aparece en hover y se adapta al tamaño del contenido. Soporta arrastrar y clic para navegar.
+
+```html
+// 1. Crear elemento scrollable
+<div id="scrollable-container" style="
+  width: 400px;
+  height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px;
+  background: var(--modifiers-normal-color-light-bg-2);
+  border-radius: 8px;
+  border: 1px solid var(--modifiers-normal-color-light-border-1);
+">
+  <!-- Contenido largo que requiere scroll -->
+  <div style="height: 1200px; padding: 16px;">
+    <p>Contenido largo...</p>
+    <!-- Más contenido -->
+  </div>
+</div>
+
+// 2. Crear contenedor para el scrollbar
+<div id="scrollbar-container" style="
+  height: 300px;
+"></div>
+
+// 3. Crear Scrollbar
+const scrollbarInstance = window.createScrollbar({
+  containerId: 'scrollbar-container',
+  targetId: 'scrollable-container',
+  orientation: 'vertical', // 'vertical' | 'horizontal'
+  state: 'default',
+  className: ''
+});
+
+// Nota: createScrollbar retorna un objeto con:
+// - scrollbarInstance.element: El elemento DOM del scrollbar
+// - scrollbarInstance.update(): Actualizar el scrollbar manualmente
+// - scrollbarInstance.destroy(): Destruir el scrollbar y limpiar recursos
+
+// Ejemplo con orientación horizontal:
+const scrollbarHorizontal = window.createScrollbar({
+  containerId: 'scrollbar-container-horizontal',
+  targetId: 'scrollable-container-horizontal',
+  orientation: 'horizontal',
+  state: 'default'
+});
+
+// Nota: El scrollbar se sincroniza automáticamente con el elemento scrollable.
+// Aparece en hover y se adapta al tamaño del contenido.
+// Soporta arrastrar y clic para navegar.
+```',
       },
     },
     layout: 'fullscreen',

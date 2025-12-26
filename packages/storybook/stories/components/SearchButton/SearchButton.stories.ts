@@ -25,7 +25,24 @@ const meta: Meta<SearchButtonOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Search Button UBITS con modo botón e input. Cuando está activo, muestra un campo de búsqueda con icono. Cuando no está activo, muestra solo un botón con icono de lupa. Usa tokens UBITS exclusivamente.',
+          'Componente Search Button UBITS con modo botón e input. Cuando está activo, muestra un campo de búsqueda con icono. Cuando no está activo, muestra solo un botón con icono de lupa. Usa tokens UBITS exclusivamente.
+
+```html
+// 1. Crear contenedor HTML
+<div id="searchbutton-implementation-container"></div>
+
+// 2. Crear search button
+window.UBITS.SearchButton.create({
+  containerId: 'searchbutton-implementation-container',
+  active: false,
+  size: 'md',
+  state: 'default',
+  disabled: false,
+  placeholder: 'Buscar...',
+  value: '',
+  width: 248
+});
+```',
       },
     },
     layout: 'centered',

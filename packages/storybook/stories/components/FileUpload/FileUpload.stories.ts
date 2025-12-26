@@ -28,7 +28,27 @@ const meta: Meta<FileUploadOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente File Upload personalizado UBITS. Diseño moderno con dos vistas: Drop Zone (área de arrastrar y soltar con icono circular) y Files List (lista de archivos con progreso).',
+          'Componente File Upload personalizado UBITS. Diseño moderno con dos vistas: Drop Zone (área de arrastrar y soltar con icono circular) y Files List (lista de archivos con progreso).
+
+```html
+// 1. Crear contenedor HTML
+<div id="fileupload-implementation-container"></div>
+
+// 2. Crear file upload
+window.UBITS.FileUpload.create({
+  containerId: 'fileupload-implementation-container',
+  state: 'default',
+  files: [],
+  maxFiles: 6,
+  maxSize: 5242880,
+  dropText: 'Arrastra tus archivos aquí',
+  selectButtonText: 'Seleccionar archivos',
+  showIcon: false,
+  showFileSize: true,
+  showProgress: true,
+  showActions: true
+});
+```',
       },
     },
     layout: 'fullscreen',

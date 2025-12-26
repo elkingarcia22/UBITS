@@ -26,7 +26,39 @@ const meta: Meta<
       codePanel: true,
       description: {
         component:
-          'Componente Sidebar UBITS de navegación lateral con 2 variantes (colaborador y admin). Incluye tooltips internos, menú de perfil interno, dark mode toggle y ajuste dinámico de altura. Ancho fijo 96px.',
+          'Componente Sidebar UBITS de navegación lateral con 2 variantes (colaborador y admin). Incluye tooltips internos, menú de perfil interno, dark mode toggle y ajuste dinámico de altura. Ancho fijo 96px.
+
+```html
+// 1. Crear contenedor HTML
+<div id="sidebar-implementation-container" style="position: relative; width: 96px; height: 650px;"></div>
+
+// 2. Crear sidebar con configuración explícita
+window.UBITS.Sidebar.create({
+  containerId: 'sidebar-implementation-container',
+  variant: 'colaborador', // o 'admin'
+  bodyButtons: [
+    { section: 'admin', icon: 'fa-laptop', tooltip: 'Administrador', href: 'admin.html' },
+    { section: 'aprendizaje', icon: 'fa-graduation-cap', tooltip: 'Aprendizaje', href: 'home-learn.html' },
+    { section: 'diagnóstico', icon: 'fa-chart-mixed', tooltip: 'Diagnóstico', href: 'diagnostico.html' },
+    { section: 'desempeño', icon: 'fa-bars-progress', tooltip: 'Desempeño', href: 'evaluaciones-360.html' },
+    { section: 'encuestas', icon: 'fa-clipboard', tooltip: 'Encuestas', href: 'encuestas.html' },
+    { section: 'reclutamiento', icon: 'fa-users', tooltip: 'Reclutamiento', href: 'reclutamiento.html' },
+    { section: 'tareas', icon: 'fa-layer-group', tooltip: 'Tareas', href: 'planes.html' },
+    { section: 'ubits-ai', icon: 'fa-sparkles', tooltip: 'UBITS AI', href: 'ubits-ai.html' }
+  ],
+  footerButtons: [], // Solo en variante 'admin'
+  profileMenuItems: [
+    { id: 'perfil', icon: 'fa-user', label: 'Ver mi perfil' },
+    { id: 'admin-mode', icon: 'fa-laptop', label: 'Modo Administrador', href: 'template-admin.html' },
+    { id: 'password', icon: 'fa-key', label: 'Cambio de contraseña' },
+    { id: 'logout', icon: 'fa-sign-out', label: 'Cerrar sesión' }
+  ],
+  logoImage: '/images/Ubits-logo.svg',
+  avatarImage: '/images/Profile-image.jpg',
+  darkModeEnabled: true,
+  height: 650
+});
+```',
       },
     },
     layout: 'fullscreen',

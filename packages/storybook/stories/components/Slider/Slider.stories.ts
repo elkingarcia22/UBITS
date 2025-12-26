@@ -26,7 +26,71 @@ const meta: Meta<
       codePanel: true,
       description: {
         component:
-          'Componente Slider UBITS con soporte para orientación horizontal/vertical, modo single/range, inputs opcionales, marcas, y todos los tamaños y estados.',
+          'Componente Slider UBITS con soporte para orientación horizontal/vertical, modo single/range, inputs opcionales, marcas, y todos los tamaños y estados.
+
+```html
+// 1. Crear contenedor HTML
+<div id="slider-implementation-container"></div>
+
+// 2. Crear Slider (modo single)
+const slider = window.UBITS.Slider.create({
+  containerId: 'slider-implementation-container',
+  label: 'Volumen',
+  helperText: 'Ajusta el volumen del reproductor',
+  size: 'md',
+  state: 'default',
+  orientation: 'horizontal',
+  mode: 'single',
+  min: 0,
+  max: 100,
+  step: 1,
+  value: 50,
+  showInputs: false,
+  showLabel: true,
+  showHelper: false,
+  showMarks: false,
+  showRangeGuide: false,
+  onChange: (value, event) => {
+    console.log('Valor cambiado:', value);
+  }
+});
+
+// Nota: createSlider retorna un objeto con:
+// - slider.element: El elemento DOM del slider
+// - slider.getValue(): Obtener valor actual (number para single, [number, number] para range)
+// - slider.setValue(value): Establecer valor (number para single, [number, number] para range)
+// - slider.disable(): Deshabilitar el slider
+// - slider.enable(): Habilitar el slider
+// - slider.setState(newState): Cambiar estado ('default' | 'disabled')
+
+// Ejemplo con modo range:
+const sliderRange = window.UBITS.Slider.create({
+  containerId: 'slider-range-container',
+  label: 'Rango de precios',
+  mode: 'range',
+  min: 0,
+  max: 1000,
+  values: [100, 500],
+  step: 10,
+  showInputs: true,
+  onRangeChange: (values, event) => {
+    console.log('Rango cambiado:', values);
+  }
+});
+
+// Ejemplo con inputs y marcas:
+const sliderWithMarks = window.UBITS.Slider.create({
+  containerId: 'slider-marks-container',
+  label: 'Nivel',
+  min: 0,
+  max: 100,
+  value: 50,
+  step: 10,
+  showMarks: true,
+  marks: [0, 25, 50, 75, 100],
+  showInputs: true
+});
+```',
       },
     },
     ubits: createUBITSContract({

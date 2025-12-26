@@ -16,7 +16,58 @@ const meta: Meta<MetricCardOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente MetricCard UBITS para mostrar métricas numéricas. Usa tokens UBITS para colores, tipografía y espaciado. Soporta iconos, tamaños y es completamente personalizable.',
+          'Componente MetricCard UBITS para mostrar métricas numéricas. Usa tokens UBITS para colores, tipografía y espaciado. Soporta iconos, tamaños y es completamente personalizable.
+
+```html
+// 1. Importar funciones (si usas módulos)
+// import { createMetricCard, renderMetricCard } from '@ubits/metric-card';
+
+// 2. Crear contenedor HTML
+<div id="metric-card-container"></div>
+
+// 3. Crear MetricCard
+const metricCardElement = createMetricCard({
+  containerId: 'metric-card-container', // ⚠️ REQUERIDO para createMetricCard
+  title: 'Net confidence score',
+  value: '200 / 204', // Puede ser número o string
+  label: 'Colaboradores',
+  titleIcon: 'user', // Nombre FontAwesome sin prefijo fa-
+  titleIconStyle: 'regular', // 'regular' | 'solid'
+  titleIconColor: 'var(--modifiers-normal-color-light-fg-2-medium)', // Opcional, token UBITS
+  showInfoIcon: true, // Mostrar icono de información
+  showActionButton: true, // Mostrar botón de acción
+  size: 'md', // 'sm' | 'md' | 'lg'
+  onClick: (event) => {
+    console.log('Card clickeada');
+  }
+});
+
+// Nota: createMetricCard retorna HTMLElement | null
+// Requiere containerId y el contenedor debe existir en el DOM
+
+// Alternativa: Usar renderMetricCard para obtener HTML string
+const metricCardHTML = renderMetricCard({
+  title: 'Net confidence score',
+  value: '200 / 204',
+  label: 'Colaboradores',
+  titleIcon: 'user',
+  showInfoIcon: true,
+  showActionButton: true,
+  size: 'md'
+});
+
+// Insertar HTML
+const container = document.getElementById('metric-card-container');
+if (container) {
+  container.innerHTML = metricCardHTML;
+  
+  // Agregar event listener manualmente si es necesario
+  const cardElement = container.querySelector('.ubits-metric-card');
+  if (cardElement && onClick) {
+    cardElement.addEventListener('click', onClick);
+  }
+}
+```',
       },
     },
     ubits: createUBITSContract({

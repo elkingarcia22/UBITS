@@ -20,7 +20,65 @@ const meta: Meta<CardData> = {
       codePanel: true,
       description: {
         component:
-          'Componente Card Content UBITS para mostrar contenido de aprendizaje. Soporta 11 tipos de contenido, 35 competencias oficiales, 18 proveedores, 3 niveles, 3 idiomas, y 3 estados (default, progress, completed).',
+          'Componente Card Content UBITS para mostrar contenido de aprendizaje. Soporta 11 tipos de contenido, 35 competencias oficiales, 18 proveedores, 3 niveles, 3 idiomas, y 3 estados (default, progress, completed).
+
+```html
+// 1. Importar funciones (si usas módulos)
+// import { createCard, renderCardContent } from '@ubits/card';
+
+// 2. Crear CardContent
+const cardElement = createCard({
+  type: 'Curso', // 'Curso' | 'Cápsula' | 'Charla' | 'Artículo' | 'Podcast' | 'Libro' | 'Ideas de libro' | 'Caso de estudio' | 'Documento técnico' | 'Ejercicios de práctica' | 'Ruta de aprendizaje'
+  title: 'Segmenta la experiencia del cliente',
+  provider: 'UBITS', // Ver PROVIDERS para opciones disponibles
+  providerLogo: '/images/providers/ubits-logo.png', // Opcional, se deriva del provider si no se proporciona
+  duration: '60 min', // '15 min' | '30 min' | '45 min' | '60 min' | '75 min' | '90 min' | '120 min' | '180 min' | '240 min'
+  level: 'Básico', // 'Básico' | 'Intermedio' | 'Avanzado'
+  progress: 0, // 0-100
+  status: 'default', // 'default' | 'progress' | 'completed'
+  image: '/images/cards-learn/segmenta-la-experiencia-del-cliente.jpg',
+  competency: 'Product design', // Ver COMPETENCIES para opciones disponibles (35 competencias)
+  language: 'Español' // 'Español' | 'Inglés' | 'Portugués'
+});
+
+// 3. Insertar en el DOM
+const container = document.getElementById('card-content-container');
+if (container) {
+  container.appendChild(cardElement);
+}
+
+// Nota: createCard retorna un HTMLElement directamente
+
+// Alternativa: Usar renderCardContent para obtener HTML string
+const cardHTML = renderCardContent({
+  type: 'Curso',
+  title: 'Segmenta la experiencia del cliente',
+  provider: 'UBITS',
+  duration: '60 min',
+  level: 'Básico',
+  progress: 50,
+  status: 'progress',
+  image: '/images/cards-learn/segmenta-la-experiencia-del-cliente.jpg',
+  competency: 'Product design',
+  language: 'Español'
+});
+
+// Insertar HTML
+const container = document.getElementById('card-content-container');
+if (container) {
+  container.innerHTML = cardHTML;
+}
+
+// Ejemplo: Cargar múltiples cards
+// import { loadCardContent } from '@ubits/card';
+// loadCardContent({
+//   containerId: 'cards-container',
+//   cards: [cardData1, cardData2, cardData3],
+//   onClick: (card, index, element) => {
+//     console.log('Card clickeada:', card);
+//   }
+// });
+```',
       },
     },
     ubits: createUBITSContract({

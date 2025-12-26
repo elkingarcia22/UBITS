@@ -19,7 +19,29 @@ const meta = {
       codePanel: true,
       description: {
         component:
-          'Componente Spinner/Loader UBITS para mostrar estados de carga. Soporta múltiples tamaños, variantes de color y puede mostrarse con o sin etiqueta.',
+          'Componente Spinner/Loader UBITS para mostrar estados de carga. Soporta múltiples tamaños, variantes de color y puede mostrarse con o sin etiqueta.
+
+```html
+// Opción 1: Usar createSpinner (retorna elemento)
+const spinnerElement = window.UBITS.Spinner.create({
+  size: 'md',
+  variant: 'primary',
+  animated: true,
+  label: 'Cargando...',
+  fullScreen: false
+});
+document.getElementById('container').appendChild(spinnerElement);
+
+// Opción 2: Usar renderSpinner (retorna HTML string)
+const spinnerHTML = window.UBITS.Spinner.render({
+  size: 'md',
+  variant: 'primary',
+  animated: true,
+  label: 'Cargando...',
+  fullScreen: false
+});
+document.getElementById('container').innerHTML = spinnerHTML;
+```',
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

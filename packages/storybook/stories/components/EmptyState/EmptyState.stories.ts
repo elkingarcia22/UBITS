@@ -24,7 +24,31 @@ const meta: Meta<EmptyStateOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Empty State UBITS para mostrar estados vacíos en la interfaz. Soporta imagen o icono, título, descripción y botones de acción.',
+          'Componente Empty State UBITS para mostrar estados vacíos en la interfaz. Soporta imagen o icono, título, descripción y botones de acción.
+
+```html
+// Opción 1: Usar createEmptyState (retorna elemento)
+const emptyStateElement = window.UBITS.EmptyState.create({
+  title: 'No hay elementos',
+  description: 'No se encontraron elementos para mostrar.',
+  icon: 'inbox',
+  iconSize: 'md',
+  actionLabel: 'Crear elemento',
+  showPrimaryButton: true
+});
+document.getElementById('container').appendChild(emptyStateElement);
+
+// Opción 2: Usar renderEmptyState (retorna HTML string)
+const emptyStateHTML = window.UBITS.EmptyState.render({
+  title: 'No hay elementos',
+  description: 'No se encontraron elementos para mostrar.',
+  icon: 'inbox',
+  iconSize: 'md',
+  actionLabel: 'Crear elemento',
+  showPrimaryButton: true
+});
+document.getElementById('container').innerHTML = emptyStateHTML;
+```',
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

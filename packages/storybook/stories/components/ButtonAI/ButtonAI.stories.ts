@@ -13,7 +13,58 @@ const meta: Meta<ButtonAIOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Button AI UBITS con estilo redondeado y gradación. Basado en Button de UBITS pero con bordes más redondeados (pill shape) y gradientes. Solo incluye variantes primary y secondary.',
+          'Componente Button AI UBITS con estilo redondeado y gradación. Basado en Button de UBITS pero con bordes más redondeados (pill shape) y gradientes. Solo incluye variantes primary y secondary.
+
+```html
+// 1. Importar funciones (si usas módulos)
+// import { createButtonAI, renderButtonAI } from '@ubits/button-ai';
+
+// 2. Crear ButtonAI
+const buttonAIElement = createButtonAI({
+  variant: 'primary', // 'primary' | 'secondary'
+  size: 'md', // 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  text: 'AI button',
+  icon: 'sparkles', // Nombre FontAwesome sin prefijo fa-
+  iconStyle: 'regular', // 'regular' | 'solid'
+  iconOnly: false, // Mostrar solo icono sin texto
+  disabled: false,
+  badge: false, // Mostrar badge de notificación
+  active: false, // Modificador active/outline
+  onClick: (event) => {
+    console.log('Button AI clicked');
+  }
+});
+
+// 3. Insertar en el DOM
+const container = document.getElementById('button-ai-container');
+if (container) {
+  container.appendChild(buttonAIElement);
+}
+
+// Nota: createButtonAI retorna HTMLButtonElement | null
+
+// Alternativa: Usar renderButtonAI para obtener HTML string
+const buttonAIHTML = renderButtonAI({
+  variant: 'primary',
+  size: 'md',
+  text: 'AI button',
+  icon: 'sparkles',
+  iconStyle: 'regular',
+  iconOnly: false
+});
+
+// Insertar HTML
+const container = document.getElementById('button-ai-container');
+if (container) {
+  container.innerHTML = buttonAIHTML;
+  
+  // Agregar event listener manualmente si es necesario
+  const buttonElement = container.querySelector('.ubits-button-ai');
+  if (buttonElement && onClick) {
+    buttonElement.addEventListener('click', onClick);
+  }
+}
+```',
       },
     },
     ubits: createUBITSContract({

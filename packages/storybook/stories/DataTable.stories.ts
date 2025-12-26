@@ -11,7 +11,125 @@ const meta: Meta<DataTableOptions & { columnsCount?: number }> = {
     docs: {
       codePanel: true,
       description: {
-        component: 'Tabla de datos UBITS con soporte para columnas fijadas, reordenamiento, ordenamiento, selección múltiple, filas expandibles y menú de columnas.'
+        component: 'Tabla de datos UBITS con soporte para columnas fijadas, reordenamiento, ordenamiento, selección múltiple, filas expandibles y menú de columnas.
+
+```html
+// 1. Crear contenedor HTML
+<div id="datatable-implementation-container"></div>
+
+// 2. Crear DataTable con configuración completa
+window.UBITS.DataTable.create({
+  containerId: 'datatable-implementation-container',
+  columns: [
+    { id: 'nombre-col1', title: 'Nombre', type: 'nombre', width: 200 },
+    { id: 'email-col2', title: 'Email', type: 'correo', width: 250 },
+    { id: 'estado-col3', title: 'Estado', type: 'estado', width: 150 },
+    { id: 'nombre-col4', title: 'Nombre', type: 'nombre', width: 180 },
+    { id: 'nombre-col5', title: 'Nombre', type: 'nombre', width: 180 },
+    { id: 'pais-col6', title: 'País', type: 'pais', width: 180 },
+    { id: 'fecha-col7', title: 'Fecha', type: 'fecha', width: 180 }
+  ],
+  rows: [
+    {
+      id: 1,
+      data: {
+        'nombre-col1': 'Juan Pérez',
+        'email-col2': 'juan.perez@empresa.com',
+        'estado-col3': 'Activo',
+        'nombre-col4': 'Columna 1',
+        'nombre-col5': 'Extra 1',
+        'pais-col6': 'Colombia',
+        'fecha-col7': '2024-01-15',
+        'checkbox-2': false
+      }
+    },
+    {
+      id: 2,
+      data: {
+        'nombre-col1': 'María García',
+        'email-col2': 'maria.garcia@empresa.com',
+        'estado-col3': 'Inactivo',
+        'nombre-col4': 'Columna 2',
+        'nombre-col5': 'Extra 2',
+        'pais-col6': 'Colombia',
+        'fecha-col7': '2024-02-20',
+        'checkbox-2': false
+      }
+    }
+  ],
+  showCheckbox: true,
+  columnSortable: true,
+  rowExpandable: true,
+  columnReorderable: true,
+  rowReorderable: true,
+  showColumnMenu: true,
+  showContextMenu: true,
+  header: {
+    title: 'Lista de elementos',
+    showTitle: true,
+    counter: true,
+    displayedItems: 2,
+    totalItems: 2,
+    showCounter: true,
+    primaryButton: {
+      text: 'Nuevo',
+      icon: 'plus',
+      iconStyle: 'regular',
+      onClick: (e) => { alert('Botón primario'); }
+    },
+    showPrimaryButton: true,
+    secondaryButtons: [
+      {
+        text: 'Exportar',
+        icon: 'download',
+        iconStyle: 'regular',
+        onClick: (e) => { alert('Exportar'); }
+      },
+      {
+        text: 'Importar',
+        icon: 'upload',
+        iconStyle: 'regular',
+        onClick: (e) => { alert('Importar'); }
+      }
+    ],
+    showSecondaryButtons: true,
+    searchButton: {
+      placeholder: 'Buscar...',
+      onSearch: (searchTerm, filteredRows) => {}
+    },
+    showSearchButton: true,
+    filterButton: {
+      onClick: (e) => {},
+      onApplyFilters: (filters) => {},
+      onClearFilters: () => {}
+    },
+    showFilterButton: true,
+    columnSelectorButton: {
+      onClick: (e) => {}
+    },
+    showColumnSelectorButton: true
+  },
+  emptyState: {
+    noData: {
+      title: 'No hay datos',
+      description: 'No se han agregado elementos aún.',
+      icon: 'inbox'
+    },
+    noSearchResults: {
+      title: 'No se encontraron resultados',
+      description: 'Intenta con otros términos de búsqueda.',
+      icon: 'search'
+    },
+    noFilterResults: {
+      title: 'No hay resultados con los filtros aplicados',
+      description: 'Intenta ajustar los filtros.',
+      icon: 'filter'
+    }
+  },
+  onRowSelect: (rowId, selected) => {},
+  onSelectAll: (selected) => {}
+});
+```'
       }
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

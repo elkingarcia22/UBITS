@@ -21,7 +21,27 @@ const meta: Meta<PopoverOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Popover UBITS con tail (flecha) para mostrar información contextual. Similar al modal pero más pequeño y con tail. Se usa para mostrar información adicional, tooltips avanzados o acciones contextuales.',
+          'Componente Popover UBITS con tail (flecha) para mostrar información contextual. Similar al modal pero más pequeño y con tail. Se usa para mostrar información adicional, tooltips avanzados o acciones contextuales.
+
+```html
+const popoverInstance = window.UBITS.Popover.create({
+  title: 'Información adicional',
+  bodyContent: '<p>Este es el contenido del popover con información contextual.</p>',
+  width: 'md',
+  tailPosition: 'top',
+  tailOffset: 0,
+  footerButtons: {
+    primary: {
+      label: 'Aceptar',
+      onClick: () => {
+        console.log('Aceptar clickeado');
+      }
+    }
+  },
+  closeOnOutsideClick: true,
+  open: true
+});
+```',
       },
     },
     layout: 'fullscreen',

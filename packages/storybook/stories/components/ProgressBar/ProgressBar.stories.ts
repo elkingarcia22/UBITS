@@ -29,7 +29,59 @@ const meta: Meta<ExtendedProgressOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Progress Bar personalizado UBITS. Se usa para mostrar progreso de tareas o procesos. Soporta 4 tamaños (xs, sm, md, lg) y dos variantes: default (un solo color) y multi-color (múltiples segmentos con diferentes colores). El segmento gris se calcula automáticamente como el resto que falta para llegar a 100%. Incluye indicador opcional de texto o porcentaje.',
+          'Componente Progress Bar personalizado UBITS. Se usa para mostrar progreso de tareas o procesos. Soporta 4 tamaños (xs, sm, md, lg) y dos variantes: default (un solo color) y multi-color (múltiples segmentos con diferentes colores). El segmento gris se calcula automáticamente como el resto que falta para llegar a 100%. Incluye indicador opcional de texto o porcentaje.
+
+```html
+// 1. Crear ProgressBar (variante default)
+const progressBarInstance = window.createProgressBar({
+  containerId: 'progress-bar-container',
+  size: 'md', // 'xs' | 'sm' | 'md' | 'lg'
+  variant: 'default', // 'default' | 'multi-color'
+  value: 75, // 0-100
+  indicator: true, // true muestra porcentaje, string muestra texto personalizado
+  className: ''
+});
+
+// Nota: createProgressBar retorna un objeto con:
+// - progressBarInstance.element: El elemento DOM del progress bar
+// - progressBarInstance.update(newOptions): Actualizar el progress bar
+// - progressBarInstance.destroy(): Destruir el progress bar y limpiar recursos
+
+// Ejemplo: Actualizar el progress bar
+progressBarInstance.update({
+  value: 90,
+  indicator: '90% completado'
+});
+
+// Ejemplo: Variante multi-color con múltiples segmentos
+const multiColorProgressBar = window.createProgressBar({
+  containerId: 'multi-color-progress-container',
+  size: 'md',
+  variant: 'multi-color',
+  segments: [
+    { value: 30, color: 'info' },    // 30% azul
+    { value: 25, color: 'yellow' }, // 25% amarillo
+    { value: 20, color: 'green' },  // 20% verde
+    { value: 25, color: 'error' }   // 25% rojo
+    // El resto (0%) se calcula automáticamente como gris
+  ],
+  indicator: true
+});
+
+// Alternativa: Usar renderProgressBar para obtener HTML string
+const progressBarHTML = window.renderProgressBar({
+  size: 'md',
+  variant: 'default',
+  value: 75,
+  indicator: true
+});
+
+// Insertar HTML
+const container = document.getElementById('progress-bar-container');
+if (container) {
+  container.innerHTML = progressBarHTML;
+}
+```',
       },
     },
     layout: 'fullscreen',

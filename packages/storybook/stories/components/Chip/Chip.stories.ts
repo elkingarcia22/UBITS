@@ -20,7 +20,29 @@ const meta: Meta<ChipOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Chip UBITS para mostrar etiquetas o tags interactivas. Múltiples tamaños, estados y soporte para iconos izquierdo y derecho (botón de cerrar). Usa tokens UBITS exclusivamente.',
+          'Componente Chip UBITS para mostrar etiquetas o tags interactivas. Múltiples tamaños, estados y soporte para iconos izquierdo y derecho (botón de cerrar). Usa tokens UBITS exclusivamente.
+
+```html
+// Opción 1: Usar createChip (retorna elemento)
+const chipElement = window.UBITS.Chip.create({
+  label: 'Etiqueta',
+  size: 'md',
+  state: 'default',
+  clickable: false,
+  closable: false
+});
+document.getElementById('container').appendChild(chipElement);
+
+// Opción 2: Usar renderChip (retorna HTML string)
+const chipHTML = window.UBITS.Chip.render({
+  label: 'Etiqueta',
+  size: 'md',
+  state: 'default',
+  clickable: false,
+  closable: false
+});
+document.getElementById('container').innerHTML = chipHTML;
+```',
       },
     },
     layout: 'centered',

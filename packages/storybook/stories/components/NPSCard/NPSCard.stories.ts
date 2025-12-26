@@ -28,7 +28,93 @@ const meta: Meta<
       codePanel: true,
       description: {
         component:
-          'Componente NPSCard UBITS para mostrar métricas NPS (Net Promoter Score) con gauge semicircular. Incluye segmentos de color (rojo, amarillo, verde), aguja indicadora, categorías con porcentajes y contador de respuestas. Usa tokens UBITS para colores, tipografía y espaciado.',
+          'Componente NPSCard UBITS para mostrar métricas NPS (Net Promoter Score) con gauge semicircular. Incluye segmentos de color (rojo, amarillo, verde), aguja indicadora, categorías con porcentajes y contador de respuestas. Usa tokens UBITS para colores, tipografía y espaciado.
+
+```html
+// 1. Importar funciones (si usas módulos)
+// import { createNPSCard, renderNPSCard } from '@ubits/nps-card';
+
+// 2. Crear contenedor HTML
+<div id="nps-card-container"></div>
+
+// 3. Crear NPSCard
+const npsCardElement = createNPSCard({
+  containerId: 'nps-card-container', // ⚠️ REQUERIDO para createNPSCard
+  title: 'Nivel de confianza',
+  score: 56, // 0-100
+  scoreLabel: 'Puntuación',
+  totalResponses: 290,
+  responsesLabel: 'respuestas',
+  categories: [
+    {
+      label: 'No tienen confianza',
+      current: 50,
+      total: 100,
+      color: 'var(--modifiers-normal-color-light-feedback-accent-error)'
+    },
+    {
+      label: 'Neutrales',
+      current: 10,
+      total: 100,
+      color: 'var(--modifiers-normal-color-light-feedback-accent-warning)'
+    },
+    {
+      label: 'Tienen confianza',
+      current: 30,
+      total: 100,
+      color: 'var(--modifiers-normal-color-light-feedback-accent-success)'
+    }
+  ],
+  size: 'md', // 'sm' | 'md' | 'lg'
+  showTitle: true,
+  showResponsesCount: true,
+  showGauge: true, // Gauge semicircular con aguja indicadora
+  showCategories: true,
+  showInfoIcon: true,
+  showActionButton: true,
+  lowColor: 'var(--modifiers-normal-color-light-feedback-accent-error)', // Segmento rojo (0-20)
+  mediumColor: 'var(--modifiers-normal-color-light-feedback-accent-warning)', // Segmento amarillo (20-60)
+  highColor: 'var(--modifiers-normal-color-light-feedback-accent-success)', // Segmento verde (60-100)
+  gaugeBackgroundColor: 'var(--modifiers-normal-color-light-bg-3)',
+  onClick: (event) => {
+    console.log('Card clickeada');
+  }
+});
+
+// Nota: createNPSCard retorna HTMLElement | null
+// Requiere containerId y el contenedor debe existir en el DOM
+
+// Alternativa: Usar renderNPSCard para obtener HTML string
+const npsCardHTML = renderNPSCard({
+  title: 'Nivel de confianza',
+  score: 56,
+  scoreLabel: 'Puntuación',
+  totalResponses: 290,
+  responsesLabel: 'respuestas',
+  categories: [
+    { label: 'No tienen confianza', current: 50, total: 100, color: 'var(--modifiers-normal-color-light-feedback-accent-error)' },
+    { label: 'Neutrales', current: 10, total: 100, color: 'var(--modifiers-normal-color-light-feedback-accent-warning)' },
+    { label: 'Tienen confianza', current: 30, total: 100, color: 'var(--modifiers-normal-color-light-feedback-accent-success)' }
+  ],
+  size: 'md',
+  showTitle: true,
+  showResponsesCount: true,
+  showGauge: true,
+  showCategories: true
+});
+
+// Insertar HTML
+const container = document.getElementById('nps-card-container');
+if (container) {
+  container.innerHTML = npsCardHTML;
+  
+  // Agregar event listener manualmente si es necesario
+  const cardElement = container.querySelector('.ubits-nps-card');
+  if (cardElement && onClick) {
+    cardElement.addEventListener('click', onClick);
+  }
+}
+```',
       },
     },
     ubits: createUBITSContract({

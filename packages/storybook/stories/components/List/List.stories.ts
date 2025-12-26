@@ -21,7 +21,33 @@ const meta: Meta<ListOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente List UBITS para mostrar listas de items con estados (default, hover, active, disabled). Soporta 4 tamaños (xs, sm, md, lg), scrollbar personalizado UBITS, navegación por teclado y selección simple o múltiple.',
+          'Componente List UBITS para mostrar listas de items con estados (default, hover, active, disabled). Soporta 4 tamaños (xs, sm, md, lg), scrollbar personalizado UBITS, navegación por teclado y selección simple o múltiple.
+
+```html
+// 1. Crear contenedor HTML
+<div id="list-implementation-container"></div>
+
+// 2. Crear lista
+window.UBITS.List.create({
+  containerId: 'list-implementation-container',
+  items: [
+    { label: 'Opción 1', state: 'default', value: 'option1' },
+    { label: 'Opción 2', state: 'active', value: 'option2' },
+    { label: 'Opción 3', state: 'default', value: 'option3' },
+    { label: 'Opción 4', state: 'default', value: 'option4' },
+    { label: 'Opción 5', state: 'default', value: 'option5' },
+    { label: 'Opción 6', state: 'default', value: 'option6' },
+    { label: 'Opción 7', state: 'default', value: 'option7' },
+    { label: 'Opción 8', state: 'default', value: 'option8' },
+    { label: 'Opción 9', state: 'default', value: 'option9' },
+    { label: 'Opción 10', state: 'default', value: 'option10' }
+  ],
+  size: 'md',
+  maxHeight: '200px',
+  showScrollbar: false,
+  multiple: false
+});
+```',
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

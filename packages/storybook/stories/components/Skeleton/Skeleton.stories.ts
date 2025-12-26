@@ -19,7 +19,45 @@ const meta = {
       codePanel: true,
       description: {
         component:
-          'Componente Skeleton UBITS para mostrar placeholders de carga. Soporta múltiples variantes (text, circle, rectangle, custom), tamaños y animaciones.',
+          'Componente Skeleton UBITS para mostrar placeholders de carga. Soporta múltiples variantes (text, circle, rectangle, custom), tamaños y animaciones.
+
+```html
+// Opción 1: Usar createSkeleton (retorna elemento)
+const skeletonElement = window.UBITS.Skeleton.create({
+  variant: 'text',
+  size: 'md',
+  width: 'full',
+  lines: 3,
+  animated: true
+});
+document.getElementById('container').appendChild(skeletonElement);
+
+// Opción 2: Usar renderSkeleton (retorna HTML string)
+const skeletonHTML = window.UBITS.Skeleton.render({
+  variant: 'text',
+  size: 'md',
+  width: 'full',
+  lines: 3,
+  animated: true
+});
+document.getElementById('container').innerHTML = skeletonHTML;
+
+// Ejemplo con variant circle (para avatares)
+const circleSkeleton = window.UBITS.Skeleton.create({
+  variant: 'circle',
+  size: 'md',
+  animated: true
+});
+
+// Ejemplo con variant rectangle (para imágenes)
+const rectangleSkeleton = window.UBITS.Skeleton.create({
+  variant: 'rectangle',
+  size: 'md',
+  width: 300,
+  height: 200,
+  animated: true
+});
+```',
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

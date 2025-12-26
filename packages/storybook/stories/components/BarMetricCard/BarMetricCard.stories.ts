@@ -32,7 +32,95 @@ const meta: Meta<
       codePanel: true,
       description: {
         component:
-          'Componente BarMetricCard UBITS para mostrar métricas con gráfico de barras y categorías. Soporta layout vertical y horizontal, múltiples tamaños y controles completos para personalización. Usa tokens UBITS para colores, tipografía y espaciado.',
+          'Componente BarMetricCard UBITS para mostrar métricas con gráfico de barras y categorías. Soporta layout vertical y horizontal, múltiples tamaños y controles completos para personalización. Usa tokens UBITS para colores, tipografía y espaciado.
+
+```html
+// 1. Importar funciones (si usas módulos)
+// import { createBarMetricCard, renderBarMetricCard } from '@ubits/bar-metric-card';
+
+// 2. Crear contenedor HTML
+<div id="bar-metric-card-container"></div>
+
+// 3. Crear BarMetricCard
+const barMetricCardElement = createBarMetricCard({
+  containerId: 'bar-metric-card-container', // ⚠️ REQUERIDO para createBarMetricCard
+  title: 'Nombre de la pregunta',
+  responseCount: 7,
+  showResponseCount: true,
+  barData: [-25, -15, 15, 25, 35, 45, 55, 5, 25, -15, -30, -50], // Array de valores (pueden ser positivos o negativos)
+  barLabels: ['Ago', 'Ago', 'Ago', 'Ago', 'Ago', 'Ago', 'Ago', 'Ago', 'Ago', 'Ago', 'Ago', 'Ago'], // Opcional
+  maxValue: 60, // Opcional, se calcula automáticamente si no se proporciona
+  minValue: -60, // Opcional, se calcula automáticamente si no se proporciona
+  categories: [
+    {
+      label: 'Área',
+      current: 3,
+      total: 20
+    },
+    {
+      label: 'Equipo',
+      current: 5,
+      total: 15
+    },
+    {
+      label: 'Propio',
+      current: 2,
+      total: 10
+    }
+  ],
+  layout: 'vertical', // 'vertical' | 'horizontal'
+  size: 'md', // 'sm' | 'md' | 'lg'
+  showTitle: true,
+  showBarChart: true,
+  showCategories: true,
+  showInfoIcon: true,
+  showActionButton: true,
+  showNegativeValues: true, // Mostrar valores negativos (barras hacia abajo)
+  showGridLines: true, // Mostrar líneas de guía
+  barColor: 'var(--ubits-chart-color-bg-neutral-blue-base)', // Token UBITS
+  chartBackgroundColor: 'var(--modifiers-normal-color-light-bg-1)', // Token UBITS
+  gridLineColor: 'var(--modifiers-normal-color-light-border-1)', // Token UBITS
+  onClick: (event) => {
+    console.log('Card clickeada');
+  },
+  onAction: (event) => {
+    console.log('Botón de acción clickeado');
+  }
+});
+
+// Nota: createBarMetricCard retorna HTMLElement | null
+// Requiere containerId y el contenedor debe existir en el DOM
+
+// Alternativa: Usar renderBarMetricCard para obtener HTML string
+const barMetricCardHTML = renderBarMetricCard({
+  title: 'Nombre de la pregunta',
+  responseCount: 7,
+  showResponseCount: true,
+  barData: [-25, -15, 15, 25, 35, 45, 55, 5, 25, -15, -30, -50],
+  categories: [
+    { label: 'Área', current: 3, total: 20 },
+    { label: 'Equipo', current: 5, total: 15 },
+    { label: 'Propio', current: 2, total: 10 }
+  ],
+  layout: 'vertical',
+  size: 'md',
+  showTitle: true,
+  showBarChart: true,
+  showCategories: true
+});
+
+// Insertar HTML
+const container = document.getElementById('bar-metric-card-container');
+if (container) {
+  container.innerHTML = barMetricCardHTML;
+  
+  // Agregar event listeners manualmente si es necesario
+  const cardElement = container.querySelector('.ubits-bar-metric-card');
+  if (cardElement && onClick) {
+    cardElement.addEventListener('click', onClick);
+  }
+}
+```',
       },
     },
     ubits: createUBITSContract({

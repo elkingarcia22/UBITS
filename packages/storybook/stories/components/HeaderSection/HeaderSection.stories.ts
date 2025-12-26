@@ -26,7 +26,56 @@ const meta = {
       codePanel: true,
       description: {
         component:
-          'Componente HeaderSection UBITS para encabezados de sección con título (heading h2, fg-1-high), botón de información con tooltip (sm), y acciones (botones md). Todos los elementos son apagables/prendibles con controladores.',
+          'Componente HeaderSection UBITS para encabezados de sección con título (heading h2, fg-1-high), botón de información con tooltip (sm), y acciones (botones md). Todos los elementos son apagables/prendibles con controladores.
+
+```html
+// 1. Crear contenedor HTML
+<div id="header-section-implementation-container"></div>
+
+// 2. Crear HeaderSection
+window.UBITS.HeaderSection.create({
+  containerId: 'header-section-implementation-container',
+  title: 'Name product',
+  showTitle: true,
+  showBackButton: true,
+  onBackClick: (event) => {
+    console.log('Botón de atrás clickeado');
+  },
+  showInfoButton: true,
+  infoTooltipText: 'Información adicional sobre el producto',
+  onInfoClick: (event) => {
+    console.log('Botón de información clickeado');
+  },
+  showStatusTag: true,
+  statusTag: {
+    label: 'Active',
+    status: 'active',
+    size: 'sm'
+  },
+  actions: [
+    {
+      id: 'action-1',
+      text: 'Button text',
+      variant: 'secondary',
+      size: 'md',
+      onClick: (event) => {
+        console.log('Acción 1 clickeada');
+      }
+    },
+    {
+      id: 'action-2',
+      text: 'Primary action',
+      variant: 'primary',
+      size: 'md',
+      onClick: (event) => {
+        console.log('Acción 2 clickeada');
+      }
+    }
+  ],
+  showActions: true,
+  showBreadcrumb: false
+});
+```',
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

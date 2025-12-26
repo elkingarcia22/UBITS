@@ -27,7 +27,50 @@ const meta = {
       codePanel: true,
       description: {
         component:
-          'Componente Calendar UBITS con selección única y por rango de fechas. Usa tokens UBITS, componentes Button, Input y List para una experiencia consistente.',
+          'Componente Calendar UBITS con selección única y por rango de fechas. Usa tokens UBITS, componentes Button, Input y List para una experiencia consistente.
+
+```html
+// 1. Crear contenedor HTML
+<div id="calendar-implementation-container"></div>
+
+// 2. Crear Calendar
+const calendar = window.UBITS.Calendar.create({
+  mode: 'single',
+  selectedDate: null,
+  endDate: null,
+  minDate: null,
+  maxDate: null,
+  initialDate: new Date(),
+  onDateSelect: (date) => {
+    console.log('Fecha seleccionada:', date);
+  },
+  onRangeSelect: (startDate, endDate) => {
+    console.log('Rango seleccionado:', startDate, endDate);
+  }
+});
+
+// 3. Insertar el calendario en el contenedor
+const container = document.getElementById('calendar-implementation-container');
+if (container) {
+  container.appendChild(calendar.element);
+}
+
+// Nota: createCalendar retorna un objeto con:
+// - calendar.element: El elemento DOM del calendario
+// - calendar.update(newOptions): Método para actualizar el calendario
+// - calendar.destroy(): Método para destruir el calendario
+
+// Ejemplo con modo range:
+const calendarRange = window.UBITS.Calendar.create({
+  mode: 'range',
+  selectedDate: null,
+  endDate: null,
+  onRangeSelect: (startDate, endDate) => {
+    console.log('Rango:', startDate, 'a', endDate);
+  }
+});
+container.appendChild(calendarRange.element);
+```',
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

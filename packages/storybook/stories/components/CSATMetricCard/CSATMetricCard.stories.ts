@@ -16,7 +16,66 @@ const meta: Meta<CSATMetricCardOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente CSATMetricCard UBITS para mostrar métricas CSAT (Customer Satisfaction) con caritas. Incluye título, estadísticas (respuestas y promedio), gráfico de 5 caritas con textos. Usa tokens UBITS para colores, tipografía y espaciado.',
+          'Componente CSATMetricCard UBITS para mostrar métricas CSAT (Customer Satisfaction) con caritas. Incluye título, estadísticas (respuestas y promedio), gráfico de 5 caritas con textos. Usa tokens UBITS para colores, tipografía y espaciado.
+
+```html
+// 1. Importar funciones (si usas módulos)
+// import { createCSATMetricCard, renderCSATMetricCard } from '@ubits/csat-metric-card';
+
+// 2. Crear contenedor HTML
+<div id="csat-metric-card-container"></div>
+
+// 3. Crear CSATMetricCard
+const csatMetricCardElement = createCSATMetricCard({
+  containerId: 'csat-metric-card-container', // ⚠️ REQUERIDO para createCSATMetricCard
+  title: 'Califica el producto',
+  totalResponses: 7,
+  responsesLabel: 'respuestas',
+  average: 4.0, // Promedio de calificación (0-5)
+  averageLabel: 'Promedio:',
+  score: 3, // Score actual (0-5) para mostrar en las caritas
+  titleIcon: 'star', // Opcional, nombre FontAwesome sin prefijo fa-
+  titleIconStyle: 'regular', // 'regular' | 'solid'
+  titleIconColor: 'var(--modifiers-normal-color-light-fg-2-medium)', // Opcional, token UBITS
+  showInfoIcon: true, // Mostrar icono de información
+  showActionButton: true, // Mostrar botón de acción
+  size: 'md', // 'sm' | 'md' | 'lg'
+  onClick: (event) => {
+    console.log('Card clickeada');
+  },
+  onFaceClick: (faceIndex, score) => {
+    console.log('Carita clickeada', { faceIndex, score });
+  }
+});
+
+// Nota: createCSATMetricCard retorna HTMLElement | null
+// Requiere containerId y el contenedor debe existir en el DOM
+
+// Alternativa: Usar renderCSATMetricCard para obtener HTML string
+const csatMetricCardHTML = renderCSATMetricCard({
+  title: 'Califica el producto',
+  totalResponses: 7,
+  responsesLabel: 'respuestas',
+  average: 4.0,
+  averageLabel: 'Promedio:',
+  score: 3,
+  showInfoIcon: true,
+  showActionButton: true,
+  size: 'md'
+});
+
+// Insertar HTML
+const container = document.getElementById('csat-metric-card-container');
+if (container) {
+  container.innerHTML = csatMetricCardHTML;
+  
+  // Agregar event listener manualmente si es necesario
+  const cardElement = container.querySelector('.ubits-csat-metric-card');
+  if (cardElement && onClick) {
+    cardElement.addEventListener('click', onClick);
+  }
+}
+```',
       },
     },
     ubits: createUBITSContract({

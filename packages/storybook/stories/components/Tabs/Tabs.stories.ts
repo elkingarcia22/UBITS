@@ -20,7 +20,29 @@ const meta = {
       codePanel: true,
       description: {
         component:
-          'Componente Tabs UBITS de navegación horizontal con soporte para iconos opcionales. El tab activo muestra fondo blanco, icono oscuro, texto en negrita y una línea vertical rosa a la izquierda. Los tabs inactivos muestran icono y texto en gris claro sin fondo.',
+          'Componente Tabs UBITS de navegación horizontal con soporte para iconos opcionales. El tab activo muestra fondo blanco, icono oscuro, texto en negrita y una línea vertical rosa a la izquierda. Los tabs inactivos muestran icono y texto en gris claro sin fondo.
+
+```html
+// 1. Crear contenedor HTML
+<div id="tabs-implementation-container"></div>
+
+// 2. Crear Tabs
+window.UBITS.Tabs.create({
+  tabs: [
+    { id: 'tab-1', label: 'Tab 1', icon: 'far fa-th', active: true },
+    { id: 'tab-2', label: 'Tab 2', icon: 'far fa-chart-line', active: false },
+    { id: 'tab-3', label: 'Tab 3', icon: 'far fa-cog', active: false },
+    { id: 'tab-4', label: 'Tab 4', icon: 'far fa-star', active: false },
+    { id: 'tab-5', label: 'Tab 5', icon: 'far fa-book', active: false }
+  ],
+  activeTabId: 'tab-1',
+  onTabChange: (tabId, tabElement) => {
+    console.log('Tab cambiado:', tabId);
+  }
+}, 'tabs-implementation-container');
+
+// Nota: El número de tabs se puede ajustar con el control 'tabCount' en Storybook
+```',
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

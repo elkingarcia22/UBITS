@@ -33,7 +33,66 @@ const meta: Meta<TreeMenuOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Tree Menu UBITS para mostrar estructuras jerárquicas con expandir/colapsar. Soporta iconos opcionales, múltiples niveles, chevron opcional y modo cascada o vertical. Usa tokens UBITS para colores, tipografía y espaciado.',
+          'Componente Tree Menu UBITS para mostrar estructuras jerárquicas con expandir/colapsar. Soporta iconos opcionales, múltiples niveles, chevron opcional y modo cascada o vertical. Usa tokens UBITS para colores, tipografía y espaciado.
+
+```html
+// Función helper para renderizar TreeMenu
+function renderTreeMenu(options) {
+  const {
+    showIcons = true,
+    showChevron = true,
+    maxLevels = 3,
+    defaultExpanded = false,
+    size = 'md',
+    cascade = true,
+    nodes = []
+  } = options;
+
+  // Generar HTML del árbol usando la función renderTreeMenu
+  // Esta función genera HTML string con la estructura del árbol
+  // Usa tokens UBITS para colores, tipografía y espaciado
+  
+  const treeHTML = renderTreeMenu({
+    showIcons: true,
+    showChevron: true,
+    maxLevels: 3,
+    defaultExpanded: false,
+    size: 'md',
+    cascade: true,
+    nodes: [
+      {
+        label: 'Engineering',
+        icon: 'code',
+        children: [
+          { label: 'Frontend', icon: 'paint-brush' },
+          { label: 'Backend', icon: 'cog' }
+        ]
+      },
+      {
+        label: 'Marketing',
+        icon: 'chart-line',
+        children: [
+          { label: 'Content', icon: 'file-alt' },
+          { label: 'Analytics', icon: 'chart-line' }
+        ]
+      }
+    ]
+  });
+
+  // Insertar en el contenedor
+  const container = document.getElementById('tree-menu-container');
+  if (container) {
+    container.innerHTML = treeHTML;
+  }
+
+  // Agregar estilos CSS (ver código completo en el archivo de stories)
+  // Inicializar event listeners para expandir/colapsar y selección
+}
+
+// Nota: renderTreeMenu retorna HTML string directamente
+// Los estilos se deben agregar manualmente o desde un archivo CSS
+// La funcionalidad de expandir/colapsar se debe inicializar manualmente
+```',
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

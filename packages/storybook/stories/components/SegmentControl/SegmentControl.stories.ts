@@ -25,7 +25,30 @@ const meta = {
       codePanel: true,
       description: {
         component:
-          'Componente Segment Control UBITS de navegación horizontal con soporte para iconos opcionales. Similar a Tabs pero con contenedor con padding interno de 4px y altura de 30px. El segmento activo muestra fondo blanco, icono solid oscuro, texto en negrita. Los segmentos inactivos muestran icono regular y texto en gris claro sin fondo.',
+          'Componente Segment Control UBITS de navegación horizontal con soporte para iconos opcionales. Similar a Tabs pero con contenedor con padding interno de 4px y altura de 30px. El segmento activo muestra fondo blanco, icono solid oscuro, texto en negrita. Los segmentos inactivos muestran icono regular y texto en gris claro sin fondo.
+
+```html
+// 1. Crear contenedor HTML
+<div id="segment-control-implementation-container"></div>
+
+// 2. Crear Segment Control
+window.UBITS.SegmentControl.create({
+  segments: [
+    { id: 'segment-1', label: 'Label 1', icon: 'far fa-th', active: true },
+    { id: 'segment-2', label: 'Label 2', icon: 'far fa-chart-line', active: false },
+    { id: 'segment-3', label: 'Label 3', icon: 'far fa-cog', active: false },
+    { id: 'segment-4', label: 'Label 4', icon: 'far fa-star', active: false },
+    { id: 'segment-5', label: 'Label 5', icon: 'far fa-book', active: false }
+  ],
+  activeSegmentId: 'segment-1',
+  onSegmentChange: (segmentId, segmentElement) => {
+    console.log('Segmento cambiado:', segmentId);
+  }
+}, 'segment-control-implementation-container');
+
+// Nota: Los iconos son opcionales. Si no se proporcionan, solo se mostrará el texto.
+// Para segmentos sin iconos, omitir la propiedad 'icon' o pasar undefined.
+```',
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

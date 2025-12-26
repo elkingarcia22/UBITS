@@ -22,7 +22,27 @@ const meta = {
       codePanel: true,
       description: {
         component:
-          'Componente Breadcrumb UBITS para navegación jerárquica. El último item muestra texto en bold (active), los demás en regular (default). Usa body-sm con tokens UBITS.',
+          'Componente Breadcrumb UBITS para navegación jerárquica. El último item muestra texto en bold (active), los demás en regular (default). Usa body-sm con tokens UBITS.
+
+```html
+// 1. Crear contenedor HTML
+<div id="breadcrumb-implementation-container"></div>
+
+// 2. Crear Breadcrumb
+window.UBITS.Breadcrumb.create({
+  items: [
+    { id: 'home', label: 'Home', url: '#home' },
+    { id: 'category', label: 'Categoría', url: '#category' },
+    { id: 'subcategory', label: 'Subcategoría', url: '#subcategory' },
+    { id: 'page', label: 'Página', url: '#page' },
+    { id: 'detail', label: 'Detalle', active: true }
+  ],
+  separator: '>',
+  onItemClick: (itemId, itemElement) => {
+    console.log('Item clickeado:', itemId);
+  }
+}, 'breadcrumb-implementation-container');
+```',
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

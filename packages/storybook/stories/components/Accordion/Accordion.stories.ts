@@ -23,7 +23,39 @@ const meta: Meta<AccordionOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Accordion UBITS con múltiples variantes: lista simple, tipo caja, chevron izquierda/derecha, iconos opcionales y sub-headers.',
+          'Componente Accordion UBITS con múltiples variantes: lista simple, tipo caja, chevron izquierda/derecha, iconos opcionales y sub-headers.
+
+```html
+// 1. Crear contenedor HTML
+<div id="accordion-implementation-container"></div>
+
+// 2. Crear accordion
+window.UBITS.Accordion.create(
+  document.getElementById('accordion-implementation-container'),
+  {
+    items: [
+      {
+        id: '1',
+        title: '¿Qué es UBITS?',
+        content: 'UBITS es un sistema de diseño completo para aplicaciones.',
+        icon: 'circle-question',
+        iconStyle: 'regular'
+      },
+      {
+        id: '2',
+        title: '¿Cómo uso los componentes?',
+        content: 'Puedes usar los componentes mediante window.UBITS.Componente.create()',
+        icon: 'circle-question',
+        iconStyle: 'regular'
+      }
+    ],
+    variant: 'list',
+    chevronPosition: 'right',
+    allowMultiple: false,
+    showIcons: true
+  }
+);
+```',
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

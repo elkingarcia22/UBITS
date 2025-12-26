@@ -16,7 +16,69 @@ const meta: Meta<ScoreCardMetricsOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente ScoreCardMetrics UBITS para mostrar métricas de calificación con estrellas. Incluye título, estadísticas (respuestas y promedio), gráfico de 5 estrellas, etiquetas y descripción. Usa tokens UBITS para colores, tipografía y espaciado.',
+          'Componente ScoreCardMetrics UBITS para mostrar métricas de calificación con estrellas. Incluye título, estadísticas (respuestas y promedio), gráfico de 5 estrellas, etiquetas y descripción. Usa tokens UBITS para colores, tipografía y espaciado.
+
+```html
+// 1. Importar funciones (si usas módulos)
+// import { createScoreCardMetrics, renderScoreCardMetrics } from '@ubits/score-card-metrics';
+
+// 2. Crear contenedor HTML
+<div id="score-card-metrics-container"></div>
+
+// 3. Crear ScoreCardMetrics
+const scoreCardMetricsElement = createScoreCardMetrics({
+  containerId: 'score-card-metrics-container', // ⚠️ REQUERIDO para createScoreCardMetrics
+  title: 'Califica el producto',
+  totalResponses: 7,
+  responsesLabel: 'respuestas',
+  average: 4.0, // Promedio de calificación (0-5)
+  averageLabel: 'Promedio:',
+  score: 3, // Score actual (0-5) para mostrar en las estrellas
+  leftLabel: '0', // Etiqueta izquierda del gráfico
+  rightLabel: '5', // Etiqueta derecha del gráfico
+  chartDescription: '0 a 5 del gráfico', // Texto descriptivo debajo del gráfico
+  titleIcon: 'star', // Opcional, nombre FontAwesome sin prefijo fa-
+  titleIconStyle: 'regular', // 'regular' | 'solid'
+  titleIconColor: 'var(--modifiers-normal-color-light-fg-2-medium)', // Opcional, token UBITS
+  showInfoIcon: true, // Mostrar icono de información
+  showActionButton: true, // Mostrar botón de acción
+  size: 'md', // 'sm' | 'md' | 'lg'
+  onClick: (event) => {
+    console.log('Card clickeada');
+  }
+});
+
+// Nota: createScoreCardMetrics retorna HTMLElement | null
+// Requiere containerId y el contenedor debe existir en el DOM
+
+// Alternativa: Usar renderScoreCardMetrics para obtener HTML string
+const scoreCardMetricsHTML = renderScoreCardMetrics({
+  title: 'Califica el producto',
+  totalResponses: 7,
+  responsesLabel: 'respuestas',
+  average: 4.0,
+  averageLabel: 'Promedio:',
+  score: 3,
+  leftLabel: '0',
+  rightLabel: '5',
+  chartDescription: '0 a 5 del gráfico',
+  showInfoIcon: true,
+  showActionButton: true,
+  size: 'md'
+});
+
+// Insertar HTML
+const container = document.getElementById('score-card-metrics-container');
+if (container) {
+  container.innerHTML = scoreCardMetricsHTML;
+  
+  // Agregar event listener manualmente si es necesario
+  const cardElement = container.querySelector('.ubits-score-card-metrics');
+  if (cardElement && onClick) {
+    cardElement.addEventListener('click', onClick);
+  }
+}
+```',
       },
     },
     ubits: createUBITSContract({

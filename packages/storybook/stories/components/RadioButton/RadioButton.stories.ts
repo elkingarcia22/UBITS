@@ -23,7 +23,24 @@ const meta: Meta<RadioButtonOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Radio Button UBITS para selección única en grupos. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.',
+          'Componente Radio Button UBITS para selección única en grupos. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.
+
+```html
+// 1. Crear contenedor HTML
+<div id="radiobutton-implementation-container"></div>
+
+// 2. Crear radio button
+window.UBITS.RadioButton.create({
+  containerId: 'radiobutton-implementation-container',
+  label: 'Opción 1',
+  value: 'option1',
+  name: 'tipo',
+  checked: false,
+  size: 'md',
+  state: 'default',
+  disabled: false
+});
+```',
       },
     },
     layout: 'centered',

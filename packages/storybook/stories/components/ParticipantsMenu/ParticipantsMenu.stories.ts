@@ -28,7 +28,117 @@ const meta: Meta<ParticipantsMenuOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente de menú lateral UBITS para mostrar una lista de participantes. Incluye búsqueda, filtro y lista de participantes con avatar, nombre, rol y estado.',
+          'Componente de menú lateral UBITS para mostrar una lista de participantes. Incluye búsqueda, filtro y lista de participantes con avatar, nombre, rol y estado.
+
+```html
+// 1. Crear contenedor HTML
+<div id="participants-menu-implementation-container"></div>
+
+// 2. Datos de participantes (ejemplo)
+const sampleParticipants = [
+  {
+    id: '1',
+    name: 'Elkin Garcia',
+    role: 'Producto',
+    avatarImage: 'https://randomuser.me/api/portraits/men/1.jpg',
+    status: 'bajo'
+  },
+  {
+    id: '2',
+    name: 'Estefanía Rojas',
+    role: 'Ventas',
+    avatarImage: 'https://randomuser.me/api/portraits/women/2.jpg',
+    status: 'muy-alto'
+  },
+  {
+    id: '3',
+    name: 'Ligia salazar',
+    role: 'Ventas',
+    avatarImage: 'https://randomuser.me/api/portraits/women/3.jpg',
+    status: 'muy-alto'
+  }
+];
+
+// 3. Estado para filtros y búsqueda
+let activeFilters = { roles: [], statuses: [] };
+let filteredParticipants = [...sampleParticipants];
+
+// 4. Crear ParticipantsMenu
+const participantsMenu = window.UBITS.ParticipantsMenu.create({
+  containerId: 'participants-menu-implementation-container',
+  title: 'Participantes',
+  searchPlaceholder: 'Buscar participan...',
+  participants: filteredParticipants,
+  selectedParticipantId: '1',
+  showAvatar: true,
+  showRole: true,
+  showStatusTag: true,
+  enableScrollbar: true,
+  onParticipantSelect: (participantId) => {
+    console.log('Participante seleccionado:', participantId);
+    // Actualizar selección sin re-renderizar
+  },
+  onSearchChange: (searchText) => {
+    console.log('Búsqueda:', searchText);
+    
+    // Filtrar participantes por búsqueda
+    let filtered = [...sampleParticipants];
+    
+    if (searchText && searchText.trim() !== '') {
+      filtered = filtered.filter((p) => {
+        const matchesName = p.name.toLowerCase().includes(searchText.toLowerCase());
+        const matchesRole = p.role.toLowerCase().includes(searchText.toLowerCase());
+        return matchesName || matchesRole;
+      });
+    }
+    
+    // Aplicar filtros activos
+    if (activeFilters.roles.length > 0) {
+      filtered = filtered.filter((p) => activeFilters.roles.includes(p.role));
+    }
+    if (activeFilters.statuses.length > 0) {
+      filtered = filtered.filter((p) => p.status && activeFilters.statuses.includes(p.status));
+    }
+    
+    filteredParticipants = filtered;
+    
+    // Actualizar lista sin recrear el componente
+    if (participantsMenu.updateParticipantsList) {
+      participantsMenu.updateParticipantsList(filteredParticipants);
+    }
+  },
+  onFilterClick: () => {
+    console.log('Filtro clickeado');
+  },
+  onFilterChange: (filters) => {
+    console.log('Filtros cambiados:', filters);
+    activeFilters = filters;
+    
+    // Aplicar filtros a los participantes
+    let filtered = [...sampleParticipants];
+    
+    if (filters.roles.length > 0) {
+      filtered = filtered.filter((p) => filters.roles.includes(p.role));
+    }
+    if (filters.statuses.length > 0) {
+      filtered = filtered.filter((p) => p.status && filters.statuses.includes(p.status));
+    }
+    
+    filteredParticipants = filtered;
+    
+    // Actualizar lista sin recrear el componente
+    if (participantsMenu.updateParticipantsList) {
+      participantsMenu.updateParticipantsList(filteredParticipants);
+    }
+  }
+});
+
+// Nota: createParticipantsMenu retorna un objeto con:
+// - participantsMenu.element: El elemento DOM del menú
+// - participantsMenu.update(newOptions): Método para actualizar el menú
+// - participantsMenu.updateParticipantsList(participants, selectedParticipantId?): Método para actualizar solo la lista
+// - participantsMenu.destroy(): Método para destruir el menú
+```',
       },
     },
     layout: 'fullscreen',

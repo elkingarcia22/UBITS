@@ -21,7 +21,25 @@ const meta: Meta<AvatarOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Avatar UBITS con soporte para imagen, iniciales e icono. Múltiples tamaños y badge opcional con contenido (texto/números). Usa tokens UBITS exclusivamente.',
+          'Componente Avatar UBITS con soporte para imagen, iniciales e icono. Múltiples tamaños y badge opcional con contenido (texto/números). Usa tokens UBITS exclusivamente.
+
+```html
+// Opción 1: Usar createAvatar (retorna elemento)
+const avatarElement = window.UBITS.Avatar.create({
+  initials: 'JD',
+  size: 'md',
+  alt: 'Avatar'
+});
+document.getElementById('container').appendChild(avatarElement);
+
+// Opción 2: Usar renderAvatar (retorna HTML string)
+const avatarHTML = window.UBITS.Avatar.render({
+  initials: 'JD',
+  size: 'md',
+  alt: 'Avatar'
+});
+document.getElementById('container').innerHTML = avatarHTML;
+```',
       },
     },
     layout: 'centered',

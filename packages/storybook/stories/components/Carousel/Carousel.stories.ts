@@ -109,7 +109,87 @@ const meta: Meta<
       codePanel: true,
       description: {
         component:
-          'Componente Carousel UBITS para mostrar Simple Cards en un carrusel navegable. Incluye navegación con flechas, indicadores de paginación, autoplay y soporte para diferentes tamaños de cards.',
+          'Componente Carousel UBITS para mostrar Simple Cards en un carrusel navegable. Incluye navegación con flechas, indicadores de paginación, autoplay y soporte para diferentes tamaños de cards.
+
+```html
+// 1. Crear contenedor HTML
+<div id="carousel-implementation-container"></div>
+
+// 2. Crear Carousel
+const carouselElement = window.UBITS.Carousel.create({
+  items: [
+    {
+      id: 1,
+      title: 'Bamboo Watch',
+      subtitle: 'Reloj de madera elegante',
+      content: 'Diseño minimalista con correa de cuero genuino.',
+      showHeader: true,
+      headerDecorations: true,
+      variant: 'elevated',
+      size: 'md',
+      showButtons: true,
+      buttons: [
+        { label: 'Ver más', variant: 'primary', size: 'md' },
+        { label: 'Favorito', variant: 'secondary', size: 'md' }
+      ]
+    },
+    {
+      id: 2,
+      title: 'Black Watch',
+      subtitle: 'Reloj clásico negro',
+      content: 'Diseño atemporal con esfera blanca y correa negra.',
+      showHeader: true,
+      headerDecorations: true,
+      variant: 'elevated',
+      size: 'md',
+      showButtons: true,
+      buttons: [
+        { label: 'Ver más', variant: 'primary', size: 'md' },
+        { label: 'Favorito', variant: 'secondary', size: 'md' }
+      ]
+    },
+    {
+      id: 3,
+      title: 'Blue Band',
+      subtitle: 'Pulsera fitness azul',
+      content: 'Pulsera inteligente con seguimiento de actividad física.',
+      showHeader: true,
+      headerDecorations: true,
+      variant: 'elevated',
+      size: 'md',
+      showButtons: true,
+      buttons: [
+        { label: 'Ver más', variant: 'primary', size: 'md' },
+        { label: 'Favorito', variant: 'secondary', size: 'md' }
+      ]
+    }
+  ],
+  itemsPerView: 3,
+  showArrows: true,
+  showDots: true,
+  autoplay: false,
+  autoplayInterval: 3000,
+  loop: false,
+  gap: 16,
+  arrowPosition: 'outside',
+  dotPosition: 'bottom',
+  onItemClick: (item) => {
+    console.log('Item clickeado:', item);
+  },
+  onSlideChange: (currentIndex) => {
+    console.log('Slide cambiado:', currentIndex);
+  }
+});
+
+// 3. Insertar en el contenedor
+const container = document.getElementById('carousel-implementation-container');
+if (container) {
+  container.appendChild(carouselElement);
+}
+
+// Nota: createCarousel retorna un HTMLElement directamente
+// Los items del carrusel son SimpleCards que pueden incluir Buttons opcionales
+```',
       },
     },
     layout: 'padded',

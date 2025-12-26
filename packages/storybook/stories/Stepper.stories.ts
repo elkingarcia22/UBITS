@@ -32,7 +32,77 @@ const meta: Meta<ExtendedStepperOptions> = {
     docs: {
       codePanel: true,
       description: {
-        component: 'Componente Stepper UBITS para mostrar el progreso de un proceso multi-paso. Soporta orientación horizontal y vertical, con estados: default, completado, activo, error y warning. Cada paso puede tener número, título y descripción.',
+        component: 'Componente Stepper UBITS para mostrar el progreso de un proceso multi-paso. Soporta orientación horizontal y vertical, con estados: default, completado, activo, error y warning. Cada paso puede tener número, título y descripción.
+
+```html
+// 1. Crear contenedor HTML
+<div id="stepper-implementation-container"></div>
+
+// 2. Crear Stepper
+// Opción A: Usando window.UBITS.Stepper.create (si está expuesto globalmente)
+const stepper = window.UBITS.Stepper.create({
+  containerId: 'stepper-implementation-container',
+  orientation: 'horizontal',
+  size: 'md',
+  showTitle: true,
+  showDescription: true,
+  steps: [
+    {
+      number: 1,
+      title: 'Step One',
+      description: 'Desc for step one',
+      state: 'completed'
+    },
+    {
+      number: 2,
+      title: 'Step Two',
+      description: 'Desc for step two',
+      state: 'active'
+    },
+    {
+      number: 3,
+      title: 'Step Three',
+      description: 'Desc for step three',
+      state: 'default'
+    }
+  ]
+});
+
+// Opción B: Importando directamente (si usas módulos)
+// import { createStepper } from '@ubits/stepper';
+// const stepper = createStepper({
+//   containerId: 'stepper-implementation-container',
+//   orientation: 'horizontal',
+//   size: 'md',
+//   showTitle: true,
+//   showDescription: true,
+//   steps: [
+//     { number: 1, title: 'Step One', description: 'Desc for step one', state: 'completed' },
+//     { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'active' },
+//     { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'default' }
+//   ]
+// });
+
+// Opción C: Usando renderStepper (retorna HTML string)
+// import { renderStepper } from '@ubits/stepper';
+// const stepperHTML = renderStepper({
+//   orientation: 'horizontal',
+//   size: 'md',
+//   showTitle: true,
+//   showDescription: true,
+//   steps: [
+//     { number: 1, title: 'Step One', description: 'Desc for step one', state: 'completed' },
+//     { number: 2, title: 'Step Two', description: 'Desc for step two', state: 'active' },
+//     { number: 3, title: 'Step Three', description: 'Desc for step three', state: 'default' }
+//   ]
+// });
+// document.getElementById('stepper-implementation-container').innerHTML = stepperHTML;
+
+// Nota: createStepper retorna un objeto con:
+// - stepper.element: El elemento DOM del stepper
+// - stepper.update(newOptions): Método para actualizar el stepper
+// - stepper.destroy(): Método para destruir el stepper
+```',
       },
     },
     layout: 'padded',

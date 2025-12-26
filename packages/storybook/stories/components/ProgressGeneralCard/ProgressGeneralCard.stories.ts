@@ -31,7 +31,87 @@ const meta: Meta<
       codePanel: true,
       description: {
         component:
-          'Componente ProgressGeneralCard UBITS para mostrar progreso general con indicador circular (donut chart) y categorías de progreso. Soporta layout vertical y horizontal, múltiples tamaños y controles completos para personalización. Usa tokens UBITS para colores, tipografía y espaciado.',
+          'Componente ProgressGeneralCard UBITS para mostrar progreso general con indicador circular (donut chart) y categorías de progreso. Soporta layout vertical y horizontal, múltiples tamaños y controles completos para personalización. Usa tokens UBITS para colores, tipografía y espaciado.
+
+```html
+// 1. Importar funciones (si usas módulos)
+// import { createProgressGeneralCard, renderProgressGeneralCard } from '@ubits/progress-general-card';
+
+// 2. Crear contenedor HTML
+<div id="progress-general-card-container"></div>
+
+// 3. Crear ProgressGeneralCard
+const progressGeneralCardElement = createProgressGeneralCard({
+  containerId: 'progress-general-card-container', // ⚠️ REQUERIDO para createProgressGeneralCard
+  title: 'Progreso general',
+  mainPercentage: 50, // Porcentaje principal (0-100)
+  mainLabel: 'Ciclos', // Etiqueta del porcentaje principal
+  categories: [
+    {
+      label: 'Área',
+      current: 3,
+      total: 20
+    },
+    {
+      label: 'Equipo',
+      current: 8,
+      total: 50
+    },
+    {
+      label: 'Propio',
+      current: 5,
+      total: 30
+    }
+  ],
+  layout: 'horizontal', // 'vertical' | 'horizontal'
+  size: 'md', // 'sm' | 'md' | 'lg'
+  showTitle: true,
+  showCircularProgress: true, // Indicador circular (donut chart)
+  showCategories: true,
+  showInfoIcon: true,
+  showActionButton: true,
+  progressColor: 'var(--ubits-chart-color-bg-neutral-blue-base)', // Token UBITS
+  circleBackgroundColor: 'var(--modifiers-normal-color-light-bg-3)', // Token UBITS
+  onClick: (event) => {
+    console.log('Card clickeada');
+  },
+  onAction: (event) => {
+    console.log('Botón de acción clickeado');
+  }
+});
+
+// Nota: createProgressGeneralCard retorna HTMLElement | null
+// Requiere containerId y el contenedor debe existir en el DOM
+
+// Alternativa: Usar renderProgressGeneralCard para obtener HTML string
+const progressGeneralCardHTML = renderProgressGeneralCard({
+  title: 'Progreso general',
+  mainPercentage: 50,
+  mainLabel: 'Ciclos',
+  categories: [
+    { label: 'Área', current: 3, total: 20 },
+    { label: 'Equipo', current: 8, total: 50 },
+    { label: 'Propio', current: 5, total: 30 }
+  ],
+  layout: 'horizontal',
+  size: 'md',
+  showTitle: true,
+  showCircularProgress: true,
+  showCategories: true
+});
+
+// Insertar HTML
+const container = document.getElementById('progress-general-card-container');
+if (container) {
+  container.innerHTML = progressGeneralCardHTML;
+  
+  // Agregar event listeners manualmente si es necesario
+  const cardElement = container.querySelector('.ubits-progress-general-card');
+  if (cardElement && onClick) {
+    cardElement.addEventListener('click', onClick);
+  }
+}
+```',
       },
     },
     ubits: createUBITSContract({

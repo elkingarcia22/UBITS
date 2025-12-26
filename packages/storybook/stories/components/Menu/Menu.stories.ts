@@ -24,7 +24,75 @@ const meta = {
       codePanel: true,
       description: {
         component:
-          'Componente Menu UBITS de navegación lateral con secciones, items, shortcuts, badges e información de usuario. Usa tokens UBITS para colores, tipografía y espaciado.',
+          'Componente Menu UBITS de navegación lateral con secciones, items, shortcuts, badges e información de usuario. Usa tokens UBITS para colores, tipografía y espaciado.
+
+```html
+// 1. Crear contenedor HTML
+<div id="menu-implementation-container"></div>
+
+// 2. Crear Menu
+window.UBITS.Menu.create({
+  containerId: 'menu-implementation-container',
+  logoImage: '/images/autoframe-logo-light.svg',
+  appName: 'AUTOFROME',
+  logoHref: '#',
+  width: 280,
+  sections: [
+    {
+      id: 'documents',
+      title: 'Documents',
+      items: [
+        {
+          id: 'new',
+          label: 'New',
+          icon: 'plus',
+          iconStyle: 'regular',
+          active: false
+        },
+        {
+          id: 'search',
+          label: 'Search',
+          icon: 'search',
+          iconStyle: 'regular',
+          active: false
+        }
+      ]
+    },
+    {
+      id: 'profile',
+      title: 'Profile',
+      items: [
+        {
+          id: 'settings',
+          label: 'Settings',
+          icon: 'gear',
+          iconStyle: 'regular',
+          active: true
+        },
+        {
+          id: 'messages',
+          label: 'Messages',
+          icon: 'envelope',
+          iconStyle: 'regular',
+          badge: {
+            content: 2,
+            variant: 'error'
+          },
+          active: false
+        }
+      ]
+    }
+  ],
+  userInfo: {
+    avatarImage: '/images/Profile-image.jpg',
+    name: 'Amy Elsner',
+    role: 'Admin'
+  },
+  onActiveItemChange: (itemId, sectionId) => {
+    console.log('Item activo cambiado:', itemId, sectionId);
+  }
+});
+```',
       },
     },
     // ⭐ CONTRATO UBITS para Autorun

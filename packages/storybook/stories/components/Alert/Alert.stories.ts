@@ -19,8 +19,42 @@ const meta: Meta<AlertOptions> = {
     docs: {
       codePanel: true,
       description: {
-        component:
-          'Componente Alert UBITS para mostrar notificaciones del sistema. Soporta múltiples variantes (success, info, warning, error), botón cerrar opcional y animaciones.',
+        component: `Componente Alert UBITS para mostrar notificaciones del sistema. Soporta múltiples variantes (success, info, warning, error), botón cerrar opcional y animaciones.
+
+\
+
+```html
+// 1. Crear contenedor HTML
+<div id="alert-implementation-container"></div>
+
+// 2. Crear alert
+const alertElement = window.UBITS.Alert.create({
+  type: 'success',
+  message: 'Los cambios se han guardado correctamente.',
+  closable: true,
+  duration: 0
+});
+
+// 3. Agregar al contenedor
+document.getElementById('alert-implementation-container').appendChild(alertElement);
+````\`\`html
+<!-- 1. Crear contenedor HTML -->
+<div id="alert-implementation-container"></div>
+
+<!-- 2. Crear alert -->
+<script>
+const alertElement = window.UBITS.Alert.create({
+  type: 'success',
+  message: 'Los cambios se han guardado correctamente.',
+  closable: true,
+  duration: 0
+});
+
+// 3. Agregar al contenedor
+document.getElementById('alert-implementation-container').appendChild(alertElement);
+</script>
+\`\`\`
+`,
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

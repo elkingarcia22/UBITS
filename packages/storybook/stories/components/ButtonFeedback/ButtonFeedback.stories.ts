@@ -15,7 +15,63 @@ const meta: Meta<ButtonFeedbackOptions> = {
       codePanel: true,
       description: {
         component:
-          'Botón flotante para obtener feedback de clientes. Al hacer clic, abre un modal con un formulario que permite seleccionar la sección actual y dejar un comentario. El feedback se puede enviar a un webhook de n8n.',
+          'Botón flotante para obtener feedback de clientes. Al hacer clic, abre un modal con un formulario que permite seleccionar la sección actual y dejar un comentario. El feedback se puede enviar a un webhook de n8n.
+
+```html
+// 1. Importar función (si usas módulos)
+// import { createButtonFeedback } from '@ubits/button-feedback';
+
+// 2. Crear ButtonFeedback
+const feedbackButtonInstance = createButtonFeedback({
+  text: '', // Opcional: texto del botón flotante
+  icon: 'comment-dots', // Icono del botón flotante
+  position: 'bottom-right', // 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left'
+  offset: 24, // Offset desde el borde (en píxeles)
+  modalTitle: 'Deja tu Feedback',
+  sectionOptions: [
+    { value: 'home', text: 'Home' },
+    { value: 'encuestas', text: 'Encuestas' },
+    { value: 'aprendizaje', text: 'Aprendizaje' }
+  ],
+  defaultSection: 'home', // Valor por defecto del select
+  commentPlaceholder: '¿Qué funciona bien? ¿Qué falta? ¿Qué mejorarías?',
+  n8nWebhookUrl: 'https://tu-webhook-n8n.com/webhook', // Opcional: URL del webhook de n8n
+  visible: true, // Si el botón está visible inicialmente
+  onFeedbackSent: (data) => {
+    console.log('Feedback enviado:', data);
+    // data = { section: 'home', comment: 'Comentario del usuario' }
+  },
+  onCancel: () => {
+    console.log('Feedback cancelado');
+  },
+  onClose: () => {
+    console.log('Modal cerrado');
+  }
+});
+
+// Nota: createButtonFeedback retorna un objeto con:
+// - feedbackButtonInstance.element: El elemento HTML del botón flotante
+// - feedbackButtonInstance.show(): Muestra el botón flotante
+// - feedbackButtonInstance.hide(): Oculta el botón flotante
+// - feedbackButtonInstance.open(): Abre el modal de feedback
+// - feedbackButtonInstance.close(): Cierra el modal de feedback
+// - feedbackButtonInstance.destroy(): Destruye el componente y limpia los recursos
+
+// Ejemplo: Ocultar el botón
+feedbackButtonInstance.hide();
+
+// Ejemplo: Mostrar el botón
+feedbackButtonInstance.show();
+
+// Ejemplo: Abrir el modal programáticamente
+feedbackButtonInstance.open();
+
+// Ejemplo: Cerrar el modal programáticamente
+feedbackButtonInstance.close();
+
+// Ejemplo: Destruir el componente
+feedbackButtonInstance.destroy();
+```',
       },
     },
     ubits: createUBITSContract({

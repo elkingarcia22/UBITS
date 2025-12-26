@@ -21,7 +21,32 @@ const meta: Meta<ModalOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Modal UBITS centrado con overlay. Ideal para diálogos, confirmaciones y formularios. Soporta diferentes tamaños, variante full-screen, header con título y botón de cerrar, body con contenido scrollable y footer con botones de acción.',
+          'Componente Modal UBITS centrado con overlay. Ideal para diálogos, confirmaciones y formularios. Soporta diferentes tamaños, variante full-screen, header con título y botón de cerrar, body con contenido scrollable y footer con botones de acción.
+
+```html
+window.UBITS.Modal.create({
+  title: 'Confirmar acción',
+  size: 'md',
+  fullScreen: false,
+  bodyContent: '<p>¿Estás seguro de que deseas continuar?</p>',
+  footerButtons: {
+    tertiary: {
+      label: 'Cancelar',
+      onClick: () => {
+        console.log('Cancelar clickeado');
+      }
+    },
+    primary: {
+      label: 'Confirmar',
+      onClick: () => {
+        console.log('Confirmar clickeado');
+      }
+    }
+  },
+  closeOnOverlayClick: true,
+  open: true
+});
+```',
       },
     },
     layout: 'fullscreen',

@@ -146,7 +146,83 @@ const meta: Meta<
       codePanel: true,
       description: {
         component:
-          'Componente TabBar UBITS de navegación inferior para móviles. Reemplaza al sidebar en pantallas pequeñas (< 1024px) con items personalizables con iconos o avatares, dark mode toggle, Floating Menu (accordions) y Profile Menu (dropdown). Soporta 2 variantes: colaborador y admin.',
+          'Componente TabBar UBITS de navegación inferior para móviles. Reemplaza al sidebar en pantallas pequeñas (< 1024px) con items personalizables con iconos o avatares, dark mode toggle, Floating Menu (accordions) y Profile Menu (dropdown). Soporta 2 variantes: colaborador y admin.
+
+```html
+// 1. Crear contenedor HTML
+<div id="tabbar-implementation-container" style="position: relative; width: 100%; min-height: 576px;"></div>
+
+// 2. Crear TabBar con configuración explícita
+window.UBITS.TabBar.create({
+  containerId: 'tabbar-implementation-container',
+  items: [
+    {
+      id: 'modulos',
+      label: 'Módulos',
+      icon: 'th-large'
+    },
+    {
+      id: 'perfil',
+      label: 'Mi perfil',
+      avatar: '/images/Profile-image.jpg',
+      avatarAlt: 'Mi perfil'
+    },
+    {
+      id: 'modo-oscuro',
+      label: 'Modo oscuro',
+      icon: 'moon'
+    }
+  ],
+  activeTabId: 'modulos',
+  visible: true,
+  darkModeEnabled: true,
+  floatingMenuSections: [
+    {
+      id: 'aprendizaje',
+      title: 'Aprendizaje',
+      icon: 'graduation-cap',
+      subitems: [
+        { id: 'inicio', title: 'Inicio', icon: 'home', url: 'home-learn.html' },
+        { id: 'catalogo', title: 'Catálogo', icon: 'book', url: 'catalogo.html' },
+        { id: 'corporativa', title: 'U. Corporativa', icon: 'building-columns', url: 'u-corporativa.html' },
+        { id: 'zona-estudio', title: 'Zona de estudio', icon: 'books', url: 'zona-estudio.html' }
+      ]
+    },
+    {
+      id: 'diagnostico',
+      title: 'Diagnóstico',
+      icon: 'chart-mixed',
+      url: 'diagnostico.html',
+      isLink: true,
+      clickable: true
+    },
+    {
+      id: 'desempeno',
+      title: 'Desempeño',
+      icon: 'bars-progress',
+      subitems: [
+        { id: 'evaluaciones-360', title: 'Evaluaciones 360', icon: 'chart-pie', url: 'evaluaciones-360.html' },
+        { id: 'objetivos', title: 'Objetivos', icon: 'bullseye', url: 'objetivos.html' },
+        { id: 'metricas', title: 'Métricas', icon: 'chart-line', url: 'metricas.html' },
+        { id: 'reportes', title: 'Reportes', icon: 'file-chart-line', url: 'reportes.html' }
+      ]
+    }
+    // ... más secciones según variante
+  ],
+  profileMenuItems: [
+    { id: 'ver-perfil', label: 'Ver mi perfil', icon: 'user', url: 'profile.html' },
+    { id: 'admin-mode', label: 'Modo Administrador', icon: 'laptop', url: 'template-admin.html' },
+    { id: 'cambio-contraseña', label: 'Cambio de contraseña', icon: 'key' },
+    { id: 'cerrar-sesion', label: 'Cerrar sesión', icon: 'sign-out-alt' }
+  ],
+  onTabChange: (tabId, item, element) => {
+    console.log('Tab changed:', tabId);
+  },
+  onDarkModeToggle: (isDark) => {
+    console.log('Dark mode toggled:', isDark);
+  }
+});
+```',
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

@@ -34,7 +34,74 @@ const meta: Meta<
       codePanel: true,
       description: {
         component:
-          'Componente Simple Card UBITS con header decorativo, contenido y botones de acción. Usa tokens UBITS para colores, tipografía y espaciado. Incluye controladores completos para personalizar todos los aspectos del componente.',
+          'Componente Simple Card UBITS con header decorativo, contenido y botones de acción. Usa tokens UBITS para colores, tipografía y espaciado. Incluye controladores completos para personalizar todos los aspectos del componente.
+
+```html
+// 1. Importar funciones (si usas módulos)
+// import { createSimpleCard, renderSimpleCard } from '@ubits/card';
+
+// 2. Crear SimpleCard
+const cardElement = createSimpleCard({
+  title: 'Advanced Card',
+  subtitle: 'Card subtitle',
+  content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit...',
+  showHeader: true,
+  headerDecorations: true,
+  headerBackground: 'var(--modifiers-normal-color-light-bg-4)',
+  backgroundColor: 'var(--modifiers-normal-color-light-bg-1)',
+  borderColor: 'var(--modifiers-normal-color-light-border-1)',
+  titleTypography: 'ubits-heading-h2',
+  subtitleTypography: 'ubits-body-md',
+  contentTypography: 'ubits-body-md',
+  buttons: [
+    {
+      label: 'Cancel',
+      variant: 'secondary',
+      size: 'md',
+      onClick: () => {
+        console.log('Cancel clicked');
+      }
+    },
+    {
+      label: 'Save',
+      variant: 'primary',
+      size: 'md',
+      onClick: () => {
+        console.log('Save clicked');
+      }
+    }
+  ],
+  showButtons: true,
+  variant: 'default', // 'default' | 'elevated' | 'bordered' | 'flat'
+  size: 'md', // 'sm' | 'md' | 'lg' | 'xl'
+  maxWidth: undefined, // Opcional: '500px' | '50%' | '100vw'
+  className: ''
+});
+
+// 3. Insertar en el DOM
+const container = document.getElementById('card-container');
+if (container) {
+  container.appendChild(cardElement);
+}
+
+// Nota: createSimpleCard retorna un HTMLElement directamente
+// Los botones con onClick se configuran automáticamente
+
+// Alternativa: Usar renderSimpleCard para obtener HTML string
+const cardHTML = renderSimpleCard({
+  title: 'Advanced Card',
+  subtitle: 'Card subtitle',
+  content: 'Lorem ipsum dolor sit amet...',
+  variant: 'elevated',
+  size: 'lg'
+});
+
+// Insertar HTML
+const container = document.getElementById('card-container');
+if (container) {
+  container.innerHTML = cardHTML;
+}
+```',
       },
     },
     layout: 'centered',

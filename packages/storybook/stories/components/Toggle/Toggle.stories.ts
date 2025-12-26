@@ -20,7 +20,24 @@ const meta: Meta<ToggleOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Toggle/Switch UBITS para activar/desactivar opciones. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.',
+          'Componente Toggle/Switch UBITS para activar/desactivar opciones. Múltiples tamaños, estados y soporte para texto complementario. Usa tokens UBITS exclusivamente.
+
+```html
+// 1. Crear contenedor HTML
+<div id="toggle-implementation-container"></div>
+
+// 2. Crear toggle
+window.UBITS.Toggle.create({
+  containerId: 'toggle-implementation-container',
+  label: 'Activar notificaciones',
+  value: 'notifications',
+  name: 'settings',
+  checked: false,
+  size: 'md',
+  state: 'default',
+  disabled: false
+});
+```',
       },
     },
     layout: 'centered',

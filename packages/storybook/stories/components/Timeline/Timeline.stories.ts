@@ -33,7 +33,69 @@ const meta: Meta<{
       codePanel: true,
       description: {
         component:
-          'Componente Timeline UBITS para mostrar secuencias de eventos o fases. Soporta avatar, fecha, título, descripción, iconos y alineación izquierda o centrada. Usa tokens UBITS.',
+          'Componente Timeline UBITS para mostrar secuencias de eventos o fases. Soporta avatar, fecha, título, descripción, iconos y alineación izquierda o centrada. Usa tokens UBITS.
+
+```html
+// Timeline no tiene un componente separado, se implementa directamente
+// Este es un ejemplo de cómo implementar Timeline usando HTML y CSS con tokens UBITS
+
+// 1. Crear contenedor HTML
+// <div id="timeline-implementation-container"></div>
+
+// 2. Implementar Timeline (ejemplo básico con iconos)
+// Nota: Usar comillas simples para evitar problemas con template strings anidados
+const timelineHTML = '<div class="ubits-timeline ubits-timeline--left" id="timeline-1">' +
+  '<div class="ubits-timeline-item" data-index="0" data-state="filled">' +
+    '<div class="ubits-timeline-item__marker-container">' +
+      '<div class="ubits-timeline-marker ubits-timeline-marker--filled" style="border-color: var(--modifiers-static-color-light-fg-1-medium); background-color: var(--modifiers-static-color-light-fg-1-medium); border-radius: var(--ubits-border-radius-full);">' +
+        '<span class="ubits-timeline-marker__icon"><i class="fas fa-circle"></i></span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="ubits-timeline-line"></div>' +
+    '<div class="ubits-timeline-item__content">' +
+      '<div class="ubits-timeline-item__text">' +
+        '<div class="ubits-timeline-item__date ubits-body-sm-regular">Mar 15, 2024</div>' +
+        '<div class="ubits-timeline-item__title ubits-body-md-semibold">Project Kickoff</div>' +
+        '<div class="ubits-timeline-item__description ubits-body-sm-regular">Initial team meeting and project scope definition.</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>' +
+  '<div class="ubits-timeline-item" data-index="1" data-state="filled">' +
+    '<div class="ubits-timeline-item__marker-container">' +
+      '<div class="ubits-timeline-marker ubits-timeline-marker--filled" style="border-color: var(--modifiers-static-color-light-fg-1-medium); background-color: var(--modifiers-static-color-light-fg-1-medium); border-radius: var(--ubits-border-radius-full);">' +
+        '<span class="ubits-timeline-marker__icon"><i class="fas fa-paint-brush"></i></span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="ubits-timeline-line"></div>' +
+    '<div class="ubits-timeline-item__content">' +
+      '<div class="ubits-timeline-item__text">' +
+        '<div class="ubits-timeline-item__date ubits-body-sm-regular">Mar 22, 2024</div>' +
+        '<div class="ubits-timeline-item__title ubits-body-md-semibold">Design Phase</div>' +
+        '<div class="ubits-timeline-item__description ubits-body-sm-regular">Completed wireframes and user interface mockups.</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>' +
+'</div>';
+
+// 3. Insertar en el contenedor
+const container = document.getElementById('timeline-implementation-container');
+if (container) {
+  container.innerHTML = timelineHTML;
+}
+
+// Nota: Para usar Avatar en los marcadores, usar window.UBITS.Avatar.render() o window.UBITS.Avatar.create()
+// Ejemplo con Avatar:
+const avatarHTMLExample = window.UBITS.Avatar.render({
+  size: 'xs',
+  imageUrl: '/images/Profile-image.jpg',
+  alt: 'User'
+});
+
+// Insertar avatar en el marcador (concatenar con el HTML):
+// const markerWithAvatar = '<div class="ubits-timeline-marker ubits-timeline-marker--avatar">' + avatarHTMLExample + '</div>';
+
+// Nota: Timeline requiere CSS personalizado. Ver estilos en el archivo Timeline.stories.ts
+```',
       },
     },
     ubits: createUBITSContract({

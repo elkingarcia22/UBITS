@@ -25,7 +25,27 @@ const meta: Meta<PaginationOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Pagination UBITS para paginación de datos usando tokens UBITS, tipografía UBITS y componentes UBITS. Ideal para tablas y listas de datos.',
+          'Componente Pagination UBITS para paginación de datos usando tokens UBITS, tipografía UBITS y componentes UBITS. Ideal para tablas y listas de datos.
+
+```html
+// 1. Crear contenedor HTML
+<div id="pagination-implementation-container"></div>
+
+// 2. Crear paginación
+window.UBITS.Pagination.create({
+  containerId: 'pagination-implementation-container',
+  currentPage: 1,
+  totalPages: 10,
+  variant: 'default',
+  size: 'md',
+  maxVisiblePages: 7,
+  showFirst: true,
+  showLast: true,
+  showPrevNext: true,
+  showInfo: false,
+  showItemsPerPage: false
+});
+```',
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

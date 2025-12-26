@@ -28,7 +28,65 @@ const meta: Meta<InputOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Input UBITS con soporte para múltiples tipos (text, email, password, number, tel, url, select, textarea, search, autocomplete, calendar), 4 tamaños (xs, sm, md, lg), 6 estados (default, hover, focus, active, invalid, disabled), iconos, helpers, contadores, y opciones mandatory/optional.',
+          'Componente Input UBITS con soporte para múltiples tipos (text, email, password, number, tel, url, select, textarea, search, autocomplete, calendar), 4 tamaños (xs, sm, md, lg), 6 estados (default, hover, focus, active, invalid, disabled), iconos, helpers, contadores, y opciones mandatory/optional.
+
+```html
+// 1. Crear contenedor HTML
+<div id="input-implementation-container"></div>
+
+// 2. Crear input (tipo text - ejemplo básico)
+window.UBITS.Input.create({
+  containerId: 'input-implementation-container',
+  label: 'Nombre',
+  placeholder: 'Escribe tu nombre',
+  type: 'text',
+  size: 'md',
+  state: 'default',
+  showLabel: true,
+  showHelper: false,
+  showCounter: false,
+  value: ''
+});
+
+// 3. Ejemplo con tipo calendar (requiere componente Calendar)
+window.UBITS.Input.create({
+  containerId: 'input-calendar-container',
+  label: 'Fecha',
+  placeholder: 'Selecciona una fecha',
+  type: 'calendar',
+  size: 'md',
+  state: 'default',
+  showLabel: true
+});
+
+// 4. Ejemplo con tipo select (requiere selectOptions)
+window.UBITS.Input.create({
+  containerId: 'input-select-container',
+  label: 'País',
+  placeholder: 'Selecciona un país',
+  type: 'select',
+  size: 'md',
+  selectOptions: [
+    { value: 'co', text: 'Colombia' },
+    { value: 'mx', text: 'México' },
+    { value: 'ar', text: 'Argentina' }
+  ]
+});
+
+// 5. Ejemplo con tipo autocomplete (requiere autocompleteOptions)
+window.UBITS.Input.create({
+  containerId: 'input-autocomplete-container',
+  label: 'Ciudad',
+  placeholder: 'Busca una ciudad',
+  type: 'autocomplete',
+  size: 'md',
+  autocompleteOptions: [
+    { value: 'bogota', text: 'Bogotá' },
+    { value: 'medellin', text: 'Medellín' },
+    { value: 'cali', text: 'Cali' }
+  ]
+});
+```',
       },
     },
     // ⭐ CONTRATO UBITS PARA AUTORUN

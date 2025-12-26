@@ -20,7 +20,84 @@ const meta: Meta<SelectionCardData & { showDescription?: boolean; showIcon?: boo
       codePanel: true,
       description: {
         component:
-          'Componente Selection Card UBITS para mostrar opciones seleccionables. Soporta selección única o múltiple, estados (default, selected, disabled), y tamaños (sm, md, lg). Incluye un radio button visual a la derecha que refleja el estado de selección. La selección se realiza mediante click en toda la card.',
+          'Componente Selection Card UBITS para mostrar opciones seleccionables. Soporta selección única o múltiple, estados (default, selected, disabled), y tamaños (sm, md, lg). Incluye un radio button visual a la derecha que refleja el estado de selección. La selección se realiza mediante click en toda la card.
+
+```html
+// 1. Importar funciones (si usas módulos)
+// import { createSelectionCard, renderSelectionCard, loadSelectionCards } from '@ubits/selection-card';
+
+// 2. Crear SelectionCard individual
+const cardElement = createSelectionCard({
+  id: 'card-1',
+  title: 'Asignar toda la empresa',
+  description: 'Agregaras a todos los colaboradores de la empresa que tengas en la plataforma.',
+  icon: 'building', // Nombre FontAwesome sin prefijo fa-
+  iconStyle: 'regular', // 'regular' | 'solid'
+  selectionCount: {
+    current: 0,
+    total: 290
+  },
+  state: 'default', // 'default' | 'selected' | 'disabled'
+  size: 'md', // 'sm' | 'md' | 'lg'
+  value: 'all-company'
+});
+
+// 3. Insertar en el DOM
+const container = document.getElementById('selection-card-container');
+if (container) {
+  container.appendChild(cardElement);
+}
+
+// Nota: createSelectionCard retorna un HTMLElement directamente
+
+// Alternativa: Usar renderSelectionCard para obtener HTML string
+const cardHTML = renderSelectionCard({
+  id: 'card-1',
+  title: 'Asignar toda la empresa',
+  description: 'Agregaras a todos los colaboradores...',
+  icon: 'building',
+  state: 'selected',
+  size: 'md'
+});
+
+// Insertar HTML
+const container = document.getElementById('selection-card-container');
+if (container) {
+  container.innerHTML = cardHTML;
+}
+
+// Ejemplo: Cargar múltiples cards con gestión de selección
+// loadSelectionCards({
+//   containerId: 'selection-cards-container',
+//   cards: [
+//     {
+//       id: 'card-1',
+//       title: 'Asignar toda la empresa',
+//       description: 'Agregaras a todos los colaboradores...',
+//       icon: 'building',
+//       state: 'default',
+//       size: 'md'
+//     },
+//     {
+//       id: 'card-2',
+//       title: 'Asignar por departamento',
+//       description: 'Selecciona departamentos específicos...',
+//       icon: 'sitemap',
+//       state: 'default',
+//       size: 'md'
+//     }
+//   ],
+//   multiple: false, // true para selección múltiple
+//   selectedIds: ['card-1'], // IDs seleccionados inicialmente
+//   onSelectionChange: (selectedCards, selectedIds) => {
+//     console.log('Cards seleccionadas:', selectedCards);
+//     console.log('IDs seleccionados:', selectedIds);
+//   },
+//   onClick: (card, index, element) => {
+//     console.log('Card clickeada:', card);
+//   }
+// });
+```',
       },
     },
     ubits: createUBITSContract({

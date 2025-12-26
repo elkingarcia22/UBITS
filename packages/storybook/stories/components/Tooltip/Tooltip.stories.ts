@@ -21,7 +21,21 @@ const meta: Meta<TooltipOptions> = {
       codePanel: true,
       description: {
         component:
-          'Componente Tooltip UBITS con tail (flecha) para mostrar información contextual. Similar al Popover pero más simple, con título, descripción y botones de acción.',
+          'Componente Tooltip UBITS con tail (flecha) para mostrar información contextual. Similar al Popover pero más simple, con título, descripción y botones de acción.
+
+```html
+const tooltipInstance = window.UBITS.Tooltip.create({
+  title: 'Información útil',
+  showTitle: true,
+  description: 'Este es un tooltip con información contextual.',
+  showDescription: true,
+  width: 'md',
+  tailPosition: 'top',
+  tailOffset: 0,
+  showPrimaryButton: false,
+  open: true
+});
+```',
       },
     },
     layout: 'fullscreen',
