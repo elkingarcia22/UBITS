@@ -56,11 +56,38 @@ const meta: Meta<SearchButtonOptions> = {
       },
       // ⭐ CAMPOS EXTENDIDOS
       examples: {
-        canonical: "window.UBITS.SearchButton.create({\n  active: false,\n  size: 'md',\n  state: 'default',\n  onSearch: (query) => {},\n  onChange: (value) => {}\n});",
-        basic: "window.UBITS.SearchButton.create({\n  active: false,\n  size: 'md',\n  state: 'default'\n});",
-        active: "window.UBITS.SearchButton.create({\n  active: true,\n  size: 'md',\n  state: 'default',\n  placeholder: 'Buscar...',\n  value: ''\n});",
-        withValue: "window.UBITS.SearchButton.create({\n  active: true,\n  size: 'md',\n  state: 'default',\n  placeholder: 'Buscar...',\n  value: 'texto de búsqueda'\n});",
-        disabled: "window.UBITS.SearchButton.create({\n  active: false,\n  size: 'md',\n  state: 'default',\n  disabled: true\n});",
+        canonical: `window.UBITS.SearchButton.create({
+  active: false,
+  size: 'md',
+  state: 'default',
+  onSearch: function(query) {},
+  onChange: function(value) {}
+});`,
+        basic: `window.UBITS.SearchButton.create({
+  active: false,
+  size: 'md',
+  state: 'default'
+});`,
+        active: `window.UBITS.SearchButton.create({
+  active: true,
+  size: 'md',
+  state: 'default',
+  placeholder: 'Buscar...',
+  value: ''
+});`,
+        withValue: `window.UBITS.SearchButton.create({
+  active: true,
+  size: 'md',
+  state: 'default',
+  placeholder: 'Buscar...',
+  value: 'texto de búsqueda'
+});`,
+        disabled: `window.UBITS.SearchButton.create({
+  active: false,
+  size: 'md',
+  state: 'default',
+  disabled: true
+});`,
       },
       variants: {
         size: ['sm', 'md'],
